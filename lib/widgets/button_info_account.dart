@@ -1,12 +1,17 @@
-import 'package:boilerplate/constants/color_palattes.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../../constants/color_palattes.dart';
 
 class ButtonInfoAccount extends StatelessWidget {
   const ButtonInfoAccount(
     this.text, {
     Key? key,
+    this.onPressed,
   }) : super(key: key);
+
+  final String text;
+
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +45,7 @@ class ButtonInfoAccount extends StatelessWidget {
             ],
           ),
         ),
-        onTap: () {},
+        onTap: this.onPressed,
         focusColor: Colors.transparent,
         hoverColor: Colors.transparent,
         splashColor: Colors.transparent,
@@ -48,6 +53,4 @@ class ButtonInfoAccount extends StatelessWidget {
       ),
     );
   }
-
-  final String text;
 }

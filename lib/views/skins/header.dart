@@ -1,13 +1,25 @@
-import 'package:boilerplate/constants/color_palattes.dart';
-import 'package:boilerplate/presenters/navigation_presenter.dart';
-import 'package:boilerplate/views/widgets/header_icon.dart';
-import 'package:boilerplate/views/widgets/button_info_account.dart';
+import 'package:boilerplate/routes/route_list.dart';
+import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HeaderSkins extends StatelessWidget {
-  final NavigationPresenter _navigation = Get.find<NavigationPresenter>();
+import '../../constants/color_palattes.dart';
+import '../../contracts/auth/logout_view_contract.dart';
+import '../../helpers/function.dart';
+import '../../presenters/auth_presenter.dart';
+import '../../presenters/navigation_presenter.dart';
+import '../../utils/session_manager.dart';
+import '../../widgets/button_info_account.dart';
+import '../../widgets/header_icon.dart';
+
+class HeaderSkins extends StatelessWidget implements LogoutViewContract {
+  final _navigation = Get.find<NavigationPresenter>();
+  final _auth = Get.find<AuthPresenter>();
+
+  HeaderSkins() {
+    _auth.logoutViewContract = this;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +33,7 @@ class HeaderSkins extends StatelessWidget {
               children: [
                 HeaderIcon(
                   icon: CupertinoIcons.text_justify,
-                  onPress: () => _navigation.toggleCollapse(),
+                  onPressed: () => _navigation.toggleCollapse(),
                 )
               ],
             ),
@@ -32,15 +44,91 @@ class HeaderSkins extends StatelessWidget {
               children: [
                 HeaderIcon(
                   icon: Icons.notifications,
-                  onPress: () {},
+                  onPressed: () {},
                   margin: EdgeInsets.only(right: 15),
+                  badge: Text('99+'),
                 ),
-                ButtonInfoAccount('Kholifan Alfon'),
+                BsDropdownButton(
+                  toggleMenu: (_) => ButtonInfoAccount(
+                    'Kholifan Alfon',
+                    onPressed: () => _.toggle(),
+                  ),
+                  dropdownMenuSize: BsDropdownMenuSize(minWidth: 200),
+                  dropdownMenuStyle: BsDropdownMenuStyle(
+                    borderRadius: BorderRadius.circular(3),
+                  ),
+                  dropdownMenu: BsDropdownMenu(
+                    header: BsDropdownHeader(
+                      child: Text('Kholifan Alfon'),
+                    ),
+                    children: [
+                      BsDropdownItem(
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.person_outline,
+                              size: 16,
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(left: 5),
+                              child: Text('My Profile'),
+                            )
+                          ],
+                        ),
+                      ),
+                      BsDropdownItem(
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.key_outlined,
+                              size: 16,
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(left: 5),
+                              child: Text('Change Password'),
+                            )
+                          ],
+                        ),
+                      ),
+                      BsDropdownDivider(),
+                      BsDropdownItem(
+                          padding: EdgeInsets.all(15),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.logout_outlined,
+                                size: 16,
+                                color: ColorPallates.danger,
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(left: 5),
+                                child: Text(
+                                  'Logout',
+                                  style: TextStyle(color: ColorPallates.danger),
+                                ),
+                              )
+                            ],
+                          ),
+                          onPressed: () => onClickLogout())
+                    ],
+                  ),
+                )
               ],
             ),
           )
         ],
       ),
     );
+  }
+
+  void onClickLogout() {
+    _auth.signOut();
+  }
+
+  @override
+  void onLogoutSuccess() {
+    SessionManager.destroy();
+    toNameRoute(RouteList.sigin.index);
   }
 }

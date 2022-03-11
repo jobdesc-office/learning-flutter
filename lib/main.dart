@@ -1,6 +1,11 @@
-import 'package:boilerplate/views/defaults/home.dart';
+import 'package:boilerplate/presenters/auth_presenter.dart';
+import 'package:boilerplate/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'presenters/navigation_presenter.dart';
+import 'routes/route_list.dart';
+import 'routes/routes.dart';
 
 void main() {
   runApp(MyApp());
@@ -24,8 +29,14 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: HomeView(),
+      initialRoute: RouteList.home.index,
       debugShowCheckedModeBanner: false,
+      getPages: AppRoute.routes,
+      initialBinding: BindingsBuilder(() {
+        Get.lazyPut(() => NavigationPresenter(), fenix: true);
+        Get.lazyPut(() => AuthPresenter(), fenix: true);
+        Get.lazyPut(() => AuthService());
+      }),
     );
   }
 }

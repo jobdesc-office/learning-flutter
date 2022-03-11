@@ -29,6 +29,19 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   get: ^4.6.1
+  metooltip: ^0.0.7
+  shared_preferences: ^2.0.13 
+
+  bs_flutter_buttons: 
+    path: ./packages/bs_flutter_buttons
+  bs_flutter_datatable: 
+    path: ./packages/bs_flutter_datatables
+  bs_flutter_modal: 
+    path: ./packages/bs_flutter_modal
+  bs_flutter_selectbox: 
+    path: ./packages/bs_flutter_selectbox
+  bs_flutter_inputtext:
+    path: ./packages/bs_flutter_inputtext
 
 dev_dependencies:
   flutter_test:

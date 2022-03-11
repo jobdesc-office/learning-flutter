@@ -1,5 +1,8 @@
-import 'package:boilerplate/views/skins/tempalte.dart';
+import 'package:boilerplate/routes/route_list.dart';
 import 'package:flutter/material.dart';
+
+import '../../widgets/breadcrumb.dart';
+import '../skins/tempalte.dart';
 
 class HomeView extends StatelessWidget {
   @override
@@ -7,7 +10,13 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       body: TemplateView(
         title: 'Dashboard',
-        child: Container(color: Colors.black),
+        breadcrumbs: [
+          BreadcrumbWidget('Dashboard', active: true),
+        ],
+        activeRoutes: [RouteList.home.index],
+        child: Container(
+          child: Text('Dashboard'),
+        ),
       ),
     );
   }
