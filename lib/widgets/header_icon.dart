@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../constants/color_palattes.dart';
+import '../styles/color_palattes.dart';
 
 class HeaderIcon extends StatelessWidget {
   const HeaderIcon({

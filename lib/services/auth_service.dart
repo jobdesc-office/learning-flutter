@@ -1,13 +1,12 @@
-import 'package:boilerplate/config.dart';
 import 'package:get/get.dart';
 
 import '../utils/api_connect_provider.dart';
 
 class AuthService extends ApiConnectProvider {
-  static String api = '${Config.api}/auth';
+  String get api => 'auth';
 
   Future<Response> verifyToken() {
-    return get('${Config.api}/RJXvksjS');
+    return get('RJXvksjS');
   }
 
   Future<Response> signIn(String username, String password) {
@@ -15,6 +14,6 @@ class AuthService extends ApiConnectProvider {
   }
 
   Future<Response> signOut() {
-    return get('${Config.api}/pIeYujTv');
+    return get('pIeYujTv');
   }
 }

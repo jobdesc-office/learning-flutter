@@ -1,9 +1,9 @@
-import 'package:get/state_manager.dart';
+import 'package:get/get.dart';
 
 class CustomGetXController {
-  final isLoading = false.obs;
+  final isProcessing = false.obs;
 
-  void setLoading(bool loading) {
-    isLoading.value = loading;
+  void setProcessing(bool processing) {
+    isProcessing.value = processing;
   }
 }

@@ -1,4 +1,3 @@
-import 'package:boilerplate/presenters/auth_presenter.dart';
 import 'package:get/get.dart';
 
 import '../middleware/auth_middleware.dart';
@@ -14,9 +13,7 @@ class CustomGetPage extends GetPage {
             name: name,
             page: page,
             transition: Transition.noTransition,
-            binding: BindingsBuilder(() {
-              Get.lazyPut(() => AuthPresenter());
-            }),
+            binding: binding,
             bindings: bindings,
             middlewares: [
               AuthMiddleware(),

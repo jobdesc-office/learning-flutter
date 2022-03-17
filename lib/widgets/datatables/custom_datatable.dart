@@ -1,3 +1,4 @@
+import 'package:boilerplate/styles/theme_datatables_styles.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +10,7 @@ class CustomDatabales extends BsDatatable {
     required List<BsDataColumn> columns,
     CustomizeHeaderDatatable? customizeLeftHeader,
     CustomizeHeaderDatatable? customizeRightHeader,
+    List<Widget> headerActions = const [],
     BsDatatableServerSide? serverSide,
   }) : super(
           source: source,
@@ -24,15 +26,26 @@ class CustomDatabales extends BsDatatable {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                          child: customizeLeftHeader == null
-                              ? null
-                              : customizeLeftHeader(el)),
+                        child: customizeLeftHeader == null
+                            ? null
+                            : customizeLeftHeader(el),
+                      ),
                       Container(
                         child: customizeRightHeader == null
-                            ? el.searchForm(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                ),
+                            ? Row(
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(right: 10),
+                                    child: Row(children: headerActions),
+                                  ),
+                                  el.searchForm(
+                                    decoration:
+                                        ThemeDatatablesStyles.searchDecoration,
+                                    inputDecoration: ThemeDatatablesStyles
+                                        .searchInputDecoration,
+                                    builderLabel: null,
+                                  ),
+                                ],
                               )
                             : customizeRightHeader(el),
                       ),

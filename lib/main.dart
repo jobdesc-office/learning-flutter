@@ -1,11 +1,15 @@
-import 'package:boilerplate/presenters/auth_presenter.dart';
-import 'package:boilerplate/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'constants/config_types.dart';
+import 'helpers/function.dart';
+import 'presenters/auth_presenter.dart';
 import 'presenters/navigation_presenter.dart';
 import 'routes/route_list.dart';
 import 'routes/routes.dart';
+import 'services/app_service.dart';
+import 'services/auth_service.dart';
+import 'utils/session_manager.dart';
 
 void main() {
   runApp(MyApp());
@@ -36,7 +40,25 @@ class MyApp extends StatelessWidget {
         Get.lazyPut(() => NavigationPresenter(), fenix: true);
         Get.lazyPut(() => AuthPresenter(), fenix: true);
         Get.lazyPut(() => AuthService());
+        Get.lazyPut(() => AppService());
       }),
+      onInit: () async {
+        final authPresenter = Get.find<AuthService>();
+        Response response = await authPresenter.verifyToken();
+
+        if (Get.currentRoute != RouteList.sigin.index) {
+          if (response.statusCode == 401) {
+            SessionManager.destroy();
+            toNameRoute(RouteList.sigin.index);
+          }
+
+          final appService = Get.find<AppService>();
+          Response appResponse = await appService.init();
+          if (appResponse.statusCode == 200) {
+            ConfigType.types = appResponse.body;
+          }
+        }
+      },
     );
   }
 }

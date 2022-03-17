@@ -11,7 +11,7 @@ import '../utils/custom_get_controller.dart';
 import '../utils/session_manager.dart';
 import '../views/signin/_source.dart';
 
-class AuthPresenter extends GetxController with CustomGetXController {
+class AuthPresenter extends CustomGetXController {
   final _authService = Get.find<AuthService>();
 
   final source = LoginSource().obs;
@@ -52,36 +52,35 @@ class AuthPresenter extends GetxController with CustomGetXController {
     _authService.signOut().then((res) {
       _logoutViewContract.onLogoutSuccess();
       isAuthenticated.value = false;
-    }).catchError(
-      (message) => {},
-    );
+    });
   }
 
   final isAuthenticated = true.obs;
-  final isOnProcess = true.obs;
   final statusCode = 0.obs;
 
-  void check() async {
+  void checkApiSession() async {
     try {
       if (await SessionManager.isLogged()) {
-        Response response =
-            await _authService.verifyToken().timeout(Duration(seconds: 30));
-
-        isAuthenticated.value = response.isOk;
-        isOnProcess.value = false;
-
-        if (!response.isOk) SessionManager.destroy();
-
-        _guardContract.onCheckSuccess();
+        _authService
+            .verifyToken()
+            .timeout(Duration(seconds: 30))
+            .then((res) => _guardContract.onCheckSuccess(isOk: res.isOk));
       } else {
-        isOnProcess.value = false;
-        isAuthenticated.value = false;
-        _guardContract.onCheckSuccess();
+        _guardContract.onCheckSuccess(isOk: false);
       }
     } on TimeoutException catch (_) {
-      statusCode.value = 408;
+      _guardContract.onCheckTimeout();
     } catch (e) {
-      statusCode.value = 500;
+      _guardContract.onCheckInternalError();
+    }
+  }
+
+  void checkLocalSession() async {
+    try {
+      SessionManager.isLogged()
+          .then((value) => _guardContract.onCheckSuccess(isOk: value));
+    } catch (e) {
+      _guardContract.onCheckFailed();
     }
   }
 }

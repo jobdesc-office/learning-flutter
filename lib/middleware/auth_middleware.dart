@@ -9,8 +9,14 @@ class AuthMiddleware extends GetMiddleware {
 
   @override
   RouteSettings? redirect(String? route) {
-    return authPresenter.isAuthenticated.value
-        ? null
-        : RouteSettings(name: RouteList.sigin.index);
+    if (!authPresenter.isAuthenticated.value &&
+        route != RouteList.sigin.index) {
+      return RouteSettings(name: RouteList.sigin.index);
+    } else if (authPresenter.isAuthenticated.value &&
+        route == RouteList.sigin.index) {
+      return RouteSettings(name: RouteList.home.index);
+    }
+
+    return null;
   }
 }

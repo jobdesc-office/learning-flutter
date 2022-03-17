@@ -1,73 +1,77 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../constants/color_palattes.dart';
 import '../../contracts/auth/guard_contract.dart';
 import '../../helpers/function.dart';
 import '../../presenters/auth_presenter.dart';
 import '../../routes/route_list.dart';
 
-class GuardGuest extends StatelessWidget implements GuardContract {
+class GuestGuard extends StatelessWidget implements GuardContract {
   final authPresenter = Get.find<AuthPresenter>();
 
-  GuardGuest({
-    Key? key,
-    this.child,
-  }) {
+  final Widget? child;
+
+  GuestGuard({this.child}) {
     authPresenter.guardContract = this;
-    authPresenter.check();
+    authPresenter.checkLocalSession();
   }
 
-  final Widget? child;
+  Widget? get resultPage {
+    if (authPresenter.statusCode.value == 200) {
+      if (!authPresenter.isAuthenticated.value) return child;
+    } else if (authPresenter.statusCode.value == 500) {
+      return errorPage();
+    } else if (authPresenter.statusCode.value == 403 &&
+        Get.currentRoute != RouteList.sigin.index) {
+      toNameRoute(RouteList.sigin.index, pushReplace: true);
+    }
+
+    return loadingProcess();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      if (!authPresenter.isOnProcess.value &&
-          !authPresenter.isAuthenticated.value) return Container(child: child);
-
-      return errorPage();
+      return Material(
+        child: Container(child: resultPage),
+      );
     });
   }
 
-  Widget errorPage() {
-    if (authPresenter.statusCode.value == 408)
-      return timeoutPage();
-    else if (authPresenter.statusCode.value == 500) return internalErrorPage();
-
-    return loadingPage();
-  }
-
-  Widget loadingPage() {
+  Widget loadingProcess() {
     return Center(
       child: SizedBox(
-        width: 30,
-        height: 30,
-        child: CircularProgressIndicator(
-          color: ColorPallates.dark,
-          strokeWidth: 1.5,
+        width: 80,
+        height: 80,
+        child: Column(
+          children: [
+            Container(
+              margin: EdgeInsets.only(bottom: 10),
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+              ),
+            ),
+            Text(
+              'Processing',
+              style: TextStyle(fontSize: 12),
+            )
+          ],
         ),
       ),
     );
   }
 
-  Widget timeoutPage() {
-    return Material(
-      child: Center(
+  Widget errorPage() {
+    return Center(
+      child: Container(
+        margin: EdgeInsets.only(bottom: 10),
         child: Text(
-          'Opps, timeout',
-          style: TextStyle(fontSize: 20),
-        ),
-      ),
-    );
-  }
-
-  Widget internalErrorPage() {
-    return Material(
-      child: Center(
-        child: Text(
-          'Internal error',
-          style: TextStyle(fontSize: 20),
+          '500 Internal Server Error',
+          style: TextStyle(
+            color: Colors.grey,
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );
@@ -75,11 +79,21 @@ class GuardGuest extends StatelessWidget implements GuardContract {
 
   @override
   void onCheckFailed() {
-    print("error auth guest");
+    authPresenter.isAuthenticated.value = false;
+    authPresenter.statusCode.value = 500;
   }
 
   @override
-  void onCheckSuccess() {
-    if (authPresenter.isAuthenticated.value) toNameRoute(RouteList.home.index);
+  void onCheckInternalError() {}
+
+  @override
+  void onCheckSuccess({bool isOk = true, bool redirect = true}) {
+    authPresenter.isAuthenticated.value = isOk;
+    authPresenter.statusCode.value = 200;
+
+    if (isOk) toNameRoute(RouteList.home.index);
   }
+
+  @override
+  void onCheckTimeout() {}
 }

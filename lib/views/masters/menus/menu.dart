@@ -1,17 +1,27 @@
-import 'package:boilerplate/constants/custom_button_size.dart';
-import 'package:boilerplate/constants/custom_button_styles.dart';
-import 'package:boilerplate/routes/route_list.dart';
-import 'package:boilerplate/widgets/custom_datatable.dart';
-import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
+import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../contracts/base/index_view_contract.dart';
 import '../../../presenters/masters/menu_presenter.dart';
+import '../../../routes/route_list.dart';
+import '../../../utils/handle_error_request.dart';
 import '../../../widgets/breadcrumb.dart';
+import '../../../widgets/button/theme_button_create.dart';
+import '../../../widgets/datatables/custom_datatable.dart';
 import '../../skins/tempalte.dart';
 
-class MenuView extends StatelessWidget {
-  final _presenter = Get.put(MenuPresenter());
+import '_datatable_source.dart';
+import '_text.dart';
+
+class MenuView extends StatelessWidget
+    with IndexViewContract, HandleErrorRequest {
+  final presenter = Get.find<MenuPresenter>();
+  final datatable = MenuDataTableSource();
+
+  MenuView() {
+    presenter.menuViewContract = this;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,45 +38,55 @@ class MenuView extends StatelessWidget {
           child: Column(
             children: [
               CustomDatabales(
-                source: _presenter.source.value.datatable,
-                columns: _presenter.source.value.datatable.columns,
-                customizeRightHeader: (el) {
-                  return Row(
-                    children: [
-                      BsButton(
-                        margin: EdgeInsets.only(right: 5),
-                        style: CustomButtonStyle.roundedPrimary,
-                        size: CustomButonSize.small,
-                        label: Text("Add Product"),
-                        prefixIcon: Icons.add_circle_rounded,
-                        onPressed: () => _presenter.add(context),
-                      ),
-                      el.searchForm(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        inputDecoration: InputDecoration(
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.all(15),
-                          hintText: 'Search ...',
-                          hintStyle: TextStyle(
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w100,
-                            color: Colors.grey,
-                          ),
-                          isDense: true,
-                        ),
-                        builderLabel: null,
-                      )
-                    ],
-                  );
-                },
+                source: datatable,
+                columns: datatable.columns,
+                headerActions: [
+                  ThemeButtonCreate(
+                    prefix: MenuText.title,
+                    onPressed: () => presenter.add(context),
+                  )
+                ],
+                serverSide: (params) => presenter.datatables(context, params),
               )
             ],
           ),
         ),
       ),
     );
+  }
+
+  @override
+  void onCreateSuccess(Response response, {BuildContext? context}) {
+    presenter.setProcessing(false);
+    datatable.controller.reload();
+    if (context != null) Navigator.pop(context);
+  }
+
+  @override
+  void onDeleteSuccess(Response response, {BuildContext? context}) {
+    presenter.setProcessing(false);
+    datatable.controller.reload();
+    if (context != null) Navigator.pop(context);
+  }
+
+  @override
+  void onEditSuccess(Response response, {BuildContext? context}) {
+    presenter.setProcessing(false);
+    datatable.controller.reload();
+    if (context != null) Navigator.pop(context);
+  }
+
+  @override
+  void onLoadDatatables(BuildContext context, Response response) {
+    presenter.setProcessing(false);
+    datatable.response = BsDatatableResponse.createFromJson(response.body);
+    datatable.onEditListener = (menuid) => presenter.edit(context, menuid);
+    datatable.onDeleteListener = (menuid) => presenter.delete(context, menuid);
+  }
+
+  @override
+  void onErrorRequest(Response response) {
+    presenter.setProcessing(false);
+    super.onErrorRequest(response);
   }
 }

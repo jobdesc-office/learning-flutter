@@ -1,5 +1,6 @@
-import 'package:boilerplate/models/session_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../models/session_model.dart';
 
 class SessionManager {
   static Future<bool> setLogin(SessionModel sessionModel) async {

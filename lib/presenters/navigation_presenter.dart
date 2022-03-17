@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -91,7 +90,7 @@ class NavigationPresenter extends GetxController {
 
   final activeRoute = ''.obs;
 
-  void to(String routeName) {
+  void to(String routeName, {bool pushReplace = false}) {
     if (historyMenu.length == 1) {
       if (overlayCollapseMenu != null) {
         overlayCollapseMenu!.remove();
@@ -106,7 +105,10 @@ class NavigationPresenter extends GetxController {
     historyMenu.clear();
     closeOverlay();
 
-    Get.toNamed(routeName);
+    if (pushReplace)
+      Get.offAllNamed(routeName);
+    else
+      Get.toNamed(routeName);
   }
 
   void setRouteActive(String routeName) {

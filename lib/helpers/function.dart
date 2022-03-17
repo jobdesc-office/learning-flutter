@@ -1,7 +1,19 @@
-import 'package:boilerplate/presenters/auth_presenter.dart';
 import 'package:get/get.dart';
 
+import '../presenters/auth_presenter.dart';
 import '../presenters/navigation_presenter.dart';
+
+String notNull(dynamic value, {String? nullValue}) {
+  String newValue = value.toString();
+  if (value == null && nullValue != null)
+    newValue = nullValue;
+  else if (value == null && nullValue == null)
+    newValue = '';
+  else if (value != null && value == '' && nullValue != null)
+    newValue = nullValue;
+
+  return newValue;
+}
 
 double parseDouble(dynamic value, {int decimal = 2}) {
   return value == null ? 0.0 : double.parse(value.toString());
@@ -29,9 +41,9 @@ bool parseBool(dynamic value) {
           : value;
 }
 
-void toNameRoute(String name) {
+void toNameRoute(String name, {bool pushReplace = false}) {
   final navigation = Get.find<NavigationPresenter>();
   final authPresenter = Get.find<AuthPresenter>();
 
-  navigation.to(name);
+  navigation.to(name, pushReplace: pushReplace);
 }

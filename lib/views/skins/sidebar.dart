@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../constants/color_palattes.dart';
 import '../../presenters/navigation_presenter.dart';
 import '../../routes/route_list.dart';
+import '../../styles/color_palattes.dart';
 import '../../widgets/menus/menu_data.dart';
 import '../../widgets/menus/menu_data_group.dart';
 import '../../widgets/menus/sidebar_menus.dart';
@@ -21,17 +21,16 @@ class SidebarSkins extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Obx(
-        () {
-          return Container(
-            child: _navigation.dataListOfMenu.value.id != 0 &&
-                    !_navigation.isCollapse.value
-                ? listOfMenu()
-                : sidebar(),
-          );
-        },
-      ),
+    return Obx(
+      () {
+        return Container(
+          color: ColorPallates.dark,
+          child: _navigation.dataListOfMenu.value.id != 0 &&
+                  !_navigation.isCollapse.value
+              ? listOfMenu()
+              : sidebar(),
+        );
+      },
     );
   }
 
@@ -46,6 +45,7 @@ class SidebarSkins extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(15, 20, 15, 20),
           decoration: BoxDecoration(
             color: ColorPallates.dark,
+            border: Border.all(color: Colors.transparent, width: 0),
           ),
           child: _navigation.isCollapse.value
               ? SidebarWidgets.logoCollapse()

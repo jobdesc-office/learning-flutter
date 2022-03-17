@@ -13,10 +13,10 @@ import '../../widgets/login_button.dart';
 import '_form_source.dart';
 
 class SignInView extends StatelessWidget implements LoginViewContract {
-  final _authPresenter = AuthPresenter();
+  final authPresenter = AuthPresenter();
 
   SignInView() {
-    _authPresenter.loginViewContract = this;
+    authPresenter.loginViewContract = this;
   }
 
   final LoginForm _loginForm = LoginForm();
@@ -62,14 +62,14 @@ class SignInView extends StatelessWidget implements LoginViewContract {
                               () => Column(
                                 children: [
                                   _loginForm.username(
-                                    controller: _authPresenter
+                                    controller: authPresenter
                                         .source.value.inputUsername,
                                   ),
                                   _loginForm.password(
-                                    controller: _authPresenter
+                                    controller: authPresenter
                                         .source.value.inputPassword,
                                     onTapSuffixIcon: () =>
-                                        _authPresenter.togglePassword(),
+                                        authPresenter.togglePassword(),
                                   ),
                                 ],
                               ),
@@ -79,9 +79,9 @@ class SignInView extends StatelessWidget implements LoginViewContract {
                             builder: (context, constraints) => Container(
                               child: Obx(
                                 () => LoginButton(
-                                  disabled: _authPresenter.isLoading.value,
+                                  disabled: authPresenter.isProcessing.value,
                                   width: constraints.maxWidth,
-                                  label: _authPresenter.isLoading.value
+                                  label: authPresenter.isProcessing.value
                                       ? SizedBox(
                                           child: CircularProgressIndicator(
                                             color: Colors.white,
@@ -111,14 +111,14 @@ class SignInView extends StatelessWidget implements LoginViewContract {
 
   void onClickLogin() {
     if (_formState.currentState!.validate()) {
-      _authPresenter.signIn();
-      _authPresenter.setLoading(true);
+      authPresenter.signIn();
+      authPresenter.setProcessing(true);
     }
   }
 
   @override
   void onLoginFailed(String message) {
-    _authPresenter.setLoading(false);
+    authPresenter.setProcessing(false);
   }
 
   @override
@@ -133,6 +133,6 @@ class SignInView extends StatelessWidget implements LoginViewContract {
 
   @override
   void onErrorResponse() {
-    _authPresenter.setLoading(false);
+    authPresenter.setProcessing(false);
   }
 }

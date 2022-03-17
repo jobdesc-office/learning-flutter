@@ -1,69 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../constants/color_palattes.dart';
 import '../../contracts/auth/guard_contract.dart';
 import '../../helpers/function.dart';
 import '../../presenters/auth_presenter.dart';
 import '../../routes/route_list.dart';
 
-class GuardAuth extends StatelessWidget implements GuardContract {
+class AuthGuard extends StatelessWidget implements GuardContract {
   final authPresenter = Get.find<AuthPresenter>();
+  final Widget? child;
 
-  GuardAuth({
-    Key? key,
-    this.child,
-  }) {
+  AuthGuard({this.child}) {
     authPresenter.guardContract = this;
-    authPresenter.check();
+    authPresenter.checkLocalSession();
   }
 
-  final Widget? child;
+  Widget? get resultPage {
+    if (authPresenter.statusCode.value == 200) {
+      if (authPresenter.isAuthenticated.value) return child;
+    }
+
+    return loadingProcess();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      if (authPresenter.isOnProcess.value &&
-          authPresenter.isAuthenticated.value)
-        return errorPage();
-      else if (!authPresenter.isOnProcess.value &&
-          authPresenter.isAuthenticated.value) return Container(child: child);
-
-      return errorPage();
+      return Material(
+        child: Container(child: resultPage),
+      );
     });
   }
 
-  Widget errorPage() {
-    if (authPresenter.statusCode.value == 408)
-      return timeoutPage();
-    else if (authPresenter.statusCode.value == 500) return internalErrorPage();
-
-    return loadingPage();
-  }
-
-  Widget loadingPage() {
-    return Material(
-      color: Colors.transparent,
-      child: Center(
+  Widget loadingProcess() {
+    return Center(
+      child: SizedBox(
+        width: 80,
+        height: 80,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               margin: EdgeInsets.only(bottom: 10),
-              child: SizedBox(
-                width: 30,
-                height: 30,
-                child: CircularProgressIndicator(
-                  color: ColorPallates.dark,
-                  strokeWidth: 1.5,
-                ),
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
               ),
             ),
             Text(
-              'Please wait',
-              style: TextStyle(
-                fontSize: 12,
-              ),
+              'Processing',
+              style: TextStyle(fontSize: 12),
             )
           ],
         ),
@@ -71,23 +55,17 @@ class GuardAuth extends StatelessWidget implements GuardContract {
     );
   }
 
-  Widget timeoutPage() {
-    return Material(
-      child: Center(
+  Widget errorPage() {
+    return Center(
+      child: Container(
+        margin: EdgeInsets.only(bottom: 10),
         child: Text(
-          'Opps, timeout',
-          style: TextStyle(fontSize: 20),
-        ),
-      ),
-    );
-  }
-
-  Widget internalErrorPage() {
-    return Material(
-      child: Center(
-        child: Text(
-          'Internal error',
-          style: TextStyle(fontSize: 20),
+          '500 Internal Server Error',
+          style: TextStyle(
+            color: Colors.grey,
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );
@@ -95,12 +73,25 @@ class GuardAuth extends StatelessWidget implements GuardContract {
 
   @override
   void onCheckFailed() {
-    print("error auth guard");
+    authPresenter.isAuthenticated.value = false;
+    authPresenter.statusCode.value = 403;
+
+    toNameRoute(RouteList.sigin.index);
   }
 
   @override
-  void onCheckSuccess() {
-    if (!authPresenter.isAuthenticated.value)
-      toNameRoute(RouteList.sigin.index);
+  void onCheckInternalError() {}
+
+  @override
+  void onCheckSuccess({bool isOk = true, bool redirect = true}) {
+    if (isOk) {
+      authPresenter.statusCode.value = 200;
+      authPresenter.isAuthenticated.value = true;
+    } else {
+      onCheckFailed();
+    }
   }
+
+  @override
+  void onCheckTimeout() {}
 }

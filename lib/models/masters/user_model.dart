@@ -1,4 +1,4 @@
-import 'package:boilerplate/helpers/function.dart';
+import '../../helpers/function.dart';
 
 class UserModel {
   int userid;

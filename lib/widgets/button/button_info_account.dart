@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../constants/color_palattes.dart';
+import '../../styles/color_palattes.dart';
 
 class ButtonInfoAccount extends StatelessWidget {
   const ButtonInfoAccount(

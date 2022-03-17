@@ -1,8 +1,7 @@
-import 'dart:ui';
-
-import 'package:boilerplate/constants/color_palattes.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:flutter/material.dart';
+
+import '../styles/color_palattes.dart';
 
 class LoginButton extends BsButton {
   LoginButton({

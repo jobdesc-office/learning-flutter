@@ -1,16 +1,16 @@
-import 'package:boilerplate/routes/route_list.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../constants/color_palattes.dart';
 import '../../contracts/auth/logout_view_contract.dart';
 import '../../helpers/function.dart';
 import '../../presenters/auth_presenter.dart';
 import '../../presenters/navigation_presenter.dart';
+import '../../routes/route_list.dart';
+import '../../styles/color_palattes.dart';
 import '../../utils/session_manager.dart';
-import '../../widgets/button_info_account.dart';
+import '../../widgets/button/button_info_account.dart';
 import '../../widgets/header_icon.dart';
 
 class HeaderSkins extends StatelessWidget implements LogoutViewContract {
@@ -129,6 +129,6 @@ class HeaderSkins extends StatelessWidget implements LogoutViewContract {
   @override
   void onLogoutSuccess() {
     SessionManager.destroy();
-    toNameRoute(RouteList.sigin.index);
+    toNameRoute(RouteList.sigin.index, pushReplace: true);
   }
 }

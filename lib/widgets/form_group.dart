@@ -13,11 +13,12 @@ class FormGroup extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           DefaultTextStyle(
             style: TextStyle(
               fontSize: 12,
-              fontWeight: FontWeight.normal,
+              fontWeight: FontWeight.bold,
             ),
             child: Container(
               margin: EdgeInsets.only(bottom: 5),

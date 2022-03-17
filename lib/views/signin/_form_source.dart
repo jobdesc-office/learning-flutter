@@ -1,8 +1,8 @@
-import 'package:boilerplate/utils/validators.dart';
 import 'package:bs_flutter_inputtext/bs_flutter_inputtext.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../constants/color_palattes.dart';
+import '../../styles/color_palattes.dart';
+import '../../utils/validators.dart';
 import '../../widgets/form_group.dart';
 
 class LoginForm {

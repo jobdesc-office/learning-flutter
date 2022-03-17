@@ -1,6 +1,6 @@
-import 'package:boilerplate/routes/route_list.dart';
 import 'package:flutter/material.dart';
 
+import '../../routes/route_list.dart';
 import '../../widgets/breadcrumb.dart';
 import '../skins/tempalte.dart';
 
