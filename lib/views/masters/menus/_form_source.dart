@@ -31,7 +31,6 @@ class MenuSource {
   Future<Map<String, dynamic>> toJson() async {
     SessionModel session = await SessionManager.current();
     return {
-      'userid': parseString(session.userid),
       'menutypeid': menuTypeController.getSelectedToString(),
       'menunm': inputName.text,
       'masterid': selectParent.getSelectedAsString(),
@@ -39,6 +38,9 @@ class MenuSource {
       'route': inputRoute.text,
       'color': inputColor.text,
       'seq': inputSequence.text,
+      'createdby': session.userid,
+      'updatedby': session.userid,
+      'isactive': true,
     };
   }
 }
