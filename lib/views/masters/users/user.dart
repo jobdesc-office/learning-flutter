@@ -1,0 +1,99 @@
+import 'package:boilerplate/utils/handle_error_request.dart';
+import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
+
+import '../../../contracts/base/index_view_contract.dart';
+import '../../../presenters/masters/user_presenter.dart';
+import '../../../routes/route_list.dart';
+import '../../../widgets/breadcrumb.dart';
+import '../../../widgets/button/theme_button_create.dart';
+import '../../../widgets/datatables/custom_datatable.dart';
+import '../../skins/tempalte.dart';
+import '_datatable_source.dart';
+import '_text.dart';
+
+class UserView extends GetView implements IndexViewContract, HandleErrorRequest{
+
+  final presenter = Get.find<UserPresenter>();
+  final datatable = UserDataTableSource();
+
+  UserView() {
+    presenter.userViewContract = this;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+      body: TemplateView(
+        title: 'Users',
+        breadcrumbs: [
+          BreadcrumbWidget('Dashboard', route: RouteList.home.index),
+          BreadcrumbWidget('Masters'),
+          BreadcrumbWidget('Users', active: true),
+        ],
+        activeRoutes: [RouteList.master.index, RouteList.masterUser.index],
+        child: Container(
+          child: Column(
+            children: [
+              CustomDatabales(
+                source: datatable,
+                columns: datatable.columns,
+                headerActions: [
+                  ThemeButtonCreate(
+                    prefix: UserText.title,
+                    onPressed: () => presenter.add(context),
+                  )
+                ],
+                serverSide: (params) => presenter.datatables(context, params),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  void onCreateSuccess(Response response, {BuildContext? context}) {
+    // TODO: implement onCreateSuccess
+    presenter.setProcessing(false);
+    datatable.controller.reload();
+    if (context != null) Navigator.pop(context);
+  }
+
+  @override
+  void onDeleteSuccess(Response response, {BuildContext? context}) {
+    // TODO: implement onDeleteSuccess
+    presenter.setProcessing(false);
+    datatable.controller.reload();
+    if (context != null) Navigator.pop(context);
+  }
+
+  @override
+  void onEditSuccess(Response response, {BuildContext? context}) {
+    // TODO: implement onEditSuccess
+    presenter.setProcessing(false);
+    datatable.controller.reload();
+    if (context != null) Navigator.pop(context);
+  }
+
+  @override
+  void onErrorRequest(Response response) {
+    // TODO: implement onErrorRequest
+    presenter.setProcessing(false);
+    print(response);
+  }
+
+  @override
+  void onLoadDatatables(BuildContext context, Response response) {
+    // TODO: implement onLoadDatatables
+    presenter.setProcessing(false);
+    datatable.response = BsDatatableResponse.createFromJson(response.body);
+    datatable.onEditListener = (userid) => presenter.edit(context, userid);
+    datatable.onDeleteListener = (userid) => presenter.delete(context, userid);
+  }
+
+}

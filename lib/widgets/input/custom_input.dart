@@ -7,11 +7,13 @@ class CustomInput extends BsInput {
   CustomInput({
     required TextEditingController controller,
     bool disabled = false,
+    bool passwordText = false,
     String? hintText,
     List<BsInputValidator> validators = const [],
     TextInputType? keyboardType,
     List<TextInputFormatter>? inputFormatters = const [],
   }) : super(
+          obscureText: passwordText,
           disabled: disabled,
           controller: controller,
           hintText: hintText,

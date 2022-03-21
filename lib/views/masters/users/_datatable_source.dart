@@ -1,0 +1,68 @@
+import 'package:boilerplate/constants/base_text.dart';
+import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
+import 'package:flutter/material.dart';
+
+import '../../../models/masters/user_model.dart';
+import '../../../widgets/button/button_delete_datatable.dart';
+import '../../../widgets/button/button_edit_datatable.dart';
+
+class UserDataTableSource extends BsDatatableSource {
+  ValueChanged<int> onEditListener = (value) {};
+  ValueChanged<int> onDeleteListener = (value) {};
+
+  UserDataTableSource({
+    List data = const [],
+  }) : super(data: data);
+
+  List<BsDataColumn> get columns {
+    return <BsDataColumn>[
+      BsDataColumn(
+        label: Text('No'),
+        width: 70,
+        searchable: false,
+        orderable: false,
+      ),
+      BsDataColumn(label: Text('Name'), columnName: 'userfullname', width: 300),
+      BsDataColumn(label: Text('Email'), columnName: 'useremail',width: 250),
+      BsDataColumn(label: Text('Phone'), columnName: 'userphone'),
+      BsDataColumn(label: Text('Status'), columnName: 'isactive',width: 110, orderable: false, searchable: false),
+      BsDataColumn(label: Text('Actions'), orderable: false, searchable: false),
+    ];
+  }
+
+  List<UserModel> get users =>
+      response.data.map((data) => UserModel.fromJson(data)).toList();
+
+  @override
+  BsDataRow getRow(int index) {
+    final row = users[index];
+    return BsDataRow(
+      index: index,
+      cells: [
+        BsDataCell(Center(child: Text('${controller.start + index + 1}'))),
+        BsDataCell(Center(child: Text(row.userfullname))),
+        BsDataCell(Center(child: Text(row.useremail))),
+        BsDataCell(Center(child: Text(row.userphone))),
+        BsDataCell(
+          Card(
+            color: row.isactive ? Colors.blue : Colors.red,
+            child: Center(child: Text(row.isactive ? BaseText.active : BaseText.nonactive,)),
+          )
+        ),
+        BsDataCell(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ButtonEditDatatables(
+                margin: EdgeInsets.only(right: 5),
+                onPressed: () => onEditListener(row.userid),
+              ),
+              ButtonDeleteDatatables(
+                  onPressed: () => onDeleteListener(row.userid)),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}

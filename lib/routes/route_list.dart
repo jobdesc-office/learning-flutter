@@ -9,6 +9,7 @@ class RouteList {
 
   static final RouteData masterMenu = RouteData(prefix: '/masters/menus');
   static final RouteData masterProduct = RouteData(prefix: '/masters/product');
+  static final RouteData masterUser = RouteData(prefix: '/masters/user');
 
   static final RouteData settings = RouteData(prefix: '/-settings');
 

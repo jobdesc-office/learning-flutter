@@ -1,35 +1,32 @@
 import 'package:bs_flutter_modal/bs_flutter_modal.dart';
-import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/edit_view_contract.dart';
-import '../../../models/masters/type_model.dart';
-import '../../../models/security/menu_model.dart';
-import '../../../presenters/masters/menu_presenter.dart';
+import '../../../models/masters/user_model.dart';
+import '../../../presenters/masters/user_presenter.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
-
 import '_form_source.dart';
-import '_menu_type.dart';
 import '_text.dart';
 
-class MenuFormView extends StatelessWidget
-    implements EditViewContract, MenuTypeViewContract {
+class UserFormView extends GetView implements EditViewContract{
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
-  final MenuPresenter presenter = Get.find<MenuPresenter>();
-  final source = MenuSource().obs;
+  final UserPresenter presenter = Get.find<UserPresenter>();
+  final source = UserSource().obs;
   final Function(Map<String, dynamic> body) onSave;
 
-  late MenuForm menuForm;
-
-  MenuFormView({required this.onSave}) {
-    presenter.menuFetchDataContract = this;
-    presenter.menuTypeViewContract = this;
+  UserFormView({required this.onSave}) {
+    presenter.userFetchDataContract = this;
   }
+
+  late UserForm userForm;
 
   @override
   Widget build(BuildContext context) {
+
+    // TODO: implement build
     return Form(
       key: formState,
       child: BsModal(
@@ -37,22 +34,21 @@ class MenuFormView extends StatelessWidget
         dialog: BsModalDialog(
           child: BsModalContent(children: [
             BsModalContainer(
-              title: Text(MenuText.title),
+              title: Text(UserText.title),
               closeButton: true,
             ),
             BsModalContainer(
               child: Obx(() {
-                menuForm = MenuForm(source.value);
+                userForm = UserForm(source.value);
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    menuForm.menuType(),
-                    menuForm.inputName(),
-                    menuForm.selectParent(),
-                    menuForm.inputIcon(),
-                    menuForm.inputRoute(),
-                    menuForm.inputColor(),
-                    menuForm.inputSequence(),
+                    userForm.inputName(),
+                    userForm.inputPassword(),
+                    userForm.inputConfirmPassword(),
+                    userForm.inputFullName(),
+                    userForm.inputEmail(),
+                    userForm.inputPhone(),
                   ],
                 );
               }),
@@ -93,30 +89,19 @@ class MenuFormView extends StatelessWidget
   }
 
   @override
-  void onLoadSuccess(Response response) {
-    source.update((val) {
-      source.value.menuTypeController.options = List<TypeModel>.from(
-        response.body.map((data) {
-          return TypeModel.fromJson(data);
-        }),
-      );
-    });
-  }
-
-  @override
   void onSuccessFetchData(Response response) {
+    // TODO: implement onSuccessFetchData
     presenter.setProcessing(false);
 
     source.update((val) {
-      MenuModel menu = MenuModel.fromJson(response.body);
-      source.value.menuTypeController.selected = menu.menutype;
-      source.value.inputName.text = menu.menunm;
-      source.value.selectParent.setSelected(
-          BsSelectBoxOption(value: menu.menuid, text: Text(menu.menunm)));
-      source.value.inputColor.text = menu.color;
-      source.value.inputIcon.text = menu.icon;
-      source.value.inputRoute.text = menu.route;
-      source.value.inputSequence.text = menu.seq.toString();
+      UserModel menu = UserModel.fromJson(response.body);
+      source.value.inputName.text = menu.username;
+      source.value.inputPassword.text = menu.userpassword;
+      source.value.inputConfirmPassword.text = menu.userpassword;
+      source.value.inputFullName.text = menu.userfullname;
+      source.value.inputEmail.text = menu.useremail;
+      source.value.inputPhone.text = menu.userphone;
     });
   }
+
 }

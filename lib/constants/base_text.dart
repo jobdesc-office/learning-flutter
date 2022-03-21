@@ -10,6 +10,9 @@ class BaseText {
   static String yesConfirm = 'Yes';
   static String noConfirm = 'No';
 
+  static String active = 'Active';
+  static String nonactive = 'Non Active';
+
   static String hintText({String? field}) {
     return 'Type in here ...';
   }
