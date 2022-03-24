@@ -1,3 +1,4 @@
+import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:boilerplate/styles/theme_datatables_styles.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class CustomDatabales extends BsDatatable {
           source: source,
           columns: columns,
           serverSide: serverSide,
-          style: BsDatatableStyle(borderColor: Colors.transparent),
+          style: BsDatatableStyle(borderColor: ColorPallates.secondary),
           customizeLayout: (el) => Container(
             child: Column(
               children: [

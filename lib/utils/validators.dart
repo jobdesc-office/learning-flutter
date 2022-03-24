@@ -34,6 +34,14 @@ class Validators {
     });
   }
 
+  static BsInputValidator minLength(String field, int length) {
+    return BsInputValidator(validator: (value) {
+      if (value.toString().length < length)
+        return "$field cannot be less than $length";
+      return null;
+    });
+  }
+
   static BsSelectValidator selectRequired(String field) {
     return BsSelectValidator(validator: (value) {
       String valueValidate = value.toString().trim();

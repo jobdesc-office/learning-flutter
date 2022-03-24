@@ -1,3 +1,4 @@
+import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:flutter/material.dart';
 
 import 'menu_data.dart';
@@ -10,7 +11,7 @@ class SidebarWidgets {
           child: Text(
             'Logo',
             style: TextStyle(
-              color: Colors.white,
+              color: ColorPallates.dark,
               fontSize: 26,
             ),
             textAlign: TextAlign.center,
@@ -25,7 +26,7 @@ class SidebarWidgets {
     return Text(
       'Logo',
       style: TextStyle(
-        color: Colors.white,
+              color: ColorPallates.dark,
         fontSize: 16,
       ),
     );
@@ -49,7 +50,7 @@ class SidebarWidgets {
             Text(
               'Back to ${history.length > 1 ? history[history.length - 2].label : 'Main Menu'}',
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontSize: 16,
               ),
             ),
@@ -79,7 +80,7 @@ class SidebarWidgets {
               padding: EdgeInsets.all(3),
               margin: EdgeInsets.only(right: 10),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: ColorPallates.dark,
                 borderRadius: BorderRadius.circular(50),
               ),
               child: Icon(history.length > 1
@@ -92,7 +93,7 @@ class SidebarWidgets {
                     ? 'Back to ${history[history.length - 2].label}'
                     : '$label',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: ColorPallates.dark,
                   fontSize: 16,
                 ),
                 overflow: TextOverflow.ellipsis,

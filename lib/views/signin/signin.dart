@@ -1,3 +1,4 @@
+import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -25,7 +26,7 @@ class SignInView extends StatelessWidget implements LoginViewContract {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xfff1f1f1),
+      backgroundColor: Colors.white,
       body: Container(
         alignment: Alignment.center,
         child: Form(
@@ -42,7 +43,7 @@ class SignInView extends StatelessWidget implements LoginViewContract {
                       margin: EdgeInsets.only(top: Get.height * 0.20),
                       padding: EdgeInsets.fromLTRB(20, 40, 20, 40),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: ColorPallates.quaternary,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Column(

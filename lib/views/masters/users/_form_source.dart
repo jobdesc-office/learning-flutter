@@ -63,6 +63,10 @@ class UserForm {
         disabled: source.isProcessing,
         controller: source.inputPassword,
         hintText: BaseText.hintText(),
+        validators: [
+          Validators.inputRequired(UserText.labelPassword),
+          Validators.minLength(UserText.labelPassword, 7),
+        ],
       ),
     );
   }

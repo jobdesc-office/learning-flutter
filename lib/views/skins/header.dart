@@ -68,6 +68,7 @@ class HeaderSkins extends StatelessWidget implements LogoutViewContract {
                             Icon(
                               Icons.person_outline,
                               size: 16,
+                              // color: ColorPallates.tertiary,
                             ),
                             Container(
                               margin: EdgeInsets.only(left: 5),

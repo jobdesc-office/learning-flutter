@@ -39,13 +39,13 @@ class UserDataTableSource extends BsDatatableSource {
     return BsDataRow(
       index: index,
       cells: [
-        BsDataCell(Center(child: Text('${controller.start + index + 1}'))),
-        BsDataCell(Center(child: Text(row.userfullname))),
-        BsDataCell(Center(child: Text(row.useremail))),
-        BsDataCell(Center(child: Text(row.userphone))),
+        BsDataCell(Text('${controller.start + index + 1}')),
+        BsDataCell(Text(row.userfullname)),
+        BsDataCell(Text(row.useremail)),
+        BsDataCell(Text(row.userphone)),
         BsDataCell(
           Card(
-            color: row.isactive ? Colors.blue : Colors.red,
+            color: row.isactive ? Colors.blue.shade300 : Colors.red.shade300,
             child: Center(child: Text(row.isactive ? BaseText.active : BaseText.nonactive,)),
           )
         ),

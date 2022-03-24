@@ -12,17 +12,17 @@ class MenuStyles {
     return MenuStyles(
       decoration: MenuDecoration(
         active: BoxDecoration(
-          color: Colors.white,
+          color: ColorPallates.secondary,
           borderRadius: BorderRadius.circular(5),
         ),
         nonactive: BoxDecoration(),
       ),
       textStyle: MenuTextStyle(
         active: TextStyle(
-          color: ColorPallates.dark,
+          color: Colors.black,
         ),
         nonactive: TextStyle(
-          color: Colors.white,
+          color: ColorPallates.dark,
         ),
       ),
     );

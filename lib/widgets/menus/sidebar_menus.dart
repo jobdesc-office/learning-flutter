@@ -53,7 +53,7 @@ class SidebarMenus extends StatelessWidget {
                                           child: Text(
                                             data.title!.toUpperCase(),
                                             style: TextStyle(
-                                              color: Colors.grey,
+                                              color: Color.fromARGB(255, 56, 52, 52),
                                               fontSize: 9,
                                               fontWeight: FontWeight.bold,
                                               letterSpacing: 1.2,

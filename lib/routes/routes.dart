@@ -1,13 +1,16 @@
 import 'package:get/get.dart';
 
+import '../presenters/masters/businesspartner_presenter.dart';
 import '../presenters/masters/menu_presenter.dart';
 import '../presenters/masters/user_presenter.dart';
+import '../services/masters/businessPartner_service.dart';
 import '../services/masters/user_service.dart';
 import '../services/security/menu_service.dart';
 import '../utils/custom_get_page.dart';
 import '../utils/guards/auth_guard.dart';
 import '../utils/guards/guest_guard.dart';
 import '../views/defaults/home.dart';
+import '../views/masters/businesspartner/businesspartner.dart';
 import '../views/masters/menus/menu.dart';
 import '../views/masters/users/user.dart';
 import '../views/signin/signin.dart';
@@ -39,6 +42,14 @@ class AppRoute {
         binding: BindingsBuilder(() {
           Get.lazyPut(() => UserService());
           Get.lazyPut(() => UserPresenter());
+        }),
+      ),
+      CustomGetPage(
+        name: RouteList.masterBusinessPartner.index,
+        page: () => BusinessPartnerView(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => BusinessPartnerService());
+          Get.lazyPut(() => BusinessPartnerPresenter());
         }),
       ),
     ];

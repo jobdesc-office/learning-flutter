@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/index_view_contract.dart';
-import '../../../presenters/masters/user_presenter.dart';
+import '../../../presenters/masters/businesspartner_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_create.dart';
@@ -13,26 +13,26 @@ import '../../skins/tempalte.dart';
 import '_datatable_source.dart';
 import '_text.dart';
 
-class UserView extends GetView implements IndexViewContract, HandleErrorRequest{
+class BusinessPartnerView extends GetView implements IndexViewContract, HandleErrorRequest{
 
-  final presenter = Get.find<UserPresenter>();
-  final datatable = UserDataTableSource();
+  final presenter = Get.find<BusinessPartnerPresenter>();
+  final datatable = BusinessPartnerDataTableSource();
 
-  UserView() {
-    presenter.userViewContract = this;
+  BusinessPartnerView() {
+    presenter.businessPartnerViewContract = this;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: TemplateView(
-        title: 'Users',
+        title: 'Business Partner',
         breadcrumbs: [
           BreadcrumbWidget('Dashboard', route: RouteList.home.index),
           BreadcrumbWidget('Masters'),
-          BreadcrumbWidget('Users', active: true),
+          BreadcrumbWidget('Business Partner', active: true),
         ],
-        activeRoutes: [RouteList.master.index, RouteList.masterUser.index],
+        activeRoutes: [RouteList.master.index, RouteList.masterBusinessPartner.index],
         child: Container(
           child: Column(
             children: [
@@ -41,7 +41,7 @@ class UserView extends GetView implements IndexViewContract, HandleErrorRequest{
                 columns: datatable.columns,
                 headerActions: [
                   ThemeButtonCreate(
-                    prefix: UserText.title,
+                    prefix: BusinessPartnerText.title,
                     onPressed: () => presenter.add(context),
                   )
                 ],
@@ -77,7 +77,6 @@ class UserView extends GetView implements IndexViewContract, HandleErrorRequest{
 
   @override
   void onErrorRequest(Response response) {
-    presenter.setProcessing(false);
     print(response);
   }
 
@@ -85,8 +84,8 @@ class UserView extends GetView implements IndexViewContract, HandleErrorRequest{
   void onLoadDatatables(BuildContext context, Response response) {
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
-    datatable.onEditListener = (userid) => presenter.edit(context, userid);
-    datatable.onDeleteListener = (userid) => presenter.delete(context, userid);
+    datatable.onEditListener = (bpid) => presenter.edit(context, bpid);
+    datatable.onDeleteListener = (bpid) => presenter.delete(context, bpid);
   }
 
 }

@@ -5,13 +5,13 @@ import 'color_palattes.dart';
 
 class CustomButtonStyle {
   static BsButtonStyle get roundedPrimary => BsButtonStyle(
-        backgroundColor: ColorPallates.dark,
+        backgroundColor: Colors.green.shade300,
         color: Colors.white,
         borderRadius: BorderRadius.circular(5),
       );
 
   static BsButtonStyle get roundedDanger => BsButtonStyle(
-        backgroundColor: ColorPallates.danger,
+        backgroundColor: ColorPallates.tertiary,
         color: Colors.white,
         borderRadius: BorderRadius.circular(5),
       );

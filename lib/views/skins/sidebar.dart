@@ -44,7 +44,7 @@ class SidebarSkins extends StatelessWidget {
           width: _navigation.isCollapse.value ? 70 : 250,
           padding: EdgeInsets.fromLTRB(15, 20, 15, 20),
           decoration: BoxDecoration(
-            color: ColorPallates.dark,
+            color: ColorPallates.primary,
             border: Border.all(color: Colors.transparent, width: 0),
           ),
           child: _navigation.isCollapse.value
@@ -56,7 +56,7 @@ class SidebarSkins extends StatelessWidget {
             duration: Duration(milliseconds: 250),
             width: _navigation.isCollapse.value ? 70 : 250,
             decoration: BoxDecoration(
-              color: ColorPallates.dark,
+              color: ColorPallates.primary,
             ),
             child: SidebarMenus(
               isCollapse: _navigation.isCollapse.value,
@@ -91,6 +91,11 @@ class SidebarSkins extends StatelessWidget {
                       id: no++,
                       route: RouteList.masterUser.index,
                       label: 'User',
+                    ),
+                    MenuData(
+                      id: no++,
+                      route: RouteList.masterBusinessPartner.index,
+                      label: 'Business Partner',
                     ),
                   ],
                 ),
@@ -172,7 +177,7 @@ class SidebarSkins extends StatelessWidget {
           width: _navigation.isCollapse.value ? 70 : 250,
           padding: EdgeInsets.fromLTRB(15, 20, 15, 20),
           decoration: BoxDecoration(
-            color: ColorPallates.dark,
+            color: ColorPallates.primary,
           ),
           child: _navigation.isCollapse.value
               ? SidebarWidgets.logoCollapse()
@@ -186,7 +191,7 @@ class SidebarSkins extends StatelessWidget {
             duration: Duration(milliseconds: 250),
             width: _navigation.isCollapse.value ? 70 : 250,
             decoration: BoxDecoration(
-              color: ColorPallates.dark,
+              color: ColorPallates.primary,
             ),
             child: SidebarMenus(
               isCollapse: false,

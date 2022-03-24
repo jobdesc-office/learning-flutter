@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ColorPallates {
-  static Color dark = Color(0xff313552);
+  static const primary = Color(0xFFC0D8C0);
+  static const secondary = Color(0xFFF5EEDC);
+  static const tertiary = Color(0xFFDD4A48);
+  static const quaternary = Color(0xFFECB390);
+  static Color dark = Color(0xFF363636);
   static Color danger = Color(0xffB8405E);
 }
