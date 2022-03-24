@@ -3,12 +3,13 @@ import 'package:bs_flutter_inputtext/bs_flutter_inputtext.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/base_text.dart';
+import '../../../models/masters/userdt_model.dart';
 import '../../../models/session_model.dart';
 import '../../../utils/session_manager.dart';
 import '../../../utils/validators.dart';
+import '../../../widgets/button/button_role_user.dart';
 import '../../../widgets/form_group.dart';
 import '../../../widgets/input/custom_input.dart';
-import '../../../widgets/input/custom_input_number.dart';
 
 class UserSource{
   bool isProcessing = false;
@@ -127,6 +128,30 @@ class UserForm {
         hintText: BaseText.hintText(),
         validators: [
           Validators.maxLength(UserText.labelPhone, 15),
+        ],
+      ),
+    );
+  }
+
+  Widget btnRole() {
+    return FormGroup(
+      child: ButtonRoleUser(
+        onPressed: (() {
+          UserDetailModel().role.value.add(inputRole());
+        }),
+        disabled: source.isProcessing,
+      ),
+    );
+  }
+  
+  Widget inputRole() {
+    return FormGroup(
+      child: CustomInput(
+        disabled: source.isProcessing,
+        controller: source.inputPhone,
+        hintText: BaseText.hintText(),
+        validators: [
+          Validators.maxLength(UserText.labelRole, 15),
         ],
       ),
     );

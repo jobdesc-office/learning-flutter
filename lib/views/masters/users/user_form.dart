@@ -1,6 +1,6 @@
+import 'package:boilerplate/models/masters/userdt_model.dart';
 import 'package:bs_flutter_modal/bs_flutter_modal.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/edit_view_contract.dart';
@@ -16,6 +16,7 @@ class UserFormView extends GetView implements EditViewContract{
   final UserPresenter presenter = Get.find<UserPresenter>();
   final source = UserSource().obs;
   final Function(Map<String, dynamic> body) onSave;
+  List<Widget> role = UserDetailModel().role.value;
 
   UserFormView({required this.onSave}) {
     presenter.userFetchDataContract = this;
@@ -25,8 +26,6 @@ class UserFormView extends GetView implements EditViewContract{
 
   @override
   Widget build(BuildContext context) {
-
-    // TODO: implement build
     return Form(
       key: formState,
       child: BsModal(
@@ -49,6 +48,8 @@ class UserFormView extends GetView implements EditViewContract{
                     userForm.inputFullName(),
                     userForm.inputEmail(),
                     userForm.inputPhone(),
+                    userForm.btnRole(),
+                    userForm.inputRole(),
                   ],
                 );
               }),
@@ -90,7 +91,6 @@ class UserFormView extends GetView implements EditViewContract{
 
   @override
   void onSuccessFetchData(Response response) {
-    // TODO: implement onSuccessFetchData
     presenter.setProcessing(false);
 
     source.update((val) {

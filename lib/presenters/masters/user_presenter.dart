@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../constants/base_text.dart';
-import '../../constants/config_types.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
-import '../../services/masters/type_service.dart';
 import '../../services/masters/user_service.dart';
 import '../../utils/custom_get_controller.dart';
 import '../../views/masters/users/user_form.dart';
 import '../../widgets/confirm_dialog.dart';
 
 class UserPresenter extends CustomGetXController {
+  Rx<List<Widget>> role = Rx<List<Widget>>([]);
   final _userService = Get.find<UserService>();
 
   late IndexViewContract _userViewContract;

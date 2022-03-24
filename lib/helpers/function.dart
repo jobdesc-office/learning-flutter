@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 
-import '../presenters/auth_presenter.dart';
 import '../presenters/navigation_presenter.dart';
 
 String notNull(dynamic value, {String? nullValue}) {
@@ -43,7 +42,6 @@ bool parseBool(dynamic value) {
 
 void toNameRoute(String name, {bool pushReplace = false}) {
   final navigation = Get.find<NavigationPresenter>();
-  final authPresenter = Get.find<AuthPresenter>();
 
   navigation.to(name, pushReplace: pushReplace);
 }

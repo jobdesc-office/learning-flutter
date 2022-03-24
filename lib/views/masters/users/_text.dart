@@ -9,4 +9,5 @@ class UserText {
   static String labelFullName = BaseText.defaultLabelName;
   static String labelEmail = 'Email';
   static String labelPhone = 'Phone';
+  static String labelRole = 'Role';
 }

@@ -13,7 +13,8 @@ class SessionManager {
 
   static Future<SessionModel> current() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    return SessionModel(jwtToken: sharedPreferences.getString('jwtToken'), userid: sharedPreferences.getInt('userid'));
+    return SessionModel(jwtToken: sharedPreferences.getString('jwtToken'),
+    userid: sharedPreferences.getInt('userid'));
   }
 
   static Future<bool> isLogged() async {

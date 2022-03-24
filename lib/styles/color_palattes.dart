@@ -7,4 +7,5 @@ class ColorPallates {
   static const quaternary = Color(0xFFECB390);
   static Color dark = Color(0xFF363636);
   static Color danger = Color(0xffB8405E);
+  static Color warning = Color(0xffFFD93D);
 }

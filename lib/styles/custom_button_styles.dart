@@ -15,4 +15,10 @@ class CustomButtonStyle {
         color: Colors.white,
         borderRadius: BorderRadius.circular(5),
       );
+
+  static BsButtonStyle get roundedWarning => BsButtonStyle(
+        backgroundColor: ColorPallates.warning,
+        color: Colors.black,
+        borderRadius: BorderRadius.circular(5),
+      );
 }
