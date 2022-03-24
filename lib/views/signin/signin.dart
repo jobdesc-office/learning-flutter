@@ -26,7 +26,7 @@ class SignInView extends StatelessWidget implements LoginViewContract {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromARGB(255, 230, 228, 228),
       body: Container(
         alignment: Alignment.center,
         child: Form(
@@ -43,7 +43,7 @@ class SignInView extends StatelessWidget implements LoginViewContract {
                       margin: EdgeInsets.only(top: Get.height * 0.20),
                       padding: EdgeInsets.fromLTRB(20, 40, 20, 40),
                       decoration: BoxDecoration(
-                        color: ColorPallates.quaternary,
+                        color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Column(
