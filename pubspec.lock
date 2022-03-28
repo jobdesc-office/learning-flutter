@@ -43,6 +43,13 @@ packages:
       relative: true
     source: path
     version: "1.0.6"
+  bs_flutter_responsive:
+    dependency: "direct main"
+    description:
+      path: "modules/bs_flutter_responsive"
+      relative: true
+    source: path
+    version: "1.0.0"
   bs_flutter_selectbox:
     dependency: "direct main"
     description:

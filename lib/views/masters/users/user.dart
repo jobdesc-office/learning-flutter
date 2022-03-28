@@ -85,6 +85,7 @@ class UserView extends GetView implements IndexViewContract, HandleErrorRequest{
   void onLoadDatatables(BuildContext context, Response response) {
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
+    datatable.onDetailsListener = (userid) => presenter.details(context, userid);
     datatable.onEditListener = (userid) => presenter.edit(context, userid);
     datatable.onDeleteListener = (userid) => presenter.delete(context, userid);
   }

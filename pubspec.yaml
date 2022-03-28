@@ -42,6 +42,8 @@ dependencies:
     path: ./modules/bs_flutter_selectbox
   bs_flutter_inputtext:
     path: ./modules/bs_flutter_inputtext
+  bs_flutter_responsive:
+    path: ./modules/bs_flutter_responsive
 
 dev_dependencies:
   flutter_test:

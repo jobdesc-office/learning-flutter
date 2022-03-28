@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 
 import '../../../models/masters/user_model.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
+import '../../../widgets/button/button_details_datatable.dart';
 import '../../../widgets/button/button_edit_datatable.dart';
 
 class UserDataTableSource extends BsDatatableSource {
+  ValueChanged<int> onDetailsListener = (value) {};
   ValueChanged<int> onEditListener = (value) {};
   ValueChanged<int> onDeleteListener = (value) {};
 
@@ -53,6 +55,10 @@ class UserDataTableSource extends BsDatatableSource {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              ButtonDetailsDatatables(
+                margin: EdgeInsets.only(right: 5),
+                onPressed: () => onDetailsListener(row.userid),
+              ),
               ButtonEditDatatables(
                 margin: EdgeInsets.only(right: 5),
                 onPressed: () => onEditListener(row.userid),

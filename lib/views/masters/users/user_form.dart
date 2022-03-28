@@ -1,5 +1,6 @@
 import 'package:boilerplate/models/masters/userdt_model.dart';
 import 'package:bs_flutter_modal/bs_flutter_modal.dart';
+import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,9 +15,9 @@ import '_text.dart';
 class UserFormView extends GetView implements EditViewContract{
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final UserPresenter presenter = Get.find<UserPresenter>();
+  final UserDetailModel c = Get.put(UserDetailModel());
   final source = UserSource().obs;
   final Function(Map<String, dynamic> body) onSave;
-  List<Widget> role = UserDetailModel().role.value;
 
   UserFormView({required this.onSave}) {
     presenter.userFetchDataContract = this;
@@ -31,6 +32,7 @@ class UserFormView extends GetView implements EditViewContract{
       child: BsModal(
         context: context,
         dialog: BsModalDialog(
+          size: BsModalSize.lg,
           child: BsModalContent(children: [
             BsModalContainer(
               title: Text(UserText.title),
@@ -42,14 +44,76 @@ class UserFormView extends GetView implements EditViewContract{
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    userForm.inputName(),
-                    userForm.inputPassword(),
-                    userForm.inputConfirmPassword(),
-                    userForm.inputFullName(),
-                    userForm.inputEmail(),
-                    userForm.inputPhone(),
-                    userForm.btnRole(),
-                    userForm.inputRole(),
+                    BsRow(
+                      children: [
+                        BsCol(
+                          margin: EdgeInsets.only(right: 5),
+                          sizes: ColScreen(lg: Col.col_6),
+                          child: userForm.inputName(),
+                        ),
+                        BsCol(
+                          margin: EdgeInsets.only(left: 5),
+                          sizes: ColScreen(lg: Col.col_6),
+                          child: userForm.inputFullName(),
+                        ),
+                      ],
+                    ),
+                    BsRow(
+                      children: [
+                        BsCol(
+                          margin: EdgeInsets.only(right: 5),
+                          sizes: ColScreen(lg: Col.col_6),
+                          child: userForm.inputPassword(),
+                        ),
+                        BsCol(
+                          margin: EdgeInsets.only(left: 5),
+                          sizes: ColScreen(lg: Col.col_6),
+                          child: userForm.inputConfirmPassword(),
+                        ),
+                      ],
+                    ),
+                    BsRow(
+                      children: [
+                        BsCol(
+                          margin: EdgeInsets.only(right: 5),
+                          sizes: ColScreen(lg: Col.col_6),
+                          child: userForm.inputEmail(),
+                        ),
+                        BsCol(
+                          margin: EdgeInsets.only(left: 5),
+                          sizes: ColScreen(lg: Col.col_6),
+                          child: userForm.inputPhone(),
+                        ),
+                      ],
+                    ),
+                    BsRow(
+                      children: [
+                        BsCol(
+                          sizes: ColScreen(sm: Col.col_12),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Role', style: TextStyle(fontWeight: FontWeight.bold),),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  userForm.btnIncrease(),
+                                  userForm.btnDecrease()
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    ListView.builder(
+                      itemCount: c.role.value,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: ((context, index) {
+                        return userForm.inputRole();
+                    }))
+                    
                   ],
                 );
               }),

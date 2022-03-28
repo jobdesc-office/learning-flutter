@@ -1,7 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class UserDetailModel extends GetxController{
-  Rx<List<Widget>> role = Rx<List<Widget>>([]);
+  var role = 1.obs;
+  var rightLeft = false.obs;
+
+  increase() => role++;
+
+  decrease() => role--;
   
 }

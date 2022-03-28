@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../constants/base_text.dart';
+import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
 import '../../services/masters/user_service.dart';
 import '../../utils/custom_get_controller.dart';
+import '../../views/masters/users/user_details.dart';
 import '../../views/masters/users/user_form.dart';
 import '../../widgets/confirm_dialog.dart';
 
@@ -21,6 +23,11 @@ class UserPresenter extends CustomGetXController {
   late EditViewContract _userFetchDataContract;
   set userFetchDataContract(EditViewContract userFetchDataContract) {
     _userFetchDataContract = userFetchDataContract;
+  }
+
+  late DetailViewContract _userFetchDataDetailsContract;
+  set userFetchDataDetailsContract(DetailViewContract userFetchDataDetailsContract) {
+    _userFetchDataDetailsContract = userFetchDataDetailsContract;
   }
 
   Future datatables(BuildContext context, Map<String, String> params) async {
@@ -44,6 +51,20 @@ class UserPresenter extends CustomGetXController {
     Response response = await _userService.store(body);
     if (response.statusCode == 200)
       _userViewContract.onCreateSuccess(response, context: context);
+    else
+      _userViewContract.onErrorRequest(response);
+  }
+
+  void details(BuildContext context, int userid) async {
+    setProcessing(true);
+    showDialog(
+      context: context,
+      builder: (context) => UserDetails(),
+    );
+
+    Response response = await _userService.show(userid);
+    if (response.statusCode == 200)
+      _userFetchDataContract.onSuccessFetchData(response);
     else
       _userViewContract.onErrorRequest(response);
   }
