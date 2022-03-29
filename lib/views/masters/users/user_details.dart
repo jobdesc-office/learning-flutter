@@ -4,7 +4,6 @@ import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../constants/base_text.dart';
 import '../../../contracts/base/details_view_contract.dart';
 import '../../../presenters/masters/user_presenter.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
@@ -34,55 +33,116 @@ class UserDetails extends GetView implements DetailViewContract {
               child: Obx(() => BsRow(
                     children: [
                       BsCol(
-                        sizes: ColScreen(lg: Col.col_12),
+                        sizes: ColScreen(lg: Col.col_2),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Row( 
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('Name : '),
-                                Text(c.name.value)
+                                Text('Name'),
                               ],
                             ),
-                            Row( 
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text('Username : '),
-                                Text(c.username.value)
-                              ],
+                            SizedBox(
+                              height: 20,
                             ),
                             Row( 
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('Email : '),
-                                Text(c.email.value)
+                                Text('Username')
                               ],
                             ),
+                            SizedBox(
+                              height: 20,
+                            ),
                             Row( 
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('Phone : '),
-                                Text(c.phone.value)
+                                Text('Email')
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row( 
+                              children: [
+                                Text('Phone')
                               ],
                             ),
                           ],
                         )
-                      )
+                      ),
+                      BsCol(
+                        sizes: ColScreen(lg: Col.col_1),
+                        child: Column(
+                          children: [
+                            Row( 
+                              children: [
+                                Text(' : ')
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row( 
+                              children: [
+                                Text(' : ')
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row( 
+                              children: [
+                                Text(' : ')
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row( 
+                              children: [
+                                Text(' : ')
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      BsCol(
+                        sizes: ColScreen(lg: Col.col_9),
+                        child: Column(
+                          children: [
+                            Row( 
+                              children: [
+                                Text(c.name.value)
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row( 
+                              children: [
+                                Text(c.username.value)
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row( 
+                              children: [
+                                Text(c.email.value)
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row( 
+                              children: [
+                                Text(c.phone.value)
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   )),
-            ),
-            BsModalContainer(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  ThemeButtonCancel(
-                    margin: EdgeInsets.only(right: 15),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                ],
-              ),
-            ),
+            )
           ]),
         ));
   }

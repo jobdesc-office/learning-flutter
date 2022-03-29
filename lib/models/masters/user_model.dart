@@ -9,7 +9,6 @@ class UserModel {
   String userphone;
   bool isactive;
 
-
   String jwtToken;
 
   UserModel({

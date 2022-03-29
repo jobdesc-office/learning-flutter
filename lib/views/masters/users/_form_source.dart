@@ -1,17 +1,20 @@
 import 'package:boilerplate/views/masters/users/_text.dart';
 import 'package:bs_flutter_inputtext/bs_flutter_inputtext.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
+import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../constants/base_text.dart';
 import '../../../models/masters/userdt_model.dart';
 import '../../../models/session_model.dart';
+import '../../../utils/select_api.dart';
 import '../../../utils/session_manager.dart';
 import '../../../utils/validators.dart';
 import '../../../widgets/button/button_role_user.dart';
 import '../../../widgets/form_group.dart';
 import '../../../widgets/input/custom_input.dart';
+import '../../../widgets/selectbox/custom_selectbox.dart';
 
 class UserSource{
   bool isProcessing = false;
@@ -22,6 +25,8 @@ class UserSource{
   TextEditingController inputFullName = TextEditingController();
   TextEditingController inputEmail = TextEditingController();
   TextEditingController inputPhone = TextEditingController();
+
+  BsSelectBoxController selectRole = BsSelectBoxController();
 
   Future<Map<String, dynamic>> toJson() async {
     SessionModel session = await SessionManager.current();
@@ -144,6 +149,7 @@ class UserForm {
 
   Widget btnDecrease() {
     return ButtonRoleUser2(
+      margin: EdgeInsets.only(left: 10),
         onPressed: c.decrease,
         disabled: c.role > 1 ? false : true,
       );
@@ -153,70 +159,94 @@ class UserForm {
     return BsRow(
       children: [
         BsCol(
-          margin: EdgeInsets.only(right: 5),
-          sizes: ColScreen(lg: Col.col_6),
+          margin: EdgeInsets.only(left: 5, top: 3),
+          sizes: ColScreen(lg: Col.col_2),
           child: FormGroup(
-            child: CustomInput(
-              disabled: source.isProcessing,
-              controller: source.inputPhone,
-              hintText: 'Type role here...',
-              validators: [
-                Validators.maxLength(UserText.labelRole, 15),
-              ],
-            ),
+          child: btnDecrease(),
+          ),
+        ),
+        BsCol(
+          margin: EdgeInsets.only(right: 5),
+          sizes: ColScreen(lg: Col.col_5),
+          child: FormGroup(
+          child: CustomSelectBox(
+            searchable: true,
+            disabled: source.isProcessing,
+            controller: source.selectRole,
+            hintText: BaseText.hiintSelect(),
+            serverSide: (params) => selectRole(params),
+          ),
           ),
         ),
         BsCol(
           margin: EdgeInsets.only(left: 5),
-          sizes: ColScreen(lg: Col.col_6),
+          sizes: ColScreen(lg: Col.col_5),
           child: FormGroup(
-            child: CustomInput(
-              disabled: source.isProcessing,
-              controller: source.inputPhone,
-              hintText: 'Type role here...',
-              validators: [
-                Validators.maxLength(UserText.labelRole, 15),
-              ],
-            ),
+          child: CustomSelectBox(
+            searchable: true,
+            disabled: source.isProcessing,
+            controller: source.selectRole,
+            hintText: BaseText.hiintSelect(),
+            serverSide: (params) => selectRole(params),
+          ),
           ),
         )
       ],
     );
   }
 
-  // Widget inputRoleLeft() {
-  //   c.rightLeft.value = !c.rightLeft.value;
-  //   return BsCol(
-  //         margin: EdgeInsets.only(right: 5),
-  //         sizes: ColScreen(lg: Col.col_6),
-  //         child: FormGroup(
-  //           child: CustomInput(
-  //             disabled: source.isProcessing,
-  //             controller: source.inputPhone,
-  //             hintText: 'Type role here...',
-  //             validators: [
-  //               Validators.maxLength(UserText.labelRole, 15),
-  //             ],
-  //           ),
-  //         ),
-  //       );
-  // }
+  Widget btnUp() {
+    return ButtonRoleUser3(
+        onPressed: c.up,
+        // disabled: c.role >= 3 ? true : false,
+      );
+  }
 
-  // Widget inputRoleRight() {
-  //   c.rightLeft.value = !c.rightLeft.value;
-  //   return BsCol(
-  //         margin: EdgeInsets.only(left: 5),
-  //         sizes: ColScreen(lg: Col.col_6),
-  //         child: FormGroup(
-  //           child: CustomInput(
-  //             disabled: source.isProcessing,
-  //             controller: source.inputPhone,
-  //             hintText: 'Type role here...',
-  //             validators: [
-  //               Validators.maxLength(UserText.labelRole, 15),
-  //             ],
-  //           ),
-  //         ),
-  //       );
-  // }
+  Widget btnDown() {
+    return ButtonRoleUser2(
+      margin: EdgeInsets.only(left: 10),
+        onPressed: c.down,
+        disabled: c.partner > 1 ? false : true,
+      );
+  }
+
+  Widget inputPartner() {
+    return BsRow(
+      children: [
+        BsCol(
+          margin: EdgeInsets.only(left: 5, top: 3),
+          sizes: ColScreen(lg: Col.col_2),
+          child: FormGroup(
+          child: btnDown(),
+          ),
+        ),
+        BsCol(
+          margin: EdgeInsets.only(right: 5),
+          sizes: ColScreen(lg: Col.col_5),
+          child: FormGroup(
+          child: CustomSelectBox(
+            searchable: true,
+            disabled: source.isProcessing,
+            controller: source.selectRole,
+            hintText: BaseText.hiintSelect(),
+            serverSide: (params) => selectPartner(params),
+          ),
+          ),
+        ),
+        BsCol(
+          margin: EdgeInsets.only(left: 5),
+          sizes: ColScreen(lg: Col.col_5),
+          child: FormGroup(
+          child: CustomSelectBox(
+            searchable: true,
+            disabled: source.isProcessing,
+            controller: source.selectRole,
+            hintText: BaseText.hiintSelect(),
+            serverSide: (params) => selectPartner(params),
+          ),
+          ),
+        )
+      ],
+    );
+  }
 }

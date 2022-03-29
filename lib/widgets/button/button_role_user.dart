@@ -12,7 +12,7 @@ class ButtonRoleUser extends BsButton {
   }) : super(
           disabled: disabled,
           margin: margin,
-          label: Text('Increase'),
+          label: Text('Add Role'),
           style: CustomButtonStyle.roundedPrimary,
           size: CustomButonSize.small,
           onPressed: onPressed,
@@ -27,8 +27,23 @@ class ButtonRoleUser2 extends BsButton {
   }) : super(
           disabled: disabled,
           margin: margin,
-          label: Text('Decrease'),
+          label: Icon(Icons.horizontal_rule),
           style: CustomButtonStyle.roundedDanger,
+          size: CustomButonSize.small,
+          onPressed: onPressed,
+        );
+}
+
+class ButtonRoleUser3 extends BsButton {
+  ButtonRoleUser3({
+    required VoidCallback onPressed,
+    EdgeInsets margin = EdgeInsets.zero,
+    bool disabled = false,
+  }) : super(
+          disabled: disabled,
+          margin: margin,
+          label: Text('Add Partner'),
+          style: CustomButtonStyle.roundedPrimary,
           size: CustomButonSize.small,
           onPressed: onPressed,
         );

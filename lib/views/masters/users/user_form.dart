@@ -32,7 +32,7 @@ class UserFormView extends GetView implements EditViewContract{
       child: BsModal(
         context: context,
         dialog: BsModalDialog(
-          size: BsModalSize.lg,
+          size: BsModalSize.md,
           child: BsModalContent(children: [
             BsModalContainer(
               title: Text(UserText.title),
@@ -44,48 +44,12 @@ class UserFormView extends GetView implements EditViewContract{
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    BsRow(
-                      children: [
-                        BsCol(
-                          margin: EdgeInsets.only(right: 5),
-                          sizes: ColScreen(lg: Col.col_6),
-                          child: userForm.inputName(),
-                        ),
-                        BsCol(
-                          margin: EdgeInsets.only(left: 5),
-                          sizes: ColScreen(lg: Col.col_6),
-                          child: userForm.inputFullName(),
-                        ),
-                      ],
-                    ),
-                    BsRow(
-                      children: [
-                        BsCol(
-                          margin: EdgeInsets.only(right: 5),
-                          sizes: ColScreen(lg: Col.col_6),
-                          child: userForm.inputPassword(),
-                        ),
-                        BsCol(
-                          margin: EdgeInsets.only(left: 5),
-                          sizes: ColScreen(lg: Col.col_6),
-                          child: userForm.inputConfirmPassword(),
-                        ),
-                      ],
-                    ),
-                    BsRow(
-                      children: [
-                        BsCol(
-                          margin: EdgeInsets.only(right: 5),
-                          sizes: ColScreen(lg: Col.col_6),
-                          child: userForm.inputEmail(),
-                        ),
-                        BsCol(
-                          margin: EdgeInsets.only(left: 5),
-                          sizes: ColScreen(lg: Col.col_6),
-                          child: userForm.inputPhone(),
-                        ),
-                      ],
-                    ),
+                    userForm.inputName(),
+                    userForm.inputFullName(),
+                    userForm.inputPassword(),
+                    userForm.inputConfirmPassword(),
+                    userForm.inputEmail(),
+                    userForm.inputPhone(),
                     BsRow(
                       children: [
                         BsCol(
@@ -97,8 +61,7 @@ class UserFormView extends GetView implements EditViewContract{
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
-                                  userForm.btnIncrease(),
-                                  userForm.btnDecrease()
+                                  userForm.btnIncrease()
                                 ],
                               ),
                             ],
@@ -112,8 +75,33 @@ class UserFormView extends GetView implements EditViewContract{
                       physics: NeverScrollableScrollPhysics(),
                       itemBuilder: ((context, index) {
                         return userForm.inputRole();
-                    }))
-                    
+                    })),
+                    BsRow(
+                      children: [
+                        BsCol(
+                          sizes: ColScreen(sm: Col.col_12),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Business Partner', style: TextStyle(fontWeight: FontWeight.bold),),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  userForm.btnUp()
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    ListView.builder(
+                      itemCount: c.partner.value,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: ((context, index) {
+                        return userForm.inputPartner();
+                    })),
                   ],
                 );
               }),

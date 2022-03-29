@@ -23,8 +23,8 @@ class TypeModel {
       typecd: parseString(json['typecd']),
       typename: parseString(json['typename']),
       typeseq: parseInt(json['typeseq']),
-      masterid: parseInt(json['masterid']),
-      description: parseString(json['description']),
+      masterid: parseInt(json['typemasterid']),
+      description: parseString(json['typedesc']),
     );
   }
 }
