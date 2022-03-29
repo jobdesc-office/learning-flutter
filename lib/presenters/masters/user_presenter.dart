@@ -63,6 +63,7 @@ class UserPresenter extends CustomGetXController {
     );
 
     Response response = await _userService.show(userid);
+    print(response.body);
     if (response.statusCode == 200)
       _userFetchDataDetailsContract.onSuccessFetchData(response);
     else

@@ -1,12 +1,11 @@
-import 'package:boilerplate/models/masters/user_model.dart';
 import 'package:bs_flutter_modal/bs_flutter_modal.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/details_view_contract.dart';
+import '../../../models/masters/userdt_model.dart';
 import '../../../presenters/masters/user_presenter.dart';
-import '../../../widgets/button/theme_button_cancel.dart';
 import '_details_source.dart';
 import '_text.dart';
 
@@ -65,6 +64,22 @@ class UserDetails extends GetView implements DetailViewContract {
                                 Text('Phone')
                               ],
                             ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row( 
+                              children: [
+                                Text('Role')
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row( 
+                              children: [
+                                Text('Partner')
+                              ],
+                            ),
                           ],
                         )
                       ),
@@ -72,6 +87,22 @@ class UserDetails extends GetView implements DetailViewContract {
                         sizes: ColScreen(lg: Col.col_1),
                         child: Column(
                           children: [
+                            Row( 
+                              children: [
+                                Text(' : ')
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row( 
+                              children: [
+                                Text(' : ')
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
                             Row( 
                               children: [
                                 Text(' : ')
@@ -137,6 +168,22 @@ class UserDetails extends GetView implements DetailViewContract {
                                 Text(c.phone.value)
                               ],
                             ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row( 
+                              children: [
+                                Text(c.type.value)
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row( 
+                              children: [
+                                Text(c.bp.value)
+                              ],
+                            ),
                           ],
                         ),
                       ),
@@ -149,11 +196,13 @@ class UserDetails extends GetView implements DetailViewContract {
 
   @override
   void onSuccessFetchData(Response response) {
-    UserModel dt = UserModel.fromJson(response.body);
+    UserDetailModel dt = UserDetailModel.fromJson(response.body);
     c.name.value = dt.userfullname;
     c.username.value = dt.username;
     c.email.value = dt.useremail;
     c.phone.value = dt.userphone;
+    c.type.value = dt.typename;
+    c.bp.value = dt.bpname;
     c.active.value = dt.isactive;
   }
 }

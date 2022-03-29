@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../models/masters/businesspartner_model.dart';
-import '../models/masters/user_model.dart';
 import '../services/masters/user_service.dart';
 import '../services/security/menu_service.dart';
 

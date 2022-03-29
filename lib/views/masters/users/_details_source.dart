@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class userDetailsSource extends GetxController{
@@ -6,5 +5,7 @@ class userDetailsSource extends GetxController{
   var username = ''.obs;
   var email = ''.obs;
   var phone = ''.obs;
+  var type = ''.obs;
+  var bp = ''.obs;
   var active = true.obs;
 }
