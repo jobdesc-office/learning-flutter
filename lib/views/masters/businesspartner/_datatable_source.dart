@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 
 import '../../../models/masters/businesspartner_model.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
+import '../../../widgets/button/button_details_datatable.dart';
 import '../../../widgets/button/button_edit_datatable.dart';
 
 class BusinessPartnerDataTableSource extends BsDatatableSource {
+  ValueChanged<int> onDetailsListener = (value) {};
   ValueChanged<int> onEditListener = (value) {};
   ValueChanged<int> onDeleteListener = (value) {};
 
@@ -55,6 +57,10 @@ class BusinessPartnerDataTableSource extends BsDatatableSource {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              ButtonDetailsDatatables(
+                margin: EdgeInsets.only(right: 5),
+                onPressed: () => onDetailsListener(row.bpid),
+              ),
               ButtonEditDatatables(
                 margin: EdgeInsets.only(right: 5),
                 onPressed: () => onEditListener(row.bpid),

@@ -3,12 +3,14 @@ import 'package:get/get.dart';
 
 import '../../constants/base_text.dart';
 import '../../constants/config_types.dart';
+import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
 import '../../services/masters/businessPartner_service.dart';
 import '../../services/masters/type_service.dart';
 import '../../utils/custom_get_controller.dart';
 import '../../views/masters/businesspartner/_businesspartner_type.dart';
+import '../../views/masters/businesspartner/businesspartner_detail.dart';
 import '../../views/masters/businesspartner/businesspartner_form.dart';
 import '../../widgets/confirm_dialog.dart';
 
@@ -31,6 +33,11 @@ class BusinessPartnerPresenter extends CustomGetXController {
     _businessPartnerTypeViewContract = businessPartnerTypeViewContract;
   }
 
+  late DetailViewContract _businessPartnerFetchDataDetailsContract;
+  set businessPartnerFetchDataDetailsContract(DetailViewContract businessPartnerFetchDataDetailsContract) {
+    _businessPartnerFetchDataDetailsContract = businessPartnerFetchDataDetailsContract;
+  }
+
   Future datatables(BuildContext context, Map<String, String> params) async {
     Response response = await _businessPartnerService.datatables(params);
     if (response.statusCode == 200)
@@ -43,6 +50,21 @@ class BusinessPartnerPresenter extends CustomGetXController {
     Response response = await _typeService.byCode(ConfigType.businessPartner);
     if (response.statusCode == 200)
       _businessPartnerTypeViewContract.onLoadSuccess(response);
+    else
+      _businessPartnerViewContract.onErrorRequest(response);
+  }
+
+  void details(BuildContext context, int userid) async {
+    setProcessing(true);
+    showDialog(
+      context: context,
+      builder: (context) => BusinessPartnerDetails(),
+    );
+
+    Response response = await _businessPartnerService.show(userid);
+    print(response.body);
+    if (response.statusCode == 200)
+      _businessPartnerFetchDataDetailsContract.onSuccessFetchData(response);
     else
       _businessPartnerViewContract.onErrorRequest(response);
   }

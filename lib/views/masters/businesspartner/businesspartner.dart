@@ -84,6 +84,7 @@ class BusinessPartnerView extends GetView implements IndexViewContract, HandleEr
   void onLoadDatatables(BuildContext context, Response response) {
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
+    datatable.onDetailsListener = (bpid) => presenter.details(context, bpid);
     datatable.onEditListener = (bpid) => presenter.edit(context, bpid);
     datatable.onDeleteListener = (bpid) => presenter.delete(context, bpid);
   }

@@ -5,6 +5,7 @@ class BusinessPartnerModel {
   int bpid;
   String bpname;
   String bptypeid;
+  String typename;
   String bppicname;
   String bpemail;
   String bpphone;
@@ -18,6 +19,7 @@ class BusinessPartnerModel {
     this.bpid = 0,
     this.bpname = '',
     this.bptypeid = '',
+    this.typename = '',
     this.bppicname = '',
     this.bpemail = '',
     this.bpphone = '',
@@ -31,6 +33,7 @@ class BusinessPartnerModel {
       bpid: parseInt(json['bpid']),
       bpname: parseString(json['bpname']),
       bptypeid: parseString(json['bptypeid']),
+      typename: parseString(json['bptype']['typename']),
       bppicname: parseString(json['bppicname']),
       bpemail: parseString(json['bpemail']),
       bpphone: parseString(json['bpphone']),
