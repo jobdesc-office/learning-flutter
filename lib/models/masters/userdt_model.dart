@@ -1,18 +1,6 @@
-import 'package:get/get.dart';
-
 import '../../helpers/function.dart';
 
-class UserDetailModel extends GetxController{
-  var role = 1.obs;
-  var partner = 1.obs;
-
-  increase() => role++;
-
-  decrease() => role--;
-
-  up() => partner++;
-
-  down() => partner--;
+class UserDetailModel{
 
   String username;
   String userfullname;

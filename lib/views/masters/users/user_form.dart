@@ -1,4 +1,3 @@
-import 'package:boilerplate/models/masters/userdt_model.dart';
 import 'package:bs_flutter_modal/bs_flutter_modal.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +14,7 @@ import '_text.dart';
 class UserFormView extends GetView implements EditViewContract{
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final UserPresenter presenter = Get.find<UserPresenter>();
-  final UserDetailModel c = Get.put(UserDetailModel());
+  final UserSource c = Get.put(UserSource());
   final source = UserSource().obs;
   final Function(Map<String, dynamic> body) onSave;
 

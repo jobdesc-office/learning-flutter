@@ -27,10 +27,10 @@ class BackgroundAuth extends GetView{
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text('data', style: TextStyle(fontSize: 24, color: ColorPallates.quaternary)),
-                Text('data', style: TextStyle(fontSize: 24, color: ColorPallates.quaternary)),
-                Text('data', style: TextStyle(fontSize: 24, color: ColorPallates.quaternary)),
-                Text('data', style: TextStyle(fontSize: 24, color: ColorPallates.quaternary))
+                Text('data', style: TextStyle(fontSize: 24, color: ColorPallates.dark)),
+                Text('data', style: TextStyle(fontSize: 24, color: ColorPallates.dark)),
+                Text('data', style: TextStyle(fontSize: 24, color: ColorPallates.dark)),
+                Text('data', style: TextStyle(fontSize: 24, color: ColorPallates.dark))
               ],
             ),
           ),

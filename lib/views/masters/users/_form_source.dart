@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../constants/base_text.dart';
-import '../../../models/masters/userdt_model.dart';
 import '../../../models/session_model.dart';
 import '../../../utils/select_api.dart';
 import '../../../utils/session_manager.dart';
@@ -16,7 +15,17 @@ import '../../../widgets/form_group.dart';
 import '../../../widgets/input/custom_input.dart';
 import '../../../widgets/selectbox/custom_selectbox.dart';
 
-class UserSource{
+class UserSource extends GetxController{
+  var role = 1.obs;
+  var partner = 1.obs;
+
+  increase() => role++;
+
+  decrease() => role--;
+
+  up() => partner++;
+
+  down() => partner--;
   bool isProcessing = false;
 
   TextEditingController inputName = TextEditingController();
@@ -45,7 +54,7 @@ class UserSource{
 
 class UserForm {
   final UserSource source;
-  final UserDetailModel c = Get.put(UserDetailModel());
+  final UserSource c = Get.put(UserSource());
 
   UserForm(this.source);
 
