@@ -11,7 +11,7 @@ class LoginForm {
       child: BsInput(
         style: BsInputStyle(
           border: Border.all(color: Color(0xffdedede)),
-          backgroundColor: Color(0xffdedede),
+          backgroundColor: Color.fromARGB(255, 255, 255, 255),
           borderRadius: BorderRadius.circular(5),
           boxShadowFocused: [
             BoxShadow(
@@ -30,7 +30,7 @@ class LoginForm {
         ),
         controller: controller,
         hintTextLabel: 'Username',
-        suffixIcon: CupertinoIcons.person,
+        prefixIcon: CupertinoIcons.person,
         validators: [
           Validators.inputRequired('Username'),
         ],
@@ -41,13 +41,15 @@ class LoginForm {
   Widget password({
     required TextEditingController controller,
     bool obsecureText = true,
+    IconData? suffixIcon,
     VoidCallback? onTapSuffixIcon,
   }) {
     return FormGroup(
       child: BsInput(
+        obscureText: obsecureText,
         style: BsInputStyle(
           border: Border.all(color: Color(0xffdedede)),
-          backgroundColor: Color(0xffdedede),
+          backgroundColor: Color.fromARGB(255, 255, 255, 255),
           borderRadius: BorderRadius.circular(5),
           boxShadowFocused: [
             BoxShadow(
@@ -66,12 +68,12 @@ class LoginForm {
         ),
         controller: controller,
         hintTextLabel: 'Password',
-        suffixIcon: CupertinoIcons.eye,
-        onTapSuffixIcon: onTapSuffixIcon,
-        obscureText: obsecureText,
+        prefixIcon: CupertinoIcons.lock,
+        suffixIcon: suffixIcon,
         validators: [
           Validators.inputRequired('Password'),
         ],
+        onTapSuffixIcon: onTapSuffixIcon,
       ),
     );
   }

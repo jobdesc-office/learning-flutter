@@ -28,11 +28,11 @@ class AuthPresenter extends CustomGetXController {
   set guardContract(GuardContract guardContract) =>
       _guardContract = guardContract;
 
-  void togglePassword() {
-    source.update((val) {
-      source.value.showPassword = !source.value.showPassword;
-    });
-  }
+  // void togglePassword() {
+  //   source.update((val) {
+  //     source.value.showPassword = !source.value.showPassword;
+  //   });
+  // }
 
   void signIn() {
     _authService
