@@ -29,8 +29,8 @@ class UserDetailModel{
       userfullname: parseString(json['userfullname']),
       useremail: parseString(json['useremail']),
       userphone: parseString(json['userphone']),
-      typename: parseString(json['typename']),
-      bpname: parseString(json['bpname']),
+      typename: parseString(json['usertype']['typename']),
+      bpname: parseString(json['businesspartner']['bpname']),
       isactive: parseBool(json['isactive']),
       jwtToken: parseString(json['jwt_token']),
     );
