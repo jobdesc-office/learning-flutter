@@ -149,14 +149,14 @@ class _SignInViewState extends State<SignInView> with TickerProviderStateMixin i
                                         ),
                                         Text('forgot password?'),
                                         SizedBox(
-                                          height: 20,
+                                          height: 15,
                                         ),
                                         Text('or'),
                                         SizedBox(
-                                          height: 20,
+                                          height: 15,
                                         ),
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: [
                                             CircleAvatar(
                                               backgroundImage: AssetImage('assets/images/fb.png'),
@@ -245,6 +245,7 @@ class _SignInViewState extends State<SignInView> with TickerProviderStateMixin i
 
   @override
   void onLoginFailed(String message) {
+    Get.defaultDialog();
     authPresenter.setProcessing(false);
   }
 

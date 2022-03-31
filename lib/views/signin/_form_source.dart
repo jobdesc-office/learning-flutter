@@ -1,5 +1,6 @@
 import 'package:bs_flutter_inputtext/bs_flutter_inputtext.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 
 import '../../styles/color_palattes.dart';
 import '../../utils/validators.dart';
