@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:boilerplate/views/masters/users/_text.dart';
 import 'package:bs_flutter_inputtext/bs_flutter_inputtext.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
@@ -19,7 +21,10 @@ class UserSource extends GetxController{
   var role = 1.obs;
   var partner = 1.obs;
 
-  increase() => role++;
+  increase() {
+    selectsRole.add(BsSelectBoxController());
+    selectsBp.add(BsSelectBoxController());
+  }
 
   decrease() => role--;
 
@@ -35,7 +40,15 @@ class UserSource extends GetxController{
   TextEditingController inputEmail = TextEditingController();
   TextEditingController inputPhone = TextEditingController();
 
-  BsSelectBoxController selectRole = BsSelectBoxController();
+  List<BsSelectBoxController> selectsRole = List<BsSelectBoxController>.empty(growable: true);
+  List<BsSelectBoxController> selectsBp = List<BsSelectBoxController>.empty(growable: true);
+  
+  List<Map<String, dynamic>> jsonRoles(){
+    return List<Map<String, dynamic>>.from(selectsRole.map((controller){
+      int index = selectsRole.indexOf(controller);
+      return {'roleid': selectsRole[index].getSelectedAsString(), 'bpid': selectsBp[index].getSelectedAsString()};
+    }));
+  }
 
   Future<Map<String, dynamic>> toJson() async {
     SessionModel session = await SessionManager.current();
@@ -48,6 +61,7 @@ class UserSource extends GetxController{
       'createdby': session.userid,
       'updatedby': session.userid,
       'isactive': true,
+      'roles': jsonEncode(jsonRoles())
     };
   }
 }
@@ -57,6 +71,60 @@ class UserForm {
   final UserSource c = Get.put(UserSource());
 
   UserForm(this.source);
+
+  Widget formDetail({required ValueChanged<int> onRemoveItem}){
+    return FormGroup(
+      label: Text(UserText.labelRole),
+      child: Column(
+        children: source.selectsRole.map((controller){
+          int index = source.selectsRole.indexOf(controller);
+          var selectRole = source.selectsRole[index];
+          var selectBp = source.selectsBp[index];
+          return BsRow(
+      children: [
+        BsCol(
+          margin: EdgeInsets.only(left: 5, top: 3),
+          sizes: ColScreen(lg: Col.col_2),
+          child: FormGroup(
+          child: ButtonRoleUser2(
+      margin: EdgeInsets.only(left: 10),
+        onPressed: () => onRemoveItem(index),
+        disabled: source.selectsRole.length > 1 ? false : true,
+      ),
+          ),
+        ),
+        BsCol(
+          margin: EdgeInsets.only(right: 5),
+          sizes: ColScreen(lg: Col.col_5),
+          child: FormGroup(
+          child: CustomSelectBox(
+            searchable: true,
+            disabled: source.isProcessing,
+            controller: selectRole,
+            hintText: BaseText.hiintSelect(),
+            serverSide: (params) => selectApiRole(params),
+          ),
+          ),
+        ),
+        BsCol(
+          margin: EdgeInsets.only(left: 5),
+          sizes: ColScreen(lg: Col.col_5),
+          child: FormGroup(
+          child: CustomSelectBox(
+            searchable: true,
+            disabled: source.isProcessing,
+            controller: selectBp,
+            hintText: BaseText.hiintSelect(),
+            serverSide: (params) => selectApiPartner(params),
+          ),
+          ),
+        )
+      ],
+    );
+        }).toList(),
+      ),
+    );
+  }
 
   Widget inputName() {
     return FormGroup(
@@ -164,45 +232,45 @@ class UserForm {
       );
   }
   
-  Widget inputRole() {
-    return BsRow(
-      children: [
-        BsCol(
-          margin: EdgeInsets.only(left: 5, top: 3),
-          sizes: ColScreen(lg: Col.col_2),
-          child: FormGroup(
-          child: btnDecrease(),
-          ),
-        ),
-        BsCol(
-          margin: EdgeInsets.only(right: 5),
-          sizes: ColScreen(lg: Col.col_5),
-          child: FormGroup(
-          child: CustomSelectBox(
-            searchable: true,
-            disabled: source.isProcessing,
-            controller: source.selectRole,
-            hintText: BaseText.hiintSelect(),
-            serverSide: (params) => selectRole(params),
-          ),
-          ),
-        ),
-        BsCol(
-          margin: EdgeInsets.only(left: 5),
-          sizes: ColScreen(lg: Col.col_5),
-          child: FormGroup(
-          child: CustomSelectBox(
-            searchable: true,
-            disabled: source.isProcessing,
-            controller: source.selectRole,
-            hintText: BaseText.hiintSelect(),
-            serverSide: (params) => selectRole(params),
-          ),
-          ),
-        )
-      ],
-    );
-  }
+  // Widget inputRole() {
+  //   return BsRow(
+  //     children: [
+  //       BsCol(
+  //         margin: EdgeInsets.only(left: 5, top: 3),
+  //         sizes: ColScreen(lg: Col.col_2),
+  //         child: FormGroup(
+  //         child: btnDecrease(),
+  //         ),
+  //       ),
+  //       BsCol(
+  //         margin: EdgeInsets.only(right: 5),
+  //         sizes: ColScreen(lg: Col.col_5),
+  //         child: FormGroup(
+  //         child: CustomSelectBox(
+  //           searchable: true,
+  //           disabled: source.isProcessing,
+  //           controller: source.selectRole,
+  //           hintText: BaseText.hiintSelect(),
+  //           serverSide: (params) => selectRole(params),
+  //         ),
+  //         ),
+  //       ),
+  //       BsCol(
+  //         margin: EdgeInsets.only(left: 5),
+  //         sizes: ColScreen(lg: Col.col_5),
+  //         child: FormGroup(
+  //         child: CustomSelectBox(
+  //           searchable: true,
+  //           disabled: source.isProcessing,
+  //           controller: source.selectRole,
+  //           hintText: BaseText.hiintSelect(),
+  //           serverSide: (params) => selectRole(params),
+  //         ),
+  //         ),
+  //       )
+  //     ],
+  //   );
+  // }
 
   Widget btnUp() {
     return ButtonRoleUser3(
@@ -219,43 +287,43 @@ class UserForm {
       );
   }
 
-  Widget inputPartner() {
-    return BsRow(
-      children: [
-        BsCol(
-          margin: EdgeInsets.only(left: 5, top: 3),
-          sizes: ColScreen(lg: Col.col_2),
-          child: FormGroup(
-          child: btnDown(),
-          ),
-        ),
-        BsCol(
-          margin: EdgeInsets.only(right: 5),
-          sizes: ColScreen(lg: Col.col_5),
-          child: FormGroup(
-          child: CustomSelectBox(
-            searchable: true,
-            disabled: source.isProcessing,
-            controller: source.selectRole,
-            hintText: BaseText.hiintSelect(),
-            serverSide: (params) => selectPartner(params),
-          ),
-          ),
-        ),
-        BsCol(
-          margin: EdgeInsets.only(left: 5),
-          sizes: ColScreen(lg: Col.col_5),
-          child: FormGroup(
-          child: CustomSelectBox(
-            searchable: true,
-            disabled: source.isProcessing,
-            controller: source.selectRole,
-            hintText: BaseText.hiintSelect(),
-            serverSide: (params) => selectPartner(params),
-          ),
-          ),
-        )
-      ],
-    );
-  }
+  // Widget inputPartner() {
+  //   return BsRow(
+  //     children: [
+  //       BsCol(
+  //         margin: EdgeInsets.only(left: 5, top: 3),
+  //         sizes: ColScreen(lg: Col.col_2),
+  //         child: FormGroup(
+  //         child: btnDown(),
+  //         ),
+  //       ),
+  //       BsCol(
+  //         margin: EdgeInsets.only(right: 5),
+  //         sizes: ColScreen(lg: Col.col_5),
+  //         child: FormGroup(
+  //         child: CustomSelectBox(
+  //           searchable: true,
+  //           disabled: source.isProcessing,
+  //           controller: source.selectRole,
+  //           hintText: BaseText.hiintSelect(),
+  //           serverSide: (params) => selectPartner(params),
+  //         ),
+  //         ),
+  //       ),
+  //       BsCol(
+  //         margin: EdgeInsets.only(left: 5),
+  //         sizes: ColScreen(lg: Col.col_5),
+  //         child: FormGroup(
+  //         child: CustomSelectBox(
+  //           searchable: true,
+  //           disabled: source.isProcessing,
+  //           controller: source.selectRole,
+  //           hintText: BaseText.hiintSelect(),
+  //           serverSide: (params) => selectPartner(params),
+  //         ),
+  //         ),
+  //       )
+  //     ],
+  //   );
+  // }
 }

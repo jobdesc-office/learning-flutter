@@ -25,7 +25,7 @@ Future<BsSelectBoxResponse> selectMenu(Map<String, String> params) async {
   return BsSelectBoxResponse(options: []);
 }
 
-Future<BsSelectBoxResponse> selectRole(Map<String, String> params) async {
+Future<BsSelectBoxResponse> selectApiRole(Map<String, String> params) async {
   final userService = Get.find<UserService>();
   Response response = await userService.select(params);
   if (response.isOk) {
@@ -41,7 +41,7 @@ Future<BsSelectBoxResponse> selectRole(Map<String, String> params) async {
   return BsSelectBoxResponse(options: []);
 }
 
-Future<BsSelectBoxResponse> selectPartner(Map<String, String> params) async {
+Future<BsSelectBoxResponse> selectApiPartner(Map<String, String> params) async {
   final userService = Get.find<UserService>();
   Response response = await userService.select2(params);
   if (response.isOk) {

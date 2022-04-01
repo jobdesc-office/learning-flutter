@@ -1,11 +1,13 @@
 import 'package:bs_flutter_modal/bs_flutter_modal.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
+import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/edit_view_contract.dart';
 import '../../../models/masters/user_model.dart';
 import '../../../presenters/masters/user_presenter.dart';
+import '../../../widgets/button/button_role_user.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
 import '_form_source.dart';
@@ -49,58 +51,67 @@ class UserFormView extends GetView implements EditViewContract{
                     userForm.inputConfirmPassword(),
                     userForm.inputEmail(),
                     userForm.inputPhone(),
-                    BsRow(
+                    Row(
                       children: [
-                        BsCol(
-                          sizes: ColScreen(sm: Col.col_12),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('Role', style: TextStyle(fontWeight: FontWeight.bold),),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  userForm.btnIncrease()
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
+                        ButtonRoleUser(
+        onPressed: onClickAddRole,
+        // disabled: c.role >= 3 ? true : false,
+      )
                       ],
                     ),
-                    ListView.builder(
-                      itemCount: c.role.value,
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemBuilder: ((context, index) {
-                        return userForm.inputRole();
-                    })),
-                    BsRow(
-                      children: [
-                        BsCol(
-                          sizes: ColScreen(sm: Col.col_12),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('Business Partner', style: TextStyle(fontWeight: FontWeight.bold),),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  userForm.btnUp()
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    ListView.builder(
-                      itemCount: c.partner.value,
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemBuilder: ((context, index) {
-                        return userForm.inputPartner();
-                    })),
+                    userForm.formDetail(onRemoveItem: onClickRemoveRoleItem)
+                    // BsRow(
+                    //   children: [
+                    //     BsCol(
+                    //       sizes: ColScreen(sm: Col.col_12),
+                    //       child: Row(
+                    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //         children: [
+                    //           Text('Role', style: TextStyle(fontWeight: FontWeight.bold),),
+                    //           Row(
+                    //             mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    //             children: [
+                    //               userForm.btnIncrease()
+                    //             ],
+                    //           ),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+                    // ListView.builder(
+                    //   itemCount: c.role.value,
+                    //   shrinkWrap: true,
+                    //   physics: NeverScrollableScrollPhysics(),
+                    //   itemBuilder: ((context, index) {
+                    //     return userForm.inputRole();
+                    // })),
+                    // BsRow(
+                    //   children: [
+                    //     BsCol(
+                    //       sizes: ColScreen(sm: Col.col_12),
+                    //       child: Row(
+                    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //         children: [
+                    //           Text('Business Partner', style: TextStyle(fontWeight: FontWeight.bold),),
+                    //           Row(
+                    //             mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    //             children: [
+                    //               userForm.btnUp()
+                    //             ],
+                    //           ),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+                    // ListView.builder(
+                    //   itemCount: c.partner.value,
+                    //   shrinkWrap: true,
+                    //   physics: NeverScrollableScrollPhysics(),
+                    //   itemBuilder: ((context, index) {
+                    //     return userForm.inputPartner();
+                    // })),
                   ],
                 );
               }),
@@ -129,6 +140,18 @@ class UserFormView extends GetView implements EditViewContract{
         ),
       ),
     );
+  }
+
+  void onClickAddRole(){
+    source.update((val) { 
+    source.value.selectsRole.add(BsSelectBoxController());
+    source.value.selectsBp.add(BsSelectBoxController());});
+  }
+
+  void onClickRemoveRoleItem(int index) {
+    source.update((val) { 
+    source.value.selectsRole.removeAt(index);
+    source.value.selectsBp.removeAt(index);});
   }
 
   void onClickSaveModal(BuildContext context) async {
