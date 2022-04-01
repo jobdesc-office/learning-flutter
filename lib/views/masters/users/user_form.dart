@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 import '../../../contracts/base/edit_view_contract.dart';
 import '../../../models/masters/user_model.dart';
+import '../../../models/masters/userdt_model.dart';
 import '../../../presenters/masters/user_presenter.dart';
 import '../../../widgets/button/button_role_user.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
@@ -13,7 +14,7 @@ import '../../../widgets/button/theme_button_save.dart';
 import '_form_source.dart';
 import '_text.dart';
 
-class UserFormView extends GetView implements EditViewContract{
+class UserFormView extends GetView implements EditViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final UserPresenter presenter = Get.find<UserPresenter>();
   final UserSource c = Get.put(UserSource());
@@ -54,64 +55,12 @@ class UserFormView extends GetView implements EditViewContract{
                     Row(
                       children: [
                         ButtonRoleUser(
-        onPressed: onClickAddRole,
-        // disabled: c.role >= 3 ? true : false,
-      )
+                          onPressed: onClickAddRole,
+                          // disabled: c.role >= 3 ? true : false,
+                        )
                       ],
                     ),
                     userForm.formDetail(onRemoveItem: onClickRemoveRoleItem)
-                    // BsRow(
-                    //   children: [
-                    //     BsCol(
-                    //       sizes: ColScreen(sm: Col.col_12),
-                    //       child: Row(
-                    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //         children: [
-                    //           Text('Role', style: TextStyle(fontWeight: FontWeight.bold),),
-                    //           Row(
-                    //             mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    //             children: [
-                    //               userForm.btnIncrease()
-                    //             ],
-                    //           ),
-                    //         ],
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
-                    // ListView.builder(
-                    //   itemCount: c.role.value,
-                    //   shrinkWrap: true,
-                    //   physics: NeverScrollableScrollPhysics(),
-                    //   itemBuilder: ((context, index) {
-                    //     return userForm.inputRole();
-                    // })),
-                    // BsRow(
-                    //   children: [
-                    //     BsCol(
-                    //       sizes: ColScreen(sm: Col.col_12),
-                    //       child: Row(
-                    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //         children: [
-                    //           Text('Business Partner', style: TextStyle(fontWeight: FontWeight.bold),),
-                    //           Row(
-                    //             mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    //             children: [
-                    //               userForm.btnUp()
-                    //             ],
-                    //           ),
-                    //         ],
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
-                    // ListView.builder(
-                    //   itemCount: c.partner.value,
-                    //   shrinkWrap: true,
-                    //   physics: NeverScrollableScrollPhysics(),
-                    //   itemBuilder: ((context, index) {
-                    //     return userForm.inputPartner();
-                    // })),
                   ],
                 );
               }),
@@ -142,16 +91,18 @@ class UserFormView extends GetView implements EditViewContract{
     );
   }
 
-  void onClickAddRole(){
-    source.update((val) { 
-    source.value.selectsRole.add(BsSelectBoxController());
-    source.value.selectsBp.add(BsSelectBoxController());});
+  void onClickAddRole() {
+    source.update((val) {
+      source.value.selectsRole.add(BsSelectBoxController());
+      source.value.selectsBp.add(BsSelectBoxController());
+    });
   }
 
   void onClickRemoveRoleItem(int index) {
-    source.update((val) { 
-    source.value.selectsRole.removeAt(index);
-    source.value.selectsBp.removeAt(index);});
+    source.update((val) {
+      source.value.selectsRole.removeAt(index);
+      source.value.selectsBp.removeAt(index);
+    });
   }
 
   void onClickSaveModal(BuildContext context) async {
@@ -168,14 +119,16 @@ class UserFormView extends GetView implements EditViewContract{
     presenter.setProcessing(false);
 
     source.update((val) {
-      UserModel menu = UserModel.fromJson(response.body);
+      UserDetailModel menu = UserDetailModel.fromJson(response.body);
+      UserModel user = UserModel.fromJson(response.body);
       source.value.inputName.text = menu.username;
       source.value.inputPassword.text = menu.userpassword;
       source.value.inputConfirmPassword.text = menu.userpassword;
+      source.value.selectsRole.setSelected(
+          BsSelectBoxOption(value: user.userid, text: Text(user.username)));
       source.value.inputFullName.text = menu.userfullname;
       source.value.inputEmail.text = menu.useremail;
       source.value.inputPhone.text = menu.userphone;
     });
   }
-
 }

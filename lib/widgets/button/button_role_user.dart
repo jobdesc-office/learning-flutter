@@ -19,8 +19,8 @@ class ButtonRoleUser extends BsButton {
         );
 }
 
-class ButtonRoleUser2 extends BsButton {
-  ButtonRoleUser2({
+class ButtonRoleUserDanger extends BsButton {
+  ButtonRoleUserDanger({
     required VoidCallback onPressed,
     EdgeInsets margin = EdgeInsets.zero,
     bool disabled = false,
@@ -29,21 +29,6 @@ class ButtonRoleUser2 extends BsButton {
           margin: margin,
           label: Icon(Icons.horizontal_rule),
           style: CustomButtonStyle.roundedDanger,
-          size: CustomButonSize.small,
-          onPressed: onPressed,
-        );
-}
-
-class ButtonRoleUser3 extends BsButton {
-  ButtonRoleUser3({
-    required VoidCallback onPressed,
-    EdgeInsets margin = EdgeInsets.zero,
-    bool disabled = false,
-  }) : super(
-          disabled: disabled,
-          margin: margin,
-          label: Text('Add Partner'),
-          style: CustomButtonStyle.roundedPrimary,
           size: CustomButonSize.small,
           onPressed: onPressed,
         );

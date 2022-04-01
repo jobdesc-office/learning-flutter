@@ -26,7 +26,8 @@ class UserPresenter extends CustomGetXController {
   }
 
   late DetailViewContract _userFetchDataDetailsContract;
-  set userFetchDataDetailsContract(DetailViewContract userFetchDataDetailsContract) {
+  set userFetchDataDetailsContract(
+      DetailViewContract userFetchDataDetailsContract) {
     _userFetchDataDetailsContract = userFetchDataDetailsContract;
   }
 
@@ -63,7 +64,6 @@ class UserPresenter extends CustomGetXController {
     );
 
     Response response = await _userService.show(userid);
-    print(response.body);
     if (response.statusCode == 200)
       _userFetchDataDetailsContract.onSuccessFetchData(response);
     else
@@ -109,7 +109,7 @@ class UserPresenter extends CustomGetXController {
               _userViewContract.onDeleteSuccess(response, context: context);
             else
               _userViewContract.onErrorRequest(response);
-          }else{
+          } else {
             Navigator.pop(context);
           }
         },

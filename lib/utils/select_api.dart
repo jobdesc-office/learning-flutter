@@ -8,7 +8,7 @@ import '../models/masters/businesspartner_model.dart';
 import '../services/masters/user_service.dart';
 import '../services/security/menu_service.dart';
 
-Future<BsSelectBoxResponse> selectMenu(Map<String, String> params) async {
+Future<BsSelectBoxResponse> selectApiMenu(Map<String, String> params) async {
   final menuService = Get.find<MenuService>();
   Response response = await menuService.select(params);
 

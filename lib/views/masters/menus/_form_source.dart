@@ -81,7 +81,7 @@ class MenuForm {
         disabled: source.isProcessing,
         controller: source.selectParent,
         hintText: BaseText.hiintSelect(),
-        serverSide: (params) => selectMenu(params),
+        serverSide: (params) => selectApiMenu(params),
       ),
     );
   }

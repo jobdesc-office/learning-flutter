@@ -1,8 +1,9 @@
 import '../../helpers/function.dart';
 
-class UserDetailModel{
-
+class UserDetailModel {
+  int userid;
   String username;
+  String userpassword;
   String userfullname;
   String useremail;
   String userphone;
@@ -13,7 +14,9 @@ class UserDetailModel{
   String jwtToken;
 
   UserDetailModel({
+    this.userid = 0,
     this.username = '',
+    this.userpassword = '',
     this.userfullname = '',
     this.useremail = '',
     this.userphone = '',
@@ -25,15 +28,16 @@ class UserDetailModel{
 
   factory UserDetailModel.fromJson(Map<String, dynamic> json) {
     return UserDetailModel(
-      username: parseString(json['username']),
-      userfullname: parseString(json['userfullname']),
-      useremail: parseString(json['useremail']),
-      userphone: parseString(json['userphone']),
+      userid: parseInt(json['user']['userid']),
+      username: parseString(json['user']['username']),
+      userpassword: parseString(json['user']['userpassword']),
+      userfullname: parseString(json['user']['userfullname']),
+      useremail: parseString(json['user']['useremail']),
+      userphone: parseString(json['user']['userphone']),
       typename: parseString(json['usertype']['typename']),
       bpname: parseString(json['businesspartner']['bpname']),
       isactive: parseBool(json['isactive']),
       jwtToken: parseString(json['jwt_token']),
     );
   }
-  
 }

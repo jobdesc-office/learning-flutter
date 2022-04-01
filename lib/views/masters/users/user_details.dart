@@ -32,105 +32,82 @@ class UserDetails extends GetView implements DetailViewContract {
               child: Obx(() => BsRow(
                     children: [
                       BsCol(
-                        sizes: ColScreen(lg: Col.col_2),
-                        child: Column(
-                          children: [
-                            Row( 
-                              children: [
-                                Text('Name'),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row( 
-                              children: [
-                                Text('Username')
-                              ],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row( 
-                              children: [
-                                Text('Email')
-                              ],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row( 
-                              children: [
-                                Text('Phone')
-                              ],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row( 
-                              children: [
-                                Text('Role')
-                              ],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row( 
-                              children: [
-                                Text('Partner')
-                              ],
-                            ),
-                          ],
-                        )
-                      ),
+                          sizes: ColScreen(lg: Col.col_2),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Text('Name'),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                children: [Text('Username')],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                children: [Text('Email')],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                children: [Text('Phone')],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                children: [Text('Role')],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                children: [Text('Partner')],
+                              ),
+                            ],
+                          )),
                       BsCol(
                         sizes: ColScreen(lg: Col.col_1),
                         child: Column(
                           children: [
-                            Row( 
-                              children: [
-                                Text(' : ')
-                              ],
+                            Row(
+                              children: [Text(' : ')],
                             ),
                             SizedBox(
                               height: 20,
                             ),
-                            Row( 
-                              children: [
-                                Text(' : ')
-                              ],
+                            Row(
+                              children: [Text(' : ')],
                             ),
                             SizedBox(
                               height: 20,
                             ),
-                            Row( 
-                              children: [
-                                Text(' : ')
-                              ],
+                            Row(
+                              children: [Text(' : ')],
                             ),
                             SizedBox(
                               height: 20,
                             ),
-                            Row( 
-                              children: [
-                                Text(' : ')
-                              ],
+                            Row(
+                              children: [Text(' : ')],
                             ),
                             SizedBox(
                               height: 20,
                             ),
-                            Row( 
-                              children: [
-                                Text(' : ')
-                              ],
+                            Row(
+                              children: [Text(' : ')],
                             ),
                             SizedBox(
                               height: 20,
                             ),
-                            Row( 
-                              children: [
-                                Text(' : ')
-                              ],
+                            Row(
+                              children: [Text(' : ')],
                             ),
                           ],
                         ),
@@ -139,50 +116,38 @@ class UserDetails extends GetView implements DetailViewContract {
                         sizes: ColScreen(lg: Col.col_9),
                         child: Column(
                           children: [
-                            Row( 
-                              children: [
-                                Text(c.name.value)
-                              ],
+                            Row(
+                              children: [Text(c.name.value)],
                             ),
                             SizedBox(
                               height: 20,
                             ),
-                            Row( 
-                              children: [
-                                Text(c.username.value)
-                              ],
+                            Row(
+                              children: [Text(c.username.value)],
                             ),
                             SizedBox(
                               height: 20,
                             ),
-                            Row( 
-                              children: [
-                                Text(c.email.value)
-                              ],
+                            Row(
+                              children: [Text(c.email.value)],
                             ),
                             SizedBox(
                               height: 20,
                             ),
-                            Row( 
-                              children: [
-                                Text(c.phone.value)
-                              ],
+                            Row(
+                              children: [Text(c.phone.value)],
                             ),
                             SizedBox(
                               height: 20,
                             ),
-                            Row( 
-                              children: [
-                                Text(c.type.value)
-                              ],
+                            Row(
+                              children: [Text(c.type.value)],
                             ),
                             SizedBox(
                               height: 20,
                             ),
-                            Row( 
-                              children: [
-                                Text(c.bp.value)
-                              ],
+                            Row(
+                              children: [Text(c.bp.value)],
                             ),
                           ],
                         ),
