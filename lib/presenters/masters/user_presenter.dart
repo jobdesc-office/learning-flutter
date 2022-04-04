@@ -50,6 +50,7 @@ class UserPresenter extends CustomGetXController {
 
   void save(BuildContext context, Map<String, dynamic> body) async {
     Response response = await _userService.store(body);
+    print(response.body);
     if (response.statusCode == 200)
       _userViewContract.onCreateSuccess(response, context: context);
     else

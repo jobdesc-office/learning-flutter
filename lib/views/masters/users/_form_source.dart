@@ -79,7 +79,6 @@ class UserForm {
 
   Widget formDetail({required ValueChanged<int> onRemoveItem}) {
     return FormGroup(
-      label: Text(UserText.labelRole),
       child: Column(
         children: source.selectsRole.map((controller) {
           int index = source.selectsRole.indexOf(controller);
