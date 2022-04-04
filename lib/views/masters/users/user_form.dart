@@ -120,12 +120,21 @@ class UserFormView extends GetView implements EditViewContract {
 
     source.update((val) {
       UserDetailModel menu = UserDetailModel.fromJson(response.body);
-      UserModel user = UserModel.fromJson(response.body);
       source.value.inputName.text = menu.username;
       source.value.inputPassword.text = menu.userpassword;
       source.value.inputConfirmPassword.text = menu.userpassword;
-      source.value.selectsRole.setSelected(
-          BsSelectBoxOption(value: user.userid, text: Text(user.username)));
+
+      source.value.selectsRole.add(BsSelectBoxController());
+      source.value.selectsBp.add(BsSelectBoxController());
+      source.value.selectsRole.forEach((element) {
+        element.setSelected(
+            BsSelectBoxOption(value: menu.typeid, text: Text(menu.typename)));
+      });
+      source.value.selectsBp.forEach((element) {
+        element.setSelected(
+            BsSelectBoxOption(value: menu.bpid, text: Text(menu.bpname)));
+      });
+
       source.value.inputFullName.text = menu.userfullname;
       source.value.inputEmail.text = menu.useremail;
       source.value.inputPhone.text = menu.userphone;

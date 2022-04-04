@@ -9,6 +9,8 @@ class UserDetailModel {
   String userphone;
   String typename;
   String bpname;
+  int typeid;
+  int bpid;
   bool isactive;
 
   String jwtToken;
@@ -22,6 +24,8 @@ class UserDetailModel {
     this.userphone = '',
     this.typename = '',
     this.bpname = '',
+    this.typeid = 0,
+    this.bpid = 0,
     this.isactive = true,
     this.jwtToken = '',
   });
@@ -36,6 +40,8 @@ class UserDetailModel {
       userphone: parseString(json['user']['userphone']),
       typename: parseString(json['usertype']['typename']),
       bpname: parseString(json['businesspartner']['bpname']),
+      typeid: parseInt(json['usertype']['typeid']),
+      bpid: parseInt(json['businesspartner']['bpid']),
       isactive: parseBool(json['isactive']),
       jwtToken: parseString(json['jwt_token']),
     );
