@@ -82,11 +82,11 @@ class SidebarSkins extends StatelessWidget {
                       route: RouteList.masterMenu.index,
                       label: 'Menus',
                     ),
-                    MenuData(
-                      id: no++,
-                      route: RouteList.masterProduct.index,
-                      label: 'Product',
-                    ),
+                    // MenuData(
+                    //   id: no++,
+                    //   route: RouteList.masterProduct.index,
+                    //   label: 'Product',
+                    // ),
                     MenuData(
                       id: no++,
                       route: RouteList.masterUser.index,
@@ -99,72 +99,94 @@ class SidebarSkins extends StatelessWidget {
                     ),
                     MenuData(
                       id: no++,
-                      route: RouteList.masterSchedule.index,
-                      label: 'Schedule',
+                      route: RouteList.settings.index,
+                      label: 'Type',
+                      children: [
+                        MenuData(
+                          id: no++,
+                          route: RouteList.masterTypeParent.index,
+                          label: 'Type Parents',
+                        ),
+                        MenuData(
+                          id: no++,
+                          route: RouteList.masterTypeChildren.index,
+                          label: 'Type Children',
+                        ),
+                      ],
                     ),
                   ],
                 ),
                 MenuDataGroup(
-                  title: 'Settings',
-                  icon: Icons.settings_outlined,
-                  children: [
-                    MenuData(
-                      id: no++,
-                      route: RouteList.settings.index,
-                      label: 'Security',
-                      children: [
-                        MenuData(
-                          id: no++,
-                          route: RouteList.settingsPrevileges.index,
-                          label: 'Previleges',
-                        ),
-                        MenuData(
-                          id: no++,
-                          route: RouteList.settingsUser.index,
-                          label: 'Role User',
-                        ),
-                      ],
-                    ),
-                    MenuData(
+                    title: 'Ventes Data',
+                    icon: Icons.analytics,
+                    children: [
+                      MenuData(
                         id: no++,
-                        route: '/level',
-                        label: 'Level Menu 1',
-                        children: [
-                          MenuData(
-                              id: no++,
-                              route: '/level-1',
-                              label: 'Level Menu 1.1',
-                              children: [
-                                MenuData(
-                                  id: no++,
-                                  route: '/level-1-1',
-                                  label: 'Level Menu 1.1.1',
-                                ),
-                                MenuData(
-                                    id: no++,
-                                    route: '/level-1-2',
-                                    label: 'Level Menu 1.1.2',
-                                    children: [
-                                      MenuData(
-                                        id: no++,
-                                        route: '/level-1-1-1',
-                                        label: 'Level Menu 1.1.1.1',
-                                      ),
-                                      MenuData(
-                                        id: no++,
-                                        route: '/level-1-1-1',
-                                        label: 'Level Menu 1.1.1.2',
-                                      ),
-                                    ]),
-                              ]),
-                          MenuData(
-                            id: no++,
-                            route: '/level-2',
-                            label: 'Level Menu 1.2',
-                          ),
-                        ]),
-                  ],
-                ),
+                        route: RouteList.masterSchedule.index,
+                        label: 'Schedule',
+                      ),
+                    ])
+                // MenuDataGroup(
+                //   title: 'Settings',
+                //   icon: Icons.settings_outlined,
+                //   children: [
+                //     MenuData(
+                //       id: no++,
+                //       route: RouteList.settings.index,
+                //       label: 'Security',
+                //       children: [
+                //         MenuData(
+                //           id: no++,
+                //           route: RouteList.settingsPrevileges.index,
+                //           label: 'Previleges',
+                //         ),
+                //         MenuData(
+                //           id: no++,
+                //           route: RouteList.settingsUser.index,
+                //           label: 'Role User',
+                //         ),
+                //       ],
+                //     ),
+                //     MenuData(
+                //         id: no++,
+                //         route: '/level',
+                //         label: 'Level Menu 1',
+                //         children: [
+                //           MenuData(
+                //               id: no++,
+                //               route: '/level-1',
+                //               label: 'Level Menu 1.1',
+                //               children: [
+                //                 MenuData(
+                //                   id: no++,
+                //                   route: '/level-1-1',
+                //                   label: 'Level Menu 1.1.1',
+                //                 ),
+                //                 MenuData(
+                //                     id: no++,
+                //                     route: '/level-1-2',
+                //                     label: 'Level Menu 1.1.2',
+                //                     children: [
+                //                       MenuData(
+                //                         id: no++,
+                //                         route: '/level-1-1-1',
+                //                         label: 'Level Menu 1.1.1.1',
+                //                       ),
+                //                       MenuData(
+                //                         id: no++,
+                //                         route: '/level-1-1-1',
+                //                         label: 'Level Menu 1.1.1.2',
+                //                       ),
+                //                     ]),
+                //               ]),
+                //           MenuData(
+                //             id: no++,
+                //             route: '/level-2',
+                //             label: 'Level Menu 1.2',
+                //           ),
+                //         ]),
+                //   ],
+                // ),
               ],
             ),
           ),

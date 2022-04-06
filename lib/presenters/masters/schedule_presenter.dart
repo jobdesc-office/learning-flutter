@@ -5,7 +5,7 @@ import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
 import '../../services/masters/schedule_service.dart';
 import '../../utils/custom_get_controller.dart';
-import '../../views/masters/schedule/schedule_detail.dart';
+import '../../views/masters/schedules/schedule_detail.dart';
 
 class SchedulePresenter extends CustomGetXController {
   final _scheduleService = Get.find<ScheduleService>();
@@ -16,7 +16,8 @@ class SchedulePresenter extends CustomGetXController {
   }
 
   late DetailViewContract _scheduleFetchDataDetailsContract;
-  set scheduleFetchDataDetailsContract(DetailViewContract scheduleFetchDataDetailsContract) {
+  set scheduleFetchDataDetailsContract(
+      DetailViewContract scheduleFetchDataDetailsContract) {
     _scheduleFetchDataDetailsContract = scheduleFetchDataDetailsContract;
   }
 
