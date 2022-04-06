@@ -22,7 +22,7 @@ class TypeChildrenDataTableSource extends BsDatatableSource {
         orderable: false,
       ),
       BsDataColumn(label: Text('Name'), columnName: 'typename'),
-      BsDataColumn(label: Text('Desc'), columnName: 'typedesc'),
+      BsDataColumn(label: Text('Description'), columnName: 'typedesc'),
       BsDataColumn(label: Text('Actions'), orderable: false, searchable: false),
     ];
   }
