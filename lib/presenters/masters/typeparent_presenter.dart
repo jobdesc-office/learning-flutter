@@ -7,6 +7,7 @@ import '../../contracts/base/index_view_contract.dart';
 import '../../services/masters/type_service.dart';
 import '../../utils/custom_get_controller.dart';
 import '../../views/masters/typesparents/typeparents_detail.dart';
+import '../../views/masters/typesparents/typesparent_form.dart';
 
 class TypeParentPresenter extends CustomGetXController {
   final _typeParentService = Get.find<TypeService>();
@@ -16,10 +17,11 @@ class TypeParentPresenter extends CustomGetXController {
     _typeParentViewContract = typeParentViewContract;
   }
 
-  // late EditViewContract _typeParentFetchDataContract;
-  // set typeParentFetchDataContract(EditViewContract typeParentFetchDataContract) {
-  //   _typeParentFetchDataContract = typeParentFetchDataContract;
-  // }
+  late EditViewContract _typeParentFetchDataContract;
+  set typeParentFetchDataContract(
+      EditViewContract typeParentFetchDataContract) {
+    _typeParentFetchDataContract = typeParentFetchDataContract;
+  }
 
   // late typeParentTypeViewContract _typeParentTypeViewContract;
   // set typeParentTypeViewContract(typeParentTypeViewContract typeParentTypeViewContract) {
@@ -81,33 +83,31 @@ class TypeParentPresenter extends CustomGetXController {
   //     _typeParentViewContract.onErrorRequest(response);
   // }
 
-  // void edit(BuildContext context, int typeParentid) async {
-  //   setProcessing(true);
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) => typeParentFormView(
-  //       onSave: (body) => update(context, body, typeParentid),
-  //     ),
-  //   );
+  void edit(BuildContext context, int typeid) async {
+    setProcessing(true);
+    showDialog(
+      context: context,
+      builder: (context) => TypeParentFormView(
+        onSave: (body) => update(context, body, typeid),
+      ),
+    );
 
-  //   await _loadType();
+    Response response = await _typeParentService.show(typeid);
+    if (response.statusCode == 200)
+      _typeParentFetchDataContract.onSuccessFetchData(response);
+    else
+      _typeParentViewContract.onErrorRequest(response);
+  }
 
-  //   Response response = await _typeParentService.show(typeParentid);
-  //   if (response.statusCode == 200)
-  //     _typeParentFetchDataContract.onSuccessFetchData(response);
-  //   else
-  //     _typeParentViewContract.onErrorRequest(response);
-  // }
-
-  // void update(
-  //     BuildContext context, Map<String, dynamic> body, int typeParentid) async {
-  //   setProcessing(true);
-  //   Response response = await _typeParentService.update(typeParentid, body);
-  //   if (response.statusCode == 200)
-  //     _typeParentViewContract.onEditSuccess(response, context: context);
-  //   else
-  //     _typeParentViewContract.onErrorRequest(response);
-  // }
+  void update(
+      BuildContext context, Map<String, dynamic> body, int typeid) async {
+    setProcessing(true);
+    Response response = await _typeParentService.update(typeid, body);
+    if (response.statusCode == 200)
+      _typeParentViewContract.onEditSuccess(response, context: context);
+    else
+      _typeParentViewContract.onErrorRequest(response);
+  }
 
   // void delete(BuildContext context, int typeParentid) {
   //   showDialog(

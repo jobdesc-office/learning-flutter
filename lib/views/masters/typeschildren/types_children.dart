@@ -48,19 +48,23 @@ class TypesChildrenView extends StatelessWidget
           child: Column(
             children: [
               Obx(() {
+                if (c.isProcessing.isTrue) {
+                  datatable.controller.reload();
+                  c.isProcessing.toggle();
+                }
                 parent = ParentForm(source.value);
                 return CustomDatabales(
                   source: datatable,
                   columns: datatable.columns,
                   headerActions: [
                     parent.menuType(),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    ThemeButtonCreate(
-                      prefix: TypeParentsText.title,
-                      onPressed: () {},
-                    )
+                    // SizedBox(
+                    //   width: 10,
+                    // ),
+                    // ThemeButtonCreate(
+                    //   prefix: TypeParentsText.title,
+                    //   onPressed: () {},
+                    // )
                   ],
                   serverSide: (params) =>
                       presenter.datatables(context, params, c.chosed.value),

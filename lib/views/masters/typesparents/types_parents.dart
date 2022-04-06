@@ -70,7 +70,9 @@ class TypesParentView extends StatelessWidget
 
   @override
   void onEditSuccess(Response response, {BuildContext? context}) {
-    // TODO: implement onEditSuccess
+    presenter.setProcessing(false);
+    datatable.controller.reload();
+    if (context != null) Navigator.pop(context);
   }
 
   @override
@@ -79,5 +81,6 @@ class TypesParentView extends StatelessWidget
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onDetailsListener =
         (typeid) => presenter.details(context, typeid);
+    datatable.onEditListener = (typeid) => presenter.edit(context, typeid);
   }
 }

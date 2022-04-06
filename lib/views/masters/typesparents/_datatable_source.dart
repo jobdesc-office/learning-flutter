@@ -54,8 +54,8 @@ class TypeParentDataTableSource extends BsDatatableSource {
                 margin: EdgeInsets.only(right: 5),
                 onPressed: () => onEditListener(row.typeid),
               ),
-              ButtonDeleteDatatables(
-                  onPressed: () => onDeleteListener(row.typeid)),
+              // ButtonDeleteDatatables(
+              //     onPressed: () => onDeleteListener(row.typeid)),
             ],
           ),
         ),

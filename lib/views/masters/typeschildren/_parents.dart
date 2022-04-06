@@ -102,6 +102,7 @@ class _ParentOptions extends State<ParentOptions> {
               widget.controller.selected = type;
               setState(() {
                 c.chosed.value = widget.controller.selected!.typeid;
+                c.isProcessing.value = true;
               });
             },
           ),

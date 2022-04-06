@@ -5,7 +5,7 @@ import '../../../widgets/form_group.dart';
 import '_parents.dart';
 
 class TypeChildrenSource extends GetxController {
-  bool isProcessing = false;
+  var isProcessing = false.obs;
   var chosed = 0.obs;
 
   ParentOptionsController parentOptionsController = ParentOptionsController();
