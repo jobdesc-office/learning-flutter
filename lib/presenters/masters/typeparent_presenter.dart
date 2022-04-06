@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
 import '../../services/masters/type_service.dart';
 import '../../utils/custom_get_controller.dart';
+import '../../views/masters/typesparents/typeparents_detail.dart';
 
 class TypeParentPresenter extends CustomGetXController {
   final _typeParentService = Get.find<TypeService>();
@@ -24,6 +26,12 @@ class TypeParentPresenter extends CustomGetXController {
   //   _typeParentTypeViewContract = typeParentTypeViewContract;
   // }
 
+  late DetailViewContract _typeParentDataDetailsContract;
+  set typeParentDataDetailsContract(
+      DetailViewContract typeParentDataDetailsContract) {
+    _typeParentDataDetailsContract = typeParentDataDetailsContract;
+  }
+
   Future datatables(BuildContext context, Map<String, String> params) async {
     Response response = await _typeParentService.datatables(params);
     if (response.statusCode == 200)
@@ -39,6 +47,20 @@ class TypeParentPresenter extends CustomGetXController {
   //   else
   //     _typeParentViewContract.onErrorRequest(response);
   // }
+
+  void details(BuildContext context, int userid) async {
+    setProcessing(true);
+    showDialog(
+      context: context,
+      builder: (context) => TypeParentDetails(),
+    );
+
+    Response response = await _typeParentService.show(userid);
+    if (response.statusCode == 200)
+      _typeParentDataDetailsContract.onSuccessFetchData(response);
+    else
+      _typeParentViewContract.onErrorRequest(response);
+  }
 
   // void add(BuildContext context) async {
   //   showDialog(

@@ -77,5 +77,7 @@ class TypesParentView extends StatelessWidget
   void onLoadDatatables(BuildContext context, Response response) {
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
+    datatable.onDetailsListener =
+        (typeid) => presenter.details(context, typeid);
   }
 }
