@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 
 import '../presenters/masters/businesspartner_presenter.dart';
 import '../presenters/masters/menu_presenter.dart';
-import '../presenters/masters/schedule_presenter.dart';
+import '../presenters/ventes/schedule_presenter.dart';
 import '../presenters/masters/typechildren_presenter.dart';
 import '../presenters/masters/typeparent_presenter.dart';
 import '../presenters/masters/user_presenter.dart';
@@ -18,7 +18,7 @@ import '../utils/guards/guest_guard.dart';
 import '../views/defaults/home.dart';
 import '../views/masters/businesspartners/businesspartner.dart';
 import '../views/masters/menus/menu.dart';
-import '../views/masters/schedules/schedule.dart';
+import '../views/ventes/schedules/schedule.dart';
 import '../views/masters/typeschildren/types_children.dart';
 import '../views/masters/typesparents/types_parents.dart';
 import '../views/masters/users/user.dart';

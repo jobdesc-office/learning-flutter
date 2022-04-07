@@ -4,17 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/details_view_contract.dart';
-import '../../../models/masters/type_model.dart';
-import '../../../presenters/masters/typeparent_presenter.dart';
-import '_detail_source.dart';
+import '../../../models/masters/schedule_model.dart';
+import '../../../presenters/ventes/schedule_presenter.dart';
+import '_details_source.dart';
 import '_text.dart';
 
-class TypeParentDetails extends GetView implements DetailViewContract {
-  final TypeParentPresenter presenter = Get.find<TypeParentPresenter>();
-  final TypeParentDetailsSource c = Get.put(TypeParentDetailsSource());
+class ScheduleDetails extends GetView implements DetailViewContract {
+  final SchedulePresenter presenter = Get.find<SchedulePresenter>();
+  final scheduleDetailsSource c = Get.put(scheduleDetailsSource());
 
-  TypeParentDetails() {
-    presenter.typeParentDataDetailsContract = this;
+  ScheduleDetails() {
+    presenter.scheduleFetchDataDetailsContract = this;
   }
 
   @override
@@ -25,7 +25,7 @@ class TypeParentDetails extends GetView implements DetailViewContract {
           size: BsModalSize.md,
           child: BsModalContent(children: [
             BsModalContainer(
-              title: Text(TypeParentsText.title + ' Details'),
+              title: Text(ScheduleText.title + ' Details'),
               closeButton: true,
             ),
             BsModalContainer(
@@ -37,33 +37,69 @@ class TypeParentDetails extends GetView implements DetailViewContract {
                             children: [
                               Row(
                                 children: [
-                                  Text('Code'),
+                                  Text('Title'),
                                 ],
                               ),
                               SizedBox(
                                 height: 20,
                               ),
                               Row(
-                                children: [Text('Name')],
+                                children: [Text('PIC Name')],
                               ),
                               SizedBox(
                                 height: 20,
                               ),
                               Row(
-                                children: [Text('Seq')],
+                                children: [Text('Start Date')],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                children: [Text('End Date')],
                               ),
                               SizedBox(
                                 height: 20,
                               ),
                               Row(
                                 children: [Text('Description')],
-                              )
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                children: [Text('Type')],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                children: [Text('Partner')],
+                              ),
                             ],
                           )),
                       BsCol(
                         sizes: ColScreen(lg: Col.col_1),
                         child: Column(
                           children: [
+                            Row(
+                              children: [Text(' : ')],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              children: [Text(' : ')],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              children: [Text(' : ')],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
                             Row(
                               children: [Text(' : ')],
                             ),
@@ -93,7 +129,7 @@ class TypeParentDetails extends GetView implements DetailViewContract {
                         child: Column(
                           children: [
                             Row(
-                              children: [Text(c.cd.value)],
+                              children: [Text(c.title.value)],
                             ),
                             SizedBox(
                               height: 20,
@@ -105,14 +141,36 @@ class TypeParentDetails extends GetView implements DetailViewContract {
                               height: 20,
                             ),
                             Row(
-                              children: [Text(c.seq.value)],
+                              children: [Text(c.startdate.value)],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              children: [
+                                Text(c.enddate.value == ''
+                                    ? 'Still in Process'
+                                    : c.enddate.value)
+                              ],
                             ),
                             SizedBox(
                               height: 20,
                             ),
                             Row(
                               children: [Text(c.desc.value)],
-                            )
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              children: [Text(c.type.value)],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              children: [Text(c.bp.value)],
+                            ),
                           ],
                         ),
                       ),
@@ -125,10 +183,13 @@ class TypeParentDetails extends GetView implements DetailViewContract {
 
   @override
   void onSuccessFetchData(Response response) {
-    TypeModel dt = TypeModel.fromJson(response.body);
-    c.cd.value = dt.typecd;
-    c.name.value = dt.typename;
-    c.desc.value = dt.description;
-    c.seq.value = dt.typeseq.toString();
+    ScheduleModel dt = ScheduleModel.fromJson(response.body);
+    c.title.value = dt.schenm;
+    c.name.value = dt.userfullname;
+    c.startdate.value = dt.schestartdate;
+    c.enddate.value = dt.scheenddate;
+    c.desc.value = dt.schedesc;
+    c.type.value = dt.typename;
+    c.bp.value = dt.bpname;
   }
 }

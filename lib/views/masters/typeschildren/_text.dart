@@ -1,6 +1,6 @@
 import '../../../constants/base_text.dart';
 
-class TypeParentsText {
+class TypeChildrenText {
   static String title = 'Type Children';
 
   static String labelMenuType = 'Menu Type';

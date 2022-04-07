@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/index_view_contract.dart';
-import '../../../presenters/masters/schedule_presenter.dart';
+import '../../../presenters/ventes/schedule_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_create.dart';
@@ -13,8 +13,8 @@ import '../../skins/tempalte.dart';
 import '_datatable_source.dart';
 import '_text.dart';
 
-class ScheduleView extends GetView implements IndexViewContract, HandleErrorRequest{
-
+class ScheduleView extends GetView
+    implements IndexViewContract, HandleErrorRequest {
   final presenter = Get.find<SchedulePresenter>();
   final datatable = ScheduleDataTableSource();
 
@@ -85,9 +85,9 @@ class ScheduleView extends GetView implements IndexViewContract, HandleErrorRequ
   void onLoadDatatables(BuildContext context, Response response) {
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
-    datatable.onDetailsListener = (userid) => presenter.details(context, userid);
+    datatable.onDetailsListener =
+        (userid) => presenter.details(context, userid);
     // datatable.onEditListener = (userid) => presenter.edit(context, userid);
     // datatable.onDeleteListener = (userid) => presenter.delete(context, userid);
   }
-
 }

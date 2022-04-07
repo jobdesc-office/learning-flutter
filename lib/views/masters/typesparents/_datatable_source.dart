@@ -25,7 +25,6 @@ class TypeParentDataTableSource extends BsDatatableSource {
       ),
       BsDataColumn(label: Text('Code'), columnName: 'typecd'),
       BsDataColumn(label: Text('Name'), columnName: 'typename'),
-      BsDataColumn(label: Text('Desc'), columnName: 'typedesc'),
       BsDataColumn(label: Text('Actions'), orderable: false, searchable: false),
     ];
   }
@@ -42,7 +41,6 @@ class TypeParentDataTableSource extends BsDatatableSource {
         BsDataCell(Text('${controller.start + index + 1}')),
         BsDataCell(Text(row.typecd)),
         BsDataCell(Text(row.typename)),
-        BsDataCell(Text(row.description)),
         BsDataCell(
           Row(
             children: [

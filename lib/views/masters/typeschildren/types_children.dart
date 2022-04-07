@@ -33,7 +33,7 @@ class TypesChildrenView extends StatelessWidget
   Widget build(BuildContext context) {
     return Scaffold(
       body: TemplateView(
-        title: TypeParentsText.title,
+        title: TypeChildrenText.title,
         breadcrumbs: [
           BreadcrumbWidget('Dashboard', route: RouteList.home.index),
           BreadcrumbWidget('Masters'),
@@ -96,6 +96,8 @@ class TypesChildrenView extends StatelessWidget
   void onLoadDatatables(BuildContext context, Response response) {
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
+    datatable.onDetailsListener =
+        (typeid) => presenter.details(context, typeid);
   }
 
   @override

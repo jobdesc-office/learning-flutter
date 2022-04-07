@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 
 import '../../../models/masters/type_model.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
+import '../../../widgets/button/button_details_datatable.dart';
 import '../../../widgets/button/button_edit_datatable.dart';
 
 class TypeChildrenDataTableSource extends BsDatatableSource {
+  ValueChanged<int> onDetailsListener = (value) {};
   ValueChanged<int> onEditListener = (value) {};
   ValueChanged<int> onDeleteListener = (value) {};
 
@@ -22,7 +24,6 @@ class TypeChildrenDataTableSource extends BsDatatableSource {
         orderable: false,
       ),
       BsDataColumn(label: Text('Name'), columnName: 'typename'),
-      BsDataColumn(label: Text('Description'), columnName: 'typedesc'),
       BsDataColumn(label: Text('Actions'), orderable: false, searchable: false),
     ];
   }
@@ -38,10 +39,13 @@ class TypeChildrenDataTableSource extends BsDatatableSource {
       cells: <BsDataCell>[
         BsDataCell(Text('${controller.start + index + 1}')),
         BsDataCell(Text(row.typename)),
-        BsDataCell(Text(row.description)),
         BsDataCell(
           Row(
             children: [
+              ButtonDetailsDatatables(
+                margin: EdgeInsets.only(right: 5),
+                onPressed: () => onDetailsListener(row.typeid),
+              ),
               ButtonEditDatatables(
                 margin: EdgeInsets.only(right: 5),
                 onPressed: () => onEditListener(row.typeid),

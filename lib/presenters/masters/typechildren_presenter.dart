@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
 import '../../services/masters/typechildren_service.dart';
 import '../../utils/custom_get_controller.dart';
 import '../../views/masters/typeschildren/_parents.dart';
+import '../../views/masters/typeschildren/typechildren_detail.dart';
 
 class TypesChildrenPresenter extends CustomGetXController {
   final _typeChildrenService = Get.find<TypeChildrenService>();
@@ -13,6 +15,12 @@ class TypesChildrenPresenter extends CustomGetXController {
   late IndexViewContract _typeChildrenViewContract;
   set typeChildrenViewContract(IndexViewContract typeChildrenViewContract) {
     _typeChildrenViewContract = typeChildrenViewContract;
+  }
+
+  late DetailViewContract _typeChildrenDataDetailsContract;
+  set typeChildrenDataDetailsContract(
+      DetailViewContract typeChildrenDataDetailsContract) {
+    _typeChildrenDataDetailsContract = typeChildrenDataDetailsContract;
   }
 
   // late EditViewContract _typeChildrenFetchDataContract;
@@ -41,6 +49,20 @@ class TypesChildrenPresenter extends CustomGetXController {
     Response response = await _typeChildrenService.parent();
     if (response.statusCode == 200)
       _typeChildrenTypeViewContract.onLoadSuccess(response);
+    else
+      _typeChildrenViewContract.onErrorRequest(response);
+  }
+
+  void details(BuildContext context, int userid) async {
+    setProcessing(true);
+    showDialog(
+      context: context,
+      builder: (context) => TypeChildrenDetails(),
+    );
+
+    Response response = await _typeChildrenService.show(userid);
+    if (response.statusCode == 200)
+      _typeChildrenDataDetailsContract.onSuccessFetchData(response);
     else
       _typeChildrenViewContract.onErrorRequest(response);
   }
