@@ -12,8 +12,8 @@ import '../../../widgets/button/theme_button_create.dart';
 import '../../../widgets/datatables/custom_datatable.dart';
 import '../../skins/tempalte.dart';
 import '_datatable_source.dart';
-import '_form_source.dart';
-import '_parents.dart';
+import '_parent_controller.dart';
+import 'parents.dart';
 import '_text.dart';
 
 class TypesChildrenView extends StatelessWidget

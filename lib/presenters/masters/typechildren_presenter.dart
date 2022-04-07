@@ -6,7 +6,7 @@ import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
 import '../../services/masters/typechildren_service.dart';
 import '../../utils/custom_get_controller.dart';
-import '../../views/masters/typeschildren/_parents.dart';
+import '../../views/masters/typeschildren/parents.dart';
 import '../../views/masters/typeschildren/typechildren_detail.dart';
 
 class TypesChildrenPresenter extends CustomGetXController {
