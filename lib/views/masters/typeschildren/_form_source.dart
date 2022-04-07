@@ -26,7 +26,9 @@ class TypeChildrenSource {
     return {
       'typename': inputName.text,
       'typeseq': inputSeq.text,
+      'typecd': inputCode.text,
       'typedesc': inputDesc.text,
+      'typemasterid': selectParent.getSelectedAsString(),
       'createdby': session.userid,
       'updatedby': session.userid,
       'isactive': true,

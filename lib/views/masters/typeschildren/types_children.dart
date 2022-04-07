@@ -89,7 +89,9 @@ class TypesChildrenView extends StatelessWidget
 
   @override
   void onEditSuccess(Response response, {BuildContext? context}) {
-    // TODO: implement onEditSuccess
+    presenter.setProcessing(false);
+    datatable.controller.reload();
+    if (context != null) Navigator.pop(context);
   }
 
   @override
