@@ -4,17 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/details_view_contract.dart';
+import '../../../contracts/typechildren_contract.dart';
 import '../../../models/masters/type_model.dart';
 import '../../../presenters/masters/typechildren_presenter.dart';
 import '_detail_source.dart';
 import '_text.dart';
 
-class TypeChildrenDetails extends GetView implements DetailViewContract {
+class TypeChildrenDetails extends GetView
+    implements DetailViewContract, typeChildrenContract {
   final TypesChildrenPresenter presenter = Get.find<TypesChildrenPresenter>();
   final TypeChildrenDetailsSource c = Get.put(TypeChildrenDetailsSource());
 
   TypeChildrenDetails() {
     presenter.typeChildrenDataDetailsContract = this;
+    presenter.typeChildrenParentDataContract = this;
   }
 
   @override
@@ -48,6 +51,12 @@ class TypeChildrenDetails extends GetView implements DetailViewContract {
                                 height: 20,
                               ),
                               Row(
+                                children: [Text('Parent')],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
                                 children: [Text('Description')],
                               )
                             ],
@@ -56,6 +65,12 @@ class TypeChildrenDetails extends GetView implements DetailViewContract {
                         sizes: ColScreen(lg: Col.col_1),
                         child: Column(
                           children: [
+                            Row(
+                              children: [Text(' : ')],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
                             Row(
                               children: [Text(' : ')],
                             ),
@@ -91,6 +106,12 @@ class TypeChildrenDetails extends GetView implements DetailViewContract {
                               height: 20,
                             ),
                             Row(
+                              children: [Text(c.parent.value)],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
                               children: [Text(c.desc.value)],
                             ),
                           ],
@@ -109,5 +130,11 @@ class TypeChildrenDetails extends GetView implements DetailViewContract {
     c.name.value = dt.typename;
     c.desc.value = dt.description;
     c.seq.value = dt.typeseq.toString();
+  }
+
+  @override
+  void onLoadParentSuccess(Response response) {
+    TypeModel dt = TypeModel.fromJson(response.body);
+    c.parent.value = dt.typename;
   }
 }

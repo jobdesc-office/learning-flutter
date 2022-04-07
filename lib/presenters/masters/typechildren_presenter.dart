@@ -4,10 +4,12 @@ import 'package:get/get.dart';
 import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
+import '../../contracts/typechildren_contract.dart';
 import '../../services/masters/typechildren_service.dart';
 import '../../utils/custom_get_controller.dart';
 import '../../views/masters/typeschildren/parents.dart';
 import '../../views/masters/typeschildren/typechildren_detail.dart';
+import '../../views/masters/typeschildren/typechildren_form.dart';
 
 class TypesChildrenPresenter extends CustomGetXController {
   final _typeChildrenService = Get.find<TypeChildrenService>();
@@ -17,16 +19,23 @@ class TypesChildrenPresenter extends CustomGetXController {
     _typeChildrenViewContract = typeChildrenViewContract;
   }
 
+  late EditViewContract _typeChildrenFetchDataContract;
+  set typeChildrenFetchDataContract(
+      EditViewContract typeChildrenFetchDataContract) {
+    _typeChildrenFetchDataContract = typeChildrenFetchDataContract;
+  }
+
+  late typeChildrenContract _typeChildrenParentDataContract;
+  set typeChildrenParentDataContract(
+      typeChildrenContract typeChildrenParentDataContract) {
+    _typeChildrenParentDataContract = typeChildrenParentDataContract;
+  }
+
   late DetailViewContract _typeChildrenDataDetailsContract;
   set typeChildrenDataDetailsContract(
       DetailViewContract typeChildrenDataDetailsContract) {
     _typeChildrenDataDetailsContract = typeChildrenDataDetailsContract;
   }
-
-  // late EditViewContract _typeChildrenFetchDataContract;
-  // set typeChildrenFetchDataContract(EditViewContract typeChildrenFetchDataContract) {
-  //   _typeChildrenFetchDataContract = typeChildrenFetchDataContract;
-  // }
 
   late ParentViewContract _typeChildrenTypeViewContract;
   set typeChildrenTypeViewContract(
@@ -53,6 +62,14 @@ class TypesChildrenPresenter extends CustomGetXController {
       _typeChildrenViewContract.onErrorRequest(response);
   }
 
+  Future _loadParent(int id) async {
+    Response response = await _typeChildrenService.showParent(id);
+    if (response.statusCode == 200)
+      _typeChildrenParentDataContract.onLoadParentSuccess(response);
+    else
+      _typeChildrenViewContract.onErrorRequest(response);
+  }
+
   void details(BuildContext context, int userid) async {
     setProcessing(true);
     showDialog(
@@ -61,6 +78,7 @@ class TypesChildrenPresenter extends CustomGetXController {
     );
 
     Response response = await _typeChildrenService.show(userid);
+    _loadParent(response.body['typemasterid']);
     if (response.statusCode == 200)
       _typeChildrenDataDetailsContract.onSuccessFetchData(response);
     else
@@ -86,33 +104,32 @@ class TypesChildrenPresenter extends CustomGetXController {
   //     _typeChildrenViewContract.onErrorRequest(response);
   // }
 
-  // void edit(BuildContext context, int typeChildrenid) async {
-  //   setProcessing(true);
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) => typeChildrenFormView(
-  //       onSave: (body) => update(context, body, typeChildrenid),
-  //     ),
-  //   );
+  void edit(BuildContext context, int typeid) async {
+    setProcessing(true);
+    showDialog(
+      context: context,
+      builder: (context) => TypeChildrenFormView(
+        onSave: (body) => update(context, body, typeid),
+      ),
+    );
 
-  //   await _loadType();
+    Response response = await _typeChildrenService.show(typeid);
+    _loadParent(response.body['typemasterid']);
+    if (response.statusCode == 200)
+      _typeChildrenFetchDataContract.onSuccessFetchData(response);
+    else
+      _typeChildrenViewContract.onErrorRequest(response);
+  }
 
-  //   Response response = await _typeChildrenService.show(typeChildrenid);
-  //   if (response.statusCode == 200)
-  //     _typeChildrenFetchDataContract.onSuccessFetchData(response);
-  //   else
-  //     _typeChildrenViewContract.onErrorRequest(response);
-  // }
-
-  // void update(
-  //     BuildContext context, Map<String, dynamic> body, int typeChildrenid) async {
-  //   setProcessing(true);
-  //   Response response = await _typeChildrenService.update(typeChildrenid, body);
-  //   if (response.statusCode == 200)
-  //     _typeChildrenViewContract.onEditSuccess(response, context: context);
-  //   else
-  //     _typeChildrenViewContract.onErrorRequest(response);
-  // }
+  void update(
+      BuildContext context, Map<String, dynamic> body, int typeid) async {
+    setProcessing(true);
+    Response response = await _typeChildrenService.update(typeid, body);
+    if (response.statusCode == 200)
+      _typeChildrenViewContract.onEditSuccess(response, context: context);
+    else
+      _typeChildrenViewContract.onErrorRequest(response);
+  }
 
   // void delete(BuildContext context, int typeChildrenid) {
   //   showDialog(

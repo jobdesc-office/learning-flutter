@@ -13,4 +13,8 @@ class TypeChildrenService extends ApiConnectProvider {
   Future<Response> parent() {
     return get('$api/parent');
   }
+
+  Future<Response> showParent(int id) {
+    return get('$api/parent/$id');
+  }
 }

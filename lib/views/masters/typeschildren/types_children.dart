@@ -98,6 +98,7 @@ class TypesChildrenView extends StatelessWidget
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onDetailsListener =
         (typeid) => presenter.details(context, typeid);
+    datatable.onEditListener = (typeid) => presenter.edit(context, typeid);
   }
 
   @override
