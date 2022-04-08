@@ -61,8 +61,10 @@ class TypesChildrenView extends StatelessWidget
                     ThemeButtonSearch(
                       onPressed: () => presenter.filter(context),
                     ),
+                    // SizedBox(
+                    //   width: 10,
+                    // ),
                     // parent.menuType(),
-                    // parent.selectParent(),
                     SizedBox(
                       width: 10,
                     ),
