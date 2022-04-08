@@ -82,11 +82,11 @@ class SidebarSkins extends StatelessWidget {
                       route: RouteList.masterMenu.index,
                       label: 'Menus',
                     ),
-                    // MenuData(
-                    //   id: no++,
-                    //   route: RouteList.masterProduct.index,
-                    //   label: 'Product',
-                    // ),
+                    MenuData(
+                      id: no++,
+                      route: RouteList.gmaps.index,
+                      label: 'Maps',
+                    ),
                     MenuData(
                       id: no++,
                       route: RouteList.masterUser.index,
@@ -110,7 +110,7 @@ class SidebarSkins extends StatelessWidget {
                         MenuData(
                           id: no++,
                           route: RouteList.masterTypeChildren.index,
-                          label: 'Type Children',
+                          label: 'Type Data',
                         ),
                       ],
                     ),

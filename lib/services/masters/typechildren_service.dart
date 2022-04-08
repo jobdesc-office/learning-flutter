@@ -6,6 +6,10 @@ class TypeChildrenService extends ApiConnectProvider {
   @override
   String get api => 'typeschildren';
 
+  Future<Response> datatablesNonFilter(Map<String, dynamic> params) {
+    return post('$api/datatables', params);
+  }
+
   Future<Response> datatablesTypesChild(Map<String, dynamic> params, int id) {
     return post('$api/datatables/$id', params);
   }

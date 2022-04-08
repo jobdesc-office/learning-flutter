@@ -39,6 +39,12 @@ class TypeChildrenDetails extends GetView
                           child: Column(
                             children: [
                               Row(
+                                children: [Text('Code')],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
                                 children: [Text('Name')],
                               ),
                               SizedBox(
@@ -86,6 +92,12 @@ class TypeChildrenDetails extends GetView
                             Row(
                               children: [Text(' : ')],
                             ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              children: [Text(' : ')],
+                            ),
                           ],
                         ),
                       ),
@@ -93,6 +105,12 @@ class TypeChildrenDetails extends GetView
                         sizes: ColScreen(lg: Col.col_9),
                         child: Column(
                           children: [
+                            Row(
+                              children: [Text(c.code.value)],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
                             Row(
                               children: [Text(c.name.value)],
                             ),
@@ -127,6 +145,7 @@ class TypeChildrenDetails extends GetView
   @override
   void onSuccessFetchData(Response response) {
     TypeModel dt = TypeModel.fromJson(response.body);
+    c.code.value = dt.typecd;
     c.name.value = dt.typename;
     c.desc.value = dt.description;
     c.seq.value = dt.typeseq.toString();

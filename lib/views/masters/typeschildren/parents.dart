@@ -44,7 +44,7 @@ class ParentOptions extends StatefulWidget {
 }
 
 class _ParentOptions extends State<ParentOptions> {
-  final c = Get.put(TypeChildrenSource());
+  final c = Get.put(ParentSource());
   @override
   void initState() {
     super.initState();

@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../constants/base_text.dart';
 import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
 import '../../contracts/typechildren_contract.dart';
 import '../../services/masters/typechildren_service.dart';
 import '../../utils/custom_get_controller.dart';
+import '../../views/masters/typeschildren/parentFilter.dart';
 import '../../views/masters/typeschildren/parents.dart';
 import '../../views/masters/typeschildren/typechildren_detail.dart';
 import '../../views/masters/typeschildren/typechildren_form.dart';
+import '../../widgets/confirm_dialog.dart';
 
 class TypesChildrenPresenter extends CustomGetXController {
   final _typeChildrenService = Get.find<TypeChildrenService>();
@@ -41,6 +44,16 @@ class TypesChildrenPresenter extends CustomGetXController {
   set typeChildrenTypeViewContract(
       ParentViewContract typeChildrenTypeViewContract) {
     _typeChildrenTypeViewContract = typeChildrenTypeViewContract;
+  }
+
+  Future datatablesNonFilter(
+      BuildContext context, Map<String, String> params) async {
+    Response response = await _typeChildrenService.datatablesNonFilter(params);
+    if (response.statusCode == 200) {
+      _loadType();
+      _typeChildrenViewContract.onLoadDatatables(context, response);
+    } else
+      _typeChildrenViewContract.onErrorRequest(response);
   }
 
   Future datatables(
@@ -85,24 +98,31 @@ class TypesChildrenPresenter extends CustomGetXController {
       _typeChildrenViewContract.onErrorRequest(response);
   }
 
-  // void add(BuildContext context) async {
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) => typeChildrenFormView(
-  //       onSave: (body) => save(context, body),
-  //     ),
-  //   );
+  void filter(BuildContext context) async {
+    showDialog(
+      context: context,
+      builder: (context) => TypeChildrenFilter(),
+    );
+  }
 
-  //   _loadType();
-  // }
+  void add(BuildContext context) async {
+    showDialog(
+      context: context,
+      builder: (context) => TypeChildrenFormView(
+        onSave: (body) => save(context, body),
+      ),
+    );
 
-  // void save(BuildContext context, Map<String, dynamic> body) async {
-  //   Response response = await _typeChildrenService.store(body);
-  //   if (response.statusCode == 200)
-  //     _typeChildrenViewContract.onCreateSuccess(response, context: context);
-  //   else
-  //     _typeChildrenViewContract.onErrorRequest(response);
-  // }
+    _loadType();
+  }
+
+  void save(BuildContext context, Map<String, dynamic> body) async {
+    Response response = await _typeChildrenService.store(body);
+    if (response.statusCode == 200)
+      _typeChildrenViewContract.onCreateSuccess(response, context: context);
+    else
+      _typeChildrenViewContract.onErrorRequest(response);
+  }
 
   void edit(BuildContext context, int typeid) async {
     setProcessing(true);
@@ -131,22 +151,23 @@ class TypesChildrenPresenter extends CustomGetXController {
       _typeChildrenViewContract.onErrorRequest(response);
   }
 
-  // void delete(BuildContext context, int typeChildrenid) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) => ConfirmDialog(
-  //       title: BaseText.confirmTitle,
-  //       message: BaseText.confirmMessage,
-  //       onPressed: (_, value) async {
-  //         if (value == ConfirmDialogOption.YES_OPTION) {
-  //           Response response = await _typeChildrenService.destroy(typeChildrenid);
-  //           if (response.statusCode == 200)
-  //             _typeChildrenViewContract.onDeleteSuccess(response, context: context);
-  //           else
-  //             _typeChildrenViewContract.onErrorRequest(response);
-  //         }
-  //       },
-  //     ),
-  //   );
-  // }
+  void delete(BuildContext context, int typeid) {
+    showDialog(
+      context: context,
+      builder: (context) => ConfirmDialog(
+        title: BaseText.confirmTitle,
+        message: BaseText.confirmMessage,
+        onPressed: (_, value) async {
+          if (value == ConfirmDialogOption.YES_OPTION) {
+            Response response = await _typeChildrenService.destroy(typeid);
+            if (response.statusCode == 200)
+              _typeChildrenViewContract.onDeleteSuccess(response,
+                  context: context);
+            else
+              _typeChildrenViewContract.onErrorRequest(response);
+          }
+        },
+      ),
+    );
+  }
 }

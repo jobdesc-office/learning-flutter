@@ -2,6 +2,7 @@ class BaseText {
   static String buttonSave = 'Save';
   static String buttonCancel = 'Cancel';
   static String buttonCreate = 'Create';
+  static String buttonFilter = 'Filter';
 
   static String defaultLabelName = 'Name';
 

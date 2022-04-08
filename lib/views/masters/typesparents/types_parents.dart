@@ -43,12 +43,12 @@ class TypesParentView extends StatelessWidget
               CustomDatabales(
                 source: datatable,
                 columns: datatable.columns,
-                // headerActions: [
-                //   ThemeButtonCreate(
-                //     prefix: TypeParentsText.title,
-                //     onPressed: () => presenter.add(context),
-                //   )
-                // ],
+                headerActions: [
+                  ThemeButtonCreate(
+                    prefix: TypeParentsText.title,
+                    onPressed: () => presenter.add(context),
+                  )
+                ],
                 serverSide: (params) => presenter.datatables(context, params),
               )
             ],
@@ -60,12 +60,16 @@ class TypesParentView extends StatelessWidget
 
   @override
   void onCreateSuccess(Response response, {BuildContext? context}) {
-    // TODO: implement onCreateSuccess
+    presenter.setProcessing(false);
+    datatable.controller.reload();
+    if (context != null) Navigator.pop(context);
   }
 
   @override
   void onDeleteSuccess(Response response, {BuildContext? context}) {
-    // TODO: implement onDeleteSuccess
+    presenter.setProcessing(false);
+    datatable.controller.reload();
+    if (context != null) Navigator.pop(context);
   }
 
   @override
@@ -82,5 +86,6 @@ class TypesParentView extends StatelessWidget
     datatable.onDetailsListener =
         (typeid) => presenter.details(context, typeid);
     datatable.onEditListener = (typeid) => presenter.edit(context, typeid);
+    datatable.onDeleteListener = (typeid) => presenter.delete(context, typeid);
   }
 }

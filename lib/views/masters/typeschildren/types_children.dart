@@ -9,6 +9,7 @@ import '../../../routes/route_list.dart';
 import '../../../utils/handle_error_request.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_create.dart';
+import '../../../widgets/button/theme_button_search.dart';
 import '../../../widgets/datatables/custom_datatable.dart';
 import '../../skins/tempalte.dart';
 import '_datatable_source.dart';
@@ -19,10 +20,10 @@ import '_text.dart';
 class TypesChildrenView extends StatelessWidget
     with IndexViewContract, HandleErrorRequest, ParentViewContract {
   late ParentForm parent;
-  final c = Get.put(TypeChildrenSource());
+  final c = Get.put(ParentSource());
   final presenter = Get.find<TypesChildrenPresenter>();
   final datatable = TypeChildrenDataTableSource();
-  final source = TypeChildrenSource().obs;
+  final source = ParentSource().obs;
 
   TypesChildrenView() {
     presenter.typeChildrenViewContract = this;
@@ -38,7 +39,7 @@ class TypesChildrenView extends StatelessWidget
           BreadcrumbWidget('Dashboard', route: RouteList.home.index),
           BreadcrumbWidget('Masters'),
           BreadcrumbWidget('Type'),
-          BreadcrumbWidget('Type Children', active: true),
+          BreadcrumbWidget('Type Data', active: true),
         ],
         activeRoutes: [
           RouteList.masterTypeChildren.index,
@@ -57,17 +58,22 @@ class TypesChildrenView extends StatelessWidget
                   source: datatable,
                   columns: datatable.columns,
                   headerActions: [
-                    parent.menuType(),
-                    // SizedBox(
-                    //   width: 10,
-                    // ),
-                    // ThemeButtonCreate(
-                    //   prefix: TypeParentsText.title,
-                    //   onPressed: () {},
-                    // )
+                    ThemeButtonSearch(
+                      onPressed: () => presenter.filter(context),
+                    ),
+                    // parent.menuType(),
+                    // parent.selectParent(),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    ThemeButtonCreate(
+                      prefix: TypeChildrenText.title,
+                      onPressed: () => presenter.add(context),
+                    )
                   ],
-                  serverSide: (params) =>
-                      presenter.datatables(context, params, c.chosed.value),
+                  serverSide: (params) => c.chosed == 0
+                      ? presenter.datatablesNonFilter(context, params)
+                      : presenter.datatables(context, params, c.chosed.value),
                 );
               })
             ],
@@ -79,12 +85,16 @@ class TypesChildrenView extends StatelessWidget
 
   @override
   void onCreateSuccess(Response response, {BuildContext? context}) {
-    // TODO: implement onCreateSuccess
+    presenter.setProcessing(false);
+    datatable.controller.reload();
+    if (context != null) Navigator.pop(context);
   }
 
   @override
   void onDeleteSuccess(Response response, {BuildContext? context}) {
-    // TODO: implement onDeleteSuccess
+    presenter.setProcessing(false);
+    datatable.controller.reload();
+    if (context != null) Navigator.pop(context);
   }
 
   @override
@@ -101,6 +111,7 @@ class TypesChildrenView extends StatelessWidget
     datatable.onDetailsListener =
         (typeid) => presenter.details(context, typeid);
     datatable.onEditListener = (typeid) => presenter.edit(context, typeid);
+    datatable.onDeleteListener = (typeid) => presenter.delete(context, typeid);
   }
 
   @override
