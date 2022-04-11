@@ -50,7 +50,7 @@ class TypesChildrenPresenter extends CustomGetXController {
       BuildContext context, Map<String, String> params) async {
     Response response = await _typeChildrenService.datatablesNonFilter(params);
     if (response.statusCode == 200) {
-      _loadType();
+      _loadType(params);
       _typeChildrenViewContract.onLoadDatatables(context, response);
     } else
       _typeChildrenViewContract.onErrorRequest(response);
@@ -61,14 +61,14 @@ class TypesChildrenPresenter extends CustomGetXController {
     Response response =
         await _typeChildrenService.datatablesTypesChild(params, id);
     if (response.statusCode == 200) {
-      _loadType();
+      _loadType(params);
       _typeChildrenViewContract.onLoadDatatables(context, response);
     } else
       _typeChildrenViewContract.onErrorRequest(response);
   }
 
-  Future _loadType() async {
-    Response response = await _typeChildrenService.parent();
+  Future _loadType(Map<String, String> params) async {
+    Response response = await _typeChildrenService.parent(params);
     if (response.statusCode == 200)
       _typeChildrenTypeViewContract.onLoadSuccess(response);
     else
@@ -112,8 +112,6 @@ class TypesChildrenPresenter extends CustomGetXController {
         onSave: (body) => save(context, body),
       ),
     );
-
-    _loadType();
   }
 
   void save(BuildContext context, Map<String, dynamic> body) async {

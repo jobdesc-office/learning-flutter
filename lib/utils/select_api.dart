@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../models/masters/businesspartner_model.dart';
+import '../models/masters/user_model.dart';
 import '../services/masters/type_service.dart';
 import '../services/masters/typechildren_service.dart';
 import '../services/masters/user_service.dart';
@@ -43,6 +44,22 @@ Future<BsSelectBoxResponse> selectApiRole(Map<String, String> params) async {
   return BsSelectBoxResponse(options: []);
 }
 
+Future<BsSelectBoxResponse> selectApiUser(Map<String, String> params) async {
+  final userService = Get.find<UserService>();
+  Response response = await userService.all(params);
+  if (response.isOk) {
+    if (response.statusCode == 200) {
+      return BsSelectBoxResponse.createFromJson(
+        response.body,
+        value: (data) => UserModel.fromJson(data).userid,
+        renderText: (data) => Text(UserModel.fromJson(data).userfullname),
+      );
+    }
+  }
+
+  return BsSelectBoxResponse(options: []);
+}
+
 Future<BsSelectBoxResponse> selectApiPartner(Map<String, String> params) async {
   final userService = Get.find<UserService>();
   Response response = await userService.select2(params);
@@ -62,7 +79,24 @@ Future<BsSelectBoxResponse> selectApiPartner(Map<String, String> params) async {
 Future<BsSelectBoxResponse> selectApiTypeParents(
     Map<String, String> params) async {
   final typeChildrenService = Get.find<TypeChildrenService>();
-  Response response = await typeChildrenService.parent();
+  Response response = await typeChildrenService.parent(params);
+  if (response.isOk) {
+    if (response.statusCode == 200) {
+      return BsSelectBoxResponse.createFromJson(
+        response.body,
+        value: (data) => TypeModel.fromJson(data).typeid,
+        renderText: (data) => Text(TypeModel.fromJson(data).typename),
+      );
+    }
+  }
+
+  return BsSelectBoxResponse(options: []);
+}
+
+Future<BsSelectBoxResponse> selectApiTypeChildren(
+    Map<String, String> params) async {
+  final typeChildrenService = Get.find<TypeChildrenService>();
+  Response response = await typeChildrenService.children();
   if (response.isOk) {
     if (response.statusCode == 200) {
       return BsSelectBoxResponse.createFromJson(

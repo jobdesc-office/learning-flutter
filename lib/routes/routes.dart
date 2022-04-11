@@ -68,6 +68,8 @@ class AppRoute {
         binding: BindingsBuilder(() {
           Get.lazyPut(() => ScheduleService());
           Get.lazyPut(() => SchedulePresenter());
+          Get.lazyPut(() => TypeChildrenService());
+          Get.lazyPut(() => UserService());
         }),
       ),
       CustomGetPage(

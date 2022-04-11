@@ -39,12 +39,12 @@ class ScheduleView extends GetView
               CustomDatabales(
                 source: datatable,
                 columns: datatable.columns,
-                // headerActions: [
-                //   ThemeButtonCreate(
-                //     prefix: ScheduleText.title,
-                //     onPressed: () => presenter.add(context),
-                //   )
-                // ],
+                headerActions: [
+                  ThemeButtonCreate(
+                    prefix: ScheduleText.title,
+                    onPressed: () => presenter.add(context),
+                  )
+                ],
                 serverSide: (params) => presenter.datatables(context, params),
               )
             ],

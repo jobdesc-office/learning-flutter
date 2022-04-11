@@ -6,6 +6,7 @@ import '../../contracts/base/index_view_contract.dart';
 import '../../services/masters/schedule_service.dart';
 import '../../utils/custom_get_controller.dart';
 import '../../views/ventes/schedules/schedule_detail.dart';
+import '../../views/ventes/schedules/schedule_form.dart';
 
 class SchedulePresenter extends CustomGetXController {
   final _scheduleService = Get.find<ScheduleService>();
@@ -27,6 +28,23 @@ class SchedulePresenter extends CustomGetXController {
       _scheduleViewContract.onLoadDatatables(context, response);
     else
       _scheduleViewContract.onErrorRequest(response);
+  }
+
+  void add(BuildContext context) async {
+    showDialog(
+      context: context,
+      builder: (context) => ScheduleFormView(
+        onSave: (body) => save(context, body),
+      ),
+    );
+  }
+
+  void save(BuildContext context, Map<String, dynamic> body) async {
+    // Response response = await _typeChildrenService.store(body);
+    // if (response.statusCode == 200)
+    //   _typeChildrenViewContract.onCreateSuccess(response, context: context);
+    // else
+    //   _typeChildrenViewContract.onErrorRequest(response);
   }
 
   void details(BuildContext context, int scheid) async {

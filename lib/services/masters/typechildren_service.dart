@@ -14,11 +14,15 @@ class TypeChildrenService extends ApiConnectProvider {
     return post('$api/datatables/$id', params);
   }
 
-  Future<Response> parent() {
-    return get('$api/parent');
+  Future<Response> parent(Map<String, dynamic> params) {
+    return get('$api/parent', query: params);
   }
 
   Future<Response> showParent(int id) {
     return get('$api/parent/$id');
+  }
+
+  Future<Response> children() {
+    return get('$api/children');
   }
 }
