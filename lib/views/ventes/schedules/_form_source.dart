@@ -1,3 +1,5 @@
+import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
+import 'package:bs_flutter_inputtext/bs_flutter_inputtext.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +12,15 @@ import '../../../utils/validators.dart';
 import '../../../utils/select_api.dart';
 import '../../../widgets/form_group.dart';
 import '../../../widgets/input/custom_input.dart';
+import '../../../widgets/input/custom_input_number.dart';
 import '../../../widgets/selectbox/custom_selectbox.dart';
+import '_details_source.dart';
+import '_map_source.dart';
+import 'map.dart';
 import '_text.dart';
 
 class ScheduleSource extends GetxController {
+  final map = Get.put(mapSource());
   bool isProcessing = false;
 
   var selectedDateStart = ''.obs;
@@ -21,12 +28,14 @@ class ScheduleSource extends GetxController {
   var selectedDateAct = ''.obs;
   var selectedTimeStart = ''.obs;
   var selectedTimeEnd = ''.obs;
+  var online = false.obs;
+  var allDay = false.obs;
+  var private = false.obs;
 
   TextEditingController inputName = TextEditingController();
-  TextEditingController inputIcon = TextEditingController();
-  TextEditingController inputRoute = TextEditingController();
-  TextEditingController inputColor = TextEditingController();
-  TextEditingController inputSequence = TextEditingController();
+  TextEditingController inputOnLink = TextEditingController();
+  TextEditingController inputDesc = TextEditingController();
+  TextEditingController inputRemind = TextEditingController();
 
   BsSelectBoxController selectType = BsSelectBoxController();
   BsSelectBoxController selectToward = BsSelectBoxController();
@@ -35,12 +44,24 @@ class ScheduleSource extends GetxController {
   Future<Map<String, dynamic>> toJson() async {
     SessionModel session = await SessionManager.current();
     return {
-      'menunm': inputName.text,
+      'schenm': inputName.text,
+      'schestartdate': selectedDateStart.value,
+      'scheenddate': selectedDateEnd.value,
+      'schestarttime': selectedTimeStart.value,
+      'scheendtime': selectedTimeEnd.value,
+      'schetypeid': selectType.getSelectedAsString(),
+      'scheactdate': selectedDateAct.value,
+      'schetowardid': selectToward.getSelectedAsString(),
+      'schebpid': selectBp.getSelectedAsString(),
+      'scheallday': allDay.value,
+      'scheloc': map.coordinate.value,
+      'scheprivate': private.value,
+      'scheonline': online.value,
+      'schetz': 'ID',
+      'scheremind': inputRemind.text,
+      'schedesc': inputDesc.text,
+      'scheonlink': inputOnLink.text,
       'masterid': selectType.getSelectedAsString(),
-      'menuicon': inputIcon.text,
-      'menuroute': inputRoute.text,
-      'menucolor': inputColor.text,
-      'menuseq': inputSequence.text,
       'createdby': session.userid,
       'updatedby': session.userid,
       'isactive': true,
@@ -48,7 +69,9 @@ class ScheduleSource extends GetxController {
   }
 }
 
-class ScheduleForm extends GetxController {
+class ScheduleForm {
+  final c = Get.put(scheduleDetailsSource());
+  final map = Get.put(mapSource());
   final ScheduleSource source;
 
   ScheduleForm(this.source);
@@ -78,12 +101,18 @@ class ScheduleForm extends GetxController {
             label: Text(ScheduleText.labelStartDate),
             child: Container(
               width: MediaQuery.of(context).size.width,
-              child: ElevatedButton(
+              child: BsButton(
+                style: BsButtonStyle(
+                    color: Color.fromARGB(255, 165, 165, 165),
+                    backgroundColor: Colors.white,
+                    borderColor: Colors.black,
+                    borderRadius: BorderRadius.all(Radius.circular(5))),
+                width: MediaQuery.of(context).size.width,
                 onPressed: () {
                   _selectStartDates(context);
                 },
-                child: Obx(() => Text(source.selectedDateStart.isEmpty
-                    ? "Choose Start Date"
+                label: Obx(() => Text(source.selectedDateStart.isEmpty
+                    ? "Choose the Start Date"
                     : '${source.selectedDateStart}')),
               ),
             ),
@@ -96,12 +125,18 @@ class ScheduleForm extends GetxController {
             label: Text(ScheduleText.labelEndDate),
             child: Container(
               width: MediaQuery.of(context).size.width,
-              child: ElevatedButton(
+              child: BsButton(
+                  style: BsButtonStyle(
+                      color: Color.fromARGB(255, 165, 165, 165),
+                      backgroundColor: Colors.white,
+                      borderColor: Colors.black,
+                      borderRadius: BorderRadius.all(Radius.circular(5))),
+                  width: MediaQuery.of(context).size.width,
                   onPressed: () {
                     _selectEndDates(context);
                   },
-                  child: Obx(() => Text(source.selectedDateEnd.isEmpty
-                      ? "Choose End Date"
+                  label: Obx(() => Text(source.selectedDateEnd.isEmpty
+                      ? "Choose the End Date"
                       : '${source.selectedDateEnd}'))),
             ),
           ),
@@ -120,12 +155,19 @@ class ScheduleForm extends GetxController {
             label: Text(ScheduleText.labelStartTime),
             child: Container(
               width: MediaQuery.of(context).size.width,
-              child: ElevatedButton(
+              child: BsButton(
+                style: BsButtonStyle(
+                    color: Color.fromARGB(255, 165, 165, 165),
+                    backgroundColor: Colors.white,
+                    borderColor: Colors.black,
+                    borderRadius: BorderRadius.all(Radius.circular(5))),
+                width: MediaQuery.of(context).size.width,
+                disabled: source.allDay.value ? true : false,
                 onPressed: () {
                   _selectStartTimes(context);
                 },
-                child: Obx(() => Text(source.selectedTimeStart.isEmpty
-                    ? "Choose Start Time"
+                label: Obx(() => Text(source.selectedTimeStart.isEmpty
+                    ? "Choose the Start Time"
                     : '${source.selectedTimeStart}')),
               ),
             ),
@@ -138,12 +180,19 @@ class ScheduleForm extends GetxController {
             label: Text(ScheduleText.labelEndTime),
             child: Container(
               width: MediaQuery.of(context).size.width,
-              child: ElevatedButton(
+              child: BsButton(
+                  style: BsButtonStyle(
+                      color: Color.fromARGB(255, 165, 165, 165),
+                      backgroundColor: Colors.white,
+                      borderColor: Colors.black,
+                      borderRadius: BorderRadius.all(Radius.circular(5))),
+                  width: MediaQuery.of(context).size.width,
+                  disabled: source.allDay.value ? true : false,
                   onPressed: () {
                     _selectEndTimes(context);
                   },
-                  child: Obx(() => Text(source.selectedTimeEnd.isEmpty
-                      ? "Choose End Time"
+                  label: Obx(() => Text(source.selectedTimeEnd.isEmpty
+                      ? "Choose the End Time"
                       : '${source.selectedTimeEnd}'))),
             ),
           ),
@@ -157,12 +206,18 @@ class ScheduleForm extends GetxController {
       label: Text(ScheduleText.labelActDate),
       child: Container(
         width: MediaQuery.of(context).size.width,
-        child: ElevatedButton(
+        child: BsButton(
+            style: BsButtonStyle(
+                color: Color.fromARGB(255, 165, 165, 165),
+                backgroundColor: Colors.white,
+                borderColor: Colors.black,
+                borderRadius: BorderRadius.all(Radius.circular(5))),
+            width: MediaQuery.of(context).size.width,
             onPressed: () {
               _selectActDates(context);
             },
-            child: Obx(() => Text(source.selectedDateAct.isEmpty
-                ? "Choose Actual Date"
+            label: Obx(() => Text(source.selectedDateAct.isEmpty
+                ? "Choose the Actual Date"
                 : '${source.selectedDateAct}'))),
       ),
     );
@@ -189,13 +244,13 @@ class ScheduleForm extends GetxController {
           margin: EdgeInsets.only(left: 10),
           sizes: ColScreen(lg: Col.col_6),
           child: FormGroup(
-            label: Text(ScheduleText.labelToward),
+            label: Text(ScheduleText.labelBp),
             child: CustomSelectBox(
               searchable: true,
               disabled: source.isProcessing,
-              controller: source.selectToward,
+              controller: source.selectBp,
               hintText: BaseText.hiintSelect(),
-              serverSide: (params) => selectApiUser(params),
+              serverSide: (params) => selectApiPartner(params),
             ),
           ),
         ),
@@ -203,20 +258,26 @@ class ScheduleForm extends GetxController {
     );
   }
 
-  Widget selectPartner() {
+  Widget selectUser(context) {
     return BsRow(
       children: [
         BsCol(
           margin: EdgeInsets.only(right: 10),
           sizes: ColScreen(lg: Col.col_12),
           child: FormGroup(
-            label: Text(ScheduleText.labelBp),
-            child: CustomSelectBox(
-              searchable: true,
-              disabled: source.isProcessing,
-              controller: source.selectType,
-              hintText: BaseText.hiintSelect(),
-              serverSide: (params) => selectApiPartner(params),
+            label: Text(ScheduleText.labelPlace),
+            child: BsButton(
+              style: BsButtonStyle(
+                  color: Color.fromARGB(255, 165, 165, 165),
+                  backgroundColor: Colors.white,
+                  borderColor: Colors.black,
+                  borderRadius: BorderRadius.all(Radius.circular(5))),
+              width: MediaQuery.of(context).size.width,
+              disabled: source.online.value ? true : false,
+              onPressed: () => Get.to(GoogleMapsPage()),
+              label: Obx(() => Text(map.coordinate.isEmpty
+                  ? "Choose the Place"
+                  : 'Chosen Place')),
             ),
           ),
         ),
@@ -238,19 +299,97 @@ class ScheduleForm extends GetxController {
     );
   }
 
-  // Widget inputSequence() {
-  //   return FormGroup(
-  //     label: Text(ScheduleText.labelSequence),
-  //     child: CustomInputNumber(
-  //       disabled: source.isProcessing,
-  //       controller: source.inputSequence,
-  //       hintText: BaseText.hintText(),
-  //       validators: [
-  //         Validators.maxLength(ScheduleText.labelSequence, 100),
-  //       ],
-  //     ),
-  //   );
-  // }
+  Widget checkBoxForm() {
+    return BsRow(
+      children: [
+        BsCol(
+          margin: EdgeInsets.only(right: 10),
+          sizes: ColScreen(lg: Col.col_2),
+          child: FormGroup(
+            label: Text(ScheduleText.labelOnline),
+            child: Obx(() => Checkbox(
+                  value: source.online.value,
+                  onChanged: (value) {
+                    source.online.toggle();
+
+                    map.coordinate.value = '';
+                  },
+                )),
+          ),
+        ),
+        BsCol(
+          margin: EdgeInsets.only(right: 10),
+          sizes: ColScreen(lg: Col.col_2),
+          child: FormGroup(
+            label: Text(ScheduleText.labelAllDay),
+            child: Obx(() => Checkbox(
+                  value: source.allDay.value,
+                  onChanged: (value) => source.allDay.toggle(),
+                )),
+          ),
+        ),
+        BsCol(
+          margin: EdgeInsets.only(right: 10),
+          sizes: ColScreen(lg: Col.col_2),
+          child: FormGroup(
+            label: Text(ScheduleText.labelPrivate),
+            child: Obx(() => Checkbox(
+                  value: source.private.value,
+                  onChanged: (value) => source.private.toggle(),
+                )),
+          ),
+        ),
+        BsCol(
+          margin: EdgeInsets.only(left: 10),
+          sizes: ColScreen(lg: Col.col_6),
+          child: FormGroup(
+            label: Text(ScheduleText.labelToward),
+            child: CustomSelectBox(
+              searchable: true,
+              disabled: source.isProcessing,
+              controller: source.selectToward,
+              hintText: BaseText.hiintSelect(),
+              serverSide: (params) => selectApiUser(params),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget inputOnLink() {
+    return FormGroup(
+      label: Text(ScheduleText.labelOnLink),
+      child: CustomInput(
+        disabled: source.online.value ? false : true,
+        controller: source.inputOnLink,
+        hintText: BaseText.hintText(),
+      ),
+    );
+  }
+
+  Widget inputDesc() {
+    return FormGroup(
+      label: Text(ScheduleText.labelDesc),
+      child: CustomInput(
+        disabled: source.isProcessing,
+        controller: source.inputDesc,
+        hintText: BaseText.hintText(),
+      ),
+    );
+  }
+
+  Widget inputRemind() {
+    return FormGroup(
+      label: Text(ScheduleText.labelRemind),
+      child: CustomInputNumber(
+        disabled: source.isProcessing,
+        controller: source.inputRemind,
+        hintText: BaseText.hintText(),
+        validators: [Validators.maxLength(ScheduleText.labelRemind, 2)],
+      ),
+    );
+  }
 
   _selectStartDates(BuildContext context) async {
     final DateTime? selectedStart = await showDatePicker(

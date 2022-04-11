@@ -124,13 +124,13 @@ class UserFormView extends GetView implements EditViewContract {
       source.value.inputPassword.text = menu.userpassword;
       source.value.inputConfirmPassword.text = menu.userpassword;
 
+      source.value.selectsBp.add(BsSelectBoxController());
+      source.value.selectsRole.add(BsSelectBoxController());
       source.value.selectsRole.forEach((element) {
-        source.value.selectsRole.add(BsSelectBoxController());
         element.setSelected(
             BsSelectBoxOption(value: menu.typeid, text: Text(menu.typename)));
       });
       source.value.selectsBp.forEach((element) {
-        source.value.selectsBp.add(BsSelectBoxController());
         element.setSelected(
             BsSelectBoxOption(value: menu.bpid, text: Text(menu.bpname)));
       });

@@ -1,8 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:map_picker/map_picker.dart';
+
+import '_map_source.dart';
 
 class GoogleMapsPage extends StatefulWidget {
   const GoogleMapsPage({Key? key}) : super(key: key);
@@ -12,6 +15,7 @@ class GoogleMapsPage extends StatefulWidget {
 }
 
 class _GoogleMapsPageState extends State<GoogleMapsPage> {
+  final c = Get.put(mapSource());
   final _controller = Completer<GoogleMapController>();
   MapPickerController mapPickerController = MapPickerController();
 
@@ -101,9 +105,10 @@ class _GoogleMapsPageState extends State<GoogleMapsPage> {
                   ),
                 ),
                 onPressed: () {
-                  print(
-                      "Location ${cameraPosition.target.latitude} ${cameraPosition.target.longitude}");
-                  print("Address: ${textController.text}");
+                  c.coordinate.value =
+                      'https://maps.google.com?q=${cameraPosition.target.latitude},${cameraPosition.target.longitude}';
+                  print(c.coordinate);
+                  Navigator.pop(context, true);
                 },
                 style: ButtonStyle(
                   backgroundColor:

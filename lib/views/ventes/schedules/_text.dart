@@ -12,4 +12,14 @@ class ScheduleText {
   static String labelType = 'Type';
   static String labelToward = 'Toward';
   static String labelBp = 'Business Partner';
+  static String labelOnline = 'Online';
+  static String labelAllDay = 'All Day';
+  static String labelPrivate = 'Private';
+  static String labelPlace = 'Place';
+  static String labelOnLink = 'Link';
+  static String labelDesc = 'Description';
+  static String labelRemind = 'Reminder';
+
+  static String alertTitle = 'Dont Worry';
+  static String alertText = "you don't need to fill in this section";
 }

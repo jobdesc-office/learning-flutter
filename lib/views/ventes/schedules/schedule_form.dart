@@ -43,11 +43,15 @@ class ScheduleFormView extends StatelessWidget
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     menuForm.inputName(),
+                    menuForm.checkBoxForm(),
                     menuForm.inputDate(context),
                     menuForm.inputTime(context),
                     menuForm.actDate(context),
                     menuForm.selectType(),
-                    menuForm.selectPartner(),
+                    menuForm.selectUser(context),
+                    menuForm.inputOnLink(),
+                    menuForm.inputDesc(),
+                    menuForm.inputRemind()
                   ],
                 );
               }),

@@ -29,7 +29,7 @@ class Validators {
   static BsInputValidator maxLength(String field, int length) {
     return BsInputValidator(validator: (value) {
       if (value.toString().length > length)
-        return "$field cannot be more than $length";
+        return "$field cannot be more than $length digit";
       return null;
     });
   }
@@ -37,7 +37,7 @@ class Validators {
   static BsInputValidator minLength(String field, int length) {
     return BsInputValidator(validator: (value) {
       if (value.toString().length < length)
-        return "$field cannot be less than $length";
+        return "$field cannot be less than $length digit";
       return null;
     });
   }

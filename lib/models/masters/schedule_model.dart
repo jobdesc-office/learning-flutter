@@ -1,7 +1,6 @@
 import '../../helpers/function.dart';
 
-class ScheduleModel{
-
+class ScheduleModel {
   int scheid;
   String schenm;
   String userfullname;
@@ -31,15 +30,14 @@ class ScheduleModel{
     return ScheduleModel(
       scheid: parseInt(json['scheid']),
       schenm: parseString(json['schenm']),
-      userfullname: parseString(json['user']['userfullname']),
+      userfullname: parseString(json['schetoward']['userfullname']),
       schestartdate: parseString(json['schestartdate']),
       scheenddate: parseString(json['scheenddate']),
       schedesc: parseString(json['schedesc']),
       typename: parseString(json['schetype']['typename']),
-      bpname: parseString(json['businesspartner']['bpname']),
+      bpname: parseString(json['schebp']['bpname']),
       isactive: parseBool(json['isactive']),
       jwtToken: parseString(json['jwt_token']),
     );
   }
-  
 }

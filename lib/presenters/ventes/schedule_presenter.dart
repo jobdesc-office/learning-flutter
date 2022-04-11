@@ -40,11 +40,11 @@ class SchedulePresenter extends CustomGetXController {
   }
 
   void save(BuildContext context, Map<String, dynamic> body) async {
-    // Response response = await _typeChildrenService.store(body);
-    // if (response.statusCode == 200)
-    //   _typeChildrenViewContract.onCreateSuccess(response, context: context);
-    // else
-    //   _typeChildrenViewContract.onErrorRequest(response);
+    Response response = await _scheduleService.store(body);
+    if (response.statusCode == 200)
+      _scheduleViewContract.onCreateSuccess(response, context: context);
+    else
+      _scheduleViewContract.onErrorRequest(response);
   }
 
   void details(BuildContext context, int scheid) async {
