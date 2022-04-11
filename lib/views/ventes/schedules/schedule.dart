@@ -87,7 +87,7 @@ class ScheduleView extends GetView
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onDetailsListener =
         (userid) => presenter.details(context, userid);
-    // datatable.onEditListener = (userid) => presenter.edit(context, userid);
+    datatable.onEditListener = (userid) => presenter.edit(context, userid);
     // datatable.onDeleteListener = (userid) => presenter.delete(context, userid);
   }
 }

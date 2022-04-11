@@ -1,18 +1,21 @@
 import 'package:bs_flutter_modal/bs_flutter_modal.dart';
+import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/edit_view_contract.dart';
+import '../../../models/ventes/schedule_model.dart';
 import '../../../presenters/ventes/schedule_presenter.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
 import '../../masters/menus/_menu_type.dart';
 import '_form_source.dart';
+import '_map_source.dart';
 import '_text.dart';
 
-class ScheduleFormView extends StatelessWidget
-    implements EditViewContract, MenuTypeViewContract {
+class ScheduleFormView extends StatelessWidget implements EditViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
+  final map = Get.put(mapSource());
   final SchedulePresenter presenter = Get.find<SchedulePresenter>();
   final source = ScheduleSource().obs;
   final Function(Map<String, dynamic> body) onSave;
@@ -20,8 +23,7 @@ class ScheduleFormView extends StatelessWidget
   late ScheduleForm menuForm;
 
   ScheduleFormView({required this.onSave}) {
-    // presenter.menuFetchDataContract = this;
-    // presenter.menuTypeViewContract = this;
+    presenter.scheduleFetchDataContract = this;
   }
 
   @override
@@ -92,12 +94,32 @@ class ScheduleFormView extends StatelessWidget
   }
 
   @override
-  void onLoadSuccess(Response response) {
-    // TODO: implement onLoadSuccess
-  }
-
-  @override
   void onSuccessFetchData(Response response) {
-    // TODO: implement onSuccessFetchData
+    presenter.setProcessing(false);
+
+    source.update((val) {
+      ScheduleModel menu = ScheduleModel.fromJson(response.body);
+      source.value.inputName.text = menu.schenm;
+      source.value.inputOnLink.text = menu.link;
+      source.value.inputDesc.text = menu.schedesc;
+      source.value.inputRemind.text = menu.remind;
+
+      source.value.selectType.setSelected(
+          BsSelectBoxOption(value: menu.typeid, text: Text(menu.typename)));
+      source.value.selectToward.setSelected(
+          BsSelectBoxOption(value: menu.userid, text: Text(menu.userfullname)));
+      source.value.selectBp.setSelected(
+          BsSelectBoxOption(value: menu.bpid, text: Text(menu.bpname)));
+
+      source.value.selectedDateStart.value = menu.schestartdate;
+      source.value.selectedDateEnd.value = menu.scheenddate;
+      source.value.selectedDateAct.value = menu.scheactdate;
+      source.value.selectedTimeStart.value = menu.schestarttime;
+      source.value.selectedTimeEnd.value = menu.scheendtime;
+      source.value.online.value = menu.online;
+      source.value.allDay.value = menu.allday;
+      source.value.private.value = menu.private;
+      map.coordinate.value = menu.loc;
+    });
   }
 }

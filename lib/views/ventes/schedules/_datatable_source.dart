@@ -10,7 +10,7 @@ import '../../../widgets/button/button_edit_datatable.dart';
 
 class ScheduleDataTableSource extends BsDatatableSource {
   ValueChanged<int> onDetailsListener = (value) {};
-  // ValueChanged<int> onEditListener = (value) {};
+  ValueChanged<int> onEditListener = (value) {};
   // ValueChanged<int> onDeleteListener = (value) {};
 
   ScheduleDataTableSource({
@@ -26,7 +26,7 @@ class ScheduleDataTableSource extends BsDatatableSource {
         orderable: false,
       ),
       BsDataColumn(
-          label: Text('Schedule'), columnName: 'schedulename', width: 250),
+          label: Text('Schedule'), columnName: 'schedulename', width: 225),
       BsDataColumn(label: Text('PIC'), columnName: 'userfullname', width: 250),
       BsDataColumn(label: Text('Type'), columnName: 'typename', width: 150),
       BsDataColumn(
@@ -57,10 +57,10 @@ class ScheduleDataTableSource extends BsDatatableSource {
                 margin: EdgeInsets.only(right: 5),
                 onPressed: () => onDetailsListener(row.scheid),
               ),
-              // ButtonEditDatatables(
-              //   margin: EdgeInsets.only(right: 5),
-              //   onPressed: () => onEditListener(row.scheid),
-              // ),
+              ButtonEditDatatables(
+                margin: EdgeInsets.only(right: 5),
+                onPressed: () => onEditListener(row.scheid),
+              ),
               // ButtonDeleteDatatables(
               //     onPressed: () => onDeleteListener(row.scheid)),
             ],

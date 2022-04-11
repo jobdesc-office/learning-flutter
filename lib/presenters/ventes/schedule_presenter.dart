@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../contracts/base/details_view_contract.dart';
+import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
 import '../../services/ventes/schedule_service.dart';
 import '../../utils/custom_get_controller.dart';
@@ -20,6 +21,11 @@ class SchedulePresenter extends CustomGetXController {
   set scheduleFetchDataDetailsContract(
       DetailViewContract scheduleFetchDataDetailsContract) {
     _scheduleFetchDataDetailsContract = scheduleFetchDataDetailsContract;
+  }
+
+  late EditViewContract _scheduleFetchDataContract;
+  set scheduleFetchDataContract(EditViewContract scheduleFetchDataContract) {
+    _scheduleFetchDataContract = scheduleFetchDataContract;
   }
 
   Future datatables(BuildContext context, Map<String, String> params) async {
@@ -59,5 +65,31 @@ class SchedulePresenter extends CustomGetXController {
       _scheduleFetchDataDetailsContract.onSuccessFetchData(response);
     else
       _scheduleViewContract.onErrorRequest(response);
+  }
+
+  void edit(BuildContext context, int typeid) async {
+    setProcessing(true);
+    showDialog(
+      context: context,
+      builder: (context) => ScheduleFormView(
+        onSave: (body) => update(context, body, typeid),
+      ),
+    );
+
+    Response response = await _scheduleService.show(typeid);
+    if (response.statusCode == 200)
+      _scheduleFetchDataContract.onSuccessFetchData(response);
+    else
+      _scheduleViewContract.onErrorRequest(response);
+  }
+
+  void update(
+      BuildContext context, Map<String, dynamic> body, int typeid) async {
+    // setProcessing(true);
+    // Response response = await _typeChildrenService.update(typeid, body);
+    // if (response.statusCode == 200)
+    //   _typeChildrenViewContract.onEditSuccess(response, context: context);
+    // else
+    //   _typeChildrenViewContract.onErrorRequest(response);
   }
 }
