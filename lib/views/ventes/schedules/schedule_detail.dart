@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/details_view_contract.dart';
-import '../../../models/masters/schedule_model.dart';
+import '../../../models/ventes/schedule_model.dart';
 import '../../../presenters/ventes/schedule_presenter.dart';
 import '_details_source.dart';
 import '_text.dart';

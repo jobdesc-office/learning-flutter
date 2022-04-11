@@ -2,7 +2,7 @@ import 'package:boilerplate/constants/base_text.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 
-import '../../../models/masters/schedule_model.dart';
+import '../../../models/ventes/schedule_model.dart';
 import '../../../models/masters/user_model.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_details_datatable.dart';
@@ -25,10 +25,12 @@ class ScheduleDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      BsDataColumn(label: Text('Schedule'), columnName: 'schedulename', width: 250),
-      BsDataColumn(label: Text('PIC'), columnName: 'userfullname',width: 250),
-      BsDataColumn(label: Text('Type'), columnName: 'typename',width: 150),
-      BsDataColumn(label: Text('Business Partner'), columnName: 'bpname',width: 250),
+      BsDataColumn(
+          label: Text('Schedule'), columnName: 'schedulename', width: 250),
+      BsDataColumn(label: Text('PIC'), columnName: 'userfullname', width: 250),
+      BsDataColumn(label: Text('Type'), columnName: 'typename', width: 150),
+      BsDataColumn(
+          label: Text('Business Partner'), columnName: 'bpname', width: 250),
       BsDataColumn(label: Text('Actions'), orderable: false, searchable: false),
     ];
   }

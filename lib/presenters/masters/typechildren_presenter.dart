@@ -5,7 +5,7 @@ import '../../constants/base_text.dart';
 import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
-import '../../contracts/typechildren_contract.dart';
+import '../../contracts/master/typechildren_contract.dart';
 import '../../services/masters/typechildren_service.dart';
 import '../../utils/custom_get_controller.dart';
 import '../../views/masters/typeschildren/parentFilter.dart';

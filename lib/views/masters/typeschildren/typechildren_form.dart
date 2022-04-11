@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/edit_view_contract.dart';
-import '../../../contracts/typechildren_contract.dart';
+import '../../../contracts/master/typechildren_contract.dart';
 import '../../../models/masters/type_model.dart';
 import '../../../presenters/masters/typechildren_presenter.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
