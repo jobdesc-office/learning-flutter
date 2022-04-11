@@ -2,7 +2,6 @@ import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 import '../../../constants/base_text.dart';
 import '../../../models/session_model.dart';
@@ -12,7 +11,6 @@ import '../../../utils/select_api.dart';
 import '../../../widgets/form_group.dart';
 import '../../../widgets/input/custom_input.dart';
 import '../../../widgets/selectbox/custom_selectbox.dart';
-import '../../masters/menus/_menu_type.dart';
 import '_text.dart';
 
 class ScheduleSource extends GetxController {
@@ -205,17 +203,40 @@ class ScheduleForm extends GetxController {
     );
   }
 
-  // Widget inputColor() {
-  //   return FormGroup(
-  //     label: Text(ScheduleText.labelColor),
-  //     child: CustomInput(
-  //       disabled: source.isProcessing,
-  //       controller: source.inputColor,
-  //       hintText: BaseText.hintText(),
-  //       validators: [],
-  //     ),
-  //   );
-  // }
+  Widget selectPartner() {
+    return BsRow(
+      children: [
+        BsCol(
+          margin: EdgeInsets.only(right: 10),
+          sizes: ColScreen(lg: Col.col_12),
+          child: FormGroup(
+            label: Text(ScheduleText.labelBp),
+            child: CustomSelectBox(
+              searchable: true,
+              disabled: source.isProcessing,
+              controller: source.selectType,
+              hintText: BaseText.hiintSelect(),
+              serverSide: (params) => selectApiPartner(params),
+            ),
+          ),
+        ),
+        // BsCol(
+        //   margin: EdgeInsets.only(left: 10),
+        //   sizes: ColScreen(lg: Col.col_6),
+        //   child: FormGroup(
+        //     label: Text(ScheduleText.labelToward),
+        //     child: CustomSelectBox(
+        //       searchable: true,
+        //       disabled: source.isProcessing,
+        //       controller: source.selectToward,
+        //       hintText: BaseText.hiintSelect(),
+        //       serverSide: (params) => selectApiUser(params),
+        //     ),
+        //   ),
+        // ),
+      ],
+    );
+  }
 
   // Widget inputSequence() {
   //   return FormGroup(

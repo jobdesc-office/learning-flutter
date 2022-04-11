@@ -96,7 +96,7 @@ Future<BsSelectBoxResponse> selectApiTypeParents(
 Future<BsSelectBoxResponse> selectApiTypeChildren(
     Map<String, String> params) async {
   final typeChildrenService = Get.find<TypeChildrenService>();
-  Response response = await typeChildrenService.children();
+  Response response = await typeChildrenService.children(params);
   if (response.isOk) {
     if (response.statusCode == 200) {
       return BsSelectBoxResponse.createFromJson(

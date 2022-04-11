@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
-import '../../services/masters/schedule_service.dart';
+import '../../services/ventes/schedule_service.dart';
 import '../../utils/custom_get_controller.dart';
 import '../../views/ventes/schedules/schedule_detail.dart';
 import '../../views/ventes/schedules/schedule_form.dart';

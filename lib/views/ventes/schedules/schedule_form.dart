@@ -46,7 +46,8 @@ class ScheduleFormView extends StatelessWidget
                     menuForm.inputDate(context),
                     menuForm.inputTime(context),
                     menuForm.actDate(context),
-                    menuForm.selectType()
+                    menuForm.selectType(),
+                    menuForm.selectPartner(),
                   ],
                 );
               }),

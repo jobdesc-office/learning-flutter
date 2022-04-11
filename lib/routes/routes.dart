@@ -7,7 +7,7 @@ import '../presenters/masters/typechildren_presenter.dart';
 import '../presenters/masters/typeparent_presenter.dart';
 import '../presenters/masters/user_presenter.dart';
 import '../services/masters/businessPartner_service.dart';
-import '../services/masters/schedule_service.dart';
+import '../services/ventes/schedule_service.dart';
 import '../services/masters/type_service.dart';
 import '../services/masters/typechildren_service.dart';
 import '../services/masters/user_service.dart';

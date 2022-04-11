@@ -22,7 +22,7 @@ class TypeChildrenService extends ApiConnectProvider {
     return get('$api/parent/$id');
   }
 
-  Future<Response> children() {
-    return get('$api/children');
+  Future<Response> children(Map<String, dynamic> params) {
+    return get('$api/children', query: params);
   }
 }
