@@ -3,9 +3,20 @@ import 'package:get/get.dart';
 class scheduleDetailsSource extends GetxController {
   var title = ''.obs;
   var name = ''.obs;
+
   var startdate = ''.obs;
   var enddate = ''.obs;
+  var starttime = ''.obs;
+  var endtime = ''.obs;
+
   var desc = ''.obs;
   var type = ''.obs;
   var bp = ''.obs;
+  var loc = ''.obs;
+  var remind = ''.obs;
+  var timezone = ''.obs;
+
+  var online = false.obs;
+  var allday = false.obs;
+  var private = false.obs;
 }

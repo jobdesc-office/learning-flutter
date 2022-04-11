@@ -22,7 +22,7 @@ class ScheduleDetails extends GetView implements DetailViewContract {
     return BsModal(
         context: context,
         dialog: BsModalDialog(
-          size: BsModalSize.md,
+          size: BsModalSize.lg,
           child: BsModalContent(children: [
             BsModalContainer(
               title: Text(ScheduleText.title + ' Details'),
@@ -56,13 +56,43 @@ class ScheduleDetails extends GetView implements DetailViewContract {
                                 height: 20,
                               ),
                               Row(
+                                children: [Text('Start Time')],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
                                 children: [Text('End Date')],
                               ),
                               SizedBox(
                                 height: 20,
                               ),
                               Row(
+                                children: [Text('End Time')],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                children: [Text('Location')],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
                                 children: [Text('Description')],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                children: [Text('Reminder')],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                children: [Text('Time Zone')],
                               ),
                               SizedBox(
                                 height: 20,
@@ -82,6 +112,36 @@ class ScheduleDetails extends GetView implements DetailViewContract {
                         sizes: ColScreen(lg: Col.col_1),
                         child: Column(
                           children: [
+                            Row(
+                              children: [Text(' : ')],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              children: [Text(' : ')],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              children: [Text(' : ')],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              children: [Text(' : ')],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              children: [Text(' : ')],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
                             Row(
                               children: [Text(' : ')],
                             ),
@@ -147,6 +207,12 @@ class ScheduleDetails extends GetView implements DetailViewContract {
                               height: 20,
                             ),
                             Row(
+                              children: [Text(c.starttime.value)],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
                               children: [
                                 Text(c.enddate.value == ''
                                     ? 'Still in Process'
@@ -157,7 +223,35 @@ class ScheduleDetails extends GetView implements DetailViewContract {
                               height: 20,
                             ),
                             Row(
+                              children: [
+                                Text(c.endtime.value == ''
+                                    ? 'Still in Process'
+                                    : c.endtime.value)
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              children: [Text(c.loc.value)],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
                               children: [Text(c.desc.value)],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              children: [Text(c.remind.value)],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              children: [Text(c.timezone.value)],
                             ),
                             SizedBox(
                               height: 20,
@@ -187,9 +281,18 @@ class ScheduleDetails extends GetView implements DetailViewContract {
     c.title.value = dt.schenm;
     c.name.value = dt.userfullname;
     c.startdate.value = dt.schestartdate;
+    c.starttime.value = dt.schestarttime;
     c.enddate.value = dt.scheenddate;
+    c.endtime.value = dt.scheendtime;
+    c.loc.value = dt.loc;
+    c.remind.value = dt.remind;
+    c.timezone.value = dt.timezone;
+
     c.desc.value = dt.schedesc;
     c.type.value = dt.typename;
+    c.allday.value = dt.allday;
+    c.online.value = dt.online;
+    c.private.value = dt.private;
     c.bp.value = dt.bpname;
   }
 }
