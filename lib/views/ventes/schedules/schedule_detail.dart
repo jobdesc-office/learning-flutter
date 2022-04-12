@@ -1,6 +1,8 @@
+import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:bs_flutter_modal/bs_flutter_modal.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/details_view_contract.dart';
@@ -80,6 +82,12 @@ class ScheduleDetails extends GetView implements DetailViewContract {
                                 height: 20,
                               ),
                               Row(
+                                children: [Text('Link')],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
                                 children: [Text('Description')],
                               ),
                               SizedBox(
@@ -112,6 +120,12 @@ class ScheduleDetails extends GetView implements DetailViewContract {
                         sizes: ColScreen(lg: Col.col_1),
                         child: Column(
                           children: [
+                            Row(
+                              children: [Text(' : ')],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
                             Row(
                               children: [Text(' : ')],
                             ),
@@ -233,7 +247,41 @@ class ScheduleDetails extends GetView implements DetailViewContract {
                               height: 20,
                             ),
                             Row(
-                              children: [Text(c.loc.value)],
+                              children: [
+                                Tooltip(
+                                  message: 'Tap to Copy',
+                                  child: GestureDetector(
+                                      onTap: () {
+                                        Clipboard.setData(
+                                          ClipboardData(text: c.loc.value),
+                                        );
+                                        Get.snackbar('Success', 'Copy Success',
+                                            backgroundColor:
+                                                ColorPallates.primary);
+                                      },
+                                      child: Text(c.loc.value)),
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              children: [
+                                Tooltip(
+                                  message: 'Tap to Copy',
+                                  child: GestureDetector(
+                                      onTap: () {
+                                        Clipboard.setData(
+                                          ClipboardData(text: c.link.value),
+                                        );
+                                        Get.snackbar('Success', 'Copy Success',
+                                            backgroundColor:
+                                                ColorPallates.primary);
+                                      },
+                                      child: Text(c.link.value)),
+                                )
+                              ],
                             ),
                             SizedBox(
                               height: 20,
@@ -284,6 +332,7 @@ class ScheduleDetails extends GetView implements DetailViewContract {
     c.starttime.value = dt.schestarttime;
     c.enddate.value = dt.scheenddate;
     c.endtime.value = dt.scheendtime;
+    c.link.value = dt.link;
     c.loc.value = dt.loc;
     c.remind.value = dt.remind;
     c.timezone.value = dt.timezone;

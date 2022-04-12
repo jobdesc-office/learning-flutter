@@ -63,16 +63,16 @@ class ScheduleFormView extends StatelessWidget implements EditViewContract {
                 () => Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    ThemeButtonCancel(
-                      disabled: presenter.isProcessing.value,
-                      margin: EdgeInsets.only(right: 5),
-                      onPressed: () => onClickCancelModal(context),
-                    ),
                     ThemeButtonSave(
                       disabled: presenter.isProcessing.value,
                       processing: presenter.isProcessing.value,
                       margin: EdgeInsets.only(right: 5),
                       onPressed: () => onClickSaveModal(context),
+                    ),
+                    ThemeButtonCancel(
+                      disabled: presenter.isProcessing.value,
+                      margin: EdgeInsets.only(right: 5),
+                      onPressed: () => onClickCancelModal(context),
                     ),
                   ],
                 ),
@@ -116,6 +116,7 @@ class ScheduleFormView extends StatelessWidget implements EditViewContract {
       source.value.selectedDateAct.value = menu.scheactdate;
       source.value.selectedTimeStart.value = menu.schestarttime;
       source.value.selectedTimeEnd.value = menu.scheendtime;
+      source.value.inputOnLink.text = menu.link;
       source.value.online.value = menu.online;
       source.value.allDay.value = menu.allday;
       source.value.private.value = menu.private;

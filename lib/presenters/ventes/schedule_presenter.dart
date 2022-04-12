@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../constants/base_text.dart';
 import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
@@ -8,6 +9,7 @@ import '../../services/ventes/schedule_service.dart';
 import '../../utils/custom_get_controller.dart';
 import '../../views/ventes/schedules/schedule_detail.dart';
 import '../../views/ventes/schedules/schedule_form.dart';
+import '../../widgets/confirm_dialog.dart';
 
 class SchedulePresenter extends CustomGetXController {
   final _scheduleService = Get.find<ScheduleService>();
@@ -85,11 +87,30 @@ class SchedulePresenter extends CustomGetXController {
 
   void update(
       BuildContext context, Map<String, dynamic> body, int typeid) async {
-    // setProcessing(true);
-    // Response response = await _typeChildrenService.update(typeid, body);
-    // if (response.statusCode == 200)
-    //   _typeChildrenViewContract.onEditSuccess(response, context: context);
-    // else
-    //   _typeChildrenViewContract.onErrorRequest(response);
+    setProcessing(true);
+    Response response = await _scheduleService.update(typeid, body);
+    if (response.statusCode == 200)
+      _scheduleViewContract.onEditSuccess(response, context: context);
+    else
+      _scheduleViewContract.onErrorRequest(response);
+  }
+
+  void delete(BuildContext context, int typeid) {
+    showDialog(
+      context: context,
+      builder: (context) => ConfirmDialog(
+        title: BaseText.confirmTitle,
+        message: BaseText.confirmMessage,
+        onPressed: (_, value) async {
+          if (value == ConfirmDialogOption.YES_OPTION) {
+            Response response = await _scheduleService.destroy(typeid);
+            if (response.statusCode == 200)
+              _scheduleViewContract.onDeleteSuccess(response, context: context);
+            else
+              _scheduleViewContract.onErrorRequest(response);
+          }
+        },
+      ),
+    );
   }
 }

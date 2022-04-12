@@ -16,7 +16,8 @@ import '_text.dart';
 class BusinessPartnerFormView extends StatelessWidget
     implements EditViewContract, BusinessPartnerTypeViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
-  final BusinessPartnerPresenter presenter = Get.find<BusinessPartnerPresenter>();
+  final BusinessPartnerPresenter presenter =
+      Get.find<BusinessPartnerPresenter>();
   final source = BusinessPartnerSource().obs;
   final Function(Map<String, dynamic> body) onSave;
 
@@ -59,16 +60,16 @@ class BusinessPartnerFormView extends StatelessWidget
                 () => Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    ThemeButtonCancel(
-                      disabled: presenter.isProcessing.value,
-                      margin: EdgeInsets.only(right: 5),
-                      onPressed: () => onClickCancelModal(context),
-                    ),
                     ThemeButtonSave(
                       disabled: presenter.isProcessing.value,
                       processing: presenter.isProcessing.value,
                       margin: EdgeInsets.only(right: 5),
                       onPressed: () => onClickSaveModal(context),
+                    ),
+                    ThemeButtonCancel(
+                      disabled: presenter.isProcessing.value,
+                      margin: EdgeInsets.only(right: 5),
+                      onPressed: () => onClickCancelModal(context),
                     ),
                   ],
                 ),

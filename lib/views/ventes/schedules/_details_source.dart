@@ -12,6 +12,7 @@ class scheduleDetailsSource extends GetxController {
   var desc = ''.obs;
   var type = ''.obs;
   var bp = ''.obs;
+  var link = ''.obs;
   var loc = ''.obs;
   var remind = ''.obs;
   var timezone = ''.obs;

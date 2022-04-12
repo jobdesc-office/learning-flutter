@@ -14,7 +14,7 @@ class ButtonDeleteDatatables extends BsButton {
           disabled: disabled,
           margin: margin,
           prefixIcon: BaseIcon.buttonDelete,
-          style: CustomButtonStyle.roundedDanger,
+          style: CustomButtonStyle.roundedGrey,
           size: CustomButonSize.small,
           onPressed: onPressed,
         );

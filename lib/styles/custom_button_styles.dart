@@ -10,14 +10,26 @@ class CustomButtonStyle {
         borderRadius: BorderRadius.circular(5),
       );
 
+  static BsButtonStyle get roundedSecondary => BsButtonStyle(
+        backgroundColor: ColorPallates.cancel,
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(5),
+      );
+
   static BsButtonStyle get roundedSafe => BsButtonStyle(
         backgroundColor: Colors.blue.shade300,
         color: Colors.white,
         borderRadius: BorderRadius.circular(5),
-      );    
+      );
 
   static BsButtonStyle get roundedDanger => BsButtonStyle(
         backgroundColor: ColorPallates.tertiary,
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(5),
+      );
+
+  static BsButtonStyle get roundedGrey => BsButtonStyle(
+        backgroundColor: ColorPallates.delete,
         color: Colors.white,
         borderRadius: BorderRadius.circular(5),
       );

@@ -16,7 +16,7 @@ class ThemeButtonCancel extends BsButton {
           margin: margin,
           label: Text(BaseText.buttonCancel),
           prefixIcon: BaseIcon.buttonCancel,
-          style: CustomButtonStyle.roundedDanger,
+          style: CustomButtonStyle.roundedSecondary,
           size: CustomButonSize.medium,
           onPressed: onPressed,
         );

@@ -3,6 +3,7 @@ import 'package:bs_flutter_inputtext/bs_flutter_inputtext.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../../constants/base_text.dart';
@@ -277,7 +278,7 @@ class ScheduleForm {
               onPressed: () => Get.to(GoogleMapsPage()),
               label: Obx(() => Text(map.coordinate.isEmpty
                   ? "Choose the Place"
-                  : 'Chosen Place')),
+                  : map.coordinate.value)),
             ),
           ),
         ),
@@ -324,7 +325,16 @@ class ScheduleForm {
             label: Text(ScheduleText.labelAllDay),
             child: Obx(() => Checkbox(
                   value: source.allDay.value,
-                  onChanged: (value) => source.allDay.toggle(),
+                  onChanged: (value) {
+                    if (source.allDay.isTrue) {
+                      source.allDay.toggle();
+                      source.selectedTimeStart.value = '';
+                      source.selectedTimeEnd.value = '';
+                    } else {
+                      source.allDay.toggle();
+                      source.inputOnLink.text = '';
+                    }
+                  },
                 )),
           ),
         ),

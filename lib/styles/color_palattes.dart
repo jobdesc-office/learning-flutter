@@ -8,4 +8,6 @@ class ColorPallates {
   static Color dark = Color(0xFF363636);
   static Color danger = Color(0xffB8405E);
   static Color warning = Color(0xffFFD93D);
+  static Color cancel = Color.fromARGB(255, 134, 134, 133);
+  static Color delete = Color.fromARGB(255, 100, 100, 99);
 }

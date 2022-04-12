@@ -107,7 +107,6 @@ class _GoogleMapsPageState extends State<GoogleMapsPage> {
                 onPressed: () {
                   c.coordinate.value =
                       'https://maps.google.com?q=${cameraPosition.target.latitude},${cameraPosition.target.longitude}';
-                  print(c.coordinate);
                   Navigator.pop(context, true);
                 },
                 style: ButtonStyle(

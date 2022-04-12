@@ -70,16 +70,16 @@ class UserFormView extends GetView implements EditViewContract {
                 () => Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    ThemeButtonCancel(
-                      disabled: presenter.isProcessing.value,
-                      margin: EdgeInsets.only(right: 5),
-                      onPressed: () => onClickCancelModal(context),
-                    ),
                     ThemeButtonSave(
                       disabled: presenter.isProcessing.value,
                       processing: presenter.isProcessing.value,
                       margin: EdgeInsets.only(right: 5),
                       onPressed: () => onClickSaveModal(context),
+                    ),
+                    ThemeButtonCancel(
+                      disabled: presenter.isProcessing.value,
+                      margin: EdgeInsets.only(right: 5),
+                      onPressed: () => onClickCancelModal(context),
                     ),
                   ],
                 ),
