@@ -26,11 +26,17 @@ class ScheduleDataTableSource extends BsDatatableSource {
         orderable: false,
       ),
       BsDataColumn(
-          label: Text('Schedule'), columnName: 'schedulename', width: 220),
-      BsDataColumn(label: Text('PIC'), columnName: 'userfullname', width: 250),
-      BsDataColumn(label: Text('Type'), columnName: 'typename', width: 150),
+          label: Text('Schedule Title'),
+          columnName: 'schedulename',
+          width: 220),
       BsDataColumn(
-          label: Text('Business Partner'), columnName: 'bpname', width: 250),
+          label: Text('Schedule PIC'), columnName: 'userfullname', width: 250),
+      BsDataColumn(
+          label: Text('Schedule Type'), columnName: 'typename', width: 150),
+      BsDataColumn(
+          label: Text('Schedule Business Partner'),
+          columnName: 'bpname',
+          width: 250),
       BsDataColumn(label: Text('Actions'), orderable: false, searchable: false),
     ];
   }

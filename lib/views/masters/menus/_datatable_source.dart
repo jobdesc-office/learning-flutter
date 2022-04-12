@@ -22,10 +22,10 @@ class MenuDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      BsDataColumn(label: Text('Name'), columnName: 'menunm'),
-      BsDataColumn(label: Text('Route'), columnName: 'route'),
-      BsDataColumn(label: Text('Icon'), columnName: 'icon'),
-      BsDataColumn(label: Text('Sequence'), columnName: 'seq'),
+      BsDataColumn(label: Text('Menu Name'), columnName: 'menunm'),
+      BsDataColumn(label: Text('Menu Route'), columnName: 'route'),
+      BsDataColumn(label: Text('Menu Icon'), columnName: 'icon'),
+      BsDataColumn(label: Text('Menu Sequence'), columnName: 'seq'),
       BsDataColumn(label: Text('Actions'), orderable: false, searchable: false),
     ];
   }

@@ -23,11 +23,18 @@ class BusinessPartnerDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      BsDataColumn(label: Text('Company'), columnName: 'userfullname', width: 180),
-      BsDataColumn(label: Text('Type'), columnName: 'bptypeid', width: 100),
-      BsDataColumn(label: Text('Email'), columnName: 'useremail',width: 240),
-      BsDataColumn(label: Text('Phone'), columnName: 'userphone', width: 130),
-      BsDataColumn(label: Text('Actions'), orderable: false, searchable: false, width: 90),
+      BsDataColumn(
+          label: Text('BP Company'), columnName: 'userfullname', width: 180),
+      BsDataColumn(label: Text('BP Type'), columnName: 'bptypeid', width: 100),
+      BsDataColumn(
+          label: Text('BP Email'), columnName: 'useremail', width: 240),
+      BsDataColumn(
+          label: Text('BP Phone'), columnName: 'userphone', width: 130),
+      BsDataColumn(
+          label: Text('Actions'),
+          orderable: false,
+          searchable: false,
+          width: 90),
     ];
   }
 
@@ -43,14 +50,13 @@ class BusinessPartnerDataTableSource extends BsDatatableSource {
         BsDataCell(Text('${controller.start + index + 1}')),
         BsDataCell(Text(row.bpname)),
         BsDataCell(
-          // Row(
-          //   crossAxisAlignment: CrossAxisAlignment.center,
-          //   children: [
-          //     ThemeBadge(child: Text(row.bptype.typename))
-          //   ],
-          // ),
-          Text(row.bptype.typename)
-        ),
+            // Row(
+            //   crossAxisAlignment: CrossAxisAlignment.center,
+            //   children: [
+            //     ThemeBadge(child: Text(row.bptype.typename))
+            //   ],
+            // ),
+            Text(row.bptype.typename)),
         BsDataCell(Text(row.bpemail)),
         BsDataCell(Text(row.bpphone)),
         BsDataCell(

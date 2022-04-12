@@ -107,6 +107,8 @@ class MenuPresenter extends CustomGetXController {
               _menuViewContract.onDeleteSuccess(response, context: context);
             else
               _menuViewContract.onErrorRequest(response);
+          } else {
+            Navigator.pop(context);
           }
         },
       ),

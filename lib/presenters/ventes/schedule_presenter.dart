@@ -108,6 +108,8 @@ class SchedulePresenter extends CustomGetXController {
               _scheduleViewContract.onDeleteSuccess(response, context: context);
             else
               _scheduleViewContract.onErrorRequest(response);
+          } else {
+            Navigator.pop(context);
           }
         },
       ),

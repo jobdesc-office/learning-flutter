@@ -163,6 +163,8 @@ class TypesChildrenPresenter extends CustomGetXController {
                   context: context);
             else
               _typeChildrenViewContract.onErrorRequest(response);
+          } else {
+            Navigator.pop(context);
           }
         },
       ),

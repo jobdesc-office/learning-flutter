@@ -85,22 +85,6 @@ class _ConfirmDialogState extends State<ConfirmDialog> {
             BsModalContainer(
               mainAxisAlignment: MainAxisAlignment.end,
               actions: [
-                !widget.buttons.contains(ConfirmDialogButton.NEGATIVE_BUTTON)
-                    ? Container()
-                    : widget.negativeButton != null
-                        ? widget.negativeButton!
-                        : BsButton(
-                            disabled: _disabled,
-                            margin: EdgeInsets.only(right: 5),
-                            label: Text(BaseText.noConfirm),
-                            style: CustomButtonStyle.roundedDanger,
-                            size: CustomButonSize.confirm,
-                            onPressed: () {
-                              if (widget.onPressed != null)
-                                widget.onPressed!(
-                                    this, ConfirmDialogOption.NO_OPTION);
-                            },
-                          ),
                 !widget.buttons.contains(ConfirmDialogButton.POSITION_BUTTON)
                     ? Container()
                     : widget.positiveButton != null
@@ -115,6 +99,22 @@ class _ConfirmDialogState extends State<ConfirmDialog> {
                               if (widget.onPressed != null)
                                 widget.onPressed!(
                                     this, ConfirmDialogOption.YES_OPTION);
+                            },
+                          ),
+                !widget.buttons.contains(ConfirmDialogButton.NEGATIVE_BUTTON)
+                    ? Container()
+                    : widget.negativeButton != null
+                        ? widget.negativeButton!
+                        : BsButton(
+                            disabled: _disabled,
+                            margin: EdgeInsets.only(right: 5),
+                            label: Text(BaseText.noConfirm),
+                            style: CustomButtonStyle.roundedSecondary,
+                            size: CustomButonSize.confirm,
+                            onPressed: () {
+                              if (widget.onPressed != null)
+                                widget.onPressed!(
+                                    this, ConfirmDialogOption.NO_OPTION);
                             },
                           ),
               ],

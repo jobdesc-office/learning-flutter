@@ -24,11 +24,13 @@ class UserDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      BsDataColumn(label: Text('Name'), columnName: 'userfullname', width: 300),
-      BsDataColumn(label: Text('Email'), columnName: 'useremail', width: 250),
-      BsDataColumn(label: Text('Phone'), columnName: 'userphone'),
       BsDataColumn(
-          label: Text('Status'),
+          label: Text('User Name'), columnName: 'userfullname', width: 300),
+      BsDataColumn(
+          label: Text('User Email'), columnName: 'useremail', width: 250),
+      BsDataColumn(label: Text('User Phone'), columnName: 'userphone'),
+      BsDataColumn(
+          label: Text('User Status'),
           columnName: 'isactive',
           width: 110,
           orderable: false,

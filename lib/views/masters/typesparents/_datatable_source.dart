@@ -23,8 +23,8 @@ class TypeParentDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      BsDataColumn(label: Text('Code'), columnName: 'typecd'),
-      BsDataColumn(label: Text('Name'), columnName: 'typename'),
+      BsDataColumn(label: Text('Parent Code'), columnName: 'typecd'),
+      BsDataColumn(label: Text('Parent Name'), columnName: 'typename'),
       BsDataColumn(label: Text('Actions'), orderable: false, searchable: false),
     ];
   }

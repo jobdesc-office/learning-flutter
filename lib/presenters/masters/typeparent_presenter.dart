@@ -110,6 +110,8 @@ class TypeParentPresenter extends CustomGetXController {
                   context: context);
             else
               _typeParentViewContract.onErrorRequest(response);
+          } else {
+            Navigator.pop(context);
           }
         },
       ),
