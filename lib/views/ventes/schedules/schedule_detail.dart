@@ -237,11 +237,7 @@ class ScheduleDetails extends GetView implements DetailViewContract {
                               height: 20,
                             ),
                             Row(
-                              children: [
-                                Text(c.endtime.value == ''
-                                    ? 'Still in Process'
-                                    : c.endtime.value)
-                              ],
+                              children: [Text(c.endtime.value)],
                             ),
                             SizedBox(
                               height: 20,
@@ -257,7 +253,8 @@ class ScheduleDetails extends GetView implements DetailViewContract {
                                         );
                                         Get.snackbar('Success', 'Copy Success',
                                             backgroundColor:
-                                                ColorPallates.primary);
+                                                ColorPallates.primary,
+                                            margin: EdgeInsets.all(10));
                                       },
                                       child: Text(c.loc.value)),
                                 )
@@ -277,7 +274,8 @@ class ScheduleDetails extends GetView implements DetailViewContract {
                                         );
                                         Get.snackbar('Success', 'Copy Success',
                                             backgroundColor:
-                                                ColorPallates.primary);
+                                                ColorPallates.primary,
+                                            margin: EdgeInsets.all(10));
                                       },
                                       child: Text(c.link.value)),
                                 )
