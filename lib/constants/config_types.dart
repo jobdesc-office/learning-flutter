@@ -6,4 +6,8 @@ class ConfigType {
   static String menuType = notNull(types['menuType']);
 
   static String businessPartner = notNull(types['businessPartner']);
+
+  static String schedule = notNull(types['schedule']);
+
+  static String schedulePermission = notNull(types['schedulePermission']);
 }

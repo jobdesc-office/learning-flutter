@@ -1,3 +1,4 @@
+import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_modal/bs_flutter_modal.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:get/get.dart';
 import '../../../contracts/base/edit_view_contract.dart';
 import '../../../models/ventes/schedule_model.dart';
 import '../../../presenters/ventes/schedule_presenter.dart';
+import '../../../widgets/button/button_role_user.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
 import '../../masters/menus/_menu_type.dart';
@@ -33,6 +35,7 @@ class ScheduleFormView extends StatelessWidget implements EditViewContract {
       child: BsModal(
         context: context,
         dialog: BsModalDialog(
+          size: BsModalSize.lg,
           child: BsModalContent(children: [
             BsModalContainer(
               title: Text(ScheduleText.title),
@@ -53,7 +56,28 @@ class ScheduleFormView extends StatelessWidget implements EditViewContract {
                     menuForm.selectUser(context),
                     menuForm.inputOnLink(),
                     menuForm.inputDesc(),
-                    menuForm.inputRemind()
+                    menuForm.inputRemind(),
+                    Row(
+                      children: [
+                        BsButton(
+                          style: BsButtonStyle(
+                            backgroundColor: Colors.green.shade300,
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          size: BsButtonSize(
+                            padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                            fontSize: 12,
+                            iconSize: 14,
+                          ),
+                          label: Text('Add Member'),
+                          onPressed: onClickAddRole,
+                          // disabled: c.role >= 3 ? true : false,
+                        )
+                      ],
+                    ),
+                    menuForm.checkBoxTypeForm(
+                        onRemoveItem: onClickRemoveRoleItem)
                   ],
                 );
               }),
@@ -82,6 +106,24 @@ class ScheduleFormView extends StatelessWidget implements EditViewContract {
         ),
       ),
     );
+  }
+
+  void onClickAddRole() {
+    source.update((val) {
+      source.value.selectsMember.add(BsSelectBoxController());
+      source.value.readOnlys.add(source.value.readOnly);
+      source.value.shareLinks.add(source.value.shareLink);
+      source.value.addMembers.add(source.value.addMember);
+    });
+  }
+
+  void onClickRemoveRoleItem(int index) {
+    source.update((val) {
+      source.value.selectsMember.removeAt(index);
+      source.value.readOnlys.removeAt(index);
+      source.value.shareLinks.removeAt(index);
+      source.value.addMembers.removeAt(index);
+    });
   }
 
   void onClickSaveModal(BuildContext context) async {

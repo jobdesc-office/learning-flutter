@@ -26,11 +26,6 @@ class UserSource extends GetxController {
     selectsBp.add(BsSelectBoxController());
   }
 
-  decrease() => role--;
-
-  up() => partner++;
-
-  down() => partner--;
   bool isProcessing = false;
 
   TextEditingController inputName = TextEditingController();

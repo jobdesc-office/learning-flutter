@@ -11,10 +11,14 @@ class ScheduleText {
   static String labelName = 'Title';
   static String labelType = 'Type';
   static String labelToward = 'Toward';
+  static String labelMember = 'Member';
   static String labelBp = 'Business Partner';
   static String labelOnline = 'Online';
   static String labelAllDay = 'All Day';
   static String labelPrivate = 'Private';
+  static String labelReadOnly = 'Read Only';
+  static String labelShareLink = 'Share Link';
+  static String labelAddMember = 'Add Member';
   static String labelPlace = 'Place';
   static String labelOnLink = 'Link';
   static String labelDesc = 'Description';

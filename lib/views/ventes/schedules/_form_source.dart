@@ -11,6 +11,7 @@ import '../../../models/session_model.dart';
 import '../../../utils/session_manager.dart';
 import '../../../utils/validators.dart';
 import '../../../utils/select_api.dart';
+import '../../../widgets/button/button_role_user.dart';
 import '../../../widgets/form_group.dart';
 import '../../../widgets/input/custom_input.dart';
 import '../../../widgets/input/custom_input_number.dart';
@@ -32,6 +33,13 @@ class ScheduleSource extends GetxController {
   var online = false.obs;
   var allDay = false.obs;
   var private = false.obs;
+  var readOnly = false.obs;
+  var addMember = false.obs;
+  var shareLink = false.obs;
+
+  List<RxBool> readOnlys = List<RxBool>.empty(growable: true).obs;
+  List<RxBool> addMembers = List<RxBool>.empty(growable: true).obs;
+  List<RxBool> shareLinks = List<RxBool>.empty(growable: true).obs;
 
   TextEditingController inputName = TextEditingController();
   TextEditingController inputOnLink = TextEditingController();
@@ -41,6 +49,16 @@ class ScheduleSource extends GetxController {
   BsSelectBoxController selectType = BsSelectBoxController();
   BsSelectBoxController selectToward = BsSelectBoxController();
   BsSelectBoxController selectBp = BsSelectBoxController();
+
+  List<BsSelectBoxController> selectsMember =
+      List<BsSelectBoxController>.empty(growable: true);
+
+  List<Map<String, dynamic>> jsonMember() {
+    return List<Map<String, dynamic>>.from(selectsMember.map((controller) {
+      int index = selectsMember.indexOf(controller);
+      return {'scheuserid': selectsMember[index].getSelectedAsString()};
+    }));
+  }
 
   Future<Map<String, dynamic>> toJson() async {
     SessionModel session = await SessionManager.current();
@@ -62,7 +80,6 @@ class ScheduleSource extends GetxController {
       'scheremind': inputRemind.text,
       'schedesc': inputDesc.text,
       'scheonlink': inputOnLink.text,
-      'masterid': selectType.getSelectedAsString(),
       'createdby': session.userid,
       'updatedby': session.userid,
       'isactive': true,
@@ -367,6 +384,84 @@ class ScheduleForm {
           ),
         ),
       ],
+    );
+  }
+
+  Widget checkBoxTypeForm({required ValueChanged<int> onRemoveItem}) {
+    return FormGroup(
+      child: Column(
+        children: source.selectsMember.map((controller) {
+          int index = source.selectsMember.indexOf(controller);
+          var selectMember = source.selectsMember[index];
+          var ro = source.readOnlys[index];
+          var am = source.addMembers[index];
+          var sl = source.shareLinks[index];
+          return BsRow(
+            children: [
+              BsCol(
+                margin: EdgeInsets.only(left: 5, top: 3),
+                sizes: ColScreen(lg: Col.col_1),
+                child: FormGroup(
+                  child: ButtonRoleUserDanger(
+                      margin: EdgeInsets.only(left: 10),
+                      onPressed: () => onRemoveItem(index)),
+                ),
+              ),
+              BsCol(
+                margin: EdgeInsets.only(right: 10),
+                sizes: ColScreen(lg: Col.col_5),
+                child: FormGroup(
+                  label: Text('Member ${index + 1}'),
+                  child: CustomSelectBox(
+                    searchable: true,
+                    disabled: source.isProcessing,
+                    controller: selectMember,
+                    hintText: BaseText.hiintSelect(),
+                    serverSide: (params) => selectApiUser(params),
+                  ),
+                ),
+              ),
+              BsCol(
+                margin: EdgeInsets.only(left: 10),
+                sizes: ColScreen(lg: Col.col_2),
+                child: FormGroup(
+                  label: Text(ScheduleText.labelReadOnly),
+                  child: Checkbox(
+                    value: ro.value,
+                    onChanged: (value) {
+                      ro.toggle();
+                    },
+                  ),
+                ),
+              ),
+              BsCol(
+                margin: EdgeInsets.only(left: 10),
+                sizes: ColScreen(lg: Col.col_2),
+                child: FormGroup(
+                  label: Text(ScheduleText.labelShareLink),
+                  child: Checkbox(
+                    value: sl.value,
+                    onChanged: (value) => sl.toggle(),
+                  ),
+                ),
+              ),
+              BsCol(
+                margin: EdgeInsets.only(left: 10),
+                sizes: ColScreen(lg: Col.col_2),
+                child: FormGroup(
+                  label: Text(ScheduleText.labelAddMember),
+                  child: Checkbox(
+                    value: am.value,
+                    onChanged: (value) {
+                      am.toggle();
+                    },
+                  ),
+                ),
+              )
+            ],
+          );
+        }).toList(),
+      ),
     );
   }
 

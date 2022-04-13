@@ -1,3 +1,4 @@
+import 'package:boilerplate/constants/config_types.dart';
 import 'package:boilerplate/models/masters/type_model.dart';
 import 'package:boilerplate/models/security/menu_model.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
@@ -95,8 +96,8 @@ Future<BsSelectBoxResponse> selectApiTypeParents(
 
 Future<BsSelectBoxResponse> selectApiTypeChildren(
     Map<String, String> params) async {
-  final typeChildrenService = Get.find<TypeChildrenService>();
-  Response response = await typeChildrenService.children(params);
+  final typeService = Get.put(TypeService());
+  Response response = await typeService.byCode(ConfigType.schedule);
   if (response.isOk) {
     if (response.statusCode == 200) {
       return BsSelectBoxResponse.createFromJson(
