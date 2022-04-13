@@ -19,8 +19,6 @@ class RouteList {
   static final RouteData masterTypeChildren =
       RouteData(prefix: '/masters/typechildren');
 
-  static final RouteData gmaps = RouteData(prefix: '/masters/maps');
-
   static final RouteData settings = RouteData(prefix: '/-settings');
 
   static final RouteData settingsPrevileges =
