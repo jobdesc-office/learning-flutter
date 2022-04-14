@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
-project(boilerplate LANGUAGES CXX)
+project(Ventes LANGUAGES CXX)
 
-set(BINARY_NAME "boilerplate")
+set(BINARY_NAME "Ventes")
 
 cmake_policy(SET CMP0063 NEW)
 

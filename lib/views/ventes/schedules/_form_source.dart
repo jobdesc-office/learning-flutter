@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_inputtext/bs_flutter_inputtext.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
@@ -33,13 +35,6 @@ class ScheduleSource extends GetxController {
   var online = false.obs;
   var allDay = false.obs;
   var private = false.obs;
-  var readOnly = false.obs;
-  var addMember = false.obs;
-  var shareLink = false.obs;
-
-  List<RxBool> readOnlys = List<RxBool>.empty(growable: true).obs;
-  List<RxBool> addMembers = List<RxBool>.empty(growable: true).obs;
-  List<RxBool> shareLinks = List<RxBool>.empty(growable: true).obs;
 
   TextEditingController inputName = TextEditingController();
   TextEditingController inputOnLink = TextEditingController();
@@ -49,19 +44,32 @@ class ScheduleSource extends GetxController {
   BsSelectBoxController selectType = BsSelectBoxController();
   BsSelectBoxController selectToward = BsSelectBoxController();
   BsSelectBoxController selectBp = BsSelectBoxController();
+  // BsSelectBoxController selectPermission = BsSelectBoxController(options: [
+  //   BsSelectBoxOption(value: '{1}', text: Text('Read Only')),
+  //   BsSelectBoxOption(value: '{2}', text: Text('Add Member')),
+  //   BsSelectBoxOption(value: '{3}', text: Text('Share Link')),
+  //   BsSelectBoxOption(value: '{2,3}', text: Text('Add Member & Share Link'))
+  // ]);
 
   List<BsSelectBoxController> selectsMember =
+      List<BsSelectBoxController>.empty(growable: true);
+  List<BsSelectBoxController> selectsPermission =
       List<BsSelectBoxController>.empty(growable: true);
 
   List<Map<String, dynamic>> jsonMember() {
     return List<Map<String, dynamic>>.from(selectsMember.map((controller) {
       int index = selectsMember.indexOf(controller);
-      return {'scheuserid': selectsMember[index].getSelectedAsString()};
+      return {
+        'scheuserid': selectsMember[index].getSelectedAsString(),
+        'schebpid': selectBp.getSelectedAsString(),
+        'schepermisid': selectsPermission[index].getSelectedAsString(),
+      };
     }));
   }
 
   Future<Map<String, dynamic>> toJson() async {
     SessionModel session = await SessionManager.current();
+    print(jsonEncode(jsonMember()));
     return {
       'schenm': inputName.text,
       'schestartdate': selectedDateStart.value,
@@ -83,6 +91,7 @@ class ScheduleSource extends GetxController {
       'createdby': session.userid,
       'updatedby': session.userid,
       'isactive': true,
+      'members': jsonEncode(jsonMember())
     };
   }
 }
@@ -93,6 +102,91 @@ class ScheduleForm {
   final ScheduleSource source;
 
   ScheduleForm(this.source);
+
+  Widget checkBoxTypeForm({required ValueChanged<int> onRemoveItem}) {
+    return FormGroup(
+      child: Column(
+        children: source.selectsMember.map((controller) {
+          int index = source.selectsMember.indexOf(controller);
+          var selectMember = source.selectsMember[index];
+          var selectPermission = source.selectsPermission[index];
+          return BsRow(
+            children: [
+              BsCol(
+                margin: EdgeInsets.only(left: 5, top: 3),
+                sizes: ColScreen(lg: Col.col_1),
+                child: FormGroup(
+                  child: ButtonRoleUserDanger(
+                      margin: EdgeInsets.only(left: 10),
+                      onPressed: () => onRemoveItem(index)),
+                ),
+              ),
+              BsCol(
+                margin: EdgeInsets.only(right: 10),
+                sizes: ColScreen(lg: Col.col_5),
+                child: FormGroup(
+                  label: Text('Member ${index + 1}'),
+                  child: CustomSelectBox(
+                    searchable: true,
+                    disabled: source.isProcessing,
+                    controller: selectMember,
+                    hintText: BaseText.hiintSelect(),
+                    serverSide: (params) => selectApiUser(params),
+                  ),
+                ),
+              ),
+              BsCol(
+                margin: EdgeInsets.only(right: 10),
+                sizes: ColScreen(lg: Col.col_5),
+                child: FormGroup(
+                  label: Text('Permission ${index + 1}'),
+                  child: CustomSelectBox(
+                    searchable: false,
+                    disabled: source.isProcessing,
+                    controller: selectPermission,
+                    hintText: BaseText.hiintSelect(),
+                  ),
+                ),
+              ),
+              // BsCol(
+              //   margin: EdgeInsets.only(left: 10),
+              //   sizes: ColScreen(lg: Col.col_2),
+              //   child: FormGroup(
+              //     label: Text(ScheduleText.labelReadOnly),
+              //     child: Checkbox(
+              //       value: ro.value,
+              //       onChanged: (value) => ro.toggle(),
+              //     ),
+              //   ),
+              // ),
+              // BsCol(
+              //   margin: EdgeInsets.only(left: 10),
+              //   sizes: ColScreen(lg: Col.col_2),
+              //   child: FormGroup(
+              //     label: Text(ScheduleText.labelShareLink),
+              //     child: Checkbox(
+              //       value: sl.value,
+              //       onChanged: (value) => sl.toggle(),
+              //     ),
+              //   ),
+              // ),
+              // BsCol(
+              //   margin: EdgeInsets.only(left: 10),
+              //   sizes: ColScreen(lg: Col.col_2),
+              //   child: FormGroup(
+              //     label: Text(ScheduleText.labelAddMember),
+              //     child: Checkbox(
+              //       value: am.value,
+              //       onChanged: (value) => am.toggle(),
+              //     ),
+              //   ),
+              // )
+            ],
+          );
+        }).toList(),
+      ),
+    );
+  }
 
   Widget inputName() {
     return FormGroup(
@@ -384,84 +478,6 @@ class ScheduleForm {
           ),
         ),
       ],
-    );
-  }
-
-  Widget checkBoxTypeForm({required ValueChanged<int> onRemoveItem}) {
-    return FormGroup(
-      child: Column(
-        children: source.selectsMember.map((controller) {
-          int index = source.selectsMember.indexOf(controller);
-          var selectMember = source.selectsMember[index];
-          var ro = source.readOnlys[index];
-          var am = source.addMembers[index];
-          var sl = source.shareLinks[index];
-          return BsRow(
-            children: [
-              BsCol(
-                margin: EdgeInsets.only(left: 5, top: 3),
-                sizes: ColScreen(lg: Col.col_1),
-                child: FormGroup(
-                  child: ButtonRoleUserDanger(
-                      margin: EdgeInsets.only(left: 10),
-                      onPressed: () => onRemoveItem(index)),
-                ),
-              ),
-              BsCol(
-                margin: EdgeInsets.only(right: 10),
-                sizes: ColScreen(lg: Col.col_5),
-                child: FormGroup(
-                  label: Text('Member ${index + 1}'),
-                  child: CustomSelectBox(
-                    searchable: true,
-                    disabled: source.isProcessing,
-                    controller: selectMember,
-                    hintText: BaseText.hiintSelect(),
-                    serverSide: (params) => selectApiUser(params),
-                  ),
-                ),
-              ),
-              BsCol(
-                margin: EdgeInsets.only(left: 10),
-                sizes: ColScreen(lg: Col.col_2),
-                child: FormGroup(
-                  label: Text(ScheduleText.labelReadOnly),
-                  child: Checkbox(
-                    value: ro.value,
-                    onChanged: (value) {
-                      ro.toggle();
-                    },
-                  ),
-                ),
-              ),
-              BsCol(
-                margin: EdgeInsets.only(left: 10),
-                sizes: ColScreen(lg: Col.col_2),
-                child: FormGroup(
-                  label: Text(ScheduleText.labelShareLink),
-                  child: Checkbox(
-                    value: sl.value,
-                    onChanged: (value) => sl.toggle(),
-                  ),
-                ),
-              ),
-              BsCol(
-                margin: EdgeInsets.only(left: 10),
-                sizes: ColScreen(lg: Col.col_2),
-                child: FormGroup(
-                  label: Text(ScheduleText.labelAddMember),
-                  child: Checkbox(
-                    value: am.value,
-                    onChanged: (value) {
-                      am.toggle();
-                    },
-                  ),
-                ),
-              )
-            ],
-          );
-        }).toList(),
-      ),
     );
   }
 

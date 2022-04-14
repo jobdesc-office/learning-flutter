@@ -1,4 +1,4 @@
-import 'package:boilerplate/utils/handle_error_request.dart';
+import 'package:Ventes/utils/handle_error_request.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,8 +13,8 @@ import '../../skins/tempalte.dart';
 import '_datatable_source.dart';
 import '_text.dart';
 
-class UserView extends GetView implements IndexViewContract, HandleErrorRequest{
-
+class UserView extends GetView
+    implements IndexViewContract, HandleErrorRequest {
   final presenter = Get.find<UserPresenter>();
   final datatable = UserDataTableSource();
 
@@ -85,9 +85,9 @@ class UserView extends GetView implements IndexViewContract, HandleErrorRequest{
   void onLoadDatatables(BuildContext context, Response response) {
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
-    datatable.onDetailsListener = (userid) => presenter.details(context, userid);
+    datatable.onDetailsListener =
+        (userid) => presenter.details(context, userid);
     datatable.onEditListener = (userid) => presenter.edit(context, userid);
     datatable.onDeleteListener = (userid) => presenter.delete(context, userid);
   }
-
 }

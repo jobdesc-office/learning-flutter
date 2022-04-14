@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:boilerplate/views/masters/users/_text.dart';
+import 'package:Ventes/views/masters/users/_text.dart';
 import 'package:bs_flutter_inputtext/bs_flutter_inputtext.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';

@@ -1,5 +1,3 @@
-import '../../../constants/base_text.dart';
-
 class ScheduleText {
   static String title = 'Schedule';
 
@@ -23,7 +21,4 @@ class ScheduleText {
   static String labelOnLink = 'Link';
   static String labelDesc = 'Description';
   static String labelRemind = 'Reminder';
-
-  static String alertTitle = 'Dont Worry';
-  static String alertText = "you don't need to fill in this section";
 }

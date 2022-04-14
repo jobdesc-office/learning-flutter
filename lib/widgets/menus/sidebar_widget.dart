@@ -1,4 +1,4 @@
-import 'package:boilerplate/styles/color_palattes.dart';
+import 'package:Ventes/styles/color_palattes.dart';
 import 'package:flutter/material.dart';
 
 import 'menu_data.dart';
@@ -26,7 +26,7 @@ class SidebarWidgets {
     return Text(
       'Logo',
       style: TextStyle(
-              color: ColorPallates.dark,
+        color: ColorPallates.dark,
         fontSize: 16,
       ),
     );

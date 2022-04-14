@@ -1,4 +1,4 @@
-import 'package:boilerplate/models/masters/type_model.dart';
+import 'package:Ventes/models/masters/type_model.dart';
 
 import '../../helpers/function.dart';
 

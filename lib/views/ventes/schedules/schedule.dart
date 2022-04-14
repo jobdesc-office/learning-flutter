@@ -1,10 +1,10 @@
-import 'package:boilerplate/utils/handle_error_request.dart';
+import 'package:Ventes/utils/handle_error_request.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/index_view_contract.dart';
-import '../../../presenters/ventes/schedule_presenter.dart';
+import '../../../presenters/Ventes/schedule_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_create.dart';

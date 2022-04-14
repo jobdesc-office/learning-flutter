@@ -1,4 +1,4 @@
-import 'package:boilerplate/styles/color_palattes.dart';
+import 'package:Ventes/styles/color_palattes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -35,7 +35,8 @@ class BreadcrumbWidget extends StatelessWidget {
                 this.label,
                 style: TextStyle(
                   fontSize: 12,
-                  color: this.active ? ColorPallates.dark : ColorPallates.tertiary,
+                  color:
+                      this.active ? ColorPallates.dark : ColorPallates.tertiary,
                 ),
               ),
             ],

@@ -1,10 +1,10 @@
-import 'package:boilerplate/styles/color_palattes.dart';
+import 'package:Ventes/styles/color_palattes.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class BackgroundAuth extends GetView{
+class BackgroundAuth extends GetView {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -15,7 +15,8 @@ class BackgroundAuth extends GetView{
           BsCol(
             margin: EdgeInsets.only(bottom: 20),
             sizes: ColScreen(lg: Col.col_2),
-            child: Image.asset('assets/images/logo.png', width: 125, height: 64.5),
+            child:
+                Image.asset('assets/images/logo.png', width: 125, height: 64.5),
           ),
           BsCol(
             sizes: ColScreen(lg: Col.col_4),
@@ -26,10 +27,14 @@ class BackgroundAuth extends GetView{
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text('data', style: TextStyle(fontSize: 24, color: ColorPallates.dark)),
-                Text('data', style: TextStyle(fontSize: 24, color: ColorPallates.dark)),
-                Text('data', style: TextStyle(fontSize: 24, color: ColorPallates.dark)),
-                Text('data', style: TextStyle(fontSize: 24, color: ColorPallates.dark))
+                Text('data',
+                    style: TextStyle(fontSize: 24, color: ColorPallates.dark)),
+                Text('data',
+                    style: TextStyle(fontSize: 24, color: ColorPallates.dark)),
+                Text('data',
+                    style: TextStyle(fontSize: 24, color: ColorPallates.dark)),
+                Text('data',
+                    style: TextStyle(fontSize: 24, color: ColorPallates.dark))
               ],
             ),
           ),
@@ -55,5 +60,4 @@ class BackgroundAuth extends GetView{
       ),
     );
   }
-
 }

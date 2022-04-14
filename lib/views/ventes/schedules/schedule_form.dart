@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/edit_view_contract.dart';
-import '../../../models/ventes/schedule_model.dart';
-import '../../../presenters/ventes/schedule_presenter.dart';
+import '../../../models/Ventes/schedule_model.dart';
+import '../../../presenters/Ventes/schedule_presenter.dart';
 import '../../../widgets/button/button_role_user.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
@@ -111,18 +111,19 @@ class ScheduleFormView extends StatelessWidget implements EditViewContract {
   void onClickAddRole() {
     source.update((val) {
       source.value.selectsMember.add(BsSelectBoxController());
-      source.value.readOnlys.add(source.value.readOnly);
-      source.value.shareLinks.add(source.value.shareLink);
-      source.value.addMembers.add(source.value.addMember);
+      source.value.selectsPermission.add(BsSelectBoxController(options: [
+        BsSelectBoxOption(value: '{1}', text: Text('Read Only')),
+        BsSelectBoxOption(value: '{2}', text: Text('Add Member')),
+        BsSelectBoxOption(value: '{3}', text: Text('Share Link')),
+        BsSelectBoxOption(value: '{2,3}', text: Text('Add Member & Share Link'))
+      ]));
     });
   }
 
   void onClickRemoveRoleItem(int index) {
     source.update((val) {
       source.value.selectsMember.removeAt(index);
-      source.value.readOnlys.removeAt(index);
-      source.value.shareLinks.removeAt(index);
-      source.value.addMembers.removeAt(index);
+      source.value.selectsPermission.removeAt(index);
     });
   }
 

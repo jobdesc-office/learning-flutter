@@ -1,8 +1,8 @@
-import 'package:boilerplate/constants/base_text.dart';
+import 'package:Ventes/constants/base_text.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 
-import '../../../models/ventes/schedule_model.dart';
+import '../../../models/Ventes/schedule_model.dart';
 import '../../../models/masters/user_model.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_details_datatable.dart';
