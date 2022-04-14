@@ -5,8 +5,10 @@ class ScheduleModel {
   int typeid;
   int bpid;
   int userid;
+  // int memberid;
   String schenm;
   String userfullname;
+  // String membername;
   String schestartdate;
   String scheenddate;
   String scheactdate;
@@ -31,8 +33,10 @@ class ScheduleModel {
     this.typeid = 0,
     this.bpid = 0,
     this.userid = 0,
+    // this.memberid = 0,
     this.schenm = '',
     this.userfullname = '',
+    // this.membername = '',
     this.schestartdate = '',
     this.scheenddate = '',
     this.scheactdate = '',
@@ -58,8 +62,10 @@ class ScheduleModel {
       typeid: parseInt(json['schetype']['type']),
       bpid: parseInt(json['schebp']['bpid']),
       userid: parseInt(json['schetoward']['userid']),
+      // memberid: parseInt(json['scheguest']['scheuserid']),
       schenm: parseString(json['schenm']),
       userfullname: parseString(json['schetoward']['userfullname']),
+      // membername: parseString(json['scheguest']['userfullname']),
       schestartdate: parseString(json['schestartdate']),
       scheenddate: parseString(json['scheenddate']),
       scheactdate: parseString(json['scheactdate']),

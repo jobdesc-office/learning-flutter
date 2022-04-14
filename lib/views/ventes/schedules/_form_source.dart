@@ -43,6 +43,7 @@ class ScheduleSource extends GetxController {
 
   BsSelectBoxController selectType = BsSelectBoxController();
   BsSelectBoxController selectToward = BsSelectBoxController();
+  BsSelectBoxController selectTimeZone = BsSelectBoxController();
   BsSelectBoxController selectBp = BsSelectBoxController();
   // BsSelectBoxController selectPermission = BsSelectBoxController(options: [
   //   BsSelectBoxOption(value: '{1}', text: Text('Read Only')),
@@ -84,7 +85,7 @@ class ScheduleSource extends GetxController {
       'scheloc': map.coordinate.value,
       'scheprivate': private.value,
       'scheonline': online.value,
-      'schetz': 'ID',
+      'schetz': selectTimeZone.getSelectedAsString(),
       'scheremind': inputRemind.text,
       'schedesc': inputDesc.text,
       'scheonlink': inputOnLink.text,
@@ -262,7 +263,7 @@ class ScheduleForm {
       children: [
         BsCol(
           margin: EdgeInsets.only(right: 10),
-          sizes: ColScreen(lg: Col.col_6),
+          sizes: ColScreen(lg: Col.col_4),
           child: FormGroup(
             label: Text(ScheduleText.labelStartTime),
             child: Container(
@@ -287,7 +288,7 @@ class ScheduleForm {
         ),
         BsCol(
           margin: EdgeInsets.only(left: 10),
-          sizes: ColScreen(lg: Col.col_6),
+          sizes: ColScreen(lg: Col.col_4),
           child: FormGroup(
             label: Text(ScheduleText.labelEndTime),
             child: Container(
@@ -309,6 +310,20 @@ class ScheduleForm {
             ),
           ),
         ),
+        BsCol(
+          margin: EdgeInsets.only(left: 10),
+          sizes: ColScreen(lg: Col.col_4),
+          child: FormGroup(
+            label: Text(ScheduleText.labelTimeZone),
+            child: CustomSelectBox(
+              searchable: false,
+              disabled: source.isProcessing,
+              controller: source.selectTimeZone,
+              hintText: BaseText.hiintSelect(),
+              serverSide: (params) => selectTimeZone(params),
+            ),
+          ),
+        )
       ],
     );
   }
@@ -394,21 +409,7 @@ class ScheduleForm {
                   : map.coordinate.value)),
             ),
           ),
-        ),
-        // BsCol(
-        //   margin: EdgeInsets.only(left: 10),
-        //   sizes: ColScreen(lg: Col.col_6),
-        //   child: FormGroup(
-        //     label: Text(ScheduleText.labelToward),
-        //     child: CustomSelectBox(
-        //       searchable: true,
-        //       disabled: source.isProcessing,
-        //       controller: source.selectToward,
-        //       hintText: BaseText.hiintSelect(),
-        //       serverSide: (params) => selectApiUser(params),
-        //     ),
-        //   ),
-        // ),
+        )
       ],
     );
   }

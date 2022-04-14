@@ -151,8 +151,27 @@ class ScheduleFormView extends StatelessWidget implements EditViewContract {
           BsSelectBoxOption(value: menu.typeid, text: Text(menu.typename)));
       source.value.selectToward.setSelected(
           BsSelectBoxOption(value: menu.userid, text: Text(menu.userfullname)));
+      source.value.selectTimeZone.setSelected(
+          BsSelectBoxOption(value: menu.timezone, text: Text(menu.timezone)));
       source.value.selectBp.setSelected(
           BsSelectBoxOption(value: menu.bpid, text: Text(menu.bpname)));
+
+      source.value.selectsMember.add(BsSelectBoxController());
+      source.value.selectsPermission.add(BsSelectBoxController(options: [
+        BsSelectBoxOption(value: '{1}', text: Text('Read Only')),
+        BsSelectBoxOption(value: '{2}', text: Text('Add Member')),
+        BsSelectBoxOption(value: '{3}', text: Text('Share Link')),
+        BsSelectBoxOption(value: '{2,3}', text: Text('Add Member & Share Link'))
+      ]));
+
+      source.value.selectsMember.forEach((element) {
+        element.setSelected(BsSelectBoxOption(
+            value: menu.userid, text: Text(menu.userfullname)));
+      });
+      source.value.selectsPermission.forEach((element) {
+        element.setSelected(
+            BsSelectBoxOption(value: menu.bpid, text: Text(menu.bpname)));
+      });
 
       source.value.selectedDateStart.value = menu.schestartdate;
       source.value.selectedDateEnd.value = menu.scheenddate;

@@ -6,6 +6,7 @@ class ScheduleText {
   static String labelActDate = 'Actual Date';
   static String labelStartTime = 'Start Time';
   static String labelEndTime = 'End Time';
+  static String labelTimeZone = 'Time Zone';
   static String labelName = 'Title';
   static String labelType = 'Type';
   static String labelToward = 'Toward';

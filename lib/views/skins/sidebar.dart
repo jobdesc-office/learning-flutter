@@ -112,7 +112,7 @@ class SidebarSkins extends StatelessWidget {
                   ],
                 ),
                 MenuDataGroup(
-                    title: 'boilerplate Data',
+                    title: 'Ventes Data',
                     icon: Icons.analytics,
                     children: [
                       MenuData(

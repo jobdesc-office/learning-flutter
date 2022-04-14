@@ -11,6 +11,8 @@ import '../services/masters/type_service.dart';
 import '../services/masters/typechildren_service.dart';
 import '../services/masters/user_service.dart';
 import '../services/security/menu_service.dart';
+import '../services/ventes/schedule_service.dart';
+import 'connect_internet_api.dart';
 
 Future<BsSelectBoxResponse> selectApiMenu(Map<String, String> params) async {
   final menuService = Get.find<MenuService>();
@@ -104,6 +106,23 @@ Future<BsSelectBoxResponse> selectApiTypeChildren(
         response.body,
         value: (data) => TypeModel.fromJson(data).typeid,
         renderText: (data) => Text(TypeModel.fromJson(data).typename),
+      );
+    }
+  }
+
+  return BsSelectBoxResponse(options: []);
+}
+
+Future<BsSelectBoxResponse> selectTimeZone(Map<String, String> params) async {
+  final scheduleService = Get.find<ScheduleService>();
+  Response response = await ConnectInternetAPI().TimeZone();
+  print(response.body);
+  if (response.isOk) {
+    if (response.statusCode == 200) {
+      return BsSelectBoxResponse.createFromJson(
+        response.body,
+        value: (data) => data,
+        renderText: (data) => Text(data),
       );
     }
   }
