@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/edit_view_contract.dart';
-import '../../../models/Ventes/schedule_model.dart';
-import '../../../presenters/Ventes/schedule_presenter.dart';
+import '../../../models/ventes/schedule_model.dart';
+import '../../../presenters/ventes/schedule_presenter.dart';
 import '../../../widgets/button/button_role_user.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';

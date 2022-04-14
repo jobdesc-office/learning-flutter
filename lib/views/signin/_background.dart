@@ -1,4 +1,4 @@
-import 'package:Ventes/styles/color_palattes.dart';
+import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,13 +27,11 @@ class BackgroundAuth extends GetView {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text('data',
+                Text("What's Ventes ?",
                     style: TextStyle(fontSize: 24, color: ColorPallates.dark)),
-                Text('data',
+                Text('Testimonials',
                     style: TextStyle(fontSize: 24, color: ColorPallates.dark)),
-                Text('data',
-                    style: TextStyle(fontSize: 24, color: ColorPallates.dark)),
-                Text('data',
+                Text('About Hyperdata',
                     style: TextStyle(fontSize: 24, color: ColorPallates.dark))
               ],
             ),

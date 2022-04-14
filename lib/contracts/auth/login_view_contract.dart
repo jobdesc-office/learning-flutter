@@ -1,4 +1,4 @@
-import 'package:Ventes/models/masters/user_model.dart';
+import 'package:boilerplate/models/masters/user_model.dart';
 
 abstract class LoginViewContract {
   void onLoginSuccess(UserModel userModel);

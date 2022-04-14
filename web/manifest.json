@@ -1,6 +1,6 @@
 {
-    "name": "Ventes",
-    "short_name": "Ventes",
+    "name": "boilerplate",
+    "short_name": "boilerplate",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

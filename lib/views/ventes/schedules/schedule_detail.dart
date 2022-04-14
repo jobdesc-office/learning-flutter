@@ -1,4 +1,4 @@
-import 'package:Ventes/styles/color_palattes.dart';
+import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:bs_flutter_modal/bs_flutter_modal.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/details_view_contract.dart';
-import '../../../models/Ventes/schedule_model.dart';
-import '../../../presenters/Ventes/schedule_presenter.dart';
+import '../../../models/ventes/schedule_model.dart';
+import '../../../presenters/ventes/schedule_presenter.dart';
 import '_details_source.dart';
 import '_text.dart';
 

@@ -1,6 +1,6 @@
-import 'package:Ventes/constants/config_types.dart';
-import 'package:Ventes/models/masters/type_model.dart';
-import 'package:Ventes/models/security/menu_model.dart';
+import 'package:boilerplate/constants/config_types.dart';
+import 'package:boilerplate/models/masters/type_model.dart';
+import 'package:boilerplate/models/security/menu_model.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

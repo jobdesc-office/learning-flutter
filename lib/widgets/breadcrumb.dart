@@ -1,4 +1,4 @@
-import 'package:Ventes/styles/color_palattes.dart';
+import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
