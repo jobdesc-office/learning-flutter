@@ -9,4 +9,8 @@ class ConnectInternetAPI extends GetConnect {
   Future<Response> TimeZone() {
     return get('http://worldtimeapi.org/api/timezone');
   }
+
+  Future<Response> TimeZoneDetail(String zone) {
+    return get('http://worldtimeapi.org/api/timezone/$zone');
+  }
 }

@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import '../../helpers/function.dart';
 
 class ScheduleModel {
@@ -25,36 +27,37 @@ class ScheduleModel {
   bool online;
   bool private;
   bool isactive;
+  Color? bg;
 
   String jwtToken;
 
-  ScheduleModel({
-    this.scheid = 0,
-    this.typeid = 0,
-    this.bpid = 0,
-    this.userid = 0,
-    // this.memberid = 0,
-    this.schenm = '',
-    this.userfullname = '',
-    // this.membername = '',
-    this.schestartdate = '',
-    this.scheenddate = '',
-    this.scheactdate = '',
-    this.schestarttime = '',
-    this.scheendtime = '',
-    this.loc = '',
-    this.remind = '',
-    this.timezone = '',
-    this.schedesc = '',
-    this.link = '',
-    this.typename = '',
-    this.bpname = '',
-    this.allday = false,
-    this.online = false,
-    this.private = false,
-    this.isactive = true,
-    this.jwtToken = '',
-  });
+  ScheduleModel(
+      {this.scheid = 0,
+      this.typeid = 0,
+      this.bpid = 0,
+      this.userid = 0,
+      // this.memberid = 0,
+      this.schenm = '',
+      this.userfullname = '',
+      // this.membername = '',
+      this.schestartdate = '',
+      this.scheenddate = '',
+      this.scheactdate = '',
+      this.schestarttime = '',
+      this.scheendtime = '',
+      this.loc = '',
+      this.remind = '',
+      this.timezone = '',
+      this.schedesc = '',
+      this.link = '',
+      this.typename = '',
+      this.bpname = '',
+      this.allday = false,
+      this.online = false,
+      this.private = false,
+      this.isactive = true,
+      this.jwtToken = '',
+      this.bg});
 
   factory ScheduleModel.fromJson(Map<String, dynamic> json) {
     return ScheduleModel(

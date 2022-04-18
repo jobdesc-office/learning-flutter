@@ -99,7 +99,7 @@ Future<BsSelectBoxResponse> selectApiTypeParents(
 Future<BsSelectBoxResponse> selectApiTypeChildren(
     Map<String, String> params) async {
   final typeService = Get.put(TypeService());
-  Response response = await typeService.byCode(ConfigType.schedule);
+  Response response = await typeService.byCode('schedule');
   if (response.isOk) {
     if (response.statusCode == 200) {
       return BsSelectBoxResponse.createFromJson(

@@ -2,21 +2,20 @@ import 'package:boilerplate/utils/handle_error_request.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 import '../../../contracts/base/index_view_contract.dart';
 import '../../../presenters/ventes/schedule_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_create.dart';
-import '../../../widgets/datatables/custom_datatable.dart';
 import '../../skins/tempalte.dart';
-import '_datatable_source.dart';
+import '_schedule_source.dart';
 import '_text.dart';
 
 class ScheduleView extends GetView
     implements IndexViewContract, HandleErrorRequest {
   final presenter = Get.find<SchedulePresenter>();
-  final datatable = ScheduleDataTableSource();
 
   ScheduleView() {
     presenter.scheduleViewContract = this;
@@ -33,22 +32,45 @@ class ScheduleView extends GetView
           BreadcrumbWidget('Schedule', active: true),
         ],
         activeRoutes: [RouteList.master.index, RouteList.masterSchedule.index],
-        child: Container(
-          child: Column(
-            children: [
-              CustomDatabales(
-                source: datatable,
-                columns: datatable.columns,
-                headerActions: [
-                  ThemeButtonCreate(
-                    prefix: ScheduleText.title,
-                    onPressed: () => presenter.add(context),
-                  )
-                ],
-                serverSide: (params) => presenter.datatables(context, params),
-              )
-            ],
-          ),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                ThemeButtonCreate(
+                  prefix: ScheduleText.title,
+                  onPressed: () => presenter.add(context),
+                )
+              ],
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height * 0.7,
+              child: FutureBuilder(
+                future: presenter.getDataFromAPI(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.data != null) {
+                    return SfCalendar(
+                      monthViewSettings: MonthViewSettings(
+                        appointmentDisplayMode:
+                            MonthAppointmentDisplayMode.indicator,
+                      ),
+                      onTap: (value) {},
+                      onLongPress: (value) {},
+                      view: CalendarView.month,
+                      dataSource: ScheduleSource(snapshot.data),
+                    );
+                  } else {
+                    // print(snapshot.data);
+                    return Container(
+                      child: Center(
+                        child: Text('Error'),
+                      ),
+                    );
+                  }
+                },
+              ),
+            )
+          ],
         ),
       ),
     );
@@ -57,21 +79,18 @@ class ScheduleView extends GetView
   @override
   void onCreateSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
-    datatable.controller.reload();
     if (context != null) Navigator.pop(context);
   }
 
   @override
   void onDeleteSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
-    datatable.controller.reload();
     if (context != null) Navigator.pop(context);
   }
 
   @override
   void onEditSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
-    datatable.controller.reload();
     if (context != null) Navigator.pop(context);
   }
 
@@ -84,10 +103,5 @@ class ScheduleView extends GetView
   @override
   void onLoadDatatables(BuildContext context, Response response) {
     presenter.setProcessing(false);
-    datatable.response = BsDatatableResponse.createFromJson(response.body);
-    datatable.onDetailsListener =
-        (userid) => presenter.details(context, userid);
-    datatable.onEditListener = (userid) => presenter.edit(context, userid);
-    datatable.onDeleteListener = (userid) => presenter.delete(context, userid);
   }
 }
