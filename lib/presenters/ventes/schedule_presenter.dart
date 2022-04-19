@@ -134,9 +134,10 @@ class SchedulePresenter extends CustomGetXController {
       BuildContext context, Map<String, dynamic> body, int typeid) async {
     setProcessing(true);
     Response response = await _scheduleService.update(typeid, body);
-    if (response.statusCode == 200)
+    if (response.statusCode == 200) {
+      map.coordinate.value = '';
       _scheduleViewContract.onEditSuccess(response, context: context);
-    else
+    } else
       _scheduleViewContract.onErrorRequest(response);
   }
 
