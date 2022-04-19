@@ -11,6 +11,7 @@ import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_create.dart';
 import '../../../widgets/button/theme_button_search.dart';
 import '../../../widgets/datatables/custom_datatable.dart';
+import '../../../widgets/snackbar.dart';
 import '../../skins/tempalte.dart';
 import '_datatable_source.dart';
 import '_parent_controller.dart';
@@ -90,6 +91,7 @@ class TypesChildrenView extends StatelessWidget
     presenter.setProcessing(false);
     datatable.controller.reload();
     if (context != null) Navigator.pop(context);
+    Snackbar().createSuccess();
   }
 
   @override
@@ -97,6 +99,7 @@ class TypesChildrenView extends StatelessWidget
     presenter.setProcessing(false);
     datatable.controller.reload();
     if (context != null) Navigator.pop(context);
+    Snackbar().deleteSuccess();
   }
 
   @override
@@ -104,6 +107,7 @@ class TypesChildrenView extends StatelessWidget
     presenter.setProcessing(false);
     datatable.controller.reload();
     if (context != null) Navigator.pop(context);
+    Snackbar().editSuccess();
   }
 
   @override

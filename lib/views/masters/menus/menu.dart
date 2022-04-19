@@ -9,6 +9,7 @@ import '../../../utils/handle_error_request.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_create.dart';
 import '../../../widgets/datatables/custom_datatable.dart';
+import '../../../widgets/snackbar.dart';
 import '../../skins/tempalte.dart';
 
 import '_datatable_source.dart';
@@ -60,6 +61,7 @@ class MenuView extends StatelessWidget
     presenter.setProcessing(false);
     datatable.controller.reload();
     if (context != null) Navigator.pop(context);
+    Snackbar().createSuccess();
   }
 
   @override
@@ -67,6 +69,7 @@ class MenuView extends StatelessWidget
     presenter.setProcessing(false);
     datatable.controller.reload();
     if (context != null) Navigator.pop(context);
+    Snackbar().deleteSuccess();
   }
 
   @override
@@ -74,6 +77,7 @@ class MenuView extends StatelessWidget
     presenter.setProcessing(false);
     datatable.controller.reload();
     if (context != null) Navigator.pop(context);
+    Snackbar().editSuccess();
   }
 
   @override

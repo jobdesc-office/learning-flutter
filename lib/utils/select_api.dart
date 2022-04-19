@@ -116,7 +116,6 @@ Future<BsSelectBoxResponse> selectApiTypeChildren(
 Future<BsSelectBoxResponse> selectTimeZone(Map<String, String> params) async {
   final scheduleService = Get.find<ScheduleService>();
   Response response = await ConnectInternetAPI().TimeZone();
-  print(response.body);
   if (response.isOk) {
     if (response.statusCode == 200) {
       return BsSelectBoxResponse.createFromJson(

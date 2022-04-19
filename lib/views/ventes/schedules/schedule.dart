@@ -1,14 +1,19 @@
+import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:boilerplate/utils/handle_error_request.dart';
+import 'package:boilerplate/widgets/button/button_delete_datatable.dart';
+import 'package:boilerplate/widgets/button/button_edit_datatable.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 import '../../../contracts/base/index_view_contract.dart';
+import '../../../models/ventes/schedule_model.dart';
 import '../../../presenters/ventes/schedule_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_create.dart';
+import '../../../widgets/snackbar.dart';
 import '../../skins/tempalte.dart';
 import '_schedule_source.dart';
 import '_text.dart';
@@ -51,11 +56,46 @@ class ScheduleView extends GetView
                   if (snapshot.data != null) {
                     return SfCalendar(
                       monthViewSettings: MonthViewSettings(
+                        showAgenda: true,
                         appointmentDisplayMode:
                             MonthAppointmentDisplayMode.indicator,
                       ),
-                      onTap: (value) {},
-                      onLongPress: (value) {},
+                      onTap: (details) {
+                        if (details.targetElement ==
+                                CalendarElement.appointment ||
+                            details.targetElement == CalendarElement.agenda) {
+                          final ScheduleModel _meeting =
+                              details.appointments![0];
+
+                          presenter.details(context, _meeting.scheid);
+                        }
+                      },
+                      onLongPress: (details) {
+                        if (details.targetElement ==
+                                CalendarElement.appointment ||
+                            details.targetElement == CalendarElement.agenda) {
+                          final ScheduleModel _meeting =
+                              details.appointments![0];
+
+                          Get.defaultDialog(
+                              title: 'Actions',
+                              content: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  ButtonEditDatatables(onPressed: () {
+                                    presenter.edit(context, _meeting.scheid);
+                                  }),
+                                  ButtonDeleteDatatables(
+                                    onPressed: () {
+                                      presenter.delete(
+                                          context, _meeting.scheid);
+                                    },
+                                  )
+                                ],
+                              ));
+                        }
+                      },
                       view: CalendarView.month,
                       dataSource: ScheduleSource(snapshot.data),
                     );
@@ -76,22 +116,30 @@ class ScheduleView extends GetView
     );
   }
 
+  void calendarTapped(CalendarTapDetails details) {}
+
   @override
   void onCreateSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
-    if (context != null) Navigator.pop(context);
+    Get.toNamed(RouteList.masterSchedule.index);
+    Navigator.pop(context!);
+    Snackbar().createSuccess();
   }
 
   @override
   void onDeleteSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
-    if (context != null) Navigator.pop(context);
+    Get.toNamed(RouteList.masterSchedule.index);
+    Navigator.pop(context!);
+    Snackbar().deleteSuccess();
   }
 
   @override
   void onEditSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
-    if (context != null) Navigator.pop(context);
+    Get.toNamed(RouteList.masterSchedule.index);
+    Navigator.pop(context!);
+    Snackbar().editSuccess();
   }
 
   @override

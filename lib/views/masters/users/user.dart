@@ -9,6 +9,7 @@ import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_create.dart';
 import '../../../widgets/datatables/custom_datatable.dart';
+import '../../../widgets/snackbar.dart';
 import '../../skins/tempalte.dart';
 import '_datatable_source.dart';
 import '_text.dart';
@@ -59,6 +60,7 @@ class UserView extends GetView
     presenter.setProcessing(false);
     datatable.controller.reload();
     if (context != null) Navigator.pop(context);
+    Snackbar().createSuccess();
   }
 
   @override
@@ -66,6 +68,7 @@ class UserView extends GetView
     presenter.setProcessing(false);
     datatable.controller.reload();
     if (context != null) Navigator.pop(context);
+    Snackbar().deleteSuccess();
   }
 
   @override
@@ -73,6 +76,7 @@ class UserView extends GetView
     presenter.setProcessing(false);
     datatable.controller.reload();
     if (context != null) Navigator.pop(context);
+    Snackbar().editSuccess();
   }
 
   @override
