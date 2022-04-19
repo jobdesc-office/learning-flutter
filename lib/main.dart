@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import 'constants/config_types.dart';
 import 'helpers/function.dart';
@@ -11,7 +12,8 @@ import 'services/app_service.dart';
 import 'services/auth_service.dart';
 import 'utils/session_manager.dart';
 
-void main() {
+void main() async {
+  await GetStorage.init();
   runApp(MyApp());
 }
 

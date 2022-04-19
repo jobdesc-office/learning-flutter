@@ -2,6 +2,7 @@ import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../contracts/auth/logout_view_contract.dart';
 import '../../helpers/function.dart';
@@ -23,6 +24,7 @@ class HeaderSkins extends StatelessWidget implements LogoutViewContract {
 
   @override
   Widget build(BuildContext context) {
+    final box = GetStorage();
     return Container(
       height: 60,
       padding: EdgeInsets.all(12),
@@ -42,12 +44,12 @@ class HeaderSkins extends StatelessWidget implements LogoutViewContract {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                HeaderIcon(
-                  icon: Icons.notifications,
-                  onPressed: () {},
-                  margin: EdgeInsets.only(right: 15),
-                  badge: Text('99+'),
-                ),
+                // HeaderIcon(
+                //   icon: Icons.notifications,
+                //   onPressed: () {},
+                //   margin: EdgeInsets.only(right: 15),
+                //   badge: Text('99+'),
+                // ),
                 BsDropdownButton(
                   toggleMenu: (_) => ButtonInfoAccount(
                     'Kholifan Alfon',
@@ -59,7 +61,7 @@ class HeaderSkins extends StatelessWidget implements LogoutViewContract {
                   ),
                   dropdownMenu: BsDropdownMenu(
                     header: BsDropdownHeader(
-                      child: Text('Kholifan Alfon'),
+                      child: Text(box.read('name')),
                     ),
                     children: [
                       BsDropdownItem(
