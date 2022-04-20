@@ -18,6 +18,7 @@ import '../utils/guards/guest_guard.dart';
 import '../views/defaults/home.dart';
 import '../views/masters/businesspartners/businesspartner.dart';
 import '../views/masters/menus/menu.dart';
+import '../views/ventes/prospect/prospect.dart';
 import '../views/ventes/schedules/map.dart';
 import '../views/ventes/schedules/schedule.dart';
 import '../views/masters/typeschildren/types_children.dart';
@@ -38,6 +39,9 @@ class AppRoute {
         name: RouteList.home.index,
         page: () => AuthGuard(child: HomeView()),
       ),
+
+      /** Masters **/
+
       CustomGetPage(
         name: RouteList.masterMenu.index,
         page: () => MenuView(),
@@ -63,16 +67,6 @@ class AppRoute {
         }),
       ),
       CustomGetPage(
-        name: RouteList.masterSchedule.index,
-        page: () => ScheduleView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => ScheduleService());
-          Get.lazyPut(() => SchedulePresenter());
-          Get.lazyPut(() => TypeChildrenService());
-          Get.lazyPut(() => UserService());
-        }),
-      ),
-      CustomGetPage(
         name: RouteList.masterTypeParent.index,
         page: () => TypesParentView(),
         binding: BindingsBuilder(() {
@@ -86,6 +80,27 @@ class AppRoute {
         binding: BindingsBuilder(() {
           Get.lazyPut(() => TypeChildrenService());
           Get.lazyPut(() => TypesChildrenPresenter());
+        }),
+      ),
+
+      /** Venteses **/
+
+      CustomGetPage(
+        name: RouteList.ventesSchedule.index,
+        page: () => ScheduleView(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => ScheduleService());
+          Get.lazyPut(() => SchedulePresenter());
+          Get.lazyPut(() => TypeChildrenService());
+          Get.lazyPut(() => UserService());
+        }),
+      ),
+      CustomGetPage(
+        name: RouteList.ventesProspect.index,
+        page: () => ProspectView(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => MenuService());
+          Get.lazyPut(() => MenuPresenter());
         }),
       ),
     ];

@@ -36,7 +36,7 @@ class ScheduleView extends GetView
           BreadcrumbWidget('Masters'),
           BreadcrumbWidget('Schedule', active: true),
         ],
-        activeRoutes: [RouteList.master.index, RouteList.masterSchedule.index],
+        activeRoutes: [RouteList.master.index, RouteList.ventesSchedule.index],
         child: Column(
           children: [
             Row(
@@ -121,7 +121,7 @@ class ScheduleView extends GetView
   @override
   void onCreateSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
-    Get.toNamed(RouteList.masterSchedule.index);
+    Get.toNamed(RouteList.ventesSchedule.index);
     Navigator.pop(context!);
     Snackbar().createSuccess();
   }
@@ -129,7 +129,7 @@ class ScheduleView extends GetView
   @override
   void onDeleteSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
-    Get.toNamed(RouteList.masterSchedule.index);
+    Get.toNamed(RouteList.ventesSchedule.index);
     Navigator.pop(context!);
     Snackbar().deleteSuccess();
   }
@@ -137,7 +137,7 @@ class ScheduleView extends GetView
   @override
   void onEditSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
-    Get.toNamed(RouteList.masterSchedule.index);
+    Get.toNamed(RouteList.ventesSchedule.index);
     Navigator.pop(context!);
     Snackbar().editSuccess();
   }

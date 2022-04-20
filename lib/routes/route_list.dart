@@ -12,12 +12,15 @@ class RouteList {
   static final RouteData masterUser = RouteData(prefix: '/masters/user');
   static final RouteData masterBusinessPartner =
       RouteData(prefix: '/masters/businesspartner');
-  static final RouteData masterSchedule =
-      RouteData(prefix: '/masters/schedule');
   static final RouteData masterTypeParent =
       RouteData(prefix: '/masters/typeparent');
   static final RouteData masterTypeChildren =
       RouteData(prefix: '/masters/typechildren');
+
+  static final RouteData ventes = RouteData(prefix: '/-ventes');
+
+  static final RouteData ventesSchedule = RouteData(prefix: '/ventes/schedule');
+  static final RouteData ventesProspect = RouteData(prefix: '/ventes/prospect');
 
   static final RouteData settings = RouteData(prefix: '/-settings');
 
