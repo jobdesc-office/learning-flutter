@@ -70,7 +70,6 @@ class ScheduleSource extends GetxController {
 
   Future<Map<String, dynamic>> toJson() async {
     SessionModel session = await SessionManager.current();
-    print(jsonEncode(jsonMember()));
     return {
       'schenm': inputName.text,
       'schestartdate': selectedDateStart.value,
@@ -117,7 +116,7 @@ class ScheduleForm {
                 margin: EdgeInsets.only(left: 5, top: 3),
                 sizes: ColScreen(lg: Col.col_1),
                 child: FormGroup(
-                  child: ButtonRoleUserDanger(
+                  child: ButtonMultipleCancel(
                       margin: EdgeInsets.only(left: 10),
                       onPressed: () => onRemoveItem(index)),
                 ),
@@ -149,39 +148,6 @@ class ScheduleForm {
                   ),
                 ),
               ),
-              // BsCol(
-              //   margin: EdgeInsets.only(left: 10),
-              //   sizes: ColScreen(lg: Col.col_2),
-              //   child: FormGroup(
-              //     label: Text(ScheduleText.labelReadOnly),
-              //     child: Checkbox(
-              //       value: ro.value,
-              //       onChanged: (value) => ro.toggle(),
-              //     ),
-              //   ),
-              // ),
-              // BsCol(
-              //   margin: EdgeInsets.only(left: 10),
-              //   sizes: ColScreen(lg: Col.col_2),
-              //   child: FormGroup(
-              //     label: Text(ScheduleText.labelShareLink),
-              //     child: Checkbox(
-              //       value: sl.value,
-              //       onChanged: (value) => sl.toggle(),
-              //     ),
-              //   ),
-              // ),
-              // BsCol(
-              //   margin: EdgeInsets.only(left: 10),
-              //   sizes: ColScreen(lg: Col.col_2),
-              //   child: FormGroup(
-              //     label: Text(ScheduleText.labelAddMember),
-              //     child: Checkbox(
-              //       value: am.value,
-              //       onChanged: (value) => am.toggle(),
-              //     ),
-              //   ),
-              // )
             ],
           );
         }).toList(),

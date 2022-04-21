@@ -65,7 +65,6 @@ class SchedulePresenter extends CustomGetXController {
           );
       appointmentData.add(meetingData);
     }
-    // print(appointmentData);
     return appointmentData;
   }
 

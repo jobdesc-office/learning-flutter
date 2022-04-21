@@ -33,7 +33,7 @@ class ScheduleView extends GetView
         title: ScheduleText.title,
         breadcrumbs: [
           BreadcrumbWidget('Dashboard', route: RouteList.home.index),
-          BreadcrumbWidget('Masters'),
+          BreadcrumbWidget('Venteses'),
           BreadcrumbWidget('Schedule', active: true),
         ],
         activeRoutes: [RouteList.master.index, RouteList.ventesSchedule.index],
@@ -100,7 +100,6 @@ class ScheduleView extends GetView
                       dataSource: ScheduleSource(snapshot.data),
                     );
                   } else {
-                    // print(snapshot.data);
                     return Container(
                       child: Center(
                         child: Text('Error'),

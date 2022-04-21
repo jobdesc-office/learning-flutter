@@ -85,7 +85,7 @@ class UserForm {
                 margin: EdgeInsets.only(left: 5, top: 3),
                 sizes: ColScreen(lg: Col.col_2),
                 child: FormGroup(
-                  child: ButtonRoleUserDanger(
+                  child: ButtonMultipleCancel(
                     margin: EdgeInsets.only(left: 10),
                     onPressed: () => onRemoveItem(index),
                     disabled: source.selectsRole.length > 1 ? false : true,

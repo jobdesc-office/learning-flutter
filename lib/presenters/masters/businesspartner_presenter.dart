@@ -67,7 +67,6 @@ class BusinessPartnerPresenter extends CustomGetXController {
     );
 
     Response response = await _businessPartnerService.show(userid);
-    print(response.body);
     if (response.statusCode == 200)
       _businessPartnerFetchDataDetailsContract.onSuccessFetchData(response);
     else

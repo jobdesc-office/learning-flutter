@@ -16,6 +16,7 @@ class ScheduleSource extends CalendarDataSource {
 
   @override
   DateTime getEndTime(int index) {
+    // return DateTime.parse(appointments![index].schestartdate);
     return DateTime.parse(appointments![index].scheenddate);
   }
 

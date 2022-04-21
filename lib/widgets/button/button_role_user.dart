@@ -19,8 +19,8 @@ class ButtonRoleUser extends BsButton {
         );
 }
 
-class ButtonRoleUserDanger extends BsButton {
-  ButtonRoleUserDanger({
+class ButtonMultipleCancel extends BsButton {
+  ButtonMultipleCancel({
     required VoidCallback onPressed,
     EdgeInsets margin = EdgeInsets.zero,
     bool disabled = false,
@@ -28,7 +28,7 @@ class ButtonRoleUserDanger extends BsButton {
           disabled: disabled,
           margin: margin,
           label: Icon(Icons.horizontal_rule),
-          style: CustomButtonStyle.roundedDanger,
+          style: CustomButtonStyle.roundedSecondary,
           size: CustomButonSize.small,
           onPressed: onPressed,
         );
