@@ -4,7 +4,7 @@ import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 import '../../../models/ventes/schedule_model.dart';
 
-class ScheduleSource extends CalendarDataSource {
+class ScheduleSource extends CalendarDataSource<ScheduleModel> {
   ScheduleSource(List<ScheduleModel> source) {
     appointments = source;
   }
@@ -16,8 +16,13 @@ class ScheduleSource extends CalendarDataSource {
 
   @override
   DateTime getEndTime(int index) {
-    // return DateTime.parse(appointments![index].schestartdate);
-    return DateTime.parse(appointments![index].scheenddate);
+    // String? date = appointments![index].scheenddate;
+    // if (date != null && date == '') {
+    //   return DateTime.parse(date.toString());
+    // } else {
+    //   print(DateTime.parse(appointments![index].schestartdate));
+    return DateTime.parse(appointments![index].schestartdate);
+    // }
   }
 
   @override

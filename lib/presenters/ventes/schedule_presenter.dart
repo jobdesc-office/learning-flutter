@@ -57,7 +57,7 @@ class SchedulePresenter extends CustomGetXController {
           scheid: data['scheid'],
           schenm: data['schenm'],
           schestartdate: data['schestartdate'],
-          scheenddate: data['scheenddate'],
+          // scheenddate: data['scheenddate'],
           bg: _colorCollection[random.nextInt(9)]
           // scheactdate: data['scheactdate'],
           // schestarttime: data['schestarttime'],
