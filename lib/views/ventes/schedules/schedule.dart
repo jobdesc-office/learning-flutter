@@ -18,13 +18,8 @@ import '../../skins/tempalte.dart';
 import '_schedule_source.dart';
 import '_text.dart';
 
-class ScheduleView extends GetView
-    implements IndexViewContract, HandleErrorRequest {
+class ScheduleView extends GetView implements HandleErrorRequest {
   final presenter = Get.find<SchedulePresenter>();
-
-  ScheduleView() {
-    presenter.scheduleViewContract = this;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,25 +115,25 @@ class ScheduleView extends GetView
   @override
   void onCreateSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
+    Snackbar().createSuccess();
     Get.toNamed(RouteList.ventesSchedule.index);
     Navigator.pop(context!);
-    Snackbar().createSuccess();
   }
 
   @override
   void onDeleteSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
+    Snackbar().deleteSuccess();
     Get.toNamed(RouteList.ventesSchedule.index);
     Navigator.pop(context!);
-    Snackbar().deleteSuccess();
   }
 
   @override
   void onEditSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
+    Snackbar().editSuccess();
     Get.toNamed(RouteList.ventesSchedule.index);
     Navigator.pop(context!);
-    Snackbar().editSuccess();
   }
 
   @override

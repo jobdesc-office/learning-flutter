@@ -36,6 +36,7 @@ dependencies:
   google_maps_flutter_web: ^0.3.2+1
   map_picker: ^0.0.3
   syncfusion_flutter_calendar: ^20.1.48
+  timeline_tile: ^2.0.0
 
   bs_flutter_buttons: 
     path: ./modules/bs_flutter_buttons

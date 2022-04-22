@@ -1,3 +1,5 @@
+import 'package:boilerplate/widgets/button/theme_button_cancel.dart';
+import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -29,6 +31,10 @@ class ProspectView extends GetView {
             children: [
               CustomDatabales(
                 headerActions: [
+                  BsButton(
+                      label: Text('Detail'),
+                      margin: EdgeInsets.only(right: 5),
+                      onPressed: () => presenter.details(context, 1)),
                   ThemeButtonCreate(
                       prefix: ProspectText.title,
                       onPressed: () => presenter.add(context)),

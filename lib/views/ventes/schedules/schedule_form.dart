@@ -1,3 +1,4 @@
+import 'package:boilerplate/views/skins/tempalte.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_modal/bs_flutter_modal.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
@@ -5,17 +6,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/edit_view_contract.dart';
+import '../../../contracts/base/index_view_contract.dart';
 import '../../../models/ventes/schedule_model.dart';
 import '../../../presenters/ventes/schedule_presenter.dart';
+import '../../../routes/route_list.dart';
 import '../../../widgets/button/button_role_user.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
+import '../../../widgets/snackbar.dart';
 import '../../masters/menus/_menu_type.dart';
 import '_form_source.dart';
 import '_map_source.dart';
 import '_text.dart';
 
-class ScheduleFormView extends StatelessWidget implements EditViewContract {
+class ScheduleFormView extends StatelessWidget
+    implements IndexViewContract, EditViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final map = Get.put(mapSource());
   final SchedulePresenter presenter = Get.find<SchedulePresenter>();
@@ -26,84 +31,73 @@ class ScheduleFormView extends StatelessWidget implements EditViewContract {
 
   ScheduleFormView({required this.onSave}) {
     presenter.scheduleFetchDataContract = this;
+    presenter.scheduleViewContract = this;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: formState,
-      child: BsModal(
-        context: context,
-        dialog: BsModalDialog(
-          size: BsModalSize.lg,
-          child: BsModalContent(children: [
-            BsModalContainer(
-              title: Text(ScheduleText.title),
-              closeButton: true,
-            ),
-            BsModalContainer(
-              child: Obx(() {
-                menuForm = ScheduleForm(source.value);
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+    return Scaffold(
+      body: TemplateView(
+        activeRoutes: [RouteList.master.index, RouteList.ventesSchedule.index],
+        child: Obx(() {
+          menuForm = ScheduleForm(source.value);
+          return Form(
+            key: formState,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                menuForm.inputName(),
+                menuForm.checkBoxForm(),
+                menuForm.inputDate(context),
+                menuForm.inputTime(context),
+                menuForm.actDate(context),
+                menuForm.selectType(),
+                menuForm.selectUser(context),
+                menuForm.inputOnLink(),
+                menuForm.inputDesc(),
+                menuForm.inputRemind(),
+                Row(
                   children: [
-                    menuForm.inputName(),
-                    menuForm.checkBoxForm(),
-                    menuForm.inputDate(context),
-                    menuForm.inputTime(context),
-                    menuForm.actDate(context),
-                    menuForm.selectType(),
-                    menuForm.selectUser(context),
-                    menuForm.inputOnLink(),
-                    menuForm.inputDesc(),
-                    menuForm.inputRemind(),
-                    Row(
-                      children: [
-                        BsButton(
-                          style: BsButtonStyle(
-                            backgroundColor: Colors.green.shade300,
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          size: BsButtonSize(
-                            padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                            fontSize: 12,
-                            iconSize: 14,
-                          ),
-                          label: Text('Add Member'),
-                          onPressed: onClickAddRole,
-                          // disabled: c.role >= 3 ? true : false,
-                        )
-                      ],
-                    ),
-                    menuForm.checkBoxTypeForm(
-                        onRemoveItem: onClickRemoveRoleItem)
-                  ],
-                );
-              }),
-            ),
-            BsModalContainer(
-              child: Obx(
-                () => Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    ThemeButtonSave(
-                      disabled: presenter.isProcessing.value,
-                      processing: presenter.isProcessing.value,
-                      margin: EdgeInsets.only(right: 5),
-                      onPressed: () => onClickSaveModal(context),
-                    ),
-                    ThemeButtonCancel(
-                      disabled: presenter.isProcessing.value,
-                      margin: EdgeInsets.only(right: 5),
-                      onPressed: () => onClickCancelModal(context),
-                    ),
+                    BsButton(
+                      style: BsButtonStyle(
+                        backgroundColor: Colors.green.shade300,
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      size: BsButtonSize(
+                        padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                        fontSize: 12,
+                        iconSize: 14,
+                      ),
+                      label: Text('Add Member'),
+                      onPressed: onClickAddRole,
+                      // disabled: c.role >= 3 ? true : false,
+                    )
                   ],
                 ),
-              ),
-            )
-          ]),
-        ),
+                menuForm.checkBoxTypeForm(onRemoveItem: onClickRemoveRoleItem),
+                Obx(
+                  () => Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      ThemeButtonSave(
+                        disabled: presenter.isProcessing.value,
+                        processing: presenter.isProcessing.value,
+                        margin: EdgeInsets.only(right: 5),
+                        onPressed: () => onClickSaveModal(context),
+                      ),
+                      ThemeButtonCancel(
+                        disabled: presenter.isProcessing.value,
+                        margin: EdgeInsets.only(right: 5),
+                        onPressed: () => onClickCancelModal(context),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        }),
       ),
     );
   }
@@ -184,5 +178,39 @@ class ScheduleFormView extends StatelessWidget implements EditViewContract {
       source.value.private.value = menu.private;
       map.coordinate.value = menu.loc;
     });
+  }
+
+  @override
+  void onCreateSuccess(Response response, {BuildContext? context}) {
+    presenter.setProcessing(false);
+    Snackbar().createSuccess();
+    Navigator.pop(context!);
+    Navigator.pop(context);
+  }
+
+  @override
+  void onDeleteSuccess(Response response, {BuildContext? context}) {
+    presenter.setProcessing(false);
+    Snackbar().deleteSuccess();
+    Navigator.pop(context!);
+    Navigator.pop(context);
+  }
+
+  @override
+  void onEditSuccess(Response response, {BuildContext? context}) {
+    presenter.setProcessing(false);
+    Snackbar().editSuccess();
+    Navigator.pop(context!);
+    Navigator.pop(context);
+  }
+
+  @override
+  void onErrorRequest(Response response) {
+    // TODO: implement onErrorRequest
+  }
+
+  @override
+  void onLoadDatatables(BuildContext context, Response response) {
+    // TODO: implement onLoadDatatables
   }
 }

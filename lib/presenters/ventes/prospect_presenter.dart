@@ -8,6 +8,7 @@ import '../../contracts/base/index_view_contract.dart';
 import '../../services/masters/type_service.dart';
 import '../../utils/custom_get_controller.dart';
 import '../../views/ventes/prospect/prospect.dart';
+import '../../views/ventes/prospect/prospect_detail.dart';
 import '../../views/ventes/prospect/prospect_form.dart';
 import '../../widgets/confirm_dialog.dart';
 
@@ -52,6 +53,20 @@ class ProspectPresenter extends CustomGetXController {
     //   _ProspectViewContract.onCreateSuccess(response, context: context);
     // else
     //   _ProspectViewContract.onErrorRequest(response);
+  }
+
+  void details(BuildContext context, int userid) async {
+    setProcessing(true);
+    showDialog(
+      context: context,
+      builder: (context) => ProspectDetails(),
+    );
+
+    // Response response = await _typeParentService.show(userid);
+    // if (response.statusCode == 200)
+    //   _typeParentDataDetailsContract.onSuccessFetchData(response);
+    // else
+    //   _typeParentViewContract.onErrorRequest(response);
   }
 
   // void edit(BuildContext context, int Prospectid) async {
