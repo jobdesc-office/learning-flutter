@@ -119,7 +119,7 @@ class ProspectForm {
 
   Widget inputContact() {
     return FormGroup(
-      label: Text(ProspectText.labelOrganization),
+      label: Text(ProspectText.labelName),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputName,
@@ -133,7 +133,7 @@ class ProspectForm {
 
   Widget inputOrganization() {
     return FormGroup(
-      label: Text(ProspectText.labelName),
+      label: Text(ProspectText.labelOrganization),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputName,
@@ -153,7 +153,7 @@ class ProspectForm {
         controller: source.inputCompanyName,
         hintText: BaseText.hintText(),
         validators: [
-          Validators.inputRequired(ProspectText.labelName),
+          Validators.inputRequired(ProspectText.labelTitle),
         ],
       ),
     );
@@ -171,9 +171,7 @@ class ProspectForm {
                   disabled: c.isProduct.value,
                   controller: source.inputValue,
                   hintText: BaseText.hintText(),
-                  validators: [
-                    Validators.inputEmail(),
-                  ],
+                  validators: [],
                 ),
               ),
               BsCol(
@@ -228,9 +226,7 @@ class ProspectForm {
         disabled: source.isProcessing,
         controller: source.inputEmail,
         hintText: BaseText.hintText(),
-        validators: [
-          Validators.inputEmail(),
-        ],
+        validators: [],
       ),
     );
   }
@@ -242,9 +238,7 @@ class ProspectForm {
         disabled: source.isProcessing,
         controller: source.inputEmail,
         hintText: BaseText.hintText(),
-        validators: [
-          Validators.inputEmail(),
-        ],
+        validators: [],
       ),
     );
   }
@@ -374,9 +368,7 @@ class ProspectForm {
                   disabled: source.isProcessing,
                   controller: inputItem,
                   hintText: BaseText.hintText(),
-                  validators: [
-                    Validators.inputEmail(),
-                  ],
+                  validators: [],
                 ),
               ),
             ),
@@ -389,9 +381,7 @@ class ProspectForm {
                   disabled: source.isProcessing,
                   controller: inputPrice,
                   hintText: BaseText.hintText(),
-                  validators: [
-                    Validators.inputEmail(),
-                  ],
+                  validators: [],
                 ),
               ),
             ),
@@ -404,9 +394,7 @@ class ProspectForm {
                   disabled: source.isProcessing,
                   controller: inputQuantity,
                   hintText: BaseText.hintText(),
-                  validators: [
-                    Validators.inputEmail(),
-                  ],
+                  validators: [],
                 ),
               ),
             ),
@@ -419,9 +407,7 @@ class ProspectForm {
                   disabled: source.isProcessing,
                   controller: inputAmount,
                   hintText: BaseText.hintText(),
-                  validators: [
-                    Validators.inputEmail(),
-                  ],
+                  validators: [],
                 ),
               ),
             ),

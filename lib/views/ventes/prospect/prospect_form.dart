@@ -47,8 +47,8 @@ class ProspectFormView extends StatelessWidget implements EditViewContract {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          prospectForm.inputContact(),
                           prospectForm.inputOrganization(),
+                          prospectForm.inputContact(),
                           prospectForm.inputTitle(),
                           prospectForm.inputValue(),
                           prospectForm.inputPipeline(),
@@ -232,7 +232,10 @@ class ProspectFormView extends StatelessWidget implements EditViewContract {
 
   void onClickSaveModal(BuildContext context) async {
     presenter.setProcessing(true);
-    if (formState.currentState!.validate()) onSave(await source.toJson());
+    if (formState.currentState!.validate())
+      onSave(await source.toJson());
+    else
+      presenter.setProcessing(false);
   }
 
   void onClickCancelModal(BuildContext context) {
