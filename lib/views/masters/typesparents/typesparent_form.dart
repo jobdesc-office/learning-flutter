@@ -68,7 +68,10 @@ class TypeParentFormView extends StatelessWidget implements EditViewContract {
 
   void onClickSaveModal(BuildContext context) async {
     presenter.setProcessing(true);
-    if (formState.currentState!.validate()) onSave(await source.toJson());
+    if (formState.currentState!.validate())
+      onSave(await source.toJson());
+    else
+      presenter.setProcessing(false);
   }
 
   void onClickCancelModal(BuildContext context) {
