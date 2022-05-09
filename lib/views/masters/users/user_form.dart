@@ -1,3 +1,4 @@
+import 'package:boilerplate/views/skins/tempalte.dart';
 import 'package:bs_flutter_modal/bs_flutter_modal.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
@@ -29,64 +30,52 @@ class UserFormView extends GetView implements EditViewContract {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: formState,
-      child: BsModal(
-        context: context,
-        dialog: BsModalDialog(
-          size: BsModalSize.md,
-          child: BsModalContent(children: [
-            BsModalContainer(
-              title: Text(UserText.title),
-              closeButton: true,
-            ),
-            BsModalContainer(
-              child: Obx(() {
-                userForm = UserForm(source.value);
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+    return Scaffold(
+      body: TemplateView(
+        child: Obx(() {
+          userForm = UserForm(source.value);
+          return Form(
+            key: formState,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                userForm.inputName(),
+                userForm.inputFullName(),
+                userForm.inputPassword(),
+                userForm.inputConfirmPassword(),
+                userForm.inputEmail(),
+                userForm.inputPhone(),
+                Row(
                   children: [
-                    userForm.inputName(),
-                    userForm.inputFullName(),
-                    userForm.inputPassword(),
-                    userForm.inputConfirmPassword(),
-                    userForm.inputEmail(),
-                    userForm.inputPhone(),
-                    Row(
-                      children: [
-                        ButtonRoleUser(
-                          onPressed: onClickAddRole,
-                          // disabled: c.role >= 3 ? true : false,
-                        )
-                      ],
-                    ),
-                    userForm.formDetail(onRemoveItem: onClickRemoveRoleItem)
-                  ],
-                );
-              }),
-            ),
-            BsModalContainer(
-              child: Obx(
-                () => Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    ThemeButtonSave(
-                      disabled: presenter.isProcessing.value,
-                      processing: presenter.isProcessing.value,
-                      margin: EdgeInsets.only(right: 5),
-                      onPressed: () => onClickSaveModal(context),
-                    ),
-                    ThemeButtonCancel(
-                      disabled: presenter.isProcessing.value,
-                      margin: EdgeInsets.only(right: 5),
-                      onPressed: () => onClickCancelModal(context),
-                    ),
+                    ButtonRoleUser(
+                      onPressed: onClickAddRole,
+                      // disabled: c.role >= 3 ? true : false,
+                    )
                   ],
                 ),
-              ),
-            )
-          ]),
-        ),
+                userForm.formDetail(onRemoveItem: onClickRemoveRoleItem),
+                Obx(
+                  () => Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      ThemeButtonSave(
+                        disabled: presenter.isProcessing.value,
+                        processing: presenter.isProcessing.value,
+                        margin: EdgeInsets.only(right: 5),
+                        onPressed: () => onClickSaveModal(context),
+                      ),
+                      ThemeButtonCancel(
+                        disabled: presenter.isProcessing.value,
+                        margin: EdgeInsets.only(right: 5),
+                        onPressed: () => onClickCancelModal(context),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        }),
       ),
     );
   }

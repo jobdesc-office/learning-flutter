@@ -1,3 +1,4 @@
+import 'package:boilerplate/views/skins/tempalte.dart';
 import 'package:bs_flutter_modal/bs_flutter_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -30,53 +31,42 @@ class BusinessPartnerFormView extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: formState,
-      child: BsModal(
-        context: context,
-        dialog: BsModalDialog(
-          child: BsModalContent(children: [
-            BsModalContainer(
-              title: Text(BusinessPartnerText.title),
-              closeButton: true,
-            ),
-            BsModalContainer(
-              child: Obx(() {
-                businessPartnerForm = BusinessPartnerForm(source.value);
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    businessPartnerForm.businessPartnerType(),
-                    businessPartnerForm.inputCompanyName(),
-                    businessPartnerForm.inputName(),
-                    businessPartnerForm.inputEmail(),
-                    businessPartnerForm.inputPhone(),
-                  ],
-                );
-              }),
-            ),
-            BsModalContainer(
-              child: Obx(
-                () => Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    ThemeButtonSave(
-                      disabled: presenter.isProcessing.value,
-                      processing: presenter.isProcessing.value,
-                      margin: EdgeInsets.only(right: 5),
-                      onPressed: () => onClickSaveModal(context),
-                    ),
-                    ThemeButtonCancel(
-                      disabled: presenter.isProcessing.value,
-                      margin: EdgeInsets.only(right: 5),
-                      onPressed: () => onClickCancelModal(context),
-                    ),
-                  ],
+    return Scaffold(
+      body: TemplateView(
+        child: Obx(() {
+          businessPartnerForm = BusinessPartnerForm(source.value);
+          return Form(
+            key: formState,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                businessPartnerForm.businessPartnerType(),
+                businessPartnerForm.inputCompanyName(),
+                businessPartnerForm.inputName(),
+                businessPartnerForm.inputEmail(),
+                businessPartnerForm.inputPhone(),
+                Obx(
+                  () => Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      ThemeButtonSave(
+                        disabled: presenter.isProcessing.value,
+                        processing: presenter.isProcessing.value,
+                        margin: EdgeInsets.only(right: 5),
+                        onPressed: () => onClickSaveModal(context),
+                      ),
+                      ThemeButtonCancel(
+                        disabled: presenter.isProcessing.value,
+                        margin: EdgeInsets.only(right: 5),
+                        onPressed: () => onClickCancelModal(context),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            )
-          ]),
-        ),
+              ],
+            ),
+          );
+        }),
       ),
     );
   }

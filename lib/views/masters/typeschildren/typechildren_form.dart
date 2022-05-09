@@ -1,3 +1,4 @@
+import 'package:boilerplate/views/skins/tempalte.dart';
 import 'package:bs_flutter_modal/bs_flutter_modal.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
@@ -29,53 +30,42 @@ class TypeChildrenFormView extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: formState,
-      child: BsModal(
-        context: context,
-        dialog: BsModalDialog(
-          child: BsModalContent(children: [
-            BsModalContainer(
-              title: Text(TypeChildrenText.title),
-              closeButton: true,
+    return Scaffold(
+      body: TemplateView(
+        child: Obx(() {
+          tpForm = TypeChildrenForm(source.value);
+          return Form(
+            key: formState,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                tpForm.inputCode(),
+                tpForm.inputName(),
+                tpForm.selectParent(),
+                tpForm.inputSeq(),
+                tpForm.inputDesc(),
+                Obx(
+                  () => Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      ThemeButtonSave(
+                        disabled: presenter.isProcessing.value,
+                        processing: presenter.isProcessing.value,
+                        margin: EdgeInsets.only(right: 5),
+                        onPressed: () => onClickSaveModal(context),
+                      ),
+                      ThemeButtonCancel(
+                        disabled: presenter.isProcessing.value,
+                        margin: EdgeInsets.only(right: 5),
+                        onPressed: () => onClickCancelModal(context),
+                      ),
+                    ],
+                  ),
+                )
+              ],
             ),
-            BsModalContainer(
-              child: Obx(() {
-                tpForm = TypeChildrenForm(source.value);
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    tpForm.inputCode(),
-                    tpForm.inputName(),
-                    tpForm.selectParent(),
-                    tpForm.inputSeq(),
-                    tpForm.inputDesc(),
-                  ],
-                );
-              }),
-            ),
-            BsModalContainer(
-              child: Obx(
-                () => Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    ThemeButtonSave(
-                      disabled: presenter.isProcessing.value,
-                      processing: presenter.isProcessing.value,
-                      margin: EdgeInsets.only(right: 5),
-                      onPressed: () => onClickSaveModal(context),
-                    ),
-                    ThemeButtonCancel(
-                      disabled: presenter.isProcessing.value,
-                      margin: EdgeInsets.only(right: 5),
-                      onPressed: () => onClickCancelModal(context),
-                    ),
-                  ],
-                ),
-              ),
-            )
-          ]),
-        ),
+          );
+        }),
       ),
     );
   }
