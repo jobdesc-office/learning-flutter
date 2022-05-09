@@ -6,13 +6,11 @@ import 'package:get/get.dart';
 import '../../../constants/base_text.dart';
 import '../../../helpers/function.dart';
 import '../../../presenters/masters/typechildren_presenter.dart';
-import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_search.dart';
 import '../../../widgets/form_group.dart';
 import '../../../widgets/selectbox/custom_selectbox.dart';
 import '../../../utils/select_api.dart';
 import '_parent_controller.dart';
-import '_text.dart';
 
 class TypeChildrenFilter extends StatelessWidget {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();

@@ -1,13 +1,10 @@
-import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:boilerplate/utils/handle_error_request.dart';
 import 'package:boilerplate/widgets/button/button_delete_datatable.dart';
 import 'package:boilerplate/widgets/button/button_edit_datatable.dart';
-import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
-import '../../../contracts/base/index_view_contract.dart';
 import '../../../models/ventes/schedule_model.dart';
 import '../../../presenters/ventes/schedule_presenter.dart';
 import '../../../routes/route_list.dart';

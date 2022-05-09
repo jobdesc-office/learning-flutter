@@ -19,7 +19,6 @@ import '../views/defaults/home.dart';
 import '../views/masters/businesspartners/businesspartner.dart';
 import '../views/masters/menus/menu.dart';
 import '../views/ventes/prospect/prospect.dart';
-import '../views/ventes/schedules/map.dart';
 import '../views/ventes/schedules/schedule.dart';
 import '../views/masters/typeschildren/types_children.dart';
 import '../views/masters/typesparents/types_parents.dart';

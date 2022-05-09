@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import '../../../models/masters/type_model.dart';
 import '../../../styles/color_palattes.dart';
 import '_parent_controller.dart';
-import 'types_children.dart';
 
 abstract class ParentViewContract {
   void onLoadSuccess(Response response);

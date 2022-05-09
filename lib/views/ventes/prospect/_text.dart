@@ -1,4 +1,3 @@
-import '../../../constants/base_text.dart';
 
 class ProspectText {
   static String title = 'Prospect';

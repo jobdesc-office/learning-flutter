@@ -1,11 +1,9 @@
 import 'dart:convert';
 
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
-import 'package:bs_flutter_inputtext/bs_flutter_inputtext.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../../constants/base_text.dart';

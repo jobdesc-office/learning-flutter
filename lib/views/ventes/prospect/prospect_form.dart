@@ -1,5 +1,4 @@
 import 'package:boilerplate/views/skins/tempalte.dart';
-import 'package:bs_flutter_modal/bs_flutter_modal.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +10,6 @@ import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
 
 import '_form_source.dart';
-import '_text.dart';
 
 class ProspectFormView extends StatelessWidget implements EditViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();

@@ -1,4 +1,3 @@
-import 'package:boilerplate/constants/config_types.dart';
 import 'package:boilerplate/models/masters/type_model.dart';
 import 'package:boilerplate/models/security/menu_model.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
@@ -11,7 +10,6 @@ import '../services/masters/type_service.dart';
 import '../services/masters/typechildren_service.dart';
 import '../services/masters/user_service.dart';
 import '../services/security/menu_service.dart';
-import '../services/ventes/schedule_service.dart';
 import 'connect_internet_api.dart';
 
 Future<BsSelectBoxResponse> selectApiMenu(Map<String, String> params) async {
@@ -114,8 +112,7 @@ Future<BsSelectBoxResponse> selectApiTypeChildren(
 }
 
 Future<BsSelectBoxResponse> selectTimeZone(Map<String, String> params) async {
-  final scheduleService = Get.find<ScheduleService>();
-  Response response = await ConnectInternetAPI().TimeZone();
+  Response response = await ConnectInternetAPI().timeZone();
   if (response.isOk) {
     if (response.statusCode == 200) {
       return BsSelectBoxResponse.createFromJson(

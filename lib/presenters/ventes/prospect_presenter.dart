@@ -1,16 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-import '../../constants/base_text.dart';
-import '../../constants/config_types.dart';
-import '../../contracts/base/edit_view_contract.dart';
-import '../../contracts/base/index_view_contract.dart';
-import '../../services/masters/type_service.dart';
 import '../../utils/custom_get_controller.dart';
-import '../../views/ventes/prospect/prospect.dart';
 import '../../views/ventes/prospect/prospect_detail.dart';
 import '../../views/ventes/prospect/prospect_form.dart';
-import '../../widgets/confirm_dialog.dart';
 
 class ProspectPresenter extends CustomGetXController {
   // final _ProspectService = Get.find<ProspectService>();

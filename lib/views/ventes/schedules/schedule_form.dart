@@ -1,6 +1,5 @@
 import 'package:boilerplate/views/skins/tempalte.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
-import 'package:bs_flutter_modal/bs_flutter_modal.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,14 +9,11 @@ import '../../../contracts/base/index_view_contract.dart';
 import '../../../models/ventes/schedule_model.dart';
 import '../../../presenters/ventes/schedule_presenter.dart';
 import '../../../routes/route_list.dart';
-import '../../../widgets/button/button_role_user.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
 import '../../../widgets/snackbar.dart';
-import '../../masters/menus/_menu_type.dart';
 import '_form_source.dart';
 import '_map_source.dart';
-import '_text.dart';
 
 class ScheduleFormView extends StatelessWidget
     implements IndexViewContract, EditViewContract {
