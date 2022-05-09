@@ -5,6 +5,8 @@ class RouteList {
 
   static final RouteData home = RouteData(prefix: '/');
 
+  static final RouteData profile = RouteData(prefix: '/profile');
+
   static final RouteData master = RouteData(prefix: '/-master');
 
   static final RouteData masterMenu = RouteData(prefix: '/masters/menus');

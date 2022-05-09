@@ -65,6 +65,7 @@ class HeaderSkins extends StatelessWidget implements LogoutViewContract {
                     ),
                     children: [
                       BsDropdownItem(
+                        onPressed: (() => Get.toNamed(RouteList.profile.index)),
                         child: Row(
                           children: [
                             Icon(

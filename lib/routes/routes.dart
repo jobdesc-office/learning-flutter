@@ -15,7 +15,8 @@ import '../services/security/menu_service.dart';
 import '../utils/custom_get_page.dart';
 import '../utils/guards/auth_guard.dart';
 import '../utils/guards/guest_guard.dart';
-import '../views/defaults/home.dart';
+import '../views/defaults/home/home.dart';
+import '../views/defaults/profile/profile.dart';
 import '../views/masters/businesspartners/businesspartner.dart';
 import '../views/masters/menus/menu.dart';
 import '../views/ventes/prospect/prospect.dart';
@@ -37,6 +38,10 @@ class AppRoute {
       CustomGetPage(
         name: RouteList.home.index,
         page: () => AuthGuard(child: HomeView()),
+      ),
+      CustomGetPage(
+        name: RouteList.profile.index,
+        page: () => ProfileView(),
       ),
 
       /** Masters **/
