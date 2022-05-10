@@ -8,28 +8,14 @@ class SidebarWidgets {
     return Row(
       children: [
         Expanded(
-          child: Text(
-            'Logo',
-            style: TextStyle(
-              color: ColorPallates.dark,
-              fontSize: 26,
-            ),
-            textAlign: TextAlign.center,
-            overflow: TextOverflow.ellipsis,
-          ),
+          child: Image.asset('assets/images/logo.png'),
         )
       ],
     );
   }
 
   static Widget logoCollapse() {
-    return Text(
-      'Logo',
-      style: TextStyle(
-        color: ColorPallates.dark,
-        fontSize: 16,
-      ),
-    );
+    return Image.asset('assets/images/logo.png');
   }
 
   static Widget menuParent(List<MenuData> history, {VoidCallback? onTab}) {
