@@ -4,13 +4,21 @@ import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../models/security/home_model.dart';
+import '../../../presenters/default/home_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../skins/tempalte.dart';
 
 class HomeView extends StatelessWidget implements HomeViewContract {
+  final presenter = Get.find<HomePresenter>();
   final c = Get.put(HomeSource());
-  HomeView();
+
+  HomeView() {
+    presenter.homeContract = this;
+    presenter.index();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,113 +35,125 @@ class HomeView extends StatelessWidget implements HomeViewContract {
                 sizes: ColScreen(sm: Col.col_3),
                 child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.green,
+                      color: Colors.green.shade300,
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    child: Obx(() => Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Obx(() => Text(
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(
                                   c.users.value.toString(),
                                   style: TextStyle(fontSize: 35),
-                                )),
-                            Icon(Icons.person, size: 70)
+                                ),
+                                Icon(Icons.person, size: 70)
+                              ],
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(bottom: 10),
+                              child: Text(
+                                  c.users.value > 1
+                                      ? 'Active Users'
+                                      : 'Active User',
+                                  style: TextStyle(fontSize: 15)),
+                            )
                           ],
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(bottom: 10),
-                          child: Text('Active Users',
-                              style: TextStyle(fontSize: 15)),
-                        )
-                      ],
-                    ))),
+                        )))),
             BsCol(
                 margin: EdgeInsets.only(left: 5),
                 sizes: ColScreen(sm: Col.col_3),
                 child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.blue,
+                      color: Colors.blue.shade300,
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    child: Obx(() => Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Obx(() => Text(
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(
                                   c.schedules.value.toString(),
                                   style: TextStyle(fontSize: 35),
-                                )),
-                            Icon(Icons.schedule, size: 70)
+                                ),
+                                Icon(Icons.schedule, size: 70)
+                              ],
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(bottom: 10),
+                              child: Text(
+                                  c.schedules.value > 1
+                                      ? 'Schedules Remaining'
+                                      : 'Schedule Remaining',
+                                  style: TextStyle(fontSize: 15)),
+                            )
                           ],
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(bottom: 10),
-                          child: Text('Schedule Remaining',
-                              style: TextStyle(fontSize: 15)),
-                        )
-                      ],
-                    ))),
+                        )))),
             BsCol(
                 margin: EdgeInsets.only(left: 5),
                 sizes: ColScreen(sm: Col.col_3),
                 child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.red,
+                      color: Colors.red.shade300,
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    child: Obx(() => Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Obx(() => Text(
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(
                                   c.prospects.value.toString(),
                                   style: TextStyle(fontSize: 35),
-                                )),
-                            Icon(Icons.leaderboard, size: 70)
+                                ),
+                                Icon(Icons.leaderboard, size: 70)
+                              ],
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(bottom: 10),
+                              child: Text(
+                                  c.prospects.value > 1
+                                      ? 'Prospects Target'
+                                      : 'Prospect Target',
+                                  style: TextStyle(fontSize: 15)),
+                            )
                           ],
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(bottom: 10),
-                          child: Text('Prospect Target',
-                              style: TextStyle(fontSize: 15)),
-                        )
-                      ],
-                    ))),
+                        )))),
             BsCol(
                 margin: EdgeInsets.only(left: 5),
                 sizes: ColScreen(sm: Col.col_3),
                 child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.amber,
+                      color: Colors.amber.shade300,
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    child: Obx(() => Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Obx(() => Text(
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(
                                   c.partners.value.toString(),
                                   style: TextStyle(fontSize: 35),
-                                )),
-                            Icon(Icons.domain, size: 70)
+                                ),
+                                Icon(Icons.domain, size: 70)
+                              ],
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(bottom: 10),
+                              child: Text(
+                                  c.partners.value > 1
+                                      ? 'Business Partners'
+                                      : 'Business Partner',
+                                  style: TextStyle(fontSize: 15)),
+                            )
                           ],
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(bottom: 10),
-                          child: Text('Business Partners',
-                              style: TextStyle(fontSize: 15)),
-                        )
-                      ],
-                    ))),
+                        )))),
           ],
         ),
       ),
@@ -142,11 +162,15 @@ class HomeView extends StatelessWidget implements HomeViewContract {
 
   @override
   void onError(message) {
-    // TODO: implement onError
+    print(message);
   }
 
   @override
   void onSuccess(Response response) {
-    // TODO: implement onSuccess
+    HomeModel home = HomeModel.fromJson(response.body);
+    c.users.value = home.users;
+    c.schedules.value = home.schedules;
+    c.prospects.value = home.prospects;
+    c.partners.value = home.partners;
   }
 }

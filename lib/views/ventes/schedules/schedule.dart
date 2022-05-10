@@ -1,3 +1,4 @@
+import 'package:boilerplate/contracts/base/index_view_contract.dart';
 import 'package:boilerplate/utils/handle_error_request.dart';
 import 'package:boilerplate/widgets/button/button_delete_datatable.dart';
 import 'package:boilerplate/widgets/button/button_edit_datatable.dart';
@@ -15,8 +16,13 @@ import '../../skins/tempalte.dart';
 import '_schedule_source.dart';
 import '_text.dart';
 
-class ScheduleView extends GetView implements HandleErrorRequest {
+class ScheduleView extends GetView
+    implements HandleErrorRequest, IndexViewContract {
   final presenter = Get.find<SchedulePresenter>();
+
+  ScheduleView() {
+    presenter.scheduleViewContract = this;
+  }
 
   @override
   Widget build(BuildContext context) {
