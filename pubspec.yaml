@@ -71,6 +71,8 @@ flutter:
     - assets/images/fb.png
     - assets/images/google.png
     - assets/images/location.png
+    
+    - assets/photos/novan.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:

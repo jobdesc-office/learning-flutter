@@ -68,8 +68,8 @@ class HomeView extends StatelessWidget implements HomeViewContract {
                                             : 'Active User',
                                         style: TextStyle(fontSize: 18)),
                                     Icon(
-                                      Icons.arrow_circle_right_outlined,
-                                      size: 30,
+                                      Icons.arrow_forward_ios_rounded,
+                                      size: 25,
                                     )
                                   ],
                                 ),
@@ -115,8 +115,8 @@ class HomeView extends StatelessWidget implements HomeViewContract {
                                             : 'Schedule Remaining',
                                         style: TextStyle(fontSize: 18)),
                                     Icon(
-                                      Icons.arrow_circle_right_outlined,
-                                      size: 30,
+                                      Icons.arrow_forward_ios_rounded,
+                                      size: 25,
                                     )
                                   ],
                                 ),
@@ -162,8 +162,8 @@ class HomeView extends StatelessWidget implements HomeViewContract {
                                             : 'Prospect Target',
                                         style: TextStyle(fontSize: 18)),
                                     Icon(
-                                      Icons.arrow_circle_right_outlined,
-                                      size: 30,
+                                      Icons.arrow_forward_ios_rounded,
+                                      size: 25,
                                     )
                                   ],
                                 ),
@@ -209,8 +209,8 @@ class HomeView extends StatelessWidget implements HomeViewContract {
                                             : 'Business Partner',
                                         style: TextStyle(fontSize: 18)),
                                     Icon(
-                                      Icons.arrow_circle_right_outlined,
-                                      size: 30,
+                                      Icons.arrow_forward_ios_rounded,
+                                      size: 25,
                                     )
                                   ],
                                 ),
