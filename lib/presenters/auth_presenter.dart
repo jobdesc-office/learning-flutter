@@ -52,6 +52,7 @@ class AuthPresenter extends CustomGetXController {
   void signOut() {
     final box = GetStorage();
     box.remove('name');
+    box.remove('id');
     _authService.signOut().then((res) {
       _logoutViewContract.onLogoutSuccess();
       isAuthenticated.value = false;
@@ -66,7 +67,7 @@ class AuthPresenter extends CustomGetXController {
       if (await SessionManager.isLogged()) {
         _authService
             .verifyToken()
-            .timeout(Duration(seconds: 30))
+            .timeout(Duration(seconds: 1))
             .then((res) => _guardContract.onCheckSuccess(isOk: res.isOk));
       } else {
         _guardContract.onCheckSuccess(isOk: false);

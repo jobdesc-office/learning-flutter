@@ -274,6 +274,7 @@ class _SignInViewState extends State<SignInView>
   void onLoginSuccess(UserModel userModel) {
     final box = GetStorage();
     box.write('name', userModel.userfullname);
+    box.write('id', userModel.userid);
     if (userModel.jwtToken == '') {
       authPresenter.setProcessing(false);
       Snackbar().loginFailed();
