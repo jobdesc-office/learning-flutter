@@ -22,6 +22,10 @@ class ApiConnectProvider extends GetConnect {
     httpClient.timeout = Duration(seconds: 30);
   }
 
+  Future<Response> index() {
+    return get('$api/index');
+  }
+
   Future<Response> select(Map<String, dynamic> params) {
     return get('$api/select', query: params);
   }

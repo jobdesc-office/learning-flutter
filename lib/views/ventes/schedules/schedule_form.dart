@@ -1,4 +1,4 @@
-import 'package:boilerplate/views/skins/tempalte.dart';
+import 'package:boilerplate/views/skins/template.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';

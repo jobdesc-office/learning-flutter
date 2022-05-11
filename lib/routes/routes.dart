@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 import '../presenters/default/home_presenter.dart';
+import '../presenters/default/profile_presenter.dart';
 import '../presenters/masters/businesspartner_presenter.dart';
 import '../presenters/masters/menu_presenter.dart';
 import '../presenters/ventes/schedule_presenter.dart';
@@ -8,6 +9,7 @@ import '../presenters/masters/typechildren_presenter.dart';
 import '../presenters/masters/typeparent_presenter.dart';
 import '../presenters/masters/user_presenter.dart';
 import '../services/default/home_service.dart';
+import '../services/default/profile_service.dart';
 import '../services/masters/businessPartner_service.dart';
 import '../services/ventes/schedule_service.dart';
 import '../services/masters/type_service.dart';
@@ -48,6 +50,10 @@ class AppRoute {
       CustomGetPage(
         name: RouteList.profile.index,
         page: () => ProfileView(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => ProfileService());
+          Get.lazyPut(() => ProfilePresenter());
+        }),
       ),
 
       /** Masters **/

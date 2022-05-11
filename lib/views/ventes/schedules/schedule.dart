@@ -12,7 +12,7 @@ import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_create.dart';
 import '../../../widgets/snackbar.dart';
-import '../../skins/tempalte.dart';
+import '../../skins/template.dart';
 import '_schedule_source.dart';
 import '_text.dart';
 

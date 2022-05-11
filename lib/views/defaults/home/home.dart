@@ -8,7 +8,7 @@ import '../../../models/security/home_model.dart';
 import '../../../presenters/default/home_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
-import '../../skins/tempalte.dart';
+import '../../skins/template.dart';
 
 class HomeView extends StatelessWidget implements HomeViewContract {
   final presenter = Get.find<HomePresenter>();

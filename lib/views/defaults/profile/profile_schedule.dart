@@ -28,93 +28,127 @@ class ProfileScheduleView extends GetView {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      margin: EdgeInsets.only(bottom: 5),
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                          color: Colors.pink.shade200,
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(color: Colors.grey.shade300)),
-                      child: Container(
-                          margin: EdgeInsets.all(10),
-                          child: BsRow(
-                            children: [
-                              BsCol(
-                                sizes: ColScreen(sm: Col.col_10),
-                                child: Text('Bakar Ayam'),
-                              ),
-                              BsCol(
-                                sizes: ColScreen(sm: Col.col_2),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text('15 May 2022'),
-                                    Text('10:00:00')
-                                  ],
+                    FutureBuilder(
+                        // future: ,
+                        builder:
+                            (BuildContext context, AsyncSnapshot snapshot) {
+                      return Container(
+                        margin: EdgeInsets.only(bottom: 5),
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                            color: Colors.pink.shade200,
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(color: Colors.grey.shade300)),
+                        child: Container(
+                            margin: EdgeInsets.all(10),
+                            child: BsRow(
+                              children: [
+                                BsCol(
+                                  sizes: ColScreen(sm: Col.col_10),
+                                  child: Text('Bakar Ayam'),
                                 ),
-                              )
-                            ],
-                          )),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(bottom: 5),
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                          color: Colors.blue.shade200,
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(color: Colors.grey.shade300)),
-                      child: Container(
-                          margin: EdgeInsets.all(10),
-                          child: BsRow(
-                            children: [
-                              BsCol(
-                                sizes: ColScreen(sm: Col.col_10),
-                                child: Text('Bakar Baso'),
-                              ),
-                              BsCol(
-                                sizes: ColScreen(sm: Col.col_2),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text('15 May 2022'),
-                                    Text('10:00:00')
-                                  ],
-                                ),
-                              )
-                            ],
-                          )),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(bottom: 5),
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                          color: Colors.indigo.shade200,
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(color: Colors.grey.shade300)),
-                      child: Container(
-                          margin: EdgeInsets.all(10),
-                          child: BsRow(
-                            children: [
-                              BsCol(
-                                sizes: ColScreen(sm: Col.col_10),
-                                child: Text('Bakar Berhala'),
-                              ),
-                              BsCol(
-                                sizes: ColScreen(sm: Col.col_2),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text('15 May 2022'),
-                                    Text('10:00:00')
-                                  ],
-                                ),
-                              )
-                            ],
-                          )),
-                    ),
+                                BsCol(
+                                  sizes: ColScreen(sm: Col.col_2),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text('15 May 2022'),
+                                      Text('10:00:00')
+                                    ],
+                                  ),
+                                )
+                              ],
+                            )),
+                      );
+                    }),
+                    // Container(
+                    //   margin: EdgeInsets.only(bottom: 5),
+                    //   width: MediaQuery.of(context).size.width,
+                    //   decoration: BoxDecoration(
+                    //       color: Colors.pink.shade200,
+                    //       borderRadius: BorderRadius.circular(5),
+                    //       border: Border.all(color: Colors.grey.shade300)),
+                    //   child: Container(
+                    //       margin: EdgeInsets.all(10),
+                    //       child: BsRow(
+                    //         children: [
+                    //           BsCol(
+                    //             sizes: ColScreen(sm: Col.col_10),
+                    //             child: Text('Bakar Ayam'),
+                    //           ),
+                    //           BsCol(
+                    //             sizes: ColScreen(sm: Col.col_2),
+                    //             child: Row(
+                    //               mainAxisAlignment:
+                    //                   MainAxisAlignment.spaceBetween,
+                    //               children: [
+                    //                 Text('15 May 2022'),
+                    //                 Text('10:00:00')
+                    //               ],
+                    //             ),
+                    //           )
+                    //         ],
+                    //       )),
+                    // ),
+                    // Container(
+                    //   margin: EdgeInsets.only(bottom: 5),
+                    //   width: MediaQuery.of(context).size.width,
+                    //   decoration: BoxDecoration(
+                    //       color: Colors.blue.shade200,
+                    //       borderRadius: BorderRadius.circular(5),
+                    //       border: Border.all(color: Colors.grey.shade300)),
+                    //   child: Container(
+                    //       margin: EdgeInsets.all(10),
+                    //       child: BsRow(
+                    //         children: [
+                    //           BsCol(
+                    //             sizes: ColScreen(sm: Col.col_10),
+                    //             child: Text('Bakar Baso'),
+                    //           ),
+                    //           BsCol(
+                    //             sizes: ColScreen(sm: Col.col_2),
+                    //             child: Row(
+                    //               mainAxisAlignment:
+                    //                   MainAxisAlignment.spaceBetween,
+                    //               children: [
+                    //                 Text('15 May 2022'),
+                    //                 Text('10:00:00')
+                    //               ],
+                    //             ),
+                    //           )
+                    //         ],
+                    //       )),
+                    // ),
+                    // Container(
+                    //   margin: EdgeInsets.only(bottom: 5),
+                    //   width: MediaQuery.of(context).size.width,
+                    //   decoration: BoxDecoration(
+                    //       color: Colors.indigo.shade200,
+                    //       borderRadius: BorderRadius.circular(5),
+                    //       border: Border.all(color: Colors.grey.shade300)),
+                    //   child: Container(
+                    //       margin: EdgeInsets.all(10),
+                    //       child: BsRow(
+                    //         children: [
+                    //           BsCol(
+                    //             sizes: ColScreen(sm: Col.col_10),
+                    //             child: Text('Bakar Berhala'),
+                    //           ),
+                    //           BsCol(
+                    //             sizes: ColScreen(sm: Col.col_2),
+                    //             child: Row(
+                    //               mainAxisAlignment:
+                    //                   MainAxisAlignment.spaceBetween,
+                    //               children: [
+                    //                 Text('15 May 2022'),
+                    //                 Text('10:00:00')
+                    //               ],
+                    //             ),
+                    //           )
+                    //         ],
+                    //       )),
+                    // ),
                   ],
                 ),
               ),
