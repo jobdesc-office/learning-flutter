@@ -36,4 +36,26 @@ class Snackbar {
           size: 30,
         ));
   }
+
+  void copySuccess() {
+    Get.snackbar('Success', 'Copy Success',
+        backgroundColor: ColorPallates.secondary,
+        margin: EdgeInsets.only(top: 10, right: 10, bottom: 10, left: 1160),
+        maxWidth: 200,
+        icon: Icon(
+          Icons.copy,
+          size: 30,
+        ));
+  }
+
+  void loginFailed() {
+    Get.snackbar('Failed', 'Login Failed',
+        backgroundColor: ColorPallates.danger,
+        margin: EdgeInsets.only(top: 10, right: 10, bottom: 10, left: 1160),
+        maxWidth: 200,
+        icon: Icon(
+          Icons.dangerous_outlined,
+          size: 30,
+        ));
+  }
 }

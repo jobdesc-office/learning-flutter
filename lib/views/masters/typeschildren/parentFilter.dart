@@ -14,7 +14,7 @@ import '_parent_controller.dart';
 
 class TypeChildrenFilter extends StatelessWidget {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
-  final c = Get.find<ParentSource>();
+  final controller = Get.find<ParentSource>();
   BsSelectBoxController selectParent = BsSelectBoxController();
   final sources = ParentSource().obs;
   final TypesChildrenPresenter presenter = Get.find<TypesChildrenPresenter>();
@@ -75,8 +75,8 @@ class TypeChildrenFilter extends StatelessWidget {
 
   void onClickSaveModal(BuildContext context) {
     print(parseInt(selectParent.getSelectedAsString()));
-    c.chosed.value = parseInt(selectParent.getSelectedAsString());
-    c.isProcessing.toggle();
+    controller.chosed.value = parseInt(selectParent.getSelectedAsString());
+    controller.isProcessing.toggle();
     Navigator.pop(context);
   }
 }

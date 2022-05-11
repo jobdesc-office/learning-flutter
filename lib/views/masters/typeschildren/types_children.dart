@@ -21,7 +21,7 @@ import '_text.dart';
 class TypesChildrenView extends StatelessWidget
     with IndexViewContract, HandleErrorRequest, ParentViewContract {
   late ParentForm parent;
-  final c = Get.put(ParentSource());
+  final controller = Get.put(ParentSource());
   final presenter = Get.find<TypesChildrenPresenter>();
   final datatable = TypeChildrenDataTableSource();
   final source = ParentSource().obs;
@@ -50,9 +50,9 @@ class TypesChildrenView extends StatelessWidget
           child: Column(
             children: [
               Obx(() {
-                if (c.isProcessing.isTrue) {
+                if (controller.isProcessing.isTrue) {
                   datatable.controller.reload();
-                  c.isProcessing.toggle();
+                  controller.isProcessing.toggle();
                 }
                 parent = ParentForm(source.value);
                 return CustomDatabales(
@@ -74,9 +74,10 @@ class TypesChildrenView extends StatelessWidget
                       onPressed: () => presenter.add(context),
                     )
                   ],
-                  serverSide: (params) => c.chosed == 0
+                  serverSide: (params) => controller.chosed == 0
                       ? presenter.datatablesNonFilter(context, params)
-                      : presenter.datatables(context, params, c.chosed.value),
+                      : presenter.datatables(
+                          context, params, controller.chosed.value),
                 );
               })
             ],

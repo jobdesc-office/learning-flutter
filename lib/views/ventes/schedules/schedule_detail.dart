@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import '../../../contracts/base/details_view_contract.dart';
 import '../../../models/ventes/schedule_model.dart';
 import '../../../presenters/ventes/schedule_presenter.dart';
+import '../../../widgets/snackbar.dart';
 import '_details_source.dart';
 import '_text.dart';
 
@@ -251,19 +252,7 @@ class ScheduleDetails extends GetView implements DetailViewContract {
                                         Clipboard.setData(
                                           ClipboardData(text: c.loc.value),
                                         );
-                                        Get.snackbar('Success', 'Copy Success',
-                                            backgroundColor:
-                                                ColorPallates.secondary,
-                                            margin: EdgeInsets.only(
-                                                top: 10,
-                                                right: 10,
-                                                bottom: 10,
-                                                left: 1160),
-                                            maxWidth: 200,
-                                            icon: Icon(
-                                              Icons.copy,
-                                              size: 30,
-                                            ));
+                                        Snackbar().copySuccess();
                                       },
                                       child: Text(c.loc.value)),
                                 )
@@ -281,19 +270,7 @@ class ScheduleDetails extends GetView implements DetailViewContract {
                                         Clipboard.setData(
                                           ClipboardData(text: c.link.value),
                                         );
-                                        Get.snackbar('Success', 'Copy Success',
-                                            backgroundColor:
-                                                ColorPallates.secondary,
-                                            margin: EdgeInsets.only(
-                                                top: 10,
-                                                right: 10,
-                                                bottom: 10,
-                                                left: 1160),
-                                            maxWidth: 200,
-                                            icon: Icon(
-                                              Icons.copy,
-                                              size: 30,
-                                            ));
+                                        Snackbar().copySuccess();
                                       },
                                       child: Text(c.link.value)),
                                 )

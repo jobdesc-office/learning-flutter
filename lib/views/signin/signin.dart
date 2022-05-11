@@ -11,6 +11,7 @@ import '../../routes/route_list.dart';
 import '../../utils/session_manager.dart';
 import '../../widgets/login_button.dart';
 
+import '../../widgets/snackbar.dart';
 import '_background.dart';
 import '_form_source.dart';
 import '_source.dart';
@@ -33,7 +34,7 @@ class _SignInViewState extends State<SignInView>
 
   final LoginForm _loginForm = LoginForm();
 
-  final c = Get.put(LoginSource());
+  final controller = Get.put(LoginSource());
 
   final GlobalKey<FormState> _formStateSignIn = GlobalKey<FormState>();
   final GlobalKey<FormState> _formStateSignUp = GlobalKey<FormState>();
@@ -115,16 +116,17 @@ class _SignInViewState extends State<SignInView>
                                                     .source.value.inputUsername,
                                               ),
                                               _loginForm.password(
-                                                  obsecureText:
-                                                      c.showPassword.value,
+                                                  obsecureText: controller
+                                                      .showPassword.value,
                                                   controller: authPresenter
                                                       .source
                                                       .value
                                                       .inputPassword,
                                                   onTapSuffixIcon: () {
-                                                    c.showPassword.toggle();
+                                                    controller.showPassword
+                                                        .toggle();
                                                   },
-                                                  suffixIcon: c
+                                                  suffixIcon: controller
                                                           .showPassword.isTrue
                                                       ? Icons.visibility
                                                       : Icons.visibility_off)
@@ -272,12 +274,18 @@ class _SignInViewState extends State<SignInView>
   void onLoginSuccess(UserModel userModel) {
     final box = GetStorage();
     box.write('name', userModel.userfullname);
-    SessionManager.setLogin(
-      SessionModel(
-        userid: userModel.userid,
-        jwtToken: userModel.jwtToken,
-      ),
-    ).then((value) => toNameRoute(RouteList.home.index));
+    if (userModel.jwtToken == '') {
+      authPresenter.setProcessing(false);
+      Snackbar().loginFailed();
+      toNameRoute(RouteList.sigin.index);
+    } else {
+      SessionManager.setLogin(
+        SessionModel(
+          userid: userModel.userid,
+          jwtToken: userModel.jwtToken,
+        ),
+      ).then((value) => toNameRoute(RouteList.home.index));
+    }
   }
 
   @override

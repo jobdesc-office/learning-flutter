@@ -16,7 +16,6 @@ import '../../../widgets/form_group.dart';
 import '../../../widgets/input/custom_input.dart';
 import '../../../widgets/input/custom_input_number.dart';
 import '../../../widgets/selectbox/custom_selectbox.dart';
-import '_details_source.dart';
 import '_map_source.dart';
 import 'map.dart';
 import '_text.dart';
@@ -95,7 +94,6 @@ class ScheduleSource extends GetxController {
 }
 
 class ScheduleForm {
-  final c = Get.put(scheduleDetailsSource());
   final map = Get.put(mapSource());
   final ScheduleSource source;
 

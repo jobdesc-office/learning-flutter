@@ -1,6 +1,6 @@
+import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 
-import '../../../widgets/breadcrumb.dart';
 import '../../skins/tempalte.dart';
 import 'profile_profile.dart';
 import 'profile_schedule.dart';
@@ -30,35 +30,44 @@ class _ProfileViewState extends State<ProfileView>
         // ],
         child: Column(
           children: [
-            Container(
-              margin: EdgeInsets.only(right: 800),
-              width: MediaQuery.of(context).size.width * 0.25,
-              child: TabBar(
-                controller: _tabController,
-                labelColor: Colors.green,
-                unselectedLabelColor: Colors.black,
-                tabs: [
-                  Tab(text: 'Profile'),
-                  Tab(text: 'Schedules'),
-                  // Tab(text: 'Prospects')
-                ],
-              ),
+            BsRow(
+              children: [
+                BsCol(
+                  sizes: ColScreen(sm: Col.col_3),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: TabBar(
+                      controller: _tabController,
+                      labelColor: Colors.green,
+                      unselectedLabelColor: Colors.black,
+                      tabs: [
+                        Tab(text: 'Profile'),
+                        Tab(text: 'Schedules'),
+                        // Tab(text: 'Prospects')
+                      ],
+                    ),
+                  ),
+                ),
+                BsCol(
+                  sizes: ColScreen(sm: Col.col_12),
+                  child: Container(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height,
+                    child: TabBarView(
+                      controller: _tabController,
+                      children: [
+                        ProfileProfileView(),
+                        ProfileScheduleView(),
+                        // Column(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [Text('Propose Time')],
+                        // )
+                      ],
+                    ),
+                  ),
+                )
+              ],
             ),
-            Container(
-              width: double.infinity,
-              height: MediaQuery.of(context).size.height * 0.7,
-              child: TabBarView(
-                controller: _tabController,
-                children: [
-                  ProfileProfileView(),
-                  ProfileScheduleView(),
-                  // Column(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: [Text('Propose Time')],
-                  // )
-                ],
-              ),
-            )
           ],
         ),
       ),

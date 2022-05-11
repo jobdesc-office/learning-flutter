@@ -43,7 +43,7 @@ class ParentOptions extends StatefulWidget {
 }
 
 class _ParentOptions extends State<ParentOptions> {
-  final c = Get.put(ParentSource());
+  final controller = Get.put(ParentSource());
   @override
   void initState() {
     super.initState();
@@ -100,8 +100,8 @@ class _ParentOptions extends State<ParentOptions> {
             onTap: () {
               widget.controller.selected = type;
               setState(() {
-                c.chosed.value = widget.controller.selected!.typeid;
-                c.isProcessing.value = true;
+                controller.chosed.value = widget.controller.selected!.typeid;
+                controller.isProcessing.value = true;
               });
             },
           ),

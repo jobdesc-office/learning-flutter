@@ -12,7 +12,7 @@ import '../../skins/tempalte.dart';
 
 class HomeView extends StatelessWidget implements HomeViewContract {
   final presenter = Get.find<HomePresenter>();
-  final c = Get.put(HomeSource());
+  final controller = Get.put(HomeSource());
 
   HomeView() {
     presenter.homeContract = this;
@@ -45,7 +45,7 @@ class HomeView extends StatelessWidget implements HomeViewContract {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Text(
-                                  c.users.value.toString(),
+                                  controller.users.value.toString(),
                                   style: TextStyle(fontSize: 35),
                                 ),
                                 Icon(Icons.person, size: 70)
@@ -63,7 +63,7 @@ class HomeView extends StatelessWidget implements HomeViewContract {
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Text(
-                                        c.users.value > 1
+                                        controller.users.value > 1
                                             ? 'Active Users'
                                             : 'Active User',
                                         style: TextStyle(fontSize: 18)),
@@ -92,7 +92,7 @@ class HomeView extends StatelessWidget implements HomeViewContract {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Text(
-                                  c.schedules.value.toString(),
+                                  controller.schedules.value.toString(),
                                   style: TextStyle(fontSize: 35),
                                 ),
                                 Icon(Icons.schedule, size: 70)
@@ -110,7 +110,7 @@ class HomeView extends StatelessWidget implements HomeViewContract {
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Text(
-                                        c.schedules.value > 1
+                                        controller.schedules.value > 1
                                             ? 'Schedules Remaining'
                                             : 'Schedule Remaining',
                                         style: TextStyle(fontSize: 18)),
@@ -139,7 +139,7 @@ class HomeView extends StatelessWidget implements HomeViewContract {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Text(
-                                  c.prospects.value.toString(),
+                                  controller.prospects.value.toString(),
                                   style: TextStyle(fontSize: 35),
                                 ),
                                 Icon(Icons.leaderboard, size: 70)
@@ -157,7 +157,7 @@ class HomeView extends StatelessWidget implements HomeViewContract {
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Text(
-                                        c.prospects.value > 1
+                                        controller.prospects.value > 1
                                             ? 'Prospects Target'
                                             : 'Prospect Target',
                                         style: TextStyle(fontSize: 18)),
@@ -186,7 +186,7 @@ class HomeView extends StatelessWidget implements HomeViewContract {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Text(
-                                  c.partners.value.toString(),
+                                  controller.partners.value.toString(),
                                   style: TextStyle(fontSize: 35),
                                 ),
                                 Icon(Icons.domain, size: 70)
@@ -204,7 +204,7 @@ class HomeView extends StatelessWidget implements HomeViewContract {
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Text(
-                                        c.partners.value > 1
+                                        controller.partners.value > 1
                                             ? 'Business Partners'
                                             : 'Business Partner',
                                         style: TextStyle(fontSize: 18)),
@@ -232,9 +232,9 @@ class HomeView extends StatelessWidget implements HomeViewContract {
   @override
   void onSuccess(Response response) {
     HomeModel home = HomeModel.fromJson(response.body);
-    c.users.value = home.users;
-    c.schedules.value = home.schedules;
-    c.prospects.value = home.prospects;
-    c.partners.value = home.partners;
+    controller.users.value = home.users;
+    controller.schedules.value = home.schedules;
+    controller.prospects.value = home.prospects;
+    controller.partners.value = home.partners;
   }
 }

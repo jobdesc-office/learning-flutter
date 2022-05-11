@@ -15,7 +15,7 @@ class GoogleMapsPage extends StatefulWidget {
 }
 
 class _GoogleMapsPageState extends State<GoogleMapsPage> {
-  final c = Get.put(mapSource());
+  final controller = Get.put(mapSource());
   final _controller = Completer<GoogleMapController>();
   MapPickerController mapPickerController = MapPickerController();
 
@@ -105,7 +105,7 @@ class _GoogleMapsPageState extends State<GoogleMapsPage> {
                   ),
                 ),
                 onPressed: () {
-                  c.coordinate.value =
+                  controller.coordinate.value =
                       'https://maps.google.com?q=${cameraPosition.target.latitude},${cameraPosition.target.longitude}';
                   Navigator.pop(context, true);
                 },

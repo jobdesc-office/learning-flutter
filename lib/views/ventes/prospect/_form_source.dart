@@ -112,7 +112,7 @@ class ProspectSource {
 }
 
 class ProspectForm {
-  final c = Get.put(ProspectFormController());
+  final controller = Get.put(ProspectFormController());
   final ProspectSource source;
 
   ProspectForm(this.source);
@@ -168,7 +168,7 @@ class ProspectForm {
                 margin: EdgeInsets.only(right: 5),
                 sizes: ColScreen(md: Col.col_6),
                 child: CustomInput(
-                  disabled: c.isProduct.value,
+                  disabled: controller.isProduct.value,
                   controller: source.inputValue,
                   hintText: BaseText.hintText(),
                   validators: [],
@@ -179,7 +179,7 @@ class ProspectForm {
                 sizes: ColScreen(md: Col.col_6),
                 child: CustomSelectBox(
                   searchable: false,
-                  disabled: c.isProduct.value,
+                  disabled: controller.isProduct.value,
                   controller: source.selectCurrency,
                   hintText: BaseText.hiintSelect(),
                 ),
@@ -193,9 +193,11 @@ class ProspectForm {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       GestureDetector(
-                          onTap: (() => c.isProduct.toggle()),
+                          onTap: (() => controller.isProduct.toggle()),
                           child: Text(
-                            c.isProduct.value ? c.addProduct : c.dontAddProduct,
+                            controller.isProduct.value
+                                ? controller.addProduct
+                                : controller.dontAddProduct,
                             style: TextStyle(color: Colors.blue.shade300),
                           ))
                     ],
