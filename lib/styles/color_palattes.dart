@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ColorPallates {
+  static const white = Colors.white;
   static const primary = Color(0xFFC0D8C0);
   static const secondary = Color(0xFFF5EEDC);
   static const tertiary = Color(0xFFDD4A48);
