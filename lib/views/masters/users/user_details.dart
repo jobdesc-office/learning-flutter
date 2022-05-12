@@ -11,7 +11,7 @@ import '_text.dart';
 
 class UserDetails extends GetView implements DetailViewContract {
   final UserPresenter presenter = Get.find<UserPresenter>();
-  final userDetailsSource c = Get.put(userDetailsSource());
+  final userDetailsSource controller = Get.put(userDetailsSource());
 
   UserDetails() {
     presenter.userFetchDataDetailsContract = this;
@@ -117,37 +117,37 @@ class UserDetails extends GetView implements DetailViewContract {
                         child: Column(
                           children: [
                             Row(
-                              children: [Text(c.name.value)],
+                              children: [Text(controller.name.value)],
                             ),
                             SizedBox(
                               height: 20,
                             ),
                             Row(
-                              children: [Text(c.username.value)],
+                              children: [Text(controller.username.value)],
                             ),
                             SizedBox(
                               height: 20,
                             ),
                             Row(
-                              children: [Text(c.email.value)],
+                              children: [Text(controller.email.value)],
                             ),
                             SizedBox(
                               height: 20,
                             ),
                             Row(
-                              children: [Text(c.phone.value)],
+                              children: [Text(controller.phone.value)],
                             ),
                             SizedBox(
                               height: 20,
                             ),
                             Row(
-                              children: [Text(c.type.value)],
+                              children: [Text(controller.type.value)],
                             ),
                             SizedBox(
                               height: 20,
                             ),
                             Row(
-                              children: [Text(c.bp.value)],
+                              children: [Text(controller.bp.value)],
                             ),
                           ],
                         ),
@@ -162,12 +162,12 @@ class UserDetails extends GetView implements DetailViewContract {
   @override
   void onSuccessFetchData(Response response) {
     UserDetailModel dt = UserDetailModel.fromJson(response.body);
-    c.name.value = dt.userfullname;
-    c.username.value = dt.username;
-    c.email.value = dt.useremail;
-    c.phone.value = dt.userphone;
-    c.type.value = dt.typename;
-    c.bp.value = dt.bpname;
-    c.active.value = dt.isactive;
+    controller.name.value = dt.userfullname;
+    controller.username.value = dt.username;
+    controller.email.value = dt.useremail;
+    controller.phone.value = dt.userphone;
+    controller.type.value = dt.typename;
+    controller.bp.value = dt.bpname;
+    controller.active.value = dt.isactive;
   }
 }

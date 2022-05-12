@@ -4,7 +4,7 @@ import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../models/security/home_model.dart';
+import '../../../models/default/home_model.dart';
 import '../../../presenters/default/home_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';

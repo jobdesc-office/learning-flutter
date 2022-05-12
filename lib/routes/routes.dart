@@ -53,6 +53,8 @@ class AppRoute {
         binding: BindingsBuilder(() {
           Get.lazyPut(() => ProfileService());
           Get.lazyPut(() => ProfilePresenter());
+          Get.lazyPut(() => UserService());
+          Get.lazyPut(() => UserPresenter());
         }),
       ),
 
