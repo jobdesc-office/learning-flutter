@@ -2,9 +2,7 @@ import 'package:boilerplate/presenters/default/profile_presenter.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/response/response.dart';
 
-import '../../../contracts/default/profile_view_contract.dart';
 import '../../skins/template.dart';
 import 'profile_profile.dart';
 import 'profile_schedule.dart';
@@ -15,15 +13,9 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView>
-    with TickerProviderStateMixin
-    implements ProfileViewContract {
+    with TickerProviderStateMixin {
   late TabController _tabController;
   final presenter = Get.find<ProfilePresenter>();
-
-  _ProfileViewState() {
-    presenter.profileContract = this;
-    presenter.index();
-  }
 
   @override
   void initState() {
@@ -84,10 +76,4 @@ class _ProfileViewState extends State<ProfileView>
       ),
     );
   }
-
-  @override
-  void onError(message) {}
-
-  @override
-  void onSuccess(Response response) {}
 }

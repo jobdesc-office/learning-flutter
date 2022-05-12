@@ -15,10 +15,10 @@ class ProfileModel {
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) {
     return ProfileModel(
-      scheid: parseInt(json['mySchedules']['scheid']),
-      schenm: parseString(json['mySchedules']['schenm']),
-      schestartdate: parseString(json['mySchedules']['schestartdate']),
-      schestarttime: parseString(json['mySchedules']['schestarttime']),
+      scheid: parseInt(json['scheid']),
+      schenm: parseString(json['schenm']),
+      schestartdate: parseString(json['schestartdate']),
+      schestarttime: parseString(json['schestarttime']),
     );
   }
 }

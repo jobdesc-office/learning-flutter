@@ -74,7 +74,6 @@ class TypeChildrenFilter extends StatelessWidget {
   }
 
   void onClickSaveModal(BuildContext context) {
-    print(parseInt(selectParent.getSelectedAsString()));
     controller.chosed.value = parseInt(selectParent.getSelectedAsString());
     controller.isProcessing.toggle();
     Navigator.pop(context);

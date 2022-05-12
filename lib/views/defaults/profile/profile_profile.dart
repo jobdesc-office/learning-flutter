@@ -339,7 +339,6 @@ class ProfileProfileView extends GetView implements DetailViewContract {
 
   @override
   void onSuccessFetchData(Response response) {
-    print(response.body);
     UserDetailModel dt = UserDetailModel.fromJson(response.body);
     control.userfullname.value = dt.userfullname;
     control.username.value = dt.username;

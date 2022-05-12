@@ -1,8 +1,11 @@
+import 'package:boilerplate/presenters/default/profile_presenter.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProfileScheduleView extends GetView {
+  final presenter = Get.find<ProfilePresenter>();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,39 +32,63 @@ class ProfileScheduleView extends GetView {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     FutureBuilder(
-                        // future: ,
+                        future: presenter.index(),
                         builder:
                             (BuildContext context, AsyncSnapshot snapshot) {
-                      return Container(
-                        margin: EdgeInsets.only(bottom: 5),
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                            color: Colors.pink.shade200,
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: Colors.grey.shade300)),
-                        child: Container(
-                            margin: EdgeInsets.all(10),
-                            child: BsRow(
-                              children: [
-                                BsCol(
-                                  sizes: ColScreen(sm: Col.col_10),
-                                  child: Text('Bakar Ayam'),
-                                ),
-                                BsCol(
-                                  sizes: ColScreen(sm: Col.col_2),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text('15 May 2022'),
-                                      Text('10:00:00')
-                                    ],
-                                  ),
-                                )
-                              ],
-                            )),
-                      );
-                    }),
+                          if (snapshot.hasData) {
+                            return ListView.builder(
+                                itemCount: snapshot.data.length,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                    margin: EdgeInsets.only(bottom: 5),
+                                    width: MediaQuery.of(context).size.width,
+                                    decoration: BoxDecoration(
+                                        color: Colors.pink.shade200,
+                                        borderRadius: BorderRadius.circular(5),
+                                        border: Border.all(
+                                            color: Colors.grey.shade300)),
+                                    child: Container(
+                                        margin: EdgeInsets.all(10),
+                                        child: BsRow(
+                                          children: [
+                                            BsCol(
+                                              sizes: ColScreen(sm: Col.col_10),
+                                              child: Text(snapshot.data[index]
+                                                  ['schenm']),
+                                            ),
+                                            BsCol(
+                                              sizes: ColScreen(sm: Col.col_2),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(snapshot.data[index]
+                                                      ['schestartdate']),
+                                                  Text(snapshot.data[index]
+                                                      ['schestarttime'])
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        )),
+                                  );
+                                });
+                          } else {
+                            return Container(
+                                margin: EdgeInsets.only(bottom: 5),
+                                width: MediaQuery.of(context).size.width,
+                                decoration: BoxDecoration(
+                                    color: Colors.pink.shade200,
+                                    borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(
+                                        color: Colors.grey.shade300)),
+                                child: Container(
+                                  margin: EdgeInsets.all(10),
+                                  child: Text('data'),
+                                ));
+                          }
+                        }),
                     // Container(
                     //   margin: EdgeInsets.only(bottom: 5),
                     //   width: MediaQuery.of(context).size.width,
