@@ -49,7 +49,7 @@ class SidebarSkins extends StatelessWidget {
           // height: _navigation.isCollapse.value ? 50 : 100,
           padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
           decoration: BoxDecoration(
-            color: ColorPallates.white,
+            color: Colors.white,
             border: Border.all(color: Colors.transparent, width: 0),
           ),
           child: _navigation.isCollapse.value
@@ -60,9 +60,11 @@ class SidebarSkins extends StatelessWidget {
           width: _navigation.isCollapse.value ? 70 : 250,
           padding: _navigation.isCollapse.value
               ? EdgeInsets.all(5)
-              : EdgeInsets.fromLTRB(15, 0, 15, 15),
+              : EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: ColorPallates.white,
+            color: _navigation.darkTheme.value
+                ? ColorPallates.elseDarkColor
+                : ColorPallates.elseLightColor,
             border: Border.all(color: Colors.transparent, width: 0),
           ),
           duration: Duration(milliseconds: 0),
@@ -71,7 +73,9 @@ class SidebarSkins extends StatelessWidget {
                   child: Icon(
                     Icons.person,
                     size: 50,
-                    color: Colors.white,
+                    color: _navigation.darkTheme.value
+                        ? ColorPallates.elseDarkColor
+                        : ColorPallates.white,
                   ),
                   backgroundColor: ColorPallates.primary,
                 )
@@ -83,7 +87,9 @@ class SidebarSkins extends StatelessWidget {
                         child: Icon(
                           Icons.person,
                           size: 50,
-                          color: Colors.white,
+                          color: _navigation.darkTheme.value
+                              ? ColorPallates.elseDarkColor
+                              : ColorPallates.white,
                         ),
                         backgroundColor: ColorPallates.primary,
                       ),
@@ -109,7 +115,9 @@ class SidebarSkins extends StatelessWidget {
             duration: Duration(milliseconds: 0),
             width: _navigation.isCollapse.value ? 70 : 250,
             decoration: BoxDecoration(
-              color: ColorPallates.white,
+              color: _navigation.darkTheme.value
+                  ? ColorPallates.elseDarkColor
+                  : ColorPallates.elseLightColor,
             ),
             child: SidebarMenus(
               isCollapse: _navigation.isCollapse.value,

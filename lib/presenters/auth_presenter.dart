@@ -11,9 +11,11 @@ import '../services/auth_service.dart';
 import '../utils/custom_get_controller.dart';
 import '../utils/session_manager.dart';
 import '../views/signin/_source.dart';
+import 'navigation_presenter.dart';
 
 class AuthPresenter extends CustomGetXController {
   final _authService = Get.find<AuthService>();
+  final _navService = Get.find<NavigationPresenter>();
 
   final source = LoginSource().obs;
 
@@ -50,6 +52,7 @@ class AuthPresenter extends CustomGetXController {
   }
 
   void signOut() {
+    _navService.darkTheme.value = false;
     final box = GetStorage();
     box.remove('name');
     box.remove('id');
@@ -58,6 +61,7 @@ class AuthPresenter extends CustomGetXController {
     _authService.signOut().then((res) {
       _logoutViewContract.onLogoutSuccess();
       isAuthenticated.value = false;
+      // _navService.darkTheme.value = false;
     });
   }
 

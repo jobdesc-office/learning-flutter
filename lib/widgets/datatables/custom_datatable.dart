@@ -2,8 +2,12 @@ import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:boilerplate/styles/theme_datatables_styles.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../presenters/navigation_presenter.dart';
 
 typedef CustomizeHeaderDatatable = Widget Function(BsDatatableElement _);
+final _navigation = Get.find<NavigationPresenter>();
 
 class CustomDatabales extends BsDatatable {
   CustomDatabales({
@@ -53,15 +57,17 @@ class CustomDatabales extends BsDatatable {
                     ],
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.all(8),
-                  margin: EdgeInsets.only(bottom: 10),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: el.table(),
-                ),
+                Obx(() => Container(
+                      padding: EdgeInsets.all(8),
+                      margin: EdgeInsets.only(bottom: 10),
+                      decoration: BoxDecoration(
+                        color: _navigation.darkTheme.value
+                            ? ColorPallates.elseDarkColor
+                            : ColorPallates.elseLightColor,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: el.table(),
+                    )),
                 Container(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

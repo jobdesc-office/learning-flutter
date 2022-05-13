@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
 
 class ColorPallates {
+  static const contentLightColor = Colors.white;
+  static const elseLightColor = Colors.white;
+  static const contentDarkColor = Colors.white;
+  static const elseDarkColor = Color(0xff343A40);
+
+  static const iconLightColor = Colors.black54;
+  static const iconDarkColor = Colors.white;
+  static const backgroundLightColor = Colors.black87;
+  static const backgroundDarkColor = Colors.white;
+
   static const white = Colors.white;
   static const primary = Color(0xFFC0D8C0);
   static const secondary = Color(0xFFF5EEDC);

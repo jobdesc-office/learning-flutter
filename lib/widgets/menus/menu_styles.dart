@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../../presenters/navigation_presenter.dart';
 import '../../styles/color_palattes.dart';
 
 class MenuStyles {
@@ -9,6 +11,7 @@ class MenuStyles {
   MenuStyles({required this.decoration, required this.textStyle});
 
   factory MenuStyles.dark() {
+    final _navigation = Get.find<NavigationPresenter>();
     return MenuStyles(
       decoration: MenuDecoration(
         active: BoxDecoration(
@@ -22,7 +25,7 @@ class MenuStyles {
           color: Colors.black,
         ),
         nonactive: TextStyle(
-          color: ColorPallates.dark,
+          color: _navigation.darkTheme.value ? Colors.white : Colors.black,
         ),
       ),
     );
@@ -37,8 +40,8 @@ class MenuDecoration {
 }
 
 class MenuTextStyle {
-  final TextStyle active;
-  final TextStyle nonactive;
+  final active;
+  final nonactive;
 
   MenuTextStyle({required this.active, required this.nonactive});
 }

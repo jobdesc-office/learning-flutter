@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../../presenters/navigation_presenter.dart';
 import '../../styles/color_palattes.dart';
 
 class ButtonInfoAccount extends StatelessWidget {
@@ -15,6 +17,7 @@ class ButtonInfoAccount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _navigation = Get.find<NavigationPresenter>();
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -23,17 +26,15 @@ class ButtonInfoAccount extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                padding: EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                  color: ColorPallates.primary,
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: Icon(
-                  Icons.settings,
-                  color: Colors.white,
-                ),
-              ),
+              Obx(() => Container(
+                    padding: EdgeInsets.all(5),
+                    child: Icon(
+                      Icons.settings,
+                      color: _navigation.darkTheme.value
+                          ? ColorPallates.iconDarkColor
+                          : ColorPallates.iconLightColor,
+                    ),
+                  )),
               Container(
                 padding: EdgeInsets.all(5),
                 margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
