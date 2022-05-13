@@ -43,18 +43,6 @@ class MenuItem extends StatelessWidget {
                       : _decoration,
                   child: Row(
                     children: [
-                      Container(
-                        margin: EdgeInsets.only(right: 10),
-                        child: Icon(
-                          data.icon,
-                          size: 24,
-                          color: (_navigation.menuData.value.id == data.id &&
-                                      _navigation.isHover.value) ||
-                                  (_navigation.activeRoute.value == data.route)
-                              ? _styles.textStyle.active.color
-                              : _textStyle.color,
-                        ),
-                      ),
                       Expanded(
                         child: Text(
                           data.label,
@@ -83,7 +71,19 @@ class MenuItem extends StatelessWidget {
                                     .color,
                                 size: 16,
                               ),
-                            )
+                            ),
+                      Container(
+                        margin: EdgeInsets.only(right: 10),
+                        child: Icon(
+                          data.icon,
+                          size: 24,
+                          color: (_navigation.menuData.value.id == data.id &&
+                                      _navigation.isHover.value) ||
+                                  (_navigation.activeRoute.value == data.route)
+                              ? _styles.textStyle.active.color
+                              : _textStyle.color,
+                        ),
+                      ),
                     ],
                   ),
                 ),

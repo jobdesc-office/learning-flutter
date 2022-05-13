@@ -8,8 +8,8 @@ class SidebarWidgets {
     return Row(
       children: [
         Expanded(
-          child: Image.asset('assets/images/logo.png'),
-        )
+            child:
+                Image.asset('assets/images/logo.png', width: 250, height: 75))
       ],
     );
   }

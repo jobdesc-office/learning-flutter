@@ -1,3 +1,4 @@
+import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -37,8 +38,11 @@ class ProfileProfileView extends GetView implements DetailViewContract {
                     child: Column(
                       children: [
                         CircleAvatar(
-                          backgroundImage:
-                              AssetImage('assets/photos/novan.jpg'),
+                          child: Icon(
+                            Icons.person,
+                            size: 200,
+                          ),
+                          backgroundColor: ColorPallates.primary,
                           radius: 120,
                         ),
                         Container(

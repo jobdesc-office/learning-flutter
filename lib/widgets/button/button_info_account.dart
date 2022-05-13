@@ -26,11 +26,11 @@ class ButtonInfoAccount extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(5),
                 decoration: BoxDecoration(
-                  color: ColorPallates.danger,
+                  color: ColorPallates.primary,
                   borderRadius: BorderRadius.circular(50),
                 ),
                 child: Icon(
-                  Icons.person_rounded,
+                  Icons.settings,
                   color: Colors.white,
                 ),
               ),

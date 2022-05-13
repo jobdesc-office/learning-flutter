@@ -26,8 +26,11 @@ class HeaderSkins extends StatelessWidget implements LogoutViewContract {
   Widget build(BuildContext context) {
     final box = GetStorage();
     return Container(
-      height: 60,
-      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+      ),
+      height: 48,
+      padding: EdgeInsets.all(8),
       child: Row(
         children: [
           Expanded(

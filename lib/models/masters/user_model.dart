@@ -7,6 +7,7 @@ class UserModel {
   String userfullname;
   String useremail;
   String userphone;
+  String role;
   bool isactive;
 
   String jwtToken;
@@ -18,6 +19,7 @@ class UserModel {
     this.userfullname = '',
     this.useremail = '',
     this.userphone = '',
+    this.role = '',
     this.isactive = true,
     this.jwtToken = '',
   });
@@ -30,6 +32,7 @@ class UserModel {
       userfullname: parseString(json['userfullname']),
       useremail: parseString(json['useremail']),
       userphone: parseString(json['userphone']),
+      role: parseString(json['role']),
       isactive: parseBool(json['isactive']),
       jwtToken: parseString(json['jwt_token']),
     );

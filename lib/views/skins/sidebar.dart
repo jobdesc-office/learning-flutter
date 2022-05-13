@@ -1,5 +1,7 @@
+import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../presenters/navigation_presenter.dart';
 import '../../routes/route_list.dart';
@@ -14,6 +16,8 @@ class SidebarSkins extends StatelessWidget {
     Key? key,
     this.activeRoute = const [],
   }) : super(key: key);
+
+  final box = GetStorage();
 
   final List<String> activeRoute;
 
@@ -40,9 +44,10 @@ class SidebarSkins extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AnimatedContainer(
-          duration: Duration(milliseconds: 250),
+          duration: Duration(milliseconds: 0),
           width: _navigation.isCollapse.value ? 70 : 250,
-          padding: EdgeInsets.fromLTRB(15, 20, 15, 20),
+          // height: _navigation.isCollapse.value ? 50 : 100,
+          padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
           decoration: BoxDecoration(
             color: ColorPallates.white,
             border: Border.all(color: Colors.transparent, width: 0),
@@ -51,9 +56,57 @@ class SidebarSkins extends StatelessWidget {
               ? SidebarWidgets.logoCollapse()
               : SidebarWidgets.logo(),
         ),
+        AnimatedContainer(
+          width: _navigation.isCollapse.value ? 70 : 250,
+          padding: _navigation.isCollapse.value
+              ? EdgeInsets.all(5)
+              : EdgeInsets.fromLTRB(15, 0, 15, 15),
+          decoration: BoxDecoration(
+            color: ColorPallates.white,
+            border: Border.all(color: Colors.transparent, width: 0),
+          ),
+          duration: Duration(milliseconds: 0),
+          child: _navigation.isCollapse.value
+              ? CircleAvatar(
+                  child: Icon(
+                    Icons.person,
+                    size: 50,
+                    color: Colors.white,
+                  ),
+                  backgroundColor: ColorPallates.primary,
+                )
+              : BsRow(
+                  children: [
+                    BsCol(
+                      sizes: ColScreen(sm: Col.col_4),
+                      child: CircleAvatar(
+                        child: Icon(
+                          Icons.person,
+                          size: 50,
+                          color: Colors.white,
+                        ),
+                        backgroundColor: ColorPallates.primary,
+                      ),
+                    ),
+                    BsCol(
+                      sizes: ColScreen(sm: Col.col_8),
+                      child: Column(
+                        children: [
+                          Text(
+                            box.read('username'),
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
+                          Text(box.read('role'))
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+        ),
         Expanded(
           child: AnimatedContainer(
-            duration: Duration(milliseconds: 250),
+            duration: Duration(milliseconds: 0),
             width: _navigation.isCollapse.value ? 70 : 250,
             decoration: BoxDecoration(
               color: ColorPallates.white,
