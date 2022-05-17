@@ -52,7 +52,6 @@ class AuthPresenter extends CustomGetXController {
   }
 
   void signOut() {
-    _navService.darkTheme.value = false;
     final box = GetStorage();
     box.remove('name');
     box.remove('id');
@@ -61,7 +60,7 @@ class AuthPresenter extends CustomGetXController {
     _authService.signOut().then((res) {
       _logoutViewContract.onLogoutSuccess();
       isAuthenticated.value = false;
-      // _navService.darkTheme.value = false;
+      _navService.darkTheme.value = false;
     });
   }
 

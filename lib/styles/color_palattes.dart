@@ -12,10 +12,10 @@ class ColorPallates {
   static const backgroundDarkColor = Colors.white;
 
   static const white = Colors.white;
-  static const primary = Color(0xFFC0D8C0);
-  static const secondary = Color(0xFFF5EEDC);
-  static const tertiary = Color(0xFFDD4A48);
-  static const quaternary = Color(0xFFECB390);
+  static const primary = Color(0xFF6D9773);
+  static const secondary = Color(0xFF0C3B2E);
+  static const tertiary = Color(0xFFBB8A52);
+  static const quaternary = Color(0xFFFFBA00);
   static Color dark = Color(0xFF363636);
   static Color danger = Color(0xffB8405E);
   static Color warning = Color(0xffFFD93D);

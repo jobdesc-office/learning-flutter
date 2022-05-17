@@ -1,10 +1,10 @@
+import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/base_icon.dart';
 import '../../constants/base_text.dart';
 import '../../styles/custom_button_size.dart';
-import '../../styles/custom_button_styles.dart';
 
 class ThemeButtonCreate extends BsButton {
   ThemeButtonCreate({
@@ -17,7 +17,11 @@ class ThemeButtonCreate extends BsButton {
           margin: margin,
           label: Text('${BaseText.buttonCreate} $prefix'),
           prefixIcon: BaseIcon.buttonCreate,
-          style: CustomButtonStyle.roundedPrimary,
+          style: BsButtonStyle(
+            backgroundColor: ColorPallates.delete,
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(5),
+          ),
           size: CustomButonSize.medium,
           onPressed: onPressed,
         );

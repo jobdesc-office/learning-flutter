@@ -29,12 +29,12 @@ class UserDataTableSource extends BsDatatableSource {
       BsDataColumn(
           label: Text('User Email'), columnName: 'useremail', width: 250),
       BsDataColumn(label: Text('User Phone'), columnName: 'userphone'),
-      BsDataColumn(
-          label: Text('User Status'),
-          columnName: 'isactive',
-          width: 110,
-          orderable: false,
-          searchable: false),
+      // BsDataColumn(
+      //     label: Text('User Status'),
+      //     columnName: 'isactive',
+      //     width: 110,
+      //     orderable: false,
+      //     searchable: false),
       BsDataColumn(label: Text('Actions'), orderable: false, searchable: false),
     ];
   }
@@ -52,13 +52,13 @@ class UserDataTableSource extends BsDatatableSource {
         BsDataCell(Text(row.userfullname)),
         BsDataCell(Text(row.useremail)),
         BsDataCell(Text(row.userphone)),
-        BsDataCell(Card(
-          color: row.isactive ? Colors.blue.shade300 : Colors.red.shade300,
-          child: Center(
-              child: Text(
-            row.isactive ? BaseText.active : BaseText.nonactive,
-          )),
-        )),
+        // BsDataCell(Card(
+        //   color: row.isactive ? Colors.blue.shade300 : Colors.red.shade300,
+        //   child: Center(
+        //       child: Text(
+        //     row.isactive ? BaseText.active : BaseText.nonactive,
+        //   )),
+        // )),
         BsDataCell(
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

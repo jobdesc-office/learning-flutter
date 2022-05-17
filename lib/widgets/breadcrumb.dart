@@ -35,11 +35,7 @@ class BreadcrumbWidget extends StatelessWidget {
                 this.label,
                 style: TextStyle(
                   fontSize: 12,
-                  color: this.active
-                      ? ColorPallates.tertiary
-                      : _navigation.darkTheme.value
-                          ? Colors.white
-                          : Colors.black,
+                  color: this.active ? ColorPallates.tertiary : Colors.grey,
                 ),
               ),
             ],

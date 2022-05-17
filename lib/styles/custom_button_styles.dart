@@ -1,11 +1,17 @@
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../presenters/navigation_presenter.dart';
 import 'color_palattes.dart';
+
+final _navigation = Get.find<NavigationPresenter>();
 
 class CustomButtonStyle {
   static BsButtonStyle get roundedPrimary => BsButtonStyle(
-        backgroundColor: Colors.green.shade300,
+        backgroundColor: _navigation.darkTheme.value
+            ? Colors.green.shade800
+            : Colors.green.shade300,
         color: Colors.white,
         borderRadius: BorderRadius.circular(5),
       );
@@ -17,7 +23,9 @@ class CustomButtonStyle {
       );
 
   static BsButtonStyle get roundedSafe => BsButtonStyle(
-        backgroundColor: Colors.blue.shade300,
+        backgroundColor: _navigation.darkTheme.value
+            ? Colors.blue.shade800
+            : Colors.blue.shade300,
         color: Colors.white,
         borderRadius: BorderRadius.circular(5),
       );

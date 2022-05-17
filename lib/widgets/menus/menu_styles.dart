@@ -15,7 +15,7 @@ class MenuStyles {
     return MenuStyles(
       decoration: MenuDecoration(
         active: BoxDecoration(
-          color: ColorPallates.secondary,
+          color: ColorPallates.primary,
           borderRadius: BorderRadius.circular(5),
         ),
         nonactive: BoxDecoration(),

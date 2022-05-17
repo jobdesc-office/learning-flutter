@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../presenters/navigation_presenter.dart';
+import 'color_palattes.dart';
+
+final _navigation = Get.find<NavigationPresenter>();
 
 class ThemeDatatablesStyles {
-  static BoxDecoration searchDecoration = BoxDecoration(
-    color: Colors.white,
-    borderRadius: BorderRadius.circular(5),
-  );
-
   static InputDecoration searchInputDecoration = InputDecoration(
     border: InputBorder.none,
     contentPadding: EdgeInsets.all(15),
