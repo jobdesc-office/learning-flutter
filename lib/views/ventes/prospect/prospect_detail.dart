@@ -198,9 +198,49 @@ class _ProspectDetailsState extends State<ProspectDetails>
                               height: 10,
                             ),
                             Container(
-                              width: 1100,
-                              height: 20,
-                              color: Colors.black,
+                              child: BsRow(
+                                children: [
+                                  BsCol(
+                                    sizes: ColScreen(sm: Col.col_3),
+                                    child: Container(
+                                      padding: EdgeInsets.all(10),
+                                      color: Colors.grey.shade700,
+                                      child: Center(child: Text('Meeting')),
+                                    ),
+                                  ),
+                                  BsCol(
+                                    sizes: ColScreen(sm: Col.col_3),
+                                    child: Container(
+                                      padding: EdgeInsets.all(10),
+                                      color: Colors.grey.shade600,
+                                      child: Center(child: Text('Proposal')),
+                                    ),
+                                  ),
+                                  BsCol(
+                                    sizes: ColScreen(sm: Col.col_3),
+                                    child: Container(
+                                      padding: EdgeInsets.all(10),
+                                      color: Colors.grey.shade600,
+                                      child: Center(child: Text('Negociation')),
+                                    ),
+                                  ),
+                                  BsCol(
+                                    sizes: ColScreen(sm: Col.col_3),
+                                    child: Container(
+                                      padding: EdgeInsets.all(10),
+                                      color: Colors.grey.shade600,
+                                      child: Center(child: Text('Closed')),
+                                    ),
+                                  ),
+                                  // BsCol(
+                                  //   sizes: ColScreen(sm: Col.col_2),
+                                  //   child: Container(
+                                  //     color: Colors.grey,
+                                  //     child: Text('data'),
+                                  //   ),
+                                  // )
+                                ],
+                              ),
                             ),
                             SizedBox(
                               height: 10,

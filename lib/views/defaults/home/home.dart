@@ -1,7 +1,6 @@
 import 'package:boilerplate/contracts/default/home_view_contract.dart';
 import 'package:boilerplate/presenters/navigation_presenter.dart';
 import 'package:boilerplate/styles/color_palattes.dart';
-import 'package:boilerplate/views/defaults/home/_home_source.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -33,8 +32,6 @@ class _HomeViewState extends State<HomeView>
 
   final presenter = Get.find<HomePresenter>();
 
-  final controller = Get.put(HomeSource());
-
   final _navigation = Get.find<NavigationPresenter>();
 
   @override
@@ -51,12 +48,48 @@ class _HomeViewState extends State<HomeView>
             BsCol(
               margin: EdgeInsets.only(left: 5),
               sizes: ColScreen(sm: Col.col_12),
-              child: Container(
-                color: Colors.black,
-                child: SizedBox(
-                  height: 10,
-                  width: 500,
-                ),
+              child: BsRow(
+                children: [
+                  BsCol(
+                    sizes: ColScreen(sm: Col.col_3),
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      color: Colors.grey.shade700,
+                      child: Center(child: Text('Meeting')),
+                    ),
+                  ),
+                  BsCol(
+                    sizes: ColScreen(sm: Col.col_3),
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      color: Colors.grey.shade600,
+                      child: Center(child: Text('Proposal')),
+                    ),
+                  ),
+                  BsCol(
+                    sizes: ColScreen(sm: Col.col_3),
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      color: Colors.grey.shade600,
+                      child: Center(child: Text('Negociation')),
+                    ),
+                  ),
+                  BsCol(
+                    sizes: ColScreen(sm: Col.col_3),
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      color: Colors.grey.shade600,
+                      child: Center(child: Text('Closed')),
+                    ),
+                  ),
+                  // BsCol(
+                  //   sizes: ColScreen(sm: Col.col_2),
+                  //   child: Container(
+                  //     color: Colors.grey,
+                  //     child: Text('data'),
+                  //   ),
+                  // )
+                ],
               ),
             ),
             BsCol(
@@ -496,9 +529,5 @@ class _HomeViewState extends State<HomeView>
   @override
   void onSuccess(Response response) {
     HomeModel home = HomeModel.fromJson(response.body);
-    controller.users.value = home.users;
-    controller.schedules.value = home.schedules;
-    controller.prospects.value = home.prospects;
-    controller.partners.value = home.partners;
   }
 }
