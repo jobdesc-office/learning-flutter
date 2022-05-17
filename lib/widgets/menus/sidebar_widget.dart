@@ -1,7 +1,11 @@
 import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../../presenters/navigation_presenter.dart';
 import 'menu_data.dart';
+
+final _navigation = Get.find<NavigationPresenter>();
 
 class SidebarWidgets {
   static Widget logo() {
@@ -20,23 +24,22 @@ class SidebarWidgets {
 
   static Widget menuParent(List<MenuData> history, {VoidCallback? onTab}) {
     return Material(
-      color: Colors.transparent,
+      color: _navigation.darkTheme.value
+          ? ColorPallates.elseDarkColor
+          : ColorPallates.elseLightColor,
       child: InkWell(
         child: Row(
           children: [
             Container(
               padding: EdgeInsets.all(3),
               margin: EdgeInsets.only(right: 10),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(50),
-              ),
               child: Icon(Icons.keyboard_arrow_left_rounded),
             ),
             Text(
               'Back to ${history.length > 1 ? history[history.length - 2].label : 'Main Menu'}',
               style: TextStyle(
-                color: Colors.black,
+                color:
+                    _navigation.darkTheme.value ? Colors.white : Colors.black,
                 fontSize: 16,
               ),
             ),

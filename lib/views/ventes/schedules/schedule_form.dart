@@ -1,3 +1,4 @@
+import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:boilerplate/views/skins/template.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
@@ -56,7 +57,7 @@ class ScheduleFormView extends StatelessWidget
                   children: [
                     BsButton(
                       style: BsButtonStyle(
-                        backgroundColor: Colors.green.shade300,
+                        backgroundColor: ColorPallates.secondary,
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(5),
                       ),

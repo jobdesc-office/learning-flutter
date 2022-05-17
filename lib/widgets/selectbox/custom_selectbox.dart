@@ -1,7 +1,11 @@
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../../presenters/navigation_presenter.dart';
 import '../../styles/color_palattes.dart';
+
+final _navigation = Get.find<NavigationPresenter>();
 
 class CustomSelectBox extends BsSelectBox {
   CustomSelectBox({
@@ -19,7 +23,9 @@ class CustomSelectBox extends BsSelectBox {
           validators: validators,
           serverSide: serverSide,
           style: BsSelectBoxStyle(
-            backgroundColor: Colors.white,
+            backgroundColor: _navigation.darkTheme.value
+                ? ColorPallates.elseDarkColor
+                : Colors.white,
             border: Border.all(color: ColorPallates.dark),
             borderRadius: BorderRadius.circular(5),
             focusedBorder: Border.all(color: ColorPallates.dark),
@@ -35,7 +41,9 @@ class CustomSelectBox extends BsSelectBox {
             padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
           ),
           dialogStyle: BsDialogBoxStyle(
-            backgroundColor: Colors.white,
+            backgroundColor: _navigation.darkTheme.value
+                ? ColorPallates.elseDarkColor
+                : Colors.white,
             border: Border.all(color: ColorPallates.dark),
             borderRadius: BorderRadius.circular(5),
           ),

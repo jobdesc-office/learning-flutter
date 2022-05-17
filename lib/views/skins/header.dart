@@ -52,90 +52,90 @@ class HeaderSkins extends StatelessWidget implements LogoutViewContract {
                 ),
               ),
               Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    // HeaderIcon(
-                    //   icon: Icons.notifications,
-                    //   onPressed: () {},
-                    //   margin: EdgeInsets.only(right: 15),
-                    //   badge: Text('99+'),
-                    // ),
-                    BsDropdownButton(
-                      toggleMenu: (_) => ButtonInfoAccount(
-                        'Kholifan Alfon',
-                        onPressed: () => _.toggle(),
-                      ),
-                      dropdownMenuSize: BsDropdownMenuSize(minWidth: 200),
-                      dropdownMenuStyle: BsDropdownMenuStyle(
-                        backgroundColor: _navigation.darkTheme.value
-                            ? ColorPallates.elseDarkColor
-                            : ColorPallates.elseLightColor,
-                        borderRadius: BorderRadius.circular(3),
-                      ),
-                      dropdownMenu: BsDropdownMenu(
-                        header: BsDropdownHeader(
-                          child: Text(box.read('name')),
-                        ),
-                        children: [
-                          BsDropdownItem(
-                            onPressed: (() =>
-                                Get.toNamed(RouteList.profile.index)),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.person_outline,
-                                  size: 16,
-                                  // color: ColorPallates.tertiary,
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(left: 5),
-                                  child: Text('My Profile'),
-                                )
-                              ],
-                            ),
+                child: Obx(() => Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        // HeaderIcon(
+                        //   icon: Icons.notifications,
+                        //   onPressed: () {},
+                        //   margin: EdgeInsets.only(right: 15),
+                        //   badge: Text('99+'),
+                        // ),
+                        BsDropdownButton(
+                          toggleMenu: (_) => ButtonInfoAccount(
+                            'Kholifan Alfon',
+                            onPressed: () => _.toggle(),
                           ),
-                          // BsDropdownItem(
-                          //   child: Row(
-                          //     children: [
-                          //       Icon(
-                          //         Icons.key_outlined,
-                          //         size: 16,
-                          //       ),
-                          //       Container(
-                          //         margin: EdgeInsets.only(left: 5),
-                          //         child: Text('Change Password'),
-                          //       )
-                          //     ],
-                          //   ),
-                          // ),
-                          BsDropdownDivider(),
-                          BsDropdownItem(
-                              padding: EdgeInsets.all(15),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.logout_outlined,
-                                    size: 16,
-                                    color: ColorPallates.danger,
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(left: 5),
-                                    child: Text(
-                                      'Logout',
-                                      style: TextStyle(
-                                          color: ColorPallates.danger),
+                          dropdownMenuSize: BsDropdownMenuSize(minWidth: 200),
+                          dropdownMenuStyle: BsDropdownMenuStyle(
+                            backgroundColor: _navigation.darkTheme.value
+                                ? ColorPallates.elseDarkColor
+                                : ColorPallates.elseLightColor,
+                            borderRadius: BorderRadius.circular(3),
+                          ),
+                          dropdownMenu: BsDropdownMenu(
+                            header: BsDropdownHeader(
+                              child: Text(box.read('name')),
+                            ),
+                            children: [
+                              BsDropdownItem(
+                                onPressed: (() =>
+                                    Get.toNamed(RouteList.profile.index)),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.person_outline,
+                                      size: 16,
+                                      // color: ColorPallates.tertiary,
                                     ),
-                                  )
-                                ],
+                                    Container(
+                                      margin: EdgeInsets.only(left: 5),
+                                      child: Text('My Profile'),
+                                    )
+                                  ],
+                                ),
                               ),
-                              onPressed: () => onClickLogout())
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+                              // BsDropdownItem(
+                              //   child: Row(
+                              //     children: [
+                              //       Icon(
+                              //         Icons.key_outlined,
+                              //         size: 16,
+                              //       ),
+                              //       Container(
+                              //         margin: EdgeInsets.only(left: 5),
+                              //         child: Text('Change Password'),
+                              //       )
+                              //     ],
+                              //   ),
+                              // ),
+                              BsDropdownDivider(),
+                              BsDropdownItem(
+                                  padding: EdgeInsets.all(15),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.logout_outlined,
+                                        size: 16,
+                                        color: ColorPallates.danger,
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(left: 5),
+                                        child: Text(
+                                          'Logout',
+                                          style: TextStyle(
+                                              color: ColorPallates.danger),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  onPressed: () => onClickLogout())
+                            ],
+                          ),
+                        )
+                      ],
+                    )),
               )
             ],
           ),

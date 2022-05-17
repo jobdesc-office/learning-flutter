@@ -1,9 +1,11 @@
 import 'package:boilerplate/contracts/default/home_view_contract.dart';
 import 'package:boilerplate/presenters/navigation_presenter.dart';
+import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:boilerplate/views/defaults/home/_home_source.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:timelines/timelines.dart';
 
 import '../../../models/default/home_model.dart';
 import '../../../presenters/default/home_presenter.dart';
@@ -11,16 +13,29 @@ import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../skins/template.dart';
 
-class HomeView extends StatelessWidget implements HomeViewContract {
+class HomeView extends StatefulWidget {
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView>
+    with TickerProviderStateMixin
+    implements HomeViewContract {
+  @override
+  void initState() {
+    super.initState();
+    presenter.homeContract = this;
+    presenter.index();
+    _tabController = TabController(length: 3, vsync: this);
+  }
+
+  late TabController _tabController;
+
   final presenter = Get.find<HomePresenter>();
+
   final controller = Get.put(HomeSource());
 
   final _navigation = Get.find<NavigationPresenter>();
-
-  HomeView() {
-    presenter.homeContract = this;
-    presenter.index();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,204 +49,439 @@ class HomeView extends StatelessWidget implements HomeViewContract {
         child: BsRow(
           children: [
             BsCol(
-                margin: EdgeInsets.only(left: 5),
-                sizes: ColScreen(sm: Col.col_3),
-                child: Obx(() => Container(
-                    decoration: BoxDecoration(
-                      color: _navigation.darkTheme.value
-                          ? Colors.green.shade900
-                          : Colors.green.shade300,
-                      borderRadius: BorderRadius.circular(10),
+              margin: EdgeInsets.only(left: 5),
+              sizes: ColScreen(sm: Col.col_12),
+              child: Container(
+                color: Colors.black,
+                child: SizedBox(
+                  height: 10,
+                  width: 500,
+                ),
+              ),
+            ),
+            BsCol(
+                margin: EdgeInsets.only(left: 8, right: 20),
+                sizes: ColScreen(sm: Col.col_8),
+                child: BsRow(
+                  children: [
+                    BsCol(
+                      sizes: ColScreen(sm: Col.col_6),
+                      child: Column(
+                        children: [
+                          Container(
+                            child: Obx(() => TabBar(
+                                  controller: _tabController,
+                                  labelColor: Colors.grey,
+                                  unselectedLabelColor:
+                                      _navigation.darkTheme.value
+                                          ? Colors.white
+                                          : Colors.black,
+                                  tabs: [
+                                    Tab(text: 'Activity'),
+                                    Tab(text: 'Collaborate'),
+                                    Tab(text: 'Details')
+                                  ],
+                                )),
+                          ),
+                        ],
+                      ),
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              controller.users.value.toString(),
-                              style: TextStyle(fontSize: 35),
-                            ),
-                            Icon(Icons.person, size: 70)
-                          ],
-                        ),
-                        GestureDetector(
-                          onTap: () => Get.toNamed(RouteList.masterUser.index),
-                          child: Container(
+                    BsCol(
+                      sizes: ColScreen(sm: Col.col_12),
+                      child: Obx(() => Container(
                             decoration: BoxDecoration(
                               color: _navigation.darkTheme.value
-                                  ? Colors.green.shade800
-                                  : Colors.green.shade200,
+                                  ? ColorPallates.elseDarkColor
+                                  : ColorPallates.elseLightColor,
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            width: double.infinity,
+                            height: 150,
+                            child: TabBarView(
+                              controller: _tabController,
                               children: [
-                                Text(
-                                    controller.users.value > 1
-                                        ? 'Active Users'
-                                        : 'Active User',
-                                    style: TextStyle(fontSize: 18)),
-                                Icon(
-                                  Icons.arrow_forward_ios_rounded,
-                                  size: 25,
-                                )
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    BsRow(
+                                      children: [
+                                        BsCol(
+                                            sizes: ColScreen(sm: Col.col_1),
+                                            child: Column(
+                                              children: [
+                                                OutlinedDotIndicator(),
+                                                SizedBox(
+                                                  height: 50.0,
+                                                  child: SolidLineConnector(),
+                                                )
+                                              ],
+                                            )),
+                                        BsCol(
+                                            sizes: ColScreen(sm: Col.col_2),
+                                            child: Text('Today')),
+                                        BsCol(
+                                            sizes: ColScreen(sm: Col.col_9),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Meeting',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                Text('at Town Hall'),
+                                              ],
+                                            )),
+                                        BsCol(
+                                            sizes: ColScreen(sm: Col.col_1),
+                                            child: Column(
+                                              children: [
+                                                OutlinedDotIndicator()
+                                              ],
+                                            )),
+                                        BsCol(
+                                            sizes: ColScreen(sm: Col.col_2),
+                                            child: Text('Yesterday')),
+                                        BsCol(
+                                            sizes: ColScreen(sm: Col.col_9),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Meeting',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                Text('at Town Hall'),
+                                              ],
+                                            )),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [Text('Activity')],
+                                ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [Text('Propose Time')],
+                                ),
                               ],
                             ),
-                          ),
-                        )
-                      ],
-                    )))),
+                          )),
+                    ),
+                    BsCol(
+                      margin: EdgeInsets.only(top: 20),
+                      sizes: ColScreen(sm: Col.col_12),
+                      child: Obx(() => Container(
+                            decoration: BoxDecoration(
+                              color: _navigation.darkTheme.value
+                                  ? ColorPallates.elseDarkColor
+                                  : ColorPallates.elseLightColor,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Container(
+                              margin: EdgeInsets.fromLTRB(0, 20, 20, 20),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    child: Column(
+                                      children: [
+                                        BsRow(
+                                          children: [
+                                            BsCol(
+                                                sizes: ColScreen(sm: Col.col_1),
+                                                child: Column(
+                                                  children: [
+                                                    OutlinedDotIndicator(),
+                                                    SizedBox(
+                                                      height: 50.0,
+                                                      child:
+                                                          SolidLineConnector(),
+                                                    )
+                                                  ],
+                                                )),
+                                            BsCol(
+                                                sizes: ColScreen(sm: Col.col_2),
+                                                child: Text('Today')),
+                                            BsCol(
+                                                sizes: ColScreen(sm: Col.col_9),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      'Meeting',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    Text('at Town Hall'),
+                                                  ],
+                                                )),
+                                            BsCol(
+                                                sizes: ColScreen(sm: Col.col_1),
+                                                child: Column(
+                                                  children: [
+                                                    OutlinedDotIndicator()
+                                                  ],
+                                                )),
+                                            BsCol(
+                                                sizes: ColScreen(sm: Col.col_2),
+                                                child: Text('Yesterday')),
+                                            BsCol(
+                                                sizes: ColScreen(sm: Col.col_9),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      'Meeting',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    Text('at Town Hall'),
+                                                  ],
+                                                )),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          )),
+                    ),
+                  ],
+                )),
             BsCol(
                 margin: EdgeInsets.only(left: 5),
-                sizes: ColScreen(sm: Col.col_3),
-                child: Obx(() => Container(
-                    decoration: BoxDecoration(
-                      color: _navigation.darkTheme.value
-                          ? Colors.blue.shade900
-                          : Colors.blue.shade300,
-                      borderRadius: BorderRadius.circular(10),
+                sizes: ColScreen(sm: Col.col_4),
+                child: BsRow(
+                  children: [
+                    BsCol(
+                      margin: EdgeInsets.only(top: 12, left: 10),
+                      sizes: ColScreen(sm: Col.col_12),
+                      child: Text('Contacts'),
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              controller.schedules.value.toString(),
-                              style: TextStyle(fontSize: 35),
-                            ),
-                            Icon(Icons.schedule, size: 70)
-                          ],
-                        ),
-                        GestureDetector(
-                          onTap: () =>
-                              Get.toNamed(RouteList.ventesSchedule.index),
-                          child: Container(
+                    BsCol(
+                      margin: EdgeInsets.only(top: 20),
+                      sizes: ColScreen(sm: Col.col_12),
+                      child: Obx(() => Container(
                             decoration: BoxDecoration(
                               color: _navigation.darkTheme.value
-                                  ? Colors.blue.shade800
-                                  : Colors.blue.shade200,
+                                  ? ColorPallates.elseDarkColor
+                                  : ColorPallates.elseLightColor,
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            child: Column(
                               children: [
-                                Text(
-                                    controller.schedules.value > 1
-                                        ? 'Schedules Remaining'
-                                        : 'Schedule Remaining',
-                                    style: TextStyle(fontSize: 18)),
-                                Icon(
-                                  Icons.arrow_forward_ios_rounded,
-                                  size: 25,
-                                )
+                                Container(
+                                  margin: EdgeInsets.all(20),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text('Bambang'),
+                                          Text('Granfather')
+                                        ],
+                                      ),
+                                      CircleAvatar(child: Icon(Icons.person))
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.all(20),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text('Dadang bin Bambang'),
+                                          Text('Father')
+                                        ],
+                                      ),
+                                      CircleAvatar(child: Icon(Icons.person))
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.all(20),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text('Jajang bin Dadang bin Bambang'),
+                                          Text('Granchild')
+                                        ],
+                                      ),
+                                      CircleAvatar(child: Icon(Icons.person))
+                                    ],
+                                  ),
+                                ),
                               ],
                             ),
-                          ),
-                        )
-                      ],
-                    )))),
-            BsCol(
-                margin: EdgeInsets.only(left: 5),
-                sizes: ColScreen(sm: Col.col_3),
-                child: Obx(() => Container(
-                    decoration: BoxDecoration(
-                      color: _navigation.darkTheme.value
-                          ? Colors.red.shade900
-                          : Colors.red.shade300,
-                      borderRadius: BorderRadius.circular(10),
+                          )),
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              controller.prospects.value.toString(),
-                              style: TextStyle(fontSize: 35),
-                            ),
-                            Icon(Icons.leaderboard, size: 70)
-                          ],
-                        ),
-                        GestureDetector(
-                          onTap: () =>
-                              Get.toNamed(RouteList.ventesProspect.index),
-                          child: Container(
+                    BsCol(
+                      margin: EdgeInsets.only(top: 20, left: 10),
+                      sizes: ColScreen(sm: Col.col_12),
+                      child: Text('Notes'),
+                    ),
+                    BsCol(
+                      margin: EdgeInsets.only(top: 20),
+                      sizes: ColScreen(sm: Col.col_12),
+                      child: Obx(() => Container(
                             decoration: BoxDecoration(
                               color: _navigation.darkTheme.value
-                                  ? Colors.red.shade800
-                                  : Colors.red.shade200,
+                                  ? ColorPallates.elseDarkColor
+                                  : ColorPallates.elseLightColor,
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(
-                                    controller.prospects.value > 1
-                                        ? 'Prospects Target'
-                                        : 'Prospect Target',
-                                    style: TextStyle(fontSize: 18)),
-                                Icon(
-                                  Icons.arrow_forward_ios_rounded,
-                                  size: 25,
-                                )
-                              ],
+                            child: Container(
+                              margin: EdgeInsets.all(20),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  BsRow(
+                                    children: [
+                                      BsCol(
+                                          sizes: ColScreen(sm: Col.col_12),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text('Bambang'),
+                                              Text('2 minutes ago')
+                                            ],
+                                          )),
+                                      BsCol(
+                                          margin: EdgeInsets.only(top: 10),
+                                          sizes: ColScreen(sm: Col.col_12),
+                                          child: Text(
+                                            'HUSS',
+                                            style:
+                                                TextStyle(color: Colors.grey),
+                                          ))
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        )
-                      ],
-                    )))),
-            BsCol(
-                margin: EdgeInsets.only(left: 5),
-                sizes: ColScreen(sm: Col.col_3),
-                child: Obx(() => Container(
-                    decoration: BoxDecoration(
-                      color: _navigation.darkTheme.value
-                          ? Colors.purple.shade900
-                          : Colors.purple.shade300,
-                      borderRadius: BorderRadius.circular(10),
+                          )),
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              controller.partners.value.toString(),
-                              style: TextStyle(fontSize: 35),
-                            ),
-                            Icon(Icons.domain, size: 70)
-                          ],
-                        ),
-                        GestureDetector(
-                          onTap: () => Get.toNamed(
-                              RouteList.masterBusinessPartner.index),
-                          child: Container(
+                    BsCol(
+                      margin: EdgeInsets.only(top: 20),
+                      sizes: ColScreen(sm: Col.col_12),
+                      child: Obx(() => Container(
                             decoration: BoxDecoration(
                               color: _navigation.darkTheme.value
-                                  ? Colors.purple.shade800
-                                  : Colors.purple.shade200,
+                                  ? ColorPallates.elseDarkColor
+                                  : ColorPallates.elseLightColor,
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(
-                                    controller.partners.value > 1
-                                        ? 'Business Partners'
-                                        : 'Business Partner',
-                                    style: TextStyle(fontSize: 18)),
-                                Icon(
-                                  Icons.arrow_forward_ios_rounded,
-                                  size: 25,
-                                )
-                              ],
+                            child: Container(
+                              margin: EdgeInsets.all(20),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  BsRow(
+                                    children: [
+                                      BsCol(
+                                          sizes: ColScreen(sm: Col.col_12),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                  'Jajang bin Dadang bin Bambang'),
+                                              Text('1 hours ago')
+                                            ],
+                                          )),
+                                      BsCol(
+                                          margin: EdgeInsets.only(top: 10),
+                                          sizes: ColScreen(sm: Col.col_12),
+                                          child: Text(
+                                            'Innalillahi wa innailaihi rajiun, Alhamdulillah warisan cair',
+                                            style:
+                                                TextStyle(color: Colors.grey),
+                                          ))
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        )
-                      ],
-                    )))),
+                          )),
+                    ),
+                    BsCol(
+                      margin: EdgeInsets.only(top: 20),
+                      sizes: ColScreen(sm: Col.col_12),
+                      child: Obx(() => Container(
+                            decoration: BoxDecoration(
+                              color: _navigation.darkTheme.value
+                                  ? ColorPallates.elseDarkColor
+                                  : ColorPallates.elseLightColor,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Container(
+                              margin: EdgeInsets.all(20),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  BsRow(
+                                    children: [
+                                      BsCol(
+                                          sizes: ColScreen(sm: Col.col_12),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text('Dadang bin Bambang'),
+                                              Text('2 hours ago')
+                                            ],
+                                          )),
+                                      BsCol(
+                                          margin: EdgeInsets.only(top: 10),
+                                          sizes: ColScreen(sm: Col.col_12),
+                                          child: Text(
+                                            'Nak, Mbah mu sedo',
+                                            style:
+                                                TextStyle(color: Colors.grey),
+                                          ))
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )),
+                    )
+                  ],
+                )),
           ],
         ),
       ),

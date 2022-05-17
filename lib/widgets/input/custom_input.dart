@@ -2,6 +2,11 @@ import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:bs_flutter_inputtext/bs_flutter_inputtext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+
+import '../../presenters/navigation_presenter.dart';
+
+final _navigation = Get.find<NavigationPresenter>();
 
 class CustomInput extends BsInput {
   CustomInput({
@@ -19,7 +24,12 @@ class CustomInput extends BsInput {
           hintText: hintText,
           validators: validators,
           style: BsInputStyle(
-            backgroundColor: Colors.white,
+            disabledColor: _navigation.darkTheme.value
+                ? Colors.grey.shade800
+                : Color(0xffe7e7e7),
+            backgroundColor: _navigation.darkTheme.value
+                ? ColorPallates.elseDarkColor
+                : Colors.white,
             border: Border.all(color: ColorPallates.dark),
             borderRadius: BorderRadius.circular(5),
             boxShadowFocused: [

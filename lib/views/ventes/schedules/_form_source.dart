@@ -8,6 +8,8 @@ import 'package:get/get.dart';
 
 import '../../../constants/base_text.dart';
 import '../../../models/session_model.dart';
+import '../../../presenters/navigation_presenter.dart';
+import '../../../styles/color_palattes.dart';
 import '../../../utils/session_manager.dart';
 import '../../../utils/validators.dart';
 import '../../../utils/select_api.dart';
@@ -19,6 +21,8 @@ import '../../../widgets/selectbox/custom_selectbox.dart';
 import '_map_source.dart';
 import 'map.dart';
 import '_text.dart';
+
+final _navigation = Get.find<NavigationPresenter>();
 
 class ScheduleSource extends GetxController {
   final map = Get.put(mapSource());
@@ -179,7 +183,9 @@ class ScheduleForm {
               child: BsButton(
                 style: BsButtonStyle(
                     color: Color.fromARGB(255, 165, 165, 165),
-                    backgroundColor: Colors.white,
+                    backgroundColor: _navigation.darkTheme.value
+                        ? ColorPallates.elseDarkColor
+                        : Colors.white,
                     borderColor: Colors.black,
                     borderRadius: BorderRadius.all(Radius.circular(5))),
                 width: MediaQuery.of(context).size.width,
@@ -203,7 +209,9 @@ class ScheduleForm {
               child: BsButton(
                   style: BsButtonStyle(
                       color: Color.fromARGB(255, 165, 165, 165),
-                      backgroundColor: Colors.white,
+                      backgroundColor: _navigation.darkTheme.value
+                          ? ColorPallates.elseDarkColor
+                          : Colors.white,
                       borderColor: Colors.black,
                       borderRadius: BorderRadius.all(Radius.circular(5))),
                   width: MediaQuery.of(context).size.width,
@@ -233,7 +241,9 @@ class ScheduleForm {
               child: BsButton(
                 style: BsButtonStyle(
                     color: Color.fromARGB(255, 165, 165, 165),
-                    backgroundColor: Colors.white,
+                    backgroundColor: _navigation.darkTheme.value
+                        ? ColorPallates.elseDarkColor
+                        : Colors.white,
                     borderColor: Colors.black,
                     borderRadius: BorderRadius.all(Radius.circular(5))),
                 width: MediaQuery.of(context).size.width,
@@ -258,7 +268,9 @@ class ScheduleForm {
               child: BsButton(
                   style: BsButtonStyle(
                       color: Color.fromARGB(255, 165, 165, 165),
-                      backgroundColor: Colors.white,
+                      backgroundColor: _navigation.darkTheme.value
+                          ? ColorPallates.elseDarkColor
+                          : Colors.white,
                       borderColor: Colors.black,
                       borderRadius: BorderRadius.all(Radius.circular(5))),
                   width: MediaQuery.of(context).size.width,
@@ -298,7 +310,9 @@ class ScheduleForm {
         child: BsButton(
             style: BsButtonStyle(
                 color: Color.fromARGB(255, 165, 165, 165),
-                backgroundColor: Colors.white,
+                backgroundColor: _navigation.darkTheme.value
+                    ? ColorPallates.elseDarkColor
+                    : Colors.white,
                 borderColor: Colors.black,
                 borderRadius: BorderRadius.all(Radius.circular(5))),
             width: MediaQuery.of(context).size.width,
@@ -360,7 +374,9 @@ class ScheduleForm {
             child: BsButton(
               style: BsButtonStyle(
                   color: Color.fromARGB(255, 165, 165, 165),
-                  backgroundColor: Colors.white,
+                  backgroundColor: _navigation.darkTheme.value
+                      ? ColorPallates.elseDarkColor
+                      : Colors.white,
                   borderColor: Colors.black,
                   borderRadius: BorderRadius.all(Radius.circular(5))),
               width: MediaQuery.of(context).size.width,
