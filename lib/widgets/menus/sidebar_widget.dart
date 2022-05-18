@@ -69,7 +69,7 @@ class SidebarWidgets {
               padding: EdgeInsets.all(3),
               margin: EdgeInsets.only(right: 10),
               decoration: BoxDecoration(
-                color: ColorPallates.secondary,
+                color: Colors.transparent,
                 borderRadius: BorderRadius.circular(50),
               ),
               child: Icon(history.length > 1
