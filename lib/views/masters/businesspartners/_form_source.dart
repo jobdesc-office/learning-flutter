@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../constants/base_text.dart';
 import '../../../models/session_model.dart';
+import '../../../presenters/navigation_presenter.dart';
 import '../../../utils/session_manager.dart';
 import '../../../utils/validators.dart';
 import '../../../widgets/form_group.dart';
@@ -9,15 +11,18 @@ import '../../../widgets/input/custom_input.dart';
 import '_businesspartner_type.dart';
 import '_text.dart';
 
-class BusinessPartnerSource{bool isProcessing = false;
+final _navigation = Get.find<NavigationPresenter>();
 
-  BusinessPartnerTypeOptionsController businessPartnerTypeController = BusinessPartnerTypeOptionsController();
+class BusinessPartnerSource {
+  bool isProcessing = false;
+
+  BusinessPartnerTypeOptionsController businessPartnerTypeController =
+      BusinessPartnerTypeOptionsController();
 
   TextEditingController inputCompanyName = TextEditingController();
   TextEditingController inputName = TextEditingController();
   TextEditingController inputEmail = TextEditingController();
   TextEditingController inputPhone = TextEditingController();
-
 
   Future<Map<String, dynamic>> toJson() async {
     SessionModel session = await SessionManager.current();
@@ -39,10 +44,12 @@ class BusinessPartnerForm {
 
   BusinessPartnerForm(this.source);
 
-
   Widget businessPartnerType() {
     return FormGroup(
-      label: Text(BusinessPartnerText.labelType),
+      label: Obx(() => Text(BusinessPartnerText.labelType,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: BusinessPartnerTypeOptions(
         controller: source.businessPartnerTypeController,
       ),
@@ -51,7 +58,10 @@ class BusinessPartnerForm {
 
   Widget inputCompanyName() {
     return FormGroup(
-      label: Text(BusinessPartnerText.labelCompany),
+      label: Obx(() => Text(BusinessPartnerText.labelCompany,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputCompanyName,
@@ -65,7 +75,10 @@ class BusinessPartnerForm {
 
   Widget inputName() {
     return FormGroup(
-      label: Text(BusinessPartnerText.labelName),
+      label: Obx(() => Text(BusinessPartnerText.labelName,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputName,
@@ -79,7 +92,10 @@ class BusinessPartnerForm {
 
   Widget inputEmail() {
     return FormGroup(
-      label: Text(BusinessPartnerText.labelEmail),
+      label: Obx(() => Text(BusinessPartnerText.labelEmail,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputEmail,
@@ -93,7 +109,10 @@ class BusinessPartnerForm {
 
   Widget inputPhone() {
     return FormGroup(
-      label: Text(BusinessPartnerText.labelPhone),
+      label: Obx(() => Text(BusinessPartnerText.labelPhone,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputPhone,

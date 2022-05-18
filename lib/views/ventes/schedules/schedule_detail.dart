@@ -7,10 +7,13 @@ import 'package:get/get.dart';
 
 import '../../../contracts/base/details_view_contract.dart';
 import '../../../models/ventes/schedule_model.dart';
+import '../../../presenters/navigation_presenter.dart';
 import '../../../presenters/ventes/schedule_presenter.dart';
 import '../../../widgets/snackbar.dart';
 import '_details_source.dart';
 import '_text.dart';
+
+final _navigation = Get.find<NavigationPresenter>();
 
 class ScheduleDetails extends GetView implements DetailViewContract {
   final SchedulePresenter presenter = Get.find<SchedulePresenter>();
@@ -26,293 +29,304 @@ class ScheduleDetails extends GetView implements DetailViewContract {
         context: context,
         dialog: BsModalDialog(
           size: BsModalSize.lg,
-          child: BsModalContent(children: [
-            BsModalContainer(
-              title: Text(ScheduleText.title + ' Details'),
-              closeButton: true,
-            ),
-            BsModalContainer(
-              child: Obx(() => BsRow(
-                    children: [
-                      BsCol(
-                          sizes: ColScreen(lg: Col.col_2),
-                          child: Column(
-                            children: [
-                              Row(
+          child: BsModalContent(
+              decoration: BoxDecoration(
+                color: _navigation.darkTheme.value
+                    ? ColorPallates.elseDarkColor
+                    : Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(5.0)),
+              ),
+              children: [
+                BsModalContainer(
+                  title: Text(ScheduleText.title + ' Details',
+                      style: TextStyle(
+                          color: _navigation.darkTheme.value
+                              ? Colors.white
+                              : Colors.black)),
+                  closeButton: true,
+                ),
+                BsModalContainer(
+                  child: Obx(() => BsRow(
+                        children: [
+                          BsCol(
+                              sizes: ColScreen(lg: Col.col_2),
+                              child: Column(
                                 children: [
-                                  Text('Title'),
+                                  Row(
+                                    children: [
+                                      Text('Title'),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Row(
+                                    children: [Text('PIC Name')],
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Row(
+                                    children: [Text('Start Date')],
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Row(
+                                    children: [Text('Start Time')],
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Row(
+                                    children: [Text('End Date')],
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Row(
+                                    children: [Text('End Time')],
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Row(
+                                    children: [Text('Location')],
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Row(
+                                    children: [Text('Link')],
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Row(
+                                    children: [Text('Description')],
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Row(
+                                    children: [Text('Reminder')],
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Row(
+                                    children: [Text('Time Zone')],
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Row(
+                                    children: [Text('Type')],
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Row(
+                                    children: [Text('Partner')],
+                                  ),
                                 ],
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                children: [Text('PIC Name')],
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                children: [Text('Start Date')],
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                children: [Text('Start Time')],
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                children: [Text('End Date')],
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                children: [Text('End Time')],
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                children: [Text('Location')],
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                children: [Text('Link')],
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                children: [Text('Description')],
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                children: [Text('Reminder')],
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                children: [Text('Time Zone')],
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                children: [Text('Type')],
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                children: [Text('Partner')],
-                              ),
-                            ],
-                          )),
-                      BsCol(
-                        sizes: ColScreen(lg: Col.col_1),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [Text(' : ')],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              children: [Text(' : ')],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              children: [Text(' : ')],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              children: [Text(' : ')],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              children: [Text(' : ')],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              children: [Text(' : ')],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              children: [Text(' : ')],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              children: [Text(' : ')],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              children: [Text(' : ')],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              children: [Text(' : ')],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              children: [Text(' : ')],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              children: [Text(' : ')],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              children: [Text(' : ')],
-                            ),
-                          ],
-                        ),
-                      ),
-                      BsCol(
-                        sizes: ColScreen(lg: Col.col_9),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [Text(c.title.value)],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              children: [Text(c.name.value)],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              children: [Text(c.startdate.value)],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              children: [Text(c.starttime.value)],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row(
+                              )),
+                          BsCol(
+                            sizes: ColScreen(lg: Col.col_1),
+                            child: Column(
                               children: [
-                                Text(c.enddate.value == ''
-                                    ? 'Still in Process'
-                                    : c.enddate.value)
+                                Row(
+                                  children: [Text(' : ')],
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  children: [Text(' : ')],
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  children: [Text(' : ')],
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  children: [Text(' : ')],
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  children: [Text(' : ')],
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  children: [Text(' : ')],
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  children: [Text(' : ')],
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  children: [Text(' : ')],
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  children: [Text(' : ')],
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  children: [Text(' : ')],
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  children: [Text(' : ')],
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  children: [Text(' : ')],
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  children: [Text(' : ')],
+                                ),
                               ],
                             ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              children: [Text(c.endtime.value)],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row(
+                          ),
+                          BsCol(
+                            sizes: ColScreen(lg: Col.col_9),
+                            child: Column(
                               children: [
-                                Tooltip(
-                                  message: 'Tap to Copy',
-                                  child: GestureDetector(
-                                      onTap: () {
-                                        Clipboard.setData(
-                                          ClipboardData(text: c.loc.value),
-                                        );
-                                        Snackbar().copySuccess();
-                                      },
-                                      child: Text(c.loc.value)),
-                                )
+                                Row(
+                                  children: [Text(c.title.value)],
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  children: [Text(c.name.value)],
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  children: [Text(c.startdate.value)],
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  children: [Text(c.starttime.value)],
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  children: [
+                                    Text(c.enddate.value == ''
+                                        ? 'Still in Process'
+                                        : c.enddate.value)
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  children: [Text(c.endtime.value)],
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  children: [
+                                    Tooltip(
+                                      message: 'Tap to Copy',
+                                      child: GestureDetector(
+                                          onTap: () {
+                                            Clipboard.setData(
+                                              ClipboardData(text: c.loc.value),
+                                            );
+                                            Snackbar().copySuccess();
+                                          },
+                                          child: Text(c.loc.value)),
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  children: [
+                                    Tooltip(
+                                      message: 'Tap to Copy',
+                                      child: GestureDetector(
+                                          onTap: () {
+                                            Clipboard.setData(
+                                              ClipboardData(text: c.link.value),
+                                            );
+                                            Snackbar().copySuccess();
+                                          },
+                                          child: Text(c.link.value)),
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  children: [Text(c.desc.value)],
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  children: [Text(c.remind.value)],
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  children: [Text(c.timezone.value)],
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  children: [Text(c.type.value)],
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  children: [Text(c.bp.value)],
+                                ),
                               ],
                             ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              children: [
-                                Tooltip(
-                                  message: 'Tap to Copy',
-                                  child: GestureDetector(
-                                      onTap: () {
-                                        Clipboard.setData(
-                                          ClipboardData(text: c.link.value),
-                                        );
-                                        Snackbar().copySuccess();
-                                      },
-                                      child: Text(c.link.value)),
-                                )
-                              ],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              children: [Text(c.desc.value)],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              children: [Text(c.remind.value)],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              children: [Text(c.timezone.value)],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              children: [Text(c.type.value)],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              children: [Text(c.bp.value)],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  )),
-            )
-          ]),
+                          ),
+                        ],
+                      )),
+                )
+              ]),
         ));
   }
 

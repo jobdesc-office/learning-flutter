@@ -1,8 +1,10 @@
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../constants/base_text.dart';
 import '../../../models/session_model.dart';
+import '../../../presenters/navigation_presenter.dart';
 import '../../../utils/select_api.dart';
 import '../../../utils/session_manager.dart';
 import '../../../utils/validators.dart';
@@ -13,6 +15,8 @@ import '../../../widgets/form_group.dart';
 
 import '_menu_type.dart';
 import '_text.dart';
+
+final _navigation = Get.find<NavigationPresenter>();
 
 class MenuSource {
   bool isProcessing = false;
@@ -51,7 +55,10 @@ class MenuForm {
 
   Widget menuType() {
     return FormGroup(
-      label: Text(MenuText.labelMenuType),
+      label: Obx(() => Text(MenuText.labelMenuType,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: MenuTypeOptions(
         controller: source.menuTypeController,
       ),
@@ -60,7 +67,10 @@ class MenuForm {
 
   Widget inputName() {
     return FormGroup(
-      label: Text(MenuText.labelName),
+      label: Obx(() => Text(MenuText.labelName,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputName,
@@ -75,7 +85,10 @@ class MenuForm {
 
   Widget selectParent() {
     return FormGroup(
-      label: Text(MenuText.labelParent),
+      label: Obx(() => Text(MenuText.labelParent,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomSelectBox(
         searchable: true,
         disabled: source.isProcessing,
@@ -88,7 +101,10 @@ class MenuForm {
 
   Widget inputIcon() {
     return FormGroup(
-      label: Text(MenuText.labelIcon),
+      label: Obx(() => Text(MenuText.labelIcon,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputIcon,
@@ -99,7 +115,10 @@ class MenuForm {
 
   Widget inputRoute() {
     return FormGroup(
-      label: Text(MenuText.labelRoute),
+      label: Obx(() => Text(MenuText.labelRoute,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputRoute,
@@ -114,7 +133,10 @@ class MenuForm {
 
   Widget inputColor() {
     return FormGroup(
-      label: Text(MenuText.labelColor),
+      label: Obx(() => Text(MenuText.labelColor,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputColor,
@@ -126,7 +148,10 @@ class MenuForm {
 
   Widget inputSequence() {
     return FormGroup(
-      label: Text(MenuText.labelSequence),
+      label: Obx(() => Text(MenuText.labelSequence,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInputNumber(
         disabled: source.isProcessing,
         controller: source.inputSequence,

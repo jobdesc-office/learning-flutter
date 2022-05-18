@@ -125,7 +125,11 @@ class ScheduleForm {
                 margin: EdgeInsets.only(right: 10),
                 sizes: ColScreen(lg: Col.col_5),
                 child: FormGroup(
-                  label: Text('Member ${index + 1}'),
+                  label: Obx(() => Text('Member ${index + 1}',
+                      style: TextStyle(
+                          color: _navigation.darkTheme.value
+                              ? Colors.white
+                              : Colors.black))),
                   child: CustomSelectBox(
                     searchable: true,
                     disabled: source.isProcessing,
@@ -139,7 +143,11 @@ class ScheduleForm {
                 margin: EdgeInsets.only(right: 10),
                 sizes: ColScreen(lg: Col.col_5),
                 child: FormGroup(
-                  label: Text('Permission ${index + 1}'),
+                  label: Obx(() => Text('Permission ${index + 1}',
+                      style: TextStyle(
+                          color: _navigation.darkTheme.value
+                              ? Colors.white
+                              : Colors.black))),
                   child: CustomSelectBox(
                     searchable: false,
                     disabled: source.isProcessing,
@@ -157,7 +165,10 @@ class ScheduleForm {
 
   Widget inputName() {
     return FormGroup(
-      label: Text(ScheduleText.labelName),
+      label: Obx(() => Text(ScheduleText.labelName,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputName,
@@ -177,7 +188,11 @@ class ScheduleForm {
           margin: EdgeInsets.only(right: 10),
           sizes: ColScreen(lg: Col.col_6),
           child: FormGroup(
-            label: Text(ScheduleText.labelStartDate),
+            label: Obx(() => Text(ScheduleText.labelStartDate,
+                style: TextStyle(
+                    color: _navigation.darkTheme.value
+                        ? Colors.white
+                        : Colors.black))),
             child: Container(
               width: MediaQuery.of(context).size.width,
               child: BsButton(
@@ -203,7 +218,11 @@ class ScheduleForm {
           margin: EdgeInsets.only(left: 10),
           sizes: ColScreen(lg: Col.col_6),
           child: FormGroup(
-            label: Text(ScheduleText.labelEndDate),
+            label: Obx(() => Text(ScheduleText.labelEndDate,
+                style: TextStyle(
+                    color: _navigation.darkTheme.value
+                        ? Colors.white
+                        : Colors.black))),
             child: Container(
               width: MediaQuery.of(context).size.width,
               child: BsButton(
@@ -235,7 +254,11 @@ class ScheduleForm {
           margin: EdgeInsets.only(right: 10),
           sizes: ColScreen(lg: Col.col_4),
           child: FormGroup(
-            label: Text(ScheduleText.labelStartTime),
+            label: Obx(() => Text(ScheduleText.labelStartTime,
+                style: TextStyle(
+                    color: _navigation.darkTheme.value
+                        ? Colors.white
+                        : Colors.black))),
             child: Container(
               width: MediaQuery.of(context).size.width,
               child: BsButton(
@@ -262,7 +285,11 @@ class ScheduleForm {
           margin: EdgeInsets.only(left: 10),
           sizes: ColScreen(lg: Col.col_4),
           child: FormGroup(
-            label: Text(ScheduleText.labelEndTime),
+            label: Obx(() => Text(ScheduleText.labelEndTime,
+                style: TextStyle(
+                    color: _navigation.darkTheme.value
+                        ? Colors.white
+                        : Colors.black))),
             child: Container(
               width: MediaQuery.of(context).size.width,
               child: BsButton(
@@ -288,7 +315,11 @@ class ScheduleForm {
           margin: EdgeInsets.only(left: 10),
           sizes: ColScreen(lg: Col.col_4),
           child: FormGroup(
-            label: Text(ScheduleText.labelTimeZone),
+            label: Obx(() => Text(ScheduleText.labelTimeZone,
+                style: TextStyle(
+                    color: _navigation.darkTheme.value
+                        ? Colors.white
+                        : Colors.black))),
             child: CustomSelectBox(
               searchable: false,
               disabled: source.isProcessing,
@@ -304,7 +335,10 @@ class ScheduleForm {
 
   Widget actDate(context) {
     return FormGroup(
-      label: Text(ScheduleText.labelActDate),
+      label: Obx(() => Text(ScheduleText.labelActDate,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: Container(
         width: MediaQuery.of(context).size.width,
         child: BsButton(
@@ -333,7 +367,11 @@ class ScheduleForm {
           margin: EdgeInsets.only(right: 10),
           sizes: ColScreen(lg: Col.col_6),
           child: FormGroup(
-            label: Text(ScheduleText.labelType),
+            label: Obx(() => Text(ScheduleText.labelType,
+                style: TextStyle(
+                    color: _navigation.darkTheme.value
+                        ? Colors.white
+                        : Colors.black))),
             child: CustomSelectBox(
               searchable: true,
               disabled: source.isProcessing,
@@ -348,7 +386,11 @@ class ScheduleForm {
           margin: EdgeInsets.only(left: 10),
           sizes: ColScreen(lg: Col.col_6),
           child: FormGroup(
-            label: Text(ScheduleText.labelBp),
+            label: Obx(() => Text(ScheduleText.labelBp,
+                style: TextStyle(
+                    color: _navigation.darkTheme.value
+                        ? Colors.white
+                        : Colors.black))),
             child: CustomSelectBox(
               searchable: true,
               disabled: source.isProcessing,
@@ -370,7 +412,11 @@ class ScheduleForm {
           margin: EdgeInsets.only(right: 10),
           sizes: ColScreen(lg: Col.col_12),
           child: FormGroup(
-            label: Text(ScheduleText.labelPlace),
+            label: Obx(() => Text(ScheduleText.labelPlace,
+                style: TextStyle(
+                    color: _navigation.darkTheme.value
+                        ? Colors.white
+                        : Colors.black))),
             child: BsButton(
               style: BsButtonStyle(
                   color: Color.fromARGB(255, 165, 165, 165),
@@ -399,7 +445,11 @@ class ScheduleForm {
           margin: EdgeInsets.only(right: 10),
           sizes: ColScreen(lg: Col.col_2),
           child: FormGroup(
-            label: Text(ScheduleText.labelOnline),
+            label: Obx(() => Text(ScheduleText.labelOnline,
+                style: TextStyle(
+                    color: _navigation.darkTheme.value
+                        ? Colors.white
+                        : Colors.black))),
             child: Obx(() => Checkbox(
                   value: source.online.value,
                   onChanged: (value) {
@@ -414,7 +464,11 @@ class ScheduleForm {
           margin: EdgeInsets.only(right: 10),
           sizes: ColScreen(lg: Col.col_2),
           child: FormGroup(
-            label: Text(ScheduleText.labelAllDay),
+            label: Obx(() => Text(ScheduleText.labelAllDay,
+                style: TextStyle(
+                    color: _navigation.darkTheme.value
+                        ? Colors.white
+                        : Colors.black))),
             child: Obx(() => Checkbox(
                   value: source.allDay.value,
                   onChanged: (value) {
@@ -434,7 +488,11 @@ class ScheduleForm {
           margin: EdgeInsets.only(right: 10),
           sizes: ColScreen(lg: Col.col_2),
           child: FormGroup(
-            label: Text(ScheduleText.labelPrivate),
+            label: Obx(() => Text(ScheduleText.labelPrivate,
+                style: TextStyle(
+                    color: _navigation.darkTheme.value
+                        ? Colors.white
+                        : Colors.black))),
             child: Obx(() => Checkbox(
                   value: source.private.value,
                   onChanged: (value) => source.private.toggle(),
@@ -445,7 +503,11 @@ class ScheduleForm {
           margin: EdgeInsets.only(left: 10),
           sizes: ColScreen(lg: Col.col_6),
           child: FormGroup(
-            label: Text(ScheduleText.labelToward),
+            label: Obx(() => Text(ScheduleText.labelToward,
+                style: TextStyle(
+                    color: _navigation.darkTheme.value
+                        ? Colors.white
+                        : Colors.black))),
             child: CustomSelectBox(
               searchable: true,
               disabled: source.isProcessing,
@@ -462,7 +524,10 @@ class ScheduleForm {
 
   Widget inputOnLink() {
     return FormGroup(
-      label: Text(ScheduleText.labelOnLink),
+      label: Obx(() => Text(ScheduleText.labelOnLink,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.online.value ? false : true,
         controller: source.inputOnLink,
@@ -473,7 +538,10 @@ class ScheduleForm {
 
   Widget inputDesc() {
     return FormGroup(
-      label: Text(ScheduleText.labelDesc),
+      label: Obx(() => Text(ScheduleText.labelDesc,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputDesc,
@@ -484,7 +552,10 @@ class ScheduleForm {
 
   Widget inputRemind() {
     return FormGroup(
-      label: Text(ScheduleText.labelRemind),
+      label: Obx(() => Text(ScheduleText.labelRemind,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInputNumber(
         disabled: source.isProcessing,
         controller: source.inputRemind,

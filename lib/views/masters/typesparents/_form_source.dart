@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../constants/base_text.dart';
 import '../../../models/session_model.dart';
+import '../../../presenters/navigation_presenter.dart';
 import '../../../utils/session_manager.dart';
 import '../../../utils/validators.dart';
 import '../../../widgets/input/custom_input.dart';
 import '../../../widgets/form_group.dart';
 
 import '_text.dart';
+
+final _navigation = Get.find<NavigationPresenter>();
 
 class TypeParentSource {
   bool isProcessing = false;
@@ -37,7 +41,10 @@ class TypeParentForm {
 
   Widget inputName() {
     return FormGroup(
-      label: Text(TypeParentsText.labelName),
+      label: Obx(() => Text(TypeParentsText.labelName,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputName,
@@ -52,7 +59,10 @@ class TypeParentForm {
 
   Widget inputCode() {
     return FormGroup(
-      label: Text(TypeParentsText.labelCode),
+      label: Obx(() => Text(TypeParentsText.labelCode,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputCode,
@@ -63,7 +73,10 @@ class TypeParentForm {
 
   Widget inputSeq() {
     return FormGroup(
-      label: Text(TypeParentsText.labelSeq),
+      label: Obx(() => Text(TypeParentsText.labelSeq,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputSeq,
@@ -78,7 +91,10 @@ class TypeParentForm {
 
   Widget inputDesc() {
     return FormGroup(
-      label: Text(TypeParentsText.labelDesc),
+      label: Obx(() => Text(TypeParentsText.labelDesc,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputDesc,

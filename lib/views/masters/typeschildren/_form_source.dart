@@ -1,8 +1,10 @@
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../constants/base_text.dart';
 import '../../../models/session_model.dart';
+import '../../../presenters/navigation_presenter.dart';
 import '../../../utils/session_manager.dart';
 import '../../../utils/validators.dart';
 import '../../../widgets/input/custom_input.dart';
@@ -10,6 +12,8 @@ import '../../../widgets/form_group.dart';
 import '../../../utils/select_api.dart';
 import '../../../widgets/selectbox/custom_selectbox.dart';
 import '_text.dart';
+
+final _navigation = Get.find<NavigationPresenter>();
 
 class TypeChildrenSource {
   bool isProcessing = false;
@@ -43,7 +47,10 @@ class TypeChildrenForm {
 
   Widget inputName() {
     return FormGroup(
-      label: Text(TypeChildrenText.labelName),
+      label: Obx(() => Text(TypeChildrenText.labelName,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputName,
@@ -58,7 +65,10 @@ class TypeChildrenForm {
 
   Widget inputCode() {
     return FormGroup(
-      label: Text(TypeChildrenText.labelCode),
+      label: Obx(() => Text(TypeChildrenText.labelCode,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputCode,
@@ -69,7 +79,10 @@ class TypeChildrenForm {
 
   Widget selectParent() {
     return FormGroup(
-      label: Text(TypeChildrenText.labelParent),
+      label: Obx(() => Text(TypeChildrenText.labelParent,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomSelectBox(
         searchable: true,
         disabled: source.isProcessing,
@@ -82,7 +95,10 @@ class TypeChildrenForm {
 
   Widget inputSeq() {
     return FormGroup(
-      label: Text(TypeChildrenText.labelSeq),
+      label: Obx(() => Text(TypeChildrenText.labelSeq,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputSeq,
@@ -97,7 +113,10 @@ class TypeChildrenForm {
 
   Widget inputDesc() {
     return FormGroup(
-      label: Text(TypeChildrenText.labelDesc),
+      label: Obx(() => Text(TypeChildrenText.labelDesc,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputDesc,
