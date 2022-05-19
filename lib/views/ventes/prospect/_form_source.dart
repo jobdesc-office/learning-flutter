@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '../../../constants/base_text.dart';
 import '../../../models/session_model.dart';
+import '../../../utils/select_api.dart';
 import '../../../utils/session_manager.dart';
 import '../../../utils/validators.dart';
 import '../../../widgets/button/button_role_user.dart';
@@ -21,10 +22,10 @@ class ProspectSource {
     BsSelectBoxOption(value: '{1}', text: Text('ID Rupiah')),
     BsSelectBoxOption(value: '{2}', text: Text('US Dollar'))
   ]);
-  BsSelectBoxController selectPipeline = BsSelectBoxController(options: [
-    BsSelectBoxOption(value: '{1}', text: Text('Pipeline')),
-    BsSelectBoxOption(value: '{2}', text: Text('Dougnut'))
-  ]);
+  // BsSelectBoxController selectPipeline = BsSelectBoxController(options: [
+  //   BsSelectBoxOption(value: '{1}', text: Text('Pipeline')),
+  //   BsSelectBoxOption(value: '{2}', text: Text('Dougnut'))
+  // ]);
   BsSelectBoxController selectVisible = BsSelectBoxController(options: [
     BsSelectBoxOption(value: '{1}', text: Text("Owner's visibility group")),
     BsSelectBoxOption(value: '{2}', text: Text('Employees'))
@@ -35,6 +36,10 @@ class ProspectSource {
   TextEditingController inputValue = TextEditingController();
   TextEditingController inputEmail = TextEditingController();
   TextEditingController inputPhone = TextEditingController();
+
+  List<BsSelectBoxController> selectsTax = List<BsSelectBoxController>.filled(
+      1, BsSelectBoxController(),
+      growable: true);
 
   List<BsSelectBoxController> selectsPrivationEmail =
       List<BsSelectBoxController>.filled(
@@ -70,6 +75,12 @@ class ProspectSource {
       List<TextEditingController>.filled(1, TextEditingController(),
           growable: true);
   List<TextEditingController> inputAmounts = List<TextEditingController>.filled(
+      1, TextEditingController(),
+      growable: true);
+  List<TextEditingController> inputDiscounts =
+      List<TextEditingController>.filled(1, TextEditingController(),
+          growable: true);
+  List<TextEditingController> inputTaxes = List<TextEditingController>.filled(
       1, TextEditingController(),
       growable: true);
 
@@ -209,17 +220,17 @@ class ProspectForm {
     );
   }
 
-  Widget inputPipeline() {
-    return FormGroup(
-      label: Text(ProspectText.labelPipeline),
-      child: CustomSelectBox(
-        searchable: false,
-        disabled: source.isProcessing,
-        controller: source.selectPipeline,
-        hintText: BaseText.hiintSelect(),
-      ),
-    );
-  }
+  // Widget inputPipeline() {
+  //   return FormGroup(
+  //     label: Text(ProspectText.labelPipeline),
+  //     child: CustomSelectBox(
+  //       searchable: false,
+  //       disabled: source.isProcessing,
+  //       controller: source.selectPipeline,
+  //       hintText: BaseText.hiintSelect(),
+  //     ),
+  //   );
+  // }
 
   Widget inputPipelineStage() {
     return FormGroup(
@@ -359,70 +370,124 @@ class ProspectForm {
         var inputPrice = source.inputPrices[index];
         var inputQuantity = source.inputQuantities[index];
         var inputAmount = source.inputAmounts[index];
+        var inputDiscount = source.inputDiscounts[index];
+        var inputTax = source.inputTaxes[index];
+        var selectTax = source.selectsTax[index];
         return BsRow(
           children: [
             BsCol(
-              margin: EdgeInsets.only(right: 5),
-              sizes: ColScreen(md: Col.col_5),
-              child: FormGroup(
-                label: Text(ProspectText.labelItem),
-                child: CustomInput(
-                  disabled: source.isProcessing,
-                  controller: inputItem,
-                  hintText: BaseText.hintText(),
-                  validators: [],
-                ),
+              sizes: ColScreen(sm: Col.col_11),
+              child: BsRow(
+                children: [
+                  BsCol(
+                    margin: EdgeInsets.only(right: 5),
+                    sizes: ColScreen(md: Col.col_8),
+                    child: FormGroup(
+                      label: Text(ProspectText.labelItem),
+                      child: CustomInput(
+                        disabled: source.isProcessing,
+                        controller: inputItem,
+                        hintText: BaseText.hintText(),
+                        validators: [],
+                      ),
+                    ),
+                  ),
+                  BsCol(
+                    margin: EdgeInsets.only(left: 5),
+                    sizes: ColScreen(md: Col.col_2),
+                    child: FormGroup(
+                      label: Text(ProspectText.labelAmount),
+                      child: CustomInput(
+                        disabled: source.isProcessing,
+                        controller: inputAmount,
+                        hintText: BaseText.hintText(),
+                        validators: [],
+                      ),
+                    ),
+                  ),
+                  BsCol(
+                    margin: EdgeInsets.only(left: 5),
+                    sizes: ColScreen(md: Col.col_2),
+                    child: FormGroup(
+                      label: Text(ProspectText.labelQuantity),
+                      child: CustomInput(
+                        disabled: source.isProcessing,
+                        controller: inputQuantity,
+                        hintText: BaseText.hintText(),
+                        validators: [],
+                      ),
+                    ),
+                  ),
+                  BsCol(
+                    sizes: ColScreen(md: Col.col_3),
+                    child: FormGroup(
+                      label: Text(ProspectText.labelPrice),
+                      child: CustomInput(
+                        disabled: source.isProcessing,
+                        controller: inputPrice,
+                        hintText: BaseText.hintText(),
+                        validators: [],
+                      ),
+                    ),
+                  ),
+                  BsCol(
+                    margin: EdgeInsets.only(left: 5),
+                    sizes: ColScreen(md: Col.col_3),
+                    child: FormGroup(
+                      label: Text(ProspectText.labelDiscount),
+                      child: CustomInput(
+                        disabled: source.isProcessing,
+                        controller: inputDiscount,
+                        hintText: BaseText.hintText(),
+                        validators: [],
+                      ),
+                    ),
+                  ),
+                  BsCol(
+                    margin: EdgeInsets.only(left: 5),
+                    sizes: ColScreen(md: Col.col_3),
+                    child: FormGroup(
+                      label: Text(ProspectText.labelTax),
+                      child: CustomInput(
+                        disabled: source.isProcessing,
+                        controller: inputTax,
+                        hintText: BaseText.hintText(),
+                        validators: [],
+                      ),
+                    ),
+                  ),
+                  BsCol(
+                    margin: EdgeInsets.only(left: 5),
+                    sizes: ColScreen(md: Col.col_3),
+                    child: FormGroup(
+                      label: Text(ProspectText.labelTaxType),
+                      child: CustomSelectBox(
+                        searchable: true,
+                        disabled: source.isProcessing,
+                        controller: selectTax,
+                        hintText: BaseText.hiintSelect(),
+                        serverSide: (params) => selectApiTaxTypes(params),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             BsCol(
-              margin: EdgeInsets.only(left: 5),
-              sizes: ColScreen(md: Col.col_2),
-              child: FormGroup(
-                label: Text(ProspectText.labelPrice),
-                child: CustomInput(
-                  disabled: source.isProcessing,
-                  controller: inputPrice,
-                  hintText: BaseText.hintText(),
-                  validators: [],
-                ),
-              ),
-            ),
-            BsCol(
-              margin: EdgeInsets.only(left: 5),
-              sizes: ColScreen(md: Col.col_2),
-              child: FormGroup(
-                label: Text(ProspectText.labelQuantity),
-                child: CustomInput(
-                  disabled: source.isProcessing,
-                  controller: inputQuantity,
-                  hintText: BaseText.hintText(),
-                  validators: [],
-                ),
-              ),
-            ),
-            BsCol(
-              margin: EdgeInsets.only(left: 5),
-              sizes: ColScreen(md: Col.col_2),
-              child: FormGroup(
-                label: Text(ProspectText.labelAmount),
-                child: CustomInput(
-                  disabled: source.isProcessing,
-                  controller: inputAmount,
-                  hintText: BaseText.hintText(),
-                  validators: [],
-                ),
-              ),
-            ),
-            BsCol(
-              margin: EdgeInsets.only(left: 5, top: 3),
-              sizes: ColScreen(lg: Col.col_1),
-              child: FormGroup(
-                label: Text(''),
-                child: ButtonMultipleCancel(
-                    disabled: source.inputItems.length > 1 ? false : true,
-                    margin: EdgeInsets.only(left: 10),
-                    onPressed: () => onRemoveItem(index)),
-              ),
+              sizes: ColScreen(sm: Col.col_1),
+              child: BsRow(children: [
+                BsCol(
+                  margin: EdgeInsets.only(left: 5, top: 3),
+                  sizes: ColScreen(lg: Col.col_12),
+                  child: FormGroup(
+                    label: Text(''),
+                    child: ButtonMultipleCancel(
+                        disabled: source.inputItems.length > 1 ? false : true,
+                        margin: EdgeInsets.only(left: 10),
+                        onPressed: () => onRemoveItem(index)),
+                  ),
+                )
+              ]),
             )
           ],
         );

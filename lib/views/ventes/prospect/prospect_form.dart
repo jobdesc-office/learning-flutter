@@ -49,7 +49,7 @@ class ProspectFormView extends StatelessWidget implements EditViewContract {
                           prospectForm.inputContact(),
                           prospectForm.inputTitle(),
                           prospectForm.inputValue(),
-                          prospectForm.inputPipeline(),
+                          // prospectForm.inputPipeline(),
                           prospectForm.inputPipelineStage(),
                           prospectForm.inputExpected(),
                           prospectForm.inputVisible(),
@@ -160,6 +160,12 @@ class ProspectFormView extends StatelessWidget implements EditViewContract {
                                                     TextEditingController());
                                                 source.value.inputAmounts.add(
                                                     TextEditingController());
+                                                source.value.inputTaxes.add(
+                                                    TextEditingController());
+                                                source.value.inputDiscounts.add(
+                                                    TextEditingController());
+                                                source.value.selectsTax.add(
+                                                    BsSelectBoxController());
                                               });
                                             },
                                             child: Text('+ Add More Items')),

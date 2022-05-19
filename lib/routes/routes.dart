@@ -117,6 +117,7 @@ class AppRoute {
         name: RouteList.ventesProspect.index,
         page: () => ProspectView(),
         binding: BindingsBuilder(() {
+          Get.lazyPut(() => TypeService());
           Get.lazyPut(() => MenuService());
           Get.lazyPut(() => MenuPresenter());
         }),

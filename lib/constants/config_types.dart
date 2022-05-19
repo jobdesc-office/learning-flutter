@@ -10,4 +10,6 @@ class ConfigType {
   static String schedule = notNull(types['schedule']);
 
   static String schedulePermission = notNull(types['schedulePermission']);
+
+  static String taxType = notNull(types['taxType']);
 }
