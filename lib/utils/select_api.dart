@@ -6,7 +6,9 @@ import 'package:get/get.dart';
 
 import '../constants/config_types.dart';
 import '../models/masters/businesspartner_model.dart';
+import '../models/masters/country_model.dart';
 import '../models/masters/user_model.dart';
+import '../services/masters/country_service.dart';
 import '../services/masters/type_service.dart';
 import '../services/masters/typechildren_service.dart';
 import '../services/masters/user_service.dart';
@@ -48,7 +50,7 @@ Future<BsSelectBoxResponse> selectApiRole(Map<String, String> params) async {
 
 Future<BsSelectBoxResponse> selectApiUser(Map<String, String> params) async {
   final userService = Get.find<UserService>();
-  Response response = await userService.all(params);
+  Response response = await userService.all();
   if (response.isOk) {
     if (response.statusCode == 200) {
       return BsSelectBoxResponse.createFromJson(
@@ -138,6 +140,23 @@ Future<BsSelectBoxResponse> selectApiTaxTypes(
         response.body,
         value: (data) => TypeModel.fromJson(data).typeid,
         renderText: (data) => Text(TypeModel.fromJson(data).typename),
+      );
+    }
+  }
+
+  return BsSelectBoxResponse(options: []);
+}
+
+Future<BsSelectBoxResponse> selectCountry(Map<String, String> params) async {
+  final countryService = Get.find<CountryService>();
+  Response response = await countryService.all();
+
+  if (response.isOk) {
+    if (response.statusCode == 200) {
+      return BsSelectBoxResponse.createFromJson(
+        response.body,
+        value: (data) => CountryModel.fromJson(data).countryid,
+        renderText: (data) => Text(CountryModel.fromJson(data).countryname),
       );
     }
   }

@@ -1,5 +1,4 @@
 import '../../helpers/function.dart';
-import 'type_model.dart';
 
 class CountryModel {
   int countryid;

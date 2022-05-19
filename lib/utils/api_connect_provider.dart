@@ -30,6 +30,10 @@ class ApiConnectProvider extends GetConnect {
     return get('$api/select', query: params);
   }
 
+  Future<Response> all() {
+    return get('$api/all');
+  }
+
   Future<Response> datatables(Map<String, dynamic> params) {
     return post('$api/datatables', params);
   }

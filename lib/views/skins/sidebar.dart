@@ -160,6 +160,11 @@ class SidebarSkins extends StatelessWidget {
                     ),
                     MenuData(
                       id: no++,
+                      route: RouteList.masterProvince.index,
+                      label: 'Provinces',
+                    ),
+                    MenuData(
+                      id: no++,
                       route: RouteList.settings.index,
                       label: 'Types',
                       children: [

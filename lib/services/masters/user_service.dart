@@ -8,8 +8,4 @@ class UserService extends ApiConnectProvider {
   Future<Response> select2(Map<String, dynamic> params) {
     return get('$api/select2', query: params);
   }
-
-  Future<Response> all(Map<String, dynamic> params) {
-    return get('$api/all', query: params);
-  }
 }
