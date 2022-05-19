@@ -146,17 +146,22 @@ class SidebarSkins extends StatelessWidget {
                     MenuData(
                       id: no++,
                       route: RouteList.masterUser.index,
-                      label: 'User',
+                      label: 'Users',
                     ),
                     MenuData(
                       id: no++,
                       route: RouteList.masterBusinessPartner.index,
-                      label: 'Business Partner',
+                      label: 'Business Partners',
+                    ),
+                    MenuData(
+                      id: no++,
+                      route: RouteList.masterCountry.index,
+                      label: 'Countries',
                     ),
                     MenuData(
                       id: no++,
                       route: RouteList.settings.index,
-                      label: 'Type',
+                      label: 'Types',
                       children: [
                         MenuData(
                           id: no++,
@@ -166,7 +171,7 @@ class SidebarSkins extends StatelessWidget {
                         MenuData(
                           id: no++,
                           route: RouteList.masterTypeChildren.index,
-                          label: 'Type Data',
+                          label: 'Type Datas',
                         ),
                       ],
                     ),
@@ -179,12 +184,12 @@ class SidebarSkins extends StatelessWidget {
                       MenuData(
                         id: no++,
                         route: RouteList.ventesSchedule.index,
-                        label: 'Schedule',
+                        label: 'Schedules',
                       ),
                       MenuData(
                         id: no++,
                         route: RouteList.ventesProspect.index,
-                        label: 'Prospect',
+                        label: 'Prospects',
                       ),
                     ])
                 // MenuDataGroup(

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../presenters/default/home_presenter.dart';
 import '../presenters/default/profile_presenter.dart';
 import '../presenters/masters/businesspartner_presenter.dart';
+import '../presenters/masters/country_presenter.dart';
 import '../presenters/masters/menu_presenter.dart';
 import '../presenters/ventes/schedule_presenter.dart';
 import '../presenters/masters/typechildren_presenter.dart';
@@ -11,6 +12,7 @@ import '../presenters/masters/user_presenter.dart';
 import '../services/default/home_service.dart';
 import '../services/default/profile_service.dart';
 import '../services/masters/businessPartner_service.dart';
+import '../services/masters/country_service.dart';
 import '../services/ventes/schedule_service.dart';
 import '../services/masters/type_service.dart';
 import '../services/masters/typechildren_service.dart';
@@ -22,6 +24,7 @@ import '../utils/guards/guest_guard.dart';
 import '../views/defaults/home/home.dart';
 import '../views/defaults/profile/profile.dart';
 import '../views/masters/businesspartners/businesspartner.dart';
+import '../views/masters/countries/country.dart';
 import '../views/masters/menus/menu.dart';
 import '../views/ventes/prospect/prospect.dart';
 import '../views/ventes/schedules/schedule.dart';
@@ -98,6 +101,14 @@ class AppRoute {
         binding: BindingsBuilder(() {
           Get.lazyPut(() => TypeChildrenService());
           Get.lazyPut(() => TypesChildrenPresenter());
+        }),
+      ),
+      CustomGetPage(
+        name: RouteList.masterCountry.index,
+        page: () => CountryView(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => CountryService());
+          Get.lazyPut(() => CountryPresenter());
         }),
       ),
 
