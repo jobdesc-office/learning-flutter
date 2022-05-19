@@ -7,8 +7,10 @@ import 'package:get/get.dart';
 import '../constants/config_types.dart';
 import '../models/masters/businesspartner_model.dart';
 import '../models/masters/country_model.dart';
+import '../models/masters/province_model.dart';
 import '../models/masters/user_model.dart';
 import '../services/masters/country_service.dart';
+import '../services/masters/province_service.dart';
 import '../services/masters/type_service.dart';
 import '../services/masters/typechildren_service.dart';
 import '../services/masters/user_service.dart';
@@ -157,6 +159,23 @@ Future<BsSelectBoxResponse> selectCountry(Map<String, String> params) async {
         response.body,
         value: (data) => CountryModel.fromJson(data).countryid,
         renderText: (data) => Text(CountryModel.fromJson(data).countryname),
+      );
+    }
+  }
+
+  return BsSelectBoxResponse(options: []);
+}
+
+Future<BsSelectBoxResponse> selectProvince(Map<String, String> params) async {
+  final provinceService = Get.find<ProvinceService>();
+  Response response = await provinceService.all();
+
+  if (response.isOk) {
+    if (response.statusCode == 200) {
+      return BsSelectBoxResponse.createFromJson(
+        response.body,
+        value: (data) => ProvinceModel.fromJson(data).provid,
+        renderText: (data) => Text(ProvinceModel.fromJson(data).provname),
       );
     }
   }

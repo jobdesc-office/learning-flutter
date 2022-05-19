@@ -154,15 +154,26 @@ class SidebarSkins extends StatelessWidget {
                       label: 'Business Partners',
                     ),
                     MenuData(
-                      id: no++,
-                      route: RouteList.masterCountry.index,
-                      label: 'Countries',
-                    ),
-                    MenuData(
-                      id: no++,
-                      route: RouteList.masterProvince.index,
-                      label: 'Provinces',
-                    ),
+                        id: no++,
+                        label: 'Region',
+                        route: RouteList.settings.index,
+                        children: [
+                          MenuData(
+                            id: no++,
+                            route: RouteList.masterCountry.index,
+                            label: 'Countries',
+                          ),
+                          MenuData(
+                            id: no++,
+                            route: RouteList.masterProvince.index,
+                            label: 'Provinces',
+                          ),
+                          MenuData(
+                            id: no++,
+                            route: RouteList.masterCity.index,
+                            label: 'Cities',
+                          ),
+                        ]),
                     MenuData(
                       id: no++,
                       route: RouteList.settings.index,
