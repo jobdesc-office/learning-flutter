@@ -18,6 +18,8 @@ class RouteList {
       RouteData(prefix: '/masters/typeparent');
   static final RouteData masterTypeChildren =
       RouteData(prefix: '/masters/typechildren');
+  static final RouteData masterCustomer =
+      RouteData(prefix: '/masters/customer');
 
   static final RouteData ventes = RouteData(prefix: '/-ventes');
 
