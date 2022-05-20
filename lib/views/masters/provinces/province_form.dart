@@ -37,7 +37,7 @@ class ProvinceFormView extends StatelessWidget implements EditViewContract {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 provinceForm.inputName(),
-                provinceForm.selectCountries(),
+                provinceForm.selectCountry(),
                 Obx(
                   () => Row(
                     mainAxisAlignment: MainAxisAlignment.end,

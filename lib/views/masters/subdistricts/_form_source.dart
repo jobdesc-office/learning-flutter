@@ -16,32 +16,32 @@ import '_text.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 
-class ProvinceSource {
+class SubdistrictSource {
   bool isProcessing = false;
 
   TextEditingController inputName = TextEditingController();
 
-  BsSelectBoxController selectCountry = BsSelectBoxController();
+  BsSelectBoxController choosedCity = BsSelectBoxController();
 
   Future<Map<String, dynamic>> toJson() async {
     SessionModel session = await SessionManager.current();
     return {
-      'provcountryid': selectCountry.getSelectedAsString(),
-      'provname': inputName.text,
+      'subdistrictcityid': choosedCity.getSelectedAsString(),
+      'subdistrictname': inputName.text,
       'createdby': session.userid,
       'updatedby': session.userid,
     };
   }
 }
 
-class ProvinceForm {
-  final ProvinceSource source;
+class SubdistrictForm {
+  final SubdistrictSource source;
 
-  ProvinceForm(this.source);
+  SubdistrictForm(this.source);
 
   Widget inputName() {
     return FormGroup(
-      label: Obx(() => Text(ProvinceText.labelName,
+      label: Obx(() => Text(SubdistrictText.labelName,
           style: TextStyle(
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
@@ -50,25 +50,25 @@ class ProvinceForm {
         controller: source.inputName,
         hintText: BaseText.hintText(),
         validators: [
-          Validators.inputRequired(ProvinceText.labelName),
-          Validators.maxLength(ProvinceText.labelName, 100),
+          Validators.inputRequired(SubdistrictText.labelName),
+          Validators.maxLength(SubdistrictText.labelName, 100),
         ],
       ),
     );
   }
 
-  Widget selectCountry() {
+  Widget selectCity() {
     return FormGroup(
-      label: Obx(() => Text(ProvinceText.labelCountry,
+      label: Obx(() => Text(SubdistrictText.labelCity,
           style: TextStyle(
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomSelectBox(
         searchable: true,
         disabled: source.isProcessing,
-        controller: source.selectCountry,
+        controller: source.choosedCity,
         hintText: BaseText.hiintSelect(),
-        serverSide: (params) => selectCountries(params),
+        serverSide: (params) => selectCities(params),
       ),
     );
   }

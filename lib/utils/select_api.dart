@@ -6,9 +6,11 @@ import 'package:get/get.dart';
 
 import '../constants/config_types.dart';
 import '../models/masters/businesspartner_model.dart';
+import '../models/masters/city_model.dart';
 import '../models/masters/country_model.dart';
 import '../models/masters/province_model.dart';
 import '../models/masters/user_model.dart';
+import '../services/masters/city_service.dart';
 import '../services/masters/country_service.dart';
 import '../services/masters/province_service.dart';
 import '../services/masters/type_service.dart';
@@ -149,7 +151,7 @@ Future<BsSelectBoxResponse> selectApiTaxTypes(
   return BsSelectBoxResponse(options: []);
 }
 
-Future<BsSelectBoxResponse> selectCountry(Map<String, String> params) async {
+Future<BsSelectBoxResponse> selectCountries(Map<String, String> params) async {
   final countryService = Get.find<CountryService>();
   Response response = await countryService.all();
 
@@ -166,7 +168,7 @@ Future<BsSelectBoxResponse> selectCountry(Map<String, String> params) async {
   return BsSelectBoxResponse(options: []);
 }
 
-Future<BsSelectBoxResponse> selectProvince(Map<String, String> params) async {
+Future<BsSelectBoxResponse> selectProvinces(Map<String, String> params) async {
   final provinceService = Get.find<ProvinceService>();
   Response response = await provinceService.all();
 
@@ -176,6 +178,23 @@ Future<BsSelectBoxResponse> selectProvince(Map<String, String> params) async {
         response.body,
         value: (data) => ProvinceModel.fromJson(data).provid,
         renderText: (data) => Text(ProvinceModel.fromJson(data).provname),
+      );
+    }
+  }
+
+  return BsSelectBoxResponse(options: []);
+}
+
+Future<BsSelectBoxResponse> selectCities(Map<String, String> params) async {
+  final cityService = Get.find<CityService>();
+  Response response = await cityService.all();
+
+  if (response.isOk) {
+    if (response.statusCode == 200) {
+      return BsSelectBoxResponse.createFromJson(
+        response.body,
+        value: (data) => CityModel.fromJson(data).cityid,
+        renderText: (data) => Text(CityModel.fromJson(data).cityname),
       );
     }
   }

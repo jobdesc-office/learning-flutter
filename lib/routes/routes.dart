@@ -7,6 +7,7 @@ import '../presenters/masters/city_presenter.dart';
 import '../presenters/masters/country_presenter.dart';
 import '../presenters/masters/menu_presenter.dart';
 import '../presenters/masters/province_presenter.dart';
+import '../presenters/masters/subdistrict_presenter.dart';
 import '../presenters/ventes/schedule_presenter.dart';
 import '../presenters/masters/typechildren_presenter.dart';
 import '../presenters/masters/typeparent_presenter.dart';
@@ -17,6 +18,7 @@ import '../services/masters/businessPartner_service.dart';
 import '../services/masters/city_service.dart';
 import '../services/masters/country_service.dart';
 import '../services/masters/province_service.dart';
+import '../services/masters/subdistrict_service.dart';
 import '../services/ventes/schedule_service.dart';
 import '../services/masters/type_service.dart';
 import '../services/masters/typechildren_service.dart';
@@ -32,6 +34,7 @@ import '../views/masters/cities/city.dart';
 import '../views/masters/countries/country.dart';
 import '../views/masters/menus/menu.dart';
 import '../views/masters/provinces/province.dart';
+import '../views/masters/subdistricts/subdistrict.dart';
 import '../views/ventes/prospect/prospect.dart';
 import '../views/ventes/schedules/schedule.dart';
 import '../views/masters/typeschildren/types_children.dart';
@@ -133,6 +136,16 @@ class AppRoute {
           Get.lazyPut(() => ProvinceService());
           Get.lazyPut(() => CityService());
           Get.lazyPut(() => CityPresenter());
+        }),
+      ),
+      CustomGetPage(
+        name: RouteList.masterSubdistrict.index,
+        page: () => SubdistrictView(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => ProvinceService());
+          Get.lazyPut(() => CityService());
+          Get.lazyPut(() => SubdistrictService());
+          Get.lazyPut(() => SubdistrictPresenter());
         }),
       ),
 

@@ -57,7 +57,7 @@ class CityForm {
     );
   }
 
-  Widget selectCountries() {
+  Widget selectProvince() {
     return FormGroup(
       label: Obx(() => Text(CityText.labelProvince,
           style: TextStyle(
@@ -68,7 +68,7 @@ class CityForm {
         disabled: source.isProcessing,
         controller: source.selectProvince,
         hintText: BaseText.hiintSelect(),
-        serverSide: (params) => selectProvince(params),
+        serverSide: (params) => selectProvinces(params),
       ),
     );
   }
