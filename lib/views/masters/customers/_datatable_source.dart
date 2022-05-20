@@ -2,7 +2,7 @@ import 'package:boilerplate/widgets/theme_badge.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 
-import '../../../models/security/menu_model.dart';
+import '../../../models/masters/customer_model.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_edit_datatable.dart';
 
@@ -22,45 +22,35 @@ class CustomerDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      BsDataColumn(label: Text('Customer Name'), columnName: 'menunm'),
-      BsDataColumn(label: Text('Customer Route'), columnName: 'route'),
-      BsDataColumn(label: Text('Customer Icon'), columnName: 'icon'),
-      BsDataColumn(label: Text('Customer Sequence'), columnName: 'seq'),
+      BsDataColumn(label: Text('Customer Name'), columnName: 'Customernm'),
+      BsDataColumn(label: Text('Customer Type'), columnName: 'route'),
+      BsDataColumn(label: Text('Customer Telp'), columnName: 'icon'),
       BsDataColumn(label: Text('Actions'), orderable: false, searchable: false),
     ];
   }
 
-  List<MenuModel> get menus =>
-      response.data.map((data) => MenuModel.fromJson(data)).toList();
+  List<CustomerModel> get customers =>
+      response.data.map((data) => CustomerModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
-    final row = menus[index];
+    final row = customers[index];
     return BsDataRow(
       index: index,
       cells: [
         BsDataCell(Text('${controller.start + index + 1}')),
-        BsDataCell(
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ThemeBadge(child: Text(row.menutype.typename)),
-              Text(row.menunm)
-            ],
-          ),
-        ),
-        BsDataCell(Text(row.route)),
-        BsDataCell(Text(row.icon)),
-        BsDataCell(Text(row.seq.toString())),
+        BsDataCell(Text(row.cstmname)),
+        BsDataCell(Text(row.typename)),
+        BsDataCell(Text(row.cstmphone)),
         BsDataCell(
           Row(
             children: [
               ButtonEditDatatables(
                 margin: EdgeInsets.only(right: 5),
-                onPressed: () => onEditListener(row.menuid),
+                onPressed: () => onEditListener(row.cstmid),
               ),
               ButtonDeleteDatatables(
-                  onPressed: () => onDeleteListener(row.menuid)),
+                  onPressed: () => onDeleteListener(row.cstmid)),
             ],
           ),
         ),

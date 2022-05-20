@@ -111,170 +111,177 @@ class SidebarSkins extends StatelessWidget {
                 ),
         ),
         Expanded(
-          child: AnimatedContainer(
-            duration: Duration(milliseconds: 0),
-            width: _navigation.isCollapse.value ? 70 : 250,
-            decoration: BoxDecoration(
-              color: _navigation.darkTheme.value
-                  ? ColorPallates.elseDarkColor
-                  : ColorPallates.elseLightColor,
-            ),
-            child: SidebarMenus(
-              isCollapse: _navigation.isCollapse.value,
-              activeRoute: activeRoute,
-              menus: [
-                MenuDataGroup(
-                  title: 'Navigasi Menu',
-                  children: [
-                    MenuData(
-                      id: no++,
-                      route: RouteList.home.index,
-                      label: 'Dashboard',
-                      icon: Icons.dashboard,
-                    ),
-                  ],
-                ),
-                MenuDataGroup(
-                  title: 'Master Data',
-                  icon: Icons.storage_outlined,
-                  children: [
-                    MenuData(
-                      id: no++,
-                      route: RouteList.masterMenu.index,
-                      label: 'Menus',
-                    ),
-                    MenuData(
-                      id: no++,
-                      route: RouteList.masterUser.index,
-                      label: 'Users',
-                    ),
-                    MenuData(
-                      id: no++,
-                      route: RouteList.masterBusinessPartner.index,
-                      label: 'Business Partners',
-                    ),
-                    MenuData(
-                        id: no++,
-                        label: 'Region',
-                        route: RouteList.settings.index,
-                        children: [
-                          MenuData(
-                            id: no++,
-                            route: RouteList.masterCountry.index,
-                            label: 'Countries',
-                          ),
-                          MenuData(
-                            id: no++,
-                            route: RouteList.masterProvince.index,
-                            label: 'Provinces',
-                          ),
-                          MenuData(
-                            id: no++,
-                            route: RouteList.masterCity.index,
-                            label: 'Cities',
-                          ),
-                          MenuData(
-                            id: no++,
-                            route: RouteList.masterSubdistrict.index,
-                            label: 'Subdistricts',
-                          ),
-                        ]),
-                    MenuData(
-                      id: no++,
-                      route: RouteList.settings.index,
-                      label: 'Types',
-                      children: [
-                        MenuData(
-                          id: no++,
-                          route: RouteList.masterTypeParent.index,
-                          label: 'Type Parents',
-                        ),
-                        MenuData(
-                          id: no++,
-                          route: RouteList.masterTypeChildren.index,
-                          label: 'Type Datas',
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                MenuDataGroup(
-                    title: 'Ventes Data',
-                    icon: Icons.analytics,
+          child: SingleChildScrollView(
+            child: AnimatedContainer(
+              duration: Duration(milliseconds: 0),
+              width: _navigation.isCollapse.value ? 70 : 250,
+              decoration: BoxDecoration(
+                color: _navigation.darkTheme.value
+                    ? ColorPallates.elseDarkColor
+                    : ColorPallates.elseLightColor,
+              ),
+              child: SidebarMenus(
+                isCollapse: _navigation.isCollapse.value,
+                activeRoute: activeRoute,
+                menus: [
+                  MenuDataGroup(
+                    title: 'Navigasi Menu',
                     children: [
                       MenuData(
                         id: no++,
-                        route: RouteList.ventesSchedule.index,
-                        label: 'Schedules',
+                        route: RouteList.home.index,
+                        label: 'Dashboard',
+                        icon: Icons.dashboard,
+                      ),
+                    ],
+                  ),
+                  MenuDataGroup(
+                    title: 'Master Data',
+                    icon: Icons.storage_outlined,
+                    children: [
+                      MenuData(
+                        id: no++,
+                        route: RouteList.masterMenu.index,
+                        label: 'Menus',
                       ),
                       MenuData(
                         id: no++,
-                        route: RouteList.ventesProspect.index,
-                        label: 'Prospects',
+                        route: RouteList.masterUser.index,
+                        label: 'Users',
                       ),
-                    ])
-                // MenuDataGroup(
-                //   title: 'Settings',
-                //   icon: Icons.settings_outlined,
-                //   children: [
-                //     MenuData(
-                //       id: no++,
-                //       route: RouteList.settings.index,
-                //       label: 'Security',
-                //       children: [
-                //         MenuData(
-                //           id: no++,
-                //           route: RouteList.settingsPrevileges.index,
-                //           label: 'Previleges',
-                //         ),
-                //         MenuData(
-                //           id: no++,
-                //           route: RouteList.settingsUser.index,
-                //           label: 'Role User',
-                //         ),
-                //       ],
-                //     ),
-                //     MenuData(
-                //         id: no++,
-                //         route: '/level',
-                //         label: 'Level Menu 1',
-                //         children: [
-                //           MenuData(
-                //               id: no++,
-                //               route: '/level-1',
-                //               label: 'Level Menu 1.1',
-                //               children: [
-                //                 MenuData(
-                //                   id: no++,
-                //                   route: '/level-1-1',
-                //                   label: 'Level Menu 1.1.1',
-                //                 ),
-                //                 MenuData(
-                //                     id: no++,
-                //                     route: '/level-1-2',
-                //                     label: 'Level Menu 1.1.2',
-                //                     children: [
-                //                       MenuData(
-                //                         id: no++,
-                //                         route: '/level-1-1-1',
-                //                         label: 'Level Menu 1.1.1.1',
-                //                       ),
-                //                       MenuData(
-                //                         id: no++,
-                //                         route: '/level-1-1-1',
-                //                         label: 'Level Menu 1.1.1.2',
-                //                       ),
-                //                     ]),
-                //               ]),
-                //           MenuData(
-                //             id: no++,
-                //             route: '/level-2',
-                //             label: 'Level Menu 1.2',
-                //           ),
-                //         ]),
-                //   ],
-                // ),
-              ],
+                      MenuData(
+                        id: no++,
+                        route: RouteList.masterCustomer.index,
+                        label: 'Customers',
+                      ),
+                      MenuData(
+                        id: no++,
+                        route: RouteList.masterBusinessPartner.index,
+                        label: 'Business Partners',
+                      ),
+                      MenuData(
+                          id: no++,
+                          label: 'Region',
+                          route: RouteList.settings.index,
+                          children: [
+                            MenuData(
+                              id: no++,
+                              route: RouteList.masterCountry.index,
+                              label: 'Countries',
+                            ),
+                            MenuData(
+                              id: no++,
+                              route: RouteList.masterProvince.index,
+                              label: 'Provinces',
+                            ),
+                            MenuData(
+                              id: no++,
+                              route: RouteList.masterCity.index,
+                              label: 'Cities',
+                            ),
+                            MenuData(
+                              id: no++,
+                              route: RouteList.masterSubdistrict.index,
+                              label: 'Subdistricts',
+                            ),
+                          ]),
+                      MenuData(
+                        id: no++,
+                        route: RouteList.settings.index,
+                        label: 'Types',
+                        children: [
+                          MenuData(
+                            id: no++,
+                            route: RouteList.masterTypeParent.index,
+                            label: 'Type Parents',
+                          ),
+                          MenuData(
+                            id: no++,
+                            route: RouteList.masterTypeChildren.index,
+                            label: 'Type Datas',
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  MenuDataGroup(
+                      title: 'Ventes Data',
+                      icon: Icons.analytics,
+                      children: [
+                        MenuData(
+                          id: no++,
+                          route: RouteList.ventesSchedule.index,
+                          label: 'Schedules',
+                        ),
+                        MenuData(
+                          id: no++,
+                          route: RouteList.ventesProspect.index,
+                          label: 'Prospects',
+                        ),
+                      ])
+                  // MenuDataGroup(
+                  //   title: 'Settings',
+                  //   icon: Icons.settings_outlined,
+                  //   children: [
+                  //     MenuData(
+                  //       id: no++,
+                  //       route: RouteList.settings.index,
+                  //       label: 'Security',
+                  //       children: [
+                  //         MenuData(
+                  //           id: no++,
+                  //           route: RouteList.settingsPrevileges.index,
+                  //           label: 'Previleges',
+                  //         ),
+                  //         MenuData(
+                  //           id: no++,
+                  //           route: RouteList.settingsUser.index,
+                  //           label: 'Role User',
+                  //         ),
+                  //       ],
+                  //     ),
+                  //     MenuData(
+                  //         id: no++,
+                  //         route: '/level',
+                  //         label: 'Level Menu 1',
+                  //         children: [
+                  //           MenuData(
+                  //               id: no++,
+                  //               route: '/level-1',
+                  //               label: 'Level Menu 1.1',
+                  //               children: [
+                  //                 MenuData(
+                  //                   id: no++,
+                  //                   route: '/level-1-1',
+                  //                   label: 'Level Menu 1.1.1',
+                  //                 ),
+                  //                 MenuData(
+                  //                     id: no++,
+                  //                     route: '/level-1-2',
+                  //                     label: 'Level Menu 1.1.2',
+                  //                     children: [
+                  //                       MenuData(
+                  //                         id: no++,
+                  //                         route: '/level-1-1-1',
+                  //                         label: 'Level Menu 1.1.1.1',
+                  //                       ),
+                  //                       MenuData(
+                  //                         id: no++,
+                  //                         route: '/level-1-1-1',
+                  //                         label: 'Level Menu 1.1.1.2',
+                  //                       ),
+                  //                     ]),
+                  //               ]),
+                  //           MenuData(
+                  //             id: no++,
+                  //             route: '/level-2',
+                  //             label: 'Level Menu 1.2',
+                  //           ),
+                  //         ]),
+                  //   ],
+                  // ),
+                ],
+              ),
             ),
           ),
         )
