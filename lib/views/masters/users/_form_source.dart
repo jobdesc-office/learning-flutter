@@ -38,10 +38,12 @@ class UserSource extends GetxController {
   TextEditingController inputEmail = TextEditingController();
   TextEditingController inputPhone = TextEditingController();
 
-  List<BsSelectBoxController> selectsRole =
-      List<BsSelectBoxController>.empty(growable: true);
-  List<BsSelectBoxController> selectsBp =
-      List<BsSelectBoxController>.empty(growable: true);
+  List<BsSelectBoxController> selectsRole = List<BsSelectBoxController>.filled(
+      1, BsSelectBoxController(),
+      growable: true);
+  List<BsSelectBoxController> selectsBp = List<BsSelectBoxController>.filled(
+      1, BsSelectBoxController(),
+      growable: true);
 
   List<Map<String, dynamic>> jsonRoles() {
     return List<Map<String, dynamic>>.from(selectsRole.map((controller) {

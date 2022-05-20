@@ -41,6 +41,11 @@ class CustomSelectBox extends BsSelectBox {
             padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
           ),
           dialogStyle: BsDialogBoxStyle(
+            itemColor: _navigation.darkTheme.value
+                ? ColorPallates.elseDarkColor
+                : Colors.white,
+            itemTextColor:
+                _navigation.darkTheme.value ? Colors.white : Colors.black,
             backgroundColor: _navigation.darkTheme.value
                 ? ColorPallates.elseDarkColor
                 : Colors.white,
