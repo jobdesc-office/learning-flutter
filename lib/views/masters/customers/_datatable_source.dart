@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 
 import '../../../models/masters/customer_model.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
+import '../../../widgets/button/button_details_datatable.dart';
 import '../../../widgets/button/button_edit_datatable.dart';
 
 class CustomerDataTableSource extends BsDatatableSource {
+  ValueChanged<int> onDetailsListener = (value) {};
   ValueChanged<int> onEditListener = (value) {};
   ValueChanged<int> onDeleteListener = (value) {};
 
@@ -45,6 +47,10 @@ class CustomerDataTableSource extends BsDatatableSource {
         BsDataCell(
           Row(
             children: [
+              ButtonDetailsDatatables(
+                margin: EdgeInsets.only(right: 5),
+                onPressed: () => onDetailsListener(row.cstmid),
+              ),
               ButtonEditDatatables(
                 margin: EdgeInsets.only(right: 5),
                 onPressed: () => onEditListener(row.cstmid),

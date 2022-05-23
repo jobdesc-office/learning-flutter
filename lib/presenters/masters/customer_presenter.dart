@@ -5,8 +5,11 @@ import '../../constants/base_text.dart';
 import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
+import '../../contracts/master/customerAddress_contract.dart';
 import '../../services/masters/customer_service.dart';
+import '../../utils/connect_internet_api.dart';
 import '../../utils/custom_get_controller.dart';
+import '../../views/masters/customers/customer_details.dart';
 import '../../views/masters/customers/customer_form.dart';
 import '../../widgets/confirm_dialog.dart';
 
@@ -29,6 +32,19 @@ class CustomerPresenter extends CustomGetXController {
     _customerDataDetailsContract = customerDataDetailsContract;
   }
 
+  late CustomerAddressContract _loadAddressContract;
+  set customerAddresContract(CustomerAddressContract loadAddressContract) {
+    _loadAddressContract = loadAddressContract;
+  }
+
+  void address(String latitudelongitude) async {
+    Response response = await ConnectInternetAPI().address(latitudelongitude);
+    if (response.statusCode == 200)
+      _loadAddressContract.onLoadAddressSuccess(response);
+    else
+      _customerViewContract.onErrorRequest(response);
+  }
+
   Future datatables(BuildContext context, Map<String, String> params) async {
     Response response = await _customerService.datatables(params);
     if (response.statusCode == 200)
@@ -37,19 +53,19 @@ class CustomerPresenter extends CustomGetXController {
       _customerViewContract.onErrorRequest(response);
   }
 
-  // void details(BuildContext context, int userid) async {
-  //   setProcessing(true);
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) => CustomerDetails(),
-  //   );
+  void details(BuildContext context, int userid) async {
+    setProcessing(true);
+    showDialog(
+      context: context,
+      builder: (context) => CustomerDetails(),
+    );
 
-  //   Response response = await _CustomerService.show(userid);
-  //   if (response.statusCode == 200)
-  //     _CustomerDataDetailsContract.onSuccessFetchData(response);
-  //   else
-  //     _CustomerViewContract.onErrorRequest(response);
-  // }
+    Response response = await _customerService.show(userid);
+    if (response.statusCode == 200)
+      _customerDataDetailsContract.onSuccessFetchData(response);
+    else
+      _customerViewContract.onErrorRequest(response);
+  }
 
   void add(BuildContext context) async {
     showDialog(

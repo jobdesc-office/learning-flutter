@@ -12,9 +12,9 @@ import '../../../presenters/ventes/schedule_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
+import '../../../widgets/map/_map_source.dart';
 import '../../../widgets/snackbar.dart';
 import '_form_source.dart';
-import '_map_source.dart';
 
 class ScheduleFormView extends StatelessWidget
     implements IndexViewContract, EditViewContract {
@@ -176,7 +176,7 @@ class ScheduleFormView extends StatelessWidget
       source.value.online.value = menu.online;
       source.value.allDay.value = menu.allday;
       source.value.private.value = menu.private;
-      map.coordinate.value = menu.loc;
+      map.linkCoordinate.value = menu.loc;
     });
   }
 

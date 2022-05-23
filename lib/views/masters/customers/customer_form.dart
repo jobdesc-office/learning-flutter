@@ -1,9 +1,12 @@
 import 'package:boilerplate/views/skins/template.dart';
+import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/edit_view_contract.dart';
+import '../../../contracts/master/customerAddress_contract.dart';
 import '../../../models/masters/customer_model.dart';
+import '../../../models/masters/maps_model.dart';
 import '../../../presenters/masters/customer_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
@@ -11,7 +14,8 @@ import '../../../widgets/button/theme_button_save.dart';
 
 import '_form_source.dart';
 
-class CustomerFormView extends StatelessWidget implements EditViewContract {
+class CustomerFormView extends StatelessWidget
+    implements EditViewContract, CustomerAddressContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final CustomerPresenter presenter = Get.find<CustomerPresenter>();
   final source = CustomerSource().obs;
@@ -21,6 +25,7 @@ class CustomerFormView extends StatelessWidget implements EditViewContract {
 
   CustomerFormView({required this.onSave}) {
     presenter.customerFetchDataContract = this;
+    presenter.customerAddresContract = this;
   }
 
   @override
@@ -35,7 +40,53 @@ class CustomerFormView extends StatelessWidget implements EditViewContract {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                customerForm.inputName(),
+                BsRow(
+                  children: [
+                    BsCol(
+                      margin: EdgeInsets.only(bottom: 10),
+                      sizes: ColScreen(sm: Col.col_4),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(color: Colors.grey.shade300)),
+                        child: Container(
+                          margin: EdgeInsets.all(10),
+                          child: Column(
+                            children: [
+                              customerForm.inputPrefix(),
+                              customerForm.inputName(),
+                              customerForm.inputPhone(),
+                              customerForm.selectTypes(),
+                              customerForm.inputReferal(),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    BsCol(
+                      margin: EdgeInsets.only(left: 10, bottom: 10),
+                      sizes: ColScreen(sm: Col.col_8),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(color: Colors.grey.shade300)),
+                        child: Container(
+                          margin: EdgeInsets.all(10),
+                          child: Column(
+                            children: [
+                              customerForm.btnMap(context),
+                              customerForm.inputProvince(),
+                              customerForm.inputCity(),
+                              customerForm.inputSubdistrict(),
+                              customerForm.inputPostal(),
+                              customerForm.inputAddress(),
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
                 Obx(
                   () => Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -82,5 +133,44 @@ class CustomerFormView extends StatelessWidget implements EditViewContract {
     //   CustomerModel Customer = CustomerModel.fromJson(response.body);
     //   source.value.inputName.text = Customer.Customername;
     // });
+  }
+
+  @override
+  void onLoadAddressSuccess(Response response) {
+    customerForm.source.isnGetLatLong.value = false;
+    MapsLoc address = MapsLoc.fromJson(response.body);
+    List<AddressComponents>? addresses =
+        address.adresses?.first.addressComponents;
+
+    String cityy = addresses!
+            .firstWhere((element) =>
+                element.types!.contains('administrative_area_level_2'))
+            .longName ??
+        "";
+    // replace word Kota, Kab, or Kabupaten with Empty String
+    String city = cityy.replaceAll(RegExp(r'Kota |Kabupaten |Kab '), '');
+
+    String subdistrictt = addresses
+            .firstWhere((element) =>
+                element.types!.contains('administrative_area_level_3'))
+            .longName ??
+        "";
+
+    String subdistrict =
+        subdistrictt.replaceAll(RegExp(r'Kecamatan |Kec '), '');
+
+    source.value.inputProvince.text = addresses
+        .firstWhere(
+            (element) => element.types!.contains('administrative_area_level_1'))
+        .longName
+        .toString();
+    source.value.inputCity.text = city;
+    source.value.inputSubdistrict.text = subdistrict;
+    source.value.inputPostal.text = addresses
+        .firstWhere((element) => element.types!.contains('postal_code'))
+        .longName
+        .toString();
+    source.value.inputAddress.text =
+        address.adresses!.first.formattedAddress.toString();
   }
 }

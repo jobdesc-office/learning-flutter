@@ -17,9 +17,9 @@ import '../../../widgets/button/button_role_user.dart';
 import '../../../widgets/form_group.dart';
 import '../../../widgets/input/custom_input.dart';
 import '../../../widgets/input/custom_input_number.dart';
+import '../../../widgets/map/_map_source.dart';
+import '../../../widgets/map/map.dart';
 import '../../../widgets/selectbox/custom_selectbox.dart';
-import '_map_source.dart';
-import 'map.dart';
 import '_text.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
@@ -82,7 +82,7 @@ class ScheduleSource extends GetxController {
       'schetowardid': selectToward.getSelectedAsString(),
       'schebpid': selectBp.getSelectedAsString(),
       'scheallday': allDay.value,
-      'scheloc': map.coordinate.value,
+      'scheloc': map.linkCoordinate.value,
       'scheprivate': private.value,
       'scheonline': online.value,
       'schetz': selectTimeZone.getSelectedAsString(),
@@ -428,9 +428,9 @@ class ScheduleForm {
               width: MediaQuery.of(context).size.width,
               disabled: source.online.value ? true : false,
               onPressed: () => Get.to(GoogleMapsPage()),
-              label: Obx(() => Text(map.coordinate.isEmpty
+              label: Obx(() => Text(map.latitudelongitude.isEmpty
                   ? "Choose the Place"
-                  : map.coordinate.value)),
+                  : map.latitudelongitude.value)),
             ),
           ),
         )
@@ -455,7 +455,7 @@ class ScheduleForm {
                   onChanged: (value) {
                     source.online.toggle();
 
-                    map.coordinate.value = '';
+                    map.linkCoordinate.value = '';
                   },
                 )),
           ),

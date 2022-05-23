@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -105,13 +106,17 @@ class _GoogleMapsPageState extends State<GoogleMapsPage> {
                   ),
                 ),
                 onPressed: () {
-                  controller.coordinate.value =
-                      'https://maps.google.com?q=${cameraPosition.target.latitude},${cameraPosition.target.longitude}';
+                  controller.latitude.value = cameraPosition.target.latitude;
+                  controller.longitude.value = cameraPosition.target.longitude;
+                  controller.linkCoordinate.value =
+                      'https://maps.googleapis.com/maps/api/geocode/json?latlng=${cameraPosition.target.latitude},${cameraPosition.target.longitude}&key=AIzaSyDUYfxm7qJq8dcMMhvhaoUukhQqMxBO6oc';
+                  controller.latitudelongitude.value =
+                      '${cameraPosition.target.latitude},${cameraPosition.target.longitude}';
                   Navigator.pop(context, true);
                 },
                 style: ButtonStyle(
                   backgroundColor:
-                      MaterialStateProperty.all<Color>(const Color(0xFFA3080C)),
+                      MaterialStateProperty.all<Color>(ColorPallates.primary),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),

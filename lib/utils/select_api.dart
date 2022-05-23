@@ -12,6 +12,7 @@ import '../models/masters/province_model.dart';
 import '../models/masters/user_model.dart';
 import '../services/masters/city_service.dart';
 import '../services/masters/country_service.dart';
+import '../services/masters/customer_service.dart';
 import '../services/masters/province_service.dart';
 import '../services/masters/type_service.dart';
 import '../services/masters/typechildren_service.dart';
@@ -39,6 +40,23 @@ Future<BsSelectBoxResponse> selectApiMenu(Map<String, String> params) async {
 Future<BsSelectBoxResponse> selectApiRole(Map<String, String> params) async {
   final userService = Get.find<UserService>();
   Response response = await userService.select(params);
+  if (response.isOk) {
+    if (response.statusCode == 200) {
+      return BsSelectBoxResponse.createFromJson(
+        response.body,
+        value: (data) => TypeModel.fromJson(data).typeid,
+        renderText: (data) => Text(TypeModel.fromJson(data).typename),
+      );
+    }
+  }
+
+  return BsSelectBoxResponse(options: []);
+}
+
+Future<BsSelectBoxResponse> selectApiCustomerType(
+    Map<String, String> params) async {
+  final typeService = Get.put(TypeService());
+  Response response = await typeService.byCode('cstmtype');
   if (response.isOk) {
     if (response.statusCode == 200) {
       return BsSelectBoxResponse.createFromJson(

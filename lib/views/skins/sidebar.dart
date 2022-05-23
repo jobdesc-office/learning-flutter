@@ -133,6 +133,12 @@ class SidebarSkins extends StatelessWidget {
                         label: 'Dashboard',
                         icon: Icons.dashboard,
                       ),
+                      MenuData(
+                        id: no++,
+                        route: RouteList.home.index,
+                        label: 'Dashboard',
+                        icon: Icons.dashboard,
+                      ),
                     ],
                   ),
                   MenuDataGroup(

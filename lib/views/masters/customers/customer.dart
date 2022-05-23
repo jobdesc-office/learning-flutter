@@ -86,6 +86,8 @@ class CustomerView extends GetView implements IndexViewContract {
   void onLoadDatatables(BuildContext context, Response response) {
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
+    datatable.onDetailsListener =
+        (userid) => presenter.details(context, userid);
     // datatable.onEditListener =
     //     (countryid) => presenter.edit(context, countryid);
     // datatable.onDeleteListener =
