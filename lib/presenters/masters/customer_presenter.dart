@@ -12,7 +12,6 @@ import '../../services/masters/province_service.dart';
 import '../../services/masters/subdistrict_service.dart';
 import '../../utils/connect_internet_api.dart';
 import '../../utils/custom_get_controller.dart';
-import '../../views/masters/customers/_region_source.dart';
 import '../../views/masters/customers/customer_details.dart';
 import '../../views/masters/customers/customer_form.dart';
 import '../../widgets/confirm_dialog.dart';
@@ -22,7 +21,6 @@ class CustomerPresenter extends CustomGetXController {
   final _provinceService = Get.find<ProvinceService>();
   final _cityService = Get.find<CityService>();
   final _subdistrictService = Get.find<SubdistrictService>();
-  final _source = Get.put(CustomerRegionSource());
 
   late IndexViewContract _customerViewContract;
   set customerViewContract(IndexViewContract customerViewContract) {
