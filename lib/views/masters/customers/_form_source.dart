@@ -18,7 +18,6 @@ import '../../../widgets/map/map.dart';
 import '../../../widgets/selectbox/custom_selectbox.dart';
 import '../../../widgets/form_group.dart';
 
-import '_region_source.dart';
 import '_text.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
@@ -44,7 +43,6 @@ class CustomerSource extends GetxController {
     // _presenter.getProvinceId({'name': inputProvince.text});
     // _presenter.getCityId({'name': inputCity.text});
     // _presenter.getSubdistrictId({'name': inputSubdistrict.text});
-    final _source = Get.put(CustomerRegionSource());
     int provid = await _presenter.getProvinceId({'name': inputProvince.text});
     int cityid = await _presenter.getCityId({'name': inputCity.text});
     int subdistrictid =
