@@ -53,4 +53,8 @@ class ApiConnectProvider extends GetConnect {
   Future<Response> destroy(int id, {Map<String, dynamic>? query}) {
     return delete('$api/$id', query: query);
   }
+
+  Future<Response> byName(Map<String, dynamic> params) {
+    return get('$api/by-name', query: params);
+  }
 }

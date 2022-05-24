@@ -6,15 +6,23 @@ import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
 import '../../contracts/master/customerAddress_contract.dart';
+import '../../services/masters/city_service.dart';
 import '../../services/masters/customer_service.dart';
+import '../../services/masters/province_service.dart';
+import '../../services/masters/subdistrict_service.dart';
 import '../../utils/connect_internet_api.dart';
 import '../../utils/custom_get_controller.dart';
+import '../../views/masters/customers/_region_source.dart';
 import '../../views/masters/customers/customer_details.dart';
 import '../../views/masters/customers/customer_form.dart';
 import '../../widgets/confirm_dialog.dart';
 
 class CustomerPresenter extends CustomGetXController {
   final _customerService = Get.find<CustomerService>();
+  final _provinceService = Get.find<ProvinceService>();
+  final _cityService = Get.find<CityService>();
+  final _subdistrictService = Get.find<SubdistrictService>();
+  final _source = Get.put(CustomerRegionSource());
 
   late IndexViewContract _customerViewContract;
   set customerViewContract(IndexViewContract customerViewContract) {
@@ -65,6 +73,30 @@ class CustomerPresenter extends CustomGetXController {
       _customerDataDetailsContract.onSuccessFetchData(response);
     else
       _customerViewContract.onErrorRequest(response);
+  }
+
+  Future getProvinceId(Map<String, dynamic> params) async {
+    Response response = await _provinceService.byName(params);
+    if (response.statusCode == 200) {
+      return response.body['provid'];
+    }
+    return null;
+  }
+
+  Future getCityId(Map<String, dynamic> params) async {
+    Response response = await _cityService.byName(params);
+    if (response.statusCode == 200) {
+      return response.body['cityid'];
+    }
+    return null;
+  }
+
+  Future getSubdistrictId(Map<String, dynamic> params) async {
+    Response response = await _subdistrictService.byName(params);
+    if (response.statusCode == 200) {
+      return response.body['subdistrictid'];
+    }
+    return null;
   }
 
   void add(BuildContext context) async {

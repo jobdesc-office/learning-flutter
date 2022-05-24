@@ -148,7 +148,8 @@ class CustomerFormView extends StatelessWidget
             .longName ??
         "";
     // replace word Kota, Kab, or Kabupaten with Empty String
-    String city = cityy.replaceAll(RegExp(r'Kota |Kabupaten |Kab '), '');
+    String city =
+        cityy.replaceAll(RegExp(r'Kota |Kabupaten |Kab |Regency '), '');
 
     String subdistrictt = addresses
             .firstWhere((element) =>

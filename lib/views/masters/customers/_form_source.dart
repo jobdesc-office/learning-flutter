@@ -18,9 +18,11 @@ import '../../../widgets/map/map.dart';
 import '../../../widgets/selectbox/custom_selectbox.dart';
 import '../../../widgets/form_group.dart';
 
+import '_region_source.dart';
 import '_text.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
+final _presenter = Get.find<CustomerPresenter>();
 
 class CustomerSource extends GetxController {
   bool isProcessing = false;
@@ -39,9 +41,28 @@ class CustomerSource extends GetxController {
   BsSelectBoxController selectType = BsSelectBoxController();
 
   Future<Map<String, dynamic>> toJson() async {
+    // _presenter.getProvinceId({'name': inputProvince.text});
+    // _presenter.getCityId({'name': inputCity.text});
+    // _presenter.getSubdistrictId({'name': inputSubdistrict.text});
+    final _source = Get.put(CustomerRegionSource());
+    int provid = await _presenter.getProvinceId({'name': inputProvince.text});
+    int cityid = await _presenter.getCityId({'name': inputCity.text});
+    int subdistrictid =
+        await _presenter.getSubdistrictId({'name': inputSubdistrict.text});
     SessionModel session = await SessionManager.current();
+    final map = Get.put(mapSource());
     return {
-      'Customername': inputName.text,
+      'cstmprefix': inputPrefix.text,
+      'cstmname': inputName.text,
+      'cstmtypeid': selectType.getSelectedAsString(),
+      'cstmprovinceid': provid.toString(),
+      'cstmcityid': cityid.toString(),
+      'cstmsubdistrictid': subdistrictid.toString(),
+      'cstmuvid': null,
+      'cstmpostalcode': inputPostal.text,
+      'cstmlatitude': map.latitude.value,
+      'cstmlongitude': map.longitude.value,
+      'referalcode': inputReferal.text,
       'createdby': session.userid,
       'updatedby': session.userid,
     };

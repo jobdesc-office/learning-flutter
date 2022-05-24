@@ -8,6 +8,7 @@ import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_create.dart';
 import '../../../widgets/datatables/custom_datatable.dart';
+import '../../../widgets/map/_map_source.dart';
 import '../../../widgets/snackbar.dart';
 import '../../skins/template.dart';
 import '_datatable_source.dart';
@@ -55,6 +56,8 @@ class CustomerView extends GetView implements IndexViewContract {
 
   @override
   void onCreateSuccess(Response response, {BuildContext? context}) {
+    final map = Get.find<mapSource>();
+    map.reset();
     presenter.setProcessing(false);
     datatable.controller.reload();
     if (context != null) Navigator.pop(context);

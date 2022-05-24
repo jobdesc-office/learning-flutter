@@ -95,6 +95,9 @@ class AppRoute {
         name: RouteList.masterCustomer.index,
         page: () => CustomerView(),
         binding: BindingsBuilder(() {
+          Get.lazyPut(() => ProvinceService());
+          Get.lazyPut(() => CityService());
+          Get.lazyPut(() => SubdistrictService());
           Get.lazyPut(() => CustomerService());
           Get.lazyPut(() => CustomerPresenter());
         }),
