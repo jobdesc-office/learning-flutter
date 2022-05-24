@@ -1,5 +1,6 @@
 import 'package:boilerplate/views/skins/template.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
+import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -129,10 +130,20 @@ class CustomerFormView extends StatelessWidget
   void onSuccessFetchData(Response response) {
     presenter.setProcessing(false);
 
-    // source.update((val) {
-    //   CustomerModel Customer = CustomerModel.fromJson(response.body);
-    //   source.value.inputName.text = Customer.Customername;
-    // });
+    source.update((val) {
+      CustomerModel customer = CustomerModel.fromJson(response.body);
+      source.value.inputPrefix.text = customer.cstmprefix;
+      source.value.inputName.text = customer.cstmname;
+      source.value.inputPhone.text = customer.cstmphone;
+      source.value.inputAddress.text = customer.cstmaddress;
+      source.value.selectType.setSelected(BsSelectBoxOption(
+          value: customer.cstmtypeid, text: Text(customer.typename)));
+      source.value.inputReferal.text = customer.referalcode;
+      source.value.inputProvince.text = customer.provname;
+      source.value.inputCity.text = customer.cityname;
+      source.value.inputSubdistrict.text = customer.subdistrictname;
+      source.value.inputPostal.text = customer.cstmpostalcode;
+    });
   }
 
   @override

@@ -52,6 +52,8 @@ class CustomerSource extends GetxController {
     return {
       'cstmprefix': inputPrefix.text,
       'cstmname': inputName.text,
+      'cstmphone': inputPhone.text,
+      'cstmaddress': inputAddress.text,
       'cstmtypeid': selectType.getSelectedAsString(),
       'cstmprovinceid': provid.toString(),
       'cstmcityid': cityid.toString(),

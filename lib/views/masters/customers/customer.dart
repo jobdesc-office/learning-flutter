@@ -66,6 +66,8 @@ class CustomerView extends GetView implements IndexViewContract {
 
   @override
   void onDeleteSuccess(Response response, {BuildContext? context}) {
+    final map = Get.find<mapSource>();
+    map.reset();
     presenter.setProcessing(false);
     datatable.controller.reload();
     if (context != null) Navigator.pop(context);
@@ -74,6 +76,8 @@ class CustomerView extends GetView implements IndexViewContract {
 
   @override
   void onEditSuccess(Response response, {BuildContext? context}) {
+    final map = Get.find<mapSource>();
+    map.reset();
     presenter.setProcessing(false);
     datatable.controller.reload();
     if (context != null) Navigator.pop(context);
@@ -91,9 +95,9 @@ class CustomerView extends GetView implements IndexViewContract {
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onDetailsListener =
         (userid) => presenter.details(context, userid);
-    // datatable.onEditListener =
-    //     (countryid) => presenter.edit(context, countryid);
-    // datatable.onDeleteListener =
-    //     (countryid) => presenter.delete(context, countryid);
+    datatable.onEditListener =
+        (countryid) => presenter.edit(context, countryid);
+    datatable.onDeleteListener =
+        (countryid) => presenter.delete(context, countryid);
   }
 }

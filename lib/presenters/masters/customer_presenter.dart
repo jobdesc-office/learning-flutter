@@ -114,49 +114,49 @@ class CustomerPresenter extends CustomGetXController {
       _customerViewContract.onErrorRequest(response);
   }
 
-  // void edit(BuildContext context, int id) async {
-  //   setProcessing(true);
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) => CustomerFormView(
-  //       onSave: (body) => update(context, body, id),
-  //     ),
-  //   );
+  void edit(BuildContext context, int id) async {
+    setProcessing(true);
+    showDialog(
+      context: context,
+      builder: (context) => CustomerFormView(
+        onSave: (body) => update(context, body, id),
+      ),
+    );
 
-  //   Response response = await _customerService.show(id);
-  //   if (response.statusCode == 200)
-  //     _customerFetchDataContract.onSuccessFetchData(response);
-  //   else
-  //     _customerViewContract.onErrorRequest(response);
-  // }
+    Response response = await _customerService.show(id);
+    if (response.statusCode == 200)
+      _customerFetchDataContract.onSuccessFetchData(response);
+    else
+      _customerViewContract.onErrorRequest(response);
+  }
 
-  // void update(BuildContext context, Map<String, dynamic> body, int id) async {
-  //   setProcessing(true);
-  //   Response response = await _customerService.update(id, body);
-  //   if (response.statusCode == 200)
-  //     _customerViewContract.onEditSuccess(response, context: context);
-  //   else
-  //     _customerViewContract.onErrorRequest(response);
-  // }
+  void update(BuildContext context, Map<String, dynamic> body, int id) async {
+    setProcessing(true);
+    Response response = await _customerService.update(id, body);
+    if (response.statusCode == 200)
+      _customerViewContract.onEditSuccess(response, context: context);
+    else
+      _customerViewContract.onErrorRequest(response);
+  }
 
-  // void delete(BuildContext context, int typeid) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) => ConfirmDialog(
-  //       title: BaseText.confirmTitle,
-  //       message: BaseText.confirmMessage,
-  //       onPressed: (_, value) async {
-  //         if (value == ConfirmDialogOption.YES_OPTION) {
-  //           Response response = await _customerService.destroy(typeid);
-  //           if (response.statusCode == 200)
-  //             _customerViewContract.onDeleteSuccess(response, context: context);
-  //           else
-  //             _customerViewContract.onErrorRequest(response);
-  //         } else {
-  //           Navigator.pop(context);
-  //         }
-  //       },
-  //     ),
-  //   );
-  // }
+  void delete(BuildContext context, int typeid) {
+    showDialog(
+      context: context,
+      builder: (context) => ConfirmDialog(
+        title: BaseText.confirmTitle,
+        message: BaseText.confirmMessage,
+        onPressed: (_, value) async {
+          if (value == ConfirmDialogOption.YES_OPTION) {
+            Response response = await _customerService.destroy(typeid);
+            if (response.statusCode == 200)
+              _customerViewContract.onDeleteSuccess(response, context: context);
+            else
+              _customerViewContract.onErrorRequest(response);
+          } else {
+            Navigator.pop(context);
+          }
+        },
+      ),
+    );
+  }
 }
