@@ -69,4 +69,28 @@ class Snackbar {
           size: 30,
         ));
   }
+
+  void locationSelected() {
+    Get.snackbar('Success', 'Location Selected Successfully',
+        colorText: _navigation.darkTheme.value ? Colors.black : Colors.white,
+        backgroundColor: ColorPallates.primary,
+        margin: EdgeInsets.only(top: 10, right: 10, bottom: 10, left: 1160),
+        maxWidth: 200,
+        icon: Icon(
+          Icons.check,
+          size: 30,
+          color: _navigation.darkTheme.value ? Colors.black : Colors.white,
+        ));
+  }
+
+  void outOfRange() {
+    Get.snackbar('Failed', 'Out of Range',
+        backgroundColor: ColorPallates.danger,
+        margin: EdgeInsets.only(top: 10, right: 10, bottom: 10, left: 1160),
+        maxWidth: 200,
+        icon: Icon(
+          Icons.dangerous_outlined,
+          size: 30,
+        ));
+  }
 }

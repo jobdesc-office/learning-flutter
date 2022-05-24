@@ -8,6 +8,7 @@ import 'package:map_picker/map_picker.dart';
 
 import '../../contracts/master/customerAddress_contract.dart';
 import '../../presenters/default/map_presenter.dart';
+import '../snackbar.dart';
 import '_map_source.dart';
 
 class GoogleMapsPage extends StatefulWidget {
@@ -118,6 +119,7 @@ class _GoogleMapsPageState extends State<GoogleMapsPage>
                       '${cameraPosition.target.latitude},${cameraPosition.target.longitude}');
 
                   if (country == 'ID') {
+                    Snackbar().locationSelected();
                     controller.latitude.value = cameraPosition.target.latitude;
                     controller.longitude.value =
                         cameraPosition.target.longitude;
@@ -127,15 +129,7 @@ class _GoogleMapsPageState extends State<GoogleMapsPage>
                         '${cameraPosition.target.latitude},${cameraPosition.target.longitude}';
                     Navigator.pop(context, true);
                   } else {
-                    Get.snackbar('Failed', 'Out of Range',
-                        backgroundColor: ColorPallates.danger,
-                        margin: EdgeInsets.only(
-                            top: 10, right: 10, bottom: 10, left: 1160),
-                        maxWidth: 200,
-                        icon: Icon(
-                          Icons.dangerous_outlined,
-                          size: 30,
-                        ));
+                    Snackbar().outOfRange();
                   }
                 },
                 style: ButtonStyle(
