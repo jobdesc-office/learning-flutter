@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:map_picker/map_picker.dart';
 
+import '../../contracts/master/customerAddress_contract.dart';
+import '../../presenters/default/map_presenter.dart';
 import '_map_source.dart';
 
 class GoogleMapsPage extends StatefulWidget {
@@ -15,10 +17,16 @@ class GoogleMapsPage extends StatefulWidget {
   _GoogleMapsPageState createState() => _GoogleMapsPageState();
 }
 
-class _GoogleMapsPageState extends State<GoogleMapsPage> {
+class _GoogleMapsPageState extends State<GoogleMapsPage>
+    implements CustomerAddressContract {
   final controller = Get.put(mapSource());
   final _controller = Completer<GoogleMapController>();
+  final presenter = Get.put(MapPresenter());
   MapPickerController mapPickerController = MapPickerController();
+
+  _GoogleMapsPageState() {
+    presenter.mapAddresContract = this;
+  }
 
   CameraPosition cameraPosition = const CameraPosition(
     target: LatLng(-6.199086, 106.5750849),
@@ -105,14 +113,30 @@ class _GoogleMapsPageState extends State<GoogleMapsPage> {
                     // height: 19/19,
                   ),
                 ),
-                onPressed: () {
-                  controller.latitude.value = cameraPosition.target.latitude;
-                  controller.longitude.value = cameraPosition.target.longitude;
-                  controller.linkCoordinate.value =
-                      'https://maps.googleapis.com/maps/api/geocode/json?latlng=${cameraPosition.target.latitude},${cameraPosition.target.longitude}&key=AIzaSyDUYfxm7qJq8dcMMhvhaoUukhQqMxBO6oc';
-                  controller.latitudelongitude.value =
-                      '${cameraPosition.target.latitude},${cameraPosition.target.longitude}';
-                  Navigator.pop(context, true);
+                onPressed: () async {
+                  String country = await presenter.address(
+                      '${cameraPosition.target.latitude},${cameraPosition.target.longitude}');
+
+                  if (country == 'ID') {
+                    controller.latitude.value = cameraPosition.target.latitude;
+                    controller.longitude.value =
+                        cameraPosition.target.longitude;
+                    controller.linkCoordinate.value =
+                        'https://maps.googleapis.com/maps/api/geocode/json?latlng=${cameraPosition.target.latitude},${cameraPosition.target.longitude}&key=AIzaSyDUYfxm7qJq8dcMMhvhaoUukhQqMxBO6oc';
+                    controller.latitudelongitude.value =
+                        '${cameraPosition.target.latitude},${cameraPosition.target.longitude}';
+                    Navigator.pop(context, true);
+                  } else {
+                    Get.snackbar('Failed', 'Out of Range',
+                        backgroundColor: ColorPallates.danger,
+                        margin: EdgeInsets.only(
+                            top: 10, right: 10, bottom: 10, left: 1160),
+                        maxWidth: 200,
+                        icon: Icon(
+                          Icons.dangerous_outlined,
+                          size: 30,
+                        ));
+                  }
                 },
                 style: ButtonStyle(
                   backgroundColor:
@@ -130,4 +154,7 @@ class _GoogleMapsPageState extends State<GoogleMapsPage> {
       ),
     );
   }
+
+  @override
+  void onLoadAddressSuccess(Response response) {}
 }
