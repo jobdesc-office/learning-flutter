@@ -7,6 +7,7 @@ import '../presenters/masters/city_presenter.dart';
 import '../presenters/masters/country_presenter.dart';
 import '../presenters/masters/customer_presenter.dart';
 import '../presenters/masters/menu_presenter.dart';
+import '../presenters/masters/product_presenter.dart';
 import '../presenters/masters/province_presenter.dart';
 import '../presenters/masters/subdistrict_presenter.dart';
 import '../presenters/ventes/schedule_presenter.dart';
@@ -19,6 +20,7 @@ import '../services/masters/businessPartner_service.dart';
 import '../services/masters/city_service.dart';
 import '../services/masters/country_service.dart';
 import '../services/masters/customer_service.dart';
+import '../services/masters/product_service.dart';
 import '../services/masters/province_service.dart';
 import '../services/masters/subdistrict_service.dart';
 import '../services/ventes/prospect_service.dart';
@@ -37,6 +39,7 @@ import '../views/masters/cities/city.dart';
 import '../views/masters/countries/country.dart';
 import '../views/masters/customers/customer.dart';
 import '../views/masters/menus/menu.dart';
+import '../views/masters/product/product.dart';
 import '../views/masters/provinces/province.dart';
 import '../views/masters/subdistricts/subdistrict.dart';
 import '../views/ventes/prospect/prospect.dart';
@@ -109,6 +112,15 @@ class AppRoute {
         binding: BindingsBuilder(() {
           Get.lazyPut(() => BusinessPartnerService());
           Get.lazyPut(() => BusinessPartnerPresenter());
+        }),
+      ),
+      CustomGetPage(
+        name: RouteList.masterProduct.index,
+        page: () => ProductView(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => UserService());
+          Get.lazyPut(() => ProductService());
+          Get.lazyPut(() => ProductPresenter());
         }),
       ),
       CustomGetPage(
