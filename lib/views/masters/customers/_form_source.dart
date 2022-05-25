@@ -139,6 +139,8 @@ class CustomerForm {
             controller: source.inputAddress,
             hintText: BaseText.hintText(),
             validators: [],
+            maxLines: 5,
+            minLines: 1,
           )),
     );
   }

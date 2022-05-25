@@ -21,6 +21,7 @@ import '../services/masters/country_service.dart';
 import '../services/masters/customer_service.dart';
 import '../services/masters/province_service.dart';
 import '../services/masters/subdistrict_service.dart';
+import '../services/ventes/prospect_service.dart';
 import '../services/ventes/schedule_service.dart';
 import '../services/masters/type_service.dart';
 import '../services/masters/typechildren_service.dart';
@@ -179,9 +180,12 @@ class AppRoute {
         name: RouteList.ventesProspect.index,
         page: () => ProspectView(),
         binding: BindingsBuilder(() {
-          Get.lazyPut(() => TypeService());
-          Get.lazyPut(() => MenuService());
-          Get.lazyPut(() => MenuPresenter());
+          Get.lazyPut(() => UserService());
+          Get.lazyPut(() => CustomerService());
+          Get.lazyPut(() => ProspectService());
+          // Get.lazyPut(() => TypeService());
+          // Get.lazyPut(() => MenuService());
+          // Get.lazyPut(() => MenuPresenter());
         }),
       ),
     ];

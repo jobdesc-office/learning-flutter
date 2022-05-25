@@ -8,6 +8,7 @@ import '../constants/config_types.dart';
 import '../models/masters/businesspartner_model.dart';
 import '../models/masters/city_model.dart';
 import '../models/masters/country_model.dart';
+import '../models/masters/customer_model.dart';
 import '../models/masters/province_model.dart';
 import '../models/masters/user_model.dart';
 import '../services/masters/city_service.dart';
@@ -70,6 +71,23 @@ Future<BsSelectBoxResponse> selectApiCustomerType(
   return BsSelectBoxResponse(options: []);
 }
 
+Future<BsSelectBoxResponse> selectApiProspectStatus(
+    Map<String, String> params) async {
+  final typeService = Get.put(TypeService());
+  Response response = await typeService.byCode('prstatus');
+  if (response.isOk) {
+    if (response.statusCode == 200) {
+      return BsSelectBoxResponse.createFromJson(
+        response.body,
+        value: (data) => TypeModel.fromJson(data).typeid,
+        renderText: (data) => Text(TypeModel.fromJson(data).typename),
+      );
+    }
+  }
+
+  return BsSelectBoxResponse(options: []);
+}
+
 Future<BsSelectBoxResponse> selectApiUser(Map<String, String> params) async {
   final userService = Get.find<UserService>();
   Response response = await userService.all();
@@ -79,6 +97,40 @@ Future<BsSelectBoxResponse> selectApiUser(Map<String, String> params) async {
         response.body,
         value: (data) => UserModel.fromJson(data).userid,
         renderText: (data) => Text(UserModel.fromJson(data).userfullname),
+      );
+    }
+  }
+
+  return BsSelectBoxResponse(options: []);
+}
+
+Future<BsSelectBoxResponse> selectApiProspectOwner(
+    Map<String, String> params) async {
+  final userService = Get.find<UserService>();
+  Response response = await userService.all();
+  if (response.isOk) {
+    if (response.statusCode == 200) {
+      return BsSelectBoxResponse.createFromJson(
+        response.body,
+        value: (data) => UserModel.fromJson(data).userid,
+        renderText: (data) => Text(UserModel.fromJson(data).userfullname),
+      );
+    }
+  }
+
+  return BsSelectBoxResponse(options: []);
+}
+
+Future<BsSelectBoxResponse> selectApiCustomer(
+    Map<String, String> params) async {
+  final customerService = Get.find<CustomerService>();
+  Response response = await customerService.select(params);
+  if (response.isOk) {
+    if (response.statusCode == 200) {
+      return BsSelectBoxResponse.createFromJson(
+        response.body,
+        value: (data) => CustomerModel.fromJson(data).cstmid,
+        renderText: (data) => Text(CustomerModel.fromJson(data).cstmname),
       );
     }
   }

@@ -1,6 +1,7 @@
 class ProspectText {
   static String title = 'Prospect';
 
+  static String labelCustomer = 'Customer';
   static String labelOrganization = 'Organization';
   static String labelTitle = 'Title';
   static String labelName = 'Contact Person';
@@ -8,7 +9,9 @@ class ProspectText {
   static String labelPipeline = 'Pipeline';
   static String labelPipelineStage = 'Pipeline Stage';
   static String labelExpected = 'Expected Close Date';
-  static String labelVisible = 'Visible To';
+  static String labelOwner = 'Owner';
+  static String labelStartDate = 'Start Date';
+  static String labelEndDate = 'End Date';
   static String labelItem = 'Item';
   static String labelPrice = 'Price';
   static String labelDiscount = 'Discount';
@@ -18,4 +21,6 @@ class ProspectText {
   static String labelTaxType = 'Tax Type';
   static String labelEmail = 'Email';
   static String labelPhone = 'Phone';
+  static String labelDesc = 'Description';
+  static String labelStatus = 'Status';
 }

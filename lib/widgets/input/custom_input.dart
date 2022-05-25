@@ -17,6 +17,8 @@ class CustomInput extends BsInput {
     List<BsInputValidator> validators = const [],
     TextInputType? keyboardType,
     List<TextInputFormatter>? inputFormatters = const [],
+    int? maxLines,
+    int? minLines,
   }) : super(
           obscureText: passwordText,
           disabled: disabled,
@@ -45,5 +47,7 @@ class CustomInput extends BsInput {
           ),
           keyboardType: keyboardType,
           inputFormatters: inputFormatters,
+          minLines: minLines,
+          maxLines: maxLines,
         );
 }

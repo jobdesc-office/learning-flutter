@@ -5,13 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/edit_view_contract.dart';
+import '../../../models/masters/type_model.dart';
 import '../../../presenters/ventes/prospect_presenter.dart';
+import '../../../routes/route_list.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
 
+import '../../masters/menus/_menu_type.dart';
 import '_form_source.dart';
 
-class ProspectFormView extends StatelessWidget implements EditViewContract {
+class ProspectFormView extends StatelessWidget
+    implements EditViewContract, MenuTypeViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final ProspectPresenter presenter = Get.find<ProspectPresenter>();
   final source = ProspectSource().obs;
@@ -20,13 +24,15 @@ class ProspectFormView extends StatelessWidget implements EditViewContract {
   late ProspectForm prospectForm;
 
   ProspectFormView({required this.onSave}) {
-    // presenter.ProspectFetchDataContract = this;
+    presenter.ProspectFetchDataContract = this;
+    presenter.prospectTypeViewContract = this;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: TemplateView(
+        activeRoutes: [RouteList.ventes.index, RouteList.ventesProspect.index],
         child: Obx(() {
           prospectForm = ProspectForm(source.value);
           return Form(
@@ -45,14 +51,14 @@ class ProspectFormView extends StatelessWidget implements EditViewContract {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          prospectForm.inputOrganization(),
+                          prospectForm.selectOwner(),
                           prospectForm.inputContact(),
                           prospectForm.inputTitle(),
-                          prospectForm.inputValue(),
-                          // prospectForm.inputPipeline(),
                           prospectForm.inputPipelineStage(),
-                          prospectForm.inputExpected(),
-                          prospectForm.inputVisible(),
+                          prospectForm.inputStatus(),
+                          prospectForm.inputOrganization(context),
+                          // prospectForm.inputPipeline(),
+                          prospectForm.inputExpected(context),
                         ],
                       ),
                     ),
@@ -76,51 +82,61 @@ class ProspectFormView extends StatelessWidget implements EditViewContract {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  prospectForm.inputEmail(
-                                      onRemoveEmail: onClickRemoveEmail),
-                                  Container(
-                                    margin: EdgeInsets.only(bottom: 20),
-                                    child: GestureDetector(
-                                        onTap: () {
-                                          source.update((val) {
-                                            source.value.inputEmails
-                                                .add(TextEditingController());
-                                            source.value.selectsPrivationEmail
-                                                .add(BsSelectBoxController(
-                                                    options: [
-                                                  BsSelectBoxOption(
-                                                      value: '{1}',
-                                                      text: Text("Work")),
-                                                  BsSelectBoxOption(
-                                                      value: '{2}',
-                                                      text: Text('Private'))
-                                                ]));
-                                          });
-                                        },
-                                        child: Text('+ Add More Emails')),
-                                  ),
-                                  prospectForm.inputPhone(
-                                      onRemovePhone: onClickRemovePhone),
-                                  Container(
-                                    margin: EdgeInsets.only(bottom: 20),
-                                    child: GestureDetector(
-                                        onTap: () {
-                                          source.update((val) {
-                                            source.value.inputPhones
-                                                .add(TextEditingController());
-                                            source.value.selectsPrivationPhone
-                                                .add(BsSelectBoxController(
-                                                    options: [
-                                                  BsSelectBoxOption(
-                                                      value: '{1}',
-                                                      text: Text("Work")),
-                                                  BsSelectBoxOption(
-                                                      value: '{2}',
-                                                      text: Text('Private'))
-                                                ]));
-                                          });
-                                        },
-                                        child: Text('+ Add More Phones')),
+                                  // prospectForm.inputEmail(
+                                  //     onRemoveEmail: onClickRemoveEmail),
+                                  // Container(
+                                  //   margin: EdgeInsets.only(bottom: 20),
+                                  //   child: GestureDetector(
+                                  //       onTap: () {
+                                  //         source.update((val) {
+                                  //           source.value.inputEmails
+                                  //               .add(TextEditingController());
+                                  //           source.value.selectsPrivationEmail
+                                  //               .add(BsSelectBoxController(
+                                  //                   options: [
+                                  //                 BsSelectBoxOption(
+                                  //                     value: '{1}',
+                                  //                     text: Text("Work")),
+                                  //                 BsSelectBoxOption(
+                                  //                     value: '{2}',
+                                  //                     text: Text('Private'))
+                                  //               ]));
+                                  //         });
+                                  //       },
+                                  //       child: Text('+ Add More Emails')),
+                                  // ),
+                                  // prospectForm.inputPhone(
+                                  //     onRemovePhone: onClickRemovePhone),
+                                  // Container(
+                                  //   margin: EdgeInsets.only(bottom: 20),
+                                  //   child: GestureDetector(
+                                  //       onTap: () {
+                                  //         source.update((val) {
+                                  //           source.value.inputPhones
+                                  //               .add(TextEditingController());
+                                  //           source.value.selectsPrivationPhone
+                                  //               .add(BsSelectBoxController(
+                                  //                   options: [
+                                  //                 BsSelectBoxOption(
+                                  //                     value: '{1}',
+                                  //                     text: Text("Work")),
+                                  //                 BsSelectBoxOption(
+                                  //                     value: '{2}',
+                                  //                     text: Text('Private'))
+                                  //               ]));
+                                  //         });
+                                  //       },
+                                  //       child: Text('+ Add More Phones')),
+                                  // ),
+                                  BsRow(
+                                    children: [
+                                      BsCol(
+                                          sizes: ColScreen(sm: Col.col_7),
+                                          child: prospectForm.inputValue()),
+                                      BsCol(
+                                          sizes: ColScreen(sm: Col.col_7),
+                                          child: prospectForm.inputDesc()),
+                                    ],
                                   ),
                                 ],
                               ),
@@ -211,19 +227,19 @@ class ProspectFormView extends StatelessWidget implements EditViewContract {
     );
   }
 
-  void onClickRemoveEmail(int index) {
-    source.update((val) {
-      source.value.inputEmails.removeAt(index);
-      source.value.selectsPrivationEmail.removeAt(index);
-    });
-  }
+  // void onClickRemoveEmail(int index) {
+  //   source.update((val) {
+  //     source.value.inputEmails.removeAt(index);
+  //     source.value.selectsPrivationEmail.removeAt(index);
+  //   });
+  // }
 
-  void onClickRemovePhone(int index) {
-    source.update((val) {
-      source.value.inputPhones.removeAt(index);
-      source.value.selectsPrivationPhone.removeAt(index);
-    });
-  }
+  // void onClickRemovePhone(int index) {
+  //   source.update((val) {
+  //     source.value.inputPhones.removeAt(index);
+  //     source.value.selectsPrivationPhone.removeAt(index);
+  //   });
+  // }
 
   void onClickRemoveItem(int index) {
     source.update((val) {
@@ -257,5 +273,16 @@ class ProspectFormView extends StatelessWidget implements EditViewContract {
     //   source.value.inputEmail.text = bp.bpemail;
     //   source.value.inputPhone.text = bp.bpphone;
     // });
+  }
+
+  @override
+  void onLoadSuccess(Response response) {
+    source.update((val) {
+      source.value.prospectStageController.options = List<TypeModel>.from(
+        response.body.map((data) {
+          return TypeModel.fromJson(data);
+        }),
+      );
+    });
   }
 }

@@ -28,7 +28,9 @@ class SidebarSkins extends StatelessWidget {
     return Obx(
       () {
         return Container(
-          color: ColorPallates.dark,
+          color: _navigation.darkTheme.value
+              ? ColorPallates.elseDarkColor
+              : ColorPallates.elseLightColor,
           child: _navigation.dataListOfMenu.value.id != 0 &&
                   !_navigation.isCollapse.value
               ? listOfMenu()
@@ -127,12 +129,6 @@ class SidebarSkins extends StatelessWidget {
                   MenuDataGroup(
                     title: 'Navigasi Menu',
                     children: [
-                      MenuData(
-                        id: no++,
-                        route: RouteList.home.index,
-                        label: 'Dashboard',
-                        icon: Icons.dashboard,
-                      ),
                       MenuData(
                         id: no++,
                         route: RouteList.home.index,
