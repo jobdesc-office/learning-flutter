@@ -155,6 +155,7 @@ class UserForm {
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
+        maxLines: 1,
         passwordText: true,
         disabled: source.isProcessing,
         controller: source.inputPassword,
@@ -174,6 +175,7 @@ class UserForm {
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
+        maxLines: 1,
         passwordText: true,
         disabled: source.isProcessing,
         controller: source.inputConfirmPassword,
