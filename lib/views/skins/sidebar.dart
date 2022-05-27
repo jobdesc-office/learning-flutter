@@ -66,7 +66,7 @@ class SidebarSkins extends StatelessWidget {
           decoration: BoxDecoration(
             color: _navigation.darkTheme.value
                 ? ColorPallates.elseDarkColor
-                : ColorPallates.elseLightColor,
+                : ColorPallates.primary,
             border: Border.all(color: Colors.transparent, width: 0),
           ),
           duration: Duration(milliseconds: 0),
@@ -77,9 +77,11 @@ class SidebarSkins extends StatelessWidget {
                     size: 50,
                     color: _navigation.darkTheme.value
                         ? ColorPallates.elseDarkColor
-                        : ColorPallates.white,
+                        : ColorPallates.primary,
                   ),
-                  backgroundColor: ColorPallates.primary,
+                  backgroundColor: _navigation.darkTheme.value
+                      ? ColorPallates.primary
+                      : ColorPallates.secondary,
                 )
               : BsRow(
                   children: [
@@ -91,9 +93,11 @@ class SidebarSkins extends StatelessWidget {
                           size: 50,
                           color: _navigation.darkTheme.value
                               ? ColorPallates.elseDarkColor
-                              : ColorPallates.white,
+                              : ColorPallates.primary,
                         ),
-                        backgroundColor: ColorPallates.primary,
+                        backgroundColor: _navigation.darkTheme.value
+                            ? ColorPallates.primary
+                            : ColorPallates.secondary,
                       ),
                     ),
                     BsCol(
@@ -120,7 +124,7 @@ class SidebarSkins extends StatelessWidget {
               decoration: BoxDecoration(
                 color: _navigation.darkTheme.value
                     ? ColorPallates.elseDarkColor
-                    : ColorPallates.elseLightColor,
+                    : ColorPallates.primary,
               ),
               child: SidebarMenus(
                 isCollapse: _navigation.isCollapse.value,
