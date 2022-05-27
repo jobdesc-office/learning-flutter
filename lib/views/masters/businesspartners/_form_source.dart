@@ -65,7 +65,7 @@ class BusinessPartnerForm {
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputCompanyName,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: BusinessPartnerText.labelCompany),
         validators: [
           Validators.inputRequired(BusinessPartnerText.labelName),
         ],
@@ -82,7 +82,7 @@ class BusinessPartnerForm {
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputName,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: BusinessPartnerText.labelName),
         validators: [
           Validators.maxLength(BusinessPartnerText.labelName, 100),
         ],
@@ -99,7 +99,7 @@ class BusinessPartnerForm {
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputEmail,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: BusinessPartnerText.labelEmail),
         validators: [
           Validators.inputEmail(),
         ],
@@ -116,7 +116,7 @@ class BusinessPartnerForm {
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputPhone,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: BusinessPartnerText.labelPhone),
         validators: [
           Validators.maxLength(BusinessPartnerText.labelPhone, 100),
         ],

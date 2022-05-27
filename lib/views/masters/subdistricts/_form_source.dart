@@ -48,7 +48,7 @@ class SubdistrictForm {
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputName,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: SubdistrictText.labelName),
         validators: [
           Validators.inputRequired(SubdistrictText.labelName),
           Validators.maxLength(SubdistrictText.labelName, 100),
@@ -67,7 +67,7 @@ class SubdistrictForm {
         searchable: true,
         disabled: source.isProcessing,
         controller: source.choosedCity,
-        hintText: BaseText.hiintSelect(),
+        hintText: BaseText.hiintSelect(field: SubdistrictText.labelCity),
         serverSide: (params) => selectCities(params),
       ),
     );

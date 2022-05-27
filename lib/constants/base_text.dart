@@ -15,11 +15,11 @@ class BaseText {
   static String nonactive = 'Non Active';
 
   static String hintText({String? field}) {
-    return 'Type $field here ...';
+    return 'Type $field here...';
   }
 
   static String hiintSelect({String? field}) {
-    return 'Choose $field one';
+    return 'Choose $field here...';
   }
 
   static String confirmTitle = 'Confirmation';

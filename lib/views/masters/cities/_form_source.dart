@@ -48,7 +48,7 @@ class CityForm {
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputName,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: CityText.labelName),
         validators: [
           Validators.inputRequired(CityText.labelName),
           Validators.maxLength(CityText.labelName, 100),
@@ -67,7 +67,7 @@ class CityForm {
         searchable: true,
         disabled: source.isProcessing,
         controller: source.selectProvince,
-        hintText: BaseText.hiintSelect(),
+        hintText: BaseText.hiintSelect(field: CityText.labelProvince),
         serverSide: (params) => selectProvinces(params),
       ),
     );

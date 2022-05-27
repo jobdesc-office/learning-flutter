@@ -180,7 +180,7 @@ class ProspectForm {
         searchable: true,
         disabled: source.isProcessing,
         controller: source.selectCustomer,
-        hintText: BaseText.hiintSelect(),
+        hintText: BaseText.hiintSelect(field: ProspectText.labelCustomer),
         serverSide: (params) => selectApiCustomer(params),
       ),
     );
@@ -256,7 +256,7 @@ class ProspectForm {
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputCompanyName,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: ProspectText.labelTitle),
         validators: [
           Validators.inputRequired(ProspectText.labelTitle),
         ],
@@ -275,7 +275,7 @@ class ProspectForm {
                 child: CustomInput(
                   disabled: ctrl.isProduct.value,
                   controller: source.inputValue,
-                  hintText: BaseText.hintText(),
+                  hintText: BaseText.hintText(field: ProspectText.labelValue),
                   validators: [],
                   inputFormatters: [maskFormatter],
                 ),
@@ -374,7 +374,7 @@ class ProspectForm {
         searchable: true,
         disabled: source.isProcessing,
         controller: source.selectOwner,
-        hintText: BaseText.hiintSelect(),
+        hintText: BaseText.hiintSelect(field: ProspectText.labelOwner),
         serverSide: (params) => selectApiProspectOwner(params),
       ),
     );
@@ -387,7 +387,7 @@ class ProspectForm {
         searchable: true,
         disabled: source.isProcessing,
         controller: source.selectType,
-        hintText: BaseText.hiintSelect(),
+        hintText: BaseText.hiintSelect(field: ProspectText.labelType),
         serverSide: (params) => selectApiProspectTypes(params),
       ),
     );
@@ -493,7 +493,7 @@ class ProspectForm {
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputDesc,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: ProspectText.labelDesc),
         validators: [],
         maxLines: 5,
         minLines: 3,
@@ -508,7 +508,7 @@ class ProspectForm {
         searchable: true,
         disabled: source.isProcessing,
         controller: source.selectStatus,
-        hintText: BaseText.hiintSelect(),
+        hintText: BaseText.hiintSelect(field: ProspectText.labelStatus),
         serverSide: (params) => selectApiProspectStatus(params),
       ),
     );
@@ -533,14 +533,15 @@ class ProspectForm {
                 children: [
                   BsCol(
                     margin: EdgeInsets.only(right: 5),
-                    sizes: ColScreen(md: Col.col_8),
+                    sizes: ColScreen(md: Col.col_6),
                     child: FormGroup(
                       label: Text(ProspectText.labelItem),
                       child: CustomSelectBox(
                         searchable: true,
                         disabled: source.isProcessing,
                         controller: selectItem,
-                        hintText: BaseText.hiintSelect(),
+                        hintText:
+                            BaseText.hiintSelect(field: ProspectText.labelItem),
                         // serverSide: (params) => selectApiProductWithBp(
                         //     params, source.bpid.toString()),
                         serverSide: (params) => selectApiProduct(params),
@@ -549,26 +550,28 @@ class ProspectForm {
                   ),
                   BsCol(
                     margin: EdgeInsets.only(left: 5),
-                    sizes: ColScreen(md: Col.col_2),
+                    sizes: ColScreen(md: Col.col_3),
                     child: FormGroup(
                       label: Text(ProspectText.labelAmount),
                       child: CustomInput(
                         disabled: ctrl.isProduct.value,
                         controller: inputAmount,
-                        hintText: BaseText.hintText(),
+                        hintText:
+                            BaseText.hintText(field: ProspectText.labelAmount),
                         validators: [],
                       ),
                     ),
                   ),
                   BsCol(
                     margin: EdgeInsets.only(left: 5),
-                    sizes: ColScreen(md: Col.col_2),
+                    sizes: ColScreen(md: Col.col_3),
                     child: FormGroup(
                       label: Text(ProspectText.labelQuantity),
                       child: CustomInput(
                         disabled: ctrl.isProduct.value,
                         controller: inputQuantity,
-                        hintText: BaseText.hintText(),
+                        hintText: BaseText.hintText(
+                            field: ProspectText.labelQuantity),
                         validators: [],
                       ),
                     ),
@@ -580,7 +583,8 @@ class ProspectForm {
                       child: CustomInput(
                         disabled: ctrl.isProduct.value,
                         controller: inputPrice,
-                        hintText: BaseText.hintText(),
+                        hintText:
+                            BaseText.hintText(field: ProspectText.labelPrice),
                         validators: [],
                         inputFormatters: [maskFormatter],
                       ),
@@ -594,7 +598,8 @@ class ProspectForm {
                       child: CustomInput(
                         disabled: ctrl.isProduct.value,
                         controller: inputDiscount,
-                        hintText: BaseText.hintText(),
+                        hintText: BaseText.hintText(
+                            field: ProspectText.labelDiscount),
                         validators: [],
                       ),
                     ),
@@ -607,7 +612,8 @@ class ProspectForm {
                       child: CustomInput(
                         disabled: ctrl.isProduct.value,
                         controller: inputTax,
-                        hintText: BaseText.hintText(),
+                        hintText:
+                            BaseText.hintText(field: ProspectText.labelTax),
                         validators: [],
                         inputFormatters: [maskFormatter],
                       ),
@@ -622,7 +628,8 @@ class ProspectForm {
                         searchable: true,
                         disabled: ctrl.isProduct.value,
                         controller: selectTax,
-                        hintText: BaseText.hiintSelect(),
+                        hintText: BaseText.hiintSelect(
+                            field: ProspectText.labelTaxType),
                         serverSide: (params) => selectApiTaxTypes(params),
                       ),
                     ),

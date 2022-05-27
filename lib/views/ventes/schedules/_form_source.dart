@@ -134,7 +134,8 @@ class ScheduleForm {
                     searchable: true,
                     disabled: source.isProcessing,
                     controller: selectMember,
-                    hintText: BaseText.hiintSelect(),
+                    hintText:
+                        BaseText.hiintSelect(field: 'Member ${index + 1}'),
                     serverSide: (params) => selectApiUser(params),
                   ),
                 ),
@@ -152,7 +153,8 @@ class ScheduleForm {
                     searchable: false,
                     disabled: source.isProcessing,
                     controller: selectPermission,
-                    hintText: BaseText.hiintSelect(),
+                    hintText:
+                        BaseText.hiintSelect(field: 'Permission ${index + 1}'),
                   ),
                 ),
               ),
@@ -172,7 +174,7 @@ class ScheduleForm {
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputName,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: ScheduleText.labelName),
         validators: [
           Validators.inputRequired(ScheduleText.labelName),
           Validators.maxLength(ScheduleText.labelName, 100),
@@ -376,7 +378,7 @@ class ScheduleForm {
               searchable: true,
               disabled: source.isProcessing,
               controller: source.selectType,
-              hintText: BaseText.hiintSelect(),
+              hintText: BaseText.hiintSelect(field: ScheduleText.labelType),
               serverSide: (params) => selectApiTypeChildren(params),
               validators: [Validators.selectRequired(ScheduleText.labelType)],
             ),
@@ -395,7 +397,7 @@ class ScheduleForm {
               searchable: true,
               disabled: source.isProcessing,
               controller: source.selectBp,
-              hintText: BaseText.hiintSelect(),
+              hintText: BaseText.hiintSelect(field: ScheduleText.labelBp),
               serverSide: (params) => selectApiPartner(params),
               validators: [Validators.selectRequired(ScheduleText.labelBp)],
             ),
@@ -512,7 +514,7 @@ class ScheduleForm {
               searchable: true,
               disabled: source.isProcessing,
               controller: source.selectToward,
-              hintText: BaseText.hiintSelect(),
+              hintText: BaseText.hiintSelect(field: ScheduleText.labelToward),
               serverSide: (params) => selectApiUser(params),
               validators: [Validators.selectRequired(ScheduleText.labelToward)],
             ),
@@ -531,7 +533,7 @@ class ScheduleForm {
       child: CustomInput(
         disabled: source.online.value ? false : true,
         controller: source.inputOnLink,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: ScheduleText.labelOnLink),
       ),
     );
   }
@@ -545,7 +547,7 @@ class ScheduleForm {
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputDesc,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: ScheduleText.labelDesc),
       ),
     );
   }
@@ -559,7 +561,7 @@ class ScheduleForm {
       child: CustomInputNumber(
         disabled: source.isProcessing,
         controller: source.inputRemind,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: ScheduleText.labelRemind),
         validators: [Validators.maxLength(ScheduleText.labelRemind, 2)],
       ),
     );

@@ -48,7 +48,7 @@ class TypeParentForm {
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputName,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: TypeParentsText.labelName),
         validators: [
           Validators.inputRequired(TypeParentsText.labelName),
           Validators.maxLength(TypeParentsText.labelName, 100),
@@ -66,7 +66,7 @@ class TypeParentForm {
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputCode,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: TypeParentsText.labelCode),
       ),
     );
   }
@@ -80,7 +80,7 @@ class TypeParentForm {
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputSeq,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: TypeParentsText.labelSeq),
         validators: [
           Validators.inputRequired(TypeParentsText.labelSeq),
           Validators.maxLength(TypeParentsText.labelSeq, 100),
@@ -98,7 +98,7 @@ class TypeParentForm {
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputDesc,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: TypeParentsText.labelDesc),
         validators: [],
       ),
     );

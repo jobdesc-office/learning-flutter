@@ -48,7 +48,7 @@ class ProvinceForm {
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputName,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: ProvinceText.labelName),
         validators: [
           Validators.inputRequired(ProvinceText.labelName),
           Validators.maxLength(ProvinceText.labelName, 100),
@@ -67,7 +67,7 @@ class ProvinceForm {
         searchable: true,
         disabled: source.isProcessing,
         controller: source.selectCountry,
-        hintText: BaseText.hiintSelect(),
+        hintText: BaseText.hiintSelect(field: ProvinceText.labelCountry),
         serverSide: (params) => selectCountries(params),
       ),
     );

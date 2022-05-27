@@ -44,7 +44,7 @@ class TypeChildrenFilter extends StatelessWidget {
                       child: CustomSelectBox(
                         searchable: true,
                         controller: selectParent,
-                        hintText: BaseText.hiintSelect(),
+                        hintText: BaseText.hiintSelect(field: 'Parent'),
                         serverSide: (params) => selectApiTypeParents(params),
                       ),
                     ),

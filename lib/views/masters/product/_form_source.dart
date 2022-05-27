@@ -49,7 +49,7 @@ class ProductForm {
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputName,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: ProductText.labelName),
         validators: [
           Validators.inputRequired(ProductText.labelName),
           Validators.maxLength(ProductText.labelName, 100),
@@ -68,7 +68,7 @@ class ProductForm {
         searchable: true,
         disabled: source.isProcessing,
         controller: source.selectBp,
-        hintText: BaseText.hiintSelect(),
+        hintText: BaseText.hiintSelect(field: ProductText.labelBp),
         serverSide: (params) => selectApiPartner(params),
       ),
     );

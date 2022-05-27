@@ -54,7 +54,7 @@ class TypeChildrenForm {
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputName,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: TypeChildrenText.labelName),
         validators: [
           Validators.inputRequired(TypeChildrenText.labelName),
           Validators.maxLength(TypeChildrenText.labelName, 100),
@@ -72,7 +72,7 @@ class TypeChildrenForm {
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputCode,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: TypeChildrenText.labelCode),
       ),
     );
   }
@@ -87,7 +87,7 @@ class TypeChildrenForm {
         searchable: true,
         disabled: source.isProcessing,
         controller: source.selectParent,
-        hintText: BaseText.hiintSelect(),
+        hintText: BaseText.hiintSelect(field: TypeChildrenText.labelParent),
         serverSide: (params) => selectApiTypeParents(params),
       ),
     );
@@ -102,7 +102,7 @@ class TypeChildrenForm {
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputSeq,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: TypeChildrenText.labelSeq),
         validators: [
           Validators.inputRequired(TypeChildrenText.labelSeq),
           Validators.maxLength(TypeChildrenText.labelSeq, 100),
@@ -120,7 +120,7 @@ class TypeChildrenForm {
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputDesc,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: TypeChildrenText.labelDesc),
         validators: [],
       ),
     );

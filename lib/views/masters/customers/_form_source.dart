@@ -85,7 +85,7 @@ class CustomerForm {
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputPrefix,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: CustomerText.labelPrefix),
         validators: [
           Validators.maxLength(CustomerText.labelPrefix, 100),
         ],
@@ -102,7 +102,7 @@ class CustomerForm {
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputName,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: CustomerText.labelName),
         validators: [
           Validators.inputRequired(CustomerText.labelName),
           Validators.maxLength(CustomerText.labelName, 100),
@@ -120,7 +120,7 @@ class CustomerForm {
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputPhone,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: CustomerText.labelPhone),
         validators: [
           Validators.maxLength(CustomerText.labelPhone, 20),
         ],
@@ -137,7 +137,7 @@ class CustomerForm {
       child: Obx(() => CustomInput(
             disabled: source.isnGetLatLong.value,
             controller: source.inputAddress,
-            hintText: BaseText.hintText(),
+            hintText: BaseText.hintText(field: CustomerText.labelAddress),
             validators: [],
             maxLines: 5,
             minLines: 1,
@@ -155,7 +155,7 @@ class CustomerForm {
         searchable: true,
         disabled: source.isProcessing,
         controller: source.selectType,
-        hintText: BaseText.hiintSelect(),
+        hintText: BaseText.hiintSelect(field: CustomerText.labelType),
         serverSide: (params) => selectApiCustomerType(params),
       ),
     );
@@ -170,7 +170,7 @@ class CustomerForm {
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputReferal,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: CustomerText.labelReferal),
         validators: [],
       ),
     );
@@ -217,7 +217,7 @@ class CustomerForm {
       child: CustomInput(
         disabled: source.isnGetLatLong.value,
         controller: source.inputProvince,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: CustomerText.labelProvince),
         validators: [],
       ),
     );
@@ -232,7 +232,7 @@ class CustomerForm {
       child: CustomInput(
         disabled: source.isnGetLatLong.value,
         controller: source.inputCity,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: CustomerText.labelCity),
         validators: [],
       ),
     );
@@ -247,7 +247,7 @@ class CustomerForm {
       child: CustomInput(
         disabled: source.isnGetLatLong.value,
         controller: source.inputSubdistrict,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: CustomerText.labelSubdistrict),
         validators: [],
       ),
     );
@@ -262,7 +262,7 @@ class CustomerForm {
       child: CustomInput(
         disabled: source.isnGetLatLong.value,
         controller: source.inputPostal,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: CustomerText.labelPostal),
         validators: [],
       ),
     );

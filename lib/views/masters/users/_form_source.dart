@@ -105,7 +105,7 @@ class UserForm {
                     searchable: true,
                     disabled: source.isProcessing,
                     controller: selectRole,
-                    hintText: BaseText.hiintSelect(),
+                    hintText: BaseText.hiintSelect(field: UserText.labelRole),
                     serverSide: (params) => selectApiRole(params),
                   ),
                 ),
@@ -118,7 +118,7 @@ class UserForm {
                     searchable: true,
                     disabled: source.isProcessing,
                     controller: selectBp,
-                    hintText: BaseText.hiintSelect(),
+                    hintText: BaseText.hiintSelect(field: UserText.labelBp),
                     serverSide: (params) => selectApiPartner(params),
                   ),
                 ),
@@ -139,7 +139,7 @@ class UserForm {
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputName,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: UserText.labelUsername),
         validators: [
           Validators.inputRequired(UserText.labelUsername),
           Validators.maxLength(UserText.labelUsername, 100),
@@ -159,7 +159,7 @@ class UserForm {
         passwordText: true,
         disabled: source.isProcessing,
         controller: source.inputPassword,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: UserText.labelPassword),
         validators: [
           Validators.inputRequired(UserText.labelPassword),
           Validators.minLength(UserText.labelPassword, 7),
@@ -179,7 +179,7 @@ class UserForm {
         passwordText: true,
         disabled: source.isProcessing,
         controller: source.inputConfirmPassword,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: UserText.labelConfirmPassword),
         validators: [
           BsInputValidator(validator: ((value) {
             if (value != source.inputPassword.text) {
@@ -201,7 +201,7 @@ class UserForm {
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputFullName,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: UserText.labelFullName),
         validators: [],
       ),
     );
@@ -216,7 +216,7 @@ class UserForm {
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputEmail,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: UserText.labelEmail),
         validators: [
           Validators.maxLength(UserText.labelEmail, 100),
           Validators.inputEmail()
@@ -234,7 +234,7 @@ class UserForm {
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputPhone,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: UserText.labelPhone),
         validators: [
           Validators.maxLength(UserText.labelPhone, 15),
         ],

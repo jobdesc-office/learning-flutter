@@ -45,7 +45,7 @@ class CountryForm {
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputName,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: CountryText.labelName),
         validators: [
           Validators.inputRequired(CountryText.labelName),
           Validators.maxLength(CountryText.labelName, 100),

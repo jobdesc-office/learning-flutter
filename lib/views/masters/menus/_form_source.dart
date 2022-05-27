@@ -74,7 +74,7 @@ class MenuForm {
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputName,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: MenuText.labelName),
         validators: [
           Validators.inputRequired(MenuText.labelName),
           Validators.maxLength(MenuText.labelName, 100),
@@ -93,7 +93,7 @@ class MenuForm {
         searchable: true,
         disabled: source.isProcessing,
         controller: source.selectParent,
-        hintText: BaseText.hiintSelect(),
+        hintText: BaseText.hiintSelect(field: MenuText.labelParent),
         serverSide: (params) => selectApiMenu(params),
       ),
     );
@@ -108,7 +108,7 @@ class MenuForm {
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputIcon,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: MenuText.labelIcon),
       ),
     );
   }
@@ -122,7 +122,7 @@ class MenuForm {
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputRoute,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: MenuText.labelRoute),
         validators: [
           Validators.inputRequired(MenuText.labelRoute),
           Validators.maxLength(MenuText.labelRoute, 100),
@@ -140,7 +140,7 @@ class MenuForm {
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputColor,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: MenuText.labelColor),
         validators: [],
       ),
     );
@@ -155,7 +155,7 @@ class MenuForm {
       child: CustomInputNumber(
         disabled: source.isProcessing,
         controller: source.inputSequence,
-        hintText: BaseText.hintText(),
+        hintText: BaseText.hintText(field: MenuText.labelSequence),
         validators: [
           Validators.maxLength(MenuText.labelSequence, 100),
         ],

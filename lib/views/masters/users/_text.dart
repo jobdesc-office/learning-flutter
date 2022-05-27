@@ -10,4 +10,5 @@ class UserText {
   static String labelEmail = 'Email';
   static String labelPhone = 'Phone';
   static String labelRole = 'Role';
+  static String labelBp = 'Business Partner';
 }
