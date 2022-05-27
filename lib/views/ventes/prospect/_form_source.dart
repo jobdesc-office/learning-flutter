@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
@@ -47,6 +49,7 @@ class ProspectSource extends GetxController {
   BsSelectBoxController selectOwner = BsSelectBoxController();
   BsSelectBoxController selectCustomer = BsSelectBoxController();
   BsSelectBoxController selectStatus = BsSelectBoxController();
+  BsSelectBoxController selectType = BsSelectBoxController();
 
   TextEditingController inputCompanyName = TextEditingController();
   TextEditingController inputName = TextEditingController();
@@ -56,6 +59,9 @@ class ProspectSource extends GetxController {
   TextEditingController inputDesc = TextEditingController();
 
   List<BsSelectBoxController> selectsTax = List<BsSelectBoxController>.filled(
+      1, BsSelectBoxController(),
+      growable: true);
+  List<BsSelectBoxController> selectsItem = List<BsSelectBoxController>.filled(
       1, BsSelectBoxController(),
       growable: true);
 
@@ -83,9 +89,6 @@ class ProspectSource extends GetxController {
   //     1, TextEditingController(),
   //     growable: true);
 
-  List<TextEditingController> inputItems = List<TextEditingController>.filled(
-      1, TextEditingController(),
-      growable: true);
   List<TextEditingController> inputPrices = List<TextEditingController>.filled(
       1, TextEditingController(),
       growable: true);
@@ -117,17 +120,24 @@ class ProspectSource extends GetxController {
   // }
 
   List<Map<String, dynamic>> jsonProducts() {
-    return List<Map<String, dynamic>>.from(inputItems.map((controller) {
-      int index = inputItems.indexOf(controller);
+    return List<Map<String, dynamic>>.from(selectsItem.map((controller) {
+      int index = selectsItem.indexOf(controller);
       return {
-        'item': inputItems[index].text,
+        'item': selectsItem[index].getSelectedAsString(),
         'price': inputPrices[index].text,
         'quantity': inputQuantities[index].text,
+        'discount': inputDiscounts[index].text,
         'amount': inputAmounts[index].text,
         'tax': inputTaxes[index].text,
         'taxtype': selectsTax[index].getSelectedAsString()
       };
     }));
+  }
+
+  Future<int> bpid() async {
+    int provid =
+        await _presenter.getBpId(selectOwner.getSelectedAsString().toString());
+    return provid;
   }
 
   Future<Map<String, dynamic>> toJson() async {
@@ -142,6 +152,7 @@ class ProspectSource extends GetxController {
       'prospectowner': selectOwner.getSelectedAsString(),
       'prospectstageid': prospectStageController.getSelectedToString(),
       'prospectstatusid': selectStatus.getSelectedAsString(),
+      'prospecttypeid': selectType.getSelectedAsString(),
       'prospectexpclosedate': selectedDateExpect.value,
       'prospectbpid': provid.toString(),
       'prospectdescription': inputDesc.text,
@@ -150,15 +161,15 @@ class ProspectSource extends GetxController {
       'createdby': session.userid,
       'updatedby': session.userid,
       'isactive': true,
-      'products': jsonProducts(),
+      'products': jsonEncode(jsonProducts()),
     };
   }
 }
 
 class ProspectForm {
-  final controller = Get.put(ProspectFormController());
+  final ctrl = Get.put(ProspectFormController());
   final ProspectSource source;
-  final sourcectrl = Get.put(ProspectSource());
+  // final source = Get.put(ProspectSource());
 
   ProspectForm(this.source);
 
@@ -201,9 +212,9 @@ class ProspectForm {
                   onPressed: () {
                     _selectStartDates(context);
                   },
-                  label: Obx(() => Text(sourcectrl.selectedDateStart.isEmpty
+                  label: Obx(() => Text(source.selectedDateStart.isEmpty
                       ? "Choose the Start Date"
-                      : '${sourcectrl.selectedDateStart}')),
+                      : '${source.selectedDateStart}')),
                 ),
               ),
             ),
@@ -229,9 +240,9 @@ class ProspectForm {
                   onPressed: () {
                     _selectEndDates(context);
                   },
-                  label: Obx(() => Text(sourcectrl.selectedDateEnd.isEmpty
+                  label: Obx(() => Text(source.selectedDateEnd.isEmpty
                       ? "Choose the End Date"
-                      : '${sourcectrl.selectedDateEnd}'))),
+                      : '${source.selectedDateEnd}'))),
             ),
           ),
         ],
@@ -253,11 +264,6 @@ class ProspectForm {
     );
   }
 
-  var maskFormatter = new CurrencyTextInputFormatter(
-    decimalDigits: 0,
-    symbol: '',
-  );
-
   Widget inputValue() {
     return FormGroup(
       label: Text(ProspectText.labelValue),
@@ -267,7 +273,7 @@ class ProspectForm {
                 margin: EdgeInsets.only(right: 5),
                 sizes: ColScreen(md: Col.col_12),
                 child: CustomInput(
-                  disabled: controller.isProduct.value,
+                  disabled: ctrl.isProduct.value,
                   controller: source.inputValue,
                   hintText: BaseText.hintText(),
                   validators: [],
@@ -293,11 +299,11 @@ class ProspectForm {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       GestureDetector(
-                          onTap: (() => controller.isProduct.toggle()),
+                          onTap: (() => ctrl.isProduct.toggle()),
                           child: Text(
-                            controller.isProduct.value
-                                ? controller.addProduct
-                                : controller.dontAddProduct,
+                            ctrl.isProduct.value
+                                ? ctrl.addProduct
+                                : ctrl.dontAddProduct,
                             style: TextStyle(color: Colors.blue.shade300),
                           ))
                     ],
@@ -353,9 +359,9 @@ class ProspectForm {
           onPressed: () {
             _selectExpectDates(context);
           },
-          label: Obx(() => Text(sourcectrl.selectedDateExpect.isEmpty
+          label: Obx(() => Text(source.selectedDateExpect.isEmpty
               ? "Choose the Expected Date"
-              : '${sourcectrl.selectedDateExpect}')),
+              : '${source.selectedDateExpect}')),
         ),
       ),
     );
@@ -370,6 +376,19 @@ class ProspectForm {
         controller: source.selectOwner,
         hintText: BaseText.hiintSelect(),
         serverSide: (params) => selectApiProspectOwner(params),
+      ),
+    );
+  }
+
+  Widget selectType() {
+    return FormGroup(
+      label: Text(ProspectText.labelType),
+      child: CustomSelectBox(
+        searchable: true,
+        disabled: source.isProcessing,
+        controller: source.selectType,
+        hintText: BaseText.hiintSelect(),
+        serverSide: (params) => selectApiProspectTypes(params),
       ),
     );
   }
@@ -497,9 +516,9 @@ class ProspectForm {
 
   Widget inputProduct({required ValueChanged<int> onRemoveItem}) {
     return Column(
-      children: source.inputItems.map((controller) {
-        int index = source.inputItems.indexOf(controller);
-        var inputItem = source.inputItems[index];
+      children: source.selectsItem.map((controller) {
+        int index = source.selectsItem.indexOf(controller);
+        var selectItem = source.selectsItem[index];
         var inputPrice = source.inputPrices[index];
         var inputQuantity = source.inputQuantities[index];
         var inputAmount = source.inputAmounts[index];
@@ -517,11 +536,14 @@ class ProspectForm {
                     sizes: ColScreen(md: Col.col_8),
                     child: FormGroup(
                       label: Text(ProspectText.labelItem),
-                      child: CustomInput(
+                      child: CustomSelectBox(
+                        searchable: true,
                         disabled: source.isProcessing,
-                        controller: inputItem,
-                        hintText: BaseText.hintText(),
-                        validators: [],
+                        controller: selectItem,
+                        hintText: BaseText.hiintSelect(),
+                        // serverSide: (params) => selectApiProductWithBp(
+                        //     params, source.bpid.toString()),
+                        serverSide: (params) => selectApiProduct(params),
                       ),
                     ),
                   ),
@@ -531,7 +553,7 @@ class ProspectForm {
                     child: FormGroup(
                       label: Text(ProspectText.labelAmount),
                       child: CustomInput(
-                        disabled: source.isProcessing,
+                        disabled: ctrl.isProduct.value,
                         controller: inputAmount,
                         hintText: BaseText.hintText(),
                         validators: [],
@@ -544,7 +566,7 @@ class ProspectForm {
                     child: FormGroup(
                       label: Text(ProspectText.labelQuantity),
                       child: CustomInput(
-                        disabled: source.isProcessing,
+                        disabled: ctrl.isProduct.value,
                         controller: inputQuantity,
                         hintText: BaseText.hintText(),
                         validators: [],
@@ -556,10 +578,11 @@ class ProspectForm {
                     child: FormGroup(
                       label: Text(ProspectText.labelPrice),
                       child: CustomInput(
-                        disabled: source.isProcessing,
+                        disabled: ctrl.isProduct.value,
                         controller: inputPrice,
                         hintText: BaseText.hintText(),
                         validators: [],
+                        inputFormatters: [maskFormatter],
                       ),
                     ),
                   ),
@@ -569,7 +592,7 @@ class ProspectForm {
                     child: FormGroup(
                       label: Text(ProspectText.labelDiscount),
                       child: CustomInput(
-                        disabled: source.isProcessing,
+                        disabled: ctrl.isProduct.value,
                         controller: inputDiscount,
                         hintText: BaseText.hintText(),
                         validators: [],
@@ -582,10 +605,11 @@ class ProspectForm {
                     child: FormGroup(
                       label: Text(ProspectText.labelTax),
                       child: CustomInput(
-                        disabled: source.isProcessing,
+                        disabled: ctrl.isProduct.value,
                         controller: inputTax,
                         hintText: BaseText.hintText(),
                         validators: [],
+                        inputFormatters: [maskFormatter],
                       ),
                     ),
                   ),
@@ -596,7 +620,7 @@ class ProspectForm {
                       label: Text(ProspectText.labelTaxType),
                       child: CustomSelectBox(
                         searchable: true,
-                        disabled: source.isProcessing,
+                        disabled: ctrl.isProduct.value,
                         controller: selectTax,
                         hintText: BaseText.hiintSelect(),
                         serverSide: (params) => selectApiTaxTypes(params),
@@ -615,7 +639,7 @@ class ProspectForm {
                   child: FormGroup(
                     label: Text(''),
                     child: ButtonMultipleCancel(
-                        disabled: source.inputItems.length > 1 ? false : true,
+                        disabled: source.selectsItem.length > 1 ? false : true,
                         margin: EdgeInsets.only(left: 10),
                         onPressed: () => onRemoveItem(index)),
                   ),
@@ -681,4 +705,9 @@ class ProspectForm {
           '${selectedExpected.year}-${selectedExpected.month}-${selectedExpected.day}';
     }
   }
+
+  var maskFormatter = new CurrencyTextInputFormatter(
+    decimalDigits: 0,
+    symbol: '',
+  );
 }

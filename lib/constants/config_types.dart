@@ -14,4 +14,6 @@ class ConfigType {
   static String taxType = notNull(types['taxType']);
 
   static String prospectStage = notNull(types['prospectStage']);
+
+  static String prospectType = notNull(types['prospectType']);
 }

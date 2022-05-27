@@ -12,6 +12,7 @@ import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
 
 import '../../masters/menus/_menu_type.dart';
+import '_form_controller.dart';
 import '_form_source.dart';
 
 class ProspectFormView extends StatelessWidget
@@ -20,6 +21,7 @@ class ProspectFormView extends StatelessWidget
   final ProspectPresenter presenter = Get.find<ProspectPresenter>();
   final source = ProspectSource().obs;
   final Function(Map<String, dynamic> body) onSave;
+  final ctrl = Get.put(ProspectFormController());
 
   late ProspectForm prospectForm;
 
@@ -132,6 +134,9 @@ class ProspectFormView extends StatelessWidget
                                     children: [
                                       BsCol(
                                           sizes: ColScreen(sm: Col.col_7),
+                                          child: prospectForm.selectType()),
+                                      BsCol(
+                                          sizes: ColScreen(sm: Col.col_7),
                                           child: prospectForm.inputValue()),
                                       BsCol(
                                           sizes: ColScreen(sm: Col.col_7),
@@ -146,54 +151,62 @@ class ProspectFormView extends StatelessWidget
                       ),
                       BsCol(
                         margin: EdgeInsets.only(top: 5),
-                        child: Container(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                border:
-                                    Border.all(color: Colors.grey.shade300)),
-                            child: Container(
-                              margin: EdgeInsets.all(10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  prospectForm.inputProduct(
-                                      onRemoveItem: onClickRemoveItem),
-                                  Container(
-                                    margin: EdgeInsets.only(bottom: 20),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                        child: ctrl.isProduct.value
+                            ? null
+                            : Container(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      border: Border.all(
+                                          color: Colors.grey.shade300)),
+                                  child: Container(
+                                    margin: EdgeInsets.all(10),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        GestureDetector(
-                                            onTap: () {
-                                              source.update((val) {
-                                                source.value.inputItems.add(
-                                                    TextEditingController());
-                                                source.value.inputPrices.add(
-                                                    TextEditingController());
-                                                source.value.inputQuantities.add(
-                                                    TextEditingController());
-                                                source.value.inputAmounts.add(
-                                                    TextEditingController());
-                                                source.value.inputTaxes.add(
-                                                    TextEditingController());
-                                                source.value.inputDiscounts.add(
-                                                    TextEditingController());
-                                                source.value.selectsTax.add(
-                                                    BsSelectBoxController());
-                                              });
-                                            },
-                                            child: Text('+ Add More Items')),
-                                        prospectForm.total()
+                                        prospectForm.inputProduct(
+                                            onRemoveItem: onClickRemoveItem),
+                                        Container(
+                                          margin: EdgeInsets.only(bottom: 20),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              GestureDetector(
+                                                  onTap: () {
+                                                    source.update((val) {
+                                                      source.value.inputPrices.add(
+                                                          TextEditingController());
+                                                      source
+                                                          .value.inputQuantities
+                                                          .add(
+                                                              TextEditingController());
+                                                      source.value.inputAmounts.add(
+                                                          TextEditingController());
+                                                      source.value.inputTaxes.add(
+                                                          TextEditingController());
+                                                      source.value.selectsItem.add(
+                                                          BsSelectBoxController());
+                                                      source
+                                                          .value.inputDiscounts
+                                                          .add(
+                                                              TextEditingController());
+                                                      source.value.selectsTax.add(
+                                                          BsSelectBoxController());
+                                                    });
+                                                  },
+                                                  child:
+                                                      Text('+ Add More Items')),
+                                              prospectForm.total()
+                                            ],
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
-                                ],
+                                ),
                               ),
-                            ),
-                          ),
-                        ),
                       ),
                       BsCol(
                         margin: EdgeInsets.only(top: 20),
@@ -243,10 +256,13 @@ class ProspectFormView extends StatelessWidget
 
   void onClickRemoveItem(int index) {
     source.update((val) {
-      source.value.inputItems.removeAt(index);
+      source.value.selectsItem.removeAt(index);
       source.value.inputPrices.removeAt(index);
       source.value.inputQuantities.removeAt(index);
       source.value.inputAmounts.removeAt(index);
+      source.value.inputDiscounts.removeAt(index);
+      source.value.inputTaxes.removeAt(index);
+      source.value.selectsTax.removeAt(index);
     });
   }
 

@@ -194,6 +194,7 @@ class AppRoute {
         binding: BindingsBuilder(() {
           Get.lazyPut(() => UserService());
           Get.lazyPut(() => CustomerService());
+          Get.lazyPut(() => ProductService());
           Get.lazyPut(() => ProspectService());
           // Get.lazyPut(() => TypeService());
           // Get.lazyPut(() => MenuService());

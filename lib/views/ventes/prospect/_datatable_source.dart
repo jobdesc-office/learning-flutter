@@ -3,6 +3,7 @@ import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/masters/user_model.dart';
+import '../../../models/ventes/prospect_model.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_details_datatable.dart';
 import '../../../widgets/button/button_edit_datatable.dart';
@@ -24,31 +25,17 @@ class ProspectDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      BsDataColumn(
-          label: Text('Prospect Title'),
-          columnName: 'userfullname',
-          width: 200),
-      BsDataColumn(
-          label: Text('Prospect Description'),
-          columnName: 'useremail',
-          width: 300),
+      BsDataColumn(label: Text('Prospect Title'), columnName: 'userfullname'),
+      BsDataColumn(label: Text('Prospect Customer')),
       BsDataColumn(label: Text('Prospect Progress'), columnName: 'userphone'),
       BsDataColumn(
-          label: Text('Prospect Status'),
-          columnName: 'isactive',
-          width: 180,
-          orderable: false,
-          searchable: false),
-      BsDataColumn(
-          label: Text('Actions'),
-          orderable: false,
-          width: 110,
-          searchable: false),
+          label: Text('Prospect Status'), orderable: false, searchable: false),
+      BsDataColumn(label: Text('Actions'), orderable: false, searchable: false),
     ];
   }
 
-  List<UserModel> get users =>
-      response.data.map((data) => UserModel.fromJson(data)).toList();
+  List<ProspectModel> get users =>
+      response.data.map((data) => ProspectModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
@@ -57,30 +44,24 @@ class ProspectDataTableSource extends BsDatatableSource {
       index: index,
       cells: [
         BsDataCell(Text('${controller.start + index + 1}')),
-        BsDataCell(Text(row.userfullname)),
-        BsDataCell(Text(row.useremail)),
-        BsDataCell(Text(row.userphone)),
-        BsDataCell(Card(
-          color: row.isactive ? Colors.blue.shade300 : Colors.red.shade300,
-          child: Center(
-              child: Text(
-            row.isactive ? BaseText.active : BaseText.nonactive,
-          )),
-        )),
+        BsDataCell(Text(row.prospectname!)),
+        BsDataCell(Text(row.prospectcust!.sbccstmname.toString())),
+        BsDataCell(Text(row.prospectstage!.typename.toString())),
+        BsDataCell(Text(row.prospectstatus!.typename.toString())),
         BsDataCell(
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ButtonDetailsDatatables(
                 margin: EdgeInsets.only(right: 5),
-                onPressed: () => onDetailsListener(row.userid),
+                onPressed: () => onDetailsListener(row.prospectid!),
               ),
               ButtonEditDatatables(
                 margin: EdgeInsets.only(right: 5),
-                onPressed: () => onEditListener(row.userid),
+                onPressed: () => onEditListener(row.prospectid!),
               ),
               ButtonDeleteDatatables(
-                  onPressed: () => onDeleteListener(row.userid)),
+                  onPressed: () => onDeleteListener(row.prospectid!)),
             ],
           ),
         ),

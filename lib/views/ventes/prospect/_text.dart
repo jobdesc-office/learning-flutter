@@ -4,6 +4,7 @@ class ProspectText {
   static String labelCustomer = 'Customer';
   static String labelOrganization = 'Organization';
   static String labelTitle = 'Title';
+  static String labelType = 'Type';
   static String labelName = 'Contact Person';
   static String labelValue = 'Value';
   static String labelPipeline = 'Pipeline';
