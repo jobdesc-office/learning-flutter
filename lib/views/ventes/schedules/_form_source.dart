@@ -326,7 +326,7 @@ class ScheduleForm {
               searchable: false,
               disabled: source.isProcessing,
               controller: source.selectTimeZone,
-              hintText: BaseText.hiintSelect(),
+              hintText: BaseText.hiintSelect(field: ScheduleText.labelTimeZone),
               serverSide: (params) => selectTimeZone(params),
             ),
           ),
