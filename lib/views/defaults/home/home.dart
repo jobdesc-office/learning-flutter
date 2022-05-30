@@ -3,14 +3,17 @@ import 'package:boilerplate/presenters/navigation_presenter.dart';
 import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:timelines/timelines.dart';
 
 import '../../../models/default/home_model.dart';
+import '../../../models/ventes/schedule_model.dart';
 import '../../../presenters/default/home_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../skins/template.dart';
+import '_source.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -33,6 +36,8 @@ class _HomeViewState extends State<HomeView>
   final presenter = Get.find<HomePresenter>();
 
   final _navigation = Get.find<NavigationPresenter>();
+
+  final source = Get.put(HomeSource());
 
   @override
   Widget build(BuildContext context) {
@@ -129,72 +134,60 @@ class _HomeViewState extends State<HomeView>
                               borderRadius: BorderRadius.circular(10),
                             ),
                             width: double.infinity,
-                            height: 150,
+                            height: 350,
                             child: TabBarView(
                               controller: _tabController,
                               children: [
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    BsRow(
-                                      children: [
-                                        BsCol(
-                                            sizes: ColScreen(sm: Col.col_1),
-                                            child: Column(
-                                              children: [
-                                                OutlinedDotIndicator(),
-                                                SizedBox(
-                                                  height: 50.0,
-                                                  child: SolidLineConnector(),
-                                                )
-                                              ],
-                                            )),
-                                        BsCol(
-                                            sizes: ColScreen(sm: Col.col_2),
-                                            child: Text('Today')),
-                                        BsCol(
-                                            sizes: ColScreen(sm: Col.col_9),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  'Meeting',
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                Text('at Town Hall'),
-                                              ],
-                                            )),
-                                        BsCol(
-                                            sizes: ColScreen(sm: Col.col_1),
-                                            child: Column(
-                                              children: [
-                                                OutlinedDotIndicator()
-                                              ],
-                                            )),
-                                        BsCol(
-                                            sizes: ColScreen(sm: Col.col_2),
-                                            child: Text('Yesterday')),
-                                        BsCol(
-                                            sizes: ColScreen(sm: Col.col_9),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  'Meeting',
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                Text('at Town Hall'),
-                                              ],
-                                            )),
-                                      ],
-                                    )
-                                  ],
+                                Container(
+                                  margin: EdgeInsets.all(20),
+                                  child: ListView.builder(
+                                      itemCount: source.data.length,
+                                      itemBuilder: (context, index) {
+                                        var schedule = source.data[index];
+
+                                        return BsRow(
+                                          children: [
+                                            BsCol(
+                                                sizes: ColScreen(sm: Col.col_1),
+                                                child: Column(
+                                                  children: [
+                                                    OutlinedDotIndicator(),
+                                                    SizedBox(
+                                                      height: 50.0,
+                                                      child:
+                                                          SolidLineConnector(),
+                                                    )
+                                                  ],
+                                                )),
+                                            BsCol(
+                                                sizes: ColScreen(sm: Col.col_2),
+                                                child: Text(
+                                                    schedule.schestartdate)),
+                                            BsCol(
+                                                sizes: ColScreen(sm: Col.col_9),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      schedule.schenm,
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    Container(
+                                                      margin: EdgeInsets.only(
+                                                          top: 5),
+                                                      child: Text(
+                                                          schedule.online
+                                                              ? 'Online'
+                                                              : 'Offline'),
+                                                    ),
+                                                  ],
+                                                )),
+                                          ],
+                                        );
+                                      }),
                                 ),
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -528,6 +521,8 @@ class _HomeViewState extends State<HomeView>
 
   @override
   void onSuccess(Response response) {
-    HomeModel home = HomeModel.fromJson(response.body);
+    for (var item in response.body) {
+      source.data.add(ScheduleModel.fromJson(item));
+    }
   }
 }
