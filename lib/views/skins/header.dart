@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 
 import '../../contracts/auth/logout_view_contract.dart';
 import '../../helpers/function.dart';
+import '../../middleware/verifyToken.dart';
 import '../../presenters/auth_presenter.dart';
 import '../../presenters/navigation_presenter.dart';
 import '../../routes/route_list.dart';
@@ -19,6 +20,7 @@ class HeaderSkins extends StatelessWidget implements LogoutViewContract {
   final _auth = Get.find<AuthPresenter>();
 
   HeaderSkins() {
+    checkJwtToken();
     _auth.logoutViewContract = this;
   }
 

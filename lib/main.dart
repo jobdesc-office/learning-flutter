@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 
 import 'constants/config_types.dart';
 import 'helpers/function.dart';
+import 'middleware/verifyToken.dart';
 import 'presenters/auth_presenter.dart';
 import 'presenters/navigation_presenter.dart';
 import 'routes/route_list.dart';
@@ -37,22 +38,8 @@ class MyApp extends StatelessWidget {
             Get.lazyPut(() => AuthService());
             Get.lazyPut(() => AppService());
           }),
-          onInit: () async {
-            final authPresenter = Get.find<AuthService>();
-            Response response = await authPresenter.verifyToken();
-
-            if (Get.currentRoute != RouteList.sigin.index) {
-              if (response.statusCode == 401) {
-                SessionManager.destroy();
-                toNameRoute(RouteList.sigin.index);
-              }
-
-              final appService = Get.find<AppService>();
-              Response appResponse = await appService.init();
-              if (appResponse.statusCode == 200) {
-                ConfigType.types = appResponse.body;
-              }
-            }
+          onInit: () {
+            checkJwtToken();
           },
         ));
   }
