@@ -1,11 +1,12 @@
 import 'package:bs_flutter_inputtext/bs_flutter_inputtext.dart';
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'custom_input.dart';
 
-class CustomInputNumber extends CustomInput {
-  CustomInputNumber({
+class CustomInputCurrency extends CustomInput {
+  CustomInputCurrency({
     required TextEditingController controller,
     bool disabled = false,
     bool readOnly = false,
@@ -24,6 +25,10 @@ class CustomInputNumber extends CustomInput {
           keyboardType: TextInputType.number,
           inputFormatters: [
             FilteringTextInputFormatter.digitsOnly,
+            CurrencyTextInputFormatter(
+              decimalDigits: 0,
+              symbol: '',
+            )
           ],
           minLines: minLines,
           maxLines: maxLines,

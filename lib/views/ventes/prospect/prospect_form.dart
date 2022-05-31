@@ -198,7 +198,7 @@ class ProspectFormView extends StatelessWidget
                                                   },
                                                   child:
                                                       Text('+ Add More Items')),
-                                              prospectForm.total()
+                                              // prospectForm.total()
                                             ],
                                           ),
                                         ),

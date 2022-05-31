@@ -13,7 +13,9 @@ class CustomInput extends BsInput {
     required TextEditingController controller,
     bool disabled = false,
     bool passwordText = false,
+    bool readOnly = false,
     String? hintText,
+    ValueChanged<String>? onChange,
     List<BsInputValidator> validators = const [],
     TextInputType? keyboardType,
     List<TextInputFormatter>? inputFormatters = const [],
@@ -22,9 +24,11 @@ class CustomInput extends BsInput {
   }) : super(
           obscureText: passwordText,
           disabled: disabled,
+          readOnly: readOnly,
           controller: controller,
           hintText: hintText,
           validators: validators,
+          onChange: onChange,
           style: BsInputStyle(
             disabledColor: _navigation.darkTheme.value
                 ? Colors.grey.shade800
