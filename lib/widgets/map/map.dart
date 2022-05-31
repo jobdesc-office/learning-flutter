@@ -124,7 +124,7 @@ class _GoogleMapsPageState extends State<GoogleMapsPage>
                     controller.longitude.value =
                         cameraPosition.target.longitude;
                     controller.linkCoordinate.value =
-                        'https://maps.googleapis.com/maps/api/geocode/json?latlng=${cameraPosition.target.latitude},${cameraPosition.target.longitude}&key=AIzaSyDUYfxm7qJq8dcMMhvhaoUukhQqMxBO6oc';
+                        'https://maps.google.com?q=${cameraPosition.target.latitude},${cameraPosition.target.longitude}';
                     controller.latitudelongitude.value =
                         '${cameraPosition.target.latitude},${cameraPosition.target.longitude}';
                     Navigator.pop(context, true);

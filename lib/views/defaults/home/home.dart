@@ -134,7 +134,7 @@ class _HomeViewState extends State<HomeView>
                               borderRadius: BorderRadius.circular(10),
                             ),
                             width: double.infinity,
-                            height: 350,
+                            height: source.x.value <= 4 ? 200 : 350,
                             child: TabBarView(
                               controller: _tabController,
                               children: [
@@ -160,11 +160,12 @@ class _HomeViewState extends State<HomeView>
                                                   ],
                                                 )),
                                             BsCol(
-                                                sizes: ColScreen(sm: Col.col_2),
+                                                alignment: Alignment.center,
+                                                sizes: ColScreen(sm: Col.col_3),
                                                 child: Text(
                                                     schedule.schestartdate)),
                                             BsCol(
-                                                sizes: ColScreen(sm: Col.col_9),
+                                                sizes: ColScreen(sm: Col.col_8),
                                                 child: Column(
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
@@ -521,8 +522,11 @@ class _HomeViewState extends State<HomeView>
 
   @override
   void onSuccess(Response response) {
+    int x = 0;
     for (var item in response.body) {
       source.data.add(ScheduleModel.fromJson(item));
+      x++;
     }
+    source.x.value = x;
   }
 }

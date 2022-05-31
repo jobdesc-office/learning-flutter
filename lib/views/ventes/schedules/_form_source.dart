@@ -177,7 +177,7 @@ class ScheduleForm {
         hintText: BaseText.hintText(field: ScheduleText.labelName),
         validators: [
           Validators.inputRequired(ScheduleText.labelName),
-          Validators.maxLength(ScheduleText.labelName, 100),
+          Validators.maxLength(ScheduleText.labelName, 50),
         ],
       ),
     );
