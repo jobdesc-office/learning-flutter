@@ -38,8 +38,8 @@ class MyApp extends StatelessWidget {
             Get.lazyPut(() => AuthService());
             Get.lazyPut(() => AppService());
           }),
-          onInit: () {
-            checkJwtToken();
+          onInit: () async {
+            await checkJwtToken();
           },
         ));
   }

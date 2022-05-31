@@ -18,7 +18,7 @@ checkJwtToken() async {
       toNameRoute(RouteList.sigin.index);
     }
 
-    final appService = Get.find<AppService>();
+    final appService = Get.put(AppService());
     Response appResponse = await appService.init();
     if (appResponse.statusCode == 200) {
       ConfigType.types = appResponse.body;
