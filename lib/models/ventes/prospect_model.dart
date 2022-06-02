@@ -1,3 +1,5 @@
+import '../masters/type_model.dart';
+
 class ProspectModel {
   int? prospectid;
   String? prospectname;
@@ -19,7 +21,7 @@ class ProspectModel {
   String? updateddate;
   bool? isactive;
   Prospectowneruser? prospectowneruser;
-  Prospectstage? prospectstage;
+  TypeModel? prospectstage;
   Prospectstage? prospectstatus;
   Prospectstage? prospecttype;
   Prospectbp? prospectbp;
@@ -76,7 +78,7 @@ class ProspectModel {
         ? new Prospectowneruser.fromJson(json['prospectowneruser'])
         : null;
     prospectstage = json['prospectstage'] != null
-        ? new Prospectstage.fromJson(json['prospectstage'])
+        ? new TypeModel.fromJson(json['prospectstage'])
         : null;
     prospectstatus = json['prospectstatus'] != null
         ? new Prospectstage.fromJson(json['prospectstatus'])

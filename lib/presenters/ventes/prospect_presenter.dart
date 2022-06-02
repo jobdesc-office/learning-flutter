@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../constants/base_text.dart';
 import '../../constants/config_types.dart';
 import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
@@ -13,6 +14,7 @@ import '../../utils/custom_get_controller.dart';
 import '../../views/masters/menus/_menu_type.dart';
 import '../../views/ventes/prospect/prospect_detail.dart';
 import '../../views/ventes/prospect/prospect_form.dart';
+import '../../widgets/confirm_dialog.dart';
 
 class ProspectPresenter extends CustomGetXController {
   final _prospectService = Get.find<ProspectService>();
@@ -96,51 +98,51 @@ class ProspectPresenter extends CustomGetXController {
     //   _typeParentViewContract.onErrorRequest(response);
   }
 
-  // void edit(BuildContext context, int Prospectid) async {
-  //   setProcessing(true);
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) => ProspectFormView(
-  //       onSave: (body) => update(context, body, Prospectid),
-  //     ),
-  //   );
-  // _loadType();
+  void edit(BuildContext context, int Prospectid) async {
+    setProcessing(true);
+    showDialog(
+      context: context,
+      builder: (context) => ProspectFormView(
+        onSave: (body) => update(context, body, Prospectid),
+      ),
+    );
+    _loadType();
 
-  //   Response response = await _prospectService.show(Prospectid);
-  //   if (response.statusCode == 200)
-  //     _ProspectFetchDataContract.onSuccessFetchData(response);
-  //   else
-  //     _ProspectViewContract.onErrorRequest(response);
-  // }
+    Response response = await _prospectService.show(Prospectid);
+    if (response.statusCode == 200)
+      _ProspectFetchDataContract.onSuccessFetchData(response);
+    else
+      _ProspectViewContract.onErrorRequest(response);
+  }
 
-  // void update(
-  //     BuildContext context, Map<String, dynamic> body, int Prospectid) async {
-  //   setProcessing(true);
-  //   Response response = await _prospectService.update(Prospectid, body);
-  //   if (response.statusCode == 200)
-  //     _ProspectViewContract.onEditSuccess(response, context: context);
-  //   else
-  //     _ProspectViewContract.onErrorRequest(response);
-  // }
+  void update(
+      BuildContext context, Map<String, dynamic> body, int Prospectid) async {
+    setProcessing(true);
+    Response response = await _prospectService.update(Prospectid, body);
+    if (response.statusCode == 200)
+      _ProspectViewContract.onEditSuccess(response, context: context);
+    else
+      _ProspectViewContract.onErrorRequest(response);
+  }
 
-  // void delete(BuildContext context, int Prospectid) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) => ConfirmDialog(
-  //       title: BaseText.confirmTitle,
-  //       message: BaseText.confirmMessage,
-  //       onPressed: (_, value) async {
-  //         if (value == ConfirmDialogOption.YES_OPTION) {
-  //           Response response = await _prospectService.destroy(Prospectid);
-  //           if (response.statusCode == 200)
-  //             _ProspectViewContract.onDeleteSuccess(response, context: context);
-  //           else
-  //             _ProspectViewContract.onErrorRequest(response);
-  //         } else {
-  //           Navigator.pop(context);
-  //         }
-  //       },
-  //     ),
-  //   );
-  // }
+  void delete(BuildContext context, int Prospectid) {
+    showDialog(
+      context: context,
+      builder: (context) => ConfirmDialog(
+        title: BaseText.confirmTitle,
+        message: BaseText.confirmMessage,
+        onPressed: (_, value) async {
+          if (value == ConfirmDialogOption.YES_OPTION) {
+            Response response = await _prospectService.destroy(Prospectid);
+            if (response.statusCode == 200)
+              _ProspectViewContract.onDeleteSuccess(response, context: context);
+            else
+              _ProspectViewContract.onErrorRequest(response);
+          } else {
+            Navigator.pop(context);
+          }
+        },
+      ),
+    );
+  }
 }

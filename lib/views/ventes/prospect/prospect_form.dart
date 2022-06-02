@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 import '../../../contracts/base/edit_view_contract.dart';
 import '../../../models/masters/type_model.dart';
+import '../../../models/ventes/prospect_model.dart';
 import '../../../presenters/ventes/prospect_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
@@ -280,15 +281,34 @@ class ProspectFormView extends StatelessWidget
 
   @override
   void onSuccessFetchData(Response response) {
-    // presenter.setProcessing(false);
+    presenter.setProcessing(false);
 
-    // source.update((val) {
-    //   ProspectModel bp = ProspectModel.fromJson(response.body);
-    //   source.value.inputCompanyName.text = bp.bpname;
-    //   source.value.inputName.text = bp.bppicname;
-    //   source.value.inputEmail.text = bp.bpemail;
-    //   source.value.inputPhone.text = bp.bpphone;
-    // });
+    source.update((val) {
+      ProspectModel prospect = ProspectModel.fromJson(response.body);
+      source.value.prospectStageController.selected = prospect.prospectstage;
+      source.value.selectOwner.setSelected(BsSelectBoxOption(
+          value: prospect.prospectowneruser!.user!.userid,
+          text:
+              Text(prospect.prospectowneruser!.user!.userfullname.toString())));
+      source.value.selectCustomer.setSelected(BsSelectBoxOption(
+          value: prospect.prospectcust!.sbcid,
+          text: Text(prospect.prospectcust!.sbccstm!.cstmname.toString())));
+      source.value.inputCompanyName.text = prospect.prospectname.toString();
+      source.value.selectStatus.setSelected(BsSelectBoxOption(
+          value: prospect.prospectstatus!.typeid,
+          text: Text(prospect.prospectstatus!.typename.toString())));
+      source.value.selectType.setSelected(BsSelectBoxOption(
+          value: prospect.prospecttype!.typeid,
+          text: Text(prospect.prospecttype!.typename.toString())));
+      source.value.inputValue.text = prospect.prospectvalue.toString();
+      source.value.inputDesc.text = prospect.prospectdescription.toString();
+
+      source.value.selectedDateStart.value =
+          prospect.prospectstartdate.toString();
+      source.value.selectedDateEnd.value = prospect.prospectenddate.toString();
+      source.value.selectedDateExpect.value =
+          prospect.prospectexpclosedate.toString();
+    });
   }
 
   @override

@@ -27,4 +27,11 @@ class TypeModel {
       description: parseString(json['typedesc']),
     );
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['typeid'] = this.typeid;
+    data['typename'] = this.typename;
+    return data;
+  }
 }

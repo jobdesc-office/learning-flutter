@@ -91,5 +91,7 @@ class ProspectView extends GetView implements IndexViewContract {
     // TODO: implement onLoadDatatables
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
+    datatable.onEditListener = (menuid) => presenter.edit(context, menuid);
+    datatable.onDeleteListener = (menuid) => presenter.delete(context, menuid);
   }
 }
