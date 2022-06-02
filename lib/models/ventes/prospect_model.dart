@@ -431,10 +431,10 @@ class Sbccstm {
   String? cstmpostalcode;
   String? cstmlatitude;
   String? cstmlongitude;
-  Null? referalcode;
-  Null? createdby;
+  int? referalcode;
+  int? createdby;
   String? createddate;
-  Null? updatedby;
+  int? updatedby;
   String? updateddate;
   bool? isactive;
 

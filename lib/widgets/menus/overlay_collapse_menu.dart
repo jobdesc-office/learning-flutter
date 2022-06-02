@@ -29,7 +29,7 @@ class OverlayCollapseMenu extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: _navigation.darkTheme.value
                           ? ColorPallates.elseDarkColor
-                          : ColorPallates.elseLightColor,
+                          : ColorPallates.primary,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,7 +40,7 @@ class OverlayCollapseMenu extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: _navigation.darkTheme.value
                                 ? ColorPallates.elseDarkColor
-                                : ColorPallates.elseLightColor,
+                                : ColorPallates.primary,
                           ),
                           child: SidebarWidgets.menuParentCollapse(
                             _navigation.dataListOfMenu.value.label,
@@ -53,11 +53,11 @@ class OverlayCollapseMenu extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: _navigation.darkTheme.value
                                 ? ColorPallates.elseDarkColor
-                                : ColorPallates.elseLightColor,
+                                : ColorPallates.primary,
                           ),
                           child: SidebarMenus(
                             menus: [
-                              MenuDataGroup(
+                              MenuDataGroupDrill(
                                 title: _navigation.dataListOfMenu.value.label,
                                 children:
                                     _navigation.dataListOfMenu.value.children,

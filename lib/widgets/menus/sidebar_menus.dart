@@ -14,7 +14,7 @@ class SidebarMenus extends StatelessWidget {
 
   final List<String> activeRoute;
 
-  final List<MenuDataGroup> menus;
+  final List<MenuDataGroupDrill> menus;
 
   final bool isCollapse;
 
@@ -54,7 +54,7 @@ class SidebarMenus extends StatelessWidget {
                                         ),
                                         Expanded(
                                           child: Text(
-                                            data.title!.toUpperCase(),
+                                            data.title.toUpperCase(),
                                             style: TextStyle(
                                               color: _navigation.darkTheme.value
                                                   ? Colors.white

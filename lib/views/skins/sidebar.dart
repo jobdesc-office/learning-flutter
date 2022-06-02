@@ -130,7 +130,7 @@ class SidebarSkins extends StatelessWidget {
                 isCollapse: _navigation.isCollapse.value,
                 activeRoute: activeRoute,
                 menus: [
-                  MenuDataGroup(
+                  MenuDataGroupDrill(
                     title: 'Navigasi Menu',
                     children: [
                       MenuData(
@@ -141,7 +141,7 @@ class SidebarSkins extends StatelessWidget {
                       ),
                     ],
                   ),
-                  MenuDataGroup(
+                  MenuDataGroupDrill(
                     title: 'Master Data',
                     icon: Icons.storage_outlined,
                     children: [
@@ -215,7 +215,7 @@ class SidebarSkins extends StatelessWidget {
                       ),
                     ],
                   ),
-                  MenuDataGroup(
+                  MenuDataGroupDrill(
                       title: 'Ventes Data',
                       icon: Icons.analytics,
                       children: [
@@ -230,6 +230,7 @@ class SidebarSkins extends StatelessWidget {
                           label: 'Prospects',
                         ),
                       ])
+
                   // MenuDataGroup(
                   //   title: 'Settings',
                   //   icon: Icons.settings_outlined,
@@ -333,7 +334,7 @@ class SidebarSkins extends StatelessWidget {
               isCollapse: false,
               activeRoute: activeRoute,
               menus: [
-                MenuDataGroup(
+                MenuDataGroupDrill(
                   title: _navigation.dataListOfMenu.value.label,
                   children: _navigation.dataListOfMenu.value.children,
                 ),

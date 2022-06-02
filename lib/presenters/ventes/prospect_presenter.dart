@@ -43,7 +43,6 @@ class ProspectPresenter extends CustomGetXController {
 
   Future getBpId(String id) async {
     Response response = await _userService.show(parseInt(id));
-    print(response.body);
     if (response.statusCode == 200) {
       return response.body['businesspartner']['bpid'];
     }
