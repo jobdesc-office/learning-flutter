@@ -7,10 +7,13 @@ import 'package:get/get.dart';
 import 'package:timelines/timelines.dart';
 
 import '../../../contracts/base/details_view_contract.dart';
+import '../../../models/ventes/prospect_model.dart';
 import '../../../presenters/navigation_presenter.dart';
+import '../../../presenters/ventes/prospect_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../styles/color_palattes.dart';
 import '../../../widgets/button/button_info_account.dart';
+import '_detail_source.dart';
 
 class ProspectDetails extends StatefulWidget {
   const ProspectDetails({Key? key}) : super(key: key);
@@ -24,10 +27,13 @@ class _ProspectDetailsState extends State<ProspectDetails>
     implements DetailViewContract {
   late TabController _tabController;
   late TabController _tabControllerTimeline;
+  final presenter = Get.find<ProspectPresenter>();
+  final source = Get.put(prospectDetailsSource());
 
   @override
   void initState() {
     super.initState();
+    presenter.prospectViewContract = this;
     _tabController = TabController(length: 7, vsync: this);
     _tabControllerTimeline = TabController(length: 8, vsync: this);
   }
@@ -36,11 +42,6 @@ class _ProspectDetailsState extends State<ProspectDetails>
 
   @override
   Widget build(BuildContext context) {
-    BsSelectBoxController selectOwnership = BsSelectBoxController(options: [
-      BsSelectBoxOption(value: '{1}', text: Text("Artemis's (You)")),
-      BsSelectBoxOption(value: '{2}', text: Text('Not You'))
-    ]);
-
     return Scaffold(
       body: TemplateView(
         activeRoutes: [RouteList.ventes.index, RouteList.ventesProspect.index],
@@ -65,7 +66,10 @@ class _ProspectDetailsState extends State<ProspectDetails>
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(
-                                  children: [Text('data'), Icon(Icons.label)],
+                                  children: [
+                                    Text(source.prospectname.value),
+                                    Icon(Icons.label)
+                                  ],
                                 ),
                                 Row(
                                   mainAxisAlignment:
@@ -166,30 +170,39 @@ class _ProspectDetailsState extends State<ProspectDetails>
                             SizedBox(
                               height: 20,
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                            BsRow(
                               children: [
-                                Text('Rp. 9.000.000'),
-                                Container(
-                                  width: 300,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Text('Add Product'),
-                                      Row(
-                                        children: [
-                                          Icon(Icons.person),
-                                          Text('Andy')
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Icon(Icons.domain),
-                                          Text('HSM')
-                                        ],
-                                      )
-                                    ],
+                                BsCol(
+                                    sizes: ColScreen(sm: Col.col_2),
+                                    child: Text(source.prospectvalue.value)),
+                                BsCol(
+                                  sizes: ColScreen(sm: Col.col_10),
+                                  child: Container(
+                                    child: BsRow(
+                                      children: [
+                                        BsCol(
+                                            sizes: ColScreen(sm: Col.col_3),
+                                            child: Text('Add Product')),
+                                        BsCol(
+                                          sizes: ColScreen(sm: Col.col_4),
+                                          child: Row(
+                                            children: [
+                                              Icon(Icons.person),
+                                              Text(source.userfullname.value)
+                                            ],
+                                          ),
+                                        ),
+                                        BsCol(
+                                          sizes: ColScreen(sm: Col.col_5),
+                                          child: Row(
+                                            children: [
+                                              Icon(Icons.domain),
+                                              Text(source.bpname.value)
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ],
@@ -248,8 +261,8 @@ class _ProspectDetailsState extends State<ProspectDetails>
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('Contact Made'),
-                                Text('22-April-2022'),
+                                Text('Prospect Start'),
+                                Text(source.prospectstartdate.value),
                               ],
                             )
                           ]),
@@ -321,7 +334,8 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                             Column(
                                               children: [
                                                 Text('Description'),
-                                                Text('Rp. 999'),
+                                                Text(
+                                                    source.prospectvalue.value),
                                               ],
                                             ),
                                           ],
@@ -400,7 +414,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                 Text('Address')
                                               ],
                                             ),
-                                            Text('HSM')
+                                            Text(source.bpname.value)
                                           ],
                                         ),
                                         ExpansionTile(
@@ -706,5 +720,13 @@ class _ProspectDetailsState extends State<ProspectDetails>
   }
 
   @override
-  void onSuccessFetchData(Response response) {}
+  void onSuccessFetchData(Response response) {
+    ProspectModel dt = ProspectModel.fromJson(response.body);
+    source.prospectname.value = dt.prospectname.toString();
+    source.prospectvalue.value = 'Rp. ' + dt.prospectvalue.toString() + ',00';
+    source.userfullname.value =
+        dt.prospectowneruser!.user!.userfullname.toString();
+    source.bpname.value = dt.prospectbp!.bpname.toString();
+    source.prospectstartdate.value = dt.prospectstartdate.toString();
+  }
 }

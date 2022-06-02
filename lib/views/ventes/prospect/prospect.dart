@@ -38,10 +38,6 @@ class ProspectView extends GetView implements IndexViewContract {
             children: [
               CustomDatabales(
                 headerActions: [
-                  BsButton(
-                      label: Text('Detail'),
-                      margin: EdgeInsets.only(right: 5),
-                      onPressed: () => presenter.details(context, 1)),
                   ThemeButtonCreate(
                       prefix: ProspectText.title,
                       onPressed: () => presenter.add(context)),
@@ -91,6 +87,8 @@ class ProspectView extends GetView implements IndexViewContract {
     // TODO: implement onLoadDatatables
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
+    datatable.onDetailsListener =
+        (userid) => presenter.details(context, userid);
     datatable.onEditListener = (menuid) => presenter.edit(context, menuid);
     datatable.onDeleteListener = (menuid) => presenter.delete(context, menuid);
   }

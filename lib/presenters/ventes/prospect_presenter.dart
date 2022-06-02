@@ -91,11 +91,11 @@ class ProspectPresenter extends CustomGetXController {
       builder: (context) => ProspectDetails(),
     );
 
-    // Response response = await _typeParentService.show(userid);
-    // if (response.statusCode == 200)
-    //   _typeParentDataDetailsContract.onSuccessFetchData(response);
-    // else
-    //   _typeParentViewContract.onErrorRequest(response);
+    Response response = await _prospectService.show(userid);
+    if (response.statusCode == 200)
+      _ProspectTypeViewContract.onSuccessFetchData(response);
+    else
+      _ProspectViewContract.onErrorRequest(response);
   }
 
   void edit(BuildContext context, int Prospectid) async {
