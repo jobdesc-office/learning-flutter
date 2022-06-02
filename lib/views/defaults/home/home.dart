@@ -523,10 +523,12 @@ class _HomeViewState extends State<HomeView>
   @override
   void onSuccess(Response response) {
     int x = 0;
+    List data = [];
     for (var item in response.body) {
-      source.data.add(ScheduleModel.fromJson(item));
+      data.add(ScheduleModel.fromJson(item));
       x++;
     }
+    source.data.value = data;
     source.x.value = x;
   }
 }
