@@ -1,3 +1,4 @@
+import 'package:boilerplate/presenters/navigation_presenter.dart';
 import 'package:get/get.dart';
 
 import '../constants/config_types.dart';
@@ -9,12 +10,14 @@ import '../utils/session_manager.dart';
 
 checkJwtToken() async {
   final authPresenter = Get.find<AuthService>();
+  final _nav = Get.find<NavigationPresenter>();
   Response response = await authPresenter.verifyToken();
 
   if (Get.currentRoute != RouteList.sigin.index) {
     if (response.statusCode == 401) {
       SessionManager.destroy();
       authPresenter.signOut();
+      _nav.darkTheme.value = false;
       toNameRoute(RouteList.sigin.index);
     }
 

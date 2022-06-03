@@ -57,7 +57,7 @@ class OverlayCollapseMenu extends StatelessWidget {
                           ),
                           child: SidebarMenus(
                             menus: [
-                              MenuDataGroupDrill(
+                              MenuDataGroup(
                                 title: _navigation.dataListOfMenu.value.label,
                                 children:
                                     _navigation.dataListOfMenu.value.children,

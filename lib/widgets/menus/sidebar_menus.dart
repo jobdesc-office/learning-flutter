@@ -14,7 +14,7 @@ class SidebarMenus extends StatelessWidget {
 
   final List<String> activeRoute;
 
-  final List<MenuDataGroupDrill> menus;
+  final List<MenuDataGroup> menus;
 
   final bool isCollapse;
 
