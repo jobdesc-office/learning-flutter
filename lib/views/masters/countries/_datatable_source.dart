@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../models/masters/country_model.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_edit_datatable.dart';
+import '../../../widgets/datatables/custom_bsdatatable_column.dart';
 
 class CountryDataTableSource extends BsDatatableSource {
   ValueChanged<int> onEditListener = (value) {};
@@ -17,13 +18,17 @@ class CountryDataTableSource extends BsDatatableSource {
   List<BsDataColumn> get columns {
     return <BsDataColumn>[
       BsDataColumn(
-        label: Text('No'),
+        label: TextDatatableColumn('No'),
         width: 100,
         searchable: false,
         orderable: false,
       ),
-      BsDataColumn(label: Text('Country Name'), columnName: 'Countrynm'),
-      BsDataColumn(label: Text('Actions'), orderable: false, searchable: false),
+      BsDataColumn(
+          label: TextDatatableColumn('Country Name'), columnName: 'Countrynm'),
+      BsDataColumn(
+          label: TextDatatableColumn('Actions'),
+          orderable: false,
+          searchable: false),
     ];
   }
 

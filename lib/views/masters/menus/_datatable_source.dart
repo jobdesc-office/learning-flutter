@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../models/security/menu_model.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_edit_datatable.dart';
+import '../../../widgets/datatables/custom_bsdatatable_column.dart';
 
 class MenuDataTableSource extends BsDatatableSource {
   ValueChanged<int> onEditListener = (value) {};
@@ -17,16 +18,22 @@ class MenuDataTableSource extends BsDatatableSource {
   List<BsDataColumn> get columns {
     return <BsDataColumn>[
       BsDataColumn(
-        label: Text('No'),
+        label: TextDatatableColumn('No'),
         width: 100,
         searchable: false,
         orderable: false,
       ),
-      BsDataColumn(label: Text('Menu Name'), columnName: 'menunm'),
-      BsDataColumn(label: Text('Menu Route'), columnName: 'route'),
-      BsDataColumn(label: Text('Menu Icon'), columnName: 'icon'),
-      BsDataColumn(label: Text('Menu Sequence'), columnName: 'seq'),
-      BsDataColumn(label: Text('Actions'), orderable: false, searchable: false),
+      BsDataColumn(
+          label: TextDatatableColumn('Menu Name'), columnName: 'menunm'),
+      BsDataColumn(
+          label: TextDatatableColumn('Menu Route'), columnName: 'route'),
+      BsDataColumn(label: TextDatatableColumn('Menu Icon'), columnName: 'icon'),
+      BsDataColumn(
+          label: TextDatatableColumn('Menu Sequence'), columnName: 'seq'),
+      BsDataColumn(
+          label: TextDatatableColumn('Actions'),
+          orderable: false,
+          searchable: false),
     ];
   }
 

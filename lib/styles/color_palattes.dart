@@ -6,7 +6,18 @@ class ColorPallates {
   static const contentDarkColor = Color(0xff454D55);
   static const elseDarkColor = Color(0xff343A40);
 
-  static const iconLightColor = Colors.black54;
+  static const sidebarDarkColor = Color(0xff343A40);
+  static const sidebarDarkTextColor = Colors.white;
+
+  static const sidebarActiveColor = Color(0xFFBB8A52);
+  static const sidebarActiveTextColor = Colors.black;
+
+  static const sidebarLightColor = Color(0xFF0C3B2E);
+  static const sidebarLightTextColor = Colors.white;
+
+  static const navbarLightColor = Color(0xFF0C3B2E);
+
+  static const iconLightColor = Colors.white;
   static const iconDarkColor = Colors.white;
   static const backgroundLightColor = Colors.black87;
   static const backgroundDarkColor = Colors.white;

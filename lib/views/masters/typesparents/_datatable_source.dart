@@ -5,6 +5,7 @@ import '../../../models/masters/type_model.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_details_datatable.dart';
 import '../../../widgets/button/button_edit_datatable.dart';
+import '../../../widgets/datatables/custom_bsdatatable_column.dart';
 
 class TypeParentDataTableSource extends BsDatatableSource {
   ValueChanged<int> onDetailsListener = (value) {};
@@ -18,14 +19,19 @@ class TypeParentDataTableSource extends BsDatatableSource {
   List<BsDataColumn> get columns {
     return <BsDataColumn>[
       BsDataColumn(
-        label: Text('No'),
+        label: TextDatatableColumn('No'),
         width: 100,
         searchable: false,
         orderable: false,
       ),
-      BsDataColumn(label: Text('Parent Code'), columnName: 'typecd'),
-      BsDataColumn(label: Text('Parent Name'), columnName: 'typename'),
-      BsDataColumn(label: Text('Actions'), orderable: false, searchable: false),
+      BsDataColumn(
+          label: TextDatatableColumn('Parent Code'), columnName: 'typecd'),
+      BsDataColumn(
+          label: TextDatatableColumn('Parent Name'), columnName: 'typename'),
+      BsDataColumn(
+          label: TextDatatableColumn('Actions'),
+          orderable: false,
+          searchable: false),
     ];
   }
 

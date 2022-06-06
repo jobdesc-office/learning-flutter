@@ -30,7 +30,7 @@ class SidebarSkins extends StatelessWidget {
         return Container(
           color: _navigation.darkTheme.value
               ? ColorPallates.elseDarkColor
-              : ColorPallates.elseLightColor,
+              : ColorPallates.sidebarLightColor,
           child: _navigation.dataListOfMenu.value.id != 0 &&
                   !_navigation.isCollapse.value
               ? listOfMenu()
@@ -66,7 +66,7 @@ class SidebarSkins extends StatelessWidget {
           decoration: BoxDecoration(
             color: _navigation.darkTheme.value
                 ? ColorPallates.elseDarkColor
-                : ColorPallates.primary,
+                : ColorPallates.sidebarLightColor,
             border: Border.all(color: Colors.transparent, width: 0),
           ),
           duration: Duration(milliseconds: 0),
@@ -77,11 +77,11 @@ class SidebarSkins extends StatelessWidget {
                     size: 50,
                     color: _navigation.darkTheme.value
                         ? ColorPallates.elseDarkColor
-                        : ColorPallates.primary,
+                        : ColorPallates.sidebarLightColor,
                   ),
                   backgroundColor: _navigation.darkTheme.value
                       ? ColorPallates.primary
-                      : ColorPallates.secondary,
+                      : ColorPallates.primary,
                 )
               : BsRow(
                   children: [
@@ -93,11 +93,11 @@ class SidebarSkins extends StatelessWidget {
                           size: 50,
                           color: _navigation.darkTheme.value
                               ? ColorPallates.elseDarkColor
-                              : ColorPallates.primary,
+                              : ColorPallates.sidebarLightColor,
                         ),
                         backgroundColor: _navigation.darkTheme.value
                             ? ColorPallates.primary
-                            : ColorPallates.secondary,
+                            : ColorPallates.primary,
                       ),
                     ),
                     BsCol(
@@ -107,9 +107,18 @@ class SidebarSkins extends StatelessWidget {
                           Text(
                             box.read('username'),
                             style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: _navigation.darkTheme.value
+                                    ? ColorPallates.sidebarDarkTextColor
+                                    : ColorPallates.sidebarLightTextColor),
                           ),
-                          Text(box.read('role'))
+                          Text(box.read('role'),
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  color: _navigation.darkTheme.value
+                                      ? ColorPallates.sidebarDarkTextColor
+                                      : ColorPallates.sidebarLightTextColor))
                         ],
                       ),
                     )
@@ -124,7 +133,7 @@ class SidebarSkins extends StatelessWidget {
               decoration: BoxDecoration(
                 color: _navigation.darkTheme.value
                     ? ColorPallates.elseDarkColor
-                    : ColorPallates.primary,
+                    : ColorPallates.sidebarLightColor,
               ),
               child: SidebarMenus(
                 isCollapse: _navigation.isCollapse.value,
@@ -317,7 +326,7 @@ class SidebarSkins extends StatelessWidget {
           decoration: BoxDecoration(
             color: _navigation.darkTheme.value
                 ? ColorPallates.elseDarkColor
-                : ColorPallates.elseLightColor,
+                : ColorPallates.sidebarLightColor,
           ),
           child: _navigation.isCollapse.value
               ? SidebarWidgets.logoCollapse()
@@ -333,7 +342,7 @@ class SidebarSkins extends StatelessWidget {
             decoration: BoxDecoration(
               color: _navigation.darkTheme.value
                   ? ColorPallates.elseDarkColor
-                  : ColorPallates.elseLightColor,
+                  : ColorPallates.sidebarLightColor,
             ),
             child: SidebarMenus(
               isCollapse: false,

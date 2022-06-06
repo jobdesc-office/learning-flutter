@@ -1,9 +1,11 @@
+import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/masters/city_model.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_edit_datatable.dart';
+import '../../../widgets/datatables/custom_bsdatatable_column.dart';
 
 class CityDataTableSource extends BsDatatableSource {
   ValueChanged<int> onEditListener = (value) {};
@@ -16,14 +18,22 @@ class CityDataTableSource extends BsDatatableSource {
   List<BsDataColumn> get columns {
     return <BsDataColumn>[
       BsDataColumn(
-        label: Text('No'),
+        label: TextDatatableColumn('No'),
         width: 100,
         searchable: false,
         orderable: false,
       ),
-      BsDataColumn(label: Text('City Name'), columnName: 'Citynm'),
-      BsDataColumn(label: Text('City Province'), columnName: 'Citynm'),
-      BsDataColumn(label: Text('Actions'), orderable: false, searchable: false),
+      BsDataColumn(
+          label: TextDatatableColumn(
+            'City Name',
+          ),
+          columnName: 'Citynm'),
+      BsDataColumn(
+          label: TextDatatableColumn('City Province'), columnName: 'Citynm'),
+      BsDataColumn(
+          label: TextDatatableColumn('Actions'),
+          orderable: false,
+          searchable: false),
     ];
   }
 

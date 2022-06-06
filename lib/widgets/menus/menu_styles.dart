@@ -15,17 +15,19 @@ class MenuStyles {
     return MenuStyles(
       decoration: MenuDecoration(
         active: BoxDecoration(
-          color: ColorPallates.tertiary,
+          color: ColorPallates.sidebarActiveColor,
           borderRadius: BorderRadius.circular(5),
         ),
         nonactive: BoxDecoration(),
       ),
       textStyle: MenuTextStyle(
         active: TextStyle(
-          color: Colors.black,
+          color: ColorPallates.sidebarActiveTextColor,
         ),
         nonactive: TextStyle(
-          color: _navigation.darkTheme.value ? Colors.white : Colors.black,
+          color: _navigation.darkTheme.value
+              ? ColorPallates.sidebarDarkTextColor
+              : ColorPallates.sidebarLightTextColor,
         ),
       ),
     );

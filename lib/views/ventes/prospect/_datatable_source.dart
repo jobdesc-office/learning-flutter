@@ -7,6 +7,7 @@ import '../../../models/ventes/prospect_model.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_details_datatable.dart';
 import '../../../widgets/button/button_edit_datatable.dart';
+import '../../../widgets/datatables/custom_bsdatatable_column.dart';
 
 class ProspectDataTableSource extends BsDatatableSource {
   ValueChanged<int> onDetailsListener = (value) {};
@@ -20,17 +21,26 @@ class ProspectDataTableSource extends BsDatatableSource {
   List<BsDataColumn> get columns {
     return <BsDataColumn>[
       BsDataColumn(
-        label: Text('No'),
+        label: TextDatatableColumn('No'),
         width: 70,
         searchable: false,
         orderable: false,
       ),
-      BsDataColumn(label: Text('Prospect Title'), columnName: 'userfullname'),
-      BsDataColumn(label: Text('Prospect Customer')),
-      BsDataColumn(label: Text('Prospect Progress'), columnName: 'userphone'),
       BsDataColumn(
-          label: Text('Prospect Status'), orderable: false, searchable: false),
-      BsDataColumn(label: Text('Actions'), orderable: false, searchable: false),
+          label: TextDatatableColumn('Prospect Title'),
+          columnName: 'userfullname'),
+      BsDataColumn(label: TextDatatableColumn('Prospect Customer')),
+      BsDataColumn(
+          label: TextDatatableColumn('Prospect Progress'),
+          columnName: 'userphone'),
+      BsDataColumn(
+          label: TextDatatableColumn('Prospect Status'),
+          orderable: false,
+          searchable: false),
+      BsDataColumn(
+          label: TextDatatableColumn('Actions'),
+          orderable: false,
+          searchable: false),
     ];
   }
 

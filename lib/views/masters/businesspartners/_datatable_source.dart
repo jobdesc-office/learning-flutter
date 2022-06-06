@@ -5,6 +5,7 @@ import '../../../models/masters/businesspartner_model.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_details_datatable.dart';
 import '../../../widgets/button/button_edit_datatable.dart';
+import '../../../widgets/datatables/custom_bsdatatable_column.dart';
 
 class BusinessPartnerDataTableSource extends BsDatatableSource {
   ValueChanged<int> onDetailsListener = (value) {};
@@ -18,20 +19,26 @@ class BusinessPartnerDataTableSource extends BsDatatableSource {
   List<BsDataColumn> get columns {
     return <BsDataColumn>[
       BsDataColumn(
-        label: Text('No'),
+        label: TextDatatableColumn('No'),
         width: 20,
         searchable: false,
         orderable: false,
       ),
       BsDataColumn(
-          label: Text('BP Company'), columnName: 'userfullname', width: 180),
+          label: TextDatatableColumn('BP Company'),
+          columnName: 'userfullname',
+          width: 180),
       BsDataColumn(label: Text('BP Type'), columnName: 'bptypeid', width: 100),
       BsDataColumn(
-          label: Text('BP Email'), columnName: 'useremail', width: 240),
+          label: TextDatatableColumn('BP Email'),
+          columnName: 'useremail',
+          width: 240),
       BsDataColumn(
-          label: Text('BP Phone'), columnName: 'userphone', width: 130),
+          label: TextDatatableColumn('BP Phone'),
+          columnName: 'userphone',
+          width: 130),
       BsDataColumn(
-          label: Text('Actions'),
+          label: TextDatatableColumn('Actions'),
           orderable: false,
           searchable: false,
           width: 90),

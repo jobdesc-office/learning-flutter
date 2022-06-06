@@ -6,6 +6,7 @@ import '../../../models/masters/customer_model.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_details_datatable.dart';
 import '../../../widgets/button/button_edit_datatable.dart';
+import '../../../widgets/datatables/custom_bsdatatable_column.dart';
 
 class CustomerDataTableSource extends BsDatatableSource {
   ValueChanged<int> onDetailsListener = (value) {};
@@ -19,15 +20,22 @@ class CustomerDataTableSource extends BsDatatableSource {
   List<BsDataColumn> get columns {
     return <BsDataColumn>[
       BsDataColumn(
-        label: Text('No'),
+        label: TextDatatableColumn('No'),
         width: 100,
         searchable: false,
         orderable: false,
       ),
-      BsDataColumn(label: Text('Customer Name'), columnName: 'Customernm'),
-      BsDataColumn(label: Text('Customer Type'), columnName: 'route'),
-      BsDataColumn(label: Text('Customer Telp'), columnName: 'icon'),
-      BsDataColumn(label: Text('Actions'), orderable: false, searchable: false),
+      BsDataColumn(
+          label: TextDatatableColumn('Customer Name'),
+          columnName: 'Customernm'),
+      BsDataColumn(
+          label: TextDatatableColumn('Customer Type'), columnName: 'route'),
+      BsDataColumn(
+          label: TextDatatableColumn('Customer Telp'), columnName: 'icon'),
+      BsDataColumn(
+          label: TextDatatableColumn('Actions'),
+          orderable: false,
+          searchable: false),
     ];
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../presenters/navigation_presenter.dart';
+import '../../styles/color_palattes.dart';
 import 'menu_data_group.dart';
 import 'menu_item.dart';
 
@@ -35,40 +36,34 @@ class SidebarMenus extends StatelessWidget {
                     .map(
                       (data) => Container(
                         padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        child: ExpansionTile(
+                          collapsedIconColor: _navigation.darkTheme.value
+                              ? ColorPallates.sidebarDarkTextColor
+                              : ColorPallates.sidebarLightTextColor,
+                          initiallyExpanded: true,
+                          leading: Container(
+                            margin: EdgeInsets.only(right: 5),
+                            child: Icon(
+                              data.icon,
+                              size: 12,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          title: Expanded(
+                            child: Text(
+                              data.title!.toUpperCase(),
+                              style: TextStyle(
+                                color: _navigation.darkTheme.value
+                                    ? ColorPallates.sidebarDarkTextColor
+                                    : ColorPallates.sidebarLightTextColor,
+                                fontSize: 9,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 1.2,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
                           children: [
-                            isCollapse || data.title == null
-                                ? Container()
-                                : Container(
-                                    margin: EdgeInsets.only(bottom: 10),
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(right: 5),
-                                          child: Icon(
-                                            data.icon,
-                                            size: 12,
-                                            color: Colors.grey,
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Text(
-                                            data.title.toUpperCase(),
-                                            style: TextStyle(
-                                              color: _navigation.darkTheme.value
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                              fontSize: 9,
-                                              fontWeight: FontWeight.bold,
-                                              letterSpacing: 1.2,
-                                            ),
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
                             Column(
                               children: data.children
                                   .map(

@@ -6,6 +6,7 @@ import '../../../models/masters/user_model.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_details_datatable.dart';
 import '../../../widgets/button/button_edit_datatable.dart';
+import '../../../widgets/datatables/custom_bsdatatable_column.dart';
 
 class UserDataTableSource extends BsDatatableSource {
   ValueChanged<int> onDetailsListener = (value) {};
@@ -19,23 +20,31 @@ class UserDataTableSource extends BsDatatableSource {
   List<BsDataColumn> get columns {
     return <BsDataColumn>[
       BsDataColumn(
-        label: Text('No'),
+        label: TextDatatableColumn('No'),
         width: 70,
         searchable: false,
         orderable: false,
       ),
       BsDataColumn(
-          label: Text('User Name'), columnName: 'userfullname', width: 300),
+          label: TextDatatableColumn('User Name'),
+          columnName: 'userfullname',
+          width: 300),
       BsDataColumn(
-          label: Text('User Email'), columnName: 'useremail', width: 250),
-      BsDataColumn(label: Text('User Phone'), columnName: 'userphone'),
+          label: TextDatatableColumn('User Email'),
+          columnName: 'useremail',
+          width: 250),
+      BsDataColumn(
+          label: TextDatatableColumn('User Phone'), columnName: 'userphone'),
       // BsDataColumn(
       //     label: Text('User Status'),
       //     columnName: 'isactive',
       //     width: 110,
       //     orderable: false,
       //     searchable: false),
-      BsDataColumn(label: Text('Actions'), orderable: false, searchable: false),
+      BsDataColumn(
+          label: TextDatatableColumn('Actions'),
+          orderable: false,
+          searchable: false),
     ];
   }
 
