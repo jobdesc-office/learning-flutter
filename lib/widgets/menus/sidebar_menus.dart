@@ -29,62 +29,87 @@ class SidebarMenus extends StatelessWidget {
         children: [
           Scrollbar(
             child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: this
-                    .menus
-                    .map(
-                      (data) => Container(
-                        padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
-                        child: ExpansionTile(
-                          collapsedIconColor: _navigation.darkTheme.value
-                              ? ColorPallates.sidebarDarkTextColor
-                              : ColorPallates.sidebarLightTextColor,
-                          initiallyExpanded: true,
-                          leading: Container(
-                            margin: EdgeInsets.only(right: 5),
-                            child: Icon(
-                              data.icon,
-                              size: 12,
-                              color: Colors.grey,
+              child: isCollapse
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: this
+                          .menus
+                          .map(
+                            (data) => Container(
+                              padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
+                              child: Column(
+                                children: data.children
+                                    .map(
+                                      (child) => isCollapse
+                                          ? MenuItemCollapse(
+                                              data: child,
+                                              activeRoute: activeRoute,
+                                            )
+                                          : MenuItem(
+                                              data: child,
+                                              activeRoute: activeRoute,
+                                            ),
+                                    )
+                                    .toList(),
+                              ),
                             ),
-                          ),
-                          title: Expanded(
-                            child: Text(
-                              data.title!.toUpperCase(),
-                              style: TextStyle(
-                                color: _navigation.darkTheme.value
+                          )
+                          .toList(),
+                    )
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: this
+                          .menus
+                          .map(
+                            (data) => Container(
+                              padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
+                              child: ExpansionTile(
+                                collapsedIconColor: _navigation.darkTheme.value
                                     ? ColorPallates.sidebarDarkTextColor
                                     : ColorPallates.sidebarLightTextColor,
-                                fontSize: 9,
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 1.2,
+                                initiallyExpanded: true,
+                                leading: Container(
+                                  margin: EdgeInsets.only(right: 5),
+                                  child: Icon(
+                                    data.icon,
+                                    size: 24,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                title: Text(
+                                  data.title!.toUpperCase(),
+                                  style: TextStyle(
+                                    color: _navigation.darkTheme.value
+                                        ? ColorPallates.sidebarDarkTextColor
+                                        : ColorPallates.sidebarLightTextColor,
+                                    fontSize: 9,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 1.2,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                children: [
+                                  Column(
+                                    children: data.children
+                                        .map(
+                                          (child) => isCollapse
+                                              ? MenuItemCollapse(
+                                                  data: child,
+                                                  activeRoute: activeRoute,
+                                                )
+                                              : MenuItem(
+                                                  data: child,
+                                                  activeRoute: activeRoute,
+                                                ),
+                                        )
+                                        .toList(),
+                                  ),
+                                ],
                               ),
-                              overflow: TextOverflow.ellipsis,
                             ),
-                          ),
-                          children: [
-                            Column(
-                              children: data.children
-                                  .map(
-                                    (child) => isCollapse
-                                        ? MenuItemCollapse(
-                                            data: child,
-                                            activeRoute: activeRoute,
-                                          )
-                                        : MenuItem(
-                                            data: child,
-                                            activeRoute: activeRoute,
-                                          ),
-                                  )
-                                  .toList(),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                    .toList(),
-              ),
+                          )
+                          .toList(),
+                    ),
             ),
           )
         ],

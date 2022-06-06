@@ -27,6 +27,9 @@ class ColorPallates {
   static const secondary = Color(0xFF0C3B2E);
   static const tertiary = Color(0xFFBB8A52);
   static const quaternary = Color(0xFFFFBA00);
+
+  static const datatableRow = Color(0xFFbdf2c5);
+
   static Color dark = Color(0xFF363636);
   static Color danger = Color(0xffB8405E);
   static Color warning = Color(0xffFFD93D);

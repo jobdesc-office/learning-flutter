@@ -26,20 +26,26 @@ class SidebarWidgets {
     return Material(
       color: _navigation.darkTheme.value
           ? ColorPallates.elseDarkColor
-          : ColorPallates.elseLightColor,
+          : ColorPallates.sidebarLightColor,
       child: InkWell(
         child: Row(
           children: [
             Container(
               padding: EdgeInsets.all(3),
               margin: EdgeInsets.only(right: 10),
-              child: Icon(Icons.keyboard_arrow_left_rounded),
+              child: Icon(
+                Icons.keyboard_arrow_left_rounded,
+                color: _navigation.darkTheme.value
+                    ? ColorPallates.sidebarDarkTextColor
+                    : ColorPallates.sidebarLightTextColor,
+              ),
             ),
             Text(
               'Back to ${history.length > 1 ? history[history.length - 2].label : 'Main Menu'}',
               style: TextStyle(
-                color:
-                    _navigation.darkTheme.value ? Colors.white : Colors.black,
+                color: _navigation.darkTheme.value
+                    ? ColorPallates.sidebarDarkTextColor
+                    : ColorPallates.sidebarLightTextColor,
                 fontSize: 16,
               ),
             ),
@@ -72,9 +78,14 @@ class SidebarWidgets {
                 color: Colors.transparent,
                 borderRadius: BorderRadius.circular(50),
               ),
-              child: Icon(history.length > 1
-                  ? Icons.keyboard_arrow_left_rounded
-                  : Icons.close_outlined),
+              child: Icon(
+                history.length > 1
+                    ? Icons.keyboard_arrow_left_rounded
+                    : Icons.close_outlined,
+                color: _navigation.darkTheme.value
+                    ? ColorPallates.sidebarDarkTextColor
+                    : ColorPallates.sidebarLightTextColor,
+              ),
             ),
             Expanded(
               child: Text(
@@ -82,7 +93,9 @@ class SidebarWidgets {
                     ? 'Back to ${history[history.length - 2].label}'
                     : '$label',
                 style: TextStyle(
-                  color: ColorPallates.dark,
+                  color: _navigation.darkTheme.value
+                      ? ColorPallates.sidebarDarkTextColor
+                      : ColorPallates.sidebarLightTextColor,
                   fontSize: 16,
                 ),
                 overflow: TextOverflow.ellipsis,
