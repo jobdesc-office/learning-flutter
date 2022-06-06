@@ -12,6 +12,7 @@ import '../../services/masters/user_service.dart';
 import '../../services/ventes/bpcustomer_service.dart';
 import '../../utils/custom_get_controller.dart';
 import '../../views/masters/menus/_menu_type.dart';
+import '../../views/ventes/bpcustomers/bpcustomer_details.dart';
 import '../../views/ventes/bpcustomers/bpcustomer_form.dart';
 import '../../widgets/confirm_dialog.dart';
 
@@ -29,10 +30,10 @@ class BpCustomerPresenter extends CustomGetXController {
     _bpCustomerFetchDataContract = bpCustomerFetchDataContract;
   }
 
-  // late DetailViewContract _BpCustomerTypeViewContract;
-  // set BpCustomerDetailViewContract(DetailViewContract BpCustomerViewContract) {
-  //   _BpCustomerTypeViewContract = BpCustomerViewContract;
-  // }
+  late DetailViewContract _bpCustomerTypeViewContract;
+  set bpCustomerDetailViewContract(DetailViewContract BpCustomerViewContract) {
+    _bpCustomerTypeViewContract = BpCustomerViewContract;
+  }
 
   Future datatables(BuildContext context, Map<String, String> params) async {
     Response response = await _bpCustomerService.datatables(params);
@@ -59,19 +60,19 @@ class BpCustomerPresenter extends CustomGetXController {
       _bpCustomerViewContract.onErrorRequest(response);
   }
 
-  // void details(BuildContext context, int userid) async {
-  //   setProcessing(true);
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) => BpCustomerDetails(),
-  //   );
+  void details(BuildContext context, int userid) async {
+    setProcessing(true);
+    showDialog(
+      context: context,
+      builder: (context) => BpCustomerDetails(),
+    );
 
-  //   Response response = await _bpCustomerService.show(userid);
-  //   if (response.statusCode == 200)
-  //     _bpCustomerTypeViewContract.onSuccessFetchData(response);
-  //   else
-  //     _bpCustomerViewContract.onErrorRequest(response);
-  // }
+    Response response = await _bpCustomerService.show(userid);
+    if (response.statusCode == 200)
+      _bpCustomerTypeViewContract.onSuccessFetchData(response);
+    else
+      _bpCustomerViewContract.onErrorRequest(response);
+  }
 
   void edit(BuildContext context, int BpCustomerid) async {
     setProcessing(true);

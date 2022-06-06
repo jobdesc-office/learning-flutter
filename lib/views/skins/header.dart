@@ -31,7 +31,7 @@ class HeaderSkins extends StatelessWidget implements LogoutViewContract {
           decoration: BoxDecoration(
             color: _navigation.darkTheme.value
                 ? ColorPallates.elseDarkColor
-                : ColorPallates.primary,
+                : ColorPallates.secondary,
           ),
           height: 48,
           padding: EdgeInsets.all(5),

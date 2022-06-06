@@ -29,10 +29,11 @@ final _presenter = Get.find<BpCustomerPresenter>();
 class BpCustomerSource extends GetxController {
   bool isProcessing = false;
   var isnGetLatLong = true.obs;
-  var pic =
-      'https://cdn.icon-icons.com/icons2/1674/PNG/512/person_110935.png'.obs;
   // var pic =
-  //     XFile('https://cdn.icon-icons.com/icons2/1674/PNG/512/person_110935.png').obs;
+  //     'https://cdn.icon-icons.com/icons2/1674/PNG/512/person_110935.png'.obs;
+  var pic =
+      XFile('https://cdn.icon-icons.com/icons2/1674/PNG/512/person_110935.png')
+          .obs;
 
   BsSelectBoxController selectType = BsSelectBoxController();
   BsSelectBoxController selectBp = BsSelectBoxController();
@@ -118,14 +119,14 @@ class BpCustomerForm {
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: Column(
         children: [
-          if (source.pic != null) Image.network(source.pic.value),
+          if (source.pic != null) Image.network(source.pic.value.path),
           BsButton(
             margin: EdgeInsets.only(top: 10),
             onPressed: () async {
-              // source.pic.value =
-              //     (await _picker.pickImage(source: ImageSource.gallery))!;
-              // print(source.pic.value.path);
-              // print(source.pic.value.name);
+              source.pic.value =
+                  (await _picker.pickImage(source: ImageSource.gallery))!;
+              print(source.pic.value.path);
+              print(source.pic.value.name);
               print(source.pic.value);
               print(source.pic);
             },

@@ -5,20 +5,22 @@ import 'package:get/get.dart';
 
 import '../../../contracts/base/details_view_contract.dart';
 import '../../../models/masters/customer_model.dart';
+import '../../../models/ventes/bpcustomer_model.dart';
 import '../../../presenters/masters/customer_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
+import '../../../presenters/ventes/bpcustomer_presenter.dart';
 import '../../../styles/color_palattes.dart';
 import '_details_source.dart';
 import '_text.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 
-class CustomerDetails extends GetView implements DetailViewContract {
-  final CustomerPresenter presenter = Get.find<CustomerPresenter>();
-  final CustomerDetailsSource controller = Get.put(CustomerDetailsSource());
+class BpCustomerDetails extends GetView implements DetailViewContract {
+  final BpCustomerPresenter presenter = Get.find<BpCustomerPresenter>();
+  final BpCustomerDetailsSource controller = Get.put(BpCustomerDetailsSource());
 
-  CustomerDetails() {
-    presenter.customerDataDetailsContract = this;
+  BpCustomerDetails() {
+    presenter.bpCustomerDetailViewContract = this;
   }
 
   @override
@@ -26,7 +28,7 @@ class CustomerDetails extends GetView implements DetailViewContract {
     return BsModal(
         context: context,
         dialog: BsModalDialog(
-          size: BsModalSize.xl,
+          size: BsModalSize.md,
           child: BsModalContent(
               decoration: BoxDecoration(
                 color: _navigation.darkTheme.value
@@ -47,253 +49,138 @@ class CustomerDetails extends GetView implements DetailViewContract {
                   child: Obx(() => BsRow(
                         children: [
                           BsCol(
-                              sizes: ColScreen(lg: Col.col_3),
-                              child: Column(
+                            sizes: ColScreen(lg: Col.col_8),
+                            child: Container(
+                              padding: EdgeInsets.all(10),
+                              child: BsRow(
                                 children: [
-                                  Row(
-                                    children: [
-                                      Text('Prefix'),
-                                    ],
+                                  BsCol(
+                                    sizes: ColScreen(sm: Col.col_3),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text(
+                                              'Name',
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              'Phone',
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              'Address',
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  SizedBox(
-                                    height: 20,
+                                  BsCol(
+                                    sizes: ColScreen(sm: Col.col_1),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text(
+                                              ':',
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              ':',
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              ':',
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  Row(
-                                    children: [Text('Name')],
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Row(
-                                    children: [Text('Phone')],
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Row(
-                                    children: [Text('Address')],
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Row(
-                                    children: [Text('Type')],
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Row(
-                                    children: [Text('Province')],
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Row(
-                                    children: [Text('City')],
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Row(
-                                    children: [Text('Subdistrict')],
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Row(
-                                    children: [Text('MUV')],
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Row(
-                                    children: [Text('Postal Code')],
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Row(
-                                    children: [Text('Latitude')],
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Row(
-                                    children: [Text('Longitude')],
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Row(
-                                    children: [Text('Referal Code')],
+                                  BsCol(
+                                    sizes: ColScreen(sm: Col.col_8),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text(
+                                              controller.name.value,
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              controller.phone.value,
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        BsRow(
+                                          children: [
+                                            BsCol(
+                                              child: Text(
+                                                controller.address.value,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ],
-                              )),
-                          BsCol(
-                            sizes: ColScreen(lg: Col.col_1),
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [Text(' : ')],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(' : ')],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(' : ')],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(' : ')],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(' : ')],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(' : ')],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(' : ')],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(' : ')],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(' : ')],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(' : ')],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(' : ')],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(' : ')],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(' : ')],
-                                ),
-                              ],
+                              ),
                             ),
                           ),
                           BsCol(
-                            sizes: ColScreen(lg: Col.col_8),
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [Text(controller.prefix.value)],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(controller.name.value)],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(controller.phone.value)],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(controller.address.value)],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(controller.type.value)],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(controller.province.value)],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(controller.city.value)],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [
-                                    Text(controller.subdistrict.value)
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(controller.muv.value)],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(controller.postal.value)],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(controller.latitude.value)],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(controller.longitude.value)],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(controller.referal.value)],
-                                ),
-                              ],
+                            sizes: ColScreen(lg: Col.col_4),
+                            child: Container(
+                              child: Image.network(controller.pic.value),
                             ),
+                          ),
+                          BsCol(
+                            sizes: ColScreen(lg: Col.col_12),
+                            // child: Container(
+                            //     color: Colors.amber, width: 200, height: 200),
                           ),
                         ],
                       )),
@@ -304,19 +191,11 @@ class CustomerDetails extends GetView implements DetailViewContract {
 
   @override
   void onSuccessFetchData(Response response) {
-    CustomerModel dt = CustomerModel.fromJson(response.body);
-    controller.prefix.value = dt.cstmprefix;
-    controller.name.value = dt.cstmname;
-    controller.phone.value = dt.cstmphone;
-    controller.address.value = dt.cstmaddress;
-    controller.type.value = dt.typename;
-    controller.province.value = dt.provname;
-    controller.city.value = dt.cityname;
-    controller.subdistrict.value = dt.subdistrictname;
-    controller.muv.value = dt.cstmuvid.toString();
-    controller.postal.value = dt.cstmpostalcode;
-    controller.latitude.value = dt.cstmlatitude.toString();
-    controller.longitude.value = dt.cstmlongitude.toString();
-    controller.referal.value = dt.referalcode;
+    BusinessPartnerCustomerModel dt =
+        BusinessPartnerCustomerModel.fromJson(response.body);
+    controller.name.value = dt.sbccstmname.toString();
+    controller.phone.value = dt.sbccstmphone.toString();
+    controller.address.value = dt.sbccstmaddress.toString();
+    // controller.type.value = dt.typename;
   }
 }

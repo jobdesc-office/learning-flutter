@@ -40,6 +40,7 @@ class HeaderIcon extends StatelessWidget {
                 child: Icon(
                   this.icon,
                   size: 22,
+                  color: Colors.white,
                 ),
               ),
               this.badge == null

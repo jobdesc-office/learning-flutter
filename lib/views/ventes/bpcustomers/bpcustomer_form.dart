@@ -151,7 +151,7 @@ class BpCustomerFormView extends StatelessWidget implements EditViewContract {
       source.value.selectCustomer.setSelected(BsSelectBoxOption(
           value: bpCustomer.sbccstm!.cstmid,
           text: Text(bpCustomer.sbccstm!.cstmname.toString())));
-      source.value.pic.value = bpCustomer.sbccstmpic.toString();
+      // source.value.pic.value = bpCustomer.sbccstmpic.toString();
     });
   }
 }
