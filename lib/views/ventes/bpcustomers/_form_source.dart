@@ -30,13 +30,9 @@ class BpCustomerSource extends GetxController {
   bool isProcessing = false;
   var isnGetLatLong = true.obs;
   var pic =
-      XFile('https://cdn.icon-icons.com/icons2/1674/PNG/512/person_110935.png')
-          .obs;
-
-  TextEditingController inputPrefix = TextEditingController();
-  TextEditingController inputName = TextEditingController();
-  TextEditingController inputPhone = TextEditingController();
-  TextEditingController inputAddress = TextEditingController();
+      'https://cdn.icon-icons.com/icons2/1674/PNG/512/person_110935.png'.obs;
+  // var pic =
+  //     XFile('https://cdn.icon-icons.com/icons2/1674/PNG/512/person_110935.png').obs;
 
   BsSelectBoxController selectType = BsSelectBoxController();
   BsSelectBoxController selectBp = BsSelectBoxController();
@@ -50,10 +46,8 @@ class BpCustomerSource extends GetxController {
       'sbcbpid': selectBp.getSelectedAsString(),
       'cstmid': selectCustomer.getSelectedAsString(),
       'sbccstmstatusid': selectType.getSelectedAsString(),
-      'sbccstmname': inputName.text,
-      'sbccstmphone': inputPhone.text,
-      'sbccstmaddress': inputAddress.text,
-      'sbccstmpic': pic.value.path,
+      // 'sbccstmpic': pic.value.path,
+      'sbccstmpic': pic.value,
       'createdby': session.userid,
       'updatedby': session.userid,
     };
@@ -67,58 +61,6 @@ class BpCustomerForm {
   final ImagePicker _picker = ImagePicker();
 
   BpCustomerForm(this.source);
-
-  Widget inputName() {
-    return FormGroup(
-      label: Obx(() => Text(BpCustomerText.labelName,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
-      child: CustomInput(
-        disabled: source.isProcessing,
-        controller: source.inputName,
-        hintText: BaseText.hintText(field: BpCustomerText.labelName),
-        validators: [
-          Validators.inputRequired(BpCustomerText.labelName),
-          Validators.maxLength(BpCustomerText.labelName, 100),
-        ],
-      ),
-    );
-  }
-
-  Widget inputPhone() {
-    return FormGroup(
-      label: Obx(() => Text(BpCustomerText.labelPhone,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
-      child: CustomInput(
-        disabled: source.isProcessing,
-        controller: source.inputPhone,
-        hintText: BaseText.hintText(field: BpCustomerText.labelPhone),
-        validators: [
-          Validators.maxLength(BpCustomerText.labelPhone, 20),
-        ],
-      ),
-    );
-  }
-
-  Widget inputAddress() {
-    return FormGroup(
-      label: Obx(() => Text(BpCustomerText.labelAddress,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
-      child: Obx(() => CustomInput(
-            disabled: source.isProcessing,
-            controller: source.inputAddress,
-            hintText: BaseText.hintText(field: BpCustomerText.labelAddress),
-            validators: [],
-            maxLines: 5,
-            minLines: 3,
-          )),
-    );
-  }
 
   Widget selectTypes() {
     return FormGroup(
@@ -176,14 +118,14 @@ class BpCustomerForm {
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: Column(
         children: [
-          if (source.pic != null) Image.network(source.pic.value.path),
+          if (source.pic != null) Image.network(source.pic.value),
           BsButton(
             margin: EdgeInsets.only(top: 10),
             onPressed: () async {
-              source.pic.value =
-                  (await _picker.pickImage(source: ImageSource.gallery))!;
-              print(source.pic.value.path);
-              print(source.pic.value.name);
+              // source.pic.value =
+              //     (await _picker.pickImage(source: ImageSource.gallery))!;
+              // print(source.pic.value.path);
+              // print(source.pic.value.name);
               print(source.pic.value);
               print(source.pic);
             },

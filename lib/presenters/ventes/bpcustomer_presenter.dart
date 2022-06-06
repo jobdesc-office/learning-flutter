@@ -73,50 +73,50 @@ class BpCustomerPresenter extends CustomGetXController {
   //     _bpCustomerViewContract.onErrorRequest(response);
   // }
 
-  // void edit(BuildContext context, int BpCustomerid) async {
-  //   setProcessing(true);
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) => BpCustomerFormView(
-  //       onSave: (body) => update(context, body, BpCustomerid),
-  //     ),
-  //   );
+  void edit(BuildContext context, int BpCustomerid) async {
+    setProcessing(true);
+    showDialog(
+      context: context,
+      builder: (context) => BpCustomerFormView(
+        onSave: (body) => update(context, body, BpCustomerid),
+      ),
+    );
 
-  //   Response response = await _BpCustomerService.show(BpCustomerid);
-  //   if (response.statusCode == 200)
-  //     _bpCustomerFetchDataContract.onSuccessFetchData(response);
-  //   else
-  //     _bpCustomerViewContract.onErrorRequest(response);
-  // }
+    Response response = await _bpCustomerService.show(BpCustomerid);
+    if (response.statusCode == 200)
+      _bpCustomerFetchDataContract.onSuccessFetchData(response);
+    else
+      _bpCustomerViewContract.onErrorRequest(response);
+  }
 
-  // void update(
-  //     BuildContext context, Map<String, dynamic> body, int BpCustomerid) async {
-  //   setProcessing(true);
-  //   Response response = await _BpCustomerService.update(BpCustomerid, body);
-  //   if (response.statusCode == 200)
-  //     _bpCustomerViewContract.onEditSuccess(response, context: context);
-  //   else
-  //     _bpCustomerViewContract.onErrorRequest(response);
-  // }
+  void update(
+      BuildContext context, Map<String, dynamic> body, int BpCustomerid) async {
+    setProcessing(true);
+    Response response = await _bpCustomerService.update(BpCustomerid, body);
+    if (response.statusCode == 200)
+      _bpCustomerViewContract.onEditSuccess(response, context: context);
+    else
+      _bpCustomerViewContract.onErrorRequest(response);
+  }
 
-  // void delete(BuildContext context, int BpCustomerid) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) => ConfirmDialog(
-  //       title: BaseText.confirmTitle,
-  //       message: BaseText.confirmMessage,
-  //       onPressed: (_, value) async {
-  //         if (value == ConfirmDialogOption.YES_OPTION) {
-  //           Response response = await _BpCustomerService.destroy(BpCustomerid);
-  //           if (response.statusCode == 200)
-  //             _bpCustomerViewContract.onDeleteSuccess(response, context: context);
-  //           else
-  //             _bpCustomerViewContract.onErrorRequest(response);
-  //         } else {
-  //           Navigator.pop(context);
-  //         }
-  //       },
-  //     ),
-  //   );
-  // }
+  void delete(BuildContext context, int BpCustomerid) {
+    showDialog(
+      context: context,
+      builder: (context) => ConfirmDialog(
+        title: BaseText.confirmTitle,
+        message: BaseText.confirmMessage,
+        onPressed: (_, value) async {
+          if (value == ConfirmDialogOption.YES_OPTION) {
+            Response response = await _bpCustomerService.destroy(BpCustomerid);
+            if (response.statusCode == 200)
+              _bpCustomerViewContract.onDeleteSuccess(response,
+                  context: context);
+            else
+              _bpCustomerViewContract.onErrorRequest(response);
+          } else
+            Navigator.pop(context);
+        },
+      ),
+    );
+  }
 }

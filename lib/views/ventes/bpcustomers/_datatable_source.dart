@@ -25,7 +25,9 @@ class BpCustomerDataTableSource extends BsDatatableSource {
         orderable: false,
       ),
       BsDataColumn(label: Text('BpCustomer Name'), columnName: 'BpCustomernm'),
-      BsDataColumn(label: Text('BpCustomer Telp'), columnName: 'icon'),
+      BsDataColumn(
+          label: Text('BpCustomer Business Partner'), columnName: 'route'),
+      // BsDataColumn(label: Text('BpCustomer Telp'), columnName: 'icon'),
       BsDataColumn(label: Text('BpCustomer Type'), columnName: 'route'),
       BsDataColumn(label: Text('Actions'), orderable: false, searchable: false),
     ];
@@ -43,7 +45,8 @@ class BpCustomerDataTableSource extends BsDatatableSource {
       cells: [
         BsDataCell(Text('${controller.start + index + 1}')),
         BsDataCell(Text(row.sbccstmname.toString())),
-        BsDataCell(Text(row.sbccstmphone.toString())),
+        BsDataCell(Text(row.sbcbp!.bpname.toString())),
+        // BsDataCell(Text(row.sbccstmphone.toString())),
         BsDataCell(Text(row.sbccstmstatus!.typename.toString())),
         BsDataCell(
           Row(

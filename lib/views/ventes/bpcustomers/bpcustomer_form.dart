@@ -140,19 +140,18 @@ class BpCustomerFormView extends StatelessWidget implements EditViewContract {
     presenter.setProcessing(false);
 
     source.update((val) {
-      BusinessPartnerCustomerModel BpCustomer =
+      BusinessPartnerCustomerModel bpCustomer =
           BusinessPartnerCustomerModel.fromJson(response.body);
-      // source.value.inputPrefix.text = BpCustomer.cstmprefix;
-      // source.value.inputName.text = BpCustomer.cstmname;
-      // source.value.inputPhone.text = BpCustomer.cstmphone;
-      // source.value.inputAddress.text = BpCustomer.cstmaddress;
-      // source.value.selectType.setSelected(BsSelectBoxOption(
-      //     value: BpCustomer.cstmtypeid, text: Text(BpCustomer.typename)));
-      // source.value.inputReferal.text = BpCustomer.referalcode;
-      // source.value.inputProvince.text = BpCustomer.provname;
-      // source.value.inputCity.text = BpCustomer.cityname;
-      // source.value.inputSubdistrict.text = BpCustomer.subdistrictname;
-      // source.value.inputPostal.text = BpCustomer.cstmpostalcode;
+      source.value.selectType.setSelected(BsSelectBoxOption(
+          value: bpCustomer.sbccstmstatus!.typeid,
+          text: Text(bpCustomer.sbccstmstatus!.typename.toString())));
+      source.value.selectBp.setSelected(BsSelectBoxOption(
+          value: bpCustomer.sbcbp!.bpid,
+          text: Text(bpCustomer.sbcbp!.bpname.toString())));
+      source.value.selectCustomer.setSelected(BsSelectBoxOption(
+          value: bpCustomer.sbccstm!.cstmid,
+          text: Text(bpCustomer.sbccstm!.cstmname.toString())));
+      source.value.pic.value = bpCustomer.sbccstmpic.toString();
     });
   }
 }

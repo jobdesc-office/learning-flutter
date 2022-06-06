@@ -98,8 +98,8 @@ class BpCustomerView extends GetView implements IndexViewContract {
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     // datatable.onDetailsListener =
     //     (userid) => presenter.details(context, userid);
-    // datatable.onEditListener =
-    //     (countryid) => presenter.edit(context, countryid);
-    // datatable.onDeleteListener = (cstmid) => presenter.delete(context, cstmid);
+    datatable.onEditListener =
+        (countryid) => presenter.edit(context, countryid);
+    datatable.onDeleteListener = (cstmid) => presenter.delete(context, cstmid);
   }
 }
