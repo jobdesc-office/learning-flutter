@@ -10,6 +10,7 @@ import '../presenters/masters/menu_presenter.dart';
 import '../presenters/masters/product_presenter.dart';
 import '../presenters/masters/province_presenter.dart';
 import '../presenters/masters/subdistrict_presenter.dart';
+import '../presenters/ventes/bpcustomer_presenter.dart';
 import '../presenters/ventes/schedule_presenter.dart';
 import '../presenters/masters/typechildren_presenter.dart';
 import '../presenters/masters/typeparent_presenter.dart';
@@ -23,6 +24,7 @@ import '../services/masters/customer_service.dart';
 import '../services/masters/product_service.dart';
 import '../services/masters/province_service.dart';
 import '../services/masters/subdistrict_service.dart';
+import '../services/ventes/bpcustomer_service.dart';
 import '../services/ventes/prospect_service.dart';
 import '../services/ventes/schedule_service.dart';
 import '../services/masters/type_service.dart';
@@ -42,6 +44,7 @@ import '../views/masters/menus/menu.dart';
 import '../views/masters/product/product.dart';
 import '../views/masters/provinces/province.dart';
 import '../views/masters/subdistricts/subdistrict.dart';
+import '../views/ventes/bpcustomers/bpcustomer.dart';
 import '../views/ventes/prospect/prospect.dart';
 import '../views/ventes/schedules/schedule.dart';
 import '../views/masters/typeschildren/types_children.dart';
@@ -196,9 +199,16 @@ class AppRoute {
           Get.lazyPut(() => CustomerService());
           Get.lazyPut(() => ProductService());
           Get.lazyPut(() => ProspectService());
-          // Get.lazyPut(() => TypeService());
-          // Get.lazyPut(() => MenuService());
-          // Get.lazyPut(() => MenuPresenter());
+        }),
+      ),
+      CustomGetPage(
+        name: RouteList.ventesBpCustomer.index,
+        page: () => BpCustomerView(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => UserService());
+          Get.lazyPut(() => CustomerService());
+          Get.lazyPut(() => BpCustomerService());
+          Get.lazyPut(() => BpCustomerPresenter());
         }),
       ),
     ];

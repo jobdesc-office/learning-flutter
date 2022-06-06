@@ -229,6 +229,11 @@ class SidebarSkins extends StatelessWidget {
                           route: RouteList.ventesProspect.index,
                           label: 'Prospects',
                         ),
+                        MenuData(
+                          id: no++,
+                          route: RouteList.ventesBpCustomer.index,
+                          label: 'BpCustomer',
+                        ),
                       ])
 
                   // MenuDataGroup(

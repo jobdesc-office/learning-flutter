@@ -1,0 +1,199 @@
+import 'dart:html';
+
+import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
+import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+
+import '../../../constants/base_text.dart';
+import '../../../models/session_model.dart';
+import '../../../presenters/ventes/bpcustomer_presenter.dart';
+import '../../../presenters/navigation_presenter.dart';
+import '../../../styles/color_palattes.dart';
+import '../../../utils/select_api.dart';
+import '../../../utils/session_manager.dart';
+import '../../../utils/validators.dart';
+import '../../../widgets/input/custom_input.dart';
+import '../../../widgets/input/custom_input_number.dart';
+import '../../../widgets/map/_map_source.dart';
+import '../../../widgets/map/map.dart';
+import '../../../widgets/selectbox/custom_selectbox.dart';
+import '../../../widgets/form_group.dart';
+
+import '_text.dart';
+
+final _navigation = Get.find<NavigationPresenter>();
+final _presenter = Get.find<BpCustomerPresenter>();
+
+class BpCustomerSource extends GetxController {
+  bool isProcessing = false;
+  var isnGetLatLong = true.obs;
+  var pic =
+      XFile('https://cdn.icon-icons.com/icons2/1674/PNG/512/person_110935.png')
+          .obs;
+
+  TextEditingController inputPrefix = TextEditingController();
+  TextEditingController inputName = TextEditingController();
+  TextEditingController inputPhone = TextEditingController();
+  TextEditingController inputAddress = TextEditingController();
+
+  BsSelectBoxController selectType = BsSelectBoxController();
+  BsSelectBoxController selectBp = BsSelectBoxController();
+  BsSelectBoxController selectCustomer = BsSelectBoxController();
+
+  void uploadImage() {}
+
+  Future<Map<String, dynamic>> toJson() async {
+    SessionModel session = await SessionManager.current();
+    return {
+      'sbcbpid': selectBp.getSelectedAsString(),
+      'cstmid': selectCustomer.getSelectedAsString(),
+      'sbccstmstatusid': selectType.getSelectedAsString(),
+      'sbccstmname': inputName.text,
+      'sbccstmphone': inputPhone.text,
+      'sbccstmaddress': inputAddress.text,
+      'sbccstmpic': pic.value.path,
+      'createdby': session.userid,
+      'updatedby': session.userid,
+    };
+  }
+}
+
+class BpCustomerForm {
+  final BpCustomerSource source;
+  final map = Get.put(mapSource());
+  final BpCustomerPresenter presenter = Get.find<BpCustomerPresenter>();
+  final ImagePicker _picker = ImagePicker();
+
+  BpCustomerForm(this.source);
+
+  Widget inputName() {
+    return FormGroup(
+      label: Obx(() => Text(BpCustomerText.labelName,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      child: CustomInput(
+        disabled: source.isProcessing,
+        controller: source.inputName,
+        hintText: BaseText.hintText(field: BpCustomerText.labelName),
+        validators: [
+          Validators.inputRequired(BpCustomerText.labelName),
+          Validators.maxLength(BpCustomerText.labelName, 100),
+        ],
+      ),
+    );
+  }
+
+  Widget inputPhone() {
+    return FormGroup(
+      label: Obx(() => Text(BpCustomerText.labelPhone,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      child: CustomInput(
+        disabled: source.isProcessing,
+        controller: source.inputPhone,
+        hintText: BaseText.hintText(field: BpCustomerText.labelPhone),
+        validators: [
+          Validators.maxLength(BpCustomerText.labelPhone, 20),
+        ],
+      ),
+    );
+  }
+
+  Widget inputAddress() {
+    return FormGroup(
+      label: Obx(() => Text(BpCustomerText.labelAddress,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      child: Obx(() => CustomInput(
+            disabled: source.isProcessing,
+            controller: source.inputAddress,
+            hintText: BaseText.hintText(field: BpCustomerText.labelAddress),
+            validators: [],
+            maxLines: 5,
+            minLines: 3,
+          )),
+    );
+  }
+
+  Widget selectTypes() {
+    return FormGroup(
+      label: Obx(() => Text(BpCustomerText.labelType,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      child: CustomSelectBox(
+        searchable: true,
+        disabled: source.isProcessing,
+        controller: source.selectType,
+        hintText: BaseText.hiintSelect(field: BpCustomerText.labelType),
+        serverSide: (params) => selectApiBpCustomerStatus(params),
+      ),
+    );
+  }
+
+  Widget selectBp() {
+    return FormGroup(
+      label: Obx(() => Text(BpCustomerText.labelBp,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      child: CustomSelectBox(
+        searchable: true,
+        disabled: source.isProcessing,
+        controller: source.selectBp,
+        hintText: BaseText.hiintSelect(field: BpCustomerText.labelBp),
+        serverSide: (params) => selectApiPartner(params),
+      ),
+    );
+  }
+
+  Widget selectCustomer() {
+    return FormGroup(
+      label: Obx(() => Text(BpCustomerText.labelCustomer,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      child: CustomSelectBox(
+        searchable: true,
+        disabled: source.isProcessing,
+        controller: source.selectCustomer,
+        hintText: BaseText.hiintSelect(field: BpCustomerText.labelCustomer),
+        serverSide: (params) => selectApiCustomer(params),
+      ),
+    );
+  }
+
+  Widget btnImage() {
+    return FormGroup(
+      label: Obx(() => Text(BpCustomerText.labelImage,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      child: Column(
+        children: [
+          if (source.pic != null) Image.network(source.pic.value.path),
+          BsButton(
+            margin: EdgeInsets.only(top: 10),
+            onPressed: () async {
+              source.pic.value =
+                  (await _picker.pickImage(source: ImageSource.gallery))!;
+              print(source.pic.value.path);
+              print(source.pic.value.name);
+              print(source.pic.value);
+              print(source.pic);
+            },
+            label: Text(
+              BpCustomerText.labelImage,
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
