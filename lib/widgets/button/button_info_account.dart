@@ -1,8 +1,14 @@
+import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../presenters/navigation_presenter.dart';
 import '../../styles/color_palattes.dart';
+
+final _navigation = Get.find<NavigationPresenter>();
+
+final box = GetStorage();
 
 class ButtonInfoAccount extends StatelessWidget {
   const ButtonInfoAccount(
@@ -27,12 +33,47 @@ class ButtonInfoAccount extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                padding: EdgeInsets.all(5),
-                child: Icon(
-                  Icons.settings,
-                  color: Colors.white,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      child: CircleAvatar(
+                        child: Icon(
+                          Icons.person,
+                          size: 35,
+                          color: _navigation.darkTheme.value
+                              ? ColorPallates.elseDarkColor
+                              : ColorPallates.navbarLightColor,
+                        ),
+                        backgroundColor: _navigation.darkTheme.value
+                            ? ColorPallates.primary
+                            : ColorPallates.primary,
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 5),
+                      child: Center(
+                        child: Text(
+                          box.read('username'),
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: _navigation.darkTheme.value
+                                  ? ColorPallates.sidebarDarkTextColor
+                                  : ColorPallates.sidebarLightTextColor),
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
+              // Container(
+              //   padding: EdgeInsets.all(5),
+              //   child: Icon(
+              //     Icons.settings,
+              //     color: Colors.white,
+              //   ),
+              // ),
               Container(
                 padding: EdgeInsets.all(5),
                 margin: EdgeInsets.fromLTRB(0, 0, 5, 0),

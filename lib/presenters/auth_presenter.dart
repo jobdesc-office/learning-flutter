@@ -56,7 +56,6 @@ class AuthPresenter extends CustomGetXController {
     box.remove('name');
     box.remove('id');
     box.remove('username');
-    box.remove('role');
     _authService.signOut().then((res) {
       _logoutViewContract.onLogoutSuccess();
       isAuthenticated.value = false;
