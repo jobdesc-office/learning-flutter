@@ -44,7 +44,7 @@ class ProspectFormView extends StatelessWidget
               children: [
                 BsCol(
                   margin: EdgeInsets.only(right: 5),
-                  sizes: ColScreen(sm: Col.col_4),
+                  sizes: ColScreen(sm: Col.col_5),
                   child: Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
@@ -69,7 +69,7 @@ class ProspectFormView extends StatelessWidget
                 ),
                 BsCol(
                   margin: EdgeInsets.only(left: 5),
-                  sizes: ColScreen(sm: Col.col_8),
+                  sizes: ColScreen(sm: Col.col_7),
                   child: BsRow(
                     children: [
                       BsCol(
