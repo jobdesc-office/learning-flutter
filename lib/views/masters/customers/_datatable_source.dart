@@ -3,9 +3,12 @@ import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/masters/customer_model.dart';
+import '../../../styles/color_palattes.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_details_datatable.dart';
 import '../../../widgets/button/button_edit_datatable.dart';
+import '../../../widgets/datatables/custom_datatable_tablecell.dart';
+import '../../../widgets/datatables/custom_datatable_tablehead.dart';
 
 class CustomerDataTableSource extends BsDatatableSource {
   ValueChanged<int> onDetailsListener = (value) {};
@@ -18,16 +21,18 @@ class CustomerDataTableSource extends BsDatatableSource {
 
   List<BsDataColumn> get columns {
     return <BsDataColumn>[
-      BsDataColumn(
+      CustomBsDataColumn(
         label: Text('No'),
         width: 100,
         searchable: false,
         orderable: false,
       ),
-      BsDataColumn(label: Text('Customer Name'), columnName: 'Customernm'),
-      BsDataColumn(label: Text('Customer Type'), columnName: 'route'),
-      BsDataColumn(label: Text('Customer Telp'), columnName: 'icon'),
-      BsDataColumn(label: Text('Actions'), orderable: false, searchable: false),
+      CustomBsDataColumn(
+          label: Text('Customer Name'), columnName: 'Customernm'),
+      CustomBsDataColumn(label: Text('Customer Type'), columnName: 'route'),
+      CustomBsDataColumn(label: Text('Customer Telp'), columnName: 'icon'),
+      CustomBsDataColumn(
+          label: Text('Actions'), orderable: false, searchable: false),
     ];
   }
 
@@ -37,14 +42,35 @@ class CustomerDataTableSource extends BsDatatableSource {
   @override
   BsDataRow getRow(int index) {
     final row = customers[index];
+    int x = controller.start + index + 1;
     return BsDataRow(
       index: index,
       cells: [
-        BsDataCell(Text('${controller.start + index + 1}')),
-        BsDataCell(Text(row.cstmname)),
-        BsDataCell(Text(row.typename)),
-        BsDataCell(Text(row.cstmphone)),
-        BsDataCell(
+        CustomBsDataCell(
+          Text('$x'),
+          color: x % 2 == 0
+              ? ColorPallates.datatableEvenRowColor
+              : ColorPallates.datatableOddRowColor,
+        ),
+        CustomBsDataCell(
+          Text(row.cstmname),
+          color: x % 2 == 0
+              ? ColorPallates.datatableEvenRowColor
+              : ColorPallates.datatableOddRowColor,
+        ),
+        CustomBsDataCell(
+          Text(row.typename),
+          color: x % 2 == 0
+              ? ColorPallates.datatableEvenRowColor
+              : ColorPallates.datatableOddRowColor,
+        ),
+        CustomBsDataCell(
+          Text(row.cstmphone),
+          color: x % 2 == 0
+              ? ColorPallates.datatableEvenRowColor
+              : ColorPallates.datatableOddRowColor,
+        ),
+        CustomBsDataCell(
           Row(
             children: [
               ButtonDetailsDatatables(
@@ -59,6 +85,9 @@ class CustomerDataTableSource extends BsDatatableSource {
                   onPressed: () => onDeleteListener(row.cstmid)),
             ],
           ),
+          color: x % 2 == 0
+              ? ColorPallates.datatableEvenRowColor
+              : ColorPallates.datatableOddRowColor,
         ),
       ],
     );

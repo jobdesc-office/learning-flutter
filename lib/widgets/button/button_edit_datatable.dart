@@ -15,7 +15,7 @@ class ButtonEditDatatables extends BsButton {
           margin: margin,
           prefixIcon: BaseIcon.buttonEdit,
           style: CustomButtonStyle.roundedPrimary,
-          size: CustomButonSize.small,
+          size: CustomButonSize.mini,
           onPressed: onPressed,
         );
 }

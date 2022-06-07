@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import '../../../models/masters/city_model.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_edit_datatable.dart';
+import '../../../widgets/datatables/custom_datatable_tablecell.dart';
+import '../../../widgets/datatables/custom_datatable_tablehead.dart';
 
 class CityDataTableSource extends BsDatatableSource {
   ValueChanged<int> onEditListener = (value) {};
@@ -16,19 +18,20 @@ class CityDataTableSource extends BsDatatableSource {
 
   List<BsDataColumn> get columns {
     return <BsDataColumn>[
-      BsDataColumn(
+      CustomBsDataColumn(
         label: Text('No'),
         width: 100,
         searchable: false,
         orderable: false,
       ),
-      BsDataColumn(
+      CustomBsDataColumn(
           label: Text(
             'City Name',
           ),
           columnName: 'Citynm'),
-      BsDataColumn(label: Text('City Province'), columnName: 'Citynm'),
-      BsDataColumn(label: Text('Actions'), orderable: false, searchable: false),
+      CustomBsDataColumn(label: Text('City Province'), columnName: 'Citynm'),
+      CustomBsDataColumn(
+          label: Text('Actions'), orderable: false, searchable: false),
     ];
   }
 
@@ -38,13 +41,29 @@ class CityDataTableSource extends BsDatatableSource {
   @override
   BsDataRow getRow(int index) {
     final row = citys[index];
+    int x = controller.start + index + 1;
     return BsDataRow(
       index: index,
       cells: [
-        BsDataCell(Text('${controller.start + index + 1}')),
-        BsDataCell(Text(row.cityname)),
-        BsDataCell(Text(row.provname)),
-        BsDataCell(
+        CustomBsDataCell(
+          Text('$x'),
+          color: x % 2 == 0
+              ? ColorPallates.datatableEvenRowColor
+              : ColorPallates.datatableOddRowColor,
+        ),
+        CustomBsDataCell(
+          Text(row.cityname),
+          color: x % 2 == 0
+              ? ColorPallates.datatableEvenRowColor
+              : ColorPallates.datatableOddRowColor,
+        ),
+        CustomBsDataCell(
+          Text(row.provname),
+          color: x % 2 == 0
+              ? ColorPallates.datatableEvenRowColor
+              : ColorPallates.datatableOddRowColor,
+        ),
+        CustomBsDataCell(
           Row(
             children: [
               ButtonEditDatatables(
@@ -55,6 +74,9 @@ class CityDataTableSource extends BsDatatableSource {
                   onPressed: () => onDeleteListener(row.cityid)),
             ],
           ),
+          color: x % 2 == 0
+              ? ColorPallates.datatableEvenRowColor
+              : ColorPallates.datatableOddRowColor,
         ),
       ],
     );

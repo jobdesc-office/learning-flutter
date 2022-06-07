@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 
 import '../../../models/masters/user_model.dart';
 import '../../../models/ventes/prospect_model.dart';
+import '../../../styles/color_palattes.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_details_datatable.dart';
 import '../../../widgets/button/button_edit_datatable.dart';
+import '../../../widgets/datatables/custom_datatable_tablecell.dart';
+import '../../../widgets/datatables/custom_datatable_tablehead.dart';
 
 class ProspectDataTableSource extends BsDatatableSource {
   ValueChanged<int> onDetailsListener = (value) {};
@@ -19,18 +22,21 @@ class ProspectDataTableSource extends BsDatatableSource {
 
   List<BsDataColumn> get columns {
     return <BsDataColumn>[
-      BsDataColumn(
+      CustomBsDataColumn(
         label: Text('No'),
         width: 70,
         searchable: false,
         orderable: false,
       ),
-      BsDataColumn(label: Text('Prospect Title'), columnName: 'userfullname'),
-      BsDataColumn(label: Text('Prospect Customer')),
-      BsDataColumn(label: Text('Prospect Progress'), columnName: 'userphone'),
-      BsDataColumn(
+      CustomBsDataColumn(
+          label: Text('Prospect Title'), columnName: 'userfullname'),
+      CustomBsDataColumn(label: Text('Prospect Customer')),
+      CustomBsDataColumn(
+          label: Text('Prospect Progress'), columnName: 'userphone'),
+      CustomBsDataColumn(
           label: Text('Prospect Status'), orderable: false, searchable: false),
-      BsDataColumn(label: Text('Actions'), orderable: false, searchable: false),
+      CustomBsDataColumn(
+          label: Text('Actions'), orderable: false, searchable: false),
     ];
   }
 
@@ -40,15 +46,41 @@ class ProspectDataTableSource extends BsDatatableSource {
   @override
   BsDataRow getRow(int index) {
     final row = users[index];
+    int x = controller.start + index + 1;
     return BsDataRow(
       index: index,
       cells: [
-        BsDataCell(Text('${controller.start + index + 1}')),
-        BsDataCell(Text(row.prospectname!)),
-        BsDataCell(Text(row.prospectcust!.sbccstmname.toString())),
-        BsDataCell(Text(row.prospectstage!.typename.toString())),
-        BsDataCell(Text(row.prospectstatus!.typename.toString())),
-        BsDataCell(
+        CustomBsDataCell(
+          Text('$x'),
+          color: x % 2 == 0
+              ? ColorPallates.datatableEvenRowColor
+              : ColorPallates.datatableOddRowColor,
+        ),
+        CustomBsDataCell(
+          Text(row.prospectname!),
+          color: x % 2 == 0
+              ? ColorPallates.datatableEvenRowColor
+              : ColorPallates.datatableOddRowColor,
+        ),
+        CustomBsDataCell(
+          Text(row.prospectcust!.sbccstmname.toString()),
+          color: x % 2 == 0
+              ? ColorPallates.datatableEvenRowColor
+              : ColorPallates.datatableOddRowColor,
+        ),
+        CustomBsDataCell(
+          Text(row.prospectstage!.typename.toString()),
+          color: x % 2 == 0
+              ? ColorPallates.datatableEvenRowColor
+              : ColorPallates.datatableOddRowColor,
+        ),
+        CustomBsDataCell(
+          Text(row.prospectstatus!.typename.toString()),
+          color: x % 2 == 0
+              ? ColorPallates.datatableEvenRowColor
+              : ColorPallates.datatableOddRowColor,
+        ),
+        CustomBsDataCell(
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -64,6 +96,9 @@ class ProspectDataTableSource extends BsDatatableSource {
                   onPressed: () => onDeleteListener(row.prospectid!)),
             ],
           ),
+          color: x % 2 == 0
+              ? ColorPallates.datatableEvenRowColor
+              : ColorPallates.datatableOddRowColor,
         ),
       ],
     );

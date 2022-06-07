@@ -28,8 +28,9 @@ class ColorPallates {
   static const tertiary = Color(0xFFBB8A52);
   static const quaternary = Color(0xFFFFBA00);
 
-  static const datatableTableHeadColor = Color(0xFF6D9773);
-  static const datatableOddRowColor = Color(0xFFbdf2c5);
+  static const datatableTableHeadColor = Color(0xFF0C3B2E);
+  static const datatableTableHeadTextColor = Colors.white;
+  static const datatableOddRowColor = Colors.white;
   static const datatableEvenRowColor = Color(0xFFbdf2c5);
 
   static Color dark = Color(0xFF363636);

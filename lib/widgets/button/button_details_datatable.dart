@@ -15,7 +15,7 @@ class ButtonDetailsDatatables extends BsButton {
           margin: margin,
           prefixIcon: BaseIcon.buttonDetail,
           style: CustomButtonStyle.roundedSafe,
-          size: CustomButonSize.small,
+          size: CustomButonSize.mini,
           onPressed: onPressed,
         );
 }

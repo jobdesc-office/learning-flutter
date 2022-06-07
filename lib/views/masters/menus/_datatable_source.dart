@@ -3,8 +3,11 @@ import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/security/menu_model.dart';
+import '../../../styles/color_palattes.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_edit_datatable.dart';
+import '../../../widgets/datatables/custom_datatable_tablecell.dart';
+import '../../../widgets/datatables/custom_datatable_tablehead.dart';
 
 class MenuDataTableSource extends BsDatatableSource {
   ValueChanged<int> onEditListener = (value) {};
@@ -16,17 +19,18 @@ class MenuDataTableSource extends BsDatatableSource {
 
   List<BsDataColumn> get columns {
     return <BsDataColumn>[
-      BsDataColumn(
+      CustomBsDataColumn(
         label: Text('No'),
         width: 100,
         searchable: false,
         orderable: false,
       ),
-      BsDataColumn(label: Text('Menu Name'), columnName: 'menunm'),
-      BsDataColumn(label: Text('Menu Route'), columnName: 'route'),
-      BsDataColumn(label: Text('Menu Icon'), columnName: 'icon'),
-      BsDataColumn(label: Text('Menu Sequence'), columnName: 'seq'),
-      BsDataColumn(label: Text('Actions'), orderable: false, searchable: false),
+      CustomBsDataColumn(label: Text('Menu Name'), columnName: 'menunm'),
+      CustomBsDataColumn(label: Text('Menu Route'), columnName: 'route'),
+      CustomBsDataColumn(label: Text('Menu Icon'), columnName: 'icon'),
+      CustomBsDataColumn(label: Text('Menu Sequence'), columnName: 'seq'),
+      CustomBsDataColumn(
+          label: Text('Actions'), orderable: false, searchable: false),
     ];
   }
 
@@ -36,11 +40,17 @@ class MenuDataTableSource extends BsDatatableSource {
   @override
   BsDataRow getRow(int index) {
     final row = menus[index];
+    int x = controller.start + index + 1;
     return BsDataRow(
       index: index,
       cells: [
-        BsDataCell(Text('${controller.start + index + 1}')),
-        BsDataCell(
+        CustomBsDataCell(
+          Text('$x'),
+          color: x % 2 == 0
+              ? ColorPallates.datatableEvenRowColor
+              : ColorPallates.datatableOddRowColor,
+        ),
+        CustomBsDataCell(
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -48,11 +58,29 @@ class MenuDataTableSource extends BsDatatableSource {
               Text(row.menunm)
             ],
           ),
+          color: x % 2 == 0
+              ? ColorPallates.datatableEvenRowColor
+              : ColorPallates.datatableOddRowColor,
         ),
-        BsDataCell(Text(row.route)),
-        BsDataCell(Text(row.icon)),
-        BsDataCell(Text(row.seq.toString())),
-        BsDataCell(
+        CustomBsDataCell(
+          Text(row.route),
+          color: x % 2 == 0
+              ? ColorPallates.datatableEvenRowColor
+              : ColorPallates.datatableOddRowColor,
+        ),
+        CustomBsDataCell(
+          Text(row.icon),
+          color: x % 2 == 0
+              ? ColorPallates.datatableEvenRowColor
+              : ColorPallates.datatableOddRowColor,
+        ),
+        CustomBsDataCell(
+          Text(row.seq.toString()),
+          color: x % 2 == 0
+              ? ColorPallates.datatableEvenRowColor
+              : ColorPallates.datatableOddRowColor,
+        ),
+        CustomBsDataCell(
           Row(
             children: [
               ButtonEditDatatables(
@@ -63,6 +91,9 @@ class MenuDataTableSource extends BsDatatableSource {
                   onPressed: () => onDeleteListener(row.menuid)),
             ],
           ),
+          color: x % 2 == 0
+              ? ColorPallates.datatableEvenRowColor
+              : ColorPallates.datatableOddRowColor,
         ),
       ],
     );

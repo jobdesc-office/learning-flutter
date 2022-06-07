@@ -3,8 +3,11 @@ import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/masters/Product_model.dart';
+import '../../../styles/color_palattes.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_edit_datatable.dart';
+import '../../../widgets/datatables/custom_datatable_tablecell.dart';
+import '../../../widgets/datatables/custom_datatable_tablehead.dart';
 
 class ProductDataTableSource extends BsDatatableSource {
   ValueChanged<int> onEditListener = (value) {};
@@ -16,15 +19,17 @@ class ProductDataTableSource extends BsDatatableSource {
 
   List<BsDataColumn> get columns {
     return <BsDataColumn>[
-      BsDataColumn(
+      CustomBsDataColumn(
         label: Text('No'),
         width: 100,
         searchable: false,
         orderable: false,
       ),
-      BsDataColumn(label: Text('Product Name'), columnName: 'Productnm'),
-      BsDataColumn(label: Text('Product Partner'), columnName: 'Productnm'),
-      BsDataColumn(label: Text('Actions'), orderable: false, searchable: false),
+      CustomBsDataColumn(label: Text('Product Name'), columnName: 'Productnm'),
+      CustomBsDataColumn(
+          label: Text('Product Partner'), columnName: 'Productnm'),
+      CustomBsDataColumn(
+          label: Text('Actions'), orderable: false, searchable: false),
     ];
   }
 
@@ -34,13 +39,23 @@ class ProductDataTableSource extends BsDatatableSource {
   @override
   BsDataRow getRow(int index) {
     final row = Products[index];
+    int x = controller.start + index + 1;
     return BsDataRow(
       index: index,
       cells: [
-        BsDataCell(Text('${controller.start + index + 1}')),
-        BsDataCell(Text(row.productname)),
-        BsDataCell(Text(row.bpname)),
-        BsDataCell(
+        CustomBsDataCell(Text('$x'),
+            color: x % 2 == 0
+                ? ColorPallates.datatableEvenRowColor
+                : ColorPallates.datatableOddRowColor),
+        CustomBsDataCell(Text(row.productname),
+            color: x % 2 == 0
+                ? ColorPallates.datatableEvenRowColor
+                : ColorPallates.datatableOddRowColor),
+        CustomBsDataCell(Text(row.bpname),
+            color: x % 2 == 0
+                ? ColorPallates.datatableEvenRowColor
+                : ColorPallates.datatableOddRowColor),
+        CustomBsDataCell(
           Row(
             children: [
               ButtonEditDatatables(
@@ -51,6 +66,9 @@ class ProductDataTableSource extends BsDatatableSource {
                   onPressed: () => onDeleteListener(row.productid)),
             ],
           ),
+          color: x % 2 == 0
+              ? ColorPallates.datatableEvenRowColor
+              : ColorPallates.datatableOddRowColor,
         ),
       ],
     );

@@ -3,8 +3,11 @@ import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/masters/country_model.dart';
+import '../../../styles/color_palattes.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_edit_datatable.dart';
+import '../../../widgets/datatables/custom_datatable_tablecell.dart';
+import '../../../widgets/datatables/custom_datatable_tablehead.dart';
 
 class CountryDataTableSource extends BsDatatableSource {
   ValueChanged<int> onEditListener = (value) {};
@@ -16,14 +19,15 @@ class CountryDataTableSource extends BsDatatableSource {
 
   List<BsDataColumn> get columns {
     return <BsDataColumn>[
-      BsDataColumn(
+      CustomBsDataColumn(
         label: Text('No'),
         width: 100,
         searchable: false,
         orderable: false,
       ),
-      BsDataColumn(label: Text('Country Name'), columnName: 'Countrynm'),
-      BsDataColumn(label: Text('Actions'), orderable: false, searchable: false),
+      CustomBsDataColumn(label: Text('Country Name'), columnName: 'Countrynm'),
+      CustomBsDataColumn(
+          label: Text('Actions'), orderable: false, searchable: false),
     ];
   }
 
@@ -33,12 +37,23 @@ class CountryDataTableSource extends BsDatatableSource {
   @override
   BsDataRow getRow(int index) {
     final row = countrys[index];
+    int x = controller.start + index + 1;
     return BsDataRow(
       index: index,
       cells: [
-        BsDataCell(Text('${controller.start + index + 1}')),
-        BsDataCell(Text(row.countryname)),
-        BsDataCell(
+        CustomBsDataCell(
+          Text('$x'),
+          color: x % 2 == 0
+              ? ColorPallates.datatableEvenRowColor
+              : ColorPallates.datatableOddRowColor,
+        ),
+        CustomBsDataCell(
+          Text(row.countryname),
+          color: x % 2 == 0
+              ? ColorPallates.datatableEvenRowColor
+              : ColorPallates.datatableOddRowColor,
+        ),
+        CustomBsDataCell(
           Row(
             children: [
               ButtonEditDatatables(
@@ -49,6 +64,9 @@ class CountryDataTableSource extends BsDatatableSource {
                   onPressed: () => onDeleteListener(row.countryid)),
             ],
           ),
+          color: x % 2 == 0
+              ? ColorPallates.datatableEvenRowColor
+              : ColorPallates.datatableOddRowColor,
         ),
       ],
     );
