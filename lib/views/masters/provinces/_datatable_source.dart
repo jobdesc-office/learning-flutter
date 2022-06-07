@@ -1,12 +1,16 @@
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../models/masters/province_model.dart';
+import '../../../presenters/navigation_presenter.dart';
 import '../../../styles/color_palattes.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_edit_datatable.dart';
 import '../../../widgets/datatables/custom_datatable_tablecell.dart';
 import '../../../widgets/datatables/custom_datatable_tablehead.dart';
+
+final _navigation = Get.find<NavigationPresenter>();
 
 class ProvinceDataTableSource extends BsDatatableSource {
   ValueChanged<int> onEditListener = (value) {};
@@ -45,21 +49,33 @@ class ProvinceDataTableSource extends BsDatatableSource {
       cells: [
         CustomBsDataCell(
           Text('$x'),
-          color: x % 2 == 0
-              ? ColorPallates.datatableEvenRowColor
-              : ColorPallates.datatableOddRowColor,
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
           Text(row.provname),
-          color: x % 2 == 0
-              ? ColorPallates.datatableEvenRowColor
-              : ColorPallates.datatableOddRowColor,
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
           Text(row.countryname),
-          color: x % 2 == 0
-              ? ColorPallates.datatableEvenRowColor
-              : ColorPallates.datatableOddRowColor,
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
           Row(
@@ -72,9 +88,13 @@ class ProvinceDataTableSource extends BsDatatableSource {
                   onPressed: () => onDeleteListener(row.provid)),
             ],
           ),
-          color: x % 2 == 0
-              ? ColorPallates.datatableEvenRowColor
-              : ColorPallates.datatableOddRowColor,
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
         ),
       ],
     );

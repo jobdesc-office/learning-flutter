@@ -1,12 +1,16 @@
 import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../models/masters/city_model.dart';
+import '../../../presenters/navigation_presenter.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_edit_datatable.dart';
 import '../../../widgets/datatables/custom_datatable_tablecell.dart';
 import '../../../widgets/datatables/custom_datatable_tablehead.dart';
+
+final _navigation = Get.find<NavigationPresenter>();
 
 class CityDataTableSource extends BsDatatableSource {
   ValueChanged<int> onEditListener = (value) {};
@@ -47,21 +51,33 @@ class CityDataTableSource extends BsDatatableSource {
       cells: [
         CustomBsDataCell(
           Text('$x'),
-          color: x % 2 == 0
-              ? ColorPallates.datatableEvenRowColor
-              : ColorPallates.datatableOddRowColor,
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
           Text(row.cityname),
-          color: x % 2 == 0
-              ? ColorPallates.datatableEvenRowColor
-              : ColorPallates.datatableOddRowColor,
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
           Text(row.provname),
-          color: x % 2 == 0
-              ? ColorPallates.datatableEvenRowColor
-              : ColorPallates.datatableOddRowColor,
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
           Row(
@@ -74,9 +90,13 @@ class CityDataTableSource extends BsDatatableSource {
                   onPressed: () => onDeleteListener(row.cityid)),
             ],
           ),
-          color: x % 2 == 0
-              ? ColorPallates.datatableEvenRowColor
-              : ColorPallates.datatableOddRowColor,
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
         ),
       ],
     );

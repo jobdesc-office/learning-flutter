@@ -1,14 +1,18 @@
 import 'package:boilerplate/widgets/theme_badge.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../models/ventes/bpcustomer_model.dart';
+import '../../../presenters/navigation_presenter.dart';
 import '../../../styles/color_palattes.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_details_datatable.dart';
 import '../../../widgets/button/button_edit_datatable.dart';
 import '../../../widgets/datatables/custom_datatable_tablecell.dart';
 import '../../../widgets/datatables/custom_datatable_tablehead.dart';
+
+final _navigation = Get.find<NavigationPresenter>();
 
 class BpCustomerDataTableSource extends BsDatatableSource {
   ValueChanged<int> onDetailsListener = (value) {};
@@ -51,28 +55,44 @@ class BpCustomerDataTableSource extends BsDatatableSource {
       cells: [
         CustomBsDataCell(
           Text('$x'),
-          color: x % 2 == 0
-              ? ColorPallates.datatableEvenRowColor
-              : ColorPallates.datatableOddRowColor,
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
           Text(row.sbccstmname.toString()),
-          color: x % 2 == 0
-              ? ColorPallates.datatableEvenRowColor
-              : ColorPallates.datatableOddRowColor,
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
           Text(row.sbcbp!.bpname.toString()),
-          color: x % 2 == 0
-              ? ColorPallates.datatableEvenRowColor
-              : ColorPallates.datatableOddRowColor,
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
         ),
         // CustomBsDataCell(Text(row.sbccstmphone.toString())),
         CustomBsDataCell(
           Text(row.sbccstmstatus!.typename.toString()),
-          color: x % 2 == 0
-              ? ColorPallates.datatableEvenRowColor
-              : ColorPallates.datatableOddRowColor,
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
           Row(
@@ -89,9 +109,13 @@ class BpCustomerDataTableSource extends BsDatatableSource {
                   onPressed: () => onDeleteListener(row.sbcid!)),
             ],
           ),
-          color: x % 2 == 0
-              ? ColorPallates.datatableEvenRowColor
-              : ColorPallates.datatableOddRowColor,
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
         ),
       ],
     );

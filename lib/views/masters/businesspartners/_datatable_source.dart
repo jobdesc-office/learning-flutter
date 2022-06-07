@@ -1,13 +1,17 @@
 import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../models/masters/businesspartner_model.dart';
+import '../../../presenters/navigation_presenter.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_details_datatable.dart';
 import '../../../widgets/button/button_edit_datatable.dart';
 import '../../../widgets/datatables/custom_datatable_tablecell.dart';
 import '../../../widgets/datatables/custom_datatable_tablehead.dart';
+
+final _navigation = Get.find<NavigationPresenter>();
 
 class BusinessPartnerDataTableSource extends BsDatatableSource {
   ValueChanged<int> onDetailsListener = (value) {};
@@ -54,52 +58,85 @@ class BusinessPartnerDataTableSource extends BsDatatableSource {
       cells: [
         CustomBsDataCell(
           Text('$x'),
-          color: x % 2 == 0
-              ? ColorPallates.datatableEvenRowColor
-              : ColorPallates.datatableOddRowColor,
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
         ),
-        CustomBsDataCell(Text(row.bpname),
-            color: x % 2 == 0
-                ? ColorPallates.datatableEvenRowColor
-                : ColorPallates.datatableOddRowColor),
         CustomBsDataCell(
-            // Row(
-            //   crossAxisAlignment: CrossAxisAlignment.center,
-            //   children: [
-            //     ThemeBadge(child: Text(row.bptype.typename))
-            //   ],
-            // ),
-            Text(row.bptype.typename),
-            color: x % 2 == 0
-                ? ColorPallates.datatableEvenRowColor
-                : ColorPallates.datatableOddRowColor),
-        CustomBsDataCell(Text(row.bpemail),
-            color: x % 2 == 0
-                ? ColorPallates.datatableEvenRowColor
-                : ColorPallates.datatableOddRowColor),
-        CustomBsDataCell(Text(row.bpphone),
-            color: x % 2 == 0
-                ? ColorPallates.datatableEvenRowColor
-                : ColorPallates.datatableOddRowColor),
+          Text(row.bpname),
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
+        ),
         CustomBsDataCell(
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ButtonDetailsDatatables(
-                  margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onDetailsListener(row.bpid),
-                ),
-                ButtonEditDatatables(
-                  margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onEditListener(row.bpid),
-                ),
-                ButtonDeleteDatatables(
-                    onPressed: () => onDeleteListener(row.bpid)),
-              ],
-            ),
-            color: x % 2 == 0
-                ? ColorPallates.datatableEvenRowColor
-                : ColorPallates.datatableOddRowColor),
+          // Row(
+          //   crossAxisAlignment: CrossAxisAlignment.center,
+          //   children: [
+          //     ThemeBadge(child: Text(row.bptype.typename))
+          //   ],
+          // ),
+          Text(row.bptype.typename),
+
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
+        ),
+        CustomBsDataCell(
+          Text(row.bpemail),
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
+        ),
+        CustomBsDataCell(
+          Text(row.bpphone),
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
+        ),
+        CustomBsDataCell(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ButtonDetailsDatatables(
+                margin: EdgeInsets.only(right: 5),
+                onPressed: () => onDetailsListener(row.bpid),
+              ),
+              ButtonEditDatatables(
+                margin: EdgeInsets.only(right: 5),
+                onPressed: () => onEditListener(row.bpid),
+              ),
+              ButtonDeleteDatatables(
+                  onPressed: () => onDeleteListener(row.bpid)),
+            ],
+          ),
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
+        ),
       ],
     );
   }

@@ -1,14 +1,18 @@
 import 'package:boilerplate/constants/base_text.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../models/masters/user_model.dart';
+import '../../../presenters/navigation_presenter.dart';
 import '../../../styles/color_palattes.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_details_datatable.dart';
 import '../../../widgets/button/button_edit_datatable.dart';
 import '../../../widgets/datatables/custom_datatable_tablecell.dart';
 import '../../../widgets/datatables/custom_datatable_tablehead.dart';
+
+final _navigation = Get.find<NavigationPresenter>();
 
 class UserDataTableSource extends BsDatatableSource {
   ValueChanged<int> onDetailsListener = (value) {};
@@ -55,27 +59,43 @@ class UserDataTableSource extends BsDatatableSource {
       cells: [
         CustomBsDataCell(
           Text('$x'),
-          color: x % 2 == 0
-              ? ColorPallates.datatableEvenRowColor
-              : ColorPallates.datatableOddRowColor,
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
           Text(row.userfullname),
-          color: x % 2 == 0
-              ? ColorPallates.datatableEvenRowColor
-              : ColorPallates.datatableOddRowColor,
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
           Text(row.useremail),
-          color: x % 2 == 0
-              ? ColorPallates.datatableEvenRowColor
-              : ColorPallates.datatableOddRowColor,
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
           Text(row.userphone),
-          color: x % 2 == 0
-              ? ColorPallates.datatableEvenRowColor
-              : ColorPallates.datatableOddRowColor,
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
         ),
         // CustomBsDataCell(Card(
         //   color: row.isactive ? Colors.blue.shade300 : Colors.red.shade300,
@@ -100,9 +120,13 @@ class UserDataTableSource extends BsDatatableSource {
                   onPressed: () => onDeleteListener(row.userid)),
             ],
           ),
-          color: x % 2 == 0
-              ? ColorPallates.datatableEvenRowColor
-              : ColorPallates.datatableOddRowColor,
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
         ),
       ],
     );

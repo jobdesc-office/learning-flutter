@@ -1,7 +1,11 @@
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../../presenters/navigation_presenter.dart';
 import '../../styles/color_palattes.dart';
+
+final _navigation = Get.find<NavigationPresenter>();
 
 class CustomBsDataColumn extends BsDataColumn {
   CustomBsDataColumn({
@@ -94,24 +98,26 @@ class CustomBsDataColumn extends BsDataColumn {
         color: Colors.transparent,
         child: LayoutBuilder(
           builder: (context, constraints) {
-            return Container(
-              color: ColorPallates.datatableTableHeadColor,
-              alignment: alignment,
-              padding: padding,
-              child: DefaultTextStyle(
-                style: TextStyle(
-                  color: ColorPallates.datatableTableHeadTextColor,
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.bold,
-                ).merge(textStyle),
-                child: Row(
-                  children: [
-                    Expanded(child: label),
-                    orderIcon(context),
-                  ],
-                ),
-              ),
-            );
+            return Obx(() => Container(
+                  color: _navigation.darkTheme.value
+                      ? ColorPallates.datatableDarkTableHeadColor
+                      : ColorPallates.datatableLightTableHeadColor,
+                  alignment: alignment,
+                  padding: padding,
+                  child: DefaultTextStyle(
+                    style: TextStyle(
+                      color: ColorPallates.datatableLightTableHeadTextColor,
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.bold,
+                    ).merge(textStyle),
+                    child: Row(
+                      children: [
+                        Expanded(child: label),
+                        orderIcon(context),
+                      ],
+                    ),
+                  ),
+                ));
           },
         ),
       ),
