@@ -31,13 +31,18 @@ class BusinessPartnerDataTableSource extends BsDatatableSource {
         orderable: false,
       ),
       CustomBsDataColumn(
-          label: Text('BP Company'), columnName: 'userfullname', width: 180),
+          label: Text('BP Company'), columnName: 'bpname', width: 180),
       CustomBsDataColumn(
-          label: Text('BP Type'), columnName: 'bptypeid', width: 100),
+          label: Text('BP Email'), columnName: 'bpemail', width: 240),
       CustomBsDataColumn(
-          label: Text('BP Email'), columnName: 'useremail', width: 240),
+          label: Text('BP Phone'), columnName: 'bpphone', width: 130),
       CustomBsDataColumn(
-          label: Text('BP Phone'), columnName: 'userphone', width: 130),
+        label: Text('BP Type'),
+        columnName: 'bptypeid',
+        width: 100,
+        searchable: false,
+        orderable: false,
+      ),
       CustomBsDataColumn(
           label: Text('Actions'),
           orderable: false,
@@ -77,23 +82,6 @@ class BusinessPartnerDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          // Row(
-          //   crossAxisAlignment: CrossAxisAlignment.center,
-          //   children: [
-          //     ThemeBadge(child: Text(row.bptype.typename))
-          //   ],
-          // ),
-          Text(row.bptype.typename),
-
-          color: _navigation.darkTheme.value
-              ? x % 2 == 0
-                  ? ColorPallates.datatableDarkEvenRowColor
-                  : ColorPallates.datatableDarkOddRowColor
-              : x % 2 == 0
-                  ? ColorPallates.datatableLightEvenRowColor
-                  : ColorPallates.datatableLightOddRowColor,
-        ),
-        CustomBsDataCell(
           Text(row.bpemail),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
@@ -105,6 +93,23 @@ class BusinessPartnerDataTableSource extends BsDatatableSource {
         ),
         CustomBsDataCell(
           Text(row.bpphone),
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
+        ),
+        CustomBsDataCell(
+          // Row(
+          //   crossAxisAlignment: CrossAxisAlignment.center,
+          //   children: [
+          //     ThemeBadge(child: Text(row.bptype.typename))
+          //   ],
+          // ),
+          Text(row.bptype.typename),
+
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor

@@ -29,9 +29,14 @@ class ProductDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      CustomBsDataColumn(label: Text('Product Name'), columnName: 'Productnm'),
       CustomBsDataColumn(
-          label: Text('Product Partner'), columnName: 'Productnm'),
+          label: Text('Product Name'), columnName: 'productname'),
+      CustomBsDataColumn(
+        label: Text('Product Partner'),
+        columnName: 'Productnm',
+        searchable: false,
+        orderable: false,
+      ),
       CustomBsDataColumn(
           label: Text('Actions'), orderable: false, searchable: false),
     ];

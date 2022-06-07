@@ -30,9 +30,9 @@ class MenuDataTableSource extends BsDatatableSource {
         orderable: false,
       ),
       CustomBsDataColumn(label: Text('Menu Name'), columnName: 'menunm'),
-      CustomBsDataColumn(label: Text('Menu Route'), columnName: 'route'),
-      CustomBsDataColumn(label: Text('Menu Icon'), columnName: 'icon'),
-      CustomBsDataColumn(label: Text('Menu Sequence'), columnName: 'seq'),
+      CustomBsDataColumn(label: Text('Menu Route'), columnName: 'menuroute'),
+      CustomBsDataColumn(label: Text('Menu Icon'), columnName: 'menuicon'),
+      CustomBsDataColumn(label: Text('Menu Sequence'), columnName: 'menuseq'),
       CustomBsDataColumn(
           label: Text('Actions'), orderable: false, searchable: false),
     ];

@@ -28,10 +28,13 @@ class ProvinceDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
+      CustomBsDataColumn(label: Text('Province Name'), columnName: 'provname'),
       CustomBsDataColumn(
-          label: Text('Province Name'), columnName: 'Provincenm'),
-      CustomBsDataColumn(
-          label: Text('Province Country'), columnName: 'Provincenm'),
+        label: Text('Province Country'),
+        columnName: 'Provincenm',
+        searchable: false,
+        orderable: false,
+      ),
       CustomBsDataColumn(
           label: Text('Actions'), orderable: false, searchable: false),
     ];

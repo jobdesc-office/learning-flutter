@@ -33,10 +33,18 @@ class ProspectDataTableSource extends BsDatatableSource {
         orderable: false,
       ),
       CustomBsDataColumn(
-          label: Text('Prospect Title'), columnName: 'userfullname'),
-      CustomBsDataColumn(label: Text('Prospect Customer')),
+          label: Text('Prospect Title'), columnName: 'prospectname'),
       CustomBsDataColumn(
-          label: Text('Prospect Progress'), columnName: 'userphone'),
+        label: Text('Prospect Customer'),
+        searchable: false,
+        orderable: false,
+      ),
+      CustomBsDataColumn(
+        label: Text('Prospect Progress'),
+        columnName: 'userphone',
+        searchable: false,
+        orderable: false,
+      ),
       CustomBsDataColumn(
           label: Text('Prospect Status'), orderable: false, searchable: false),
       CustomBsDataColumn(

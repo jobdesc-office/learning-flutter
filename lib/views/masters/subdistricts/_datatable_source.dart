@@ -29,9 +29,13 @@ class SubdistrictDataTableSource extends BsDatatableSource {
         orderable: false,
       ),
       CustomBsDataColumn(
-          label: Text('Subdistrict Name'), columnName: 'Subdistrictnm'),
+          label: Text('Subdistrict Name'), columnName: 'subdistrictname'),
       CustomBsDataColumn(
-          label: Text('Subdistrict City'), columnName: 'Subdistrictnm'),
+        label: Text('Subdistrict City'),
+        columnName: 'Subdistrictnm',
+        searchable: false,
+        orderable: false,
+      ),
       CustomBsDataColumn(
           label: Text('Actions'), orderable: false, searchable: false),
     ];

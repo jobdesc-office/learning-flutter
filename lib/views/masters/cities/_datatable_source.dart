@@ -32,8 +32,13 @@ class CityDataTableSource extends BsDatatableSource {
           label: Text(
             'City Name',
           ),
-          columnName: 'Citynm'),
-      CustomBsDataColumn(label: Text('City Province'), columnName: 'Citynm'),
+          columnName: 'cityname'),
+      CustomBsDataColumn(
+        label: Text('City Province'),
+        columnName: 'Citynm',
+        searchable: false,
+        orderable: false,
+      ),
       CustomBsDataColumn(
           label: Text('Actions'), orderable: false, searchable: false),
     ];

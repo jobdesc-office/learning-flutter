@@ -29,7 +29,8 @@ class CountryDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      CustomBsDataColumn(label: Text('Country Name'), columnName: 'Countrynm'),
+      CustomBsDataColumn(
+          label: Text('Country Name'), columnName: 'countryname'),
       CustomBsDataColumn(
           label: Text('Actions'), orderable: false, searchable: false),
     ];

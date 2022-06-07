@@ -32,11 +32,20 @@ class BpCustomerDataTableSource extends BsDatatableSource {
         orderable: false,
       ),
       CustomBsDataColumn(
-          label: Text('BpCustomer Name'), columnName: 'BpCustomernm'),
+          label: Text('BpCustomer Name'), columnName: 'sbccstmname'),
       CustomBsDataColumn(
-          label: Text('BpCustomer Business Partner'), columnName: 'route'),
+        label: Text('BpCustomer Business Partner'),
+        columnName: 'route',
+        searchable: false,
+        orderable: false,
+      ),
       // CustomBsDataColumn(label: Text('BpCustomer Telp'), columnName: 'icon'),
-      CustomBsDataColumn(label: Text('BpCustomer Type'), columnName: 'route'),
+      CustomBsDataColumn(
+        label: Text('BpCustomer Type'),
+        columnName: 'route',
+        searchable: false,
+        orderable: false,
+      ),
       CustomBsDataColumn(
           label: Text('Actions'), orderable: false, searchable: false),
     ];
