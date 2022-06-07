@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import '../../../models/masters/subdistrict_model.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_edit_datatable.dart';
-import '../../../widgets/datatables/custom_bsdatatable_column.dart';
 
 class SubdistrictDataTableSource extends BsDatatableSource {
   ValueChanged<int> onEditListener = (value) {};
@@ -17,21 +16,16 @@ class SubdistrictDataTableSource extends BsDatatableSource {
   List<BsDataColumn> get columns {
     return <BsDataColumn>[
       BsDataColumn(
-        label: TextDatatableColumn('No'),
+        label: Text('No'),
         width: 100,
         searchable: false,
         orderable: false,
       ),
       BsDataColumn(
-          label: TextDatatableColumn('Subdistrict Name'),
-          columnName: 'Subdistrictnm'),
+          label: Text('Subdistrict Name'), columnName: 'Subdistrictnm'),
       BsDataColumn(
-          label: TextDatatableColumn('Subdistrict City'),
-          columnName: 'Subdistrictnm'),
-      BsDataColumn(
-          label: TextDatatableColumn('Actions'),
-          orderable: false,
-          searchable: false),
+          label: Text('Subdistrict City'), columnName: 'Subdistrictnm'),
+      BsDataColumn(label: Text('Actions'), orderable: false, searchable: false),
     ];
   }
 
