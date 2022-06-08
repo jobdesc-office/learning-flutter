@@ -4,6 +4,7 @@ import '../presenters/default/home_presenter.dart';
 import '../presenters/default/profile_presenter.dart';
 import '../presenters/masters/businesspartner_presenter.dart';
 import '../presenters/masters/city_presenter.dart';
+import '../presenters/masters/contact_presenter.dart';
 import '../presenters/masters/country_presenter.dart';
 import '../presenters/masters/customer_presenter.dart';
 import '../presenters/masters/menu_presenter.dart';
@@ -19,6 +20,7 @@ import '../services/default/home_service.dart';
 import '../services/default/profile_service.dart';
 import '../services/masters/businessPartner_service.dart';
 import '../services/masters/city_service.dart';
+import '../services/masters/contact_service.dart';
 import '../services/masters/country_service.dart';
 import '../services/masters/customer_service.dart';
 import '../services/masters/product_service.dart';
@@ -38,6 +40,7 @@ import '../views/defaults/home/home.dart';
 import '../views/defaults/profile/profile.dart';
 import '../views/masters/businesspartners/businesspartner.dart';
 import '../views/masters/cities/city.dart';
+import '../views/masters/contact/contact.dart';
 import '../views/masters/countries/country.dart';
 import '../views/masters/customers/customer.dart';
 import '../views/masters/menus/menu.dart';
@@ -107,6 +110,16 @@ class AppRoute {
           Get.lazyPut(() => SubdistrictService());
           Get.lazyPut(() => CustomerService());
           Get.lazyPut(() => CustomerPresenter());
+        }),
+      ),
+      CustomGetPage(
+        name: RouteList.masterContact.index,
+        page: () => ContactView(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => CustomerService());
+          Get.lazyPut(() => TypeService());
+          Get.lazyPut(() => ContactService());
+          Get.lazyPut(() => ContactPresenter());
         }),
       ),
       CustomGetPage(

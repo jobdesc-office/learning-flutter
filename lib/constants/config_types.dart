@@ -16,4 +16,6 @@ class ConfigType {
   static String prospectStage = notNull(types['prospectStage']);
 
   static String prospectType = notNull(types['prospectType']);
+
+  static String contactType = notNull(types['contactType']);
 }
