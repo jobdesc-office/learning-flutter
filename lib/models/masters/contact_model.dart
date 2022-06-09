@@ -65,7 +65,7 @@ class ContactModel {
 
 class Contactcustomer {
   int? cstmid;
-  Null? cstmprefix;
+  int? cstmprefix;
   String? cstmname;
   String? cstmphone;
   String? cstmaddress;
@@ -73,14 +73,14 @@ class Contactcustomer {
   int? cstmprovinceid;
   int? cstmcityid;
   int? cstmsubdistrictid;
-  Null? cstmuvid;
+  int? cstmuvid;
   String? cstmpostalcode;
   String? cstmlatitude;
   String? cstmlongitude;
-  Null? referalcode;
-  Null? createdby;
+  int? referalcode;
+  int? createdby;
   String? createddate;
-  Null? updatedby;
+  int? updatedby;
   String? updateddate;
   bool? isactive;
 
