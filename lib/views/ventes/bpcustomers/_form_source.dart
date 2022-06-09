@@ -1,10 +1,13 @@
-import 'dart:html';
+import 'dart:typed_data';
+import 'dart:io';
 
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../../../constants/base_text.dart';
 import '../../../models/session_model.dart';
@@ -35,6 +38,19 @@ class BpCustomerSource extends GetxController {
       XFile('https://cdn.icon-icons.com/icons2/1674/PNG/512/person_110935.png')
           .obs;
 
+  File? image;
+
+  Future<File> _getImageFileFromAssets(String path) async {
+    final byteData = await rootBundle.load('assets/$path');
+
+    final file = File('${(await getTemporaryDirectory()).path}/$path');
+    await file.create(recursive: true);
+    await file.writeAsBytes(byteData.buffer
+        .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+
+    return file;
+  }
+
   BsSelectBoxController selectType = BsSelectBoxController();
   BsSelectBoxController selectBp = BsSelectBoxController();
   BsSelectBoxController selectCustomer = BsSelectBoxController();
@@ -47,8 +63,8 @@ class BpCustomerSource extends GetxController {
       'sbcbpid': selectBp.getSelectedAsString(),
       'cstmid': selectCustomer.getSelectedAsString(),
       'sbccstmstatusid': selectType.getSelectedAsString(),
-      // 'sbccstmpic': pic.value.path,
-      'sbccstmpic': pic.value,
+      'sbccstmpic': image?.path,
+      // 'sbccstmpic': pic.value,
       'createdby': session.userid,
       'updatedby': session.userid,
     };
@@ -123,12 +139,12 @@ class BpCustomerForm {
           BsButton(
             margin: EdgeInsets.only(top: 10),
             onPressed: () async {
-              source.pic.value =
-                  (await _picker.pickImage(source: ImageSource.gallery))!;
-              print(source.pic.value.path);
-              print(source.pic.value.name);
-              print(source.pic.value);
-              print(source.pic);
+              final XFile? photos =
+                  await _picker.pickImage(source: ImageSource.gallery);
+              if (photos != null) {
+                source.pic.value = photos;
+                source.image = File(photos.path);
+              }
             },
             label: Text(
               BpCustomerText.labelImage,

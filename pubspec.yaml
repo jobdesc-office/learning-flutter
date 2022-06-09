@@ -41,6 +41,7 @@ dependencies:
   currency_text_input_formatter: ^2.1.5
   image_picker: ^0.8.5+3
   image_picker_for_web: ^2.1.8
+  path: ^1.8.0
 
   bs_flutter_buttons: 
     path: ./modules/bs_flutter_buttons
