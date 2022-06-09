@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../../../contracts/base/edit_view_contract.dart';
 import '../../../models/masters/userdt_model.dart';
 import '../../../presenters/masters/user_presenter.dart';
+import '../../../routes/route_list.dart';
 import '../../../widgets/button/button_role_user.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
@@ -28,6 +29,7 @@ class UserFormView extends GetView implements EditViewContract {
   Widget build(BuildContext context) {
     return Scaffold(
       body: TemplateView(
+        activeRoutes: [RouteList.master.index, RouteList.masterUser.index],
         child: Obx(() {
           userForm = UserForm(source.value);
           return Form(

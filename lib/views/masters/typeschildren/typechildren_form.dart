@@ -7,6 +7,7 @@ import '../../../contracts/base/edit_view_contract.dart';
 import '../../../contracts/master/typechildren_contract.dart';
 import '../../../models/masters/type_model.dart';
 import '../../../presenters/masters/typechildren_presenter.dart';
+import '../../../routes/route_list.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
 
@@ -30,6 +31,10 @@ class TypeChildrenFormView extends StatelessWidget
   Widget build(BuildContext context) {
     return Scaffold(
       body: TemplateView(
+        activeRoutes: [
+          RouteList.masterTypeChildren.index,
+          RouteList.masterTypeChildren.index
+        ],
         child: Obx(() {
           tpForm = TypeChildrenForm(source.value);
           return Form(

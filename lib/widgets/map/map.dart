@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:boilerplate/styles/color_palattes.dart';
+import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -103,8 +104,12 @@ class _GoogleMapsPageState extends State<GoogleMapsPage>
             right: 24,
             child: SizedBox(
               height: 50,
-              child: TextButton(
-                child: const Text(
+              child: BsButton(
+                style: BsButtonStyle(
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                    color: ColorPallates.primary,
+                    backgroundColor: ColorPallates.secondary),
+                label: const Text(
                   "Submit",
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
@@ -132,15 +137,6 @@ class _GoogleMapsPageState extends State<GoogleMapsPage>
                     Snackbar().outOfRange();
                   }
                 },
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(ColorPallates.primary),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                  ),
-                ),
               ),
             ),
           )

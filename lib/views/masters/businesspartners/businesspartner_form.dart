@@ -6,6 +6,7 @@ import '../../../contracts/base/edit_view_contract.dart';
 import '../../../models/masters/businesspartner_model.dart';
 import '../../../models/masters/type_model.dart';
 import '../../../presenters/masters/businesspartner_presenter.dart';
+import '../../../routes/route_list.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
 
@@ -31,6 +32,10 @@ class BusinessPartnerFormView extends StatelessWidget
   Widget build(BuildContext context) {
     return Scaffold(
       body: TemplateView(
+        activeRoutes: [
+          RouteList.master.index,
+          RouteList.masterBusinessPartner.index
+        ],
         child: Obx(() {
           businessPartnerForm = BusinessPartnerForm(source.value);
           return Form(

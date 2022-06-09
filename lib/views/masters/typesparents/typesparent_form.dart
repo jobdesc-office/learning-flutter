@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../../contracts/base/edit_view_contract.dart';
 import '../../../models/masters/type_model.dart';
 import '../../../presenters/masters/typeparent_presenter.dart';
+import '../../../routes/route_list.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
 
@@ -26,6 +27,10 @@ class TypeParentFormView extends StatelessWidget implements EditViewContract {
   Widget build(BuildContext context) {
     return Scaffold(
       body: TemplateView(
+        activeRoutes: [
+          RouteList.masterTypeParent.index,
+          RouteList.masterTypeParent.index
+        ],
         child: Obx(() {
           tpForm = TypeParentForm(source.value);
           return Form(

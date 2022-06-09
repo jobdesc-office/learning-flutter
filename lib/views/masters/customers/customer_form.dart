@@ -13,6 +13,7 @@ import '../../../routes/route_list.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
 
+import '../../../widgets/snackbar.dart';
 import '_form_source.dart';
 
 class CustomerFormView extends StatelessWidget
@@ -153,36 +154,64 @@ class CustomerFormView extends StatelessWidget
     List<AddressComponents>? addresses =
         address.adresses?.first.addressComponents;
 
-    String cityy = addresses!
-            .firstWhere((element) =>
-                element.types!.contains('administrative_area_level_2'))
-            .longName ??
-        "";
-    // replace word Kota, Kab, or Kabupaten with Empty String
-    String city =
-        cityy.replaceAll(RegExp(r'Kota |Kabupaten |Kab |Regency '), '');
+    if (addresses!
+                .firstWhere((element) =>
+                    element.types!.contains('administrative_area_level_1'))
+                .longName !=
+            null &&
+        addresses
+                .firstWhere((element) =>
+                    element.types!.contains('administrative_area_level_2'))
+                .longName !=
+            null &&
+        addresses
+                .firstWhere((element) =>
+                    element.types!.contains('administrative_area_level_3'))
+                .longName !=
+            null &&
+        addresses
+                .firstWhere((element) => element.types!.contains('postal_code'))
+                .longName !=
+            null &&
+        address.adresses!.first.formattedAddress != null) {
+      String province = addresses
+              .firstWhere((element) =>
+                  element.types!.contains('administrative_area_level_1'))
+              .longName ??
+          "";
 
-    String subdistrictt = addresses
-            .firstWhere((element) =>
-                element.types!.contains('administrative_area_level_3'))
-            .longName ??
-        "";
+      String cityy = addresses
+              .firstWhere((element) =>
+                  element.types!.contains('administrative_area_level_2'))
+              .longName ??
+          "";
+      // replace word Kota, Kab, or Kabupaten with Empty String
+      String city =
+          cityy.replaceAll(RegExp(r'Kota |Kabupaten |Kab |Regency '), '');
 
-    String subdistrict =
-        subdistrictt.replaceAll(RegExp(r'Kecamatan |Kec '), '');
+      String subdistrictt = addresses
+              .firstWhere((element) =>
+                  element.types!.contains('administrative_area_level_3'))
+              .longName ??
+          "";
 
-    source.value.inputProvince.text = addresses
-        .firstWhere(
-            (element) => element.types!.contains('administrative_area_level_1'))
-        .longName
-        .toString();
-    source.value.inputCity.text = city;
-    source.value.inputSubdistrict.text = subdistrict;
-    source.value.inputPostal.text = addresses
-        .firstWhere((element) => element.types!.contains('postal_code'))
-        .longName
-        .toString();
-    source.value.inputAddress.text =
-        address.adresses!.first.formattedAddress.toString();
+      String subdistrict =
+          subdistrictt.replaceAll(RegExp(r'Kecamatan |Kec '), '');
+
+      String postalCode = addresses
+              .firstWhere((element) => element.types!.contains('postal_code'))
+              .longName ??
+          "";
+
+      String adres = address.adresses!.first.formattedAddress ?? "";
+
+      source.value.inputProvince.text = province;
+      source.value.inputCity.text = city;
+      source.value.inputSubdistrict.text = subdistrict;
+      source.value.inputPostal.text = postalCode;
+      source.value.inputAddress.text = adres;
+    } else {
+      Snackbar().unknowLocation();
+    }
   }
 }

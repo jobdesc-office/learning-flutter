@@ -93,4 +93,16 @@ class Snackbar {
           size: 30,
         ));
   }
+
+  void unknowLocation() {
+    Get.snackbar('Warning', 'Location Selected But...',
+        messageText: Text("Maybe some fields can't be filled"),
+        backgroundColor: ColorPallates.danger,
+        margin: EdgeInsets.only(top: 10, right: 10, bottom: 10, left: 1130),
+        maxWidth: 200,
+        icon: Icon(
+          Icons.dangerous_outlined,
+          size: 30,
+        ));
+  }
 }
