@@ -5,6 +5,8 @@ class ConfigType {
 
   static String menuType = notNull(types['menuType']);
 
+  static String role = notNull(types['role']);
+
   static String businessPartner = notNull(types['businessPartner']);
 
   static String schedule = notNull(types['schedule']);
@@ -17,5 +19,11 @@ class ConfigType {
 
   static String prospectType = notNull(types['prospectType']);
 
+  static String prospectStatus = notNull(types['prospectStatus']);
+
   static String contactType = notNull(types['contactType']);
+
+  static String cstmtype = notNull(types['cstmtype']);
+
+  static String cstmstatus = notNull(types['cstmstatus']);
 }

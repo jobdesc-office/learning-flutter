@@ -102,7 +102,7 @@ class UserForm {
                 sizes: ColScreen(lg: Col.col_5),
                 child: FormGroup(
                   child: CustomSelectBox(
-                    searchable: true,
+                    searchable: false,
                     disabled: source.isProcessing,
                     controller: selectRole,
                     hintText: BaseText.hiintSelect(field: UserText.labelRole),

@@ -393,7 +393,7 @@ class ProspectForm {
         disabled: source.isProcessing,
         controller: source.selectOwner,
         hintText: BaseText.hiintSelect(field: ProspectText.labelOwner),
-        serverSide: (params) => selectApiProspectOwner(params),
+        serverSide: (params) => selectApiUser(params),
       ),
     );
   }
@@ -402,7 +402,7 @@ class ProspectForm {
     return FormGroup(
       label: Text(ProspectText.labelType),
       child: CustomSelectBox(
-        searchable: true,
+        searchable: false,
         disabled: source.isProcessing,
         controller: source.selectType,
         hintText: BaseText.hiintSelect(field: ProspectText.labelType),
@@ -523,7 +523,7 @@ class ProspectForm {
     return FormGroup(
       label: Text(ProspectText.labelStatus),
       child: CustomSelectBox(
-        searchable: true,
+        searchable: false,
         disabled: source.isProcessing,
         controller: source.selectStatus,
         hintText: BaseText.hiintSelect(field: ProspectText.labelStatus),
@@ -704,7 +704,7 @@ class ProspectForm {
                         child: FormGroup(
                           label: Text(ProspectText.labelTaxType),
                           child: CustomSelectBox(
-                            searchable: true,
+                            searchable: false,
                             disabled: ctrl.isProduct.value,
                             controller: selectTax,
                             hintText: BaseText.hiintSelect(

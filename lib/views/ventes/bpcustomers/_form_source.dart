@@ -86,7 +86,7 @@ class BpCustomerForm {
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomSelectBox(
-        searchable: true,
+        searchable: false,
         disabled: source.isProcessing,
         controller: source.selectType,
         hintText: BaseText.hiintSelect(field: BpCustomerText.labelType),

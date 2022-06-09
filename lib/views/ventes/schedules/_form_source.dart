@@ -375,11 +375,11 @@ class ScheduleForm {
                         ? Colors.white
                         : Colors.black))),
             child: CustomSelectBox(
-              searchable: true,
+              searchable: false,
               disabled: source.isProcessing,
               controller: source.selectType,
               hintText: BaseText.hiintSelect(field: ScheduleText.labelType),
-              serverSide: (params) => selectApiTypeChildren(params),
+              serverSide: (params) => selectApiTypeSchedule(params),
               validators: [Validators.selectRequired(ScheduleText.labelType)],
             ),
           ),
