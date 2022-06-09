@@ -32,7 +32,10 @@ class TypeChildrenDataTableSource extends BsDatatableSource {
       ),
       CustomBsDataColumn(label: Text('Data Name'), columnName: 'typename'),
       CustomBsDataColumn(
-          label: Text('Actions'), orderable: false, searchable: false),
+          label: Text('Actions'),
+          width: 100,
+          orderable: false,
+          searchable: false),
     ];
   }
 

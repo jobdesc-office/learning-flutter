@@ -18,7 +18,7 @@ import '../presenters/masters/typeparent_presenter.dart';
 import '../presenters/masters/user_presenter.dart';
 import '../services/default/home_service.dart';
 import '../services/default/profile_service.dart';
-import '../services/masters/businessPartner_service.dart';
+import '../services/masters/businesspartner_service.dart';
 import '../services/masters/city_service.dart';
 import '../services/masters/contact_service.dart';
 import '../services/masters/country_service.dart';

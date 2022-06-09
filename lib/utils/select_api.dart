@@ -13,6 +13,7 @@ import '../models/masters/customer_model.dart';
 import '../models/masters/product_model.dart';
 import '../models/masters/province_model.dart';
 import '../models/masters/user_model.dart';
+import '../models/ventes/bpcustomer_model.dart';
 import '../services/masters/city_service.dart';
 import '../services/masters/country_service.dart';
 import '../services/masters/customer_service.dart';
@@ -22,6 +23,7 @@ import '../services/masters/type_service.dart';
 import '../services/masters/typechildren_service.dart';
 import '../services/masters/user_service.dart';
 import '../services/security/menu_service.dart';
+import '../services/ventes/bpcustomer_service.dart';
 import 'connect_internet_api.dart';
 
 Future<BsSelectBoxResponse> selectApiRole(Map<String, String> params) async {
@@ -211,6 +213,24 @@ Future<BsSelectBoxResponse> selectApiUser(Map<String, String> params) async {
 
 //   return BsSelectBoxResponse(options: []);
 // }
+
+Future<BsSelectBoxResponse> selectApiBpCustomer(
+    Map<String, String> params) async {
+  final bpCustomerService = Get.put(BpCustomerService());
+  Response response = await bpCustomerService.select(params);
+  if (response.isOk) {
+    if (response.statusCode == 200) {
+      return BsSelectBoxResponse.createFromJson(
+        response.body,
+        value: (data) => BusinessPartnerCustomerModel.fromJson(data).sbcid,
+        renderText: (data) =>
+            Text(BusinessPartnerCustomerModel.fromJson(data).sbccstmname!),
+      );
+    }
+  }
+
+  return BsSelectBoxResponse(options: []);
+}
 
 Future<BsSelectBoxResponse> selectApiCustomer(
     Map<String, String> params) async {

@@ -47,7 +47,10 @@ class BpCustomerDataTableSource extends BsDatatableSource {
         orderable: false,
       ),
       CustomBsDataColumn(
-          label: Text('Actions'), orderable: false, searchable: false),
+          label: Text('Actions'),
+          width: 100,
+          orderable: false,
+          searchable: false),
     ];
   }
 

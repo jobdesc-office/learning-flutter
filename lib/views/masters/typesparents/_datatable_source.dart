@@ -33,7 +33,10 @@ class TypeParentDataTableSource extends BsDatatableSource {
       CustomBsDataColumn(label: Text('Parent Code'), columnName: 'typecd'),
       CustomBsDataColumn(label: Text('Parent Name'), columnName: 'typename'),
       CustomBsDataColumn(
-          label: Text('Actions'), orderable: false, searchable: false),
+          label: Text('Actions'),
+          width: 100,
+          orderable: false,
+          searchable: false),
     ];
   }
 

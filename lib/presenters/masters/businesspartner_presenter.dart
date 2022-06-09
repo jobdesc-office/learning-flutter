@@ -6,7 +6,7 @@ import '../../constants/config_types.dart';
 import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
-import '../../services/masters/businessPartner_service.dart';
+import '../../services/masters/businesspartner_service.dart';
 import '../../services/masters/type_service.dart';
 import '../../utils/custom_get_controller.dart';
 import '../../views/masters/businesspartners/_businesspartner_type.dart';

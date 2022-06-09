@@ -26,28 +26,27 @@ class BusinessPartnerDataTableSource extends BsDatatableSource {
     return <BsDataColumn>[
       CustomBsDataColumn(
         label: Text('No'),
-        width: 20,
-        searchable: false,
-        orderable: false,
-      ),
-      CustomBsDataColumn(
-          label: Text('BP Company'), columnName: 'bpname', width: 180),
-      CustomBsDataColumn(
-          label: Text('BP Email'), columnName: 'bpemail', width: 240),
-      CustomBsDataColumn(
-          label: Text('BP Phone'), columnName: 'bpphone', width: 130),
-      CustomBsDataColumn(
-        label: Text('BP Type'),
-        columnName: 'bptypeid',
         width: 100,
         searchable: false,
         orderable: false,
       ),
+      CustomBsDataColumn(label: Text('BP Company'), columnName: 'bpname'),
+      CustomBsDataColumn(label: Text('BP Email'), columnName: 'bpemail'),
       CustomBsDataColumn(
-          label: Text('Actions'),
-          orderable: false,
-          searchable: false,
-          width: 90),
+          label: Text('BP Phone'), columnName: 'bpphone', width: 150),
+      CustomBsDataColumn(
+        label: Text('BP Type'),
+        columnName: 'bptypeid',
+        width: 150,
+        searchable: false,
+        orderable: false,
+      ),
+      CustomBsDataColumn(
+        label: Text('Actions'),
+        orderable: false,
+        searchable: false,
+        width: 100,
+      ),
     ];
   }
 

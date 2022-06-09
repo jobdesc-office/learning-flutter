@@ -200,7 +200,7 @@ class ProspectForm {
         disabled: source.isProcessing,
         controller: source.selectCustomer,
         hintText: BaseText.hiintSelect(field: ProspectText.labelCustomer),
-        serverSide: (params) => selectApiCustomer(params),
+        serverSide: (params) => selectApiBpCustomer(params),
       ),
     );
   }

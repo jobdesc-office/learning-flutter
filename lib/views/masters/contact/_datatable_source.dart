@@ -43,11 +43,15 @@ class ContactDataTableSource extends BsDatatableSource {
       CustomBsDataColumn(
         label: Text('Contact Type'),
         columnName: 'Contactnm',
+        width: 150,
         searchable: false,
         orderable: false,
       ),
       CustomBsDataColumn(
-          label: Text('Actions'), orderable: false, searchable: false),
+          label: Text('Actions'),
+          width: 100,
+          orderable: false,
+          searchable: false),
     ];
   }
 

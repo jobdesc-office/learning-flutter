@@ -31,11 +31,11 @@ class UserDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      CustomBsDataColumn(
-          label: Text('User Name'), columnName: 'userfullname', width: 300),
+      CustomBsDataColumn(label: Text('User Name'), columnName: 'userfullname'),
       CustomBsDataColumn(
           label: Text('User Email'), columnName: 'useremail', width: 250),
-      CustomBsDataColumn(label: Text('User Phone'), columnName: 'userphone'),
+      CustomBsDataColumn(
+          label: Text('User Phone'), width: 150, columnName: 'userphone'),
       // CustomBsDataColumn(
       //     label: Text('User Status'),
       //     columnName: 'isactive',
@@ -43,7 +43,10 @@ class UserDataTableSource extends BsDatatableSource {
       //     orderable: false,
       //     searchable: false),
       CustomBsDataColumn(
-          label: Text('Actions'), orderable: false, searchable: false),
+          label: Text('Actions'),
+          orderable: false,
+          width: 100,
+          searchable: false),
     ];
   }
 

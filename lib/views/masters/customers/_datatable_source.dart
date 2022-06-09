@@ -32,14 +32,23 @@ class CustomerDataTableSource extends BsDatatableSource {
         orderable: false,
       ),
       CustomBsDataColumn(label: Text('Customer Name'), columnName: 'cstmname'),
-      CustomBsDataColumn(label: Text('Customer Telp'), columnName: 'cstmphone'),
+      CustomBsDataColumn(
+        label: Text('Customer Telp'),
+        columnName: 'cstmphone',
+        width: 150,
+      ),
       CustomBsDataColumn(
         label: Text('Customer Type'),
+        width: 150,
         searchable: false,
         orderable: false,
       ),
       CustomBsDataColumn(
-          label: Text('Actions'), orderable: false, searchable: false),
+        label: Text('Actions'),
+        orderable: false,
+        searchable: false,
+        width: 100,
+      ),
     ];
   }
 
