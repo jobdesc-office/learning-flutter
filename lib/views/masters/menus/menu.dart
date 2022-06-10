@@ -1,3 +1,5 @@
+import 'package:boilerplate/styles/color_palattes.dart';
+import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -90,6 +92,24 @@ class MenuView extends StatelessWidget
 
   @override
   void onErrorRequest(Response response) {
+    Get.defaultDialog(
+        title: 'Error',
+        titleStyle: TextStyle(color: Colors.white),
+        content: Text(
+          'Menu Type Must Be Selected !!!',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: ColorPallates.danger,
+        actions: [
+          BsButton(
+            onPressed: () => Get.back(),
+            label: Text('OK'),
+            style: BsButtonStyle(
+                backgroundColor: ColorPallates.primary,
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(5))),
+          )
+        ]);
     presenter.setProcessing(false);
     super.onErrorRequest(response);
   }

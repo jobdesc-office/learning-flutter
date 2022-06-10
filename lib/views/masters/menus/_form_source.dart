@@ -109,6 +109,9 @@ class MenuForm {
         disabled: source.isProcessing,
         controller: source.inputIcon,
         hintText: BaseText.hintText(field: MenuText.labelIcon),
+        validators: [
+          Validators.maxLength(MenuText.labelIcon, 100),
+        ],
       ),
     );
   }
@@ -124,7 +127,7 @@ class MenuForm {
         controller: source.inputRoute,
         hintText: BaseText.hintText(field: MenuText.labelRoute),
         validators: [
-          Validators.inputRequired(MenuText.labelRoute),
+          // Validators.inputRequired(MenuText.labelRoute),
           Validators.maxLength(MenuText.labelRoute, 100),
         ],
       ),
@@ -141,7 +144,9 @@ class MenuForm {
         disabled: source.isProcessing,
         controller: source.inputColor,
         hintText: BaseText.hintText(field: MenuText.labelColor),
-        validators: [],
+        validators: [
+          Validators.maxLength(MenuText.labelColor, 100),
+        ],
       ),
     );
   }
