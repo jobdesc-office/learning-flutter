@@ -92,34 +92,42 @@ class CustomBsDataColumn extends BsDataColumn {
     return icon;
   }
 
-  Widget searchBy(BuildContext context) {
-    Widget icon = Container();
-    icon = Stack(
-      children: [
-        if (orderState.ordered)
-          Container(
-            margin: EdgeInsets.only(bottom: 15.0),
-            child: RotationTransition(
-              turns: AlwaysStoppedAnimation(335 / 360),
-              child: Text(
-                'Search By',
-                style: TextStyle(
-                  color: orderState.ordered
-                      ? ColorPallates.primary
-                      : Colors.transparent,
-                  fontSize:
-                      Theme.of(context).textTheme.bodyText1!.fontSize! - 4.0,
-                ),
-              ),
-            ),
-          )
-        else
-          Container(),
-      ],
-    );
+  // Widget searchBy(BuildContext context) {
+  //   Widget icon = Container();
+  //   icon = Stack(
+  //     children: [
+  //       if (orderState.ordered)
+  //         Container(
+  //           margin: EdgeInsets.only(bottom: 15.0),
+  //           child: RotationTransition(
+  //             turns: AlwaysStoppedAnimation(95 / 360),
+  //             child: Icon(
+  //               Icons.search,
+  //               size: Theme.of(context).textTheme.bodyText1!.fontSize! + 9.0,
+  //               color: orderState.ordered
+  //                   ? ColorPallates.primary
+  //                   : Colors.transparent,
+  //             ),
+  //             turns: AlwaysStoppedAnimation(335 / 360),
+  //             child: Text(
+  //               'Search By',
+  //               style: TextStyle(
+  //                 color: orderState.ordered
+  //                     ? ColorPallates.primary
+  //                     : Colors.transparent,
+  //                 fontSize:
+  //                     Theme.of(context).textTheme.bodyText1!.fontSize! - 4.0,
+  //               ),
+  //             ),
+  //           ),
+  //         )
+  //       else
+  //         Container(),
+  //     ],
+  //   );
 
-    return icon;
-  }
+  //   return icon;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +150,7 @@ class CustomBsDataColumn extends BsDataColumn {
                     ).merge(textStyle),
                     child: Row(
                       children: [
-                        if (searchable) searchBy(context),
+                        // if (searchable) searchBy(context),
                         Expanded(child: label),
                         orderIcon(context),
                       ],

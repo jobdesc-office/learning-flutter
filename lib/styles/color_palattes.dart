@@ -41,6 +41,6 @@ class ColorPallates {
   static Color danger = Color(0xffB8405E);
   static Color warning = Color(0xffFFD93D);
   static Color cancel = Color.fromARGB(255, 145, 143, 143);
-  static Color delete = Color.fromARGB(255, 122, 122, 121);
+  static Color delete = Color(0xffB8405E);
   static Color pipeline = Color(0xFFBB8A52);
 }

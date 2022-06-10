@@ -17,6 +17,7 @@ class CustomDatabales extends BsDatatable {
     CustomizeHeaderDatatable? customizeRightHeader,
     List<Widget> headerActions = const [],
     BsDatatableServerSide? serverSide,
+    String searchHintText = 'Search ...',
   }) : super(
           source: source,
           columns: columns,
@@ -52,7 +53,8 @@ class CustomDatabales extends BsDatatable {
                                               BorderRadius.circular(5),
                                         ),
                                         inputDecoration: ThemeDatatablesStyles
-                                            .searchInputDecoration,
+                                            .searchInputDecoration(
+                                                hintText: searchHintText),
                                         builderLabel: null,
                                       ),
                                     ],

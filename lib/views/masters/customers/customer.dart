@@ -8,6 +8,7 @@ import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_create.dart';
 import '../../../widgets/datatables/custom_datatable.dart';
+import '../../../widgets/datatables/search_datatable_controller.dart';
 import '../../../widgets/map/_map_source.dart';
 import '../../../widgets/snackbar.dart';
 import '../../skins/template.dart';
@@ -17,6 +18,7 @@ import '_text.dart';
 class CustomerView extends GetView implements IndexViewContract {
   final presenter = Get.find<CustomerPresenter>();
   final datatable = CustomerDataTableSource();
+  final ctrl = Get.put(SearchDatatable());
 
   CustomerView() {
     presenter.customerViewContract = this;
@@ -46,6 +48,7 @@ class CustomerView extends GetView implements IndexViewContract {
                   )
                 ],
                 serverSide: (params) => presenter.datatables(context, params),
+                searchHintText: 'Search by customer name, customer phone ...',
               )
             ],
           ),
