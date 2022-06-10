@@ -1,3 +1,4 @@
+import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -91,6 +92,35 @@ class CustomBsDataColumn extends BsDataColumn {
     return icon;
   }
 
+  Widget searchBy(BuildContext context) {
+    Widget icon = Container();
+    icon = Stack(
+      children: [
+        if (orderState.ordered)
+          Container(
+            margin: EdgeInsets.only(bottom: 15.0),
+            child: RotationTransition(
+              turns: AlwaysStoppedAnimation(335 / 360),
+              child: Text(
+                'Search By',
+                style: TextStyle(
+                  color: orderState.ordered
+                      ? ColorPallates.primary
+                      : Colors.transparent,
+                  fontSize:
+                      Theme.of(context).textTheme.bodyText1!.fontSize! - 4.0,
+                ),
+              ),
+            ),
+          )
+        else
+          Container(),
+      ],
+    );
+
+    return icon;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -112,6 +142,7 @@ class CustomBsDataColumn extends BsDataColumn {
                     ).merge(textStyle),
                     child: Row(
                       children: [
+                        if (searchable) searchBy(context),
                         Expanded(child: label),
                         orderIcon(context),
                       ],

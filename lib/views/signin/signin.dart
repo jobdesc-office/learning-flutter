@@ -64,7 +64,7 @@ class _SignInViewState extends State<SignInView>
                   child: SingleChildScrollView(
                     child: Container(
                       width: 400,
-                      margin: EdgeInsets.only(top: Get.height * 0.20),
+                      margin: EdgeInsets.only(top: Get.height * 0.15),
                       padding: EdgeInsets.fromLTRB(20, 10, 20, 40),
                       decoration: BoxDecoration(
                         color: Colors.white,

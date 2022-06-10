@@ -59,7 +59,7 @@ class _HomeViewState extends State<HomeView>
                     sizes: ColScreen(sm: Col.col_3),
                     child: Container(
                       padding: EdgeInsets.all(10),
-                      color: Colors.grey.shade700,
+                      color: ColorPallates.pipeline,
                       child: Center(child: Text('Meeting')),
                     ),
                   ),
@@ -67,7 +67,7 @@ class _HomeViewState extends State<HomeView>
                     sizes: ColScreen(sm: Col.col_3),
                     child: Container(
                       padding: EdgeInsets.all(10),
-                      color: Colors.grey.shade600,
+                      color: ColorPallates.pipeline,
                       child: Center(child: Text('Proposal')),
                     ),
                   ),
@@ -75,7 +75,7 @@ class _HomeViewState extends State<HomeView>
                     sizes: ColScreen(sm: Col.col_3),
                     child: Container(
                       padding: EdgeInsets.all(10),
-                      color: Colors.grey.shade600,
+                      color: ColorPallates.pipeline,
                       child: Center(child: Text('Negociation')),
                     ),
                   ),
@@ -83,7 +83,7 @@ class _HomeViewState extends State<HomeView>
                     sizes: ColScreen(sm: Col.col_3),
                     child: Container(
                       padding: EdgeInsets.all(10),
-                      color: Colors.grey.shade600,
+                      color: ColorPallates.pipeline,
                       child: Center(child: Text('Closed')),
                     ),
                   ),

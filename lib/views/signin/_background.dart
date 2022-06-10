@@ -28,11 +28,11 @@ class BackgroundAuth extends GetView {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Text("What's Ventes ?",
-                    style: TextStyle(fontSize: 24, color: ColorPallates.dark)),
+                    style: TextStyle(fontSize: 18, color: ColorPallates.dark)),
                 Text('Testimonials',
-                    style: TextStyle(fontSize: 24, color: ColorPallates.dark)),
+                    style: TextStyle(fontSize: 18, color: ColorPallates.dark)),
                 Text('About Hyperdata',
-                    style: TextStyle(fontSize: 24, color: ColorPallates.dark))
+                    style: TextStyle(fontSize: 18, color: ColorPallates.dark))
               ],
             ),
           ),

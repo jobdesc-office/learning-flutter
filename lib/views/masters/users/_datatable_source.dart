@@ -34,8 +34,8 @@ class UserDataTableSource extends BsDatatableSource {
       CustomBsDataColumn(label: Text('User Name'), columnName: 'userfullname'),
       CustomBsDataColumn(
           label: Text('User Email'), columnName: 'useremail', width: 250),
-      CustomBsDataColumn(
-          label: Text('User Phone'), width: 150, columnName: 'userphone'),
+      // CustomBsDataColumn(
+      //     label: Text('User Phone'), width: 150, columnName: 'userphone'),
       // CustomBsDataColumn(
       //     label: Text('User Status'),
       //     columnName: 'isactive',
@@ -90,16 +90,16 @@ class UserDataTableSource extends BsDatatableSource {
                   ? ColorPallates.datatableLightEvenRowColor
                   : ColorPallates.datatableLightOddRowColor,
         ),
-        CustomBsDataCell(
-          Text(row.userphone),
-          color: _navigation.darkTheme.value
-              ? x % 2 == 0
-                  ? ColorPallates.datatableDarkEvenRowColor
-                  : ColorPallates.datatableDarkOddRowColor
-              : x % 2 == 0
-                  ? ColorPallates.datatableLightEvenRowColor
-                  : ColorPallates.datatableLightOddRowColor,
-        ),
+        // CustomBsDataCell(
+        //   Text(row.userphone),
+        //   color: _navigation.darkTheme.value
+        //       ? x % 2 == 0
+        //           ? ColorPallates.datatableDarkEvenRowColor
+        //           : ColorPallates.datatableDarkOddRowColor
+        //       : x % 2 == 0
+        //           ? ColorPallates.datatableLightEvenRowColor
+        //           : ColorPallates.datatableLightOddRowColor,
+        // ),
         // CustomBsDataCell(Card(
         //   color: row.isactive ? Colors.blue.shade300 : Colors.red.shade300,
         //   child: Center(

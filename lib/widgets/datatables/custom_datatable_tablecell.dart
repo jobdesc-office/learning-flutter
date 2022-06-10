@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class CustomBsDataCell extends BsDataCell {
   const CustomBsDataCell(this.child,
       {Key? key,
-      this.padding = const EdgeInsets.all(15.0),
+      this.padding = const EdgeInsets.all(10.0),
       this.alignment,
       this.color = Colors.white})
       : super(child, key: key);

@@ -35,14 +35,13 @@ class CustomerDataTableSource extends BsDatatableSource {
       CustomBsDataColumn(
         label: Text('Customer Telp'),
         columnName: 'cstmphone',
-        width: 150,
       ),
-      CustomBsDataColumn(
-        label: Text('Customer Type'),
-        width: 150,
-        searchable: false,
-        orderable: false,
-      ),
+      // CustomBsDataColumn(
+      //   label: Text('Customer Type'),
+      //   width: 150,
+      //   searchable: false,
+      //   orderable: false,
+      // ),
       CustomBsDataColumn(
         label: Text('Actions'),
         orderable: false,
@@ -92,16 +91,16 @@ class CustomerDataTableSource extends BsDatatableSource {
                   ? ColorPallates.datatableLightEvenRowColor
                   : ColorPallates.datatableLightOddRowColor,
         ),
-        CustomBsDataCell(
-          Text(row.typename),
-          color: _navigation.darkTheme.value
-              ? x % 2 == 0
-                  ? ColorPallates.datatableDarkEvenRowColor
-                  : ColorPallates.datatableDarkOddRowColor
-              : x % 2 == 0
-                  ? ColorPallates.datatableLightEvenRowColor
-                  : ColorPallates.datatableLightOddRowColor,
-        ),
+        // CustomBsDataCell(
+        //   Text(row.typename),
+        //   color: _navigation.darkTheme.value
+        //       ? x % 2 == 0
+        //           ? ColorPallates.datatableDarkEvenRowColor
+        //           : ColorPallates.datatableDarkOddRowColor
+        //       : x % 2 == 0
+        //           ? ColorPallates.datatableLightEvenRowColor
+        //           : ColorPallates.datatableLightOddRowColor,
+        // ),
         CustomBsDataCell(
           Row(
             children: [

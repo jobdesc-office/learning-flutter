@@ -31,8 +31,8 @@ class MenuDataTableSource extends BsDatatableSource {
       ),
       CustomBsDataColumn(label: Text('Menu Name'), columnName: 'menunm'),
       CustomBsDataColumn(label: Text('Menu Route'), columnName: 'menuroute'),
-      CustomBsDataColumn(label: Text('Menu Icon'), columnName: 'menuicon'),
-      CustomBsDataColumn(label: Text('Menu Sequence'), columnName: 'menuseq'),
+      // CustomBsDataColumn(label: Text('Menu Icon'), columnName: 'menuicon'),
+      // CustomBsDataColumn(label: Text('Menu Sequence'), columnName: 'menuseq'),
       CustomBsDataColumn(
         label: Text('Actions'),
         orderable: false,
@@ -88,26 +88,26 @@ class MenuDataTableSource extends BsDatatableSource {
                   ? ColorPallates.datatableLightEvenRowColor
                   : ColorPallates.datatableLightOddRowColor,
         ),
-        CustomBsDataCell(
-          Text(row.icon),
-          color: _navigation.darkTheme.value
-              ? x % 2 == 0
-                  ? ColorPallates.datatableDarkEvenRowColor
-                  : ColorPallates.datatableDarkOddRowColor
-              : x % 2 == 0
-                  ? ColorPallates.datatableLightEvenRowColor
-                  : ColorPallates.datatableLightOddRowColor,
-        ),
-        CustomBsDataCell(
-          Text(row.seq.toString()),
-          color: _navigation.darkTheme.value
-              ? x % 2 == 0
-                  ? ColorPallates.datatableDarkEvenRowColor
-                  : ColorPallates.datatableDarkOddRowColor
-              : x % 2 == 0
-                  ? ColorPallates.datatableLightEvenRowColor
-                  : ColorPallates.datatableLightOddRowColor,
-        ),
+        // CustomBsDataCell(
+        //   Text(row.icon),
+        //   color: _navigation.darkTheme.value
+        //       ? x % 2 == 0
+        //           ? ColorPallates.datatableDarkEvenRowColor
+        //           : ColorPallates.datatableDarkOddRowColor
+        //       : x % 2 == 0
+        //           ? ColorPallates.datatableLightEvenRowColor
+        //           : ColorPallates.datatableLightOddRowColor,
+        // ),
+        // CustomBsDataCell(
+        //   Text(row.seq.toString()),
+        //   color: _navigation.darkTheme.value
+        //       ? x % 2 == 0
+        //           ? ColorPallates.datatableDarkEvenRowColor
+        //           : ColorPallates.datatableDarkOddRowColor
+        //       : x % 2 == 0
+        //           ? ColorPallates.datatableLightEvenRowColor
+        //           : ColorPallates.datatableLightOddRowColor,
+        // ),
         CustomBsDataCell(
           Row(
             children: [
