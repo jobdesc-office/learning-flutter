@@ -3,6 +3,7 @@ import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../constants/base_text.dart';
 import '../../../models/security/menu_model.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../styles/color_palattes.dart';
@@ -111,12 +112,18 @@ class MenuDataTableSource extends BsDatatableSource {
         CustomBsDataCell(
           Row(
             children: [
-              ButtonEditDatatables(
-                margin: EdgeInsets.only(right: 5),
-                onPressed: () => onEditListener(row.menuid),
+              Tooltip(
+                message: BaseText.editHintDatatable(field: row.menunm),
+                child: ButtonEditDatatables(
+                  margin: EdgeInsets.only(right: 5),
+                  onPressed: () => onEditListener(row.menuid),
+                ),
               ),
-              ButtonDeleteDatatables(
-                  onPressed: () => onDeleteListener(row.menuid)),
+              Tooltip(
+                message: BaseText.deleteHintDatatable(field: row.menunm),
+                child: ButtonDeleteDatatables(
+                    onPressed: () => onDeleteListener(row.menuid)),
+              ),
             ],
           ),
           color: _navigation.darkTheme.value

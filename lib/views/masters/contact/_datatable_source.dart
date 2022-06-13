@@ -3,6 +3,7 @@ import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../constants/base_text.dart';
 import '../../../models/masters/contact_model.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
@@ -108,12 +109,19 @@ class ContactDataTableSource extends BsDatatableSource {
         CustomBsDataCell(
           Row(
             children: [
-              ButtonEditDatatables(
-                margin: EdgeInsets.only(right: 5),
-                onPressed: () => onEditListener(row.contactpersonid!),
+              Tooltip(
+                message: BaseText.editHintDatatable(field: row.contactvalueid),
+                child: ButtonEditDatatables(
+                  margin: EdgeInsets.only(right: 5),
+                  onPressed: () => onEditListener(row.contactpersonid!),
+                ),
               ),
-              ButtonDeleteDatatables(
-                  onPressed: () => onDeleteListener(row.contactpersonid!)),
+              Tooltip(
+                message:
+                    BaseText.deleteHintDatatable(field: row.contactvalueid),
+                child: ButtonDeleteDatatables(
+                    onPressed: () => onDeleteListener(row.contactpersonid!)),
+              ),
             ],
           ),
           color: _navigation.darkTheme.value

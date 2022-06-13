@@ -2,6 +2,7 @@ import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../constants/base_text.dart';
 import '../../../models/masters/province_model.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../styles/color_palattes.dart';
@@ -86,12 +87,18 @@ class ProvinceDataTableSource extends BsDatatableSource {
         CustomBsDataCell(
           Row(
             children: [
-              ButtonEditDatatables(
-                margin: EdgeInsets.only(right: 5),
-                onPressed: () => onEditListener(row.provid),
+              Tooltip(
+                message: BaseText.editHintDatatable(field: row.provname),
+                child: ButtonEditDatatables(
+                  margin: EdgeInsets.only(right: 5),
+                  onPressed: () => onEditListener(row.provid),
+                ),
               ),
-              ButtonDeleteDatatables(
-                  onPressed: () => onDeleteListener(row.provid)),
+              Tooltip(
+                message: BaseText.deleteHintDatatable(field: row.provname),
+                child: ButtonDeleteDatatables(
+                    onPressed: () => onDeleteListener(row.provid)),
+              ),
             ],
           ),
           color: _navigation.darkTheme.value

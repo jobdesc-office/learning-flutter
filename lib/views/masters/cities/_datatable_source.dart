@@ -3,6 +3,7 @@ import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../constants/base_text.dart';
 import '../../../models/masters/city_model.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
@@ -90,12 +91,18 @@ class CityDataTableSource extends BsDatatableSource {
         CustomBsDataCell(
           Row(
             children: [
-              ButtonEditDatatables(
-                margin: EdgeInsets.only(right: 5),
-                onPressed: () => onEditListener(row.cityid),
+              Tooltip(
+                message: BaseText.editHintDatatable(field: row.cityname),
+                child: ButtonEditDatatables(
+                  margin: EdgeInsets.only(right: 5),
+                  onPressed: () => onEditListener(row.cityid),
+                ),
               ),
-              ButtonDeleteDatatables(
-                  onPressed: () => onDeleteListener(row.cityid)),
+              Tooltip(
+                message: BaseText.deleteHintDatatable(field: row.cityname),
+                child: ButtonDeleteDatatables(
+                    onPressed: () => onDeleteListener(row.cityid)),
+              ),
             ],
           ),
           color: _navigation.darkTheme.value

@@ -2,6 +2,7 @@ import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../constants/base_text.dart';
 import '../../../models/masters/type_model.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../styles/color_palattes.dart';
@@ -72,16 +73,25 @@ class TypeChildrenDataTableSource extends BsDatatableSource {
         CustomBsDataCell(
           Row(
             children: [
-              ButtonDetailsDatatables(
-                margin: EdgeInsets.only(right: 5),
-                onPressed: () => onDetailsListener(row.typeid),
+              Tooltip(
+                message: BaseText.detailHintDatatable(field: row.typename),
+                child: ButtonDetailsDatatables(
+                  margin: EdgeInsets.only(right: 5),
+                  onPressed: () => onDetailsListener(row.typeid),
+                ),
               ),
-              ButtonEditDatatables(
-                margin: EdgeInsets.only(right: 5),
-                onPressed: () => onEditListener(row.typeid),
+              Tooltip(
+                message: BaseText.editHintDatatable(field: row.typename),
+                child: ButtonEditDatatables(
+                  margin: EdgeInsets.only(right: 5),
+                  onPressed: () => onEditListener(row.typeid),
+                ),
               ),
-              ButtonDeleteDatatables(
-                  onPressed: () => onDeleteListener(row.typeid)),
+              Tooltip(
+                message: BaseText.deleteHintDatatable(field: row.typename),
+                child: ButtonDeleteDatatables(
+                    onPressed: () => onDeleteListener(row.typeid)),
+              ),
             ],
           ),
           color: _navigation.darkTheme.value

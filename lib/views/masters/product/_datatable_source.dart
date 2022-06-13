@@ -3,6 +3,7 @@ import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../constants/base_text.dart';
 import '../../../models/masters/Product_model.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../styles/color_palattes.dart';
@@ -88,12 +89,18 @@ class ProductDataTableSource extends BsDatatableSource {
         CustomBsDataCell(
           Row(
             children: [
-              ButtonEditDatatables(
-                margin: EdgeInsets.only(right: 5),
-                onPressed: () => onEditListener(row.productid),
+              Tooltip(
+                message: BaseText.editHintDatatable(field: row.productname),
+                child: ButtonEditDatatables(
+                  margin: EdgeInsets.only(right: 5),
+                  onPressed: () => onEditListener(row.productid),
+                ),
               ),
-              ButtonDeleteDatatables(
-                  onPressed: () => onDeleteListener(row.productid)),
+              Tooltip(
+                message: BaseText.deleteHintDatatable(field: row.productname),
+                child: ButtonDeleteDatatables(
+                    onPressed: () => onDeleteListener(row.productid)),
+              ),
             ],
           ),
           color: _navigation.darkTheme.value

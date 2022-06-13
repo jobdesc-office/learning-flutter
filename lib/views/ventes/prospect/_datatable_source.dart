@@ -119,16 +119,25 @@ class ProspectDataTableSource extends BsDatatableSource {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ButtonDetailsDatatables(
-                margin: EdgeInsets.only(right: 5),
-                onPressed: () => onDetailsListener(row.prospectid!),
+              Tooltip(
+                message: BaseText.detailHintDatatable(field: row.prospectname),
+                child: ButtonDetailsDatatables(
+                  margin: EdgeInsets.only(right: 5),
+                  onPressed: () => onDetailsListener(row.prospectid!),
+                ),
               ),
-              ButtonEditDatatables(
-                margin: EdgeInsets.only(right: 5),
-                onPressed: () => onEditListener(row.prospectid!),
+              Tooltip(
+                message: BaseText.editHintDatatable(field: row.prospectname),
+                child: ButtonEditDatatables(
+                  margin: EdgeInsets.only(right: 5),
+                  onPressed: () => onEditListener(row.prospectid!),
+                ),
               ),
-              ButtonDeleteDatatables(
-                  onPressed: () => onDeleteListener(row.prospectid!)),
+              Tooltip(
+                message: BaseText.deleteHintDatatable(field: row.prospectname),
+                child: ButtonDeleteDatatables(
+                    onPressed: () => onDeleteListener(row.prospectid!)),
+              ),
             ],
           ),
           color: _navigation.darkTheme.value

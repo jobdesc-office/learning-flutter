@@ -3,6 +3,7 @@ import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../constants/base_text.dart';
 import '../../../models/masters/country_model.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../styles/color_palattes.dart';
@@ -72,12 +73,18 @@ class CountryDataTableSource extends BsDatatableSource {
         CustomBsDataCell(
           Row(
             children: [
-              ButtonEditDatatables(
-                margin: EdgeInsets.only(right: 5),
-                onPressed: () => onEditListener(row.countryid),
+              Tooltip(
+                message: BaseText.editHintDatatable(field: row.countryname),
+                child: ButtonEditDatatables(
+                  margin: EdgeInsets.only(right: 5),
+                  onPressed: () => onEditListener(row.countryid),
+                ),
               ),
-              ButtonDeleteDatatables(
-                  onPressed: () => onDeleteListener(row.countryid)),
+              Tooltip(
+                message: BaseText.deleteHintDatatable(field: row.countryname),
+                child: ButtonDeleteDatatables(
+                    onPressed: () => onDeleteListener(row.countryid)),
+              ),
             ],
           ),
           color: _navigation.darkTheme.value

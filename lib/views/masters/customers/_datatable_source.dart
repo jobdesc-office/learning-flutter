@@ -3,6 +3,7 @@ import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../constants/base_text.dart';
 import '../../../models/masters/customer_model.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../styles/color_palattes.dart';
@@ -104,16 +105,25 @@ class CustomerDataTableSource extends BsDatatableSource {
         CustomBsDataCell(
           Row(
             children: [
-              ButtonDetailsDatatables(
-                margin: EdgeInsets.only(right: 5),
-                onPressed: () => onDetailsListener(row.cstmid),
+              Tooltip(
+                message: BaseText.detailHintDatatable(field: row.cstmname),
+                child: ButtonDetailsDatatables(
+                  margin: EdgeInsets.only(right: 5),
+                  onPressed: () => onDetailsListener(row.cstmid),
+                ),
               ),
-              ButtonEditDatatables(
-                margin: EdgeInsets.only(right: 5),
-                onPressed: () => onEditListener(row.cstmid),
+              Tooltip(
+                message: BaseText.editHintDatatable(field: row.cstmname),
+                child: ButtonEditDatatables(
+                  margin: EdgeInsets.only(right: 5),
+                  onPressed: () => onEditListener(row.cstmid),
+                ),
               ),
-              ButtonDeleteDatatables(
-                  onPressed: () => onDeleteListener(row.cstmid)),
+              Tooltip(
+                message: BaseText.deleteHintDatatable(field: row.cstmname),
+                child: ButtonDeleteDatatables(
+                    onPressed: () => onDeleteListener(row.cstmid)),
+              ),
             ],
           ),
           color: _navigation.darkTheme.value

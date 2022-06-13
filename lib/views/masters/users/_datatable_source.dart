@@ -111,16 +111,25 @@ class UserDataTableSource extends BsDatatableSource {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ButtonDetailsDatatables(
-                margin: EdgeInsets.only(right: 5),
-                onPressed: () => onDetailsListener(row.userid),
+              Tooltip(
+                message: BaseText.detailHintDatatable(field: row.userfullname),
+                child: ButtonDetailsDatatables(
+                  margin: EdgeInsets.only(right: 5),
+                  onPressed: () => onDetailsListener(row.userid),
+                ),
               ),
-              ButtonEditDatatables(
-                margin: EdgeInsets.only(right: 5),
-                onPressed: () => onEditListener(row.userid),
+              Tooltip(
+                message: BaseText.editHintDatatable(field: row.userfullname),
+                child: ButtonEditDatatables(
+                  margin: EdgeInsets.only(right: 5),
+                  onPressed: () => onEditListener(row.userid),
+                ),
               ),
-              ButtonDeleteDatatables(
-                  onPressed: () => onDeleteListener(row.userid)),
+              Tooltip(
+                message: BaseText.deleteHintDatatable(field: row.userfullname),
+                child: ButtonDeleteDatatables(
+                    onPressed: () => onDeleteListener(row.userid)),
+              ),
             ],
           ),
           color: _navigation.darkTheme.value
