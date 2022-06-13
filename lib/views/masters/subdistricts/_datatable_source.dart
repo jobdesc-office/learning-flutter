@@ -15,7 +15,7 @@ final _navigation = Get.find<NavigationPresenter>();
 
 class SubdistrictDataTableSource extends BsDatatableSource {
   ValueChanged<int> onEditListener = (value) {};
-  ValueChanged<int> onDeleteListener = (value) {};
+  Function onDeleteListener = (value, name) {};
 
   SubdistrictDataTableSource({
     List data = const [],
@@ -99,7 +99,8 @@ class SubdistrictDataTableSource extends BsDatatableSource {
                 message:
                     BaseText.deleteHintDatatable(field: row.subdistrictname),
                 child: ButtonDeleteDatatables(
-                    onPressed: () => onDeleteListener(row.subdistrictid)),
+                    onPressed: () => onDeleteListener(
+                        row.subdistrictid, row.subdistrictname)),
               ),
             ],
           ),

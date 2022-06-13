@@ -92,6 +92,6 @@ class SubdistrictView extends GetView implements IndexViewContract {
     datatable.onEditListener =
         (Subdistrictid) => presenter.edit(context, Subdistrictid);
     datatable.onDeleteListener =
-        (Subdistrictid) => presenter.delete(context, Subdistrictid);
+        (Subdistrictid, name) => presenter.delete(context, Subdistrictid, name);
   }
 }

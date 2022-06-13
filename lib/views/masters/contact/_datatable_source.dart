@@ -15,7 +15,7 @@ final _navigation = Get.find<NavigationPresenter>();
 
 class ContactDataTableSource extends BsDatatableSource {
   ValueChanged<int> onEditListener = (value) {};
-  ValueChanged<int> onDeleteListener = (value) {};
+  Function onDeleteListener = (value, name) {};
 
   ContactDataTableSource({
     List data = const [],
@@ -120,7 +120,8 @@ class ContactDataTableSource extends BsDatatableSource {
                 message:
                     BaseText.deleteHintDatatable(field: row.contactvalueid),
                 child: ButtonDeleteDatatables(
-                    onPressed: () => onDeleteListener(row.contactpersonid!)),
+                    onPressed: () => onDeleteListener(
+                        row.contactpersonid!, row.contactvalueid!)),
               ),
             ],
           ),

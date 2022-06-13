@@ -93,6 +93,7 @@ class BusinessPartnerView extends GetView
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onDetailsListener = (bpid) => presenter.details(context, bpid);
     datatable.onEditListener = (bpid) => presenter.edit(context, bpid);
-    datatable.onDeleteListener = (bpid) => presenter.delete(context, bpid);
+    datatable.onDeleteListener =
+        (bpid, name) => presenter.delete(context, bpid, name);
   }
 }

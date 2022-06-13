@@ -100,12 +100,12 @@ class BpCustomerPresenter extends CustomGetXController {
       _bpCustomerViewContract.onErrorRequest(response);
   }
 
-  void delete(BuildContext context, int BpCustomerid) {
+  void delete(BuildContext context, int BpCustomerid, String name) {
     showDialog(
       context: context,
       builder: (context) => ConfirmDialog(
         title: BaseText.confirmTitle,
-        message: BaseText.confirmMessage,
+        message: BaseText.deleteConfirmDatatable(field: name),
         onPressed: (_, value) async {
           if (value == ConfirmDialogOption.YES_OPTION) {
             Response response = await _bpCustomerService.destroy(BpCustomerid);

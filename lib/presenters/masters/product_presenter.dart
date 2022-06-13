@@ -93,12 +93,12 @@ class ProductPresenter extends CustomGetXController {
       _productViewContract.onErrorRequest(response);
   }
 
-  void delete(BuildContext context, int typeid) {
+  void delete(BuildContext context, int typeid, String name) {
     showDialog(
       context: context,
       builder: (context) => ConfirmDialog(
         title: BaseText.confirmTitle,
-        message: BaseText.confirmMessage,
+        message: BaseText.deleteConfirmDatatable(field: name),
         onPressed: (_, value) async {
           if (value == ConfirmDialogOption.YES_OPTION) {
             Response response = await _productService.destroy(typeid);

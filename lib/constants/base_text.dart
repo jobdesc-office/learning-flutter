@@ -36,4 +36,8 @@ class BaseText {
   static String deleteHintDatatable({String? field}) {
     return 'Delete $field';
   }
+
+  static String deleteConfirmDatatable({String? field}) {
+    return 'Are you sure you want to delete $field ?';
+  }
 }

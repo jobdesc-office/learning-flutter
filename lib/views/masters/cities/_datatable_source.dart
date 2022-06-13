@@ -15,7 +15,7 @@ final _navigation = Get.find<NavigationPresenter>();
 
 class CityDataTableSource extends BsDatatableSource {
   ValueChanged<int> onEditListener = (value) {};
-  ValueChanged<int> onDeleteListener = (value) {};
+  Function onDeleteListener = (value, name) {};
 
   CityDataTableSource({
     List data = const [],
@@ -101,7 +101,8 @@ class CityDataTableSource extends BsDatatableSource {
               Tooltip(
                 message: BaseText.deleteHintDatatable(field: row.cityname),
                 child: ButtonDeleteDatatables(
-                    onPressed: () => onDeleteListener(row.cityid)),
+                    onPressed: () =>
+                        onDeleteListener(row.cityid, row.cityname)),
               ),
             ],
           ),

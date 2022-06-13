@@ -124,12 +124,12 @@ class ProspectPresenter extends CustomGetXController {
       _ProspectViewContract.onErrorRequest(response);
   }
 
-  void delete(BuildContext context, int Prospectid) {
+  void delete(BuildContext context, int Prospectid, String name) {
     showDialog(
       context: context,
       builder: (context) => ConfirmDialog(
         title: BaseText.confirmTitle,
-        message: BaseText.confirmMessage,
+        message: BaseText.deleteConfirmDatatable(field: name),
         onPressed: (_, value) async {
           if (value == ConfirmDialogOption.YES_OPTION) {
             Response response = await _prospectService.destroy(Prospectid);

@@ -17,7 +17,7 @@ final _navigation = Get.find<NavigationPresenter>();
 class UserDataTableSource extends BsDatatableSource {
   ValueChanged<int> onDetailsListener = (value) {};
   ValueChanged<int> onEditListener = (value) {};
-  ValueChanged<int> onDeleteListener = (value) {};
+  Function onDeleteListener = (value, name) {};
 
   UserDataTableSource({
     List data = const [],
@@ -128,7 +128,8 @@ class UserDataTableSource extends BsDatatableSource {
               Tooltip(
                 message: BaseText.deleteHintDatatable(field: row.userfullname),
                 child: ButtonDeleteDatatables(
-                    onPressed: () => onDeleteListener(row.userid)),
+                    onPressed: () =>
+                        onDeleteListener(row.userid, row.userfullname)),
               ),
             ],
           ),

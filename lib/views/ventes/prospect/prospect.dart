@@ -90,6 +90,7 @@ class ProspectView extends GetView implements IndexViewContract {
     datatable.onDetailsListener =
         (userid) => presenter.details(context, userid);
     datatable.onEditListener = (menuid) => presenter.edit(context, menuid);
-    datatable.onDeleteListener = (menuid) => presenter.delete(context, menuid);
+    datatable.onDeleteListener =
+        (menuid, name) => presenter.delete(context, menuid, name);
   }
 }

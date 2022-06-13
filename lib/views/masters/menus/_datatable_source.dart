@@ -16,7 +16,7 @@ final _navigation = Get.find<NavigationPresenter>();
 
 class MenuDataTableSource extends BsDatatableSource {
   ValueChanged<int> onEditListener = (value) {};
-  ValueChanged<int> onDeleteListener = (value) {};
+  Function onDeleteListener = (value, name) {};
 
   MenuDataTableSource({
     List data = const [],
@@ -122,7 +122,7 @@ class MenuDataTableSource extends BsDatatableSource {
               Tooltip(
                 message: BaseText.deleteHintDatatable(field: row.menunm),
                 child: ButtonDeleteDatatables(
-                    onPressed: () => onDeleteListener(row.menuid)),
+                    onPressed: () => onDeleteListener(row.menuid, row.menunm)),
               ),
             ],
           ),

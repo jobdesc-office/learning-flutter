@@ -89,6 +89,6 @@ class CountryView extends GetView implements IndexViewContract {
     datatable.onEditListener =
         (countryid) => presenter.edit(context, countryid);
     datatable.onDeleteListener =
-        (countryid) => presenter.delete(context, countryid);
+        (countryid, name) => presenter.delete(context, countryid, name);
   }
 }

@@ -90,6 +90,7 @@ class TypesParentView extends StatelessWidget
     datatable.onDetailsListener =
         (typeid) => presenter.details(context, typeid);
     datatable.onEditListener = (typeid) => presenter.edit(context, typeid);
-    datatable.onDeleteListener = (typeid) => presenter.delete(context, typeid);
+    datatable.onDeleteListener =
+        (typeid, name) => presenter.delete(context, typeid, name);
   }
 }

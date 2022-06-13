@@ -89,6 +89,6 @@ class ProvinceView extends GetView implements IndexViewContract {
     datatable.onEditListener =
         (Provinceid) => presenter.edit(context, Provinceid);
     datatable.onDeleteListener =
-        (Provinceid) => presenter.delete(context, Provinceid);
+        (Provinceid, name) => presenter.delete(context, Provinceid, name);
   }
 }

@@ -89,6 +89,6 @@ class ProductView extends GetView implements IndexViewContract {
     datatable.onEditListener =
         (Productid) => presenter.edit(context, Productid);
     datatable.onDeleteListener =
-        (Productid) => presenter.delete(context, Productid);
+        (Productid, name) => presenter.delete(context, Productid, name);
   }
 }

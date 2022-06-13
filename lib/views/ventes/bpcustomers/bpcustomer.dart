@@ -100,6 +100,7 @@ class BpCustomerView extends GetView implements IndexViewContract {
         (userid) => presenter.details(context, userid);
     datatable.onEditListener =
         (countryid) => presenter.edit(context, countryid);
-    datatable.onDeleteListener = (cstmid) => presenter.delete(context, cstmid);
+    datatable.onDeleteListener =
+        (cstmid, name) => presenter.delete(context, cstmid, name);
   }
 }

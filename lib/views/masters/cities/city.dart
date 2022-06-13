@@ -87,6 +87,7 @@ class CityView extends GetView implements IndexViewContract {
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onEditListener = (cityid) => presenter.edit(context, cityid);
-    datatable.onDeleteListener = (cityid) => presenter.delete(context, cityid);
+    datatable.onDeleteListener =
+        (cityid, name) => presenter.delete(context, cityid, name);
   }
 }

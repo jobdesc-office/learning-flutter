@@ -17,7 +17,7 @@ final _navigation = Get.find<NavigationPresenter>();
 class BusinessPartnerDataTableSource extends BsDatatableSource {
   ValueChanged<int> onDetailsListener = (value) {};
   ValueChanged<int> onEditListener = (value) {};
-  ValueChanged<int> onDeleteListener = (value) {};
+  Function onDeleteListener = (value, name) {};
 
   BusinessPartnerDataTableSource({
     List data = const [],
@@ -139,7 +139,7 @@ class BusinessPartnerDataTableSource extends BsDatatableSource {
               Tooltip(
                 message: BaseText.deleteHintDatatable(field: row.bpname),
                 child: ButtonDeleteDatatables(
-                    onPressed: () => onDeleteListener(row.bpid)),
+                    onPressed: () => onDeleteListener(row.bpid, row.bpname)),
               ),
             ],
           ),

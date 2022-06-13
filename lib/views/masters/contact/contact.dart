@@ -89,6 +89,6 @@ class ContactView extends GetView implements IndexViewContract {
     datatable.onEditListener =
         (Contactid) => presenter.edit(context, Contactid);
     datatable.onDeleteListener =
-        (Contactid) => presenter.delete(context, Contactid);
+        (Contactid, name) => presenter.delete(context, Contactid, name);
   }
 }
