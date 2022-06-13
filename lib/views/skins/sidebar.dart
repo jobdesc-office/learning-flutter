@@ -1,5 +1,6 @@
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -91,73 +92,81 @@ class SidebarSkins extends StatelessWidget {
                         id: no++,
                         route: RouteList.masterMenu.index,
                         label: 'Menus',
-                        icon: Icons.storage_outlined,
+                        icon: Icons.dehaze,
                       ),
                       MenuData(
-                        id: no++,
-                        route: RouteList.masterUser.index,
-                        label: 'Users',
-                      ),
+                          id: no++,
+                          route: RouteList.masterUser.index,
+                          label: 'Users',
+                          icon: Icons.group),
                       MenuData(
-                        id: no++,
-                        route: RouteList.masterCustomer.index,
-                        label: 'Customers',
-                      ),
+                          id: no++,
+                          route: RouteList.masterCustomer.index,
+                          label: 'Customers',
+                          icon: Icons.groups),
                       MenuData(
-                        id: no++,
-                        route: RouteList.masterContact.index,
-                        label: 'Contacts',
-                      ),
+                          id: no++,
+                          route: RouteList.masterContact.index,
+                          label: 'Contacts',
+                          icon: Icons.contacts),
                       MenuData(
-                        id: no++,
-                        route: RouteList.masterBusinessPartner.index,
-                        label: 'Business Partners',
-                      ),
+                          id: no++,
+                          route: RouteList.masterBusinessPartner.index,
+                          label: 'Business Partners',
+                          icon: Icons.handshake),
                       MenuData(
-                        id: no++,
-                        route: RouteList.masterProduct.index,
-                        label: 'Product',
-                      ),
+                          id: no++,
+                          route: RouteList.masterProduct.index,
+                          label: 'Products',
+                          icon: Icons.sell),
                       MenuData(
                           id: no++,
                           label: 'Region',
                           route: RouteList.settings.index,
+                          icon: FontAwesomeIcons.earthAmericas,
                           children: [
                             MenuData(
                               id: no++,
                               route: RouteList.masterCountry.index,
                               label: 'Countries',
+                              icon: FontAwesomeIcons.globe,
                             ),
                             MenuData(
                               id: no++,
                               route: RouteList.masterProvince.index,
                               label: 'Provinces',
+                              icon: FontAwesomeIcons.mapMarkerAlt,
                             ),
                             MenuData(
                               id: no++,
                               route: RouteList.masterCity.index,
                               label: 'Cities',
+                              icon: FontAwesomeIcons.city,
                             ),
                             MenuData(
                               id: no++,
                               route: RouteList.masterSubdistrict.index,
                               label: 'Subdistricts',
+                              icon: FontAwesomeIcons.city,
                             ),
                           ]),
                       MenuData(
                         id: no++,
                         route: RouteList.settings.index,
                         label: 'Types',
+                        icon: Icons.category,
                         children: [
                           MenuData(
                             id: no++,
                             route: RouteList.masterTypeParent.index,
                             label: 'Type Parents',
+                            icon: Icons.category,
                           ),
                           MenuData(
                             id: no++,
                             route: RouteList.masterTypeChildren.index,
                             label: 'Type Datas',
+                            icon: Icons.square,
                           ),
                         ],
                       ),
@@ -171,16 +180,19 @@ class SidebarSkins extends StatelessWidget {
                           id: no++,
                           route: RouteList.ventesSchedule.index,
                           label: 'Schedules',
+                          icon: FontAwesomeIcons.calendarAlt,
                         ),
                         MenuData(
                           id: no++,
                           route: RouteList.ventesProspect.index,
                           label: 'Prospects',
+                          icon: Icons.analytics,
                         ),
                         MenuData(
                           id: no++,
                           route: RouteList.ventesBpCustomer.index,
                           label: 'BpCustomer',
+                          icon: FontAwesomeIcons.userPlus,
                         ),
                       ])
 
