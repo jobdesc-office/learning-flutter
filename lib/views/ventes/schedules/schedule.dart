@@ -86,8 +86,8 @@ class ScheduleView extends GetView
                                   }),
                                   ButtonDeleteDatatables(
                                     onPressed: () {
-                                      presenter.delete(
-                                          context, _meeting.scheid);
+                                      presenter.delete(context, _meeting.scheid,
+                                          _meeting.schenm);
                                     },
                                   )
                                 ],
