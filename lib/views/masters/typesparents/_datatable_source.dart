@@ -113,6 +113,7 @@ class TypeParentDataTableSource extends BsDatatableSource {
               : x % 2 == 0
                   ? ColorPallates.datatableLightEvenRowColor
                   : ColorPallates.datatableLightOddRowColor,
+          padding: EdgeInsets.all(9),
         ),
       ],
     );
