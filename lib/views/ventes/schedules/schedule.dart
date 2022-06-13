@@ -76,22 +76,20 @@ class ScheduleView extends GetView
                               details.appointments![0];
 
                           Get.defaultDialog(
-                              title: 'Actions',
-                              content: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  ButtonEditDatatables(onPressed: () {
-                                    presenter.edit(context, _meeting.scheid);
-                                  }),
-                                  ButtonDeleteDatatables(
-                                    onPressed: () {
-                                      presenter.delete(context, _meeting.scheid,
-                                          _meeting.schenm);
-                                    },
-                                  )
-                                ],
-                              ));
+                            title: 'settings',
+                            middleText: '${_meeting.schenm}',
+                            actions: [
+                              ButtonEditDatatables(onPressed: () {
+                                presenter.edit(context, _meeting.scheid);
+                              }),
+                              ButtonDeleteDatatables(
+                                onPressed: () {
+                                  presenter.delete(context, _meeting.scheid,
+                                      _meeting.schenm);
+                                },
+                              ),
+                            ],
+                          );
                         }
                       },
                       view: CalendarView.month,
