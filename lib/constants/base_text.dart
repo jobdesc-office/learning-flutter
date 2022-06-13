@@ -24,4 +24,16 @@ class BaseText {
 
   static String confirmTitle = 'Confirmation';
   static String confirmMessage = 'Are you sure?';
+
+  static String detailHintDatatable({String? field}) {
+    return 'Detail of $field';
+  }
+
+  static String editHintDatatable({String? field}) {
+    return 'Edit $field';
+  }
+
+  static String deleteHintDatatable({String? field}) {
+    return 'Delete $field';
+  }
 }

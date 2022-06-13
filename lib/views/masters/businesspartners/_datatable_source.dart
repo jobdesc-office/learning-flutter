@@ -1,3 +1,4 @@
+import 'package:boilerplate/constants/base_text.dart';
 import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
@@ -121,16 +122,25 @@ class BusinessPartnerDataTableSource extends BsDatatableSource {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ButtonDetailsDatatables(
-                margin: EdgeInsets.only(right: 5),
-                onPressed: () => onDetailsListener(row.bpid),
+              Tooltip(
+                message: BaseText.detailHintDatatable(field: row.bpname),
+                child: ButtonDetailsDatatables(
+                  margin: EdgeInsets.only(right: 5),
+                  onPressed: () => onDetailsListener(row.bpid),
+                ),
               ),
-              ButtonEditDatatables(
-                margin: EdgeInsets.only(right: 5),
-                onPressed: () => onEditListener(row.bpid),
+              Tooltip(
+                message: BaseText.editHintDatatable(field: row.bpname),
+                child: ButtonEditDatatables(
+                  margin: EdgeInsets.only(right: 5),
+                  onPressed: () => onEditListener(row.bpid),
+                ),
               ),
-              ButtonDeleteDatatables(
-                  onPressed: () => onDeleteListener(row.bpid)),
+              Tooltip(
+                message: BaseText.deleteHintDatatable(field: row.bpname),
+                child: ButtonDeleteDatatables(
+                    onPressed: () => onDeleteListener(row.bpid)),
+              ),
             ],
           ),
           color: _navigation.darkTheme.value

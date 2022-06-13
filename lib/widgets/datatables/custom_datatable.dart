@@ -17,7 +17,7 @@ class CustomDatabales extends BsDatatable {
     CustomizeHeaderDatatable? customizeRightHeader,
     List<Widget> headerActions = const [],
     BsDatatableServerSide? serverSide,
-    String searchHintText = 'Search ...',
+    String searchHintText = 'Search By Column Labeled',
   }) : super(
           source: source,
           columns: columns,

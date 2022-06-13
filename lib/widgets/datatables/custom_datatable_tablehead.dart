@@ -57,34 +57,39 @@ class CustomBsDataColumn extends BsDataColumn {
 
   Widget orderIcon(BuildContext context) {
     Widget icon = Container();
-    icon = Stack(
+    icon = Row(
       children: [
-        Positioned(
-          child: Container(
-            child: Icon(
-              Icons.arrow_drop_up,
-              color: (orderState.ordered &&
-                          orderState.orderType == BsOrderColumn.asc
-                      ? Colors.black
-                      : Colors.grey)
-                  .withOpacity(orderable ? 0.8 : 0),
-              size: Theme.of(context).textTheme.bodyText1!.fontSize! + 5.0,
+        if (orderState.ordered) Icon(Icons.search),
+        Stack(
+          children: [
+            Positioned(
+              child: Container(
+                child: Icon(
+                  Icons.arrow_drop_up,
+                  color: (orderState.ordered &&
+                              orderState.orderType == BsOrderColumn.asc
+                          ? Colors.black
+                          : Colors.grey)
+                      .withOpacity(orderable ? 0.8 : 0),
+                  size: Theme.of(context).textTheme.bodyText1!.fontSize! + 5.0,
+                ),
+              ),
             ),
-          ),
-        ),
-        Positioned(
-          child: Container(
-            margin: EdgeInsets.only(top: 8.0),
-            child: Icon(
-              Icons.arrow_drop_down,
-              color: (orderState.ordered &&
-                          orderState.orderType == BsOrderColumn.desc
-                      ? Colors.black
-                      : Colors.grey)
-                  .withOpacity(orderable ? 0.8 : 0),
-              size: Theme.of(context).textTheme.bodyText1!.fontSize! + 5.0,
+            Positioned(
+              child: Container(
+                margin: EdgeInsets.only(top: 8.0),
+                child: Icon(
+                  Icons.arrow_drop_down,
+                  color: (orderState.ordered &&
+                              orderState.orderType == BsOrderColumn.desc
+                          ? Colors.black
+                          : Colors.grey)
+                      .withOpacity(orderable ? 0.8 : 0),
+                  size: Theme.of(context).textTheme.bodyText1!.fontSize! + 5.0,
+                ),
+              ),
             ),
-          ),
+          ],
         ),
       ],
     );

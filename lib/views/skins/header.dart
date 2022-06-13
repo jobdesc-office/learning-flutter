@@ -12,6 +12,7 @@ import '../../presenters/navigation_presenter.dart';
 import '../../routes/route_list.dart';
 import '../../styles/color_palattes.dart';
 import '../../utils/session_manager.dart';
+import '../../widgets/button/button_controller.dart';
 import '../../widgets/button/button_info_account.dart';
 import '../../widgets/header_icon.dart';
 
@@ -27,6 +28,7 @@ class HeaderSkins extends StatelessWidget implements LogoutViewContract {
   @override
   Widget build(BuildContext context) {
     final box = GetStorage();
+    final controller = Get.put(ButtonController());
     return Obx(() => Container(
           decoration: BoxDecoration(
             color: _navigation.darkTheme.value
@@ -66,7 +68,10 @@ class HeaderSkins extends StatelessWidget implements LogoutViewContract {
                         BsDropdownButton(
                           toggleMenu: (_) => ButtonInfoAccount(
                             'Kholifan Alfon',
-                            onPressed: () => _.toggle(),
+                            onPressed: () {
+                              controller.btnInfoAccountIsTap.toggle();
+                              _.toggle();
+                            },
                           ),
                           dropdownMenuSize: BsDropdownMenuSize(minWidth: 200),
                           dropdownMenuStyle: BsDropdownMenuStyle(
