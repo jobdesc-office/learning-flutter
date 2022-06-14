@@ -13,6 +13,7 @@ import '../../../routes/route_list.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
 
+import '../../../widgets/map/_map_source.dart';
 import '../../../widgets/snackbar.dart';
 import '_form_source.dart';
 
@@ -124,6 +125,8 @@ class CustomerFormView extends StatelessWidget
   }
 
   void onClickCancelModal(BuildContext context) {
+    final map = Get.find<mapSource>();
+    map.reset();
     Navigator.pop(context);
   }
 

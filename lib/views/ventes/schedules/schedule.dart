@@ -11,6 +11,7 @@ import '../../../presenters/ventes/schedule_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_create.dart';
+import '../../../widgets/map/_map_source.dart';
 import '../../../widgets/snackbar.dart';
 import '../../skins/template.dart';
 import '_schedule_source.dart';
@@ -19,6 +20,7 @@ import '_text.dart';
 class ScheduleView extends GetView
     implements HandleErrorRequest, IndexViewContract {
   final presenter = Get.find<SchedulePresenter>();
+  final map = Get.put(mapSource());
 
   ScheduleView() {
     presenter.scheduleViewContract = this;
@@ -116,6 +118,7 @@ class ScheduleView extends GetView
   @override
   void onCreateSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
+    map.reset();
     Snackbar().createSuccess();
     Get.toNamed(RouteList.ventesSchedule.index);
     Navigator.pop(context!);
@@ -124,6 +127,7 @@ class ScheduleView extends GetView
   @override
   void onDeleteSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
+    map.reset();
     Snackbar().deleteSuccess();
     Get.toNamed(RouteList.ventesSchedule.index);
     Navigator.pop(context!);
@@ -132,6 +136,7 @@ class ScheduleView extends GetView
   @override
   void onEditSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
+    map.reset();
     Snackbar().editSuccess();
     Get.toNamed(RouteList.ventesSchedule.index);
     Navigator.pop(context!);
@@ -145,6 +150,7 @@ class ScheduleView extends GetView
 
   @override
   void onLoadDatatables(BuildContext context, Response response) {
+    map.reset();
     presenter.setProcessing(false);
   }
 }

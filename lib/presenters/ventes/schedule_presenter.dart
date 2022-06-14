@@ -92,7 +92,6 @@ class SchedulePresenter extends CustomGetXController {
   void save(BuildContext context, Map<String, dynamic> body) async {
     Response response = await _scheduleService.store(body);
     if (response.statusCode == 200) {
-      map.linkCoordinate.value = '';
       _scheduleViewContract.onCreateSuccess(response, context: context);
     } else
       _scheduleViewContract.onErrorRequest(response);
@@ -133,7 +132,6 @@ class SchedulePresenter extends CustomGetXController {
     setProcessing(true);
     Response response = await _scheduleService.update(typeid, body);
     if (response.statusCode == 200) {
-      map.linkCoordinate.value = '';
       _scheduleViewContract.onEditSuccess(response, context: context);
     } else
       _scheduleViewContract.onErrorRequest(response);

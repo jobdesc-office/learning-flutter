@@ -138,58 +138,69 @@ class _HomeViewState extends State<HomeView>
                             child: TabBarView(
                               controller: _tabController,
                               children: [
-                                Container(
-                                  margin: EdgeInsets.all(20),
-                                  child: ListView.builder(
-                                      itemCount: source.data.length,
-                                      itemBuilder: (context, index) {
-                                        var schedule = source.data[index];
+                                if (source.data.length != 0)
+                                  Container(
+                                    margin: EdgeInsets.all(20),
+                                    child: ListView.builder(
+                                        itemCount: source.data.length,
+                                        itemBuilder: (context, index) {
+                                          var schedule = source.data[index];
 
-                                        return BsRow(
-                                          children: [
-                                            BsCol(
-                                                sizes: ColScreen(sm: Col.col_1),
-                                                child: Column(
-                                                  children: [
-                                                    OutlinedDotIndicator(),
-                                                    SizedBox(
-                                                      height: 50.0,
-                                                      child:
-                                                          SolidLineConnector(),
-                                                    )
-                                                  ],
-                                                )),
-                                            BsCol(
-                                                alignment: Alignment.center,
-                                                sizes: ColScreen(sm: Col.col_3),
-                                                child: Text(
-                                                    schedule.schestartdate)),
-                                            BsCol(
-                                                sizes: ColScreen(sm: Col.col_8),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      schedule.schenm,
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                    Container(
-                                                      margin: EdgeInsets.only(
-                                                          top: 5),
-                                                      child: Text(
-                                                          schedule.online
-                                                              ? 'Online'
-                                                              : 'Offline'),
-                                                    ),
-                                                  ],
-                                                )),
-                                          ],
-                                        );
-                                      }),
-                                ),
+                                          return BsRow(
+                                            children: [
+                                              BsCol(
+                                                  sizes:
+                                                      ColScreen(sm: Col.col_1),
+                                                  child: Column(
+                                                    children: [
+                                                      OutlinedDotIndicator(),
+                                                      SizedBox(
+                                                        height: 50.0,
+                                                        child:
+                                                            SolidLineConnector(),
+                                                      )
+                                                    ],
+                                                  )),
+                                              BsCol(
+                                                  alignment: Alignment.center,
+                                                  sizes:
+                                                      ColScreen(sm: Col.col_3),
+                                                  child: Text(
+                                                      schedule.schestartdate)),
+                                              BsCol(
+                                                  sizes:
+                                                      ColScreen(sm: Col.col_8),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        schedule.schenm,
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      Container(
+                                                        margin: EdgeInsets.only(
+                                                            top: 5),
+                                                        child: Text(
+                                                            schedule.online
+                                                                ? 'Online'
+                                                                : 'Offline'),
+                                                      ),
+                                                    ],
+                                                  )),
+                                            ],
+                                          );
+                                        }),
+                                  )
+                                else
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [Text('You have no activity')],
+                                  ),
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [Text('Activity')],

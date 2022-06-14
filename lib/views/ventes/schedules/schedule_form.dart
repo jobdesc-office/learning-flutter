@@ -127,6 +127,8 @@ class ScheduleFormView extends StatelessWidget
   }
 
   void onClickCancelModal(BuildContext context) {
+    final map = Get.find<mapSource>();
+    map.reset();
     Navigator.pop(context);
   }
 

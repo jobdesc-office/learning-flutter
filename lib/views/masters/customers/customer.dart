@@ -17,6 +17,7 @@ import '_text.dart';
 class CustomerView extends GetView implements IndexViewContract {
   final presenter = Get.find<CustomerPresenter>();
   final datatable = CustomerDataTableSource();
+  final map = Get.put(mapSource());
 
   CustomerView() {
     presenter.customerViewContract = this;
@@ -92,7 +93,9 @@ class CustomerView extends GetView implements IndexViewContract {
 
   @override
   void onLoadDatatables(BuildContext context, Response response) {
+    final map = Get.find<mapSource>();
     presenter.setProcessing(false);
+    map.reset();
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onDetailsListener =
         (userid) => presenter.details(context, userid);
