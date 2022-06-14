@@ -93,24 +93,6 @@ class MenuView extends StatelessWidget
 
   @override
   void onErrorRequest(Response response) {
-    Get.defaultDialog(
-        title: 'Error',
-        titleStyle: TextStyle(color: Colors.white),
-        content: Text(
-          'Menu Type Must Be Selected !!!',
-          style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: ColorPallates.danger,
-        actions: [
-          BsButton(
-            onPressed: () => Get.back(),
-            label: Text('OK'),
-            style: BsButtonStyle(
-                backgroundColor: ColorPallates.primary,
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(5))),
-          )
-        ]);
     presenter.setProcessing(false);
     super.onErrorRequest(response);
   }

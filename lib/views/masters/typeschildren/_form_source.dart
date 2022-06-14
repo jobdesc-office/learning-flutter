@@ -73,6 +73,9 @@ class TypeChildrenForm {
         disabled: source.isProcessing,
         controller: source.inputCode,
         hintText: BaseText.hintText(field: TypeChildrenText.labelCode),
+        validators: [
+          Validators.maxLength(TypeChildrenText.labelCode, 10),
+        ],
       ),
     );
   }
@@ -89,6 +92,9 @@ class TypeChildrenForm {
         controller: source.selectParent,
         hintText: BaseText.hiintSelect(field: TypeChildrenText.labelParent),
         serverSide: (params) => selectApiTypeParents(params),
+        validators: [
+          Validators.selectRequired(TypeChildrenText.labelParent),
+        ],
       ),
     );
   }
@@ -103,10 +109,6 @@ class TypeChildrenForm {
         disabled: source.isProcessing,
         controller: source.inputSeq,
         hintText: BaseText.hintText(field: TypeChildrenText.labelSeq),
-        validators: [
-          Validators.inputRequired(TypeChildrenText.labelSeq),
-          Validators.maxLength(TypeChildrenText.labelSeq, 100),
-        ],
       ),
     );
   }
@@ -121,7 +123,6 @@ class TypeChildrenForm {
         disabled: source.isProcessing,
         controller: source.inputDesc,
         hintText: BaseText.hintText(field: TypeChildrenText.labelDesc),
-        validators: [],
       ),
     );
   }

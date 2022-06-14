@@ -51,7 +51,7 @@ class SubdistrictForm {
         hintText: BaseText.hintText(field: SubdistrictText.labelName),
         validators: [
           Validators.inputRequired(SubdistrictText.labelName),
-          Validators.maxLength(SubdistrictText.labelName, 100),
+          Validators.maxLength(SubdistrictText.labelName, 150),
         ],
       ),
     );
@@ -69,6 +69,9 @@ class SubdistrictForm {
         controller: source.choosedCity,
         hintText: BaseText.hiintSelect(field: SubdistrictText.labelCity),
         serverSide: (params) => selectCities(params),
+        validators: [
+          Validators.selectRequired(SubdistrictText.labelCity),
+        ],
       ),
     );
   }

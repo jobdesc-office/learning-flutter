@@ -53,6 +53,9 @@ class ContactForm {
         controller: source.selectCustomer,
         hintText: BaseText.hiintSelect(field: ContactText.labelCustomer),
         serverSide: (params) => selectApiCustomer(params),
+        validators: [
+          Validators.selectRequired(ContactText.labelCustomer),
+        ],
       ),
     );
   }
@@ -69,6 +72,9 @@ class ContactForm {
         controller: source.selectType,
         hintText: BaseText.hiintSelect(field: ContactText.labelType),
         serverSide: (params) => selectApiContactTypes(params),
+        validators: [
+          Validators.selectRequired(ContactText.labelType),
+        ],
       ),
     );
   }
@@ -85,7 +91,6 @@ class ContactForm {
         disabled: source.isProcessing,
         controller: source.inputValue,
         hintText: BaseText.hintText(field: ContactText.labelValue),
-        validators: [],
       ),
     );
   }

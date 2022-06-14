@@ -51,7 +51,7 @@ class ProvinceForm {
         hintText: BaseText.hintText(field: ProvinceText.labelName),
         validators: [
           Validators.inputRequired(ProvinceText.labelName),
-          Validators.maxLength(ProvinceText.labelName, 100),
+          Validators.maxLength(ProvinceText.labelName, 150),
         ],
       ),
     );
@@ -69,6 +69,9 @@ class ProvinceForm {
         controller: source.selectCountry,
         hintText: BaseText.hiintSelect(field: ProvinceText.labelCountry),
         serverSide: (params) => selectCountries(params),
+        validators: [
+          Validators.selectRequired(ProvinceText.labelCountry),
+        ],
       ),
     );
   }

@@ -17,10 +17,12 @@ class Validators {
           r"[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$",
           caseSensitive: false,
           multiLine: false);
-      if (!value.toString().contains('@'))
-        return "Invalid email, email must contain @ symbol";
-      else if (!regExp.hasMatch(value))
-        return "Invalid email, double check your email";
+      if (value != null) {
+        if (!value.toString().contains('@'))
+          return "Invalid email, email must contain @ symbol";
+        else if (!regExp.hasMatch(value))
+          return "Invalid email, double check your email";
+      }
 
       return null;
     });

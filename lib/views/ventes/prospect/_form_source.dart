@@ -201,6 +201,7 @@ class ProspectForm {
         controller: source.selectCustomer,
         hintText: BaseText.hiintSelect(field: ProspectText.labelCustomer),
         serverSide: (params) => selectApiBpCustomer(params),
+        validators: [Validators.selectRequired(ProspectText.labelCustomer)],
       ),
     );
   }
@@ -295,7 +296,6 @@ class ProspectForm {
                   disabled: ctrl.isProduct.value,
                   controller: source.inputValue,
                   hintText: BaseText.hintText(field: ProspectText.labelValue),
-                  validators: [],
                 ),
               ),
               // BsCol(
@@ -394,6 +394,7 @@ class ProspectForm {
         controller: source.selectOwner,
         hintText: BaseText.hiintSelect(field: ProspectText.labelOwner),
         serverSide: (params) => selectApiUser(params),
+        validators: [Validators.selectRequired(ProspectText.labelOwner)],
       ),
     );
   }
@@ -407,6 +408,7 @@ class ProspectForm {
         controller: source.selectType,
         hintText: BaseText.hiintSelect(field: ProspectText.labelType),
         serverSide: (params) => selectApiProspectTypes(params),
+        validators: [Validators.selectRequired(ProspectText.labelType)],
       ),
     );
   }
@@ -512,7 +514,6 @@ class ProspectForm {
         disabled: source.isProcessing,
         controller: source.inputDesc,
         hintText: BaseText.hintText(field: ProspectText.labelDesc),
-        validators: [],
         maxLines: 5,
         minLines: 3,
       ),
@@ -528,6 +529,7 @@ class ProspectForm {
         controller: source.selectStatus,
         hintText: BaseText.hiintSelect(field: ProspectText.labelStatus),
         serverSide: (params) => selectApiProspectStatus(params),
+        validators: [Validators.selectRequired(ProspectText.labelStatus)],
       ),
     );
   }
@@ -562,6 +564,9 @@ class ProspectForm {
                             // serverSide: (params) => selectApiProductWithBp(
                             //     params, source.bpid.toString()),
                             serverSide: (params) => selectApiProduct(params),
+                            validators: [
+                              Validators.selectRequired(ProspectText.labelItem)
+                            ],
                           ),
                         ),
                       ),

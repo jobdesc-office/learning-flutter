@@ -48,7 +48,7 @@ class CountryForm {
         hintText: BaseText.hintText(field: CountryText.labelName),
         validators: [
           Validators.inputRequired(CountryText.labelName),
-          Validators.maxLength(CountryText.labelName, 100),
+          Validators.maxLength(CountryText.labelName, 50),
         ],
       ),
     );

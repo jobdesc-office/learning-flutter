@@ -51,7 +51,7 @@ class CityForm {
         hintText: BaseText.hintText(field: CityText.labelName),
         validators: [
           Validators.inputRequired(CityText.labelName),
-          Validators.maxLength(CityText.labelName, 100),
+          Validators.maxLength(CityText.labelName, 150),
         ],
       ),
     );
@@ -69,6 +69,9 @@ class CityForm {
         controller: source.selectProvince,
         hintText: BaseText.hiintSelect(field: CityText.labelProvince),
         serverSide: (params) => selectProvinces(params),
+        validators: [
+          Validators.selectRequired(CityText.labelProvince),
+        ],
       ),
     );
   }

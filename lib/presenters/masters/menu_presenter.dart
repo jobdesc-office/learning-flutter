@@ -1,3 +1,4 @@
+import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -7,6 +8,7 @@ import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
 import '../../services/masters/type_service.dart';
 import '../../services/security/menu_service.dart';
+import '../../styles/color_palattes.dart';
 import '../../utils/custom_get_controller.dart';
 import '../../views/masters/menus/_menu_type.dart';
 import '../../views/masters/menus/menu_form.dart';
@@ -62,8 +64,28 @@ class MenuPresenter extends CustomGetXController {
     Response response = await _menuService.store(body);
     if (response.statusCode == 200)
       _menuViewContract.onCreateSuccess(response, context: context);
-    else
+    else {
+      Get.defaultDialog(
+          title: 'Error',
+          titleStyle: TextStyle(color: Colors.white),
+          content: Text(
+            'Menu Type Must Be Selected !!!',
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: ColorPallates.danger,
+          actions: [
+            BsButton(
+              onPressed: () => Get.back(),
+              label: Text('OK'),
+              style: BsButtonStyle(
+                  backgroundColor: ColorPallates.primary,
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(5))),
+            )
+          ]);
       _menuViewContract.onErrorRequest(response);
+    }
+    ;
   }
 
   void edit(BuildContext context, int menuid) async {

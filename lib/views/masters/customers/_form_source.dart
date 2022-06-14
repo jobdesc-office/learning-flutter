@@ -171,7 +171,9 @@ class CustomerForm {
         disabled: source.isProcessing,
         controller: source.inputReferal,
         hintText: BaseText.hintText(field: CustomerText.labelReferal),
-        validators: [],
+        validators: [
+          Validators.maxLength(CustomerText.labelPhone, 255),
+        ],
       ),
     );
   }
@@ -218,7 +220,6 @@ class CustomerForm {
         disabled: source.isnGetLatLong.value,
         controller: source.inputProvince,
         hintText: BaseText.hintText(field: CustomerText.labelProvince),
-        validators: [],
       ),
     );
   }
@@ -233,7 +234,6 @@ class CustomerForm {
         disabled: source.isnGetLatLong.value,
         controller: source.inputCity,
         hintText: BaseText.hintText(field: CustomerText.labelCity),
-        validators: [],
       ),
     );
   }
@@ -248,7 +248,6 @@ class CustomerForm {
         disabled: source.isnGetLatLong.value,
         controller: source.inputSubdistrict,
         hintText: BaseText.hintText(field: CustomerText.labelSubdistrict),
-        validators: [],
       ),
     );
   }
@@ -263,7 +262,6 @@ class CustomerForm {
         disabled: source.isnGetLatLong.value,
         controller: source.inputPostal,
         hintText: BaseText.hintText(field: CustomerText.labelPostal),
-        validators: [],
       ),
     );
   }

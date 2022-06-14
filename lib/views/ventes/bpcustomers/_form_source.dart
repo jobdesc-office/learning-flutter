@@ -91,6 +91,9 @@ class BpCustomerForm {
         controller: source.selectType,
         hintText: BaseText.hiintSelect(field: BpCustomerText.labelType),
         serverSide: (params) => selectApiBpCustomerStatus(params),
+        validators: [
+          Validators.selectRequired(BpCustomerText.labelType),
+        ],
       ),
     );
   }
@@ -107,6 +110,9 @@ class BpCustomerForm {
         controller: source.selectBp,
         hintText: BaseText.hiintSelect(field: BpCustomerText.labelBp),
         serverSide: (params) => selectApiPartner(params),
+        validators: [
+          Validators.selectRequired(BpCustomerText.labelBp),
+        ],
       ),
     );
   }
@@ -123,6 +129,9 @@ class BpCustomerForm {
         controller: source.selectCustomer,
         hintText: BaseText.hiintSelect(field: BpCustomerText.labelCustomer),
         serverSide: (params) => selectApiCustomer(params),
+        validators: [
+          Validators.selectRequired(BpCustomerText.labelCustomer),
+        ],
       ),
     );
   }

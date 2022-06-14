@@ -142,7 +142,7 @@ class UserForm {
         hintText: BaseText.hintText(field: UserText.labelUsername),
         validators: [
           Validators.inputRequired(UserText.labelUsername),
-          Validators.maxLength(UserText.labelUsername, 100),
+          Validators.maxLength(UserText.labelUsername, 50),
         ],
       ),
     );
@@ -162,6 +162,7 @@ class UserForm {
         hintText: BaseText.hintText(field: UserText.labelPassword),
         validators: [
           Validators.inputRequired(UserText.labelPassword),
+          Validators.maxLength(UserText.labelPassword, 100),
           Validators.minLength(UserText.labelPassword, 7),
         ],
       ),
@@ -202,7 +203,9 @@ class UserForm {
         disabled: source.isProcessing,
         controller: source.inputFullName,
         hintText: BaseText.hintText(field: UserText.labelFullName),
-        validators: [],
+        validators: [
+          Validators.maxLength(UserText.labelFullName, 100),
+        ],
       ),
     );
   }

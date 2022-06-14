@@ -1,13 +1,16 @@
+import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../constants/base_text.dart';
 import '../../../models/session_model.dart';
 import '../../../presenters/navigation_presenter.dart';
+import '../../../utils/select_api.dart';
 import '../../../utils/session_manager.dart';
 import '../../../utils/validators.dart';
 import '../../../widgets/form_group.dart';
 import '../../../widgets/input/custom_input.dart';
+import '../../../widgets/selectbox/custom_selectbox.dart';
 import '_businesspartner_type.dart';
 import '_text.dart';
 
@@ -23,6 +26,8 @@ class BusinessPartnerSource {
   TextEditingController inputName = TextEditingController();
   TextEditingController inputEmail = TextEditingController();
   TextEditingController inputPhone = TextEditingController();
+
+  BsSelectBoxController selectType = BsSelectBoxController();
 
   Future<Map<String, dynamic>> toJson() async {
     SessionModel session = await SessionManager.current();
@@ -44,14 +49,33 @@ class BusinessPartnerForm {
 
   BusinessPartnerForm(this.source);
 
+  // Widget businessPartnerType() {
+  //   return FormGroup(
+  //     label: Obx(() => Text(BusinessPartnerText.labelType,
+  //         style: TextStyle(
+  //             color:
+  //                 _navigation.darkTheme.value ? Colors.white : Colors.black))),
+  //     child: BusinessPartnerTypeOptions(
+  //       controller: source.businessPartnerTypeController,
+  //     ),
+  //   );
+  // }
+
   Widget businessPartnerType() {
     return FormGroup(
       label: Obx(() => Text(BusinessPartnerText.labelType,
           style: TextStyle(
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
-      child: BusinessPartnerTypeOptions(
-        controller: source.businessPartnerTypeController,
+      child: CustomSelectBox(
+        searchable: false,
+        disabled: source.isProcessing,
+        controller: source.selectType,
+        hintText: BaseText.hiintSelect(field: BusinessPartnerText.labelType),
+        serverSide: (params) => selectApiBpType(params),
+        validators: [
+          Validators.selectRequired(BusinessPartnerText.labelType),
+        ],
       ),
     );
   }
@@ -67,7 +91,8 @@ class BusinessPartnerForm {
         controller: source.inputCompanyName,
         hintText: BaseText.hintText(field: BusinessPartnerText.labelCompany),
         validators: [
-          Validators.inputRequired(BusinessPartnerText.labelName),
+          Validators.inputRequired(BusinessPartnerText.labelCompany),
+          Validators.maxLength(BusinessPartnerText.labelCompany, 100),
         ],
       ),
     );
@@ -84,7 +109,7 @@ class BusinessPartnerForm {
         controller: source.inputName,
         hintText: BaseText.hintText(field: BusinessPartnerText.labelName),
         validators: [
-          Validators.maxLength(BusinessPartnerText.labelName, 100),
+          Validators.maxLength(BusinessPartnerText.labelName, 255),
         ],
       ),
     );
@@ -102,6 +127,7 @@ class BusinessPartnerForm {
         hintText: BaseText.hintText(field: BusinessPartnerText.labelEmail),
         validators: [
           Validators.inputEmail(),
+          Validators.maxLength(BusinessPartnerText.labelEmail, 255),
         ],
       ),
     );
@@ -118,7 +144,7 @@ class BusinessPartnerForm {
         controller: source.inputPhone,
         hintText: BaseText.hintText(field: BusinessPartnerText.labelPhone),
         validators: [
-          Validators.maxLength(BusinessPartnerText.labelPhone, 100),
+          Validators.maxLength(BusinessPartnerText.labelPhone, 20),
         ],
       ),
     );

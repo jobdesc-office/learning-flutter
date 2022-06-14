@@ -380,7 +380,6 @@ class ScheduleForm {
               controller: source.selectType,
               hintText: BaseText.hiintSelect(field: ScheduleText.labelType),
               serverSide: (params) => selectApiTypeSchedule(params),
-              validators: [Validators.selectRequired(ScheduleText.labelType)],
             ),
           ),
         ),
@@ -399,7 +398,6 @@ class ScheduleForm {
               controller: source.selectBp,
               hintText: BaseText.hiintSelect(field: ScheduleText.labelBp),
               serverSide: (params) => selectApiPartner(params),
-              validators: [Validators.selectRequired(ScheduleText.labelBp)],
             ),
           ),
         ),
@@ -516,7 +514,6 @@ class ScheduleForm {
               controller: source.selectToward,
               hintText: BaseText.hiintSelect(field: ScheduleText.labelToward),
               serverSide: (params) => selectApiUser(params),
-              validators: [Validators.selectRequired(ScheduleText.labelToward)],
             ),
           ),
         ),
@@ -562,7 +559,6 @@ class ScheduleForm {
         disabled: source.isProcessing,
         controller: source.inputRemind,
         hintText: BaseText.hintText(field: ScheduleText.labelRemind),
-        validators: [Validators.maxLength(ScheduleText.labelRemind, 2)],
       ),
     );
   }

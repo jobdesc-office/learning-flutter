@@ -67,6 +67,9 @@ class TypeParentForm {
         disabled: source.isProcessing,
         controller: source.inputCode,
         hintText: BaseText.hintText(field: TypeParentsText.labelCode),
+        validators: [
+          Validators.maxLength(TypeParentsText.labelCode, 10),
+        ],
       ),
     );
   }
@@ -81,10 +84,6 @@ class TypeParentForm {
         disabled: source.isProcessing,
         controller: source.inputSeq,
         hintText: BaseText.hintText(field: TypeParentsText.labelSeq),
-        validators: [
-          Validators.inputRequired(TypeParentsText.labelSeq),
-          Validators.maxLength(TypeParentsText.labelSeq, 100),
-        ],
       ),
     );
   }
@@ -99,7 +98,6 @@ class TypeParentForm {
         disabled: source.isProcessing,
         controller: source.inputDesc,
         hintText: BaseText.hintText(field: TypeParentsText.labelDesc),
-        validators: [],
       ),
     );
   }
