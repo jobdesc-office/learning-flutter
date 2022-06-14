@@ -17,7 +17,8 @@ final _navigation = Get.find<NavigationPresenter>();
 class TypeChildrenDetails extends GetView
     implements DetailViewContract, typeChildrenContract {
   final TypesChildrenPresenter presenter = Get.find<TypesChildrenPresenter>();
-  final TypeChildrenDetailsSource c = Get.put(TypeChildrenDetailsSource());
+  final TypeChildrenDetailsSource controller =
+      Get.put(TypeChildrenDetailsSource());
 
   TypeChildrenDetails() {
     presenter.typeChildrenDataDetailsContract = this;
@@ -50,106 +51,90 @@ class TypeChildrenDetails extends GetView
                   child: Obx(() => BsRow(
                         children: [
                           BsCol(
-                              sizes: ColScreen(lg: Col.col_2),
-                              child: Column(
+                              sizes: ColScreen(lg: Col.col_12),
+                              child: BsRow(
                                 children: [
-                                  Row(
-                                    children: [Text('Code')],
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Row(
-                                    children: [Text('Name')],
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Row(
-                                    children: [Text('Seq')],
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Row(
-                                    children: [Text('Parent')],
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Row(
-                                    children: [Text('Description')],
-                                  )
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_3),
+                                      child: Text('Name')),
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_1),
+                                      child: Text(':')),
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_8),
+                                      child: Text(controller.name.value))
                                 ],
                               )),
                           BsCol(
-                            sizes: ColScreen(lg: Col.col_1),
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [Text(' : ')],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(' : ')],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(' : ')],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(' : ')],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(' : ')],
-                                ),
-                              ],
-                            ),
-                          ),
+                              margin: EdgeInsets.only(top: 10),
+                              sizes: ColScreen(lg: Col.col_12),
+                              child: BsRow(
+                                children: [
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_3),
+                                      child: Text('Parent')),
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_1),
+                                      child: Text(':')),
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_8),
+                                      child: Text(controller.parent.value))
+                                ],
+                              )),
                           BsCol(
-                            sizes: ColScreen(lg: Col.col_9),
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [Text(c.code.value)],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(c.name.value)],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(c.seq.value)],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(c.parent.value)],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(c.desc.value)],
-                                ),
-                              ],
-                            ),
-                          ),
+                              margin: EdgeInsets.only(top: 10),
+                              sizes: ColScreen(lg: Col.col_12),
+                              child: BsRow(
+                                children: [
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_3),
+                                      child: Text('Code')),
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_1),
+                                      child: Text(':')),
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_8),
+                                      child: Text(controller.code.value)),
+                                  BsCol(
+                                      margin: EdgeInsets.only(top: 10),
+                                      sizes: ColScreen(lg: Col.col_12),
+                                      child: BsRow(
+                                        children: [
+                                          BsCol(
+                                              sizes: ColScreen(lg: Col.col_3),
+                                              child: Text('Sequel')),
+                                          BsCol(
+                                              sizes: ColScreen(lg: Col.col_1),
+                                              child: Text(':')),
+                                          BsCol(
+                                              sizes: ColScreen(lg: Col.col_8),
+                                              child:
+                                                  Text(controller.seq.value)),
+                                          BsCol(
+                                              margin: EdgeInsets.only(top: 10),
+                                              sizes: ColScreen(lg: Col.col_12),
+                                              child: BsRow(
+                                                children: [
+                                                  BsCol(
+                                                      sizes: ColScreen(
+                                                          lg: Col.col_3),
+                                                      child:
+                                                          Text('Description')),
+                                                  BsCol(
+                                                      sizes: ColScreen(
+                                                          lg: Col.col_1),
+                                                      child: Text(':')),
+                                                  BsCol(
+                                                      sizes: ColScreen(
+                                                          lg: Col.col_8),
+                                                      child: Text(controller
+                                                          .desc.value))
+                                                ],
+                                              )),
+                                        ],
+                                      )),
+                                ],
+                              )),
                         ],
                       )),
                 )
@@ -160,15 +145,15 @@ class TypeChildrenDetails extends GetView
   @override
   void onSuccessFetchData(Response response) {
     TypeModel dt = TypeModel.fromJson(response.body);
-    c.code.value = dt.typecd;
-    c.name.value = dt.typename;
-    c.desc.value = dt.description;
-    c.seq.value = dt.typeseq.toString();
+    controller.code.value = dt.typecd;
+    controller.name.value = dt.typename;
+    controller.desc.value = dt.description;
+    controller.seq.value = dt.typeseq.toString();
   }
 
   @override
   void onLoadParentSuccess(Response response) {
     TypeModel dt = TypeModel.fromJson(response.body);
-    c.parent.value = dt.typename;
+    controller.parent.value = dt.typename;
   }
 }

@@ -16,7 +16,7 @@ final _navigation = Get.find<NavigationPresenter>();
 class BusinessPartnerDetails extends GetView implements DetailViewContract {
   final BusinessPartnerPresenter presenter =
       Get.find<BusinessPartnerPresenter>();
-  final BusinessPartnerDetailsSource c =
+  final BusinessPartnerDetailsSource controller =
       Get.put(BusinessPartnerDetailsSource());
 
   BusinessPartnerDetails() {
@@ -51,108 +51,84 @@ class BusinessPartnerDetails extends GetView implements DetailViewContract {
                   child: Obx(() => BsRow(
                         children: [
                           BsCol(
-                              sizes: ColScreen(lg: Col.col_2),
-                              child: Column(
+                              sizes: ColScreen(lg: Col.col_12),
+                              child: BsRow(
                                 children: [
-                                  Row(
-                                    children: [
-                                      Text('Name'),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Row(
-                                    children: [Text('Type')],
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Row(
-                                    children: [Text('PIC')],
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Row(
-                                    children: [Text('Email')],
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Row(
-                                    children: [Text('Phone')],
-                                  )
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_3),
+                                      child: Text('Name')),
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_1),
+                                      child: Text(':')),
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_8),
+                                      child: Text(controller.name.value))
                                 ],
                               )),
                           BsCol(
-                            sizes: ColScreen(lg: Col.col_1),
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [Text(' : ')],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(' : ')],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(' : ')],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(' : ')],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(' : ')],
-                                )
-                              ],
-                            ),
-                          ),
+                              margin: EdgeInsets.only(top: 10),
+                              sizes: ColScreen(lg: Col.col_12),
+                              child: BsRow(
+                                children: [
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_3),
+                                      child: Text('PIC')),
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_1),
+                                      child: Text(':')),
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_8),
+                                      child: Text(controller.pic.value))
+                                ],
+                              )),
                           BsCol(
-                            sizes: ColScreen(lg: Col.col_9),
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [Text(c.name.value)],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(c.type.value)],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(c.pic.value)],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(c.email.value)],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  children: [Text(c.phone.value)],
-                                )
-                              ],
-                            ),
-                          ),
+                              margin: EdgeInsets.only(top: 10),
+                              sizes: ColScreen(lg: Col.col_12),
+                              child: BsRow(
+                                children: [
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_3),
+                                      child: Text('Phone')),
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_1),
+                                      child: Text(':')),
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_8),
+                                      child: Text(controller.phone.value))
+                                ],
+                              )),
+                          BsCol(
+                              margin: EdgeInsets.only(top: 10),
+                              sizes: ColScreen(lg: Col.col_12),
+                              child: BsRow(
+                                children: [
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_3),
+                                      child: Text('Email')),
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_1),
+                                      child: Text(':')),
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_8),
+                                      child: Text(controller.email.value))
+                                ],
+                              )),
+                          BsCol(
+                              margin: EdgeInsets.only(top: 10),
+                              sizes: ColScreen(lg: Col.col_12),
+                              child: BsRow(
+                                children: [
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_3),
+                                      child: Text('Type')),
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_1),
+                                      child: Text(':')),
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_8),
+                                      child: Text(controller.type.value))
+                                ],
+                              )),
                         ],
                       )),
                 )
@@ -163,10 +139,10 @@ class BusinessPartnerDetails extends GetView implements DetailViewContract {
   @override
   void onSuccessFetchData(Response response) {
     BusinessPartnerModel dt = BusinessPartnerModel.fromJson(response.body);
-    c.name.value = dt.bpname;
-    c.type.value = dt.typename;
-    c.pic.value = dt.bppicname;
-    c.email.value = dt.bpemail;
-    c.phone.value = dt.bpphone;
+    controller.name.value = dt.bpname;
+    controller.type.value = dt.typename;
+    controller.pic.value = dt.bppicname;
+    controller.email.value = dt.bpemail;
+    controller.phone.value = dt.bpphone;
   }
 }
