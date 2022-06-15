@@ -12,6 +12,7 @@ import '../../services/masters/user_service.dart';
 import '../../services/ventes/prospect_service.dart';
 import '../../utils/custom_get_controller.dart';
 import '../../views/masters/menus/_menu_type.dart';
+import '../../views/ventes/prospect/_stagePipeline.dart';
 import '../../views/ventes/prospect/prospect_detail.dart';
 import '../../views/ventes/prospect/prospect_form.dart';
 import '../../widgets/confirm_dialog.dart';
@@ -41,6 +42,12 @@ class ProspectPresenter extends CustomGetXController {
     _prospectTypeViewContract = prospectTypeViewContract;
   }
 
+  late MenuTypeViewDetailContract _prospectTypeViewDetailContract;
+  set prospectTypeViewDetailContract(
+      MenuTypeViewDetailContract prospectTypeViewContract) {
+    _prospectTypeViewDetailContract = prospectTypeViewContract;
+  }
+
   Future getBpId(String id) async {
     Response response = await _userService.show(parseInt(id));
     if (response.statusCode == 200) {
@@ -61,6 +68,14 @@ class ProspectPresenter extends CustomGetXController {
     Response response = await _typeService.byCode(ConfigType.prospectStage);
     if (response.statusCode == 200)
       _prospectTypeViewContract.onLoadSuccess(response);
+    else
+      _ProspectViewContract.onErrorRequest(response);
+  }
+
+  Future _loadStage() async {
+    Response response = await _typeService.byCode(ConfigType.prospectStage);
+    if (response.statusCode == 200)
+      _prospectTypeViewDetailContract.onLoadSuccess(response);
     else
       _ProspectViewContract.onErrorRequest(response);
   }
@@ -89,7 +104,7 @@ class ProspectPresenter extends CustomGetXController {
       context: context,
       builder: (context) => ProspectDetails(),
     );
-
+    _loadStage();
     Response response = await _prospectService.show(userid);
     if (response.statusCode == 200)
       _ProspectTypeViewContract.onSuccessFetchData(response);

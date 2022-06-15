@@ -1,19 +1,30 @@
 import 'package:boilerplate/views/skins/template.dart';
+import 'package:boilerplate/widgets/button/button_edit_datatable.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
-import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:timelines/timelines.dart';
 
 import '../../../contracts/base/details_view_contract.dart';
+import '../../../contracts/base/index_view_contract.dart';
+import '../../../models/masters/type_model.dart';
 import '../../../models/ventes/prospect_model.dart';
+import '../../../models/ventes/prospectdetail_model.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../presenters/ventes/prospect_presenter.dart';
+import '../../../presenters/ventes/prospectdetail_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../styles/color_palattes.dart';
+import '../../../widgets/button/button_controller.dart';
+import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_info_account.dart';
+import '../../../widgets/button/button_info_assign.dart';
+import '../../../widgets/snackbar.dart';
 import '_detail_source.dart';
+import '_stagePipeline.dart';
+import 'prospectdetail/prospectdetail_form.dart';
 
 class ProspectDetails extends StatefulWidget {
   const ProspectDetails({Key? key}) : super(key: key);
@@ -24,11 +35,18 @@ class ProspectDetails extends StatefulWidget {
 
 class _ProspectDetailsState extends State<ProspectDetails>
     with TickerProviderStateMixin
-    implements DetailViewContract {
+    implements
+        DetailViewContract,
+        MenuTypeViewDetailContract,
+        IndexViewContract {
   late TabController _tabController;
   late TabController _tabControllerTimeline;
+  final detailPresenter = Get.find<ProspectDetailPresenter>();
   final presenter = Get.find<ProspectPresenter>();
   final source = Get.put(prospectDetailsSource());
+  final controller = Get.put(ButtonController());
+
+  final currencyFormatter = NumberFormat('#,##0.00', 'ID');
 
   @override
   void initState() {
@@ -36,6 +54,8 @@ class _ProspectDetailsState extends State<ProspectDetails>
     presenter.prospectViewContract = this;
     _tabController = TabController(length: 7, vsync: this);
     _tabControllerTimeline = TabController(length: 8, vsync: this);
+    presenter.prospectTypeViewDetailContract = this;
+    detailPresenter.prospectViewContract = this;
   }
 
   final _navigation = Get.find<NavigationPresenter>();
@@ -76,9 +96,13 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                       MainAxisAlignment.spaceAround,
                                   children: [
                                     BsDropdownButton(
-                                      toggleMenu: (_) => ButtonInfoAccount(
-                                        'Kholifan Alfon',
-                                        onPressed: () => _.toggle(),
+                                      toggleMenu: (_) => ButtonInfoAssign(
+                                        'Report To',
+                                        onPressed: () {
+                                          controller.btnInfoAccountIsTap
+                                              .toggle();
+                                          _.toggle();
+                                        },
                                       ),
                                       dropdownMenuSize:
                                           BsDropdownMenuSize(minWidth: 200),
@@ -174,15 +198,17 @@ class _ProspectDetailsState extends State<ProspectDetails>
                               children: [
                                 BsCol(
                                     sizes: ColScreen(sm: Col.col_2),
-                                    child: Text(source.prospectvalue.value)),
+                                    child: Text('Rp. ' +
+                                        currencyFormatter.format(double.parse(
+                                            source.prospectvalue.value)))),
                                 BsCol(
                                   sizes: ColScreen(sm: Col.col_10),
                                   child: Container(
                                     child: BsRow(
                                       children: [
-                                        BsCol(
-                                            sizes: ColScreen(sm: Col.col_3),
-                                            child: Text('Add Product')),
+                                        // BsCol(
+                                        //     sizes: ColScreen(sm: Col.col_3),
+                                        //     child: Text('Add Product')),
                                         BsCol(
                                           sizes: ColScreen(sm: Col.col_4),
                                           child: Row(
@@ -214,44 +240,15 @@ class _ProspectDetailsState extends State<ProspectDetails>
                               child: BsRow(
                                 children: [
                                   BsCol(
-                                    sizes: ColScreen(sm: Col.col_3),
+                                    sizes: ColScreen(sm: Col.col_12),
                                     child: Container(
                                       padding: EdgeInsets.all(10),
-                                      color: Colors.grey.shade700,
-                                      child: Center(child: Text('Meeting')),
+                                      child: MenuTypeOptions(
+                                        controller:
+                                            source.prospectStageController,
+                                      ),
                                     ),
                                   ),
-                                  BsCol(
-                                    sizes: ColScreen(sm: Col.col_3),
-                                    child: Container(
-                                      padding: EdgeInsets.all(10),
-                                      color: Colors.grey.shade600,
-                                      child: Center(child: Text('Proposal')),
-                                    ),
-                                  ),
-                                  BsCol(
-                                    sizes: ColScreen(sm: Col.col_3),
-                                    child: Container(
-                                      padding: EdgeInsets.all(10),
-                                      color: Colors.grey.shade600,
-                                      child: Center(child: Text('Negociation')),
-                                    ),
-                                  ),
-                                  BsCol(
-                                    sizes: ColScreen(sm: Col.col_3),
-                                    child: Container(
-                                      padding: EdgeInsets.all(10),
-                                      color: Colors.grey.shade600,
-                                      child: Center(child: Text('Closed')),
-                                    ),
-                                  ),
-                                  // BsCol(
-                                  //   sizes: ColScreen(sm: Col.col_2),
-                                  //   child: Container(
-                                  //     color: Colors.grey,
-                                  //     child: Text('data'),
-                                  //   ),
-                                  // )
                                 ],
                               ),
                             ),
@@ -282,8 +279,6 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                     : Colors.white,
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              height: 100,
-                              width: 200,
                               child: Container(
                                 margin: EdgeInsets.all(10),
                                 child: Column(
@@ -298,14 +293,17 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                               MainAxisAlignment.spaceAround,
                                           children: [
                                             BsButton(
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  detailPresenter.add(context,
+                                                      source.prospectid.value);
+                                                },
                                                 label: Icon(
-                                                  Icons.edit,
-                                                  size: 13,
+                                                  Icons.add,
+                                                  size: 18,
                                                 )),
-                                            BsButton(
-                                                onPressed: () {},
-                                                label: Text('Customize Files'))
+                                            // BsButton(
+                                            //     onPressed: () {},
+                                            //     label: Text('Customize Files'))
                                           ],
                                         ),
                                       ],
@@ -315,31 +313,72 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                     ),
                                     Column(
                                       children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Column(
-                                              children: [
-                                                Text('Description'),
-                                                Text('Cost'),
-                                              ],
-                                            ),
-                                            Column(
-                                              children: [
-                                                Text(':'),
-                                                Text(':'),
-                                              ],
-                                            ),
-                                            Column(
-                                              children: [
-                                                Text('Description'),
-                                                Text(
-                                                    source.prospectvalue.value),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
+                                        ListView.builder(
+                                            shrinkWrap: true,
+                                            itemCount: source.detailData.length,
+                                            itemBuilder: (context, index) {
+                                              var schedule =
+                                                  source.detailData[index];
+
+                                              return InkWell(
+                                                onLongPress: () {
+                                                  Get.defaultDialog(
+                                                      title: 'Setting',
+                                                      actions: [
+                                                        ButtonEditDatatables(
+                                                            onPressed: () {
+                                                          detailPresenter.edit(
+                                                              context,
+                                                              schedule
+                                                                  .prospectdtid,
+                                                              source.prospectid
+                                                                  .value);
+                                                        }),
+                                                        ButtonDeleteDatatables(
+                                                            onPressed: () {
+                                                          detailPresenter.delete(
+                                                              context,
+                                                              schedule
+                                                                  .prospectdtid,
+                                                              '${schedule.prospectdttype!.typename} at ${schedule.prospectdtdate}');
+                                                        }),
+                                                      ]);
+                                                },
+                                                onTap: () {
+                                                  detailPresenter.detail(
+                                                      context,
+                                                      schedule.prospectdtid);
+                                                },
+                                                child: Container(
+                                                  margin:
+                                                      EdgeInsets.only(top: 3),
+                                                  padding: EdgeInsets.all(5),
+                                                  decoration: BoxDecoration(
+                                                    color: _navigation
+                                                            .darkTheme.value
+                                                        ? ColorPallates
+                                                            .secondary
+                                                        : ColorPallates
+                                                            .datatableLightEvenRowColor,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Text(schedule
+                                                          .prospectdttype
+                                                          .typename),
+                                                      Text(schedule
+                                                          .prospectdtdate)
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            }),
                                       ],
                                     )
                                   ],
@@ -722,11 +761,67 @@ class _ProspectDetailsState extends State<ProspectDetails>
   @override
   void onSuccessFetchData(Response response) {
     ProspectModel dt = ProspectModel.fromJson(response.body);
+    source.prospectid.value = dt.prospectid!;
     source.prospectname.value = dt.prospectname.toString();
-    source.prospectvalue.value = 'Rp. ' + dt.prospectvalue.toString() + ',00';
+    source.prospectvalue.value = dt.prospectvalue.toString();
     source.userfullname.value =
         dt.prospectowneruser!.user!.userfullname.toString();
     source.bpname.value = dt.prospectbp!.bpname.toString();
     source.prospectstartdate.value = dt.prospectstartdate.toString();
+    source.prospectStageController.selected = dt.prospectstage;
+    detailPresenter
+        .details(context, {'id': source.prospectid.value.toString()});
+  }
+
+  @override
+  void onLoadSuccess(Response response) {
+    source.prospectStageController.options = List<TypeModel>.from(
+      response.body.map((data) {
+        return TypeModel.fromJson(data);
+      }),
+    );
+  }
+
+  @override
+  void onCreateSuccess(Response response, {BuildContext? context}) {
+    detailPresenter.setProcessing(false);
+    if (context != null) Navigator.pop(context);
+    Snackbar().createSuccess();
+    detailPresenter
+        .details(context!, {'id': source.prospectid.value.toString()});
+  }
+
+  @override
+  void onDeleteSuccess(Response response, {BuildContext? context}) {
+    detailPresenter.setProcessing(false);
+    if (context != null) Navigator.pop(context);
+    Navigator.pop(context!);
+    Snackbar().deleteSuccess();
+    detailPresenter
+        .details(context, {'id': source.prospectid.value.toString()});
+  }
+
+  @override
+  void onEditSuccess(Response response, {BuildContext? context}) {
+    detailPresenter.setProcessing(false);
+    if (context != null) Navigator.pop(context);
+    Navigator.pop(context!);
+    Snackbar().editSuccess();
+    detailPresenter
+        .details(context, {'id': source.prospectid.value.toString()});
+  }
+
+  @override
+  void onErrorRequest(Response response) {
+    detailPresenter.setProcessing(false);
+  }
+
+  @override
+  void onLoadDatatables(BuildContext context, Response response) {
+    List x = [];
+    for (var item in response.body) {
+      x.add(ProspectDetailModel.fromJson(item));
+    }
+    source.detailData.value = x;
   }
 }

@@ -1,0 +1,8 @@
+import 'package:get/get.dart';
+
+class prospectDetailDetailsSource extends GetxController {
+  var category = ''.obs;
+  var date = ''.obs;
+  var desc = ''.obs;
+  var type = ''.obs;
+}

@@ -21,6 +21,8 @@ class ConfigType {
 
   static String prospectStatus = notNull(types['prospectStatus']);
 
+  static String prospectCategory = notNull(types['prospectCategory']);
+
   static String contactType = notNull(types['contactType']);
 
   static String cstmtype = notNull(types['cstmtype']);

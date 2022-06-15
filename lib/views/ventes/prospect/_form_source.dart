@@ -141,7 +141,7 @@ class ProspectSource extends GetxController {
       int index = selectsItem.indexOf(controller);
       return {
         'item': selectsItem[index].getSelectedAsString(),
-        'price': inputPrices[index].text.replaceAll(',', '.'),
+        'price': inputPrices[index].text.replaceAll(',', ''),
         'quantity': inputQuantities[index].text,
         'discount': inputDiscounts[index].text,
         'amount': inputAmounts[index].text.replaceAll(',00', ''),
@@ -165,7 +165,7 @@ class ProspectSource extends GetxController {
       'prospectname': inputCompanyName.text,
       'prospectstartdate': selectedDateStart.value,
       'prospectenddate': selectedDateEnd.value,
-      'prospectvalue': inputValue.text.replaceAll(',', '.'),
+      'prospectvalue': inputValue.text.replaceAll(',', ''),
       'prospectowner': selectOwner.getSelectedAsString(),
       'prospectstageid': prospectStageController.getSelectedToString(),
       'prospectstatusid': selectStatus.getSelectedAsString(),

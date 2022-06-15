@@ -27,7 +27,6 @@ import '../../../widgets/form_group.dart';
 import '_text.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
-final _presenter = Get.find<BpCustomerPresenter>();
 
 class BpCustomerSource extends GetxController {
   bool isProcessing = false;
