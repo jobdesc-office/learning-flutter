@@ -1,4 +1,5 @@
 import 'package:boilerplate/styles/color_palattes.dart';
+import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,11 +7,13 @@ import 'package:get_storage/get_storage.dart';
 
 import '../../../contracts/base/details_view_contract.dart';
 import '../../../models/masters/userdt_model.dart';
+import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/masters/user_presenter.dart';
 import '_profile_profile_source.dart';
 
 class ProfileProfileView extends GetView implements DetailViewContract {
   final presenter = Get.find<UserPresenter>();
+  final _auth = Get.find<AuthPresenter>();
   final control = Get.put(ProfileProfileSource());
   final box = GetStorage();
 
@@ -26,7 +29,7 @@ class ProfileProfileView extends GetView implements DetailViewContract {
       child: BsRow(
         children: [
           BsCol(
-            sizes: ColScreen(sm: Col.col_3),
+            sizes: ColScreen(sm: Col.col_5),
             child: Column(
               children: [
                 Container(
@@ -81,7 +84,7 @@ class ProfileProfileView extends GetView implements DetailViewContract {
                               sizes: ColScreen(sm: Col.col_12),
                               child: Obx(() => Column(
                                     children: [
-                                      Text(control.userrole.value,
+                                      Text(_auth.roleActive.value,
                                           style: TextStyle(fontSize: 22)),
                                     ],
                                   )),
@@ -91,13 +94,66 @@ class ProfileProfileView extends GetView implements DetailViewContract {
                               sizes: ColScreen(sm: Col.col_12),
                               child: Obx(() => Column(
                                     children: [
-                                      Text(control.userbp.value,
+                                      Text(_auth.bpActive.value,
                                           style: TextStyle(fontSize: 14)),
                                     ],
                                   )),
                             ),
                           ],
-                        )
+                        ),
+                        BsRow(
+                          margin: EdgeInsets.only(top: 10),
+                          children: [
+                            BsCol(
+                              sizes: ColScreen(sm: Col.col_12),
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: _auth.detail.length,
+                                  itemBuilder: ((context, index) {
+                                    var details = _auth.detail[index];
+                                    return InkWell(
+                                      onTap: () {
+                                        _auth.roleActive.value =
+                                            details!.usertype!.typename;
+                                        _auth.roleActiveId.value =
+                                            details!.usertype!.typeid;
+                                        _auth.bpActive.value =
+                                            details!.businesspartner!.bpname;
+                                        _auth.bpActiveId.value =
+                                            details!.businesspartner!.bpid;
+                                        Get.defaultDialog(
+                                            actions: [
+                                              BsButton(
+                                                style: BsButtonStyle.success,
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                label: Text('Ok'),
+                                              )
+                                            ],
+                                            title: 'Warning',
+                                            middleText:
+                                                'Your Current Role is ${_auth.roleActive.value}\nYour Current Business Partner is ${_auth.bpActive.value}');
+                                      },
+                                      child: Container(
+                                        margin: _auth.detail[index] == 0
+                                            ? EdgeInsets.only(top: 30)
+                                            : EdgeInsets.only(top: 10),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(details!.usertype!.typename),
+                                            Text(details!
+                                                .businesspartner!.bpname),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  })),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -107,7 +163,7 @@ class ProfileProfileView extends GetView implements DetailViewContract {
           ),
           BsCol(
             margin: EdgeInsets.only(left: 10),
-            sizes: ColScreen(sm: Col.col_9),
+            sizes: ColScreen(sm: Col.col_7),
             child: Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
@@ -127,7 +183,7 @@ class ProfileProfileView extends GetView implements DetailViewContract {
                                 Row(
                                   children: [
                                     Text('Email',
-                                        style: TextStyle(fontSize: 24))
+                                        style: TextStyle(fontSize: 18))
                                   ],
                                 ),
                                 SizedBox(
@@ -136,7 +192,7 @@ class ProfileProfileView extends GetView implements DetailViewContract {
                                 Row(
                                   children: [
                                     Text('Phone',
-                                        style: TextStyle(fontSize: 24))
+                                        style: TextStyle(fontSize: 18))
                                   ],
                                 ),
                                 // SizedBox(
@@ -196,7 +252,7 @@ class ProfileProfileView extends GetView implements DetailViewContract {
                               children: [
                                 Row(
                                   children: [
-                                    Text(':', style: TextStyle(fontSize: 24))
+                                    Text(':', style: TextStyle(fontSize: 18))
                                   ],
                                 ),
                                 SizedBox(
@@ -204,7 +260,7 @@ class ProfileProfileView extends GetView implements DetailViewContract {
                                 ),
                                 Row(
                                   children: [
-                                    Text(':', style: TextStyle(fontSize: 24))
+                                    Text(':', style: TextStyle(fontSize: 18))
                                   ],
                                 ),
                                 // SizedBox(
@@ -265,7 +321,7 @@ class ProfileProfileView extends GetView implements DetailViewContract {
                                     Row(
                                       children: [
                                         Text(control.useremail.value,
-                                            style: TextStyle(fontSize: 24))
+                                            style: TextStyle(fontSize: 18))
                                       ],
                                     ),
                                     SizedBox(
@@ -274,7 +330,7 @@ class ProfileProfileView extends GetView implements DetailViewContract {
                                     Row(
                                       children: [
                                         Text(control.userphone.value,
-                                            style: TextStyle(fontSize: 24))
+                                            style: TextStyle(fontSize: 18))
                                       ],
                                     ),
                                     // SizedBox(

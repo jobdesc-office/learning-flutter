@@ -136,7 +136,7 @@ class ScheduleForm {
                     controller: selectMember,
                     hintText:
                         BaseText.hiintSelect(field: 'Member ${index + 1}'),
-                    serverSide: (params) => selectApiUser(params),
+                    serverSide: (params) => selectApiProspectOwner(params),
                   ),
                 ),
               ),
@@ -513,7 +513,7 @@ class ScheduleForm {
               disabled: source.isProcessing,
               controller: source.selectToward,
               hintText: BaseText.hiintSelect(field: ScheduleText.labelToward),
-              serverSide: (params) => selectApiUser(params),
+              serverSide: (params) => selectApiProspectOwner(params),
             ),
           ),
         ),

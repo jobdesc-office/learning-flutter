@@ -28,7 +28,7 @@ class _SignInViewState extends State<SignInView>
     authPresenter.loginViewContract = this;
   }
 
-  final authPresenter = AuthPresenter();
+  final authPresenter = Get.put(AuthPresenter());
 
   BackgroundAuth _bg = BackgroundAuth();
 
@@ -273,9 +273,23 @@ class _SignInViewState extends State<SignInView>
   @override
   void onLoginSuccess(UserModel userModel) {
     final box = GetStorage();
-    box.write('name', userModel.userfullname);
-    box.write('id', userModel.userid);
-    box.write('username', userModel.username);
+    List data = [];
+    box.write('name', userModel.userfullname!);
+    box.write('id', userModel.userid!);
+    box.write('username', userModel.username!);
+    for (var item in userModel.userdetails!) {
+      data.add(item);
+    }
+    authPresenter.detail = data;
+
+    authPresenter.roleActive.value =
+        userModel.userdetails!.first.usertype!.typename!;
+    authPresenter.roleActiveId.value =
+        userModel.userdetails!.first.usertype!.typeid!;
+    authPresenter.bpActive.value =
+        userModel.userdetails!.first.businesspartner!.bpname!;
+    authPresenter.bpActiveId.value =
+        userModel.userdetails!.first.businesspartner!.bpid!;
     if (userModel.jwtToken == '') {
       authPresenter.setProcessing(false);
       Snackbar().loginFailed();

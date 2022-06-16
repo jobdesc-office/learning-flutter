@@ -22,6 +22,9 @@ class HeaderSkins extends StatelessWidget implements LogoutViewContract {
 
   HeaderSkins() {
     checkJwtToken();
+    if (_auth.detail.isEmpty) {
+      _auth.signOut();
+    }
     _auth.logoutViewContract = this;
   }
 
@@ -102,20 +105,6 @@ class HeaderSkins extends StatelessWidget implements LogoutViewContract {
                                   ],
                                 ),
                               ),
-                              // BsDropdownItem(
-                              //   child: Row(
-                              //     children: [
-                              //       Icon(
-                              //         Icons.key_outlined,
-                              //         size: 16,
-                              //       ),
-                              //       Container(
-                              //         margin: EdgeInsets.only(left: 5),
-                              //         child: Text('Change Password'),
-                              //       )
-                              //     ],
-                              //   ),
-                              // ),
                               BsDropdownDivider(),
                               BsDropdownItem(
                                   padding: EdgeInsets.all(15),

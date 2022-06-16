@@ -394,7 +394,7 @@ class ProspectForm {
         disabled: source.isProcessing,
         controller: source.selectOwner,
         hintText: BaseText.hiintSelect(field: ProspectText.labelOwner),
-        serverSide: (params) => selectApiUser(params),
+        serverSide: (params) => selectApiProspectOwner(params),
         validators: [Validators.selectRequired(ProspectText.labelOwner)],
       ),
     );

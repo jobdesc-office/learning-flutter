@@ -14,6 +14,8 @@ import '../models/masters/product_model.dart';
 import '../models/masters/province_model.dart';
 import '../models/masters/user_model.dart';
 import '../models/ventes/bpcustomer_model.dart';
+import '../models/ventes/selectbp_model.dart';
+import '../presenters/auth_presenter.dart';
 import '../services/masters/city_service.dart';
 import '../services/masters/country_service.dart';
 import '../services/masters/customer_service.dart';
@@ -238,8 +240,8 @@ Future<BsSelectBoxResponse> selectApiUser(Map<String, String> params) async {
     if (response.statusCode == 200) {
       return BsSelectBoxResponse.createFromJson(
         response.body,
-        value: (data) => UserModel.fromJson(data).userid,
-        renderText: (data) => Text(UserModel.fromJson(data).userfullname),
+        value: (data) => UserModel.fromJson(data).userid!,
+        renderText: (data) => Text(UserModel.fromJson(data).userfullname!),
       );
     }
   }
@@ -247,22 +249,25 @@ Future<BsSelectBoxResponse> selectApiUser(Map<String, String> params) async {
   return BsSelectBoxResponse(options: []);
 }
 
-// Future<BsSelectBoxResponse> selectApiProspectOwner(
-//     Map<String, String> params) async {
-//   final userService = Get.find<UserService>();
-//   Response response = await userService.all();
-//   if (response.isOk) {
-//     if (response.statusCode == 200) {
-//       return BsSelectBoxResponse.createFromJson(
-//         response.body,
-//         value: (data) => UserModel.fromJson(data).userid,
-//         renderText: (data) => Text(UserModel.fromJson(data).userfullname),
-//       );
-//     }
-//   }
+Future<BsSelectBoxResponse> selectApiProspectOwner(
+    Map<String, String> params) async {
+  final userService = Get.find<UserService>();
+  final _auth = Get.find<AuthPresenter>();
+  Response response =
+      await userService.selectsamebp(params, _auth.bpActiveId.value);
+  if (response.isOk) {
+    if (response.statusCode == 200) {
+      return BsSelectBoxResponse.createFromJson(
+        response.body,
+        value: (data) => SelectUserBpModel.fromJson(data).userid,
+        renderText: (data) =>
+            Text(SelectUserBpModel.fromJson(data).userfullname!),
+      );
+    }
+  }
 
-//   return BsSelectBoxResponse(options: []);
-// }
+  return BsSelectBoxResponse(options: []);
+}
 
 Future<BsSelectBoxResponse> selectApiBpCustomer(
     Map<String, String> params) async {

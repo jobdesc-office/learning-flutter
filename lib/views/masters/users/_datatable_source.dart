@@ -71,7 +71,7 @@ class UserDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.userfullname),
+          Text(row.userfullname!),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -81,7 +81,7 @@ class UserDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.useremail),
+          Text(row.useremail!),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -115,14 +115,14 @@ class UserDataTableSource extends BsDatatableSource {
                 message: BaseText.detailHintDatatable(field: row.userfullname),
                 child: ButtonDetailsDatatables(
                   margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onDetailsListener(row.userid),
+                  onPressed: () => onDetailsListener(row.userid!),
                 ),
               ),
               Tooltip(
                 message: BaseText.editHintDatatable(field: row.userfullname),
                 child: ButtonEditDatatables(
                   margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onEditListener(row.userid),
+                  onPressed: () => onEditListener(row.userid!),
                 ),
               ),
               Tooltip(

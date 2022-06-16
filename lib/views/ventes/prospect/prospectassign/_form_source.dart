@@ -57,7 +57,7 @@ class ProspectAssignForm {
         disabled: source.isProcessing,
         controller: source.selectAssign,
         hintText: BaseText.hiintSelect(field: ProspectAssignText.labelType),
-        serverSide: (params) => selectApiUser(params),
+        serverSide: (params) => selectApiProspectOwner(params),
         validators: [
           Validators.selectRequired(ProspectAssignText.labelType),
         ],
@@ -76,7 +76,7 @@ class ProspectAssignForm {
         disabled: source.isProcessing,
         controller: source.selectReport,
         hintText: BaseText.hiintSelect(field: ProspectAssignText.labelCategory),
-        serverSide: (params) => selectApiUser(params),
+        serverSide: (params) => selectApiProspectOwner(params),
         validators: [
           Validators.selectRequired(ProspectAssignText.labelCategory),
         ],
