@@ -23,6 +23,7 @@ import '../../../styles/color_palattes.dart';
 import '../../../widgets/button/button_controller.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_info_assign.dart';
+import '../../../widgets/map/_map_source.dart';
 import '../../../widgets/snackbar.dart';
 import '_detail_source.dart';
 import '_stagePipeline.dart';
@@ -47,6 +48,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
   final presenter = Get.find<ProspectPresenter>();
   final source = Get.put(prospectDetailsSource());
   final controller = Get.put(ButtonController());
+  final map = Get.put(mapSource());
 
   final currencyFormatter = NumberFormat('#,##0.00', 'ID');
 
@@ -1046,6 +1048,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
 
   @override
   void onCreateSuccess(Response response, {BuildContext? context}) {
+    map.reset();
     detailPresenter.setProcessing(false);
     assignPresenter.setProcessing(false);
     Navigator.pop(context!);
@@ -1057,6 +1060,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
 
   @override
   void onDeleteSuccess(Response response, {BuildContext? context}) {
+    map.reset();
     detailPresenter.setProcessing(false);
     assignPresenter.setProcessing(false);
     Navigator.pop(context!);
@@ -1069,6 +1073,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
 
   @override
   void onEditSuccess(Response response, {BuildContext? context}) {
+    map.reset();
     detailPresenter.setProcessing(false);
     assignPresenter.setProcessing(false);
     if (context != null) Navigator.pop(context);

@@ -57,6 +57,7 @@ class ProspectDetailFormView extends StatelessWidget
                               prospectForm.selectCategory(),
                               prospectForm.inputExpected(context),
                               prospectForm.inputDesc(),
+                              prospectForm.selectUser(context),
                             ],
                           ),
                         ),
@@ -118,6 +119,7 @@ class ProspectDetailFormView extends StatelessWidget
       source.value.inputDesc.text = prospect.prospectdtdesc.toString();
       source.value.selectedDateExpect.value =
           prospect.prospectdtdate.toString();
+      map.linkCoordinate.value = prospect.prospectdtloc.toString();
     });
   }
 }

@@ -5,6 +5,9 @@ class ProspectDetailModel {
   int? prospectdttypeid;
   String? prospectdtdate;
   String? prospectdtdesc;
+  String? prospectdtloc;
+  double? prospectdtlatitude;
+  double? prospectdtlongitude;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -21,6 +24,9 @@ class ProspectDetailModel {
       this.prospectdttypeid,
       this.prospectdtdate,
       this.prospectdtdesc,
+      this.prospectdtloc,
+      this.prospectdtlatitude,
+      this.prospectdtlongitude,
       this.createdby,
       this.createddate,
       this.updatedby,
@@ -37,6 +43,9 @@ class ProspectDetailModel {
     prospectdttypeid = json['prospectdttypeid'];
     prospectdtdate = json['prospectdtdate'];
     prospectdtdesc = json['prospectdtdesc'];
+    prospectdtloc = json['prospectdtloc'];
+    prospectdtlatitude = json['prospectdtlatitude'];
+    prospectdtlongitude = json['prospectdtlongitude'];
     createdby = json['createdby'];
     createddate = json['createddate'];
     updatedby = json['updatedby'];
@@ -61,6 +70,9 @@ class ProspectDetailModel {
     data['prospectdttypeid'] = this.prospectdttypeid;
     data['prospectdtdate'] = this.prospectdtdate;
     data['prospectdtdesc'] = this.prospectdtdesc;
+    data['prospectdtloc'] = this.prospectdtloc;
+    data['prospectdtlatitude'] = this.prospectdtlatitude;
+    data['prospectdtlongitude'] = this.prospectdtlongitude;
     data['createdby'] = this.createdby;
     data['createddate'] = this.createddate;
     data['updatedby'] = this.updatedby;

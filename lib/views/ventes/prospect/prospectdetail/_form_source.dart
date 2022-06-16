@@ -1,13 +1,8 @@
-import 'dart:typed_data';
-import 'dart:io';
-
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
+import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
 
 import '../../../../constants/base_text.dart';
 import '../../../../models/session_model.dart';
@@ -18,10 +13,13 @@ import '../../../../utils/session_manager.dart';
 import '../../../../utils/validators.dart';
 import '../../../../widgets/form_group.dart';
 import '../../../../widgets/input/custom_input.dart';
+import '../../../../widgets/map/_map_source.dart';
+import '../../../../widgets/map/map.dart';
 import '../../../../widgets/selectbox/custom_selectbox.dart';
 import '_text.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
+final map = Get.put(mapSource());
 
 class ProspectDetailSource extends GetxController {
   bool isProcessing = false;
@@ -42,6 +40,9 @@ class ProspectDetailSource extends GetxController {
       'prospectdttypeid': selectType.getSelectedAsString(),
       'prospectdtdate': selectedDateExpect.value,
       'prospectdtdesc': inputDesc.text,
+      'prospectdtloc': map.linkCoordinate.value,
+      'prospectdtlatitude': map.latitude.value,
+      'prospectdtlongitude': map.longitude.value,
       'createdby': session.userid,
       'updatedby': session.userid,
     };
@@ -129,6 +130,38 @@ class ProspectDetailForm {
         maxLines: 5,
         minLines: 3,
       ),
+    );
+  }
+
+  Widget selectUser(context) {
+    return BsRow(
+      children: [
+        BsCol(
+          margin: EdgeInsets.only(right: 10),
+          sizes: ColScreen(lg: Col.col_12),
+          child: FormGroup(
+            label: Obx(() => Text(ProspectDetailText.labelPlace,
+                style: TextStyle(
+                    color: _navigation.darkTheme.value
+                        ? Colors.white
+                        : Colors.black))),
+            child: BsButton(
+              style: BsButtonStyle(
+                  color: Color.fromARGB(255, 165, 165, 165),
+                  backgroundColor: _navigation.darkTheme.value
+                      ? ColorPallates.elseDarkColor
+                      : Colors.white,
+                  borderColor: Colors.black,
+                  borderRadius: BorderRadius.all(Radius.circular(5))),
+              width: MediaQuery.of(context).size.width,
+              onPressed: () => Get.to(GoogleMapsPage()),
+              label: Obx(() => Text(map.linkCoordinate.isEmpty
+                  ? "Choose the Place"
+                  : map.linkCoordinate.value)),
+            ),
+          ),
+        )
+      ],
     );
   }
 
