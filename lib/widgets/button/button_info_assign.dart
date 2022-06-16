@@ -43,7 +43,7 @@ class ButtonInfoAssign extends StatelessWidget {
                       padding: EdgeInsets.all(5),
                       child: CircleAvatar(
                         child: Icon(
-                          Icons.person,
+                          Icons.group,
                           size: 25,
                           color: _navigation.darkTheme.value
                               ? ColorPallates.elseDarkColor
@@ -55,29 +55,15 @@ class ButtonInfoAssign extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Assign to',
-                            style: TextStyle(
-                                fontSize: 11,
-                                color: _navigation.darkTheme.value
-                                    ? Colors.white
-                                    : Colors.black),
-                          ),
-                          Center(
-                            child: Text(
-                              text,
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: _navigation.darkTheme.value
-                                      ? Colors.white
-                                      : Colors.black),
-                            ),
-                          ),
-                        ],
+                      child: Center(
+                        child: Text(
+                          text,
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: _navigation.darkTheme.value
+                                  ? Colors.white
+                                  : Colors.black),
+                        ),
                       ),
                     )
                   ],
@@ -87,7 +73,7 @@ class ButtonInfoAssign extends StatelessWidget {
                 padding: EdgeInsets.all(5),
                 margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
                 child: Obx(() => Icon(
-                      controller.btnInfoAccountIsTap.value
+                      controller.btnAssignIsTap.value
                           ? Icons.keyboard_arrow_down
                           : Icons.keyboard_arrow_right,
                       size: 16,

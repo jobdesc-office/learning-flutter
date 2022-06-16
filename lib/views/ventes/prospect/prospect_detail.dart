@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:boilerplate/views/skins/template.dart';
 import 'package:boilerplate/widgets/button/button_edit_datatable.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
@@ -14,17 +16,16 @@ import '../../../models/ventes/prospect_model.dart';
 import '../../../models/ventes/prospectdetail_model.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../presenters/ventes/prospect_presenter.dart';
+import '../../../presenters/ventes/prospectassign_presenter.dart';
 import '../../../presenters/ventes/prospectdetail_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../styles/color_palattes.dart';
 import '../../../widgets/button/button_controller.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
-import '../../../widgets/button/button_info_account.dart';
 import '../../../widgets/button/button_info_assign.dart';
 import '../../../widgets/snackbar.dart';
 import '_detail_source.dart';
 import '_stagePipeline.dart';
-import 'prospectdetail/prospectdetail_form.dart';
 
 class ProspectDetails extends StatefulWidget {
   const ProspectDetails({Key? key}) : super(key: key);
@@ -42,6 +43,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
   late TabController _tabController;
   late TabController _tabControllerTimeline;
   final detailPresenter = Get.find<ProspectDetailPresenter>();
+  final assignPresenter = Get.find<ProspectAssignPresenter>();
   final presenter = Get.find<ProspectPresenter>();
   final source = Get.put(prospectDetailsSource());
   final controller = Get.put(ButtonController());
@@ -56,6 +58,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     _tabControllerTimeline = TabController(length: 8, vsync: this);
     presenter.prospectTypeViewDetailContract = this;
     detailPresenter.prospectViewContract = this;
+    assignPresenter.prospectViewContract = this;
   }
 
   final _navigation = Get.find<NavigationPresenter>();
@@ -95,98 +98,38 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
                                   children: [
-                                    BsDropdownButton(
-                                      toggleMenu: (_) => ButtonInfoAssign(
-                                        'Report To',
-                                        onPressed: () {
-                                          controller.btnInfoAccountIsTap
-                                              .toggle();
-                                          _.toggle();
-                                        },
-                                      ),
-                                      dropdownMenuSize:
-                                          BsDropdownMenuSize(minWidth: 200),
-                                      dropdownMenuStyle: BsDropdownMenuStyle(
-                                        borderRadius: BorderRadius.circular(3),
-                                      ),
-                                      dropdownMenu: BsDropdownMenu(
-                                        header: BsDropdownHeader(),
-                                        children: [
-                                          BsDropdownItem(
-                                            child: Text('Tranfer Ownership'),
-                                          ),
-                                          BsDropdownItem(
-                                              // child: BsSelectBox(
-                                              //   searchable: false,
-                                              //   controller: selectOwnership,
-                                              //   hintText: BaseText.hiintSelect(),
-                                              // ),
-                                              ),
-                                          BsDropdownDivider(),
-                                          BsDropdownItem(
-                                              padding: EdgeInsets.all(15),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.end,
-                                                children: [
-                                                  BsButton(
-                                                      label: Text('Save'),
-                                                      onPressed: () {},
-                                                      style: BsButtonStyle(
-                                                          color: _navigation
-                                                                  .darkTheme
-                                                                  .value
-                                                              ? ColorPallates
-                                                                  .elseDarkColor
-                                                              : Colors.white,
-                                                          backgroundColor:
-                                                              ColorPallates
-                                                                  .primary)),
-                                                  SizedBox(
-                                                    width: 10,
-                                                  ),
-                                                  BsButton(
-                                                    label: Text('Cancel'),
-                                                    onPressed: () {},
-                                                    style: BsButtonStyle(
-                                                        color: _navigation
-                                                                .darkTheme.value
-                                                            ? ColorPallates
-                                                                .elseDarkColor
-                                                            : Colors.white,
-                                                        backgroundColor:
-                                                            ColorPallates
-                                                                .cancel),
-                                                  )
-                                                ],
-                                              ))
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
-                                      child: ElevatedButton(
-                                          onPressed: () {},
-                                          child: Text('data')),
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
-                                      child: ElevatedButton(
-                                          onPressed: () {},
-                                          child: Text('data')),
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
-                                      child: ElevatedButton(
-                                          onPressed: () {},
-                                          child: Text('data')),
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
-                                      child: ElevatedButton(
-                                          onPressed: () {},
-                                          child: Text('data')),
+                                    BsButton(
+                                      onPressed: () {
+                                        assignPresenter.add(
+                                            context, source.prospectid.value);
+                                      },
+                                      prefixIcon: Icons.settings,
+                                      label: Text('Add Assignation'),
                                     )
+                                    // Container(
+                                    //   margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                                    //   child: ElevatedButton(
+                                    //       onPressed: () {},
+                                    //       child: Text('data')),
+                                    // ),
+                                    // Container(
+                                    //   margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                                    //   child: ElevatedButton(
+                                    //       onPressed: () {},
+                                    //       child: Text('data')),
+                                    // ),
+                                    // Container(
+                                    //   margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                                    //   child: ElevatedButton(
+                                    //       onPressed: () {},
+                                    //       child: Text('data')),
+                                    // ),
+                                    // Container(
+                                    //   margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                                    //   child: ElevatedButton(
+                                    //       onPressed: () {},
+                                    //       child: Text('data')),
+                                    // )
                                   ],
                                 )
                               ],
@@ -323,6 +266,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                               return InkWell(
                                                 onLongPress: () {
                                                   Get.defaultDialog(
+                                                      middleText: '',
                                                       title: 'Setting',
                                                       actions: [
                                                         ButtonEditDatatables(
@@ -396,7 +340,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Container(
-                                margin: EdgeInsets.all(10),
+                                margin: EdgeInsets.all(5),
                                 child: Column(
                                   children: [
                                     Row(
@@ -504,11 +448,12 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                         unselectedLabelColor: Colors.black,
                                         tabs: [
                                           Tab(
-                                              text: 'Notes',
-                                              icon: Icon(Icons.note)),
+                                              text: 'Assign',
+                                              icon: Icon(Icons.group)),
                                           Tab(
-                                              text: 'Activity',
-                                              icon: Icon(Icons.calendar_month)),
+                                              text: 'Report',
+                                              icon: Icon(
+                                                  Icons.description_outlined)),
                                           Tab(
                                               text: 'Propose Time',
                                               icon: Icon(Icons.timelapse)),
@@ -530,20 +475,324 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                     ),
                                     Container(
                                       width: double.infinity,
-                                      height: 100,
+                                      height: 200,
                                       child: TabBarView(
                                         controller: _tabController,
                                         children: [
-                                          Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [Text('Notes')],
-                                          ),
-                                          Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [Text('Activity')],
-                                          ),
+                                          if (source.assign.length != 0)
+                                            SingleChildScrollView(
+                                              child: Column(
+                                                children: [
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.topLeft,
+                                                    margin: EdgeInsets.only(
+                                                        top: 15, bottom: 10),
+                                                    child: Text(
+                                                      'This Prospect is Assigned to : ',
+                                                      style: TextStyle(
+                                                          fontSize: 18),
+                                                    ),
+                                                  ),
+                                                  Obx(() => Container(
+                                                        child: ListView.builder(
+                                                          shrinkWrap: true,
+                                                          itemCount: source
+                                                              .assign.length,
+                                                          itemBuilder:
+                                                              (context, index) {
+                                                            var assigns = source
+                                                                .assign[index];
+                                                            return BsRow(
+                                                              margin: source.assign[
+                                                                          index] ==
+                                                                      0
+                                                                  ? EdgeInsets
+                                                                      .zero
+                                                                  : EdgeInsets
+                                                                      .only(
+                                                                          top:
+                                                                              20),
+                                                              children: [
+                                                                BsCol(
+                                                                  sizes: ColScreen(
+                                                                      sm: Col
+                                                                          .col_1),
+                                                                  child: Text(
+                                                                      '${index + 1} )'),
+                                                                ),
+                                                                BsCol(
+                                                                  sizes: ColScreen(
+                                                                      sm: Col
+                                                                          .col_11),
+                                                                  child:
+                                                                      InkWell(
+                                                                    onLongPress:
+                                                                        (() {
+                                                                      Get.defaultDialog(
+                                                                          middleText:
+                                                                              '',
+                                                                          title:
+                                                                              'Setting',
+                                                                          actions: [
+                                                                            ButtonEditDatatables(onPressed:
+                                                                                () {
+                                                                              assignPresenter.edit(context, assigns.prospectassignid, source.prospectid.value);
+                                                                            }),
+                                                                            ButtonDeleteDatatables(onPressed:
+                                                                                () {
+                                                                              assignPresenter.delete(context, assigns.prospectassignid, 'Assignment for ${assigns.prospectassign!.user!.userfullname}');
+                                                                            }),
+                                                                          ]);
+                                                                    }),
+                                                                    onTap: () {
+                                                                      assignPresenter.detail(
+                                                                          context,
+                                                                          assigns
+                                                                              .prospectassignid);
+                                                                    },
+                                                                    child:
+                                                                        BsRow(
+                                                                      children: [
+                                                                        BsCol(
+                                                                          sizes:
+                                                                              ColScreen(sm: Col.col_2),
+                                                                          child:
+                                                                              Text("Name"),
+                                                                        ),
+                                                                        BsCol(
+                                                                          sizes:
+                                                                              ColScreen(sm: Col.col_1),
+                                                                          child:
+                                                                              Text(':'),
+                                                                        ),
+                                                                        BsCol(
+                                                                          sizes:
+                                                                              ColScreen(sm: Col.col_9),
+                                                                          child: Text(assigns
+                                                                              .prospectassign!
+                                                                              .user!
+                                                                              .userfullname),
+                                                                        ),
+                                                                        BsCol(
+                                                                          margin:
+                                                                              EdgeInsets.only(top: 5),
+                                                                          sizes:
+                                                                              ColScreen(sm: Col.col_2),
+                                                                          child:
+                                                                              Text("Email"),
+                                                                        ),
+                                                                        BsCol(
+                                                                          margin:
+                                                                              EdgeInsets.only(top: 5),
+                                                                          sizes:
+                                                                              ColScreen(sm: Col.col_1),
+                                                                          child:
+                                                                              Text(':'),
+                                                                        ),
+                                                                        BsCol(
+                                                                          margin:
+                                                                              EdgeInsets.only(top: 5),
+                                                                          sizes:
+                                                                              ColScreen(sm: Col.col_9),
+                                                                          child: Text(assigns
+                                                                              .prospectassign!
+                                                                              .user!
+                                                                              .useremail),
+                                                                        ),
+                                                                        BsCol(
+                                                                          margin:
+                                                                              EdgeInsets.only(top: 5),
+                                                                          sizes:
+                                                                              ColScreen(sm: Col.col_2),
+                                                                          child:
+                                                                              Text("Phone"),
+                                                                        ),
+                                                                        BsCol(
+                                                                          margin:
+                                                                              EdgeInsets.only(top: 5),
+                                                                          sizes:
+                                                                              ColScreen(sm: Col.col_1),
+                                                                          child:
+                                                                              Text(':'),
+                                                                        ),
+                                                                        BsCol(
+                                                                          margin:
+                                                                              EdgeInsets.only(top: 5),
+                                                                          sizes:
+                                                                              ColScreen(sm: Col.col_9),
+                                                                          child: Text(assigns
+                                                                              .prospectassign!
+                                                                              .user!
+                                                                              .userphone),
+                                                                        )
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
+                                                        ),
+                                                      ))
+                                                ],
+                                              ),
+                                            )
+                                          else
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                    'This Prospect is not Assigned')
+                                              ],
+                                            ),
+                                          if (source.assign.length != 0)
+                                            SingleChildScrollView(
+                                              child: Column(
+                                                children: [
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.topLeft,
+                                                    margin: EdgeInsets.only(
+                                                        top: 15, bottom: 10),
+                                                    child: Text(
+                                                      'This Prospect is Reported to : ',
+                                                      style: TextStyle(
+                                                          fontSize: 18),
+                                                    ),
+                                                  ),
+                                                  Obx(() => Container(
+                                                        child: ListView.builder(
+                                                          shrinkWrap: true,
+                                                          itemCount: source
+                                                              .report.length,
+                                                          itemBuilder:
+                                                              (context, index) {
+                                                            var reports = source
+                                                                .report[index];
+                                                            return BsRow(
+                                                              margin: source.report[
+                                                                          index] ==
+                                                                      0
+                                                                  ? EdgeInsets
+                                                                      .zero
+                                                                  : EdgeInsets
+                                                                      .only(
+                                                                          top:
+                                                                              20),
+                                                              children: [
+                                                                BsCol(
+                                                                  sizes: ColScreen(
+                                                                      sm: Col
+                                                                          .col_1),
+                                                                  child: Text(
+                                                                      '${index + 1} )'),
+                                                                ),
+                                                                BsCol(
+                                                                  sizes: ColScreen(
+                                                                      sm: Col
+                                                                          .col_11),
+                                                                  child: BsRow(
+                                                                    children: [
+                                                                      BsCol(
+                                                                        sizes: ColScreen(
+                                                                            sm: Col.col_2),
+                                                                        child: Text(
+                                                                            "Name"),
+                                                                      ),
+                                                                      BsCol(
+                                                                        sizes: ColScreen(
+                                                                            sm: Col.col_1),
+                                                                        child: Text(
+                                                                            ':'),
+                                                                      ),
+                                                                      BsCol(
+                                                                        sizes: ColScreen(
+                                                                            sm: Col.col_9),
+                                                                        child: Text(reports
+                                                                            .prospectreport!
+                                                                            .user!
+                                                                            .userfullname),
+                                                                      ),
+                                                                      BsCol(
+                                                                        margin: EdgeInsets.only(
+                                                                            top:
+                                                                                5),
+                                                                        sizes: ColScreen(
+                                                                            sm: Col.col_2),
+                                                                        child: Text(
+                                                                            "Email"),
+                                                                      ),
+                                                                      BsCol(
+                                                                        margin: EdgeInsets.only(
+                                                                            top:
+                                                                                5),
+                                                                        sizes: ColScreen(
+                                                                            sm: Col.col_1),
+                                                                        child: Text(
+                                                                            ':'),
+                                                                      ),
+                                                                      BsCol(
+                                                                        margin: EdgeInsets.only(
+                                                                            top:
+                                                                                5),
+                                                                        sizes: ColScreen(
+                                                                            sm: Col.col_9),
+                                                                        child: Text(reports
+                                                                            .prospectreport!
+                                                                            .user!
+                                                                            .useremail),
+                                                                      ),
+                                                                      BsCol(
+                                                                        margin: EdgeInsets.only(
+                                                                            top:
+                                                                                5),
+                                                                        sizes: ColScreen(
+                                                                            sm: Col.col_2),
+                                                                        child: Text(
+                                                                            "Phone"),
+                                                                      ),
+                                                                      BsCol(
+                                                                        margin: EdgeInsets.only(
+                                                                            top:
+                                                                                5),
+                                                                        sizes: ColScreen(
+                                                                            sm: Col.col_1),
+                                                                        child: Text(
+                                                                            ':'),
+                                                                      ),
+                                                                      BsCol(
+                                                                        margin: EdgeInsets.only(
+                                                                            top:
+                                                                                5),
+                                                                        sizes: ColScreen(
+                                                                            sm: Col.col_9),
+                                                                        child: Text(reports
+                                                                            .prospectreport!
+                                                                            .user!
+                                                                            .userphone),
+                                                                      )
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
+                                                        ),
+                                                      ))
+                                                ],
+                                              ),
+                                            )
+                                          else
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                    'This Reported Prospect Has Not Been Defined')
+                                              ],
+                                            ),
                                           Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
@@ -760,6 +1009,8 @@ class _ProspectDetailsState extends State<ProspectDetails>
 
   @override
   void onSuccessFetchData(Response response) {
+    List assign = [];
+    List report = [];
     ProspectModel dt = ProspectModel.fromJson(response.body);
     source.prospectid.value = dt.prospectid!;
     source.prospectname.value = dt.prospectname.toString();
@@ -769,8 +1020,19 @@ class _ProspectDetailsState extends State<ProspectDetails>
     source.bpname.value = dt.prospectbp!.bpname.toString();
     source.prospectstartdate.value = dt.prospectstartdate.toString();
     source.prospectStageController.selected = dt.prospectstage;
+
     detailPresenter
         .details(context, {'id': source.prospectid.value.toString()});
+
+    dt.prospectassign?.forEach((element) {
+      assign.add(element);
+    });
+    source.assign.value = assign;
+
+    dt.prospectassign?.forEach((element) {
+      report.add(element);
+    });
+    source.report.value = report;
   }
 
   @override
@@ -785,17 +1047,21 @@ class _ProspectDetailsState extends State<ProspectDetails>
   @override
   void onCreateSuccess(Response response, {BuildContext? context}) {
     detailPresenter.setProcessing(false);
-    if (context != null) Navigator.pop(context);
+    assignPresenter.setProcessing(false);
+    Navigator.pop(context!);
+    presenter.details(context, source.prospectid.value);
     Snackbar().createSuccess();
     detailPresenter
-        .details(context!, {'id': source.prospectid.value.toString()});
+        .details(context, {'id': source.prospectid.value.toString()});
   }
 
   @override
   void onDeleteSuccess(Response response, {BuildContext? context}) {
     detailPresenter.setProcessing(false);
-    if (context != null) Navigator.pop(context);
+    assignPresenter.setProcessing(false);
     Navigator.pop(context!);
+    Navigator.pop(context);
+    presenter.details(context, source.prospectid.value);
     Snackbar().deleteSuccess();
     detailPresenter
         .details(context, {'id': source.prospectid.value.toString()});
@@ -804,8 +1070,10 @@ class _ProspectDetailsState extends State<ProspectDetails>
   @override
   void onEditSuccess(Response response, {BuildContext? context}) {
     detailPresenter.setProcessing(false);
+    assignPresenter.setProcessing(false);
     if (context != null) Navigator.pop(context);
     Navigator.pop(context!);
+    presenter.details(context, source.prospectid.value);
     Snackbar().editSuccess();
     detailPresenter
         .details(context, {'id': source.prospectid.value.toString()});

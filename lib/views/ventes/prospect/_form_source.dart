@@ -144,8 +144,9 @@ class ProspectSource extends GetxController {
         'price': inputPrices[index].text.replaceAll(',', ''),
         'quantity': inputQuantities[index].text,
         'discount': inputDiscounts[index].text,
-        'amount': inputAmounts[index].text.replaceAll(',00', ''),
-        'tax': inputTaxes[index].text.replaceAll(',', '.'),
+        'amount':
+            inputAmounts[index].text.replaceAll(',00', '').replaceAll('.', ''),
+        'tax': inputTaxes[index].text.replaceAll(',', ''),
         'taxtype': selectsTax[index].getSelectedAsString()
       };
     }));

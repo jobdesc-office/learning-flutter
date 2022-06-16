@@ -77,20 +77,25 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
             bottomRight: Radius.circular(5),
           );
         }
-
+        double x = widget.controller.options.length / 3;
         return Material(
           color: Colors.transparent,
           child: Container(
-            padding: EdgeInsets.fromLTRB(98.5, 8, 98.5, 8),
+            width: MediaQuery.of(context).size.width /
+                widget.controller.options.length /
+                x,
+            padding: EdgeInsets.fromLTRB(15, 8, 15, 8),
             decoration: BoxDecoration(
               color: backgroundColor,
               borderRadius: borderRadius,
             ),
-            child: Text(
-              type.typename,
-              style: TextStyle(
-                color: textColor,
-                fontSize: 12,
+            child: Center(
+              child: Text(
+                type.typename,
+                style: TextStyle(
+                  color: textColor,
+                  fontSize: 12,
+                ),
               ),
             ),
           ),

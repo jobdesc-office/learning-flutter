@@ -21,6 +21,7 @@ class ProspectModel {
   String? updateddate;
   bool? isactive;
   Prospectowneruser? prospectowneruser;
+  List<Prospectassign>? prospectassign;
   TypeModel? prospectstage;
   Prospectstage? prospectstatus;
   Prospectstage? prospecttype;
@@ -48,6 +49,7 @@ class ProspectModel {
       this.updateddate,
       this.isactive,
       this.prospectowneruser,
+      this.prospectassign,
       this.prospectstage,
       this.prospectstatus,
       this.prospecttype,
@@ -77,6 +79,12 @@ class ProspectModel {
     prospectowneruser = json['prospectowneruser'] != null
         ? new Prospectowneruser.fromJson(json['prospectowneruser'])
         : null;
+    if (json['prospectassign'] != null) {
+      prospectassign = <Prospectassign>[];
+      json['prospectassign'].forEach((v) {
+        prospectassign!.add(new Prospectassign.fromJson(v));
+      });
+    }
     prospectstage = json['prospectstage'] != null
         ? new TypeModel.fromJson(json['prospectstage'])
         : null;
@@ -118,6 +126,10 @@ class ProspectModel {
     if (this.prospectowneruser != null) {
       data['prospectowneruser'] = this.prospectowneruser!.toJson();
     }
+    if (this.prospectassign != null) {
+      data['prospectassign'] =
+          this.prospectassign!.map((v) => v.toJson()).toList();
+    }
     if (this.prospectstage != null) {
       data['prospectstage'] = this.prospectstage!.toJson();
     }
@@ -142,9 +154,9 @@ class Prospectowneruser {
   int? userid;
   int? userdttypeid;
   int? userdtbpid;
-  Null? userdtbranchnm;
-  Null? userdtreferalcode;
-  Null? userdtrelationid;
+  int? userdtbranchnm;
+  int? userdtreferalcode;
+  int? userdtrelationid;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -211,8 +223,8 @@ class User {
   String? userfullname;
   String? useremail;
   String? userphone;
-  Null? userdeviceid;
-  Null? userfcmtoken;
+  int? userdeviceid;
+  int? userfcmtoken;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -265,6 +277,75 @@ class User {
     data['updatedby'] = this.updatedby;
     data['updateddate'] = this.updateddate;
     data['isactive'] = this.isactive;
+    return data;
+  }
+}
+
+class Prospectassign {
+  int? prospectassignid;
+  int? prospectid;
+  int? prospectassignto;
+  int? prospectreportto;
+  String? prospectassigndesc;
+  int? createdby;
+  String? createddate;
+  int? updatedby;
+  String? updateddate;
+  bool? isactive;
+  Prospectowneruser? prospectassign;
+  Prospectowneruser? prospectreport;
+
+  Prospectassign(
+      {this.prospectassignid,
+      this.prospectid,
+      this.prospectassignto,
+      this.prospectreportto,
+      this.prospectassigndesc,
+      this.createdby,
+      this.createddate,
+      this.updatedby,
+      this.updateddate,
+      this.isactive,
+      this.prospectassign,
+      this.prospectreport});
+
+  Prospectassign.fromJson(Map<String, dynamic> json) {
+    prospectassignid = json['prospectassignid'];
+    prospectid = json['prospectid'];
+    prospectassignto = json['prospectassignto'];
+    prospectreportto = json['prospectreportto'];
+    prospectassigndesc = json['prospectassigndesc'];
+    createdby = json['createdby'];
+    createddate = json['createddate'];
+    updatedby = json['updatedby'];
+    updateddate = json['updateddate'];
+    isactive = json['isactive'];
+    prospectassign = json['prospectassign'] != null
+        ? new Prospectowneruser.fromJson(json['prospectassign'])
+        : null;
+    prospectreport = json['prospectreport'] != null
+        ? new Prospectowneruser.fromJson(json['prospectreport'])
+        : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['prospectassignid'] = this.prospectassignid;
+    data['prospectid'] = this.prospectid;
+    data['prospectassignto'] = this.prospectassignto;
+    data['prospectreportto'] = this.prospectreportto;
+    data['prospectassigndesc'] = this.prospectassigndesc;
+    data['createdby'] = this.createdby;
+    data['createddate'] = this.createddate;
+    data['updatedby'] = this.updatedby;
+    data['updateddate'] = this.updateddate;
+    data['isactive'] = this.isactive;
+    if (this.prospectassign != null) {
+      data['prospectassign'] = this.prospectassign!.toJson();
+    }
+    if (this.prospectreport != null) {
+      data['prospectreport'] = this.prospectreport!.toJson();
+    }
     return data;
   }
 }
@@ -419,7 +500,7 @@ class Prospectcust {
 
 class Sbccstm {
   int? cstmid;
-  Null? cstmprefix;
+  String? cstmprefix;
   String? cstmname;
   String? cstmphone;
   String? cstmaddress;
@@ -427,7 +508,7 @@ class Sbccstm {
   int? cstmprovinceid;
   int? cstmcityid;
   int? cstmsubdistrictid;
-  Null? cstmuvid;
+  int? cstmuvid;
   String? cstmpostalcode;
   String? cstmlatitude;
   String? cstmlongitude;

@@ -5,21 +5,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../../../contracts/base/details_view_contract.dart';
-import '../../../../models/ventes/prospectdetail_model.dart';
+import '../../../../models/ventes/prospectassign_model.dart';
 import '../../../../presenters/navigation_presenter.dart';
-import '../../../../presenters/ventes/prospectdetail_presenter.dart';
+import '../../../../presenters/ventes/prospectassign_presenter.dart';
 import '_detail_source.dart';
 import '_text.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 
-class ProspectDetailDetails extends GetView implements DetailViewContract {
-  final ProspectDetailPresenter presenter = Get.find<ProspectDetailPresenter>();
-  final prospectDetailDetailsSource controller =
-      Get.put(prospectDetailDetailsSource());
+class ProspectAssignDetails extends GetView implements DetailViewContract {
+  final ProspectAssignPresenter presenter = Get.find<ProspectAssignPresenter>();
+  final prospectAssignDetailsSource controller =
+      Get.put(prospectAssignDetailsSource());
 
-  ProspectDetailDetails() {
-    presenter.prospectDetailViewContract = this;
+  ProspectAssignDetails() {
+    presenter.ProspectAssignViewContract = this;
   }
 
   @override
@@ -37,7 +37,7 @@ class ProspectDetailDetails extends GetView implements DetailViewContract {
               ),
               children: [
                 BsModalContainer(
-                  title: Text(ProspectDetailText.title + ' Details',
+                  title: Text(ProspectAssignText.title + ' Details',
                       style: TextStyle(
                           color: _navigation.darkTheme.value
                               ? Colors.white
@@ -53,13 +53,14 @@ class ProspectDetailDetails extends GetView implements DetailViewContract {
                                 children: [
                                   BsCol(
                                       sizes: ColScreen(lg: Col.col_3),
-                                      child: Text('Type')),
+                                      child: Text('Assign To')),
                                   BsCol(
                                       sizes: ColScreen(lg: Col.col_1),
                                       child: Text(':')),
                                   BsCol(
                                       sizes: ColScreen(lg: Col.col_8),
-                                      child: Text(controller.type.value))
+                                      child: Text(
+                                          controller.assign.value.toString()))
                                 ],
                               )),
                           BsCol(
@@ -69,29 +70,14 @@ class ProspectDetailDetails extends GetView implements DetailViewContract {
                                 children: [
                                   BsCol(
                                       sizes: ColScreen(lg: Col.col_3),
-                                      child: Text('Category')),
+                                      child: Text('Report To')),
                                   BsCol(
                                       sizes: ColScreen(lg: Col.col_1),
                                       child: Text(':')),
                                   BsCol(
                                       sizes: ColScreen(lg: Col.col_8),
-                                      child: Text(controller.category.value))
-                                ],
-                              )),
-                          BsCol(
-                              margin: EdgeInsets.only(top: 10),
-                              sizes: ColScreen(lg: Col.col_12),
-                              child: BsRow(
-                                children: [
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_3),
-                                      child: Text('Date')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_1),
-                                      child: Text(':')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_8),
-                                      child: Text(controller.date.value))
+                                      child: Text(
+                                          controller.report.value.toString()))
                                 ],
                               )),
                           BsCol(
@@ -119,10 +105,10 @@ class ProspectDetailDetails extends GetView implements DetailViewContract {
 
   @override
   void onSuccessFetchData(Response response) {
-    ProspectDetailModel dt = ProspectDetailModel.fromJson(response.body);
-    controller.category.value = dt.prospectdtcat!.typename!;
-    controller.date.value = dt.prospectdtdate!;
-    controller.desc.value = dt.prospectdtdesc!;
-    controller.type.value = dt.prospectdttype!.typename!;
+    ProspectAssignModel dt = ProspectAssignModel.fromJson(response.body);
+    controller.prospectid.value = dt.prospectassignid!;
+    controller.assign.value = dt.prospectassign!.user!.userfullname!;
+    controller.report.value = dt.prospectreport!.user!.userfullname!;
+    controller.desc.value = dt.prospectassigndesc!;
   }
 }

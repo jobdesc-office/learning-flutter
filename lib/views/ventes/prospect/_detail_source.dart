@@ -5,7 +5,7 @@ import '_stagePipeline.dart';
 class prospectDetailsSource extends GetxController {
   var prospectid = 0.obs;
   var prospectname = ''.obs;
-  var prospectvalue = ''.obs;
+  var prospectvalue = '0.0'.obs;
 
   var userfullname = ''.obs;
   var bpname = ''.obs;
@@ -28,4 +28,6 @@ class prospectDetailsSource extends GetxController {
       MenuTypeOptionsController();
 
   var detailData = [].obs;
+  var assign = [].obs;
+  var report = [].obs;
 }

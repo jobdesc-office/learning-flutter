@@ -5,25 +5,23 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../contracts/base/edit_view_contract.dart';
-import '../../../../models/masters/type_model.dart';
-import '../../../../models/ventes/prospectdetail_model.dart';
-import '../../../../presenters/ventes/prospect_presenter.dart';
-import '../../../../presenters/ventes/prospectdetail_presenter.dart';
+import '../../../../models/ventes/prospectassign_model.dart';
+import '../../../../presenters/ventes/prospectassign_presenter.dart';
 import '../../../../routes/route_list.dart';
 import '../../../../widgets/button/theme_button_cancel.dart';
 import '../../../../widgets/button/theme_button_save.dart';
 import '_form_source.dart';
 
-class ProspectDetailFormView extends StatelessWidget
+class ProspectAssignFormView extends StatelessWidget
     implements EditViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
-  final ProspectDetailPresenter presenter = Get.find<ProspectDetailPresenter>();
-  final source = ProspectDetailSource().obs;
+  final ProspectAssignPresenter presenter = Get.find<ProspectAssignPresenter>();
+  final source = ProspectAssignSource().obs;
   final Function(Map<String, dynamic> body) onSave;
 
-  late ProspectDetailForm prospectForm;
+  late ProspectAssignForm prospectForm;
 
-  ProspectDetailFormView({required this.onSave, id}) {
+  ProspectAssignFormView({required this.onSave, id}) {
     presenter.setProspectFetchDataContract = this;
     source.value.id.value = id;
   }
@@ -34,7 +32,7 @@ class ProspectDetailFormView extends StatelessWidget
       body: TemplateView(
         activeRoutes: [RouteList.ventes.index, RouteList.ventesProspect.index],
         child: Obx(() {
-          prospectForm = ProspectDetailForm(source.value);
+          prospectForm = ProspectAssignForm(source.value);
           return Form(
             key: formState,
             child: Column(
@@ -53,9 +51,8 @@ class ProspectDetailFormView extends StatelessWidget
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              prospectForm.selectTypes(),
-                              prospectForm.selectCategory(),
-                              prospectForm.inputExpected(context),
+                              prospectForm.selectAssign(),
+                              prospectForm.selectReport(),
                               prospectForm.inputDesc(),
                             ],
                           ),
@@ -107,17 +104,15 @@ class ProspectDetailFormView extends StatelessWidget
     presenter.setProcessing(false);
 
     source.update((val) {
-      ProspectDetailModel prospect =
-          ProspectDetailModel.fromJson(response.body);
-      source.value.selectType.setSelected(BsSelectBoxOption(
-          value: prospect.prospectdttype!.typeid,
-          text: Text(prospect.prospectdttype!.typename.toString())));
-      source.value.selectCat.setSelected(BsSelectBoxOption(
-          value: prospect.prospectdtcat!.typeid,
-          text: Text(prospect.prospectdtcat!.typename.toString())));
-      source.value.inputDesc.text = prospect.prospectdtdesc.toString();
-      source.value.selectedDateExpect.value =
-          prospect.prospectdtdate.toString();
+      ProspectAssignModel prospect =
+          ProspectAssignModel.fromJson(response.body);
+      source.value.selectAssign.setSelected(BsSelectBoxOption(
+          value: prospect.prospectassignto,
+          text: Text(prospect.prospectassign!.user!.userfullname.toString())));
+      source.value.selectReport.setSelected(BsSelectBoxOption(
+          value: prospect.prospectreportto,
+          text: Text(prospect.prospectreport!.user!.userfullname.toString())));
+      source.value.inputDesc.text = prospect.prospectassigndesc.toString();
     });
   }
 }

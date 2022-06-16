@@ -300,226 +300,226 @@ class _HomeViewState extends State<HomeView>
                     ),
                   ],
                 )),
-            BsCol(
-                margin: EdgeInsets.only(left: 5),
-                sizes: ColScreen(sm: Col.col_4),
-                child: BsRow(
-                  children: [
-                    BsCol(
-                      margin: EdgeInsets.only(top: 12, left: 10),
-                      sizes: ColScreen(sm: Col.col_12),
-                      child: Text('Contacts'),
-                    ),
-                    BsCol(
-                      margin: EdgeInsets.only(top: 20),
-                      sizes: ColScreen(sm: Col.col_12),
-                      child: Obx(() => Container(
-                            decoration: BoxDecoration(
-                              color: _navigation.darkTheme.value
-                                  ? ColorPallates.elseDarkColor
-                                  : ColorPallates.elseLightColor,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Column(
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.all(20),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text('Bambang'),
-                                          Text('Granfather')
-                                        ],
-                                      ),
-                                      CircleAvatar(child: Icon(Icons.person))
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.all(20),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text('Dadang bin Bambang'),
-                                          Text('Father')
-                                        ],
-                                      ),
-                                      CircleAvatar(child: Icon(Icons.person))
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.all(20),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text('Jajang bin Dadang bin Bambang'),
-                                          Text('Granchild')
-                                        ],
-                                      ),
-                                      CircleAvatar(child: Icon(Icons.person))
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )),
-                    ),
-                    BsCol(
-                      margin: EdgeInsets.only(top: 20, left: 10),
-                      sizes: ColScreen(sm: Col.col_12),
-                      child: Text('Notes'),
-                    ),
-                    BsCol(
-                      margin: EdgeInsets.only(top: 20),
-                      sizes: ColScreen(sm: Col.col_12),
-                      child: Obx(() => Container(
-                            decoration: BoxDecoration(
-                              color: _navigation.darkTheme.value
-                                  ? ColorPallates.elseDarkColor
-                                  : ColorPallates.elseLightColor,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Container(
-                              margin: EdgeInsets.all(20),
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  BsRow(
-                                    children: [
-                                      BsCol(
-                                          sizes: ColScreen(sm: Col.col_12),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text('Bambang'),
-                                              Text('2 minutes ago')
-                                            ],
-                                          )),
-                                      BsCol(
-                                          margin: EdgeInsets.only(top: 10),
-                                          sizes: ColScreen(sm: Col.col_12),
-                                          child: Text(
-                                            'HUSS',
-                                            style:
-                                                TextStyle(color: Colors.grey),
-                                          ))
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )),
-                    ),
-                    BsCol(
-                      margin: EdgeInsets.only(top: 20),
-                      sizes: ColScreen(sm: Col.col_12),
-                      child: Obx(() => Container(
-                            decoration: BoxDecoration(
-                              color: _navigation.darkTheme.value
-                                  ? ColorPallates.elseDarkColor
-                                  : ColorPallates.elseLightColor,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Container(
-                              margin: EdgeInsets.all(20),
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  BsRow(
-                                    children: [
-                                      BsCol(
-                                          sizes: ColScreen(sm: Col.col_12),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                  'Jajang bin Dadang bin Bambang'),
-                                              Text('1 hours ago')
-                                            ],
-                                          )),
-                                      BsCol(
-                                          margin: EdgeInsets.only(top: 10),
-                                          sizes: ColScreen(sm: Col.col_12),
-                                          child: Text(
-                                            'Innalillahi wa innailaihi rajiun, Alhamdulillah warisan cair',
-                                            style:
-                                                TextStyle(color: Colors.grey),
-                                          ))
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )),
-                    ),
-                    BsCol(
-                      margin: EdgeInsets.only(top: 20),
-                      sizes: ColScreen(sm: Col.col_12),
-                      child: Obx(() => Container(
-                            decoration: BoxDecoration(
-                              color: _navigation.darkTheme.value
-                                  ? ColorPallates.elseDarkColor
-                                  : ColorPallates.elseLightColor,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Container(
-                              margin: EdgeInsets.all(20),
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  BsRow(
-                                    children: [
-                                      BsCol(
-                                          sizes: ColScreen(sm: Col.col_12),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text('Dadang bin Bambang'),
-                                              Text('2 hours ago')
-                                            ],
-                                          )),
-                                      BsCol(
-                                          margin: EdgeInsets.only(top: 10),
-                                          sizes: ColScreen(sm: Col.col_12),
-                                          child: Text(
-                                            'Nak, Mbah mu sedo',
-                                            style:
-                                                TextStyle(color: Colors.grey),
-                                          ))
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )),
-                    )
-                  ],
-                )),
+            // BsCol(
+            //     margin: EdgeInsets.only(left: 5),
+            //     sizes: ColScreen(sm: Col.col_4),
+            //     child: BsRow(
+            //       children: [
+            //         BsCol(
+            //           margin: EdgeInsets.only(top: 12, left: 10),
+            //           sizes: ColScreen(sm: Col.col_12),
+            //           child: Text('Contacts'),
+            //         ),
+            //         BsCol(
+            //           margin: EdgeInsets.only(top: 20),
+            //           sizes: ColScreen(sm: Col.col_12),
+            //           child: Obx(() => Container(
+            //                 decoration: BoxDecoration(
+            //                   color: _navigation.darkTheme.value
+            //                       ? ColorPallates.elseDarkColor
+            //                       : ColorPallates.elseLightColor,
+            //                   borderRadius: BorderRadius.circular(10),
+            //                 ),
+            //                 child: Column(
+            //                   children: [
+            //                     Container(
+            //                       margin: EdgeInsets.all(20),
+            //                       child: Row(
+            //                         mainAxisAlignment:
+            //                             MainAxisAlignment.spaceBetween,
+            //                         children: [
+            //                           Column(
+            //                             crossAxisAlignment:
+            //                                 CrossAxisAlignment.start,
+            //                             children: [
+            //                               Text('Bambang'),
+            //                               Text('Granfather')
+            //                             ],
+            //                           ),
+            //                           CircleAvatar(child: Icon(Icons.person))
+            //                         ],
+            //                       ),
+            //                     ),
+            //                     Container(
+            //                       margin: EdgeInsets.all(20),
+            //                       child: Row(
+            //                         mainAxisAlignment:
+            //                             MainAxisAlignment.spaceBetween,
+            //                         children: [
+            //                           Column(
+            //                             crossAxisAlignment:
+            //                                 CrossAxisAlignment.start,
+            //                             children: [
+            //                               Text('Dadang bin Bambang'),
+            //                               Text('Father')
+            //                             ],
+            //                           ),
+            //                           CircleAvatar(child: Icon(Icons.person))
+            //                         ],
+            //                       ),
+            //                     ),
+            //                     Container(
+            //                       margin: EdgeInsets.all(20),
+            //                       child: Row(
+            //                         mainAxisAlignment:
+            //                             MainAxisAlignment.spaceBetween,
+            //                         children: [
+            //                           Column(
+            //                             crossAxisAlignment:
+            //                                 CrossAxisAlignment.start,
+            //                             children: [
+            //                               Text('Jajang bin Dadang bin Bambang'),
+            //                               Text('Granchild')
+            //                             ],
+            //                           ),
+            //                           CircleAvatar(child: Icon(Icons.person))
+            //                         ],
+            //                       ),
+            //                     ),
+            //                   ],
+            //                 ),
+            //               )),
+            //         ),
+            //         BsCol(
+            //           margin: EdgeInsets.only(top: 20, left: 10),
+            //           sizes: ColScreen(sm: Col.col_12),
+            //           child: Text('Notes'),
+            //         ),
+            //         BsCol(
+            //           margin: EdgeInsets.only(top: 20),
+            //           sizes: ColScreen(sm: Col.col_12),
+            //           child: Obx(() => Container(
+            //                 decoration: BoxDecoration(
+            //                   color: _navigation.darkTheme.value
+            //                       ? ColorPallates.elseDarkColor
+            //                       : ColorPallates.elseLightColor,
+            //                   borderRadius: BorderRadius.circular(10),
+            //                 ),
+            //                 child: Container(
+            //                   margin: EdgeInsets.all(20),
+            //                   child: Column(
+            //                     mainAxisAlignment:
+            //                         MainAxisAlignment.spaceBetween,
+            //                     crossAxisAlignment: CrossAxisAlignment.start,
+            //                     children: [
+            //                       BsRow(
+            //                         children: [
+            //                           BsCol(
+            //                               sizes: ColScreen(sm: Col.col_12),
+            //                               child: Row(
+            //                                 mainAxisAlignment:
+            //                                     MainAxisAlignment.spaceBetween,
+            //                                 children: [
+            //                                   Text('Bambang'),
+            //                                   Text('2 minutes ago')
+            //                                 ],
+            //                               )),
+            //                           BsCol(
+            //                               margin: EdgeInsets.only(top: 10),
+            //                               sizes: ColScreen(sm: Col.col_12),
+            //                               child: Text(
+            //                                 'HUSS',
+            //                                 style:
+            //                                     TextStyle(color: Colors.grey),
+            //                               ))
+            //                         ],
+            //                       ),
+            //                     ],
+            //                   ),
+            //                 ),
+            //               )),
+            //         ),
+            //         BsCol(
+            //           margin: EdgeInsets.only(top: 20),
+            //           sizes: ColScreen(sm: Col.col_12),
+            //           child: Obx(() => Container(
+            //                 decoration: BoxDecoration(
+            //                   color: _navigation.darkTheme.value
+            //                       ? ColorPallates.elseDarkColor
+            //                       : ColorPallates.elseLightColor,
+            //                   borderRadius: BorderRadius.circular(10),
+            //                 ),
+            //                 child: Container(
+            //                   margin: EdgeInsets.all(20),
+            //                   child: Column(
+            //                     mainAxisAlignment:
+            //                         MainAxisAlignment.spaceBetween,
+            //                     crossAxisAlignment: CrossAxisAlignment.start,
+            //                     children: [
+            //                       BsRow(
+            //                         children: [
+            //                           BsCol(
+            //                               sizes: ColScreen(sm: Col.col_12),
+            //                               child: Row(
+            //                                 mainAxisAlignment:
+            //                                     MainAxisAlignment.spaceBetween,
+            //                                 children: [
+            //                                   Text(
+            //                                       'Jajang bin Dadang bin Bambang'),
+            //                                   Text('1 hours ago')
+            //                                 ],
+            //                               )),
+            //                           BsCol(
+            //                               margin: EdgeInsets.only(top: 10),
+            //                               sizes: ColScreen(sm: Col.col_12),
+            //                               child: Text(
+            //                                 'Innalillahi wa innailaihi rajiun, Alhamdulillah warisan cair',
+            //                                 style:
+            //                                     TextStyle(color: Colors.grey),
+            //                               ))
+            //                         ],
+            //                       ),
+            //                     ],
+            //                   ),
+            //                 ),
+            //               )),
+            //         ),
+            //         BsCol(
+            //           margin: EdgeInsets.only(top: 20),
+            //           sizes: ColScreen(sm: Col.col_12),
+            //           child: Obx(() => Container(
+            //                 decoration: BoxDecoration(
+            //                   color: _navigation.darkTheme.value
+            //                       ? ColorPallates.elseDarkColor
+            //                       : ColorPallates.elseLightColor,
+            //                   borderRadius: BorderRadius.circular(10),
+            //                 ),
+            //                 child: Container(
+            //                   margin: EdgeInsets.all(20),
+            //                   child: Column(
+            //                     mainAxisAlignment:
+            //                         MainAxisAlignment.spaceBetween,
+            //                     crossAxisAlignment: CrossAxisAlignment.start,
+            //                     children: [
+            //                       BsRow(
+            //                         children: [
+            //                           BsCol(
+            //                               sizes: ColScreen(sm: Col.col_12),
+            //                               child: Row(
+            //                                 mainAxisAlignment:
+            //                                     MainAxisAlignment.spaceBetween,
+            //                                 children: [
+            //                                   Text('Dadang bin Bambang'),
+            //                                   Text('2 hours ago')
+            //                                 ],
+            //                               )),
+            //                           BsCol(
+            //                               margin: EdgeInsets.only(top: 10),
+            //                               sizes: ColScreen(sm: Col.col_12),
+            //                               child: Text(
+            //                                 'Nak, Mbah mu sedo',
+            //                                 style:
+            //                                     TextStyle(color: Colors.grey),
+            //                               ))
+            //                         ],
+            //                       ),
+            //                     ],
+            //                   ),
+            //                 ),
+            //               )),
+            //         )
+            //       ],
+            //     )),
           ],
         ),
       ),
