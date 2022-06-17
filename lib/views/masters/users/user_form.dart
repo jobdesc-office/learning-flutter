@@ -48,7 +48,8 @@ class UserFormView extends GetView implements EditViewContract {
                   children: [
                     ButtonRoleUser(
                       onPressed: onClickAddRole,
-                      // disabled: c.role >= 3 ? true : false,
+                      disabled:
+                          source.value.selectsRole.length > 260 ? true : false,
                     )
                   ],
                 ),
@@ -120,7 +121,6 @@ class UserFormView extends GetView implements EditViewContract {
       source.value.inputEmail.text = menu.useremail!;
       source.value.inputPhone.text = menu.userphone!;
       for (var item in menu.userdetails!) {
-        source.value.dtid.add(item.userdtid);
         source.value.selectsRole.add(BsSelectBoxController(selected: [
           BsSelectBoxOption(
               value: item.usertype!.typeid,

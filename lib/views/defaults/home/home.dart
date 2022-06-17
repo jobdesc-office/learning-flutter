@@ -4,6 +4,7 @@ import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:timelines/timelines.dart';
 
@@ -12,6 +13,7 @@ import '../../../models/ventes/schedule_model.dart';
 import '../../../presenters/default/home_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
+import '../../../widgets/snackbar.dart';
 import '../../skins/template.dart';
 import '_source.dart';
 
@@ -185,10 +187,36 @@ class _HomeViewState extends State<HomeView>
                                                       Container(
                                                         margin: EdgeInsets.only(
                                                             top: 5),
-                                                        child: Text(
-                                                            schedule.online
-                                                                ? 'Online'
-                                                                : 'Offline'),
+                                                        child: Tooltip(
+                                                          message:
+                                                              'Tap to Copy',
+                                                          child:
+                                                              GestureDetector(
+                                                            onTap: () {
+                                                              Clipboard.setData(ClipboardData(
+                                                                  text: schedule
+                                                                              .scheonlink !=
+                                                                          null
+                                                                      ? schedule
+                                                                          .scheonlink
+                                                                      : schedule
+                                                                          .scheloc));
+                                                              Snackbar()
+                                                                  .copySuccess();
+                                                            },
+                                                            child: Text(
+                                                                schedule.scheonlink !=
+                                                                        null
+                                                                    ? schedule
+                                                                        .scheonlink
+                                                                    : schedule
+                                                                        .scheloc,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 11,
+                                                                )),
+                                                          ),
+                                                        ),
                                                       ),
                                                     ],
                                                   )),

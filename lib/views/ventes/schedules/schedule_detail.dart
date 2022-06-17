@@ -188,7 +188,8 @@ class ScheduleDetails extends GetView implements DetailViewContract {
                                       child: Text(':')),
                                   BsCol(
                                       sizes: ColScreen(lg: Col.col_8),
-                                      child: Text(controller.remind.value))
+                                      child: Text(
+                                          controller.remind.value.toString()))
                                 ],
                               )),
                           BsCol(
@@ -289,22 +290,22 @@ class ScheduleDetails extends GetView implements DetailViewContract {
   @override
   void onSuccessFetchData(Response response) {
     ScheduleModel dt = ScheduleModel.fromJson(response.body);
-    controller.title.value = dt.schenm;
-    controller.name.value = dt.userfullname;
-    controller.startdate.value = dt.schestartdate;
-    controller.starttime.value = dt.schestarttime;
-    controller.enddate.value = dt.scheenddate;
-    controller.endtime.value = dt.scheendtime;
-    controller.link.value = dt.link;
-    controller.loc.value = dt.loc;
-    controller.remind.value = dt.remind;
-    controller.timezone.value = dt.timezone;
+    controller.title.value = dt.schenm ?? '';
+    controller.name.value = dt.schetoward!.userfullname ?? '';
+    controller.startdate.value = dt.schestartdate ?? '';
+    controller.starttime.value = dt.schestarttime ?? '';
+    controller.enddate.value = dt.scheenddate ?? '';
+    controller.endtime.value = dt.scheendtime ?? '';
+    controller.link.value = dt.scheonlink ?? '';
+    controller.loc.value = dt.scheloc ?? '';
+    controller.remind.value = dt.scheremind ?? 0;
+    controller.timezone.value = dt.schetz ?? '';
 
-    controller.desc.value = dt.schedesc;
-    controller.type.value = dt.typename;
-    controller.allday.value = dt.allday;
-    controller.online.value = dt.online;
-    controller.private.value = dt.private;
-    controller.bp.value = dt.bpname;
+    controller.desc.value = dt.schedesc ?? '';
+    controller.type.value = dt.schetype!.typename ?? '';
+    controller.allday.value = dt.scheallday ?? false;
+    controller.online.value = dt.scheonline ?? false;
+    controller.private.value = dt.scheprivate ?? false;
+    controller.bp.value = dt.schebp!.bpname ?? '';
   }
 }

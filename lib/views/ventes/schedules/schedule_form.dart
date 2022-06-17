@@ -15,6 +15,7 @@ import '../../../widgets/button/theme_button_save.dart';
 import '../../../widgets/map/_map_source.dart';
 import '../../../widgets/snackbar.dart';
 import '_form_source.dart';
+import '_text.dart';
 
 class ScheduleFormView extends StatelessWidget
     implements IndexViewContract, EditViewContract {
@@ -55,20 +56,23 @@ class ScheduleFormView extends StatelessWidget
                 menuForm.inputRemind(),
                 Row(
                   children: [
-                    BsButton(
-                      style: BsButtonStyle(
-                        backgroundColor: ColorPallates.secondary,
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(5),
+                    Container(
+                      margin: EdgeInsets.only(bottom: 10),
+                      child: BsButton(
+                        style: BsButtonStyle(
+                          backgroundColor: ColorPallates.secondary,
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        size: BsButtonSize(
+                          padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                          fontSize: 12,
+                          iconSize: 14,
+                        ),
+                        label: Text('Add ' + ScheduleText.labelGuest),
+                        onPressed: onClickAddRole,
+                        // disabled: c.role >= 3 ? true : false,
                       ),
-                      size: BsButtonSize(
-                        padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                        fontSize: 12,
-                        iconSize: 14,
-                      ),
-                      label: Text('Add Member'),
-                      onPressed: onClickAddRole,
-                      // disabled: c.role >= 3 ? true : false,
                     )
                   ],
                 ),
@@ -138,47 +142,69 @@ class ScheduleFormView extends StatelessWidget
 
     source.update((val) {
       ScheduleModel menu = ScheduleModel.fromJson(response.body);
-      source.value.inputName.text = menu.schenm;
-      source.value.inputOnLink.text = menu.link;
-      source.value.inputDesc.text = menu.schedesc;
-      source.value.inputRemind.text = menu.remind;
+      source.value.inputName.text = menu.schenm ?? '';
+      source.value.inputOnLink.text = menu.scheonlink ?? '';
+      source.value.inputDesc.text = menu.schedesc ?? '';
+      source.value.inputRemind.text = menu.scheremind.toString();
 
-      source.value.selectType.setSelected(
-          BsSelectBoxOption(value: menu.typeid, text: Text(menu.typename)));
-      source.value.selectToward.setSelected(
-          BsSelectBoxOption(value: menu.userid, text: Text(menu.userfullname)));
+      source.value.selectType.setSelected(BsSelectBoxOption(
+          value: menu.schetype!.typeid,
+          text: Text(menu.schetype!.typename.toString())));
+      source.value.selectToward.setSelected(BsSelectBoxOption(
+          value: menu.schebp!.bpid,
+          text: Text(menu.schebp!.bpname.toString())));
       source.value.selectTimeZone.setSelected(
-          BsSelectBoxOption(value: menu.timezone, text: Text(menu.timezone)));
-      source.value.selectBp.setSelected(
-          BsSelectBoxOption(value: menu.bpid, text: Text(menu.bpname)));
+          BsSelectBoxOption(value: menu.schetz, text: Text(menu.schetz!)));
 
-      source.value.selectsMember.add(BsSelectBoxController());
-      source.value.selectsPermission.add(BsSelectBoxController(options: [
-        BsSelectBoxOption(value: '{1}', text: Text('Read Only')),
-        BsSelectBoxOption(value: '{2}', text: Text('Add Member')),
-        BsSelectBoxOption(value: '{3}', text: Text('Share Link')),
-        BsSelectBoxOption(value: '{2,3}', text: Text('Add Member & Share Link'))
-      ]));
+      // source.value.selectsMember.add(BsSelectBoxController());
+      // source.value.selectsPermission.add(BsSelectBoxController(options: [
+      //   BsSelectBoxOption(value: '{1}', text: Text('Read Only')),
+      //   BsSelectBoxOption(value: '{2}', text: Text('Add Member')),
+      //   BsSelectBoxOption(value: '{3}', text: Text('Share Link')),
+      //   BsSelectBoxOption(value: '{2,3}', text: Text('Add Member & Share Link'))
+      // ]));
+      String x;
+      for (var item in menu.scheguest!) {
+        switch (item.schepermisid) {
+          case '{1}':
+            x = 'Read Only';
+            break;
+          case '{2}':
+            x = 'Add Member';
+            break;
+          case '{3}':
+            x = 'Share Link';
+            break;
+          default:
+            x = 'Add Member & Share Link';
+            break;
+        }
+        source.value.selectsMember.add(BsSelectBoxController(selected: [
+          BsSelectBoxOption(
+              value: item.scheuser!.userid,
+              text: Text(item.scheuser!.userfullname!))
+        ]));
+        source.value.selectsPermission.add(BsSelectBoxController(selected: [
+          BsSelectBoxOption(value: item.schepermisid, text: Text(x))
+        ], options: [
+          BsSelectBoxOption(value: '{1}', text: Text('Read Only')),
+          BsSelectBoxOption(value: '{2}', text: Text('Add Member')),
+          BsSelectBoxOption(value: '{3}', text: Text('Share Link')),
+          BsSelectBoxOption(
+              value: '{2,3}', text: Text('Add Member & Share Link'))
+        ]));
+      }
 
-      source.value.selectsMember.forEach((element) {
-        element.setSelected(BsSelectBoxOption(
-            value: menu.userid, text: Text(menu.userfullname)));
-      });
-      source.value.selectsPermission.forEach((element) {
-        element.setSelected(
-            BsSelectBoxOption(value: menu.bpid, text: Text(menu.bpname)));
-      });
-
-      source.value.selectedDateStart.value = menu.schestartdate;
-      source.value.selectedDateEnd.value = menu.scheenddate;
-      source.value.selectedDateAct.value = menu.scheactdate;
-      source.value.selectedTimeStart.value = menu.schestarttime;
-      source.value.selectedTimeEnd.value = menu.scheendtime;
-      source.value.inputOnLink.text = menu.link;
-      source.value.online.value = menu.online;
-      source.value.allDay.value = menu.allday;
-      source.value.private.value = menu.private;
-      map.linkCoordinate.value = menu.loc;
+      source.value.selectedDateStart.value = menu.schestartdate ?? '';
+      source.value.selectedDateEnd.value = menu.scheenddate ?? '';
+      source.value.selectedDateAct.value = menu.scheactdate ?? '';
+      source.value.selectedTimeStart.value = menu.schestarttime ?? '';
+      source.value.selectedTimeEnd.value = menu.scheendtime ?? '';
+      source.value.inputOnLink.text = menu.scheonlink ?? '';
+      source.value.online.value = menu.scheonline ?? false;
+      source.value.allDay.value = menu.scheallday ?? false;
+      source.value.private.value = menu.scheprivate ?? false;
+      map.linkCoordinate.value = menu.scheloc ?? '';
     });
   }
 

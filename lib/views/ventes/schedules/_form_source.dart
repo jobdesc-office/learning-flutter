@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 
 import '../../../constants/base_text.dart';
 import '../../../models/session_model.dart';
+import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../styles/color_palattes.dart';
 import '../../../utils/session_manager.dart';
@@ -26,6 +27,9 @@ final _navigation = Get.find<NavigationPresenter>();
 
 class ScheduleSource extends GetxController {
   final map = Get.put(mapSource());
+
+  final _auth = Get.put(AuthPresenter());
+
   bool isProcessing = false;
 
   var selectedDateStart = ''.obs;
@@ -45,7 +49,6 @@ class ScheduleSource extends GetxController {
   BsSelectBoxController selectType = BsSelectBoxController();
   BsSelectBoxController selectToward = BsSelectBoxController();
   BsSelectBoxController selectTimeZone = BsSelectBoxController();
-  BsSelectBoxController selectBp = BsSelectBoxController();
   // BsSelectBoxController selectPermission = BsSelectBoxController(options: [
   //   BsSelectBoxOption(value: '{1}', text: Text('Read Only')),
   //   BsSelectBoxOption(value: '{2}', text: Text('Add Member')),
@@ -63,8 +66,8 @@ class ScheduleSource extends GetxController {
       int index = selectsMember.indexOf(controller);
       return {
         'scheuserid': selectsMember[index].getSelectedAsString(),
-        'schebpid': selectBp.getSelectedAsString(),
-        'schepermisid': selectsPermission[index].getSelectedAsString(),
+        'schebpid': _auth.bpActiveId.value,
+        'schepermisid': selectsPermission[index].getSelectedAsString()
       };
     }));
   }
@@ -80,7 +83,7 @@ class ScheduleSource extends GetxController {
       'schetypeid': selectType.getSelectedAsString(),
       'scheactdate': selectedDateAct.value,
       'schetowardid': selectToward.getSelectedAsString(),
-      'schebpid': selectBp.getSelectedAsString(),
+      'schebpid': _auth.bpActiveId.value,
       'scheallday': allDay.value,
       'scheloc': map.linkCoordinate.value,
       'scheprivate': private.value,
@@ -113,19 +116,11 @@ class ScheduleForm {
           return BsRow(
             children: [
               BsCol(
-                margin: EdgeInsets.only(left: 5, top: 3),
-                sizes: ColScreen(lg: Col.col_1),
-                child: FormGroup(
-                  child: ButtonMultipleCancel(
-                      margin: EdgeInsets.only(left: 10),
-                      onPressed: () => onRemoveItem(index)),
-                ),
-              ),
-              BsCol(
                 margin: EdgeInsets.only(right: 10),
                 sizes: ColScreen(lg: Col.col_5),
                 child: FormGroup(
-                  label: Obx(() => Text('Member ${index + 1}',
+                  label: Obx(() => Text(
+                      ScheduleText.labelGuest + ' ${index + 1}',
                       style: TextStyle(
                           color: _navigation.darkTheme.value
                               ? Colors.white
@@ -134,8 +129,8 @@ class ScheduleForm {
                     searchable: true,
                     disabled: source.isProcessing,
                     controller: selectMember,
-                    hintText:
-                        BaseText.hiintSelect(field: 'Member ${index + 1}'),
+                    hintText: BaseText.hiintSelect(
+                        field: ScheduleText.labelGuest + ' ${index + 1}'),
                     serverSide: (params) => selectApiProspectOwner(params),
                   ),
                 ),
@@ -144,7 +139,8 @@ class ScheduleForm {
                 margin: EdgeInsets.only(right: 10),
                 sizes: ColScreen(lg: Col.col_5),
                 child: FormGroup(
-                  label: Obx(() => Text('Permission ${index + 1}',
+                  label: Obx(() => Text(
+                      ScheduleText.labelPermission + ' ${index + 1}',
                       style: TextStyle(
                           color: _navigation.darkTheme.value
                               ? Colors.white
@@ -153,11 +149,30 @@ class ScheduleForm {
                     searchable: false,
                     disabled: source.isProcessing,
                     controller: selectPermission,
-                    hintText:
-                        BaseText.hiintSelect(field: 'Permission ${index + 1}'),
+                    hintText: BaseText.hiintSelect(
+                        field: ScheduleText.labelPermission + ' ${index + 1}'),
                   ),
                 ),
               ),
+              BsCol(
+                margin: EdgeInsets.only(left: 5, top: 3),
+                sizes: ColScreen(lg: Col.col_1),
+                child: FormGroup(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(top: 12),
+                        child: Center(
+                          child: ButtonMultipleCancel(
+                              margin: EdgeInsets.only(left: 10),
+                              onPressed: () => onRemoveItem(index)),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
             ],
           );
         }).toList(),
@@ -367,7 +382,7 @@ class ScheduleForm {
       children: [
         BsCol(
           margin: EdgeInsets.only(right: 10),
-          sizes: ColScreen(lg: Col.col_6),
+          sizes: ColScreen(lg: Col.col_12),
           child: FormGroup(
             label: Obx(() => Text(ScheduleText.labelType,
                 style: TextStyle(
@@ -380,24 +395,6 @@ class ScheduleForm {
               controller: source.selectType,
               hintText: BaseText.hiintSelect(field: ScheduleText.labelType),
               serverSide: (params) => selectApiTypeSchedule(params),
-            ),
-          ),
-        ),
-        BsCol(
-          margin: EdgeInsets.only(left: 10),
-          sizes: ColScreen(lg: Col.col_6),
-          child: FormGroup(
-            label: Obx(() => Text(ScheduleText.labelBp,
-                style: TextStyle(
-                    color: _navigation.darkTheme.value
-                        ? Colors.white
-                        : Colors.black))),
-            child: CustomSelectBox(
-              searchable: true,
-              disabled: source.isProcessing,
-              controller: source.selectBp,
-              hintText: BaseText.hiintSelect(field: ScheduleText.labelBp),
-              serverSide: (params) => selectApiPartner(params),
             ),
           ),
         ),

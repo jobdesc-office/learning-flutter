@@ -32,8 +32,6 @@ class UserSource extends GetxController {
 
   bool isProcessing = false;
 
-  List dtid = [];
-
   TextEditingController inputName = TextEditingController();
   TextEditingController inputPassword = TextEditingController();
   TextEditingController inputConfirmPassword = TextEditingController();
@@ -52,7 +50,6 @@ class UserSource extends GetxController {
       return {
         'roleid': selectsRole[index].getSelectedAsString(),
         'bpid': selectsBp[index].getSelectedAsString(),
-        'userdtid': dtid[index]
       };
     }));
   }
@@ -89,17 +86,6 @@ class UserForm {
           return BsRow(
             children: [
               BsCol(
-                margin: EdgeInsets.only(left: 5, top: 3),
-                sizes: ColScreen(lg: Col.col_2),
-                child: FormGroup(
-                  child: ButtonMultipleCancel(
-                    margin: EdgeInsets.only(left: 10),
-                    onPressed: () => onRemoveItem(index),
-                    disabled: source.selectsRole.length > 1 ? false : true,
-                  ),
-                ),
-              ),
-              BsCol(
                 margin: EdgeInsets.only(right: 5),
                 sizes: ColScreen(lg: Col.col_5),
                 child: FormGroup(
@@ -107,7 +93,8 @@ class UserForm {
                     searchable: false,
                     disabled: source.isProcessing,
                     controller: selectRole,
-                    hintText: BaseText.hiintSelect(field: UserText.labelRole),
+                    hintText: BaseText.hiintSelect(
+                        field: UserText.labelRole + ' ${index + 1}'),
                     serverSide: (params) => selectApiRole(params),
                   ),
                 ),
@@ -120,11 +107,23 @@ class UserForm {
                     searchable: true,
                     disabled: source.isProcessing,
                     controller: selectBp,
-                    hintText: BaseText.hiintSelect(field: UserText.labelBp),
+                    hintText: BaseText.hiintSelect(
+                        field: UserText.labelBp + ' ${index + 1}'),
                     serverSide: (params) => selectApiPartner(params),
                   ),
                 ),
-              )
+              ),
+              BsCol(
+                margin: EdgeInsets.only(left: 5, top: 3),
+                sizes: ColScreen(lg: Col.col_2),
+                child: FormGroup(
+                  child: ButtonMultipleCancel(
+                    margin: EdgeInsets.only(left: 10),
+                    onPressed: () => onRemoveItem(index),
+                    disabled: source.selectsRole.length > 1 ? false : true,
+                  ),
+                ),
+              ),
             ],
           );
         }).toList(),

@@ -10,7 +10,8 @@ class ScheduleText {
   static String labelName = 'Title';
   static String labelType = 'Type';
   static String labelToward = 'Toward';
-  static String labelMember = 'Member';
+  static String labelGuest = 'Guest';
+  static String labelPermission = 'Permission';
   static String labelBp = 'Business Partner';
   static String labelOnline = 'Online';
   static String labelAllDay = 'All Day';

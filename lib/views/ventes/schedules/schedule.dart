@@ -67,7 +67,7 @@ class ScheduleView extends GetView
                           final ScheduleModel _meeting =
                               details.appointments![0];
 
-                          presenter.details(context, _meeting.scheid);
+                          presenter.details(context, _meeting.scheid!);
                         }
                       },
                       onLongPress: (details) {
@@ -82,12 +82,12 @@ class ScheduleView extends GetView
                             middleText: '${_meeting.schenm}',
                             actions: [
                               ButtonEditDatatables(onPressed: () {
-                                presenter.edit(context, _meeting.scheid);
+                                presenter.edit(context, _meeting.scheid!);
                               }),
                               ButtonDeleteDatatables(
                                 onPressed: () {
-                                  presenter.delete(context, _meeting.scheid,
-                                      _meeting.schenm);
+                                  presenter.delete(context, _meeting.scheid!,
+                                      _meeting.schenm!);
                                 },
                               ),
                             ],
