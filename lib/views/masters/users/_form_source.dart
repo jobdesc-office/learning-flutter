@@ -23,6 +23,7 @@ final _navigation = Get.find<NavigationPresenter>();
 class UserSource extends GetxController {
   var role = 1.obs;
   var partner = 1.obs;
+  var isAdd = true;
 
   increase() {
     selectsRole.add(BsSelectBoxController());
@@ -31,6 +32,8 @@ class UserSource extends GetxController {
 
   bool isProcessing = false;
 
+  List dtid = [];
+
   TextEditingController inputName = TextEditingController();
   TextEditingController inputPassword = TextEditingController();
   TextEditingController inputConfirmPassword = TextEditingController();
@@ -38,19 +41,18 @@ class UserSource extends GetxController {
   TextEditingController inputEmail = TextEditingController();
   TextEditingController inputPhone = TextEditingController();
 
-  List<BsSelectBoxController> selectsRole = List<BsSelectBoxController>.filled(
-      1, BsSelectBoxController(),
-      growable: true);
-  List<BsSelectBoxController> selectsBp = List<BsSelectBoxController>.filled(
-      1, BsSelectBoxController(),
-      growable: true);
+  List<BsSelectBoxController> selectsRole =
+      List<BsSelectBoxController>.empty(growable: true);
+  List<BsSelectBoxController> selectsBp =
+      List<BsSelectBoxController>.empty(growable: true);
 
   List<Map<String, dynamic>> jsonRoles() {
     return List<Map<String, dynamic>>.from(selectsRole.map((controller) {
       int index = selectsRole.indexOf(controller);
       return {
         'roleid': selectsRole[index].getSelectedAsString(),
-        'bpid': selectsBp[index].getSelectedAsString()
+        'bpid': selectsBp[index].getSelectedAsString(),
+        'userdtid': dtid[index]
       };
     }));
   }
@@ -161,9 +163,9 @@ class UserForm {
         controller: source.inputPassword,
         hintText: BaseText.hintText(field: UserText.labelPassword),
         validators: [
-          Validators.inputRequired(UserText.labelPassword),
-          Validators.maxLength(UserText.labelPassword, 100),
-          Validators.minLength(UserText.labelPassword, 7),
+          if (c.isAdd) Validators.inputRequired(UserText.labelPassword),
+          if (c.isAdd) Validators.maxLength(UserText.labelPassword, 100),
+          if (c.isAdd) Validators.minLength(UserText.labelPassword, 7),
         ],
       ),
     );
@@ -182,12 +184,13 @@ class UserForm {
         controller: source.inputConfirmPassword,
         hintText: BaseText.hintText(field: UserText.labelConfirmPassword),
         validators: [
-          BsInputValidator(validator: ((value) {
-            if (value != source.inputPassword.text) {
-              return 'Confirm password is different';
-            }
-            return null;
-          })),
+          if (c.isAdd)
+            BsInputValidator(validator: ((value) {
+              if (value != source.inputPassword.text) {
+                return 'Confirm password is different';
+              }
+              return null;
+            })),
         ],
       ),
     );

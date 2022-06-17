@@ -6,7 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import '../contracts/auth/guard_contract.dart';
 import '../contracts/auth/login_view_contract.dart';
 import '../contracts/auth/logout_view_contract.dart';
-import '../models/masters/user_model.dart';
+import '../models/auth_model.dart';
 import '../services/auth_service.dart';
 import '../utils/custom_get_controller.dart';
 import '../utils/session_manager.dart';
@@ -14,7 +14,8 @@ import '../views/signin/_source.dart';
 import 'navigation_presenter.dart';
 
 class AuthPresenter extends CustomGetXController {
-  var detail = [];
+  final box = GetStorage();
+  var detail = [].obs;
   var roleActiveId = 0.obs;
   var roleActive = ''.obs;
   var bpActiveId = 0.obs;
@@ -50,7 +51,7 @@ class AuthPresenter extends CustomGetXController {
           source.value.inputPassword.text,
         )
         .then((value) => value.body != null
-            ? _loginViewContract.onLoginSuccess(UserModel.fromJson(value.body))
+            ? _loginViewContract.onLoginSuccess(AuthModel.fromJson(value.body))
             : _loginViewContract.onErrorResponse())
         .catchError(
           (message) => _loginViewContract.onLoginFailed(message),
@@ -58,10 +59,10 @@ class AuthPresenter extends CustomGetXController {
   }
 
   void signOut() {
-    final box = GetStorage();
     box.remove('name');
     box.remove('id');
     box.remove('username');
+    box.remove('details');
     _authService.signOut().then((res) {
       _logoutViewContract.onLogoutSuccess();
       isAuthenticated.value = false;

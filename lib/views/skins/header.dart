@@ -22,9 +22,9 @@ class HeaderSkins extends StatelessWidget implements LogoutViewContract {
 
   HeaderSkins() {
     checkJwtToken();
-    if (_auth.detail.isEmpty) {
-      _auth.signOut();
-    }
+    // if (_auth.detail.isEmpty) {
+    //   _auth.signOut();
+    // }
     _auth.logoutViewContract = this;
   }
 

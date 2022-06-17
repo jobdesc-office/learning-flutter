@@ -12,12 +12,14 @@ import '../../../widgets/datatables/custom_datatable.dart';
 import '../../../widgets/snackbar.dart';
 import '../../skins/template.dart';
 import '_datatable_source.dart';
+import '_form_source.dart';
 import '_text.dart';
 
 class UserView extends GetView
     implements IndexViewContract, HandleErrorRequest {
   final presenter = Get.find<UserPresenter>();
   final datatable = UserDataTableSource();
+  final UserSource c = Get.put(UserSource());
 
   UserView() {
     presenter.userViewContract = this;
@@ -73,6 +75,7 @@ class UserView extends GetView
 
   @override
   void onEditSuccess(Response response, {BuildContext? context}) {
+    c.isAdd = true;
     presenter.setProcessing(false);
     datatable.controller.reload();
     if (context != null) Navigator.pop(context);

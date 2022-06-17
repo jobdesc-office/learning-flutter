@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/details_view_contract.dart';
+import '../../../models/masters/user_model.dart';
 import '../../../models/masters/userdt_model.dart';
 import '../../../presenters/masters/user_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
@@ -118,13 +119,13 @@ class UserDetails extends GetView implements DetailViewContract {
 
   @override
   void onSuccessFetchData(Response response) {
-    UserDetailModel dt = UserDetailModel.fromJson(response.body);
-    controller.name.value = dt.userfullname;
-    controller.username.value = dt.username;
-    controller.email.value = dt.useremail;
-    controller.phone.value = dt.userphone;
-    controller.type.value = dt.typename;
-    controller.bp.value = dt.bpname;
-    controller.active.value = dt.isactive;
+    UserModel dt = UserModel.fromJson(response.body);
+    controller.name.value = dt.userfullname!;
+    controller.username.value = dt.username!;
+    controller.email.value = dt.useremail!;
+    controller.phone.value = dt.userphone!;
+    controller.type.value = dt.userdetails!.first.usertype!.typename!;
+    controller.bp.value = dt.userdetails!.first.businesspartner!.bpname!;
+    controller.active.value = dt.isactive!;
   }
 }

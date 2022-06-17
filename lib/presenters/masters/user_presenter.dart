@@ -7,12 +7,13 @@ import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
 import '../../services/masters/user_service.dart';
 import '../../utils/custom_get_controller.dart';
+import '../../views/masters/users/_form_source.dart';
 import '../../views/masters/users/user_details.dart';
 import '../../views/masters/users/user_form.dart';
 import '../../widgets/confirm_dialog.dart';
 
 class UserPresenter extends CustomGetXController {
-  Rx<List<Widget>> role = Rx<List<Widget>>([]);
+  final UserSource c = Get.put(UserSource());
   final _userService = Get.find<UserService>();
 
   late IndexViewContract _userViewContract;
@@ -87,6 +88,7 @@ class UserPresenter extends CustomGetXController {
         onSave: (body) => update(context, body, userid),
       ),
     );
+    c.isAdd = false;
 
     Response response = await _userService.show(userid);
     if (response.statusCode == 200)

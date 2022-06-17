@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 import '../../../contracts/base/details_view_contract.dart';
+import '../../../models/masters/user_model.dart';
 import '../../../models/masters/userdt_model.dart';
 import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/masters/user_presenter.dart';
@@ -399,12 +400,12 @@ class ProfileProfileView extends GetView implements DetailViewContract {
 
   @override
   void onSuccessFetchData(Response response) {
-    UserDetailModel dt = UserDetailModel.fromJson(response.body);
-    control.userfullname.value = dt.userfullname;
-    control.username.value = dt.username;
-    control.useremail.value = dt.useremail;
-    control.userphone.value = dt.userphone;
-    control.userrole.value = dt.typename;
-    control.userbp.value = dt.bpname;
+    UserModel dt = UserModel.fromJson(response.body);
+    control.userfullname.value = dt.userfullname!;
+    control.username.value = dt.username!;
+    control.useremail.value = dt.useremail!;
+    control.userphone.value = dt.userphone!;
+    control.userrole.value = dt.userdetails!.first.usertype!.typename!;
+    control.userbp.value = dt.userdetails!.first.businesspartner!.bpname!;
   }
 }

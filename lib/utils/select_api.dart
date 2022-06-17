@@ -12,6 +12,7 @@ import '../models/masters/country_model.dart';
 import '../models/masters/customer_model.dart';
 import '../models/masters/product_model.dart';
 import '../models/masters/province_model.dart';
+import '../models/auth_model.dart';
 import '../models/masters/user_model.dart';
 import '../models/ventes/bpcustomer_model.dart';
 import '../models/ventes/selectbp_model.dart';

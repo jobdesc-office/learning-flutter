@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/edit_view_contract.dart';
+import '../../../models/masters/user_model.dart';
 import '../../../models/masters/userdt_model.dart';
 import '../../../presenters/masters/user_presenter.dart';
 import '../../../routes/route_list.dart';
@@ -101,6 +102,7 @@ class UserFormView extends GetView implements EditViewContract {
   }
 
   void onClickCancelModal(BuildContext context) {
+    c.isAdd = true;
     Navigator.pop(context);
   }
 
@@ -109,25 +111,27 @@ class UserFormView extends GetView implements EditViewContract {
     presenter.setProcessing(false);
 
     source.update((val) {
-      UserDetailModel menu = UserDetailModel.fromJson(response.body);
-      source.value.inputName.text = menu.username;
+      UserModel menu = UserModel.fromJson(response.body);
+      source.value.inputName.text = menu.username!;
       // source.value.inputPassword.text = menu.userpassword;
       // source.value.inputConfirmPassword.text = menu.userpassword;
 
-      source.value.selectsBp.add(BsSelectBoxController());
-      source.value.selectsRole.add(BsSelectBoxController());
-      source.value.selectsRole.forEach((element) {
-        element.setSelected(
-            BsSelectBoxOption(value: menu.typeid, text: Text(menu.typename)));
-      });
-      source.value.selectsBp.forEach((element) {
-        element.setSelected(
-            BsSelectBoxOption(value: menu.bpid, text: Text(menu.bpname)));
-      });
-
-      source.value.inputFullName.text = menu.userfullname;
-      source.value.inputEmail.text = menu.useremail;
-      source.value.inputPhone.text = menu.userphone;
+      source.value.inputFullName.text = menu.userfullname!;
+      source.value.inputEmail.text = menu.useremail!;
+      source.value.inputPhone.text = menu.userphone!;
+      for (var item in menu.userdetails!) {
+        source.value.dtid.add(item.userdtid);
+        source.value.selectsRole.add(BsSelectBoxController(selected: [
+          BsSelectBoxOption(
+              value: item.usertype!.typeid,
+              text: Text(item.usertype!.typename!))
+        ]));
+        source.value.selectsBp.add(BsSelectBoxController(selected: [
+          BsSelectBoxOption(
+              value: item.businesspartner!.bpid,
+              text: Text(item.businesspartner!.bpname!))
+        ]));
+      }
     });
   }
 }

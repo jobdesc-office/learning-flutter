@@ -1,7 +1,7 @@
-import 'package:boilerplate/models/masters/user_model.dart';
+import 'package:boilerplate/models/auth_model.dart';
 
 abstract class LoginViewContract {
-  void onLoginSuccess(UserModel userModel);
+  void onLoginSuccess(AuthModel userModel);
 
   void onLoginFailed(String message);
 

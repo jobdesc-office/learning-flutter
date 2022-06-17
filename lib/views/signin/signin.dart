@@ -4,7 +4,7 @@ import 'package:get_storage/get_storage.dart';
 
 import '../../contracts/auth/login_view_contract.dart';
 import '../../helpers/function.dart';
-import '../../models/masters/user_model.dart';
+import '../../models/auth_model.dart';
 import '../../models/session_model.dart';
 import '../../presenters/auth_presenter.dart';
 import '../../routes/route_list.dart';
@@ -271,7 +271,7 @@ class _SignInViewState extends State<SignInView>
   }
 
   @override
-  void onLoginSuccess(UserModel userModel) {
+  void onLoginSuccess(AuthModel userModel) {
     final box = GetStorage();
     List data = [];
     box.write('name', userModel.userfullname!);
@@ -280,7 +280,7 @@ class _SignInViewState extends State<SignInView>
     for (var item in userModel.userdetails!) {
       data.add(item);
     }
-    authPresenter.detail = data;
+    authPresenter.detail.value = data;
 
     authPresenter.roleActive.value =
         userModel.userdetails!.first.usertype!.typename!;
