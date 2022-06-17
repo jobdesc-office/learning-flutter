@@ -48,14 +48,6 @@ class ProspectPresenter extends CustomGetXController {
     _prospectTypeViewDetailContract = prospectTypeViewContract;
   }
 
-  Future getBpId(String id) async {
-    Response response = await _userService.show(parseInt(id));
-    if (response.statusCode == 200) {
-      return response.body['businesspartner']['bpid'];
-    }
-    return null;
-  }
-
   Future datatables(BuildContext context, Map<String, String> params) async {
     Response response = await _prospectService.datatables(params);
     if (response.statusCode == 200)

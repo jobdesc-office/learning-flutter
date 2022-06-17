@@ -13,6 +13,7 @@ import 'package:intl/intl.dart';
 import '../../../constants/base_text.dart';
 import '../../../helpers/function.dart';
 import '../../../models/session_model.dart';
+import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../presenters/ventes/prospect_presenter.dart';
 import '../../../styles/color_palattes.dart';
@@ -30,6 +31,7 @@ import '_form_controller.dart';
 import '_text.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
+final _auth = Get.put(AuthPresenter());
 
 class ProspectSource extends GetxController {
   final _presenter = Get.find<ProspectPresenter>();
@@ -75,12 +77,10 @@ class ProspectSource extends GetxController {
   // TextEditingController inputPhone = TextEditingController();
   TextEditingController inputDesc = TextEditingController();
 
-  List<BsSelectBoxController> selectsTax = List<BsSelectBoxController>.filled(
-      1, BsSelectBoxController(),
-      growable: true);
-  List<BsSelectBoxController> selectsItem = List<BsSelectBoxController>.filled(
-      1, BsSelectBoxController(),
-      growable: true);
+  List<BsSelectBoxController> selectsTax =
+      List<BsSelectBoxController>.empty(growable: true);
+  List<BsSelectBoxController> selectsItem =
+      List<BsSelectBoxController>.empty(growable: true);
 
   // List<BsSelectBoxController> selectsPrivationEmail =
   //     List<BsSelectBoxController>.filled(
@@ -106,21 +106,16 @@ class ProspectSource extends GetxController {
   //     1, TextEditingController(),
   //     growable: true);
 
-  List<TextEditingController> inputPrices = List<TextEditingController>.filled(
-      1, TextEditingController(),
-      growable: true);
+  List<TextEditingController> inputPrices =
+      List<TextEditingController>.empty(growable: true);
   List<TextEditingController> inputQuantities =
-      List<TextEditingController>.filled(1, TextEditingController(),
-          growable: true);
-  List<TextEditingController> inputAmounts = List<TextEditingController>.filled(
-      1, TextEditingController(),
-      growable: true);
+      List<TextEditingController>.empty(growable: true);
+  List<TextEditingController> inputAmounts =
+      List<TextEditingController>.empty(growable: true);
   List<TextEditingController> inputDiscounts =
-      List<TextEditingController>.filled(1, TextEditingController(),
-          growable: true);
-  List<TextEditingController> inputTaxes = List<TextEditingController>.filled(
-      1, TextEditingController(),
-      growable: true);
+      List<TextEditingController>.empty(growable: true);
+  List<TextEditingController> inputTaxes =
+      List<TextEditingController>.empty(growable: true);
 
   // List<Map<String, dynamic>> jsonEmails() {
   //   return List<Map<String, dynamic>>.from(inputEmails.map((controller) {
@@ -141,38 +136,34 @@ class ProspectSource extends GetxController {
       int index = selectsItem.indexOf(controller);
       return {
         'item': selectsItem[index].getSelectedAsString(),
-        'price': inputPrices[index].text.replaceAll(',', ''),
+        'price':
+            inputPrices[index].text.replaceAll(',', '').replaceAll('.', ''),
         'quantity': inputQuantities[index].text,
         'discount': inputDiscounts[index].text,
-        'amount':
-            inputAmounts[index].text.replaceAll(',00', '').replaceAll('.', ''),
+        'amount': inputAmounts[index]
+            .text
+            .replaceAll(',00', '')
+            .replaceAll('.', '')
+            .replaceAll(',', ''),
         'tax': inputTaxes[index].text.replaceAll(',', ''),
         'taxtype': selectsTax[index].getSelectedAsString()
       };
     }));
   }
 
-  Future<int> bpid() async {
-    int provid =
-        await _presenter.getBpId(selectOwner.getSelectedAsString().toString());
-    return provid;
-  }
-
   Future<Map<String, dynamic>> toJson() async {
-    int provid =
-        await _presenter.getBpId(selectOwner.getSelectedAsString().toString());
     SessionModel session = await SessionManager.current();
     return {
       'prospectname': inputCompanyName.text,
       'prospectstartdate': selectedDateStart.value,
       'prospectenddate': selectedDateEnd.value,
-      'prospectvalue': inputValue.text.replaceAll(',', ''),
+      'prospectvalue': inputValue.text.replaceAll(',', '').replaceAll('.', ''),
       'prospectowner': selectOwner.getSelectedAsString(),
       'prospectstageid': prospectStageController.getSelectedToString(),
       'prospectstatusid': selectStatus.getSelectedAsString(),
       'prospecttypeid': selectType.getSelectedAsString(),
       'prospectexpclosedate': selectedDateExpect.value,
-      'prospectbpid': provid.toString(),
+      'prospectbpid': _auth.bpActiveId.value,
       'prospectdescription': inputDesc.text,
       'prospectcustid': selectCustomer.getSelectedAsString(),
       'prospectrefid': '1',
@@ -536,213 +527,208 @@ class ProspectForm {
   }
 
   Widget inputProduct({required ValueChanged<int> onRemoveItem}) {
-    return Obx(() => Column(
-          children: source.selectsItem.map((controller) {
-            int index = source.selectsItem.indexOf(controller);
-            var selectItem = source.selectsItem[index];
-            var inputPrice = source.inputPrices[index];
-            var inputQuantity = source.inputQuantities[index];
-            var inputAmount = source.inputAmounts[index];
-            var inputDiscount = source.inputDiscounts[index];
-            var inputTax = source.inputTaxes[index];
-            var selectTax = source.selectsTax[index];
-            return BsRow(
-              children: [
-                BsCol(
-                  sizes: ColScreen(sm: Col.col_11),
-                  child: BsRow(
-                    children: [
-                      BsCol(
-                        sizes: ColScreen(md: Col.col_6),
-                        child: FormGroup(
-                          label: Text(ProspectText.labelItem),
-                          child: CustomSelectBox(
-                            searchable: true,
-                            disabled: source.isProcessing,
-                            controller: selectItem,
-                            hintText: BaseText.hiintSelect(
-                                field: ProspectText.labelItem),
-                            // serverSide: (params) => selectApiProductWithBp(
-                            //     params, source.bpid.toString()),
-                            serverSide: (params) => selectApiProduct(params),
-                            validators: [
-                              Validators.selectRequired(ProspectText.labelItem)
-                            ],
-                          ),
-                        ),
+    return Column(
+      children: source.selectsItem.map((controller) {
+        int index = source.selectsItem.indexOf(controller);
+        var selectItem = source.selectsItem[index];
+        var inputPrice = source.inputPrices[index];
+        var inputQuantity = source.inputQuantities[index];
+        var inputAmount = source.inputAmounts[index];
+        var inputDiscount = source.inputDiscounts[index];
+        var inputTax = source.inputTaxes[index];
+        var selectTax = source.selectsTax[index];
+        return BsRow(
+          children: [
+            BsCol(
+              sizes: ColScreen(sm: Col.col_11),
+              child: BsRow(
+                children: [
+                  BsCol(
+                    sizes: ColScreen(md: Col.col_6),
+                    child: FormGroup(
+                      label: Text(ProspectText.labelItem),
+                      child: CustomSelectBox(
+                        searchable: true,
+                        disabled: source.isProcessing,
+                        controller: selectItem,
+                        hintText:
+                            BaseText.hiintSelect(field: ProspectText.labelItem),
+                        // serverSide: (params) => selectApiProductWithBp(
+                        //     params, source.bpid.toString()),
+                        serverSide: (params) => selectApiProduct(params),
+                        validators: [
+                          Validators.selectRequired(ProspectText.labelItem)
+                        ],
                       ),
-                      BsCol(
-                        margin: EdgeInsets.only(left: 5),
-                        sizes: ColScreen(md: Col.col_3),
-                        child: FormGroup(
-                          label: Text(ProspectText.labelQuantity),
-                          child: CustomInput(
-                            onChange: (value) {
-                              source.quantity.value = parseDouble(value);
-                              if (value == '') {
-                                source.quantity.value = 0;
-                                inputAmount.text = '';
-                              } else if (inputPrice != '') {
-                                var amount =
-                                    source.quantity.value * source.price.value;
-                                // inputAmount.text = amount.toString();
-                                inputAmount.text =
-                                    currencyFormatter.format(amount);
-                                // source.subtotal.value += parseDouble(amount);
-                              }
-                            },
-                            disabled: ctrl.isProduct.value,
-                            controller: inputQuantity,
-                            hintText: BaseText.hintText(
-                                field: ProspectText.labelQuantity),
-                            validators: [],
-                          ),
-                        ),
-                      ),
-                      BsCol(
-                        margin: EdgeInsets.only(left: 5),
-                        sizes: ColScreen(md: Col.col_3),
-                        child: FormGroup(
-                          label: Text(ProspectText.labelPrice),
-                          child: CustomInputCurrency(
-                            onChange: (value) {
-                              source.price.value =
-                                  parseDouble(value.replaceAll(',', ''));
-                              if (value == '') {
-                                source.price.value = 0;
-                                inputAmount.text = '';
-                              } else if (inputQuantity != '') {
-                                var amount =
-                                    source.price.value * source.quantity.value;
-                                // inputAmount.text = amount.toString();
-                                inputAmount.text =
-                                    currencyFormatter.format(amount);
-                                // source.subtotal.value += amount;
-                              }
-                            },
-                            disabled: ctrl.isProduct.value,
-                            controller: inputPrice,
-                            hintText: BaseText.hintText(
-                                field: ProspectText.labelPrice),
-                            validators: [],
-                          ),
-                        ),
-                      ),
-                      BsCol(
-                        sizes: ColScreen(md: Col.col_5),
-                        child: FormGroup(
-                          label: Text(ProspectText.labelAmount),
-                          child: CustomInput(
-                            onChange: (value) {
-                              final currencyFormatter =
-                                  NumberFormat.currency(locale: 'ID');
-                              inputAmount.text =
-                                  currencyFormatter.format(value);
-                            },
-                            readOnly: true,
-                            disabled: ctrl.isProduct.value,
-                            controller: inputAmount,
-                            hintText: 'Type ' +
-                                ProspectText.labelPrice +
-                                ' and ' +
-                                ProspectText.labelQuantity +
-                                ' First',
-                            validators: [],
-                          ),
-                        ),
-                      ),
-                      BsCol(
-                        margin: EdgeInsets.only(left: 5),
-                        sizes: ColScreen(md: Col.col_2),
-                        child: FormGroup(
-                          label: Text(ProspectText.labelDiscount),
-                          child: CustomInput(
-                            disabled: ctrl.isProduct.value,
-                            controller: inputDiscount,
-                            hintText: BaseText.hintText(
-                                field: ProspectText.labelDiscount),
-                            validators: [
-                              Validators.maxLength(
-                                  ProspectText.labelDiscount, 3),
-                              BsInputValidator(validator: ((value) {
-                                if (value != '') {
-                                  if (parseInt(value) > 100) {
-                                    return 'Discount is Wrong';
-                                  }
-                                  return null;
-                                } else {
-                                  return null;
-                                }
-                              })),
-                            ],
-                          ),
-                        ),
-                      ),
-                      BsCol(
-                        margin: EdgeInsets.only(left: 5),
-                        sizes: ColScreen(md: Col.col_2),
-                        child: FormGroup(
-                          label: Text(ProspectText.labelTax),
-                          child: CustomInput(
-                            disabled: ctrl.isProduct.value,
-                            controller: inputTax,
-                            hintText:
-                                BaseText.hintText(field: ProspectText.labelTax),
-                            validators: [
-                              Validators.maxLength(ProspectText.labelTax, 3),
-                              BsInputValidator(validator: ((value) {
-                                if (value != '') {
-                                  if (parseInt(value) > 100) {
-                                    return 'Discount is Wrong';
-                                  }
-                                  return null;
-                                } else {
-                                  return null;
-                                }
-                              })),
-                            ],
-                          ),
-                        ),
-                      ),
-                      BsCol(
-                        margin: EdgeInsets.only(left: 5),
-                        sizes: ColScreen(md: Col.col_3),
-                        child: FormGroup(
-                          label: Text(ProspectText.labelTaxType),
-                          child: CustomSelectBox(
-                            searchable: false,
-                            disabled: ctrl.isProduct.value,
-                            controller: selectTax,
-                            hintText: BaseText.hiintSelect(
-                                field: ProspectText.labelTaxType),
-                            serverSide: (params) => selectApiTaxTypes(params),
-                          ),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-                BsCol(
-                  sizes: ColScreen(sm: Col.col_1),
-                  child: BsRow(children: [
-                    BsCol(
-                      margin: EdgeInsets.only(left: 5, top: 3),
-                      sizes: ColScreen(lg: Col.col_12),
-                      child: FormGroup(
-                        label: Text(''),
-                        child: ButtonMultipleCancel(
-                            disabled:
-                                source.selectsItem.length > 1 ? false : true,
-                            margin: EdgeInsets.only(left: 10),
-                            onPressed: () => onRemoveItem(index)),
+                  BsCol(
+                    margin: EdgeInsets.only(left: 5),
+                    sizes: ColScreen(md: Col.col_3),
+                    child: FormGroup(
+                      label: Text(ProspectText.labelQuantity),
+                      child: CustomInput(
+                        onChange: (value) {
+                          source.quantity.value = parseDouble(value);
+                          if (value == '') {
+                            source.quantity.value = 0;
+                            inputAmount.text = '';
+                          } else if (inputPrice != '') {
+                            var amount =
+                                source.quantity.value * source.price.value;
+                            // inputAmount.text = amount.toString();
+                            inputAmount.text = currencyFormatter.format(amount);
+                            // source.subtotal.value += parseDouble(amount);
+                          }
+                        },
+                        disabled: ctrl.isProduct.value,
+                        controller: inputQuantity,
+                        hintText: BaseText.hintText(
+                            field: ProspectText.labelQuantity),
+                        validators: [],
                       ),
-                    )
-                  ]),
+                    ),
+                  ),
+                  BsCol(
+                    margin: EdgeInsets.only(left: 5),
+                    sizes: ColScreen(md: Col.col_3),
+                    child: FormGroup(
+                      label: Text(ProspectText.labelPrice),
+                      child: CustomInputCurrency(
+                        onChange: (value) {
+                          source.price.value =
+                              parseDouble(value.replaceAll(',', ''));
+                          if (value == '') {
+                            source.price.value = 0;
+                            inputAmount.text = '';
+                          } else if (inputQuantity != '') {
+                            var amount =
+                                source.price.value * source.quantity.value;
+                            // inputAmount.text = amount.toString();
+                            inputAmount.text = currencyFormatter.format(amount);
+                            // source.subtotal.value += amount;
+                          }
+                        },
+                        disabled: ctrl.isProduct.value,
+                        controller: inputPrice,
+                        hintText:
+                            BaseText.hintText(field: ProspectText.labelPrice),
+                        validators: [],
+                      ),
+                    ),
+                  ),
+                  BsCol(
+                    sizes: ColScreen(md: Col.col_5),
+                    child: FormGroup(
+                      label: Text(ProspectText.labelAmount),
+                      child: CustomInput(
+                        onChange: (value) {
+                          final currencyFormatter =
+                              NumberFormat.currency(locale: 'ID');
+                          inputAmount.text = currencyFormatter.format(value);
+                        },
+                        readOnly: true,
+                        disabled: ctrl.isProduct.value,
+                        controller: inputAmount,
+                        hintText: 'Type ' +
+                            ProspectText.labelPrice +
+                            ' and ' +
+                            ProspectText.labelQuantity +
+                            ' First',
+                        validators: [],
+                      ),
+                    ),
+                  ),
+                  BsCol(
+                    margin: EdgeInsets.only(left: 5),
+                    sizes: ColScreen(md: Col.col_2),
+                    child: FormGroup(
+                      label: Text(ProspectText.labelDiscount),
+                      child: CustomInput(
+                        disabled: ctrl.isProduct.value,
+                        controller: inputDiscount,
+                        hintText: BaseText.hintText(
+                            field: ProspectText.labelDiscount),
+                        validators: [
+                          Validators.maxLength(ProspectText.labelDiscount, 3),
+                          BsInputValidator(validator: ((value) {
+                            if (value != '') {
+                              if (parseInt(value) > 100) {
+                                return 'Discount is Wrong';
+                              }
+                              return null;
+                            } else {
+                              return null;
+                            }
+                          })),
+                        ],
+                      ),
+                    ),
+                  ),
+                  BsCol(
+                    margin: EdgeInsets.only(left: 5),
+                    sizes: ColScreen(md: Col.col_2),
+                    child: FormGroup(
+                      label: Text(ProspectText.labelTax),
+                      child: CustomInput(
+                        disabled: ctrl.isProduct.value,
+                        controller: inputTax,
+                        hintText:
+                            BaseText.hintText(field: ProspectText.labelTax),
+                        validators: [
+                          Validators.maxLength(ProspectText.labelTax, 3),
+                          BsInputValidator(validator: ((value) {
+                            if (value != '') {
+                              if (parseInt(value) > 100) {
+                                return 'Discount is Wrong';
+                              }
+                              return null;
+                            } else {
+                              return null;
+                            }
+                          })),
+                        ],
+                      ),
+                    ),
+                  ),
+                  BsCol(
+                    margin: EdgeInsets.only(left: 5),
+                    sizes: ColScreen(md: Col.col_3),
+                    child: FormGroup(
+                      label: Text(ProspectText.labelTaxType),
+                      child: CustomSelectBox(
+                        searchable: false,
+                        disabled: ctrl.isProduct.value,
+                        controller: selectTax,
+                        hintText: BaseText.hiintSelect(
+                            field: ProspectText.labelTaxType),
+                        serverSide: (params) => selectApiTaxTypes(params),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            BsCol(
+              sizes: ColScreen(sm: Col.col_1),
+              child: BsRow(children: [
+                BsCol(
+                  margin: EdgeInsets.only(left: 5, top: 3),
+                  sizes: ColScreen(lg: Col.col_12),
+                  child: FormGroup(
+                    label: Text(''),
+                    child: ButtonMultipleCancel(
+                        disabled: source.selectsItem.length > 1 ? false : true,
+                        margin: EdgeInsets.only(left: 10),
+                        onPressed: () => onRemoveItem(index)),
+                  ),
                 )
-              ],
-            );
-          }).toList(),
-        ));
+              ]),
+            )
+          ],
+        );
+      }).toList(),
+    );
   }
 
   Widget total() {

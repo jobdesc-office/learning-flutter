@@ -3,6 +3,7 @@ import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../contracts/base/edit_view_contract.dart';
 import '../../../models/masters/type_model.dart';
@@ -282,6 +283,7 @@ class ProspectFormView extends StatelessWidget
   @override
   void onSuccessFetchData(Response response) {
     presenter.setProcessing(false);
+    final currencyFormatter = NumberFormat('#,##0.00', 'ID');
 
     source.update((val) {
       ProspectModel prospect = ProspectModel.fromJson(response.body);
@@ -300,14 +302,39 @@ class ProspectFormView extends StatelessWidget
       source.value.selectType.setSelected(BsSelectBoxOption(
           value: prospect.prospecttype!.typeid,
           text: Text(prospect.prospecttype!.typename.toString())));
-      source.value.inputValue.text = prospect.prospectvalue.toString();
-      source.value.inputDesc.text = prospect.prospectdescription.toString();
+      source.value.inputValue.text =
+          currencyFormatter.format(double.parse(prospect.prospectvalue ?? ''));
+      source.value.inputDesc.text = prospect.prospectdescription ?? '';
 
-      source.value.selectedDateStart.value =
-          prospect.prospectstartdate.toString();
-      source.value.selectedDateEnd.value = prospect.prospectenddate.toString();
+      source.value.selectedDateStart.value = prospect.prospectstartdate ?? '';
+      source.value.selectedDateEnd.value = prospect.prospectenddate ?? '';
       source.value.selectedDateExpect.value =
-          prospect.prospectexpclosedate.toString();
+          prospect.prospectexpclosedate ?? '';
+
+      for (var item in prospect.prospectproduct!) {
+        source.value.selectsItem.add(BsSelectBoxController(selected: [
+          BsSelectBoxOption(
+              value: item.prosproductproductid,
+              text: Text(item.prosproductproduct!.productname!))
+        ]));
+        source.value.inputPrices.add(TextEditingController(
+            text: currencyFormatter
+                .format(double.parse(item.prosproductprice!))));
+        source.value.inputQuantities
+            .add(TextEditingController(text: item.prosproductqty.toString()));
+        source.value.inputAmounts.add(TextEditingController(
+            text: currencyFormatter
+                .format(double.parse(item.prosproductamount!))));
+        source.value.inputDiscounts
+            .add(TextEditingController(text: item.prosproductdiscount));
+        source.value.inputTaxes
+            .add(TextEditingController(text: item.prosproducttax));
+        source.value.selectsTax.add(BsSelectBoxController(selected: [
+          BsSelectBoxOption(
+              value: item.prosproducttaxtype!.typeid,
+              text: Text(item.prosproducttaxtype!.typename!))
+        ]));
+      }
     });
   }
 

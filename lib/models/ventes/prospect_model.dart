@@ -22,6 +22,7 @@ class ProspectModel {
   bool? isactive;
   Prospectowneruser? prospectowneruser;
   List<Prospectassign>? prospectassign;
+  List<Prospectproduct>? prospectproduct;
   TypeModel? prospectstage;
   Prospectstage? prospectstatus;
   Prospectstage? prospecttype;
@@ -50,6 +51,7 @@ class ProspectModel {
       this.isactive,
       this.prospectowneruser,
       this.prospectassign,
+      this.prospectproduct,
       this.prospectstage,
       this.prospectstatus,
       this.prospecttype,
@@ -83,6 +85,12 @@ class ProspectModel {
       prospectassign = <Prospectassign>[];
       json['prospectassign'].forEach((v) {
         prospectassign!.add(new Prospectassign.fromJson(v));
+      });
+    }
+    if (json['prospectproduct'] != null) {
+      prospectproduct = <Prospectproduct>[];
+      json['prospectproduct'].forEach((v) {
+        prospectproduct!.add(new Prospectproduct.fromJson(v));
       });
     }
     prospectstage = json['prospectstage'] != null
@@ -129,6 +137,10 @@ class ProspectModel {
     if (this.prospectassign != null) {
       data['prospectassign'] =
           this.prospectassign!.map((v) => v.toJson()).toList();
+    }
+    if (this.prospectproduct != null) {
+      data['prospectproduct'] =
+          this.prospectproduct!.map((v) => v.toJson()).toList();
     }
     if (this.prospectstage != null) {
       data['prospectstage'] = this.prospectstage!.toJson();
@@ -346,6 +358,193 @@ class Prospectassign {
     if (this.prospectreport != null) {
       data['prospectreport'] = this.prospectreport!.toJson();
     }
+    return data;
+  }
+}
+
+class Prospectproduct {
+  int? prosproductid;
+  int? prosproductprospectid;
+  int? prosproductproductid;
+  String? prosproductprice;
+  int? prosproductqty;
+  String? prosproducttax;
+  String? prosproductdiscount;
+  String? prosproductamount;
+  int? prosproducttaxtypeid;
+  int? createdby;
+  String? createddate;
+  int? updatedby;
+  String? updateddate;
+  bool? isactive;
+  Prosproductproduct? prosproductproduct;
+  Prosproducttaxtype? prosproducttaxtype;
+
+  Prospectproduct(
+      {this.prosproductid,
+      this.prosproductprospectid,
+      this.prosproductproductid,
+      this.prosproductprice,
+      this.prosproductqty,
+      this.prosproducttax,
+      this.prosproductdiscount,
+      this.prosproductamount,
+      this.prosproducttaxtypeid,
+      this.createdby,
+      this.createddate,
+      this.updatedby,
+      this.updateddate,
+      this.isactive,
+      this.prosproductproduct,
+      this.prosproducttaxtype});
+
+  Prospectproduct.fromJson(Map<String, dynamic> json) {
+    prosproductid = json['prosproductid'];
+    prosproductprospectid = json['prosproductprospectid'];
+    prosproductproductid = json['prosproductproductid'];
+    prosproductprice = json['prosproductprice'];
+    prosproductqty = json['prosproductqty'];
+    prosproducttax = json['prosproducttax'];
+    prosproductdiscount = json['prosproductdiscount'];
+    prosproductamount = json['prosproductamount'];
+    prosproducttaxtypeid = json['prosproducttaxtypeid'];
+    createdby = json['createdby'];
+    createddate = json['createddate'];
+    updatedby = json['updatedby'];
+    updateddate = json['updateddate'];
+    isactive = json['isactive'];
+    prosproductproduct = json['prosproductproduct'] != null
+        ? new Prosproductproduct.fromJson(json['prosproductproduct'])
+        : null;
+    prosproducttaxtype = json['prosproducttaxtype'] != null
+        ? new Prosproducttaxtype.fromJson(json['prosproducttaxtype'])
+        : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['prosproductid'] = this.prosproductid;
+    data['prosproductprospectid'] = this.prosproductprospectid;
+    data['prosproductproductid'] = this.prosproductproductid;
+    data['prosproductprice'] = this.prosproductprice;
+    data['prosproductqty'] = this.prosproductqty;
+    data['prosproducttax'] = this.prosproducttax;
+    data['prosproductdiscount'] = this.prosproductdiscount;
+    data['prosproductamount'] = this.prosproductamount;
+    data['prosproducttaxtypeid'] = this.prosproducttaxtypeid;
+    data['createdby'] = this.createdby;
+    data['createddate'] = this.createddate;
+    data['updatedby'] = this.updatedby;
+    data['updateddate'] = this.updateddate;
+    data['isactive'] = this.isactive;
+    if (this.prosproductproduct != null) {
+      data['prosproductproduct'] = this.prosproductproduct!.toJson();
+    }
+    if (this.prosproducttaxtype != null) {
+      data['prosproducttaxtype'] = this.prosproducttaxtype!.toJson();
+    }
+    return data;
+  }
+}
+
+class Prosproductproduct {
+  int? productid;
+  String? productname;
+  int? productbpid;
+  int? createdby;
+  String? createddate;
+  int? updatedby;
+  String? updateddate;
+  bool? isactive;
+
+  Prosproductproduct(
+      {this.productid,
+      this.productname,
+      this.productbpid,
+      this.createdby,
+      this.createddate,
+      this.updatedby,
+      this.updateddate,
+      this.isactive});
+
+  Prosproductproduct.fromJson(Map<String, dynamic> json) {
+    productid = json['productid'];
+    productname = json['productname'];
+    productbpid = json['productbpid'];
+    createdby = json['createdby'];
+    createddate = json['createddate'];
+    updatedby = json['updatedby'];
+    updateddate = json['updateddate'];
+    isactive = json['isactive'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['productid'] = this.productid;
+    data['productname'] = this.productname;
+    data['productbpid'] = this.productbpid;
+    data['createdby'] = this.createdby;
+    data['createddate'] = this.createddate;
+    data['updatedby'] = this.updatedby;
+    data['updateddate'] = this.updateddate;
+    data['isactive'] = this.isactive;
+    return data;
+  }
+}
+
+class Prosproducttaxtype {
+  int? typeid;
+  String? typecd;
+  String? typename;
+  int? typeseq;
+  int? typemasterid;
+  int? typedesc;
+  int? createdby;
+  String? createddate;
+  int? updatedby;
+  String? updateddate;
+  bool? isactive;
+
+  Prosproducttaxtype(
+      {this.typeid,
+      this.typecd,
+      this.typename,
+      this.typeseq,
+      this.typemasterid,
+      this.typedesc,
+      this.createdby,
+      this.createddate,
+      this.updatedby,
+      this.updateddate,
+      this.isactive});
+
+  Prosproducttaxtype.fromJson(Map<String, dynamic> json) {
+    typeid = json['typeid'];
+    typecd = json['typecd'];
+    typename = json['typename'];
+    typeseq = json['typeseq'];
+    typemasterid = json['typemasterid'];
+    typedesc = json['typedesc'];
+    createdby = json['createdby'];
+    createddate = json['createddate'];
+    updatedby = json['updatedby'];
+    updateddate = json['updateddate'];
+    isactive = json['isactive'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['typeid'] = this.typeid;
+    data['typecd'] = this.typecd;
+    data['typename'] = this.typename;
+    data['typeseq'] = this.typeseq;
+    data['typemasterid'] = this.typemasterid;
+    data['typedesc'] = this.typedesc;
+    data['createdby'] = this.createdby;
+    data['createddate'] = this.createddate;
+    data['updatedby'] = this.updatedby;
+    data['updateddate'] = this.updateddate;
+    data['isactive'] = this.isactive;
     return data;
   }
 }
