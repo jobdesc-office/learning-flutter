@@ -302,8 +302,8 @@ class ProspectFormView extends StatelessWidget
       source.value.selectType.setSelected(BsSelectBoxOption(
           value: prospect.prospecttype!.typeid,
           text: Text(prospect.prospecttype!.typename.toString())));
-      source.value.inputValue.text =
-          currencyFormatter.format(double.parse(prospect.prospectvalue ?? ''));
+      source.value.inputValue.text = currencyFormatter
+          .format(double.parse(prospect.prospectvalue ?? '0.0'));
       source.value.inputDesc.text = prospect.prospectdescription ?? '';
 
       source.value.selectedDateStart.value = prospect.prospectstartdate ?? '';

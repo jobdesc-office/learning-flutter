@@ -18,6 +18,7 @@ import '../../../presenters/navigation_presenter.dart';
 import '../../../presenters/ventes/prospect_presenter.dart';
 import '../../../presenters/ventes/prospectassign_presenter.dart';
 import '../../../presenters/ventes/prospectdetail_presenter.dart';
+import '../../../presenters/ventes/prospectproduct_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../styles/color_palattes.dart';
 import '../../../widgets/button/button_controller.dart';
@@ -45,6 +46,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
   late TabController _tabControllerTimeline;
   final detailPresenter = Get.find<ProspectDetailPresenter>();
   final assignPresenter = Get.find<ProspectAssignPresenter>();
+  final productPresenter = Get.find<ProspectProductPresenter>();
   final presenter = Get.find<ProspectPresenter>();
   final source = Get.put(prospectDetailsSource());
   final controller = Get.put(ButtonController());
@@ -61,6 +63,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     presenter.prospectTypeViewDetailContract = this;
     detailPresenter.prospectViewContract = this;
     assignPresenter.prospectViewContract = this;
+    productPresenter.prospectViewContract = this;
   }
 
   final _navigation = Get.find<NavigationPresenter>();
@@ -107,6 +110,15 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                       },
                                       prefixIcon: Icons.settings,
                                       label: Text('Add Assignation'),
+                                    ),
+                                    BsButton(
+                                      margin: EdgeInsets.only(left: 10),
+                                      onPressed: () {
+                                        productPresenter.add(
+                                            context, source.prospectid.value);
+                                      },
+                                      prefixIcon: Icons.settings,
+                                      label: Text('Add Product'),
                                     )
                                     // Container(
                                     //   margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
@@ -457,8 +469,8 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                               icon: Icon(
                                                   Icons.description_outlined)),
                                           Tab(
-                                              text: 'Propose Time',
-                                              icon: Icon(Icons.timelapse)),
+                                              text: 'Product',
+                                              icon: Icon(Icons.sell)),
                                           Tab(
                                               text: 'Call',
                                               icon: Icon(Icons.phone)),
@@ -795,11 +807,146 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                     'This Reported Prospect Has Not Been Defined')
                                               ],
                                             ),
-                                          Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [Text('Propose Time')],
-                                          ),
+                                          if (source.product.length != 0)
+                                            SingleChildScrollView(
+                                              child: Column(
+                                                children: [
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.topLeft,
+                                                    margin: EdgeInsets.only(
+                                                        top: 15, bottom: 10),
+                                                    child: Text(
+                                                      'Prospect Product : ',
+                                                      style: TextStyle(
+                                                          fontSize: 18),
+                                                    ),
+                                                  ),
+                                                  Obx(() => Container(
+                                                        child: ListView.builder(
+                                                          shrinkWrap: true,
+                                                          itemCount: source
+                                                              .product.length,
+                                                          itemBuilder:
+                                                              (context, index) {
+                                                            var products =
+                                                                source.product[
+                                                                    index];
+                                                            return BsRow(
+                                                              margin: source.product[
+                                                                          index] ==
+                                                                      0
+                                                                  ? EdgeInsets
+                                                                      .zero
+                                                                  : EdgeInsets
+                                                                      .only(
+                                                                          top:
+                                                                              20),
+                                                              children: [
+                                                                BsCol(
+                                                                  sizes: ColScreen(
+                                                                      sm: Col
+                                                                          .col_1),
+                                                                  child: Text(
+                                                                      '${index + 1} )'),
+                                                                ),
+                                                                BsCol(
+                                                                  sizes: ColScreen(
+                                                                      sm: Col
+                                                                          .col_11),
+                                                                  child:
+                                                                      InkWell(
+                                                                    onTap: () {
+                                                                      productPresenter.detail(
+                                                                          context,
+                                                                          products
+                                                                              .prosproductid);
+                                                                    },
+                                                                    onLongPress:
+                                                                        () {
+                                                                      Get.defaultDialog(
+                                                                          middleText:
+                                                                              '',
+                                                                          title:
+                                                                              'Setting',
+                                                                          actions: [
+                                                                            ButtonEditDatatables(onPressed:
+                                                                                () {
+                                                                              productPresenter.edit(context, products.prosproductid, source.prospectid.value);
+                                                                            }),
+                                                                            ButtonDeleteDatatables(onPressed:
+                                                                                () {
+                                                                              productPresenter.delete(context, products.prosproductid, '${products.prosproductproduct?.productname}');
+                                                                            }),
+                                                                          ]);
+                                                                    },
+                                                                    child:
+                                                                        BsRow(
+                                                                      children: [
+                                                                        BsCol(
+                                                                          sizes:
+                                                                              ColScreen(sm: Col.col_2),
+                                                                          child:
+                                                                              Text("Name"),
+                                                                        ),
+                                                                        BsCol(
+                                                                          sizes:
+                                                                              ColScreen(sm: Col.col_1),
+                                                                          child:
+                                                                              Text(':'),
+                                                                        ),
+                                                                        BsCol(
+                                                                          sizes:
+                                                                              ColScreen(sm: Col.col_9),
+                                                                          child: Text(products
+                                                                              .prosproductproduct
+                                                                              ?.productname),
+                                                                        ),
+                                                                        BsCol(
+                                                                          margin:
+                                                                              EdgeInsets.only(top: 5),
+                                                                          sizes:
+                                                                              ColScreen(sm: Col.col_2),
+                                                                          child:
+                                                                              Text("Amount"),
+                                                                        ),
+                                                                        BsCol(
+                                                                          margin:
+                                                                              EdgeInsets.only(top: 5),
+                                                                          sizes:
+                                                                              ColScreen(sm: Col.col_1),
+                                                                          child:
+                                                                              Text(':'),
+                                                                        ),
+                                                                        BsCol(
+                                                                          margin:
+                                                                              EdgeInsets.only(top: 5),
+                                                                          sizes:
+                                                                              ColScreen(sm: Col.col_9),
+                                                                          child:
+                                                                              Text('Rp. ' + currencyFormatter.format(double.parse(products.prosproductamount))),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
+                                                        ),
+                                                      ))
+                                                ],
+                                              ),
+                                            )
+                                          else
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                    'This Prospect Don\'t Have Product')
+                                              ],
+                                            ),
                                           Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
@@ -1011,20 +1158,22 @@ class _ProspectDetailsState extends State<ProspectDetails>
 
   @override
   void onSuccessFetchData(Response response) {
+    List products = [];
     List assign = [];
     List report = [];
     ProspectModel dt = ProspectModel.fromJson(response.body);
     source.prospectid.value = dt.prospectid!;
+
+    detailPresenter
+        .details(context, {'id': source.prospectid.value.toString()});
+
     source.prospectname.value = dt.prospectname.toString();
-    source.prospectvalue.value = dt.prospectvalue.toString();
+    source.prospectvalue.value = dt.prospectvalue ?? '0.0';
     source.userfullname.value =
         dt.prospectowneruser!.user!.userfullname.toString();
     source.bpname.value = dt.prospectbp!.bpname.toString();
     source.prospectstartdate.value = dt.prospectstartdate.toString();
     source.prospectStageController.selected = dt.prospectstage;
-
-    detailPresenter
-        .details(context, {'id': source.prospectid.value.toString()});
 
     dt.prospectassign?.forEach((element) {
       assign.add(element);
@@ -1035,6 +1184,11 @@ class _ProspectDetailsState extends State<ProspectDetails>
       report.add(element);
     });
     source.report.value = report;
+
+    dt.prospectproduct?.forEach((element) {
+      products.add(element);
+    });
+    source.product.value = products;
   }
 
   @override

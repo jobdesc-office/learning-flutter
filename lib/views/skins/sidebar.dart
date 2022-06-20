@@ -47,7 +47,7 @@ class SidebarSkins extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AnimatedContainer(
-          duration: Duration(milliseconds: 0),
+          duration: Duration(milliseconds: 250),
           width: _navigation.isCollapse.value ? 70 : 250,
           // height: _navigation.isCollapse.value ? 50 : 100,
           padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
@@ -62,7 +62,7 @@ class SidebarSkins extends StatelessWidget {
         Expanded(
           child: SingleChildScrollView(
             child: AnimatedContainer(
-              duration: Duration(milliseconds: 0),
+              duration: Duration(milliseconds: 250),
               width: _navigation.isCollapse.value ? 70 : 250,
               decoration: BoxDecoration(
                 color: _navigation.darkTheme.value

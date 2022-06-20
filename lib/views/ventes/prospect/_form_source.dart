@@ -680,7 +680,7 @@ class ProspectForm {
                           BsInputValidator(validator: ((value) {
                             if (value != '') {
                               if (parseInt(value) > 100) {
-                                return 'Discount is Wrong';
+                                return 'Taxes is Wrong';
                               }
                               return null;
                             } else {

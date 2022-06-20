@@ -14,6 +14,7 @@ import '../presenters/masters/subdistrict_presenter.dart';
 import '../presenters/ventes/bpcustomer_presenter.dart';
 import '../presenters/ventes/prospectassign_presenter.dart';
 import '../presenters/ventes/prospectdetail_presenter.dart';
+import '../presenters/ventes/prospectproduct_presenter.dart';
 import '../presenters/ventes/schedule_presenter.dart';
 import '../presenters/masters/typechildren_presenter.dart';
 import '../presenters/masters/typeparent_presenter.dart';
@@ -32,6 +33,7 @@ import '../services/ventes/bpcustomer_service.dart';
 import '../services/ventes/prospect_service.dart';
 import '../services/ventes/prospectassign_service.dart';
 import '../services/ventes/prospectdetail_service.dart';
+import '../services/ventes/prospectproduct_service.dart';
 import '../services/ventes/schedule_service.dart';
 import '../services/masters/type_service.dart';
 import '../services/masters/typechildren_service.dart';
@@ -220,6 +222,8 @@ class AppRoute {
           Get.lazyPut(() => ProspectDetailPresenter());
           Get.lazyPut(() => ProspectAssignService());
           Get.lazyPut(() => ProspectAssignPresenter());
+          Get.lazyPut(() => ProspectProductService());
+          Get.lazyPut(() => ProspectProductPresenter());
         }),
       ),
       CustomGetPage(

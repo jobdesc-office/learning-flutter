@@ -45,8 +45,8 @@ class ProspectDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      CustomBsDataColumn(
-          label: Text('Prospect Status'), orderable: false, searchable: false),
+      // CustomBsDataColumn(
+      //     label: Text('Prospect Status'), orderable: false, searchable: false),
       CustomBsDataColumn(
           label: Text('Actions'),
           width: 100,
@@ -105,16 +105,16 @@ class ProspectDataTableSource extends BsDatatableSource {
                   ? ColorPallates.datatableLightEvenRowColor
                   : ColorPallates.datatableLightOddRowColor,
         ),
-        CustomBsDataCell(
-          Text(row.prospectstatus!.typename.toString()),
-          color: _navigation.darkTheme.value
-              ? x % 2 == 0
-                  ? ColorPallates.datatableDarkEvenRowColor
-                  : ColorPallates.datatableDarkOddRowColor
-              : x % 2 == 0
-                  ? ColorPallates.datatableLightEvenRowColor
-                  : ColorPallates.datatableLightOddRowColor,
-        ),
+        // CustomBsDataCell(
+        //   Text(row.prospectstatus!.typename.toString()),
+        //   color: _navigation.darkTheme.value
+        //       ? x % 2 == 0
+        //           ? ColorPallates.datatableDarkEvenRowColor
+        //           : ColorPallates.datatableDarkOddRowColor
+        //       : x % 2 == 0
+        //           ? ColorPallates.datatableLightEvenRowColor
+        //           : ColorPallates.datatableLightOddRowColor,
+        // ),
         CustomBsDataCell(
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
