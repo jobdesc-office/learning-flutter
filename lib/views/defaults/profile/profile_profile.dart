@@ -138,7 +138,7 @@ class ProfileProfileView extends GetView implements DetailViewContract {
                                       },
                                       child: Container(
                                         margin: _auth.detail[index] == 0
-                                            ? EdgeInsets.only(top: 30)
+                                            ? EdgeInsets.zero
                                             : EdgeInsets.only(top: 10),
                                         child: Row(
                                           mainAxisAlignment:

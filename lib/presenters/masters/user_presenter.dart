@@ -1,20 +1,26 @@
+import 'package:boilerplate/models/masters/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../constants/base_text.dart';
 import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
+import '../../models/auth_model.dart';
 import '../../services/masters/user_service.dart';
 import '../../utils/custom_get_controller.dart';
 import '../../views/masters/users/_form_source.dart';
 import '../../views/masters/users/user_details.dart';
 import '../../views/masters/users/user_form.dart';
 import '../../widgets/confirm_dialog.dart';
+import '../auth_presenter.dart';
 
 class UserPresenter extends CustomGetXController {
   final UserSource c = Get.put(UserSource());
-  final _userService = Get.find<UserService>();
+  final _userService = Get.put(UserService());
+  final _auth = Get.find<AuthPresenter>();
+  final box = GetStorage();
 
   late IndexViewContract _userViewContract;
   set userViewContract(IndexViewContract userViewContract) {
@@ -30,6 +36,21 @@ class UserPresenter extends CustomGetXController {
   set userFetchDataDetailsContract(
       DetailViewContract userFetchDataDetailsContract) {
     _userFetchDataDetailsContract = userFetchDataDetailsContract;
+  }
+
+  Future checkDetail() async {
+    Response response = await _userService.session(box.read('id'));
+    var data = AuthModel.fromJson(response.body);
+    List x = [];
+
+    _auth.roleActive.value = data.userdetails!.first.usertype!.typename!;
+    _auth.roleActiveId.value = data.userdetails!.first.usertype!.typeid!;
+    _auth.bpActive.value = data.userdetails!.first.businesspartner!.bpname!;
+    _auth.bpActiveId.value = data.userdetails!.first.businesspartner!.bpid!;
+    for (var item in data.userdetails!) {
+      x.add(item);
+    }
+    _auth.detail.value = x;
   }
 
   Future datatables(BuildContext context, Map<String, String> params) async {

@@ -8,4 +8,8 @@ class UserService extends ApiConnectProvider {
   Future<Response> selectsamebp(Map<String, dynamic> params, int id) {
     return get('$api/select/$id', query: params);
   }
+
+  Future<Response> session(int id) {
+    return get('$api/session');
+  }
 }

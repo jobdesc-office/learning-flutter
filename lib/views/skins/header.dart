@@ -8,6 +8,7 @@ import '../../contracts/auth/logout_view_contract.dart';
 import '../../helpers/function.dart';
 import '../../middleware/verifyToken.dart';
 import '../../presenters/auth_presenter.dart';
+import '../../presenters/masters/user_presenter.dart';
 import '../../presenters/navigation_presenter.dart';
 import '../../routes/route_list.dart';
 import '../../styles/color_palattes.dart';
@@ -19,12 +20,13 @@ import '../../widgets/header_icon.dart';
 class HeaderSkins extends StatelessWidget implements LogoutViewContract {
   final _navigation = Get.find<NavigationPresenter>();
   final _auth = Get.find<AuthPresenter>();
+  final _presenter = Get.put(UserPresenter());
 
   HeaderSkins() {
     checkJwtToken();
-    // if (_auth.detail.isEmpty) {
-    //   _auth.signOut();
-    // }
+    if (_auth.detail.isEmpty) {
+      _presenter.checkDetail();
+    }
     _auth.logoutViewContract = this;
   }
 
@@ -85,7 +87,15 @@ class HeaderSkins extends StatelessWidget implements LogoutViewContract {
                           ),
                           dropdownMenu: BsDropdownMenu(
                             header: BsDropdownHeader(
-                              child: Text(box.read('name')),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(box.read('name')),
+                                  Container(
+                                      margin: EdgeInsets.only(top: 5),
+                                      child: Text(_auth.bpActive.value))
+                                ],
+                              ),
                             ),
                             children: [
                               BsDropdownItem(
