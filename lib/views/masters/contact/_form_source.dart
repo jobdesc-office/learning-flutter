@@ -19,6 +19,7 @@ final _navigation = Get.find<NavigationPresenter>();
 class ContactSource {
   bool isProcessing = false;
 
+  TextEditingController inputName = TextEditingController();
   TextEditingController inputValue = TextEditingController();
 
   BsSelectBoxController selectCustomer = BsSelectBoxController();
@@ -27,6 +28,7 @@ class ContactSource {
   Future<Map<String, dynamic>> toJson() async {
     SessionModel session = await SessionManager.current();
     return {
+      'contactname': inputName.text,
       'contactcustomerid': selectCustomer.getSelectedAsString(),
       'contacttypeid': selectType.getSelectedAsString(),
       'contactvalueid': inputValue.text,
@@ -40,6 +42,24 @@ class ContactForm {
   final ContactSource source;
 
   ContactForm(this.source);
+
+  Widget inputName() {
+    return FormGroup(
+      label: Obx(() => Text(ContactText.labelName,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      child: CustomInput(
+        disabled: source.isProcessing,
+        controller: source.inputName,
+        hintText: BaseText.hintText(field: ContactText.labelName),
+        validators: [
+          Validators.inputRequired(ContactText.labelName),
+          Validators.maxLength(ContactText.labelName, 255)
+        ],
+      ),
+    );
+  }
 
   Widget selectCustomer() {
     return FormGroup(

@@ -3,4 +3,5 @@ class ContactText {
   static String labelCustomer = 'Customer';
   static String labelType = 'Type';
   static String labelValue = 'Value';
+  static String labelName = 'Name';
 }

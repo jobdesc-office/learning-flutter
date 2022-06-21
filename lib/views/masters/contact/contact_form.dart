@@ -36,6 +36,7 @@ class ContactFormView extends StatelessWidget implements EditViewContract {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                contactForm.inputName(),
                 contactForm.selectCustomer(),
                 contactForm.selectType(),
                 contactForm.inputValue(),
