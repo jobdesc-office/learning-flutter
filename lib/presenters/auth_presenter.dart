@@ -50,7 +50,7 @@ class AuthPresenter extends CustomGetXController {
           source.value.inputUsername.text,
           source.value.inputPassword.text,
         )
-        .then((value) => value.body != null
+        .then((value) => value.statusCode != 400
             ? _loginViewContract.onLoginSuccess(AuthModel.fromJson(value.body))
             : _loginViewContract.onErrorResponse())
         .catchError(

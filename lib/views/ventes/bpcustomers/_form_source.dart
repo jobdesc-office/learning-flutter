@@ -1,16 +1,22 @@
 import 'dart:typed_data';
 import 'dart:io';
+import 'dart:html' as html;
 
+import 'package:boilerplate/helpers/function.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:mime_type/mime_type.dart';
+import 'package:path/path.dart' as Path;
+import 'package:image_picker_web/image_picker_web.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../../constants/base_text.dart';
 import '../../../models/session_model.dart';
+import '../../../presenters/masters/businesspartner_presenter.dart';
+import '../../../presenters/masters/customer_presenter.dart';
 import '../../../presenters/ventes/bpcustomer_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../styles/color_palattes.dart';
@@ -29,41 +35,31 @@ import '_text.dart';
 final _navigation = Get.find<NavigationPresenter>();
 
 class BpCustomerSource extends GetxController {
+  final customerPresenter = Get.find<CustomerPresenter>();
   bool isProcessing = false;
   var isnGetLatLong = true.obs;
-  // var pic =
-  //     'https://cdn.icon-icons.com/icons2/1674/PNG/512/person_110935.png'.obs;
-  var pic =
-      XFile('https://cdn.icon-icons.com/icons2/1674/PNG/512/person_110935.png')
-          .obs;
 
-  File? image;
-
-  Future<File> _getImageFileFromAssets(String path) async {
-    final byteData = await rootBundle.load('assets/$path');
-
-    final file = File('${(await getTemporaryDirectory()).path}/$path');
-    await file.create(recursive: true);
-    await file.writeAsBytes(byteData.buffer
-        .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
-
-    return file;
-  }
+  var imgname = ''.obs;
+  var image = Image(
+          image: NetworkImage(
+              'https://cdn.icon-icons.com/icons2/1674/PNG/512/person_110935.png'))
+      .obs;
 
   BsSelectBoxController selectType = BsSelectBoxController();
   BsSelectBoxController selectBp = BsSelectBoxController();
   BsSelectBoxController selectCustomer = BsSelectBoxController();
 
-  void uploadImage() {}
-
   Future<Map<String, dynamic>> toJson() async {
+    String name = await customerPresenter
+        .cstm(parseInt(selectCustomer.getSelectedAsString()));
+    imgname.value = name;
+
     SessionModel session = await SessionManager.current();
     return {
       'sbcbpid': selectBp.getSelectedAsString(),
       'cstmid': selectCustomer.getSelectedAsString(),
       'sbccstmstatusid': selectType.getSelectedAsString(),
-      'sbccstmpic': image?.path,
-      // 'sbccstmpic': pic.value,
+      // 'sbccstmpic': '',
       'createdby': session.userid,
       'updatedby': session.userid,
     };
@@ -74,7 +70,6 @@ class BpCustomerForm {
   final BpCustomerSource source;
   final map = Get.put(mapSource());
   final BpCustomerPresenter presenter = Get.find<BpCustomerPresenter>();
-  final ImagePicker _picker = ImagePicker();
 
   BpCustomerForm(this.source);
 
@@ -143,15 +138,13 @@ class BpCustomerForm {
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: Column(
         children: [
-          if (source.pic != null) Image.network(source.pic.value.path),
+          source.image.value,
           BsButton(
             margin: EdgeInsets.only(top: 10),
             onPressed: () async {
-              final XFile? photos =
-                  await _picker.pickImage(source: ImageSource.gallery);
-              if (photos != null) {
-                source.pic.value = photos;
-                source.image = File(photos.path);
+              Image? fromPicker = await ImagePickerWeb.getImageAsWidget();
+              if (fromPicker != null) {
+                source.image.value = fromPicker;
               }
             },
             label: Text(

@@ -22,7 +22,7 @@ class BpCustomerFormView extends StatelessWidget implements EditViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final BpCustomerPresenter presenter = Get.find<BpCustomerPresenter>();
   final source = BpCustomerSource().obs;
-  final Function(Map<String, dynamic> body) onSave;
+  final Function(dynamic body) onSave;
 
   late BpCustomerForm bpCustomerForm;
 
@@ -116,18 +116,9 @@ class BpCustomerFormView extends StatelessWidget implements EditViewContract {
 
   void onClickSaveModal(BuildContext context) async {
     presenter.setProcessing(true);
-    if (formState.currentState!.validate())
-      // {
-      //   Map<String, dynamic> data = await source.toJson();
-      //   String filename = path.basename(data['sbccstmpic']);
-      //   data['sbccstmpic'] =
-      //       MultipartFile(File(data['sbccstmpic']), filename: filename);
-
-      //   FormData formData = FormData(data);
-      //   print(formData);
-      // }
+    if (formState.currentState!.validate()) {
       onSave(await source.toJson());
-    else
+    } else
       presenter.setProcessing(false);
   }
 
@@ -151,7 +142,9 @@ class BpCustomerFormView extends StatelessWidget implements EditViewContract {
       source.value.selectCustomer.setSelected(BsSelectBoxOption(
           value: bpCustomer.sbccstm!.cstmid,
           text: Text(bpCustomer.sbccstm!.cstmname.toString())));
-      // source.value.pic.value = bpCustomer.sbccstmpic.toString();
+      source.value.image.value = Image(
+          image: NetworkImage(
+              '${bpCustomer.sbccstmpic ?? 'https://cdn.icon-icons.com/icons2/1674/PNG/512/person_110935.png'}'));
     });
   }
 }

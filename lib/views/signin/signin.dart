@@ -266,6 +266,7 @@ class _SignInViewState extends State<SignInView>
 
   @override
   void onLoginFailed(String message) {
+    Snackbar().loginFailed();
     Get.defaultDialog();
     authPresenter.setProcessing(false);
   }
@@ -292,7 +293,6 @@ class _SignInViewState extends State<SignInView>
         userModel.userdetails!.first.businesspartner!.bpid!;
     if (userModel.jwtToken == '') {
       authPresenter.setProcessing(false);
-      Snackbar().loginFailed();
       toNameRoute(RouteList.sigin.index);
     } else {
       SessionManager.setLogin(
@@ -307,5 +307,6 @@ class _SignInViewState extends State<SignInView>
   @override
   void onErrorResponse() {
     authPresenter.setProcessing(false);
+    Snackbar().loginFailed();
   }
 }

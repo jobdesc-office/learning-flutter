@@ -136,9 +136,6 @@ class ProspectFormView extends StatelessWidget
                                     children: [
                                       BsCol(
                                           sizes: ColScreen(sm: Col.col_7),
-                                          child: prospectForm.selectType()),
-                                      BsCol(
-                                          sizes: ColScreen(sm: Col.col_7),
                                           child: prospectForm.inputValue()),
                                       BsCol(
                                           sizes: ColScreen(sm: Col.col_7),
@@ -299,9 +296,6 @@ class ProspectFormView extends StatelessWidget
       source.value.selectStatus.setSelected(BsSelectBoxOption(
           value: prospect.prospectstatus!.typeid,
           text: Text(prospect.prospectstatus!.typename.toString())));
-      source.value.selectType.setSelected(BsSelectBoxOption(
-          value: prospect.prospecttype!.typeid,
-          text: Text(prospect.prospecttype!.typename.toString())));
       source.value.inputValue.text = currencyFormatter
           .format(double.parse(prospect.prospectvalue ?? '0.0'));
       source.value.inputDesc.text = prospect.prospectdescription ?? '';

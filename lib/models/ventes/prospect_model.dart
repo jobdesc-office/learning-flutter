@@ -25,7 +25,6 @@ class ProspectModel {
   List<Prospectproduct>? prospectproduct;
   TypeModel? prospectstage;
   Prospectstage? prospectstatus;
-  Prospectstage? prospecttype;
   Prospectbp? prospectbp;
   Prospectcust? prospectcust;
 
@@ -54,7 +53,6 @@ class ProspectModel {
       this.prospectproduct,
       this.prospectstage,
       this.prospectstatus,
-      this.prospecttype,
       this.prospectbp,
       this.prospectcust});
 
@@ -98,9 +96,6 @@ class ProspectModel {
         : null;
     prospectstatus = json['prospectstatus'] != null
         ? new Prospectstage.fromJson(json['prospectstatus'])
-        : null;
-    prospecttype = json['prospecttype'] != null
-        ? new Prospectstage.fromJson(json['prospecttype'])
         : null;
     prospectbp = json['prospectbp'] != null
         ? new Prospectbp.fromJson(json['prospectbp'])
@@ -147,9 +142,6 @@ class ProspectModel {
     }
     if (this.prospectstatus != null) {
       data['prospectstatus'] = this.prospectstatus!.toJson();
-    }
-    if (this.prospecttype != null) {
-      data['prospecttype'] = this.prospecttype!.toJson();
     }
     if (this.prospectbp != null) {
       data['prospectbp'] = this.prospectbp!.toJson();

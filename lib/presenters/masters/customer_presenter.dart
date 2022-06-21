@@ -59,6 +59,11 @@ class CustomerPresenter extends CustomGetXController {
       _customerViewContract.onErrorRequest(response);
   }
 
+  Future cstm(int id) async {
+    Response response = await _customerService.show(id);
+    return response.body['cstmname'];
+  }
+
   void details(BuildContext context, int userid) async {
     setProcessing(true);
     showDialog(

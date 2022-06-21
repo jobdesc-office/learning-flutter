@@ -68,7 +68,6 @@ class ProspectSource extends GetxController {
   BsSelectBoxController selectOwner = BsSelectBoxController();
   BsSelectBoxController selectCustomer = BsSelectBoxController();
   BsSelectBoxController selectStatus = BsSelectBoxController();
-  BsSelectBoxController selectType = BsSelectBoxController();
 
   TextEditingController inputCompanyName = TextEditingController();
   TextEditingController inputName = TextEditingController();
@@ -161,7 +160,6 @@ class ProspectSource extends GetxController {
       'prospectowner': selectOwner.getSelectedAsString(),
       'prospectstageid': prospectStageController.getSelectedToString(),
       'prospectstatusid': selectStatus.getSelectedAsString(),
-      'prospecttypeid': selectType.getSelectedAsString(),
       'prospectexpclosedate': selectedDateExpect.value,
       'prospectbpid': _auth.bpActiveId.value,
       'prospectdescription': inputDesc.text,
@@ -387,20 +385,6 @@ class ProspectForm {
         hintText: BaseText.hiintSelect(field: ProspectText.labelOwner),
         serverSide: (params) => selectApiProspectOwner(params),
         validators: [Validators.selectRequired(ProspectText.labelOwner)],
-      ),
-    );
-  }
-
-  Widget selectType() {
-    return FormGroup(
-      label: Text(ProspectText.labelType),
-      child: CustomSelectBox(
-        searchable: false,
-        disabled: source.isProcessing,
-        controller: source.selectType,
-        hintText: BaseText.hiintSelect(field: ProspectText.labelType),
-        serverSide: (params) => selectApiProspectTypes(params),
-        validators: [Validators.selectRequired(ProspectText.labelType)],
       ),
     );
   }

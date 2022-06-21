@@ -5,6 +5,5 @@ class BpCustomerDetailsSource extends GetxController {
   var phone = ''.obs;
   var address = ''.obs;
   var type = ''.obs;
-  var pic =
-      'https://cdn.icon-icons.com/icons2/1674/PNG/512/person_110935.png'.obs;
+  var pic = ''.obs;
 }

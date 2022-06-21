@@ -196,6 +196,7 @@ class BpCustomerDetails extends GetView implements DetailViewContract {
     controller.name.value = dt.sbccstmname.toString();
     controller.phone.value = dt.sbccstmphone.toString();
     controller.address.value = dt.sbccstmaddress.toString();
-    // controller.type.value = dt.typename;
+    controller.pic.value = dt.sbccstmpic ??
+        'https://cdn.icon-icons.com/icons2/1674/PNG/512/person_110935.png';
   }
 }

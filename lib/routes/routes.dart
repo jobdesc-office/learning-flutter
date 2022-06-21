@@ -230,10 +230,15 @@ class AppRoute {
         name: RouteList.ventesBpCustomer.index,
         page: () => BpCustomerView(),
         binding: BindingsBuilder(() {
+          Get.lazyPut(() => ProvinceService());
+          Get.lazyPut(() => CityService());
+          Get.lazyPut(() => SubdistrictService());
           Get.lazyPut(() => UserService());
           Get.lazyPut(() => CustomerService());
           Get.lazyPut(() => BpCustomerService());
           Get.lazyPut(() => BpCustomerPresenter());
+          Get.lazyPut(() => CustomerService());
+          Get.lazyPut(() => CustomerPresenter());
         }),
       ),
     ];
