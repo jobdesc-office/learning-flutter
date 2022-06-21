@@ -1,3 +1,4 @@
+import 'package:boilerplate/models/masters/type_model.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
@@ -6,6 +7,7 @@ import 'package:get/get.dart';
 
 import '../../../../constants/base_text.dart';
 import '../../../../models/session_model.dart';
+import '../../../../presenters/masters/typechildren_presenter.dart';
 import '../../../../presenters/navigation_presenter.dart';
 import '../../../../styles/color_palattes.dart';
 import '../../../../utils/select_api.dart';
@@ -20,12 +22,14 @@ import '_text.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 final map = Get.put(mapSource());
+final typepresenter = Get.put(TypesChildrenPresenter());
 
 class ProspectDetailSource extends GetxController {
   bool isProcessing = false;
 
   var selectedDateExpect = ''.obs;
   var id = 0.obs;
+  var isOnSite = true.obs;
 
   BsSelectBoxController selectType = BsSelectBoxController();
   BsSelectBoxController selectCat = BsSelectBoxController();
@@ -79,16 +83,25 @@ class ProspectDetailForm {
           style: TextStyle(
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
-      child: CustomSelectBox(
-        searchable: true,
-        disabled: source.isProcessing,
-        controller: source.selectCat,
-        hintText: BaseText.hiintSelect(field: ProspectDetailText.labelCategory),
-        serverSide: (params) => selectApiProspectCategory(params),
-        validators: [
-          Validators.selectRequired(ProspectDetailText.labelCategory),
-        ],
-      ),
+      child: Obx(() => CustomSelectBox(
+            onChange: (value) {
+              var text = TypeModel.fromJson(value.getOtherValue());
+              if (text.typename == 'On Site') {
+                source.isOnSite.value = false;
+              } else {
+                source.isOnSite.value = true;
+              }
+            },
+            searchable: true,
+            disabled: source.isProcessing,
+            controller: source.selectCat,
+            hintText:
+                BaseText.hiintSelect(field: ProspectDetailText.labelCategory),
+            serverSide: (params) => selectApiProspectCategory(params),
+            validators: [
+              Validators.selectRequired(ProspectDetailText.labelCategory),
+            ],
+          )),
     );
   }
 
@@ -145,20 +158,21 @@ class ProspectDetailForm {
                     color: _navigation.darkTheme.value
                         ? Colors.white
                         : Colors.black))),
-            child: BsButton(
-              style: BsButtonStyle(
-                  color: Color.fromARGB(255, 165, 165, 165),
-                  backgroundColor: _navigation.darkTheme.value
-                      ? ColorPallates.elseDarkColor
-                      : Colors.white,
-                  borderColor: Colors.black,
-                  borderRadius: BorderRadius.all(Radius.circular(5))),
-              width: MediaQuery.of(context).size.width,
-              onPressed: () => Get.to(GoogleMapsPage()),
-              label: Obx(() => Text(map.linkCoordinate.isEmpty
-                  ? "Choose the Place"
-                  : map.linkCoordinate.value)),
-            ),
+            child: Obx(() => BsButton(
+                  disabled: source.isOnSite.value,
+                  style: BsButtonStyle(
+                      color: Color.fromARGB(255, 165, 165, 165),
+                      backgroundColor: _navigation.darkTheme.value
+                          ? ColorPallates.elseDarkColor
+                          : Colors.white,
+                      borderColor: Colors.black,
+                      borderRadius: BorderRadius.all(Radius.circular(5))),
+                  width: MediaQuery.of(context).size.width,
+                  onPressed: () => Get.to(GoogleMapsPage()),
+                  label: Text(map.linkCoordinate.isEmpty
+                      ? "Choose the Place"
+                      : map.linkCoordinate.value),
+                )),
           ),
         )
       ],

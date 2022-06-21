@@ -122,6 +122,11 @@ class TypesChildrenPresenter extends CustomGetXController {
       _typeChildrenViewContract.onErrorRequest(response);
   }
 
+  void typename(int id) async {
+    Response response = await _typeChildrenService.show(id);
+    return response.body['typename'];
+  }
+
   void edit(BuildContext context, int typeid) async {
     setProcessing(true);
     showDialog(
