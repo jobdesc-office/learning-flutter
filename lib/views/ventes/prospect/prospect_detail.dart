@@ -104,6 +104,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                       MainAxisAlignment.spaceAround,
                                   children: [
                                     BsButton(
+                                      style: BsButtonStyle.success,
                                       onPressed: () {
                                         assignPresenter.add(
                                             context, source.prospectid.value);
@@ -112,6 +113,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                       label: Text('Add Assignation'),
                                     ),
                                     BsButton(
+                                      style: BsButtonStyle.success,
                                       margin: EdgeInsets.only(left: 10),
                                       onPressed: () {
                                         productPresenter.add(
@@ -250,14 +252,13 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                               MainAxisAlignment.spaceAround,
                                           children: [
                                             BsButton(
+                                                style: BsButtonStyle.success,
                                                 onPressed: () {
                                                   detailPresenter.add(context,
                                                       source.prospectid.value);
                                                 },
-                                                label: Icon(
-                                                  Icons.add,
-                                                  size: 18,
-                                                )),
+                                                label: Text(
+                                                    'Add Prospect Detail')),
                                             // BsButton(
                                             //     onPressed: () {},
                                             //     label: Text('Customize Files'))
@@ -372,24 +373,24 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                   Icons.edit,
                                                   size: 13,
                                                 )),
-                                            BsButton(
-                                                onPressed: () {},
-                                                label: Icon(
-                                                  Icons.edit,
-                                                  size: 13,
-                                                )),
-                                            BsButton(
-                                                onPressed: () {},
-                                                label: Icon(
-                                                  Icons.edit,
-                                                  size: 13,
-                                                )),
-                                            BsButton(
-                                                onPressed: () {},
-                                                label: Icon(
-                                                  Icons.edit,
-                                                  size: 13,
-                                                )),
+                                            // BsButton(
+                                            //     onPressed: () {},
+                                            //     label: Icon(
+                                            //       Icons.edit,
+                                            //       size: 13,
+                                            //     )),
+                                            // BsButton(
+                                            //     onPressed: () {},
+                                            //     label: Icon(
+                                            //       Icons.edit,
+                                            //       size: 13,
+                                            //     )),
+                                            // BsButton(
+                                            //     onPressed: () {},
+                                            //     label: Icon(
+                                            //       Icons.edit,
+                                            //       size: 13,
+                                            //     )),
                                           ],
                                         ),
                                       ],

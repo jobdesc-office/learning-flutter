@@ -12,4 +12,8 @@ class UserService extends ApiConnectProvider {
   Future<Response> session(int id) {
     return get('$api/session');
   }
+
+  Future<Response> reset(int id) {
+    return get('$api/reset/$id');
+  }
 }

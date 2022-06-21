@@ -187,36 +187,8 @@ class _HomeViewState extends State<HomeView>
                                                       Container(
                                                         margin: EdgeInsets.only(
                                                             top: 5),
-                                                        child: Tooltip(
-                                                          message:
-                                                              'Tap to Copy',
-                                                          child:
-                                                              GestureDetector(
-                                                            onTap: () {
-                                                              Clipboard.setData(ClipboardData(
-                                                                  text: schedule
-                                                                              .scheonlink !=
-                                                                          null
-                                                                      ? schedule
-                                                                          .scheonlink
-                                                                      : schedule
-                                                                          .scheloc));
-                                                              Snackbar()
-                                                                  .copySuccess();
-                                                            },
-                                                            child: Text(
-                                                                schedule.scheonlink !=
-                                                                        null
-                                                                    ? schedule
-                                                                        .scheonlink
-                                                                    : schedule
-                                                                        .scheloc,
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontSize: 11,
-                                                                )),
-                                                          ),
-                                                        ),
+                                                        child: Text(schedule
+                                                            .schetype.typename),
                                                       ),
                                                     ],
                                                   )),

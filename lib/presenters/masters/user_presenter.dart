@@ -61,6 +61,14 @@ class UserPresenter extends CustomGetXController {
       _userViewContract.onErrorRequest(response);
   }
 
+  Future reset(BuildContext context, int id) async {
+    Response response = await _userService.reset(id);
+    if (response.statusCode == 200)
+      _userViewContract.onEditSuccess(response, context: context);
+    else
+      _userViewContract.onErrorRequest(response);
+  }
+
   void add(BuildContext context) async {
     showDialog(
       context: context,

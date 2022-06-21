@@ -31,7 +31,9 @@ class CustomButtonStyle {
       );
 
   static BsButtonStyle get roundedDanger => BsButtonStyle(
-        backgroundColor: ColorPallates.tertiary,
+        backgroundColor: _navigation.darkTheme.value
+            ? ColorPallates.dark
+            : ColorPallates.danger,
         color: Colors.white,
         borderRadius: BorderRadius.circular(5),
       );

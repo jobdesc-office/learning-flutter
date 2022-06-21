@@ -3,6 +3,7 @@ import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../presenters/ventes/prospect_presenter.dart';
 import '../../../routes/route_list.dart';

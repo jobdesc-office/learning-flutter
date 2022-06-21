@@ -1,3 +1,4 @@
+import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_modal/bs_flutter_modal.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
@@ -110,6 +111,33 @@ class UserDetails extends GetView implements DetailViewContract {
                                       child: Text(controller.phone.value))
                                 ],
                               )),
+                          BsCol(
+                              margin: EdgeInsets.only(top: 5),
+                              sizes: ColScreen(lg: Col.col_12),
+                              child: BsRow(
+                                children: [
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_3),
+                                      child: Text('Device ID')),
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_1),
+                                      child: Text(':')),
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_6),
+                                      child: Text(controller.deviceid.value
+                                          .toString())),
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_2),
+                                      child: BsButton(
+                                        style: BsButtonStyle.danger,
+                                        label: Text('Reset'),
+                                        onPressed: () {
+                                          presenter.reset(
+                                              context, controller.id.value);
+                                        },
+                                      )),
+                                ],
+                              )),
                         ],
                       )),
                 )
@@ -120,10 +148,12 @@ class UserDetails extends GetView implements DetailViewContract {
   @override
   void onSuccessFetchData(Response response) {
     UserModel dt = UserModel.fromJson(response.body);
+    controller.id.value = dt.userid!;
     controller.name.value = dt.userfullname!;
     controller.username.value = dt.username!;
     controller.email.value = dt.useremail!;
     controller.phone.value = dt.userphone!;
+    controller.deviceid.value = dt.userdeviceid ?? '';
     controller.type.value = dt.userdetails!.first.usertype!.typename!;
     controller.bp.value = dt.userdetails!.first.businesspartner!.bpname!;
     controller.active.value = dt.isactive!;

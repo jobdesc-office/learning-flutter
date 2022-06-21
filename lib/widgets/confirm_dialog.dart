@@ -109,7 +109,7 @@ class _ConfirmDialogState extends State<ConfirmDialog> {
                             disabled: _disabled,
                             margin: EdgeInsets.only(right: 5),
                             label: Text(BaseText.noConfirm),
-                            style: CustomButtonStyle.roundedSecondary,
+                            style: CustomButtonStyle.roundedDanger,
                             size: CustomButonSize.confirm,
                             onPressed: () {
                               if (widget.onPressed != null)

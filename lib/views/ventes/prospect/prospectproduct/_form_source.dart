@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import '../../../../constants/base_text.dart';
 import '../../../../helpers/function.dart';
 import '../../../../models/session_model.dart';
+import '../../../../presenters/auth_presenter.dart';
 import '../../../../presenters/navigation_presenter.dart';
 import '../../../../styles/color_palattes.dart';
 import '../../../../utils/select_api.dart';
@@ -68,6 +69,7 @@ class ProspectProductSource extends GetxController {
 
 class ProspectProductForm {
   final ProspectProductSource source;
+  final _auth = Get.put(AuthPresenter());
   final currencyFormatter = NumberFormat('#,##0.00', 'ID');
 
   ProspectProductForm(this.source);
@@ -80,9 +82,9 @@ class ProspectProductForm {
         disabled: source.isProcessing,
         controller: source.selectItem,
         hintText: BaseText.hiintSelect(field: ProspectText.labelItem),
-        // serverSide: (params) => selectApiProductWithBp(
-        //     params, source.bpid.toString()),
-        serverSide: (params) => selectApiProduct(params),
+        serverSide: (params) =>
+            selectApiProductWithBp(params, _auth.bpActiveId.value.toString()),
+        // serverSide: (params) => selectApiProduct(params),
         validators: [Validators.selectRequired(ProspectText.labelItem)],
       ),
     );

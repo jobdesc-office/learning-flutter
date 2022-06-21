@@ -5,7 +5,7 @@ class UserModel {
   String? userfullname;
   String? useremail;
   String? userphone;
-  int? userdeviceid;
+  String? userdeviceid;
   int? userfcmtoken;
   int? createdby;
   String? createddate;

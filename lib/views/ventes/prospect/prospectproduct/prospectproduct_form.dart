@@ -3,6 +3,7 @@ import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../contracts/base/edit_view_contract.dart';
 import '../../../../models/ventes/prospectProduct_model.dart';
@@ -133,6 +134,7 @@ class ProspectProductFormView extends StatelessWidget
   @override
   void onSuccessFetchData(Response response) {
     presenter.setProcessing(false);
+    final currencyFormatter = NumberFormat('#,##0.00', 'ID');
 
     source.update((val) {
       ProspectProductModel prospect =
@@ -144,8 +146,10 @@ class ProspectProductFormView extends StatelessWidget
           value: prospect.prosproducttaxtypeid,
           text: Text(prospect.prosproducttaxtype!.typename.toString())));
       source.value.inputQuantity.text = prospect.prosproductqty.toString();
-      source.value.inputAmount.text = prospect.prosproductamount.toString();
-      source.value.inputPrice.text = prospect.prosproductprice.toString();
+      source.value.inputAmount.text = currencyFormatter
+          .format(double.parse(prospect.prosproductamount.toString()));
+      source.value.inputPrice.text = currencyFormatter
+          .format(double.parse(prospect.prosproductprice.toString()));
       source.value.inputDiscount.text = prospect.prosproductdiscount ?? '0';
       source.value.inputTax.text = prospect.prosproducttax ?? '0';
     });
