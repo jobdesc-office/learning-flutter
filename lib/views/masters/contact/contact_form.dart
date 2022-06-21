@@ -85,6 +85,7 @@ class ContactFormView extends StatelessWidget implements EditViewContract {
     source.update((val) {
       ContactModel contact = ContactModel.fromJson(response.body);
       source.value.inputValue.text = contact.contactvalueid!;
+      source.value.inputName.text = contact.contactname!;
       source.value.selectCustomer.setSelected(BsSelectBoxOption(
           value: contact.contactcustomer!.cstmid,
           text: Text(contact.contactcustomer!.cstmname!)));

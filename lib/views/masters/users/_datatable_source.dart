@@ -33,8 +33,7 @@ class UserDataTableSource extends BsDatatableSource {
         orderable: false,
       ),
       CustomBsDataColumn(label: Text('User Name'), columnName: 'userfullname'),
-      CustomBsDataColumn(
-          label: Text('User Email'), columnName: 'useremail', width: 250),
+      CustomBsDataColumn(label: Text('User Email'), columnName: 'useremail'),
       // CustomBsDataColumn(
       //     label: Text('User Phone'), width: 150, columnName: 'userphone'),
       // CustomBsDataColumn(

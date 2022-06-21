@@ -33,9 +33,7 @@ class ContactDataTableSource extends BsDatatableSource {
         label: Text(
           'Contact Name',
         ),
-        columnName: 'cstmname',
-        searchable: false,
-        orderable: false,
+        columnName: 'contactname',
       ),
       CustomBsDataColumn(
         label: Text('Contact Value'),
@@ -77,7 +75,7 @@ class ContactDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.contactcustomer!.cstmname!),
+          Text(row.contactname!),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -110,18 +108,17 @@ class ContactDataTableSource extends BsDatatableSource {
           Row(
             children: [
               Tooltip(
-                message: BaseText.editHintDatatable(field: row.contactvalueid),
+                message: BaseText.editHintDatatable(field: row.contactname),
                 child: ButtonEditDatatables(
                   margin: EdgeInsets.only(right: 5),
                   onPressed: () => onEditListener(row.contactpersonid!),
                 ),
               ),
               Tooltip(
-                message:
-                    BaseText.deleteHintDatatable(field: row.contactvalueid),
+                message: BaseText.deleteHintDatatable(field: row.contactname),
                 child: ButtonDeleteDatatables(
                     onPressed: () => onDeleteListener(
-                        row.contactpersonid!, row.contactvalueid!)),
+                        row.contactpersonid!, row.contactname!)),
               ),
             ],
           ),

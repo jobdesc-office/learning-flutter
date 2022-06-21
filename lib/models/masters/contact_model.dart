@@ -2,10 +2,11 @@ class ContactModel {
   int? contactpersonid;
   int? contactcustomerid;
   int? contacttypeid;
+  String? contactname;
   String? contactvalueid;
   int? createdby;
   String? createddate;
-  int? updatedby;
+  Null? updatedby;
   String? updateddate;
   bool? isactive;
   Contactcustomer? contactcustomer;
@@ -15,6 +16,7 @@ class ContactModel {
       {this.contactpersonid,
       this.contactcustomerid,
       this.contacttypeid,
+      this.contactname,
       this.contactvalueid,
       this.createdby,
       this.createddate,
@@ -28,6 +30,7 @@ class ContactModel {
     contactpersonid = json['contactpersonid'];
     contactcustomerid = json['contactcustomerid'];
     contacttypeid = json['contacttypeid'];
+    contactname = json['contactname'];
     contactvalueid = json['contactvalueid'];
     createdby = json['createdby'];
     createddate = json['createddate'];
@@ -47,6 +50,7 @@ class ContactModel {
     data['contactpersonid'] = this.contactpersonid;
     data['contactcustomerid'] = this.contactcustomerid;
     data['contacttypeid'] = this.contacttypeid;
+    data['contactname'] = this.contactname;
     data['contactvalueid'] = this.contactvalueid;
     data['createdby'] = this.createdby;
     data['createddate'] = this.createddate;
@@ -65,7 +69,7 @@ class ContactModel {
 
 class Contactcustomer {
   int? cstmid;
-  int? cstmprefix;
+  Null? cstmprefix;
   String? cstmname;
   String? cstmphone;
   String? cstmaddress;
@@ -73,14 +77,14 @@ class Contactcustomer {
   int? cstmprovinceid;
   int? cstmcityid;
   int? cstmsubdistrictid;
-  int? cstmuvid;
+  Null? cstmuvid;
   String? cstmpostalcode;
   String? cstmlatitude;
   String? cstmlongitude;
-  int? referalcode;
-  int? createdby;
+  Null? referalcode;
+  Null? createdby;
   String? createddate;
-  int? updatedby;
+  Null? updatedby;
   String? updateddate;
   bool? isactive;
 
