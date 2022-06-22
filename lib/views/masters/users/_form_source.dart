@@ -24,6 +24,7 @@ class UserSource extends GetxController {
   var role = 1.obs;
   var partner = 1.obs;
   var isAdd = true;
+  var isChange = false.obs;
 
   increase() {
     selectsRole.add(BsSelectBoxController());
@@ -96,6 +97,10 @@ class UserForm {
                     hintText: BaseText.hiintSelect(
                         field: UserText.labelRole + ' ${index + 1}'),
                     serverSide: (params) => selectApiRole(params),
+                    validators: [
+                      Validators.selectRequired(
+                          UserText.labelRole + ' ${index + 1}')
+                    ],
                   ),
                 ),
               ),
@@ -110,6 +115,10 @@ class UserForm {
                     hintText: BaseText.hiintSelect(
                         field: UserText.labelBp + ' ${index + 1}'),
                     serverSide: (params) => selectApiPartner(params),
+                    validators: [
+                      Validators.selectRequired(
+                          UserText.labelBp + ' ${index + 1}')
+                    ],
                   ),
                 ),
               ),
@@ -155,18 +164,25 @@ class UserForm {
           style: TextStyle(
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
-      child: CustomInput(
-        maxLines: 1,
-        passwordText: true,
-        disabled: source.isProcessing,
-        controller: source.inputPassword,
-        hintText: BaseText.hintText(field: UserText.labelPassword),
-        validators: [
-          if (c.isAdd) Validators.inputRequired(UserText.labelPassword),
-          if (c.isAdd) Validators.maxLength(UserText.labelPassword, 100),
-          if (c.isAdd) Validators.minLength(UserText.labelPassword, 7),
-        ],
-      ),
+      child: Obx(() => CustomInput(
+            onChange: (value) {
+              if (value != '')
+                source.isChange.value = true;
+              else
+                source.isChange.value = false;
+              {}
+            },
+            maxLines: 1,
+            passwordText: true,
+            disabled: source.isProcessing,
+            controller: source.inputPassword,
+            hintText: BaseText.hintText(field: UserText.labelPassword),
+            validators: [
+              if (c.isAdd) Validators.inputRequired(UserText.labelPassword),
+              if (c.isAdd) Validators.maxLength(UserText.labelPassword, 100),
+              if (c.isAdd) Validators.minLength(UserText.labelPassword, 7),
+            ],
+          )),
     );
   }
 
@@ -176,22 +192,22 @@ class UserForm {
           style: TextStyle(
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
-      child: CustomInput(
-        maxLines: 1,
-        passwordText: true,
-        disabled: source.isProcessing,
-        controller: source.inputConfirmPassword,
-        hintText: BaseText.hintText(field: UserText.labelConfirmPassword),
-        validators: [
-          if (c.isAdd)
-            BsInputValidator(validator: ((value) {
-              if (value != source.inputPassword.text) {
-                return 'Confirm password is different';
-              }
-              return null;
-            })),
-        ],
-      ),
+      child: Obx(() => CustomInput(
+            maxLines: 1,
+            passwordText: true,
+            disabled: source.isProcessing,
+            controller: source.inputConfirmPassword,
+            hintText: BaseText.hintText(field: UserText.labelConfirmPassword),
+            validators: [
+              if (source.isChange.value)
+                BsInputValidator(validator: ((value) {
+                  if (value != source.inputPassword.text) {
+                    return 'Confirm password is different';
+                  }
+                  return null;
+                })),
+            ],
+          )),
     );
   }
 

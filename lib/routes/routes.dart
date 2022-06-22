@@ -74,6 +74,8 @@ class AppRoute {
         name: RouteList.home.index,
         page: () => AuthGuard(child: HomeView()),
         binding: BindingsBuilder(() {
+          Get.lazyPut(() => ScheduleService());
+          Get.lazyPut(() => SchedulePresenter());
           Get.lazyPut(() => HomeService());
           Get.lazyPut(() => HomePresenter());
         }),

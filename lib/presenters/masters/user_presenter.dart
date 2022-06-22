@@ -7,6 +7,7 @@ import '../../constants/base_text.dart';
 import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
+import '../../contracts/master/userReset_contract.dart';
 import '../../models/auth_model.dart';
 import '../../services/masters/user_service.dart';
 import '../../utils/custom_get_controller.dart';
@@ -38,6 +39,11 @@ class UserPresenter extends CustomGetXController {
     _userFetchDataDetailsContract = userFetchDataDetailsContract;
   }
 
+  late UserResetContract _userResetContract;
+  set userResetContract(UserResetContract userFetchDataContract) {
+    _userResetContract = userFetchDataContract;
+  }
+
   Future checkDetail() async {
     Response response = await _userService.session(box.read('id'));
     var data = AuthModel.fromJson(response.body);
@@ -64,7 +70,7 @@ class UserPresenter extends CustomGetXController {
   Future reset(BuildContext context, int id) async {
     Response response = await _userService.reset(id);
     if (response.statusCode == 200)
-      _userViewContract.onEditSuccess(response, context: context);
+      _userResetContract.onResetSuccess(response, context: context);
     else
       _userViewContract.onErrorRequest(response);
   }

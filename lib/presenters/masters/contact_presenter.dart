@@ -7,6 +7,7 @@ import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
 import '../../services/masters/contact_service.dart';
 import '../../utils/custom_get_controller.dart';
+import '../../views/masters/contact/contact_details.dart';
 import '../../views/masters/contact/contact_form.dart';
 import '../../widgets/confirm_dialog.dart';
 
@@ -37,19 +38,19 @@ class ContactPresenter extends CustomGetXController {
       _contactViewContract.onErrorRequest(response);
   }
 
-  // void details(BuildContext context, int userid) async {
-  //   setProcessing(true);
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) => ContactDetails(),
-  //   );
+  void details(BuildContext context, int userid) async {
+    setProcessing(true);
+    showDialog(
+      context: context,
+      builder: (context) => ContactDetails(),
+    );
 
-  //   Response response = await _ContactService.show(userid);
-  //   if (response.statusCode == 200)
-  //     _ContactDataDetailsContract.onSuccessFetchData(response);
-  //   else
-  //     _ContactViewContract.onErrorRequest(response);
-  // }
+    Response response = await _contactService.show(userid);
+    if (response.statusCode == 200)
+      _contactDataDetailsContract.onSuccessFetchData(response);
+    else
+      _contactViewContract.onErrorRequest(response);
+  }
 
   void add(BuildContext context) async {
     showDialog(

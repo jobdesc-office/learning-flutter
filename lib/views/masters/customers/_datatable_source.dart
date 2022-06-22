@@ -34,7 +34,7 @@ class CustomerDataTableSource extends BsDatatableSource {
       ),
       CustomBsDataColumn(label: Text('Customer Name'), columnName: 'cstmname'),
       CustomBsDataColumn(
-        label: Text('Customer Telp'),
+        label: Text('Customer Phone'),
         columnName: 'cstmphone',
       ),
       // CustomBsDataColumn(

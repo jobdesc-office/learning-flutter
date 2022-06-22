@@ -8,6 +8,7 @@ import '../../../models/security/menu_model.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../styles/color_palattes.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
+import '../../../widgets/button/button_details_datatable.dart';
 import '../../../widgets/button/button_edit_datatable.dart';
 import '../../../widgets/datatables/custom_datatable_tablecell.dart';
 import '../../../widgets/datatables/custom_datatable_tablehead.dart';
@@ -15,6 +16,7 @@ import '../../../widgets/datatables/custom_datatable_tablehead.dart';
 final _navigation = Get.find<NavigationPresenter>();
 
 class MenuDataTableSource extends BsDatatableSource {
+  ValueChanged<int> onDetailsListener = (value) {};
   ValueChanged<int> onEditListener = (value) {};
   Function onDeleteListener = (value, name) {};
 
@@ -112,6 +114,13 @@ class MenuDataTableSource extends BsDatatableSource {
         CustomBsDataCell(
           Row(
             children: [
+              Tooltip(
+                message: BaseText.detailHintDatatable(field: row.menunm),
+                child: ButtonDetailsDatatables(
+                  margin: EdgeInsets.only(right: 5),
+                  onPressed: () => onDetailsListener(row.menuid),
+                ),
+              ),
               Tooltip(
                 message: BaseText.editHintDatatable(field: row.menunm),
                 child: ButtonEditDatatables(

@@ -1,25 +1,27 @@
-import 'package:boilerplate/styles/color_palattes.dart';
+import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_modal/bs_flutter_modal.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import '../../../../contracts/base/details_view_contract.dart';
-import '../../../../models/ventes/prospectdetail_model.dart';
-import '../../../../presenters/navigation_presenter.dart';
-import '../../../../presenters/ventes/prospectdetail_presenter.dart';
-import '_detail_source.dart';
+
+import '../../../contracts/base/details_view_contract.dart';
+import '../../../models/masters/contact_model.dart';
+import '../../../models/security/menu_model.dart';
+import '../../../presenters/masters/contact_presenter.dart';
+import '../../../presenters/masters/menu_presenter.dart';
+import '../../../presenters/navigation_presenter.dart';
+import '../../../styles/color_palattes.dart';
+import '_details_source.dart';
 import '_text.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 
-class ProspectDetailDetails extends GetView implements DetailViewContract {
-  final ProspectDetailPresenter presenter = Get.find<ProspectDetailPresenter>();
-  final prospectDetailDetailsSource controller =
-      Get.put(prospectDetailDetailsSource());
+class ContactDetails extends GetView implements DetailViewContract {
+  final ContactPresenter presenter = Get.find<ContactPresenter>();
+  final ContactDetailsSource controller = Get.put(ContactDetailsSource());
 
-  ProspectDetailDetails() {
-    presenter.prospectDetailViewContract = this;
+  ContactDetails() {
+    presenter.contactDataDetailsContract = this;
   }
 
   @override
@@ -37,7 +39,7 @@ class ProspectDetailDetails extends GetView implements DetailViewContract {
               ),
               children: [
                 BsModalContainer(
-                  title: Text(ProspectDetailText.title + ' Details',
+                  title: Text(ContactText.title + ' Details',
                       style: TextStyle(
                           color: _navigation.darkTheme.value
                               ? Colors.white
@@ -63,68 +65,51 @@ class ProspectDetailDetails extends GetView implements DetailViewContract {
                                 ],
                               )),
                           BsCol(
-                              margin: EdgeInsets.only(top: 10),
+                              margin: EdgeInsets.only(top: 5),
                               sizes: ColScreen(lg: Col.col_12),
                               child: BsRow(
                                 children: [
                                   BsCol(
                                       sizes: ColScreen(lg: Col.col_3),
-                                      child: Text('Category')),
+                                      child: Text('Customer')),
                                   BsCol(
                                       sizes: ColScreen(lg: Col.col_1),
                                       child: Text(':')),
                                   BsCol(
                                       sizes: ColScreen(lg: Col.col_8),
-                                      child: Text(controller.category.value))
+                                      child: Text(controller.customer.value))
                                 ],
                               )),
                           BsCol(
-                              margin: EdgeInsets.only(top: 10),
+                              margin: EdgeInsets.only(top: 5),
                               sizes: ColScreen(lg: Col.col_12),
                               child: BsRow(
                                 children: [
                                   BsCol(
                                       sizes: ColScreen(lg: Col.col_3),
-                                      child: Text('Date')),
+                                      child: Text('Name')),
                                   BsCol(
                                       sizes: ColScreen(lg: Col.col_1),
                                       child: Text(':')),
                                   BsCol(
                                       sizes: ColScreen(lg: Col.col_8),
-                                      child: Text(controller.date.value))
+                                      child: Text(controller.name.value))
                                 ],
                               )),
-                          if (controller.link.value != '')
-                            BsCol(
-                                margin: EdgeInsets.only(top: 10),
-                                sizes: ColScreen(lg: Col.col_12),
-                                child: BsRow(
-                                  children: [
-                                    BsCol(
-                                        sizes: ColScreen(lg: Col.col_3),
-                                        child: Text('Place')),
-                                    BsCol(
-                                        sizes: ColScreen(lg: Col.col_1),
-                                        child: Text(':')),
-                                    BsCol(
-                                        sizes: ColScreen(lg: Col.col_8),
-                                        child: Text(controller.link.value))
-                                  ],
-                                )),
                           BsCol(
-                              margin: EdgeInsets.only(top: 10),
+                              margin: EdgeInsets.only(top: 5),
                               sizes: ColScreen(lg: Col.col_12),
                               child: BsRow(
                                 children: [
                                   BsCol(
                                       sizes: ColScreen(lg: Col.col_3),
-                                      child: Text('Description')),
+                                      child: Text('Value')),
                                   BsCol(
                                       sizes: ColScreen(lg: Col.col_1),
                                       child: Text(':')),
                                   BsCol(
                                       sizes: ColScreen(lg: Col.col_8),
-                                      child: Text(controller.desc.value))
+                                      child: Text(controller.value.value))
                                 ],
                               )),
                         ],
@@ -136,11 +121,10 @@ class ProspectDetailDetails extends GetView implements DetailViewContract {
 
   @override
   void onSuccessFetchData(Response response) {
-    ProspectDetailModel dt = ProspectDetailModel.fromJson(response.body);
-    controller.category.value = dt.prospectdtcat!.typename ?? '';
-    controller.date.value = dt.prospectdtdate ?? '';
-    controller.desc.value = dt.prospectdtdesc ?? '';
-    controller.type.value = dt.prospectdttype!.typename ?? '';
-    controller.link.value = dt.prospectdtloc ?? '';
+    ContactModel dt = ContactModel.fromJson(response.body);
+    controller.type.value = dt.contacttype!.typename!;
+    controller.customer.value = dt.contactcustomer!.cstmname!;
+    controller.name.value = dt.contactname!;
+    controller.value.value = dt.contactvalueid!;
   }
 }

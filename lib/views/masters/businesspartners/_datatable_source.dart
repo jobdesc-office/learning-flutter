@@ -33,15 +33,7 @@ class BusinessPartnerDataTableSource extends BsDatatableSource {
       ),
       CustomBsDataColumn(label: Text('BP Company'), columnName: 'bpname'),
       // CustomBsDataColumn(label: Text('BP Email'), columnName: 'bpemail'),
-      CustomBsDataColumn(
-          label: Text('BP Phone'), columnName: 'bpphone', width: 150),
-      CustomBsDataColumn(
-        label: Text('BP Type'),
-        columnName: 'bptypeid',
-        width: 150,
-        searchable: false,
-        orderable: false,
-      ),
+      CustomBsDataColumn(label: Text('BP Phone'), columnName: 'bpphone'),
       CustomBsDataColumn(
         label: Text('Actions'),
         orderable: false,
@@ -93,23 +85,6 @@ class BusinessPartnerDataTableSource extends BsDatatableSource {
         // ),
         CustomBsDataCell(
           Text(row.bpphone),
-          color: _navigation.darkTheme.value
-              ? x % 2 == 0
-                  ? ColorPallates.datatableDarkEvenRowColor
-                  : ColorPallates.datatableDarkOddRowColor
-              : x % 2 == 0
-                  ? ColorPallates.datatableLightEvenRowColor
-                  : ColorPallates.datatableLightOddRowColor,
-        ),
-        CustomBsDataCell(
-          // Row(
-          //   crossAxisAlignment: CrossAxisAlignment.center,
-          //   children: [
-          //     ThemeBadge(child: Text(row.bptype.typename))
-          //   ],
-          // ),
-          Text(row.bptype.typename),
-
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor

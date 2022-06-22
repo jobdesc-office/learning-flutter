@@ -49,6 +49,12 @@ class BpCustomerDetails extends GetView implements DetailViewContract {
                   child: Obx(() => BsRow(
                         children: [
                           BsCol(
+                            sizes: ColScreen(lg: Col.col_4),
+                            child: Container(
+                              child: Image.network(controller.pic.value),
+                            ),
+                          ),
+                          BsCol(
                             sizes: ColScreen(lg: Col.col_8),
                             child: Container(
                               padding: EdgeInsets.all(10),
@@ -169,12 +175,6 @@ class BpCustomerDetails extends GetView implements DetailViewContract {
                                   ),
                                 ],
                               ),
-                            ),
-                          ),
-                          BsCol(
-                            sizes: ColScreen(lg: Col.col_4),
-                            child: Container(
-                              child: Image.network(controller.pic.value),
                             ),
                           ),
                           BsCol(

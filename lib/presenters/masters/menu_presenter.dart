@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../constants/base_text.dart';
 import '../../constants/config_types.dart';
+import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
 import '../../services/masters/type_service.dart';
@@ -11,6 +12,7 @@ import '../../services/security/menu_service.dart';
 import '../../styles/color_palattes.dart';
 import '../../utils/custom_get_controller.dart';
 import '../../views/masters/menus/_menu_type.dart';
+import '../../views/masters/menus/menu_details.dart';
 import '../../views/masters/menus/menu_form.dart';
 import '../../widgets/confirm_dialog.dart';
 
@@ -31,6 +33,11 @@ class MenuPresenter extends CustomGetXController {
   late MenuTypeViewContract _menuTypeViewContract;
   set menuTypeViewContract(MenuTypeViewContract menuTypeViewContract) {
     _menuTypeViewContract = menuTypeViewContract;
+  }
+
+  late DetailViewContract _menuDataDetailsContract;
+  set menuDataDetailsContract(DetailViewContract menuDataDetailsContract) {
+    _menuDataDetailsContract = menuDataDetailsContract;
   }
 
   Future datatables(BuildContext context, Map<String, String> params) async {
@@ -58,6 +65,20 @@ class MenuPresenter extends CustomGetXController {
     );
 
     _loadType();
+  }
+
+  void details(BuildContext context, int userid) async {
+    setProcessing(true);
+    showDialog(
+      context: context,
+      builder: (context) => MenuDetails(),
+    );
+
+    Response response = await _menuService.show(userid);
+    if (response.statusCode == 200)
+      _menuDataDetailsContract.onSuccessFetchData(response);
+    else
+      _menuViewContract.onErrorRequest(response);
   }
 
   void save(BuildContext context, Map<String, dynamic> body) async {

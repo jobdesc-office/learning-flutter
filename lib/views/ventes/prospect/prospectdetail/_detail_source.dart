@@ -5,4 +5,5 @@ class prospectDetailDetailsSource extends GetxController {
   var date = ''.obs;
   var desc = ''.obs;
   var type = ''.obs;
+  var link = ''.obs;
 }

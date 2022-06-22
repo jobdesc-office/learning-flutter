@@ -116,10 +116,9 @@ class ProspectDetailFormView extends StatelessWidget
       source.value.selectCat.setSelected(BsSelectBoxOption(
           value: prospect.prospectdtcat!.typeid,
           text: Text(prospect.prospectdtcat!.typename.toString())));
-      source.value.inputDesc.text = prospect.prospectdtdesc.toString();
-      source.value.selectedDateExpect.value =
-          prospect.prospectdtdate.toString();
-      map.linkCoordinate.value = prospect.prospectdtloc.toString();
+      source.value.inputDesc.text = prospect.prospectdtdesc ?? '';
+      source.value.selectedDateExpect.value = prospect.prospectdtdate ?? '';
+      map.linkCoordinate.value = prospect.prospectdtloc ?? '';
     });
   }
 }

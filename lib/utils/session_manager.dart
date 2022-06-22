@@ -1,3 +1,4 @@
+import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/session_model.dart';
@@ -13,8 +14,9 @@ class SessionManager {
 
   static Future<SessionModel> current() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    return SessionModel(jwtToken: sharedPreferences.getString('jwtToken'),
-    userid: sharedPreferences.getInt('userid'));
+    return SessionModel(
+        jwtToken: sharedPreferences.getString('jwtToken'),
+        userid: sharedPreferences.getInt('userid'));
   }
 
   static Future<bool> isLogged() async {
@@ -23,8 +25,12 @@ class SessionManager {
   }
 
   static Future destroy() async {
+    final box = GetStorage();
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.remove('jwtToken');
     sharedPreferences.remove('userid');
+    box.remove('name');
+    box.remove('id');
+    box.remove('username');
   }
 }

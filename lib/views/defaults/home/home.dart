@@ -11,6 +11,7 @@ import 'package:timelines/timelines.dart';
 import '../../../models/default/home_model.dart';
 import '../../../models/ventes/schedule_model.dart';
 import '../../../presenters/default/home_presenter.dart';
+import '../../../presenters/ventes/schedule_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/snackbar.dart';
@@ -35,6 +36,7 @@ class _HomeViewState extends State<HomeView>
 
   late TabController _tabController;
 
+  final schedulePresenter = Get.find<SchedulePresenter>();
   final presenter = Get.find<HomePresenter>();
 
   final _navigation = Get.find<NavigationPresenter>();
@@ -172,25 +174,35 @@ class _HomeViewState extends State<HomeView>
                                               BsCol(
                                                   sizes:
                                                       ColScreen(sm: Col.col_8),
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        schedule.schenm,
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
-                                                      Container(
-                                                        margin: EdgeInsets.only(
-                                                            top: 5),
-                                                        child: Text(schedule
-                                                            .schetype.typename),
-                                                      ),
-                                                    ],
+                                                  child: InkWell(
+                                                    onTap: () =>
+                                                        schedulePresenter
+                                                            .details(
+                                                                context,
+                                                                schedule
+                                                                    .scheid),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          schedule.schenm,
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                        Container(
+                                                          margin:
+                                                              EdgeInsets.only(
+                                                                  top: 5),
+                                                          child: Text(schedule
+                                                              .schetype
+                                                              .typename),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   )),
                                             ],
                                           );

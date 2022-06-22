@@ -1,8 +1,11 @@
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_modal/bs_flutter_modal.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../constants/base_text.dart';
+import '../presenters/navigation_presenter.dart';
+import '../styles/color_palattes.dart';
 import '../styles/custom_button_size.dart';
 import '../styles/custom_button_styles.dart';
 
@@ -66,6 +69,8 @@ class _ConfirmDialogState extends State<ConfirmDialog> {
     });
   }
 
+  final _navigation = Get.find<NavigationPresenter>();
+
   @override
   Widget build(BuildContext context) {
     return BsModal(
@@ -74,8 +79,22 @@ class _ConfirmDialogState extends State<ConfirmDialog> {
         size: BsModalSize.sm,
         crossAxisAlignment: CrossAxisAlignment.center,
         child: BsModalContent(
+          decoration: BoxDecoration(
+            color: _navigation.darkTheme.value
+                ? ColorPallates.elseDarkColor
+                : Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+          ),
           children: [
-            BsModalContainer(title: Text(widget.title), closeButton: true),
+            BsModalContainer(
+                title: Text(
+                  widget.title,
+                  style: TextStyle(
+                      color: _navigation.darkTheme.value
+                          ? Colors.white
+                          : ColorPallates.elseDarkColor),
+                ),
+                closeButton: true),
             BsModalContainer(
                 child: Column(
               children: [
@@ -109,7 +128,7 @@ class _ConfirmDialogState extends State<ConfirmDialog> {
                             disabled: _disabled,
                             margin: EdgeInsets.only(right: 5),
                             label: Text(BaseText.noConfirm),
-                            style: CustomButtonStyle.roundedDanger,
+                            style: CustomButtonStyle.roundedDark,
                             size: CustomButonSize.confirm,
                             onPressed: () {
                               if (widget.onPressed != null)

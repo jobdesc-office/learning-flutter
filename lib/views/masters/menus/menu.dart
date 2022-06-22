@@ -86,6 +86,8 @@ class MenuView extends StatelessWidget
   void onLoadDatatables(BuildContext context, Response response) {
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
+    datatable.onDetailsListener =
+        (userid) => presenter.details(context, userid);
     datatable.onEditListener = (menuid) => presenter.edit(context, menuid);
     datatable.onDeleteListener =
         (menuid, name) => presenter.delete(context, menuid, name);

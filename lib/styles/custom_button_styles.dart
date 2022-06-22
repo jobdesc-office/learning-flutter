@@ -38,6 +38,14 @@ class CustomButtonStyle {
         borderRadius: BorderRadius.circular(5),
       );
 
+  static BsButtonStyle get roundedDark => BsButtonStyle(
+        backgroundColor: _navigation.darkTheme.value
+            ? ColorPallates.cancel
+            : ColorPallates.dark,
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(5),
+      );
+
   static BsButtonStyle get roundedGrey => BsButtonStyle(
         backgroundColor: ColorPallates.delete,
         color: Colors.white,

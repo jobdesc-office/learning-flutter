@@ -105,7 +105,7 @@ class Sbcbp {
 
 class Sbccstm {
   int? cstmid;
-  Null? cstmprefix;
+  String? cstmprefix;
   String? cstmname;
   String? cstmphone;
   String? cstmaddress;
@@ -113,11 +113,11 @@ class Sbccstm {
   int? cstmprovinceid;
   int? cstmcityid;
   int? cstmsubdistrictid;
-  Null? cstmuvid;
+  int? cstmuvid;
   String? cstmpostalcode;
   String? cstmlatitude;
   String? cstmlongitude;
-  Null? referalcode;
+  int? referalcode;
   int? createdby;
   String? createddate;
   int? updatedby;

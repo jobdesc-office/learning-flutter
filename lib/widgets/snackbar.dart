@@ -105,4 +105,17 @@ class Snackbar {
           size: 30,
         ));
   }
+
+  void resetSuccess() {
+    Get.snackbar('Success', 'Reset Device Success',
+        colorText: _navigation.darkTheme.value ? Colors.black : Colors.white,
+        backgroundColor: ColorPallates.danger,
+        margin: EdgeInsets.only(top: 10, right: 10, bottom: 10, left: 1030),
+        maxWidth: 500,
+        icon: Icon(
+          Icons.refresh,
+          size: 30,
+          color: _navigation.darkTheme.value ? Colors.black : Colors.white,
+        ));
+  }
 }

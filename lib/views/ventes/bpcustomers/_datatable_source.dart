@@ -42,12 +42,6 @@ class BpCustomerDataTableSource extends BsDatatableSource {
       ),
       // CustomBsDataColumn(label: Text('BpCustomer Telp'), columnName: 'icon'),
       CustomBsDataColumn(
-        label: Text('BpCustomer Type'),
-        columnName: 'route',
-        searchable: false,
-        orderable: false,
-      ),
-      CustomBsDataColumn(
           label: Text('Actions'),
           width: 100,
           orderable: false,
@@ -97,16 +91,6 @@ class BpCustomerDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         // CustomBsDataCell(Text(row.sbccstmphone.toString())),
-        CustomBsDataCell(
-          Text(row.sbccstmstatus!.typename.toString()),
-          color: _navigation.darkTheme.value
-              ? x % 2 == 0
-                  ? ColorPallates.datatableDarkEvenRowColor
-                  : ColorPallates.datatableDarkOddRowColor
-              : x % 2 == 0
-                  ? ColorPallates.datatableLightEvenRowColor
-                  : ColorPallates.datatableLightOddRowColor,
-        ),
         CustomBsDataCell(
           Row(
             children: [

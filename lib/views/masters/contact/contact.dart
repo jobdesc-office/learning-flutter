@@ -86,9 +86,11 @@ class ContactView extends GetView implements IndexViewContract {
   void onLoadDatatables(BuildContext context, Response response) {
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
+    datatable.onDetailsListener =
+        (contactid) => presenter.details(context, contactid);
     datatable.onEditListener =
-        (Contactid) => presenter.edit(context, Contactid);
+        (contactid) => presenter.edit(context, contactid);
     datatable.onDeleteListener =
-        (Contactid, name) => presenter.delete(context, Contactid, name);
+        (contactid, name) => presenter.delete(context, contactid, name);
   }
 }

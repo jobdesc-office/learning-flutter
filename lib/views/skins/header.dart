@@ -87,6 +87,10 @@ class HeaderSkins extends StatelessWidget implements LogoutViewContract {
                           ),
                           dropdownMenu: BsDropdownMenu(
                             header: BsDropdownHeader(
+                              decoration: BoxDecoration(
+                                  color: _navigation.darkTheme.value
+                                      ? ColorPallates.elseDarkColor
+                                      : ColorPallates.elseLightColor),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -99,6 +103,10 @@ class HeaderSkins extends StatelessWidget implements LogoutViewContract {
                             ),
                             children: [
                               BsDropdownItem(
+                                style: BoxDecoration(
+                                    color: _navigation.darkTheme.value
+                                        ? ColorPallates.elseDarkColor
+                                        : ColorPallates.elseLightColor),
                                 onPressed: (() =>
                                     Get.toNamed(RouteList.profile.index)),
                                 child: Row(
@@ -117,6 +125,10 @@ class HeaderSkins extends StatelessWidget implements LogoutViewContract {
                               ),
                               BsDropdownDivider(),
                               BsDropdownItem(
+                                  style: BoxDecoration(
+                                      color: _navigation.darkTheme.value
+                                          ? ColorPallates.elseDarkColor
+                                          : ColorPallates.elseLightColor),
                                   padding: EdgeInsets.all(15),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,

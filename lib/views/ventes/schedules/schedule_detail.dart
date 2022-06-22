@@ -46,242 +46,250 @@ class ScheduleDetails extends GetView implements DetailViewContract {
                   closeButton: true,
                 ),
                 BsModalContainer(
-                  child: Obx(() => BsRow(
-                        children: [
-                          BsCol(
-                              sizes: ColScreen(lg: Col.col_12),
-                              child: BsRow(
-                                children: [
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_3),
-                                      child: Text('Title')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_1),
-                                      child: Text(':')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_8),
-                                      child: Text(controller.title.value))
-                                ],
-                              )),
-                          BsCol(
-                              margin: EdgeInsets.only(top: 10),
-                              sizes: ColScreen(lg: Col.col_12),
-                              child: BsRow(
-                                children: [
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_3),
-                                      child: Text('Name')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_1),
-                                      child: Text(':')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_8),
-                                      child: Text(controller.name.value))
-                                ],
-                              )),
-                          BsCol(
-                              margin: EdgeInsets.only(top: 10),
-                              sizes: ColScreen(lg: Col.col_12),
-                              child: BsRow(
-                                children: [
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_3),
-                                      child: Text('Start Date')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_1),
-                                      child: Text(':')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_8),
-                                      child: Text(controller.startdate.value))
-                                ],
-                              )),
-                          BsCol(
-                              margin: EdgeInsets.only(top: 10),
-                              sizes: ColScreen(lg: Col.col_12),
-                              child: BsRow(
-                                children: [
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_3),
-                                      child: Text('Start Time')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_1),
-                                      child: Text(':')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_8),
-                                      child: Text(controller.starttime.value))
-                                ],
-                              )),
-                          BsCol(
-                              margin: EdgeInsets.only(top: 10),
-                              sizes: ColScreen(lg: Col.col_12),
-                              child: BsRow(
-                                children: [
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_3),
-                                      child: Text('End Date')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_1),
-                                      child: Text(':')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_8),
-                                      child: Text(controller.enddate.value))
-                                ],
-                              )),
-                          BsCol(
-                              margin: EdgeInsets.only(top: 10),
-                              sizes: ColScreen(lg: Col.col_12),
-                              child: BsRow(
-                                children: [
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_3),
-                                      child: Text('End Time')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_1),
-                                      child: Text(':')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_8),
-                                      child: Text(controller.endtime.value))
-                                ],
-                              )),
-                          BsCol(
-                              margin: EdgeInsets.only(top: 10),
-                              sizes: ColScreen(lg: Col.col_12),
-                              child: BsRow(
-                                children: [
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_3),
-                                      child: Text('Type')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_1),
-                                      child: Text(':')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_8),
-                                      child: Text(controller.type.value))
-                                ],
-                              )),
-                          BsCol(
-                              margin: EdgeInsets.only(top: 10),
-                              sizes: ColScreen(lg: Col.col_12),
-                              child: BsRow(
-                                children: [
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_3),
-                                      child: Text('Business Partner')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_1),
-                                      child: Text(':')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_8),
-                                      child: Text(controller.bp.value))
-                                ],
-                              )),
-                          BsCol(
-                              margin: EdgeInsets.only(top: 10),
-                              sizes: ColScreen(lg: Col.col_12),
-                              child: BsRow(
-                                children: [
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_3),
-                                      child: Text('Remind')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_1),
-                                      child: Text(':')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_8),
-                                      child: Text(
-                                          controller.remind.value.toString()))
-                                ],
-                              )),
-                          BsCol(
-                              margin: EdgeInsets.only(top: 10),
-                              sizes: ColScreen(lg: Col.col_12),
-                              child: BsRow(
-                                children: [
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_3),
-                                      child: Text('Time Zone')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_1),
-                                      child: Text(':')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_8),
-                                      child: Text(controller.timezone.value))
-                                ],
-                              )),
-                          BsCol(
-                              margin: EdgeInsets.only(top: 10),
-                              sizes: ColScreen(lg: Col.col_12),
-                              child: BsRow(
-                                children: [
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_3),
-                                      child: Text('Location')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_1),
-                                      child: Text(':')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_8),
-                                      child: Tooltip(
-                                          message: 'Tap to Copy',
-                                          child: GestureDetector(
-                                              onTap: () {
-                                                Clipboard.setData(
-                                                  ClipboardData(
-                                                      text:
-                                                          controller.loc.value),
-                                                );
-                                                Snackbar().copySuccess();
-                                              },
-                                              child:
-                                                  Text(controller.loc.value))))
-                                ],
-                              )),
-                          BsCol(
-                              margin: EdgeInsets.only(top: 10),
-                              sizes: ColScreen(lg: Col.col_12),
-                              child: BsRow(
-                                children: [
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_3),
-                                      child: Text('Link')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_1),
-                                      child: Text(':')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_8),
-                                      child: Tooltip(
-                                        message: 'Tap to Copy',
-                                        child: GestureDetector(
-                                            onTap: () {
-                                              Clipboard.setData(
-                                                ClipboardData(
-                                                    text:
-                                                        controller.link.value),
-                                              );
-                                              Snackbar().copySuccess();
-                                            },
-                                            child: Text(controller.link.value)),
-                                      ))
-                                ],
-                              )),
-                          BsCol(
-                              margin: EdgeInsets.only(top: 10),
-                              sizes: ColScreen(lg: Col.col_12),
-                              child: BsRow(
-                                children: [
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_3),
-                                      child: Text('Description')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_1),
-                                      child: Text(':')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_8),
-                                      child: Text(controller.desc.value))
-                                ],
-                              )),
-                        ],
-                      )),
+                  child: Obx(() {
+                    var link;
+                    if (controller.link.value != '')
+                      link = Tooltip(
+                        message: 'Tap to Copy',
+                        child: GestureDetector(
+                            onTap: () {
+                              Clipboard.setData(
+                                ClipboardData(text: controller.link.value),
+                              );
+                              Snackbar().copySuccess();
+                            },
+                            child: Text(controller.link.value)),
+                      );
+                    else
+                      link = Text('');
+                    var loc;
+                    if (controller.loc.value != '')
+                      loc = Tooltip(
+                        message: 'Tap to Copy',
+                        child: GestureDetector(
+                            onTap: () {
+                              Clipboard.setData(
+                                ClipboardData(text: controller.link.value),
+                              );
+                              Snackbar().copySuccess();
+                            },
+                            child: Text(controller.link.value)),
+                      );
+                    else
+                      loc = Text('');
+
+                    return BsRow(
+                      children: [
+                        BsCol(
+                            sizes: ColScreen(lg: Col.col_12),
+                            child: BsRow(
+                              children: [
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_3),
+                                    child: Text('Title')),
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_1),
+                                    child: Text(':')),
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_8),
+                                    child: Text(controller.title.value))
+                              ],
+                            )),
+                        BsCol(
+                            margin: EdgeInsets.only(top: 10),
+                            sizes: ColScreen(lg: Col.col_12),
+                            child: BsRow(
+                              children: [
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_3),
+                                    child: Text('Name')),
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_1),
+                                    child: Text(':')),
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_8),
+                                    child: Text(controller.name.value))
+                              ],
+                            )),
+                        BsCol(
+                            margin: EdgeInsets.only(top: 10),
+                            sizes: ColScreen(lg: Col.col_12),
+                            child: BsRow(
+                              children: [
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_3),
+                                    child: Text('Start Date')),
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_1),
+                                    child: Text(':')),
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_8),
+                                    child: Text(controller.startdate.value))
+                              ],
+                            )),
+                        BsCol(
+                            margin: EdgeInsets.only(top: 10),
+                            sizes: ColScreen(lg: Col.col_12),
+                            child: BsRow(
+                              children: [
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_3),
+                                    child: Text('Start Time')),
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_1),
+                                    child: Text(':')),
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_8),
+                                    child: Text(controller.starttime.value))
+                              ],
+                            )),
+                        BsCol(
+                            margin: EdgeInsets.only(top: 10),
+                            sizes: ColScreen(lg: Col.col_12),
+                            child: BsRow(
+                              children: [
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_3),
+                                    child: Text('End Date')),
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_1),
+                                    child: Text(':')),
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_8),
+                                    child: Text(controller.enddate.value))
+                              ],
+                            )),
+                        BsCol(
+                            margin: EdgeInsets.only(top: 10),
+                            sizes: ColScreen(lg: Col.col_12),
+                            child: BsRow(
+                              children: [
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_3),
+                                    child: Text('End Time')),
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_1),
+                                    child: Text(':')),
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_8),
+                                    child: Text(controller.endtime.value))
+                              ],
+                            )),
+                        BsCol(
+                            margin: EdgeInsets.only(top: 10),
+                            sizes: ColScreen(lg: Col.col_12),
+                            child: BsRow(
+                              children: [
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_3),
+                                    child: Text('Type')),
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_1),
+                                    child: Text(':')),
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_8),
+                                    child: Text(controller.type.value))
+                              ],
+                            )),
+                        BsCol(
+                            margin: EdgeInsets.only(top: 10),
+                            sizes: ColScreen(lg: Col.col_12),
+                            child: BsRow(
+                              children: [
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_3),
+                                    child: Text('Business Partner')),
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_1),
+                                    child: Text(':')),
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_8),
+                                    child: Text(controller.bp.value))
+                              ],
+                            )),
+                        BsCol(
+                            margin: EdgeInsets.only(top: 10),
+                            sizes: ColScreen(lg: Col.col_12),
+                            child: BsRow(
+                              children: [
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_3),
+                                    child: Text('Remind')),
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_1),
+                                    child: Text(':')),
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_8),
+                                    child: Text(
+                                        controller.remind.value.toString()))
+                              ],
+                            )),
+                        BsCol(
+                            margin: EdgeInsets.only(top: 10),
+                            sizes: ColScreen(lg: Col.col_12),
+                            child: BsRow(
+                              children: [
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_3),
+                                    child: Text('Time Zone')),
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_1),
+                                    child: Text(':')),
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_8),
+                                    child: Text(controller.timezone.value))
+                              ],
+                            )),
+                        BsCol(
+                            margin: EdgeInsets.only(top: 10),
+                            sizes: ColScreen(lg: Col.col_12),
+                            child: BsRow(
+                              children: [
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_3),
+                                    child: Text('Location')),
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_1),
+                                    child: Text(':')),
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_8), child: loc)
+                              ],
+                            )),
+                        BsCol(
+                            margin: EdgeInsets.only(top: 10),
+                            sizes: ColScreen(lg: Col.col_12),
+                            child: BsRow(
+                              children: [
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_3),
+                                    child: Text('Link')),
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_1),
+                                    child: Text(':')),
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_8),
+                                    child: link)
+                              ],
+                            )),
+                        BsCol(
+                            margin: EdgeInsets.only(top: 10),
+                            sizes: ColScreen(lg: Col.col_12),
+                            child: BsRow(
+                              children: [
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_3),
+                                    child: Text('Description')),
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_1),
+                                    child: Text(':')),
+                                BsCol(
+                                    sizes: ColScreen(lg: Col.col_8),
+                                    child: Text(controller.desc.value))
+                              ],
+                            )),
+                      ],
+                    );
+                  }),
                 )
               ]),
         ));

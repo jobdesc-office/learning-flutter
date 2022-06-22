@@ -14,7 +14,6 @@ import '../views/signin/_source.dart';
 import 'navigation_presenter.dart';
 
 class AuthPresenter extends CustomGetXController {
-  final box = GetStorage();
   var detail = [].obs;
   var roleActiveId = 0.obs;
   var roleActive = ''.obs;
@@ -44,6 +43,11 @@ class AuthPresenter extends CustomGetXController {
   //   });
   // }
 
+  void reset() {
+    source.value.inputUsername.text = '';
+    source.value.inputPassword.text = '';
+  }
+
   void signIn() {
     _authService
         .signIn(
@@ -59,11 +63,9 @@ class AuthPresenter extends CustomGetXController {
   }
 
   void signOut() {
-    box.remove('name');
-    box.remove('id');
-    box.remove('username');
-    box.remove('details');
     _authService.signOut().then((res) {
+      reset();
+      setProcessing(false);
       _logoutViewContract.onLogoutSuccess();
       isAuthenticated.value = false;
       _navService.darkTheme.value = false;

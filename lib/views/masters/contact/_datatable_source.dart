@@ -7,6 +7,7 @@ import '../../../constants/base_text.dart';
 import '../../../models/masters/contact_model.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
+import '../../../widgets/button/button_details_datatable.dart';
 import '../../../widgets/button/button_edit_datatable.dart';
 import '../../../widgets/datatables/custom_datatable_tablecell.dart';
 import '../../../widgets/datatables/custom_datatable_tablehead.dart';
@@ -14,6 +15,7 @@ import '../../../widgets/datatables/custom_datatable_tablehead.dart';
 final _navigation = Get.find<NavigationPresenter>();
 
 class ContactDataTableSource extends BsDatatableSource {
+  ValueChanged<int> onDetailsListener = (value) {};
   ValueChanged<int> onEditListener = (value) {};
   Function onDeleteListener = (value, name) {};
 
@@ -38,13 +40,6 @@ class ContactDataTableSource extends BsDatatableSource {
       CustomBsDataColumn(
         label: Text('Contact Value'),
         columnName: 'contactvalueid',
-      ),
-      CustomBsDataColumn(
-        label: Text('Contact Type'),
-        columnName: 'Contactnm',
-        width: 150,
-        searchable: false,
-        orderable: false,
       ),
       CustomBsDataColumn(
           label: Text('Actions'),
@@ -95,18 +90,15 @@ class ContactDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.contacttype!.typename!),
-          color: _navigation.darkTheme.value
-              ? x % 2 == 0
-                  ? ColorPallates.datatableDarkEvenRowColor
-                  : ColorPallates.datatableDarkOddRowColor
-              : x % 2 == 0
-                  ? ColorPallates.datatableLightEvenRowColor
-                  : ColorPallates.datatableLightOddRowColor,
-        ),
-        CustomBsDataCell(
           Row(
             children: [
+              Tooltip(
+                message: BaseText.detailHintDatatable(field: row.contactname),
+                child: ButtonDetailsDatatables(
+                  margin: EdgeInsets.only(right: 5),
+                  onPressed: () => onDetailsListener(row.contactpersonid!),
+                ),
+              ),
               Tooltip(
                 message: BaseText.editHintDatatable(field: row.contactname),
                 child: ButtonEditDatatables(

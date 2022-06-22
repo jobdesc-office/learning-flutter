@@ -39,12 +39,6 @@ class ProspectDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      CustomBsDataColumn(
-        label: Text('Prospect Progress'),
-        columnName: 'userphone',
-        searchable: false,
-        orderable: false,
-      ),
       // CustomBsDataColumn(
       //     label: Text('Prospect Status'), orderable: false, searchable: false),
       CustomBsDataColumn(
@@ -87,16 +81,6 @@ class ProspectDataTableSource extends BsDatatableSource {
         ),
         CustomBsDataCell(
           Text(row.prospectcust!.sbccstmname.toString()),
-          color: _navigation.darkTheme.value
-              ? x % 2 == 0
-                  ? ColorPallates.datatableDarkEvenRowColor
-                  : ColorPallates.datatableDarkOddRowColor
-              : x % 2 == 0
-                  ? ColorPallates.datatableLightEvenRowColor
-                  : ColorPallates.datatableLightOddRowColor,
-        ),
-        CustomBsDataCell(
-          Text(row.prospectstage!.typename.toString()),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor

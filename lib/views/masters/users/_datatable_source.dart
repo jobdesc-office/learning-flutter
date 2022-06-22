@@ -33,7 +33,7 @@ class UserDataTableSource extends BsDatatableSource {
         orderable: false,
       ),
       CustomBsDataColumn(label: Text('User Name'), columnName: 'userfullname'),
-      CustomBsDataColumn(label: Text('User Email'), columnName: 'useremail'),
+      CustomBsDataColumn(label: Text('User Phone'), columnName: 'userphone'),
       // CustomBsDataColumn(
       //     label: Text('User Phone'), width: 150, columnName: 'userphone'),
       // CustomBsDataColumn(
@@ -71,7 +71,7 @@ class UserDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.userfullname!),
+          Text(row.userfullname ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -81,7 +81,7 @@ class UserDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.useremail!),
+          Text(row.userphone ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor

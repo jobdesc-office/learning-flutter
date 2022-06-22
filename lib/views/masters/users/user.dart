@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/index_view_contract.dart';
+import '../../../contracts/master/userReset_contract.dart';
 import '../../../presenters/masters/user_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
@@ -16,13 +17,14 @@ import '_form_source.dart';
 import '_text.dart';
 
 class UserView extends GetView
-    implements IndexViewContract, HandleErrorRequest {
+    implements IndexViewContract, HandleErrorRequest, UserResetContract {
   final presenter = Get.find<UserPresenter>();
   final datatable = UserDataTableSource();
   final UserSource c = Get.put(UserSource());
 
   UserView() {
     presenter.userViewContract = this;
+    presenter.userResetContract = this;
   }
 
   @override
@@ -97,5 +99,14 @@ class UserView extends GetView
     datatable.onEditListener = (userid) => presenter.edit(context, userid);
     datatable.onDeleteListener =
         (userid, name) => presenter.delete(context, userid, name);
+  }
+
+  @override
+  void onResetSuccess(Response response, {BuildContext? context}) {
+    c.isAdd = true;
+    presenter.setProcessing(false);
+    datatable.controller.reload();
+    if (context != null) Navigator.pop(context);
+    Snackbar().resetSuccess();
   }
 }
