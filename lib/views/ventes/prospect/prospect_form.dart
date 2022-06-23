@@ -297,7 +297,9 @@ class ProspectFormView extends StatelessWidget
           value: prospect.prospectstatus!.typeid,
           text: Text(prospect.prospectstatus!.typename.toString())));
       source.value.inputValue.text = currencyFormatter
-          .format(double.parse(prospect.prospectvalue ?? '0.0'));
+          .format(double.parse(prospect.prospectvalue ?? '0.0'))
+          .replaceAll(',00', '')
+          .replaceAll('.', ',');
       source.value.inputDesc.text = prospect.prospectdescription ?? '';
 
       source.value.selectedDateStart.value = prospect.prospectstartdate ?? '';
@@ -313,21 +315,28 @@ class ProspectFormView extends StatelessWidget
         ]));
         source.value.inputPrices.add(TextEditingController(
             text: currencyFormatter
-                .format(double.parse(item.prosproductprice!))));
+                .format(double.parse(item.prosproductprice!))
+                .replaceAll(',00', '')
+                .replaceAll('.', ',')));
         source.value.inputQuantities
             .add(TextEditingController(text: item.prosproductqty.toString()));
         source.value.inputAmounts.add(TextEditingController(
             text: currencyFormatter
                 .format(double.parse(item.prosproductamount!))));
         source.value.inputDiscounts
-            .add(TextEditingController(text: item.prosproductdiscount));
+            .add(TextEditingController(text: item.prosproductdiscount ?? ''));
         source.value.inputTaxes
-            .add(TextEditingController(text: item.prosproducttax));
-        source.value.selectsTax.add(BsSelectBoxController(selected: [
-          BsSelectBoxOption(
-              value: item.prosproducttaxtype!.typeid,
-              text: Text(item.prosproducttaxtype!.typename!))
-        ]));
+            .add(TextEditingController(text: item.prosproducttax ?? ''));
+        if (item.prosproducttaxtype != null) {
+          source.value.selectsTax.add(BsSelectBoxController(selected: [
+            BsSelectBoxOption(
+                value: item.prosproducttaxtype!.typeid,
+                text: Text(item.prosproducttaxtype!.typename!))
+          ]));
+        } else {
+          source.value.selectsTax.add(BsSelectBoxController(
+              selected: [BsSelectBoxOption(value: '', text: Text(''))]));
+        }
       }
     });
   }

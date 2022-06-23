@@ -15,10 +15,10 @@ class ProspectText {
   static String labelEndDate = 'End Date';
   static String labelItem = 'Item';
   static String labelPrice = 'Price';
-  static String labelDiscount = 'Discount';
+  static String labelDiscount = 'Discount (%)';
   static String labelQuantity = 'Quantity';
   static String labelAmount = 'Amount';
-  static String labelTax = 'Tax';
+  static String labelTax = 'Tax (%)';
   static String labelTaxType = 'Tax Type';
   static String labelEmail = 'Email';
   static String labelPhone = 'Phone';

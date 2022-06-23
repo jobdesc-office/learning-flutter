@@ -51,15 +51,12 @@ class ProspectProductSource extends GetxController {
     return {
       'prosproductprospectid': id.value,
       'prosproductproductid': selectItem.getSelectedAsString(),
-      'prosproductprice':
-          inputPrice.text.replaceAll(',', '').replaceAll('.', ''),
+      'prosproductprice': inputPrice.text.replaceAll(',', ''),
       'prosproductqty': inputQuantity.text,
-      'prosproducttax': inputTax.text.replaceAll(',', ''),
+      'prosproducttax': inputTax.text,
       'prosproductdiscount': inputDiscount.text,
-      'prosproductamount': inputAmount.text
-          .replaceAll(',00', '')
-          .replaceAll('.', '')
-          .replaceAll(',', ''),
+      'prosproductamount':
+          inputAmount.text.replaceAll('.', '').replaceAll(',00', ''),
       'prosproducttaxtypeid': selectTax.getSelectedAsString(),
       'createdby': session.userid,
       'updatedby': session.userid,
@@ -93,48 +90,50 @@ class ProspectProductForm {
   Widget inputQuantity() {
     return FormGroup(
       label: Text(ProspectText.labelQuantity),
-      child: CustomInput(
-        onChange: (value) {
-          source.quantity.value = parseDouble(value);
-          if (value == '') {
-            source.quantity.value = 0;
-            source.inputAmount.text = '';
-          } else if (source.inputPrice != '') {
-            var amount = source.quantity.value * source.price.value;
-            // inputAmount.text = amount.toString();
-            source.inputAmount.text = currencyFormatter.format(amount);
-            // source.subtotal.value += parseDouble(amount);
-          }
-        },
-        disabled: source.isProcessing,
-        controller: source.inputQuantity,
-        hintText: BaseText.hintText(field: ProspectText.labelQuantity),
-        validators: [],
-      ),
+      child: Obx(() => CustomInput(
+            onChange: (value) {
+              source.quantity.value = parseDouble(value);
+              if (value == '') {
+                source.quantity.value = 0;
+                source.inputAmount.text = '';
+                source.inputPrice.text = '';
+              } else if (source.inputPrice != '') {
+                var amount = source.quantity.value * source.price.value;
+                // inputAmount.text = amount.toString();
+                source.inputAmount.text = currencyFormatter.format(amount);
+                // source.subtotal.value += parseDouble(amount);
+              }
+            },
+            disabled: source.isProcessing,
+            controller: source.inputQuantity,
+            hintText: BaseText.hintText(field: ProspectText.labelQuantity),
+            validators: [],
+          )),
     );
   }
 
   Widget inputPrices() {
     return FormGroup(
       label: Text(ProspectText.labelPrice),
-      child: CustomInputCurrency(
-        onChange: (value) {
-          source.price.value = parseDouble(value.replaceAll(',', ''));
-          if (value == '') {
-            source.price.value = 0;
-            source.inputAmount.text = '';
-          } else if (source.inputQuantity != '') {
-            var amount = source.price.value * source.quantity.value;
-            // inputAmount.text = amount.toString();
-            source.inputAmount.text = currencyFormatter.format(amount);
-            // source.subtotal.value += amount;
-          }
-        },
-        disabled: source.isProcessing,
-        controller: source.inputPrice,
-        hintText: BaseText.hintText(field: ProspectText.labelPrice),
-        validators: [],
-      ),
+      child: Obx(() => CustomInputCurrency(
+            onChange: (value) {
+              source.price.value = parseDouble(value.replaceAll(',', ''));
+              if (value == '') {
+                source.price.value = 0;
+                source.inputAmount.text = '';
+                source.inputQuantity.text = '';
+              } else if (source.inputQuantity != '') {
+                var amount = source.price.value * source.quantity.value;
+                // inputAmount.text = amount.toString();
+                source.inputAmount.text = currencyFormatter.format(amount);
+                // source.subtotal.value += amount;
+              }
+            },
+            disabled: source.isProcessing,
+            controller: source.inputPrice,
+            hintText: BaseText.hintText(field: ProspectText.labelPrice),
+            validators: [],
+          )),
     );
   }
 
@@ -143,7 +142,6 @@ class ProspectProductForm {
       label: Text(ProspectText.labelAmount),
       child: CustomInput(
         onChange: (value) {
-          final currencyFormatter = NumberFormat.currency(locale: 'ID');
           source.inputAmount.text = currencyFormatter.format(value);
         },
         readOnly: true,

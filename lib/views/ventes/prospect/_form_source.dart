@@ -133,18 +133,26 @@ class ProspectSource extends GetxController {
   List<Map<String, dynamic>> jsonProducts() {
     return List<Map<String, dynamic>>.from(selectsItem.map((controller) {
       int index = selectsItem.indexOf(controller);
+      String discount;
+      String tax;
+      if (inputDiscounts[index].text == '') {
+        discount = '0';
+      } else {
+        discount = inputDiscounts[index].text;
+      }
+      if (inputTaxes[index].text == '') {
+        tax = '0';
+      } else {
+        tax = inputTaxes[index].text;
+      }
       return {
         'item': selectsItem[index].getSelectedAsString(),
-        'price':
-            inputPrices[index].text.replaceAll(',', '').replaceAll('.', ''),
+        'price': inputPrices[index].text.replaceAll(',', ''),
         'quantity': inputQuantities[index].text,
-        'discount': inputDiscounts[index].text,
-        'amount': inputAmounts[index]
-            .text
-            .replaceAll(',00', '')
-            .replaceAll('.', '')
-            .replaceAll(',', ''),
-        'tax': inputTaxes[index].text.replaceAll(',', ''),
+        'discount': discount,
+        'amount':
+            inputAmounts[index].text.replaceAll('.', '').replaceAll(',00', ''),
+        'tax': tax,
         'taxtype': selectsTax[index].getSelectedAsString()
       };
     }));
@@ -152,11 +160,12 @@ class ProspectSource extends GetxController {
 
   Future<Map<String, dynamic>> toJson() async {
     SessionModel session = await SessionManager.current();
+    print(jsonEncode(jsonProducts()));
     return {
       'prospectname': inputCompanyName.text,
       'prospectstartdate': selectedDateStart.value,
       'prospectenddate': selectedDateEnd.value,
-      'prospectvalue': inputValue.text.replaceAll(',', '').replaceAll('.', ''),
+      'prospectvalue': inputValue.text.replaceAll(',', ''),
       'prospectowner': selectOwner.getSelectedAsString(),
       'prospectstageid': prospectStageController.getSelectedToString(),
       'prospectstatusid': selectStatus.getSelectedAsString(),
@@ -634,7 +643,6 @@ class ProspectForm {
                         hintText: BaseText.hintText(
                             field: ProspectText.labelDiscount),
                         validators: [
-                          Validators.maxLength(ProspectText.labelDiscount, 3),
                           BsInputValidator(validator: ((value) {
                             if (value != '') {
                               if (parseInt(value) > 100) {
@@ -660,7 +668,6 @@ class ProspectForm {
                         hintText:
                             BaseText.hintText(field: ProspectText.labelTax),
                         validators: [
-                          Validators.maxLength(ProspectText.labelTax, 3),
                           BsInputValidator(validator: ((value) {
                             if (value != '') {
                               if (parseInt(value) > 100) {

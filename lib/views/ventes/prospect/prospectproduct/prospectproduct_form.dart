@@ -142,16 +142,20 @@ class ProspectProductFormView extends StatelessWidget
       source.value.selectItem.setSelected(BsSelectBoxOption(
           value: prospect.prosproductproductid,
           text: Text(prospect.prosproductproduct!.productname.toString())));
-      source.value.selectTax.setSelected(BsSelectBoxOption(
-          value: prospect.prosproducttaxtypeid,
-          text: Text(prospect.prosproducttaxtype!.typename.toString())));
+      if (prospect.prosproducttaxtype != null) {
+        source.value.selectTax.setSelected(BsSelectBoxOption(
+            value: prospect.prosproducttaxtypeid,
+            text: Text(prospect.prosproducttaxtype!.typename.toString())));
+      }
       source.value.inputQuantity.text = prospect.prosproductqty.toString();
       source.value.inputAmount.text = currencyFormatter
-          .format(double.parse(prospect.prosproductamount.toString()));
+          .format(double.parse(prospect.prosproductamount ?? '0.0'));
       source.value.inputPrice.text = currencyFormatter
-          .format(double.parse(prospect.prosproductprice.toString()));
-      source.value.inputDiscount.text = prospect.prosproductdiscount ?? '0';
-      source.value.inputTax.text = prospect.prosproducttax ?? '0';
+          .format(double.parse(prospect.prosproductprice ?? '0.0'))
+          .replaceAll(',00', '')
+          .replaceAll('.', ',');
+      source.value.inputDiscount.text = prospect.prosproductdiscount ?? '';
+      source.value.inputTax.text = prospect.prosproducttax ?? '';
     });
   }
 }
