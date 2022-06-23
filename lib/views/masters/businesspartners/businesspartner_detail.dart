@@ -144,5 +144,6 @@ class BusinessPartnerDetails extends GetView implements DetailViewContract {
     controller.pic.value = dt.bppicname;
     controller.email.value = dt.bpemail;
     controller.phone.value = dt.bpphone;
+    presenter.setProcessing(false);
   }
 }

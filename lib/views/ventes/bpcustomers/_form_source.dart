@@ -132,27 +132,26 @@ class BpCustomerForm {
 
   Widget btnImage() {
     return FormGroup(
-      label: Obx(() => Text(BpCustomerText.labelImage,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
-      child: Column(
-        children: [
-          source.image.value,
-          BsButton(
-            margin: EdgeInsets.only(top: 10),
-            onPressed: () async {
-              Image? fromPicker = await ImagePickerWeb.getImageAsWidget();
-              if (fromPicker != null) {
-                source.image.value = fromPicker;
-              }
-            },
-            label: Text(
-              BpCustomerText.labelImage,
-              style: TextStyle(color: Colors.white),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            source.image.value,
+            BsButton(
+              margin: EdgeInsets.only(top: 10),
+              onPressed: () async {
+                Image? fromPicker = await ImagePickerWeb.getImageAsWidget();
+                if (fromPicker != null) {
+                  source.image.value = fromPicker;
+                }
+              },
+              label: Text(
+                BpCustomerText.labelImage,
+                style: TextStyle(color: Colors.white),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

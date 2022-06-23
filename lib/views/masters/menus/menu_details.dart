@@ -175,5 +175,6 @@ class MenuDetails extends GetView implements DetailViewContract {
     controller.route.value = dt.route;
     controller.color.value = dt.color;
     controller.sequence.value = dt.seq.toString();
+    presenter.setProcessing(false);
   }
 }

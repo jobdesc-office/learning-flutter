@@ -110,5 +110,6 @@ class ProspectAssignDetails extends GetView implements DetailViewContract {
     controller.assign.value = dt.prospectassign!.user!.userfullname!;
     controller.report.value = dt.prospectreport!.user!.userfullname!;
     controller.desc.value = dt.prospectassigndesc!;
+    presenter.setProcessing(false);
   }
 }

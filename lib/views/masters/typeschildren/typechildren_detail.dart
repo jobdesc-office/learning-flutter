@@ -149,6 +149,7 @@ class TypeChildrenDetails extends GetView
     controller.name.value = dt.typename;
     controller.desc.value = dt.description;
     controller.seq.value = dt.typeseq.toString();
+    presenter.setProcessing(false);
   }
 
   @override

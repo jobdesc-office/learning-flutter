@@ -12,7 +12,6 @@ class BusinessPartnerModel {
   bool isactive;
   Map<String, dynamic>? _bptype;
 
-
   String jwtToken;
 
   BusinessPartnerModel({
@@ -48,5 +47,4 @@ class BusinessPartnerModel {
 
     return TypeModel.fromJson(_bptype!);
   }
-
 }

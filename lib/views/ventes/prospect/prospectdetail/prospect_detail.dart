@@ -142,5 +142,6 @@ class ProspectDetailDetails extends GetView implements DetailViewContract {
     controller.desc.value = dt.prospectdtdesc ?? '';
     controller.type.value = dt.prospectdttype!.typename ?? '';
     controller.link.value = dt.prospectdtloc ?? '';
+    presenter.setProcessing(false);
   }
 }

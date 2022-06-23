@@ -157,5 +157,6 @@ class UserDetails extends GetView implements DetailViewContract {
     controller.type.value = dt.userdetails!.first.usertype!.typename!;
     controller.bp.value = dt.userdetails!.first.businesspartner!.bpname!;
     controller.active.value = dt.isactive!;
+    presenter.setProcessing(false);
   }
 }

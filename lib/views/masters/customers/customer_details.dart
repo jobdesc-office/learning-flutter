@@ -276,5 +276,6 @@ class CustomerDetails extends GetView implements DetailViewContract {
     controller.latitude.value = dt.cstmlatitude.toString();
     controller.longitude.value = dt.cstmlongitude.toString();
     controller.referal.value = dt.referalcode;
+    presenter.setProcessing(false);
   }
 }

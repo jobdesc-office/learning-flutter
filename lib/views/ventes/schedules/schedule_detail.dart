@@ -315,5 +315,6 @@ class ScheduleDetails extends GetView implements DetailViewContract {
     controller.online.value = dt.scheonline ?? false;
     controller.private.value = dt.scheprivate ?? false;
     controller.bp.value = dt.schebp!.bpname ?? '';
+    presenter.setProcessing(false);
   }
 }

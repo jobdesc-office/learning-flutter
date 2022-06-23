@@ -126,5 +126,6 @@ class ContactDetails extends GetView implements DetailViewContract {
     controller.customer.value = dt.contactcustomer!.cstmname!;
     controller.name.value = dt.contactname!;
     controller.value.value = dt.contactvalueid!;
+    presenter.setProcessing(false);
   }
 }

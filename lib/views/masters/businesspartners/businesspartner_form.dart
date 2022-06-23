@@ -1,4 +1,5 @@
 import 'package:boilerplate/views/skins/template.dart';
+import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -103,6 +104,8 @@ class BusinessPartnerFormView extends StatelessWidget
 
     source.update((val) {
       BusinessPartnerModel bp = BusinessPartnerModel.fromJson(response.body);
+      source.value.selectType.setSelected(
+          BsSelectBoxOption(value: bp.bptypeid, text: Text(bp.typename)));
       source.value.businessPartnerTypeController.selected = bp.bptype;
       source.value.inputCompanyName.text = bp.bpname;
       source.value.inputName.text = bp.bppicname;

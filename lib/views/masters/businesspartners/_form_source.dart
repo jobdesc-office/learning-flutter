@@ -32,7 +32,7 @@ class BusinessPartnerSource {
   Future<Map<String, dynamic>> toJson() async {
     SessionModel session = await SessionManager.current();
     return {
-      'bptypeid': businessPartnerTypeController.getSelectedToString(),
+      'bptypeid': selectType.getSelectedAsString(),
       'bpname': inputCompanyName.text,
       'bppicname': inputName.text,
       'bpemail': inputEmail.text,

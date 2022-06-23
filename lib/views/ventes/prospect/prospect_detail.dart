@@ -1190,6 +1190,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
       products.add(element);
     });
     source.product.value = products;
+    presenter.setProcessing(false);
   }
 
   @override

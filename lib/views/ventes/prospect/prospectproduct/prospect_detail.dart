@@ -184,5 +184,6 @@ class ProspectProductDetails extends GetView implements DetailViewContract {
     controller.tax.value = dt.prosproducttax ?? '-';
     controller.taxtype.value = dt.prosproducttaxtype?.typename ?? '-';
     controller.qty.value = dt.prosproductqty!;
+    presenter.setProcessing(false);
   }
 }

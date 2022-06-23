@@ -151,8 +151,8 @@ class ScheduleFormView extends StatelessWidget
           value: menu.schetype!.typeid,
           text: Text(menu.schetype!.typename.toString())));
       source.value.selectToward.setSelected(BsSelectBoxOption(
-          value: menu.schebp!.bpid,
-          text: Text(menu.schebp!.bpname.toString())));
+          value: menu.schetoward!.userid,
+          text: Text(menu.schetoward!.userfullname.toString())));
       source.value.selectTimeZone.setSelected(
           BsSelectBoxOption(value: menu.schetz, text: Text(menu.schetz!)));
 
