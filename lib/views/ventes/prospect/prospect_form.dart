@@ -334,8 +334,7 @@ class ProspectFormView extends StatelessWidget
                 text: Text(item.prosproducttaxtype!.typename!))
           ]));
         } else {
-          source.value.selectsTax.add(BsSelectBoxController(
-              selected: [BsSelectBoxOption(value: '', text: Text(''))]));
+          source.value.selectsTax.add(BsSelectBoxController());
         }
       }
     });
