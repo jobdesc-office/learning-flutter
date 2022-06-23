@@ -8,6 +8,7 @@ import '../../../../contracts/base/details_view_contract.dart';
 import '../../../../models/ventes/prospectdetail_model.dart';
 import '../../../../presenters/navigation_presenter.dart';
 import '../../../../presenters/ventes/prospectdetail_presenter.dart';
+import '../../../../widgets/snackbar.dart';
 import '_detail_source.dart';
 import '_text.dart';
 
@@ -108,7 +109,19 @@ class ProspectDetailDetails extends GetView implements DetailViewContract {
                                         child: Text(':')),
                                     BsCol(
                                         sizes: ColScreen(lg: Col.col_8),
-                                        child: Text(controller.link.value))
+                                        child: Tooltip(
+                                            message: 'Tap to Copy',
+                                            child: InkWell(
+                                                onTap: () {
+                                                  Clipboard.setData(
+                                                    ClipboardData(
+                                                        text: controller
+                                                            .link.value),
+                                                  );
+                                                  Snackbar().copySuccess();
+                                                },
+                                                child: Text(
+                                                    controller.link.value))))
                                   ],
                                 )),
                           BsCol(
