@@ -8,6 +8,7 @@ import '../../../models/masters/businesspartner_model.dart';
 import '../../../models/masters/type_model.dart';
 import '../../../presenters/masters/businesspartner_presenter.dart';
 import '../../../routes/route_list.dart';
+import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
 
@@ -33,6 +34,16 @@ class BusinessPartnerFormView extends StatelessWidget
   Widget build(BuildContext context) {
     return Scaffold(
       body: TemplateView(
+        title: 'Business Partner Form',
+        breadcrumbs: [
+          BreadcrumbWidget('Dashboard', route: RouteList.home.index),
+          BreadcrumbWidget('Masters'),
+          BreadcrumbWidget(
+            'Business Partner',
+            back: true,
+          ),
+          BreadcrumbWidget('Business Partner Form', active: true),
+        ],
         activeRoutes: [
           RouteList.master.index,
           RouteList.masterBusinessPartner.index

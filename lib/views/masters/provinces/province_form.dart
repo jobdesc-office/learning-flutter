@@ -7,6 +7,7 @@ import '../../../contracts/base/edit_view_contract.dart';
 import '../../../models/masters/province_model.dart';
 import '../../../presenters/masters/province_presenter.dart';
 import '../../../routes/route_list.dart';
+import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
 
@@ -28,6 +29,13 @@ class ProvinceFormView extends StatelessWidget implements EditViewContract {
   Widget build(BuildContext context) {
     return Scaffold(
       body: TemplateView(
+        title: 'Province Form',
+        breadcrumbs: [
+          BreadcrumbWidget('Dashboard', route: RouteList.home.index),
+          BreadcrumbWidget('Masters'),
+          BreadcrumbWidget('Provinces', back: true),
+          BreadcrumbWidget('Province Form', active: true),
+        ],
         activeRoutes: [RouteList.master.index, RouteList.masterProvince.index],
         child: Obx(() {
           provinceForm = ProvinceForm(source.value);

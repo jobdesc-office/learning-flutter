@@ -8,6 +8,7 @@ import '../../../../contracts/base/edit_view_contract.dart';
 import '../../../../models/ventes/prospectassign_model.dart';
 import '../../../../presenters/ventes/prospectassign_presenter.dart';
 import '../../../../routes/route_list.dart';
+import '../../../../widgets/breadcrumb.dart';
 import '../../../../widgets/button/theme_button_cancel.dart';
 import '../../../../widgets/button/theme_button_save.dart';
 import '_form_source.dart';
@@ -30,6 +31,14 @@ class ProspectAssignFormView extends StatelessWidget
   Widget build(BuildContext context) {
     return Scaffold(
       body: TemplateView(
+        title: 'Prospect Assign Form',
+        breadcrumbs: [
+          BreadcrumbWidget('Dashboard', route: RouteList.home.index),
+          BreadcrumbWidget('Venteses'),
+          BreadcrumbWidget('Prospect'),
+          BreadcrumbWidget('Prospect Details', back: true),
+          BreadcrumbWidget('Prospect Assign Form', active: true),
+        ],
         activeRoutes: [RouteList.ventes.index, RouteList.ventesProspect.index],
         child: Obx(() {
           prospectForm = ProspectAssignForm(source.value);

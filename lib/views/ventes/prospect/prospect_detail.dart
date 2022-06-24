@@ -21,6 +21,7 @@ import '../../../presenters/ventes/prospectdetail_presenter.dart';
 import '../../../presenters/ventes/prospectproduct_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../styles/color_palattes.dart';
+import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/button_controller.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_info_assign.dart';
@@ -72,6 +73,13 @@ class _ProspectDetailsState extends State<ProspectDetails>
   Widget build(BuildContext context) {
     return Scaffold(
       body: TemplateView(
+        title: 'Prospect Details',
+        breadcrumbs: [
+          BreadcrumbWidget('Dashboard', route: RouteList.home.index),
+          BreadcrumbWidget('Venteses'),
+          BreadcrumbWidget('Prospect', back: true),
+          BreadcrumbWidget('Prospect Details', active: true),
+        ],
         activeRoutes: [RouteList.ventes.index, RouteList.ventesProspect.index],
         child: Column(
           children: [

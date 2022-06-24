@@ -1,5 +1,5 @@
 class ScheduleText {
-  static String title = 'Schedule';
+  static String title = 'Schedules';
 
   static String labelStartDate = 'Start Date';
   static String labelEndDate = 'End Date';

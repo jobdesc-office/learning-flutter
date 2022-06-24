@@ -6,10 +6,12 @@ import '../../../contracts/base/edit_view_contract.dart';
 import '../../../models/masters/type_model.dart';
 import '../../../presenters/masters/typeparent_presenter.dart';
 import '../../../routes/route_list.dart';
+import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
 
 import '_form_source.dart';
+import '_text.dart';
 
 class TypeParentFormView extends StatelessWidget implements EditViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
@@ -27,6 +29,14 @@ class TypeParentFormView extends StatelessWidget implements EditViewContract {
   Widget build(BuildContext context) {
     return Scaffold(
       body: TemplateView(
+        title: TypeParentsText.title + ' Form',
+        breadcrumbs: [
+          BreadcrumbWidget('Dashboard', route: RouteList.home.index),
+          BreadcrumbWidget('Masters'),
+          BreadcrumbWidget('Type'),
+          BreadcrumbWidget('Type Parent', back: true),
+          BreadcrumbWidget('Type Parent Form', active: true),
+        ],
         activeRoutes: [
           RouteList.masterTypeParent.index,
           RouteList.masterTypeParent.index

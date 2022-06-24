@@ -1,7 +1,7 @@
 import '../../../constants/base_text.dart';
 
 class TypeChildrenText {
-  static String title = 'Type Data';
+  static String title = 'Type Datas';
 
   static String labelName = BaseText.defaultLabelName;
   static String labelCode = 'Code';

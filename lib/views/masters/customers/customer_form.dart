@@ -10,6 +10,7 @@ import '../../../models/masters/customer_model.dart';
 import '../../../models/masters/maps_model.dart';
 import '../../../presenters/masters/customer_presenter.dart';
 import '../../../routes/route_list.dart';
+import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
 
@@ -35,6 +36,13 @@ class CustomerFormView extends StatelessWidget
   Widget build(BuildContext context) {
     return Scaffold(
       body: TemplateView(
+        title: 'Customer Form',
+        breadcrumbs: [
+          BreadcrumbWidget('Dashboard', route: RouteList.home.index),
+          BreadcrumbWidget('Masters'),
+          BreadcrumbWidget('Customers', back: true),
+          BreadcrumbWidget('Customer Form', active: true),
+        ],
         activeRoutes: [RouteList.master.index, RouteList.masterCustomer.index],
         child: Obx(() {
           customerForm = CustomerForm(source.value);

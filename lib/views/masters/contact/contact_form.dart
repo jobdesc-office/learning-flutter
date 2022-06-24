@@ -7,6 +7,7 @@ import '../../../contracts/base/edit_view_contract.dart';
 import '../../../models/masters/contact_model.dart';
 import '../../../presenters/masters/contact_presenter.dart';
 import '../../../routes/route_list.dart';
+import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
 
@@ -28,6 +29,13 @@ class ContactFormView extends StatelessWidget implements EditViewContract {
   Widget build(BuildContext context) {
     return Scaffold(
       body: TemplateView(
+        title: 'Contact Form',
+        breadcrumbs: [
+          BreadcrumbWidget('Dashboard', route: RouteList.home.index),
+          BreadcrumbWidget('Masters'),
+          BreadcrumbWidget('Contact', back: true),
+          BreadcrumbWidget('Contact Form', active: true),
+        ],
         activeRoutes: [RouteList.master.index, RouteList.masterContact.index],
         child: Obx(() {
           contactForm = ContactForm(source.value);

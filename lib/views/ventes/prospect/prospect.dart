@@ -27,7 +27,7 @@ class ProspectView extends GetView implements IndexViewContract {
   Widget build(BuildContext context) {
     return Scaffold(
       body: TemplateView(
-        title: 'Prospect',
+        title: 'Prospects',
         breadcrumbs: [
           BreadcrumbWidget('Dashboard', route: RouteList.home.index),
           BreadcrumbWidget('Venteses'),

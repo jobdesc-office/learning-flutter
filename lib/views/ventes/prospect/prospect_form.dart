@@ -10,6 +10,7 @@ import '../../../models/masters/type_model.dart';
 import '../../../models/ventes/prospect_model.dart';
 import '../../../presenters/ventes/prospect_presenter.dart';
 import '../../../routes/route_list.dart';
+import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
 
@@ -36,6 +37,13 @@ class ProspectFormView extends StatelessWidget
   Widget build(BuildContext context) {
     return Scaffold(
       body: TemplateView(
+        title: 'Prospect Form',
+        breadcrumbs: [
+          BreadcrumbWidget('Dashboard', route: RouteList.home.index),
+          BreadcrumbWidget('Venteses'),
+          BreadcrumbWidget('Prospect', back: true),
+          BreadcrumbWidget('Prospect Form', active: true),
+        ],
         activeRoutes: [RouteList.ventes.index, RouteList.ventesProspect.index],
         child: Obx(() {
           prospectForm = ProspectForm(source.value);

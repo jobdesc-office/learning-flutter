@@ -8,6 +8,7 @@ import '../../../models/masters/type_model.dart';
 import '../../../models/security/menu_model.dart';
 import '../../../presenters/masters/menu_presenter.dart';
 import '../../../routes/route_list.dart';
+import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
 
@@ -32,6 +33,13 @@ class MenuFormView extends StatelessWidget
   Widget build(BuildContext context) {
     return Scaffold(
       body: TemplateView(
+        title: 'Menu Form',
+        breadcrumbs: [
+          BreadcrumbWidget('Dashboard', route: RouteList.home.index),
+          BreadcrumbWidget('Masters'),
+          BreadcrumbWidget('Menus', back: true),
+          BreadcrumbWidget('Menu Form', active: true),
+        ],
         activeRoutes: [RouteList.master.index, RouteList.masterMenu.index],
         child: Obx(() {
           menuForm = MenuForm(source.value);

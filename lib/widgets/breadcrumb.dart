@@ -12,12 +12,15 @@ class BreadcrumbWidget extends StatelessWidget {
     this.label, {
     Key? key,
     this.active = false,
+    this.back = false,
     this.route,
   }) : super(key: key);
 
   final String label;
 
   final bool active;
+
+  final bool back;
 
   final String? route;
 
@@ -45,7 +48,7 @@ class BreadcrumbWidget extends StatelessWidget {
                   toNameRoute(route!);
                   _navigation.setRouteActive(route!);
                 }
-              : null,
+              : () => this.back ? Navigator.pop(context) : null,
           focusColor: Colors.transparent,
           hoverColor: Colors.transparent,
           splashColor: Colors.transparent,

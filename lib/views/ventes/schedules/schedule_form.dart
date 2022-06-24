@@ -10,6 +10,7 @@ import '../../../contracts/base/index_view_contract.dart';
 import '../../../models/ventes/schedule_model.dart';
 import '../../../presenters/ventes/schedule_presenter.dart';
 import '../../../routes/route_list.dart';
+import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
 import '../../../widgets/map/_map_source.dart';
@@ -36,6 +37,13 @@ class ScheduleFormView extends StatelessWidget
   Widget build(BuildContext context) {
     return Scaffold(
       body: TemplateView(
+        title: ScheduleText.title + ' Form',
+        breadcrumbs: [
+          BreadcrumbWidget('Dashboard', route: RouteList.home.index),
+          BreadcrumbWidget('Venteses'),
+          BreadcrumbWidget('Schedules', back: true),
+          BreadcrumbWidget('Schedule Form', active: true),
+        ],
         activeRoutes: [RouteList.master.index, RouteList.ventesSchedule.index],
         child: Obx(() {
           menuForm = ScheduleForm(source.value);
