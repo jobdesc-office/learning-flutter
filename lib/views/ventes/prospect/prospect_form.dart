@@ -136,6 +136,10 @@ class ProspectFormView extends StatelessWidget
                                     children: [
                                       BsCol(
                                           sizes: ColScreen(sm: Col.col_7),
+                                          child:
+                                              prospectForm.selectReference()),
+                                      BsCol(
+                                          sizes: ColScreen(sm: Col.col_7),
                                           child: prospectForm.inputValue()),
                                       BsCol(
                                           sizes: ColScreen(sm: Col.col_7),
@@ -287,12 +291,16 @@ class ProspectFormView extends StatelessWidget
       source.value.prospectStageController.selected = prospect.prospectstage;
       source.value.selectOwner.setSelected(BsSelectBoxOption(
           value: prospect.prospectowneruser!.user!.userid,
-          text:
-              Text(prospect.prospectowneruser!.user!.userfullname.toString())));
+          text: Text(prospect.prospectowneruser!.user!.userfullname!)));
+      source.value.selectReference.setSelected(BsSelectBoxOption(
+          value: prospect.prospectreference!.prospectid,
+          text: Text(prospect.prospectreference!.prospectname! +
+              ' || ' +
+              prospect.prospectreference!.prospectcust!.sbccstmname!)));
       source.value.selectCustomer.setSelected(BsSelectBoxOption(
           value: prospect.prospectcust!.sbcid,
-          text: Text(prospect.prospectcust!.sbccstm!.cstmname.toString())));
-      source.value.inputCompanyName.text = prospect.prospectname.toString();
+          text: Text(prospect.prospectcust!.sbccstmname.toString())));
+      source.value.inputCompanyName.text = prospect.prospectname ?? '';
       source.value.selectStatus.setSelected(BsSelectBoxOption(
           value: prospect.prospectstatus!.typeid,
           text: Text(prospect.prospectstatus!.typename.toString())));

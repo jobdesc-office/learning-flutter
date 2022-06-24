@@ -66,6 +66,7 @@ class ProspectSource extends GetxController {
   //   BsSelectBoxOption(value: '{2}', text: Text('Dougnut'))
   // ]);
   BsSelectBoxController selectOwner = BsSelectBoxController();
+  BsSelectBoxController selectReference = BsSelectBoxController();
   BsSelectBoxController selectCustomer = BsSelectBoxController();
   BsSelectBoxController selectStatus = BsSelectBoxController();
 
@@ -173,7 +174,7 @@ class ProspectSource extends GetxController {
       'prospectbpid': _auth.bpActiveId.value,
       'prospectdescription': inputDesc.text,
       'prospectcustid': selectCustomer.getSelectedAsString(),
-      'prospectrefid': '1',
+      'prospectrefid': selectReference.getSelectedAsString(),
       'createdby': session.userid,
       'updatedby': session.userid,
       'isactive': true,
@@ -394,6 +395,19 @@ class ProspectForm {
         hintText: BaseText.hiintSelect(field: ProspectText.labelOwner),
         serverSide: (params) => selectApiProspectOwner(params),
         validators: [Validators.selectRequired(ProspectText.labelOwner)],
+      ),
+    );
+  }
+
+  Widget selectReference() {
+    return FormGroup(
+      label: Text(ProspectText.labelReference),
+      child: CustomSelectBox(
+        searchable: true,
+        disabled: source.isProcessing,
+        controller: source.selectReference,
+        hintText: BaseText.hiintSelect(field: ProspectText.labelReference),
+        serverSide: (params) => selectApiProspectReference(params),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:boilerplate/models/masters/type_model.dart';
 import 'package:boilerplate/models/security/menu_model.dart';
+import 'package:boilerplate/models/ventes/prospect_model.dart';
 import 'package:boilerplate/services/masters/businesspartner_service.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +30,7 @@ import '../services/masters/typechildren_service.dart';
 import '../services/masters/user_service.dart';
 import '../services/security/menu_service.dart';
 import '../services/ventes/bpcustomer_service.dart';
+import '../services/ventes/prospect_service.dart';
 import 'connect_internet_api.dart';
 
 Future<BsSelectBoxResponse> selectApiRole(Map<String, String> params) async {
@@ -265,6 +267,25 @@ Future<BsSelectBoxResponse> selectApiProspectOwner(
         value: (data) => SelectUserBpModel.fromJson(data).userid,
         renderText: (data) =>
             Text(SelectUserBpModel.fromJson(data).userfullname!),
+      );
+    }
+  }
+
+  return BsSelectBoxResponse(options: []);
+}
+
+Future<BsSelectBoxResponse> selectApiProspectReference(
+    Map<String, String> params) async {
+  final prospectService = Get.find<ProspectService>();
+  Response response = await prospectService.select(params);
+  if (response.isOk) {
+    if (response.statusCode == 200) {
+      return BsSelectBoxResponse.createFromJson(
+        response.body,
+        value: (data) => ProspectModel.fromJson(data).prospectid,
+        renderText: (data) => Text(ProspectModel.fromJson(data).prospectname! +
+            ' || ' +
+            ProspectModel.fromJson(data).prospectcust!.sbccstmname!),
       );
     }
   }
