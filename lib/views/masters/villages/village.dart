@@ -6,6 +6,7 @@ import '../../../contracts/base/index_view_contract.dart';
 import '../../../presenters/masters/village_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
+import '../../../widgets/button/button_controller.dart';
 import '../../../widgets/button/theme_button_create.dart';
 import '../../../widgets/datatables/custom_datatable.dart';
 import '../../../widgets/snackbar.dart';
@@ -84,11 +85,17 @@ class VillageView extends GetView implements IndexViewContract {
 
   @override
   void onLoadDatatables(BuildContext context, Response response) {
+    final btn = Get.put(ButtonController());
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onEditListener =
         (Villageid) => presenter.edit(context, Villageid);
-    datatable.onDeleteListener =
-        (Villageid, name) => presenter.delete(context, Villageid, name);
+
+    if (btn.btnRegionDelete.value)
+      datatable.onDeleteListener =
+          (Villageid, name) => presenter.delete(context, Villageid, name);
+    else
+      datatable.onDeleteListener =
+          (Villageid, name) => Snackbar().regionDeletePermission();
   }
 }

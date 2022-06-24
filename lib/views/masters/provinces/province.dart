@@ -6,6 +6,7 @@ import '../../../contracts/base/index_view_contract.dart';
 import '../../../presenters/masters/province_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
+import '../../../widgets/button/button_controller.dart';
 import '../../../widgets/button/theme_button_create.dart';
 import '../../../widgets/datatables/custom_datatable.dart';
 import '../../../widgets/snackbar.dart';
@@ -84,11 +85,17 @@ class ProvinceView extends GetView implements IndexViewContract {
 
   @override
   void onLoadDatatables(BuildContext context, Response response) {
+    final btn = Get.put(ButtonController());
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onEditListener =
         (Provinceid) => presenter.edit(context, Provinceid);
-    datatable.onDeleteListener =
-        (Provinceid, name) => presenter.delete(context, Provinceid, name);
+
+    if (btn.btnRegionDelete.value)
+      datatable.onDeleteListener =
+          (Provinceid, name) => presenter.delete(context, Provinceid, name);
+    else
+      datatable.onDeleteListener =
+          (Provinceid, name) => Snackbar().regionDeletePermission();
   }
 }

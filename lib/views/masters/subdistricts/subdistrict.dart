@@ -6,6 +6,7 @@ import '../../../contracts/base/index_view_contract.dart';
 import '../../../presenters/masters/subdistrict_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
+import '../../../widgets/button/button_controller.dart';
 import '../../../widgets/button/theme_button_create.dart';
 import '../../../widgets/datatables/custom_datatable.dart';
 import '../../../widgets/snackbar.dart';
@@ -87,11 +88,17 @@ class SubdistrictView extends GetView implements IndexViewContract {
 
   @override
   void onLoadDatatables(BuildContext context, Response response) {
+    final btn = Get.put(ButtonController());
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onEditListener =
         (Subdistrictid) => presenter.edit(context, Subdistrictid);
-    datatable.onDeleteListener =
-        (Subdistrictid, name) => presenter.delete(context, Subdistrictid, name);
+
+    if (btn.btnRegionDelete.value)
+      datatable.onDeleteListener = (Subdistrictid, name) =>
+          presenter.delete(context, Subdistrictid, name);
+    else
+      datatable.onDeleteListener =
+          (Subdistrictid, name) => Snackbar().regionDeletePermission();
   }
 }

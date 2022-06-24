@@ -6,6 +6,7 @@ import '../../../contracts/base/index_view_contract.dart';
 import '../../../presenters/masters/city_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
+import '../../../widgets/button/button_controller.dart';
 import '../../../widgets/button/theme_button_create.dart';
 import '../../../widgets/datatables/custom_datatable.dart';
 import '../../../widgets/snackbar.dart';
@@ -84,10 +85,16 @@ class CityView extends GetView implements IndexViewContract {
 
   @override
   void onLoadDatatables(BuildContext context, Response response) {
+    final btn = Get.put(ButtonController());
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onEditListener = (cityid) => presenter.edit(context, cityid);
-    datatable.onDeleteListener =
-        (cityid, name) => presenter.delete(context, cityid, name);
+
+    if (btn.btnRegionDelete.value)
+      datatable.onDeleteListener =
+          (cityid, name) => presenter.delete(context, cityid, name);
+    else
+      datatable.onDeleteListener =
+          (cityid, name) => Snackbar().regionDeletePermission();
   }
 }

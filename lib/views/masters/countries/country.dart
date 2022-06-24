@@ -6,6 +6,7 @@ import '../../../contracts/base/index_view_contract.dart';
 import '../../../presenters/masters/country_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
+import '../../../widgets/button/button_controller.dart';
 import '../../../widgets/button/theme_button_create.dart';
 import '../../../widgets/datatables/custom_datatable.dart';
 import '../../../widgets/snackbar.dart';
@@ -84,11 +85,16 @@ class CountryView extends GetView implements IndexViewContract {
 
   @override
   void onLoadDatatables(BuildContext context, Response response) {
+    final btn = Get.put(ButtonController());
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onEditListener =
         (countryid) => presenter.edit(context, countryid);
-    datatable.onDeleteListener =
-        (countryid, name) => presenter.delete(context, countryid, name);
+    if (btn.btnRegionDelete.value)
+      datatable.onDeleteListener =
+          (countryid, name) => presenter.delete(context, countryid, name);
+    else
+      datatable.onDeleteListener =
+          (countryid, name) => Snackbar().regionDeletePermission();
   }
 }

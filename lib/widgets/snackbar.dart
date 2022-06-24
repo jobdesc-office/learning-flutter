@@ -118,4 +118,22 @@ class Snackbar {
           color: _navigation.darkTheme.value ? Colors.black : Colors.white,
         ));
   }
+
+  void regionDeletePermission() {
+    Get.snackbar('Caution', 'Delete Button is Disabled',
+        messageText: Text(
+          'This Delete Button Is Disabled Because If Delete, The Data May Be Wrong',
+          style: TextStyle(
+              color: _navigation.darkTheme.value ? Colors.black : Colors.white),
+        ),
+        colorText: _navigation.darkTheme.value ? Colors.black : Colors.white,
+        backgroundColor: ColorPallates.danger,
+        margin: EdgeInsets.only(top: 10, right: 10, bottom: 10, left: 1030),
+        maxWidth: 500,
+        icon: Icon(
+          Icons.warning,
+          size: 30,
+          color: _navigation.darkTheme.value ? Colors.black : Colors.white,
+        ));
+  }
 }
