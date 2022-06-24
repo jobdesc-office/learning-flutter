@@ -59,6 +59,17 @@ class Snackbar {
         ));
   }
 
+  void sessionExpired() {
+    Get.snackbar('Warning', 'Session Expired',
+        backgroundColor: ColorPallates.danger,
+        margin: EdgeInsets.only(top: 10, right: 10, bottom: 10, left: 1020),
+        maxWidth: 200,
+        icon: Icon(
+          Icons.warning,
+          size: 30,
+        ));
+  }
+
   void loginFailed() {
     Get.snackbar('Failed', 'Login Failed',
         backgroundColor: ColorPallates.danger,

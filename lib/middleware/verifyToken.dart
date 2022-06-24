@@ -1,4 +1,5 @@
 import 'package:boilerplate/presenters/navigation_presenter.dart';
+import 'package:boilerplate/widgets/snackbar.dart';
 import 'package:get/get.dart';
 
 import '../constants/config_types.dart';
@@ -18,6 +19,7 @@ checkJwtToken() async {
       SessionManager.destroy();
       authPresenter.signOut();
       _nav.darkTheme.value = false;
+      Snackbar().sessionExpired();
       toNameRoute(RouteList.sigin.index);
     }
 

@@ -249,6 +249,7 @@ class AppRoute {
           Get.lazyPut(() => ProvinceService());
           Get.lazyPut(() => CityService());
           Get.lazyPut(() => SubdistrictService());
+          Get.lazyPut(() => VillageService());
           Get.lazyPut(() => UserService());
           Get.lazyPut(() => CustomerService());
           Get.lazyPut(() => BpCustomerService());
