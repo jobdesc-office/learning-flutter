@@ -13,6 +13,7 @@ import '../models/masters/customer_model.dart';
 import '../models/masters/product_model.dart';
 import '../models/masters/province_model.dart';
 import '../models/auth_model.dart';
+import '../models/masters/subdistrict_model.dart';
 import '../models/masters/user_model.dart';
 import '../models/ventes/bpcustomer_model.dart';
 import '../models/ventes/selectbp_model.dart';
@@ -22,6 +23,7 @@ import '../services/masters/country_service.dart';
 import '../services/masters/customer_service.dart';
 import '../services/masters/product_service.dart';
 import '../services/masters/province_service.dart';
+import '../services/masters/subdistrict_service.dart';
 import '../services/masters/type_service.dart';
 import '../services/masters/typechildren_service.dart';
 import '../services/masters/user_service.dart';
@@ -429,7 +431,30 @@ Future<BsSelectBoxResponse> selectCities(Map<String, String> params) async {
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => CityModel.fromJson(data).cityid,
-        renderText: (data) => Text(CityModel.fromJson(data).cityname),
+        renderText: (data) => Text(CityModel.fromJson(data).cityname +
+            ' - ' +
+            CityModel.fromJson(data).provname),
+      );
+    }
+  }
+
+  return BsSelectBoxResponse(options: []);
+}
+
+Future<BsSelectBoxResponse> selectSubdistricts(
+    Map<String, String> params) async {
+  final subdistrictService = Get.find<SubdistrictService>();
+  Response response = await subdistrictService.select(params);
+
+  if (response.isOk) {
+    if (response.statusCode == 200) {
+      return BsSelectBoxResponse.createFromJson(
+        response.body,
+        value: (data) => SubdistrictModel.fromJson(data).subdistrictid,
+        renderText: (data) => Text(
+            SubdistrictModel.fromJson(data).subdistrictname +
+                ' - ' +
+                SubdistrictModel.fromJson(data).cityname),
       );
     }
   }

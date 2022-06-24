@@ -149,6 +149,12 @@ class SidebarSkins extends StatelessWidget {
                               label: 'Subdistricts',
                               icon: FontAwesomeIcons.city,
                             ),
+                            MenuData(
+                              id: no++,
+                              route: RouteList.masterVillage.index,
+                              label: 'Villages',
+                              icon: FontAwesomeIcons.city,
+                            ),
                           ]),
                       MenuData(
                         id: no++,
