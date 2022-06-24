@@ -10,6 +10,7 @@ import '../../services/masters/city_service.dart';
 import '../../services/masters/customer_service.dart';
 import '../../services/masters/province_service.dart';
 import '../../services/masters/subdistrict_service.dart';
+import '../../services/masters/village_service.dart';
 import '../../utils/connect_internet_api.dart';
 import '../../utils/custom_get_controller.dart';
 import '../../views/masters/customers/customer_details.dart';
@@ -21,6 +22,7 @@ class CustomerPresenter extends CustomGetXController {
   final _provinceService = Get.find<ProvinceService>();
   final _cityService = Get.find<CityService>();
   final _subdistrictService = Get.find<SubdistrictService>();
+  final _villageService = Get.find<VillageService>();
 
   late IndexViewContract _customerViewContract;
   set customerViewContract(IndexViewContract customerViewContract) {
@@ -98,6 +100,14 @@ class CustomerPresenter extends CustomGetXController {
     Response response = await _subdistrictService.byName(params);
     if (response.statusCode == 200) {
       return response.body['subdistrictid'];
+    }
+    return null;
+  }
+
+  Future getVillageId(Map<String, dynamic> params) async {
+    Response response = await _villageService.byName(params);
+    if (response.statusCode == 200) {
+      return response.body['villageid'];
     }
     return null;
   }

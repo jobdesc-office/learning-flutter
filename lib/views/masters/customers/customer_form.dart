@@ -81,6 +81,7 @@ class CustomerFormView extends StatelessWidget
                               customerForm.inputProvince(),
                               customerForm.inputCity(),
                               customerForm.inputSubdistrict(),
+                              customerForm.inputVillage(),
                               customerForm.inputPostal(),
                               customerForm.inputAddress(),
                             ],
@@ -146,6 +147,7 @@ class CustomerFormView extends StatelessWidget
       source.value.inputProvince.text = customer.provname;
       source.value.inputCity.text = customer.cityname;
       source.value.inputSubdistrict.text = customer.subdistrictname;
+      source.value.inputVillage.text = customer.villagename;
       source.value.inputPostal.text = customer.cstmpostalcode;
     });
   }
@@ -201,6 +203,12 @@ class CustomerFormView extends StatelessWidget
       String subdistrict =
           subdistrictt.replaceAll(RegExp(r'Kecamatan |Kec '), '');
 
+      String village = addresses
+              .firstWhere((element) =>
+                  element.types!.contains('administrative_area_level_4'))
+              .longName ??
+          "";
+
       String postalCode = addresses
               .firstWhere((element) => element.types!.contains('postal_code'))
               .longName ??
@@ -211,6 +219,7 @@ class CustomerFormView extends StatelessWidget
       source.value.inputProvince.text = province;
       source.value.inputCity.text = city;
       source.value.inputSubdistrict.text = subdistrict;
+      source.value.inputVillage.text = village;
       source.value.inputPostal.text = postalCode;
       source.value.inputAddress.text = adres;
     } else {

@@ -11,6 +11,7 @@ class CustomerModel {
   String provname;
   String cityname;
   String subdistrictname;
+  String villagename;
   int cstmtypeid;
   int cstmprovinceid;
   int cstmcityid;
@@ -34,6 +35,7 @@ class CustomerModel {
     this.provname = '',
     this.cityname = '',
     this.subdistrictname = '',
+    this.villagename = '',
     this.cstmtypeid = 0,
     this.cstmprovinceid = 0,
     this.cstmcityid = 0,
@@ -58,6 +60,7 @@ class CustomerModel {
       provname: parseString(json['cstmprovince']['provname']),
       cityname: parseString(json['cstmcity']['cityname']),
       subdistrictname: parseString(json['cstmsubdistrict']['subdistrictname']),
+      villagename: parseString(json['cstmvillage']['villagename']),
       cstmtypeid: parseInt(json['cstmtypeid']),
       cstmprovinceid: parseInt(json['cstmprovinceid']),
       cstmcityid: parseInt(json['cstmcityid']),

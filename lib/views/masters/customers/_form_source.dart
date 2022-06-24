@@ -35,6 +35,7 @@ class CustomerSource extends GetxController {
   TextEditingController inputProvince = TextEditingController();
   TextEditingController inputCity = TextEditingController();
   TextEditingController inputSubdistrict = TextEditingController();
+  TextEditingController inputVillage = TextEditingController();
   TextEditingController inputPostal = TextEditingController();
 
   BsSelectBoxController selectType = BsSelectBoxController();
@@ -47,6 +48,8 @@ class CustomerSource extends GetxController {
     int cityid = await _presenter.getCityId({'name': inputCity.text});
     int subdistrictid =
         await _presenter.getSubdistrictId({'name': inputSubdistrict.text});
+    int villageid =
+        await _presenter.getVillageId({'name': inputSubdistrict.text});
     SessionModel session = await SessionManager.current();
     final map = Get.put(mapSource());
     return {
@@ -58,7 +61,7 @@ class CustomerSource extends GetxController {
       'cstmprovinceid': provid.toString(),
       'cstmcityid': cityid.toString(),
       'cstmsubdistrictid': subdistrictid.toString(),
-      'cstmuvid': null,
+      'cstmuvid': villageid.toString(),
       'cstmpostalcode': inputPostal.text,
       'cstmlatitude': map.latitude.value,
       'cstmlongitude': map.longitude.value,
@@ -157,6 +160,7 @@ class CustomerForm {
         controller: source.selectType,
         hintText: BaseText.hiintSelect(field: CustomerText.labelType),
         serverSide: (params) => selectApiCustomerType(params),
+        validators: [Validators.selectRequired(CustomerText.labelType)],
       ),
     );
   }
@@ -248,6 +252,20 @@ class CustomerForm {
         disabled: source.isnGetLatLong.value,
         controller: source.inputSubdistrict,
         hintText: BaseText.hintText(field: CustomerText.labelSubdistrict),
+      ),
+    );
+  }
+
+  Widget inputVillage() {
+    return FormGroup(
+      label: Obx(() => Text(CustomerText.labelVillage,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      child: CustomInput(
+        disabled: source.isnGetLatLong.value,
+        controller: source.inputVillage,
+        hintText: BaseText.hintText(field: CustomerText.labelVillage),
       ),
     );
   }

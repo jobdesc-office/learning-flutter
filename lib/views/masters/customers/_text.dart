@@ -12,5 +12,6 @@ class CustomerText {
   static String labelProvince = 'Province';
   static String labelCity = 'City';
   static String labelSubdistrict = 'Subdistrict';
+  static String labelVillage = 'Village';
   static String labelPostal = 'Postal Code';
 }
