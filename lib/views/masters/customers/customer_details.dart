@@ -204,7 +204,7 @@ class CustomerDetails extends GetView implements DetailViewContract {
                                                                   lg: Col
                                                                       .col_3),
                                                               child: Text(
-                                                                  'Postal Code')),
+                                                                  'Village')),
                                                           BsCol(
                                                               sizes: ColScreen(
                                                                   lg: Col
@@ -215,8 +215,7 @@ class CustomerDetails extends GetView implements DetailViewContract {
                                                                   lg: Col
                                                                       .col_8),
                                                               child: Text(
-                                                                  controller
-                                                                      .postal
+                                                                  controller.muv
                                                                       .value))
                                                         ],
                                                       )),
@@ -231,8 +230,8 @@ class CustomerDetails extends GetView implements DetailViewContract {
                                                               sizes: ColScreen(
                                                                   lg: Col
                                                                       .col_3),
-                                                              child:
-                                                                  Text('MUV')),
+                                                              child: Text(
+                                                                  'Postal Code')),
                                                           BsCol(
                                                               sizes: ColScreen(
                                                                   lg: Col
@@ -243,7 +242,8 @@ class CustomerDetails extends GetView implements DetailViewContract {
                                                                   lg: Col
                                                                       .col_8),
                                                               child: Text(
-                                                                  controller.muv
+                                                                  controller
+                                                                      .postal
                                                                       .value))
                                                         ],
                                                       )),
@@ -271,7 +271,7 @@ class CustomerDetails extends GetView implements DetailViewContract {
     controller.province.value = dt.provname;
     controller.city.value = dt.cityname;
     controller.subdistrict.value = dt.subdistrictname;
-    controller.muv.value = dt.cstmuvid.toString();
+    controller.muv.value = dt.villagename.toString();
     controller.postal.value = dt.cstmpostalcode;
     controller.latitude.value = dt.cstmlatitude.toString();
     controller.longitude.value = dt.cstmlongitude.toString();

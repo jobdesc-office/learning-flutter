@@ -44,7 +44,7 @@ class _SignInViewState extends State<SignInView>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 1, vsync: this);
   }
 
   @override
@@ -88,7 +88,6 @@ class _SignInViewState extends State<SignInView>
                               unselectedLabelColor: Colors.black,
                               tabs: [
                                 Tab(text: 'Sign In'),
-                                Tab(text: 'Sign Up')
                               ],
                             ),
                           ),
@@ -139,83 +138,6 @@ class _SignInViewState extends State<SignInView>
                                             Container(
                                           margin: EdgeInsets.fromLTRB(
                                               20, 10, 20, 20),
-                                          child: Obx(
-                                            () => LoginButton(
-                                              disabled: authPresenter
-                                                  .isProcessing.value,
-                                              width: constraints.maxWidth,
-                                              label: authPresenter
-                                                      .isProcessing.value
-                                                  ? SizedBox(
-                                                      child:
-                                                          CircularProgressIndicator(
-                                                        color: Colors.white,
-                                                        strokeWidth: 1,
-                                                      ),
-                                                      width: 20,
-                                                      height: 20,
-                                                    )
-                                                  : Text('Sign In'),
-                                              onPressed: onClickLogin,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Text('forgot password?'),
-                                      SizedBox(
-                                        height: 15,
-                                      ),
-                                      Text('or'),
-                                      SizedBox(
-                                        height: 15,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          CircleAvatar(
-                                            backgroundImage: AssetImage(
-                                                'assets/images/fb.png'),
-                                            backgroundColor: Colors.transparent,
-                                          ),
-                                          CircleAvatar(
-                                            backgroundImage: AssetImage(
-                                                'assets/images/google.png'),
-                                            backgroundColor: Colors.transparent,
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                Form(
-                                  key: _formStateSignUp,
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        padding:
-                                            EdgeInsets.fromLTRB(0, 10, 0, 10),
-                                        child: Obx(
-                                          () => Column(
-                                            children: [
-                                              _loginForm.username(
-                                                controller: authPresenter
-                                                    .source.value.inputUsername,
-                                              ),
-                                              _loginForm.password(
-                                                // obsecureText: authPresenter.,
-                                                controller: authPresenter
-                                                    .source.value.inputPassword,
-                                                // onTapSuffixIcon: () =>
-                                                //     authPresenter.togglePassword(),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      LayoutBuilder(
-                                        builder: (context, constraints) =>
-                                            Container(
                                           child: Obx(
                                             () => LoginButton(
                                               disabled: authPresenter
