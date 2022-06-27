@@ -24,7 +24,7 @@ final _navigation = Get.find<NavigationPresenter>();
 final map = Get.put(mapSource());
 final typepresenter = Get.put(TypesChildrenPresenter());
 
-class ProspectDetailSource extends GetxController {
+class ProspectActivitySource extends GetxController {
   bool isProcessing = false;
 
   var selectedDateExpect = ''.obs;
@@ -39,14 +39,14 @@ class ProspectDetailSource extends GetxController {
   Future<Map<String, dynamic>> toJson() async {
     SessionModel session = await SessionManager.current();
     return {
-      'prospectdtprospectid': id.value,
-      'prospectdtcatid': selectCat.getSelectedAsString(),
-      'prospectdttypeid': selectType.getSelectedAsString(),
-      'prospectdtdate': selectedDateExpect.value,
-      'prospectdtdesc': inputDesc.text,
-      'prospectdtloc': map.linkCoordinate.value,
-      'prospectdtlatitude': map.latitude.value,
-      'prospectdtlongitude': map.longitude.value,
+      'prospectactivityprospectid': id.value,
+      'prospectactivitycatid': selectCat.getSelectedAsString(),
+      'prospectactivitytypeid': selectType.getSelectedAsString(),
+      'prospectactivitydate': selectedDateExpect.value,
+      'prospectactivitydesc': inputDesc.text,
+      'prospectactivityloc': map.linkCoordinate.value,
+      'prospectactivitylatitude': map.latitude.value,
+      'prospectactivitylongitude': map.longitude.value,
       'createdby': session.userid,
       'updatedby': session.userid,
     };
@@ -54,7 +54,7 @@ class ProspectDetailSource extends GetxController {
 }
 
 class ProspectDetailForm {
-  final ProspectDetailSource source;
+  final ProspectActivitySource source;
 
   ProspectDetailForm(this.source);
 

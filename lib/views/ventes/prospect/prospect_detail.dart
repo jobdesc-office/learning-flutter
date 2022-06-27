@@ -13,11 +13,11 @@ import '../../../contracts/base/details_view_contract.dart';
 import '../../../contracts/base/index_view_contract.dart';
 import '../../../models/masters/type_model.dart';
 import '../../../models/ventes/prospect_model.dart';
-import '../../../models/ventes/prospectdetail_model.dart';
+import '../../../models/ventes/prospectactivity_model.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../presenters/ventes/prospect_presenter.dart';
 import '../../../presenters/ventes/prospectassign_presenter.dart';
-import '../../../presenters/ventes/prospectdetail_presenter.dart';
+import '../../../presenters/ventes/prospectactivity_presenter.dart';
 import '../../../presenters/ventes/prospectproduct_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../styles/color_palattes.dart';
@@ -45,7 +45,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
         IndexViewContract {
   late TabController _tabController;
   late TabController _tabControllerTimeline;
-  final detailPresenter = Get.find<ProspectDetailPresenter>();
+  final detailPresenter = Get.find<ProspectActivityPresenter>();
   final assignPresenter = Get.find<ProspectAssignPresenter>();
   final productPresenter = Get.find<ProspectProductPresenter>();
   final presenter = Get.find<ProspectPresenter>();
@@ -1257,7 +1257,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
   void onLoadDatatables(BuildContext context, Response response) {
     List x = [];
     for (var item in response.body) {
-      x.add(ProspectDetailModel.fromJson(item));
+      x.add(ProspectActivityModel.fromJson(item));
     }
     source.detailData.value = x;
   }

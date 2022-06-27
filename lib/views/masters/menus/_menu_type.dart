@@ -56,7 +56,7 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
       children: widget.controller.options.map((type) {
         Color backgroundColor = widget.controller.selected != null &&
                 widget.controller.selected!.typeid == type.typeid
-            ? ColorPallates.dark
+            ? ColorPallates.tertiary
             : Colors.grey.withOpacity(.5);
 
         Color? textColor = widget.controller.selected != null &&

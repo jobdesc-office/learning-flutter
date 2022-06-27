@@ -1,4 +1,4 @@
-class ProspectDetailModel {
+class ProspectActivityModel {
   int? prospectdtid;
   int? prospectdtprospectid;
   int? prospectdtcatid;
@@ -17,7 +17,7 @@ class ProspectDetailModel {
   Prospectdtcat? prospectdtcat;
   Prospectdtcat? prospectdttype;
 
-  ProspectDetailModel(
+  ProspectActivityModel(
       {this.prospectdtid,
       this.prospectdtprospectid,
       this.prospectdtcatid,
@@ -36,7 +36,7 @@ class ProspectDetailModel {
       this.prospectdtcat,
       this.prospectdttype});
 
-  ProspectDetailModel.fromJson(Map<String, dynamic> json) {
+  ProspectActivityModel.fromJson(Map<String, dynamic> json) {
     prospectdtid = json['prospectdtid'];
     prospectdtprospectid = json['prospectdtprospectid'];
     prospectdtcatid = json['prospectdtcatid'];

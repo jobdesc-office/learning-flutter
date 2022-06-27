@@ -1,7 +1,9 @@
+import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../models/masters/type_model.dart';
+import '../../../presenters/navigation_presenter.dart';
 import '../../../styles/color_palattes.dart';
 
 abstract class MenuTypeViewDetailContract {
@@ -49,10 +51,9 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
 
   @override
   Widget build(BuildContext context) {
+    final _navigation = Get.find<NavigationPresenter>();
     if (widget.controller.processing) return loadingState();
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
+    return BsRow(
       children: widget.controller.options.map((type) {
         Color backgroundColor = widget.controller.selected != null &&
                 widget.controller.selected!.typeid == type.typeid
@@ -77,25 +78,19 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
             bottomRight: Radius.circular(5),
           );
         }
-        double x = widget.controller.options.length / 3;
-        return Material(
-          color: Colors.transparent,
-          child: Container(
-            width: MediaQuery.of(context).size.width /
-                widget.controller.options.length /
-                x,
-            padding: EdgeInsets.fromLTRB(15, 8, 15, 8),
-            decoration: BoxDecoration(
-              color: backgroundColor,
-              borderRadius: borderRadius,
-            ),
-            child: Center(
-              child: Text(
-                type.typename,
-                style: TextStyle(
-                  color: textColor,
-                  fontSize: 12,
-                ),
+        return BsCol(
+          sizes: ColScreen(sm: Col.col_3),
+          padding: EdgeInsets.fromLTRB(15, 8, 15, 8),
+          decoration: BoxDecoration(
+            color: backgroundColor,
+            borderRadius: borderRadius,
+          ),
+          child: Center(
+            child: Text(
+              type.typename,
+              style: TextStyle(
+                color: textColor,
+                fontSize: 12,
               ),
             ),
           ),

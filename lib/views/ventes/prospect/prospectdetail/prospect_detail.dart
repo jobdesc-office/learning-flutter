@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../../../contracts/base/details_view_contract.dart';
-import '../../../../models/ventes/prospectdetail_model.dart';
+import '../../../../models/ventes/prospectactivity_model.dart';
 import '../../../../presenters/navigation_presenter.dart';
-import '../../../../presenters/ventes/prospectdetail_presenter.dart';
+import '../../../../presenters/ventes/prospectactivity_presenter.dart';
 import '../../../../widgets/snackbar.dart';
 import '_detail_source.dart';
 import '_text.dart';
@@ -15,9 +15,10 @@ import '_text.dart';
 final _navigation = Get.find<NavigationPresenter>();
 
 class ProspectDetailDetails extends GetView implements DetailViewContract {
-  final ProspectDetailPresenter presenter = Get.find<ProspectDetailPresenter>();
-  final prospectDetailDetailsSource controller =
-      Get.put(prospectDetailDetailsSource());
+  final ProspectActivityPresenter presenter =
+      Get.find<ProspectActivityPresenter>();
+  final prospectActivityDetailsSource controller =
+      Get.put(prospectActivityDetailsSource());
 
   ProspectDetailDetails() {
     presenter.prospectDetailViewContract = this;
@@ -149,7 +150,7 @@ class ProspectDetailDetails extends GetView implements DetailViewContract {
 
   @override
   void onSuccessFetchData(Response response) {
-    ProspectDetailModel dt = ProspectDetailModel.fromJson(response.body);
+    ProspectActivityModel dt = ProspectActivityModel.fromJson(response.body);
     controller.category.value = dt.prospectdtcat!.typename ?? '';
     controller.date.value = dt.prospectdtdate ?? '';
     controller.desc.value = dt.prospectdtdesc ?? '';

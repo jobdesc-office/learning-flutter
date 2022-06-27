@@ -6,14 +6,14 @@ import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
 import '../../services/ventes/prospect_service.dart';
-import '../../services/ventes/prospectdetail_service.dart';
+import '../../services/ventes/prospectactivity_service.dart';
 import '../../utils/custom_get_controller.dart';
 import '../../views/ventes/prospect/prospectdetail/prospect_detail.dart';
 import '../../views/ventes/prospect/prospectdetail/prospectdetail_form.dart';
 import '../../widgets/confirm_dialog.dart';
 
-class ProspectDetailPresenter extends CustomGetXController {
-  final _prospectService = Get.find<ProspectDetailService>();
+class ProspectActivityPresenter extends CustomGetXController {
+  final _prospectService = Get.find<ProspectActivityService>();
 
   late IndexViewContract _prospectViewContract;
   set prospectViewContract(IndexViewContract prospectViewContract) {
@@ -41,8 +41,8 @@ class ProspectDetailPresenter extends CustomGetXController {
   void add(BuildContext context, int id) async {
     showDialog(
       context: context,
-      builder: (context) =>
-          ProspectDetailFormView(onSave: (body) => save(context, body), id: id),
+      builder: (context) => ProspectActivityFormView(
+          onSave: (body) => save(context, body), id: id),
     );
   }
 
@@ -71,7 +71,7 @@ class ProspectDetailPresenter extends CustomGetXController {
     setProcessing(true);
     showDialog(
       context: context,
-      builder: (context) => ProspectDetailFormView(
+      builder: (context) => ProspectActivityFormView(
           onSave: (body) => update(context, body, Prospectid), id: id),
     );
 
