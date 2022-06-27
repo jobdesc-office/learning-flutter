@@ -34,13 +34,13 @@ class ProspectActivityFormView extends StatelessWidget
   Widget build(BuildContext context) {
     return Scaffold(
       body: TemplateView(
-        title: 'Prospect Details Form',
+        title: 'Prospect Activity Form',
         breadcrumbs: [
           BreadcrumbWidget('Dashboard', route: RouteList.home.index),
           BreadcrumbWidget('Venteses'),
           BreadcrumbWidget('Prospect'),
           BreadcrumbWidget('Prospect Details', back: true),
-          BreadcrumbWidget('Prospect Details Form', active: true),
+          BreadcrumbWidget('Prospect Activity Form', active: true),
         ],
         activeRoutes: [RouteList.ventes.index, RouteList.ventesProspect.index],
         child: Obx(() {

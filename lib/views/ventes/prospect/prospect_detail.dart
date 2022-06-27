@@ -261,10 +261,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                           children: [
                                             BsButton(
                                                 style: BsButtonStyle.success,
-                                                onPressed: () {
-                                                  detailPresenter.add(context,
-                                                      source.prospectid.value);
-                                                },
+                                                onPressed: () {},
                                                 label: Text(
                                                     'Add Prospect Detail')),
                                             // BsButton(
@@ -1000,7 +997,11 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                     children: [
                                       Text('You have no upcoming activities.'),
                                       SizedBox(height: 10),
-                                      Text('+ Schedule an activity'),
+                                      InkWell(
+                                        child: Text('+ Schedule an activity'),
+                                        onTap: () => detailPresenter.add(
+                                            context, source.prospectid.value),
+                                      ),
                                     ],
                                   ),
                                 ],
@@ -1012,6 +1013,12 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                 children: [
                                   BsBadge(
                                     child: Text('DONE'),
+                                  ),
+                                  Column(
+                                    children: [
+                                      Text(
+                                          'You don\'t have complete activities.'),
+                                    ],
                                   ),
                                 ],
                               ),
