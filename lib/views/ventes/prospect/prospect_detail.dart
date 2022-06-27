@@ -44,7 +44,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
         MenuTypeViewDetailContract,
         IndexViewContract {
   late TabController _tabController;
-  late TabController _tabControllerTimeline;
+  // late TabController _tabControllerTimeline;
   final detailPresenter = Get.find<ProspectActivityPresenter>();
   final assignPresenter = Get.find<ProspectAssignPresenter>();
   final productPresenter = Get.find<ProspectProductPresenter>();
@@ -60,7 +60,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     super.initState();
     presenter.prospectViewContract = this;
     _tabController = TabController(length: 7, vsync: this);
-    _tabControllerTimeline = TabController(length: 8, vsync: this);
+    // _tabControllerTimeline = TabController(length: 8, vsync: this);
     presenter.prospectTypeViewDetailContract = this;
     detailPresenter.prospectViewContract = this;
     assignPresenter.prospectViewContract = this;
@@ -991,165 +991,172 @@ class _ProspectDetailsState extends State<ProspectDetails>
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              BsBadge(
-                                child: Text('PLANNED'),
+                              Column(
+                                children: [
+                                  BsBadge(
+                                    child: Text('PLANNED'),
+                                  ),
+                                  Column(
+                                    children: [
+                                      Text('You have no upcoming activities.'),
+                                      SizedBox(height: 10),
+                                      Text('+ Schedule an activity'),
+                                    ],
+                                  ),
+                                ],
                               ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text('You have no upcoming activities.'),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text('+ Schedule an activity'),
                               SizedBox(
                                 height: 20,
                               ),
-                              BsBadge(
-                                child: Text('DONE'),
+                              Column(
+                                children: [
+                                  BsBadge(
+                                    child: Text('DONE'),
+                                  ),
+                                ],
                               ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              Container(
-                                child: TabBar(
-                                  controller: _tabControllerTimeline,
-                                  labelColor: Colors.green,
-                                  unselectedLabelColor: Colors.black,
-                                  tabs: [
-                                    Tab(text: 'All'),
-                                    Tab(text: 'Activity'),
-                                    Tab(text: 'Notes'),
-                                    Tab(text: 'Email'),
-                                    Tab(text: 'Invoices'),
-                                    Tab(text: 'Documents'),
-                                    Tab(text: 'Files'),
-                                    Tab(text: 'Changelog'),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: double.infinity,
-                                height: 200,
-                                child: TabBarView(
-                                  controller: _tabControllerTimeline,
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.only(top: 20),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          BsRow(
-                                            children: [
-                                              BsCol(
-                                                  sizes:
-                                                      ColScreen(sm: Col.col_1),
-                                                  child: Column(
-                                                    children: [
-                                                      OutlinedDotIndicator(),
-                                                      SizedBox(
-                                                        height: 50.0,
-                                                        child:
-                                                            SolidLineConnector(),
-                                                      )
-                                                    ],
-                                                  )),
-                                              BsCol(
-                                                  sizes:
-                                                      ColScreen(sm: Col.col_2),
-                                                  child: Text('Today')),
-                                              BsCol(
-                                                  sizes:
-                                                      ColScreen(sm: Col.col_9),
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        'Meeting',
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
-                                                      Text('at Town Hall'),
-                                                    ],
-                                                  )),
-                                              BsCol(
-                                                  sizes:
-                                                      ColScreen(sm: Col.col_1),
-                                                  child: Column(
-                                                    children: [
-                                                      OutlinedDotIndicator()
-                                                    ],
-                                                  )),
-                                              BsCol(
-                                                  sizes:
-                                                      ColScreen(sm: Col.col_2),
-                                                  child: Text('Yesterday')),
-                                              BsCol(
-                                                  sizes:
-                                                      ColScreen(sm: Col.col_9),
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        'Meeting',
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
-                                                      Text('at Town Hall'),
-                                                    ],
-                                                  )),
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [Text('Activity')],
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [Text('Notes')],
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [Text('Email')],
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [Text('Invoices')],
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [Text('Documents')],
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [Text('Files')],
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [Text('Changelog')],
-                                    ),
-                                  ],
-                                ),
-                              )
+                              // SizedBox(
+                              //   height: 30,
+                              // ),
+                              // Container(
+                              //   child: TabBar(
+                              //     controller: _tabControllerTimeline,
+                              //     labelColor: Colors.green,
+                              //     unselectedLabelColor: Colors.black,
+                              //     tabs: [
+                              //       Tab(text: 'All'),
+                              //       Tab(text: 'Activity'),
+                              //       Tab(text: 'Notes'),
+                              //       Tab(text: 'Email'),
+                              //       Tab(text: 'Invoices'),
+                              //       Tab(text: 'Documents'),
+                              //       Tab(text: 'Files'),
+                              //       Tab(text: 'Changelog'),
+                              //     ],
+                              //   ),
+                              // ),
+                              // Container(
+                              //   width: double.infinity,
+                              //   height: 200,
+                              //   child: TabBarView(
+                              //     controller: _tabControllerTimeline,
+                              //     children: [
+                              //       Container(
+                              //         margin: EdgeInsets.only(top: 20),
+                              //         child: Column(
+                              //           mainAxisAlignment:
+                              //               MainAxisAlignment.center,
+                              //           children: [
+                              //             BsRow(
+                              //               children: [
+                              //                 BsCol(
+                              //                     sizes:
+                              //                         ColScreen(sm: Col.col_1),
+                              //                     child: Column(
+                              //                       children: [
+                              //                         OutlinedDotIndicator(),
+                              //                         SizedBox(
+                              //                           height: 50.0,
+                              //                           child:
+                              //                               SolidLineConnector(),
+                              //                         )
+                              //                       ],
+                              //                     )),
+                              //                 BsCol(
+                              //                     sizes:
+                              //                         ColScreen(sm: Col.col_2),
+                              //                     child: Text('Today')),
+                              //                 BsCol(
+                              //                     sizes:
+                              //                         ColScreen(sm: Col.col_9),
+                              //                     child: Column(
+                              //                       crossAxisAlignment:
+                              //                           CrossAxisAlignment
+                              //                               .start,
+                              //                       children: [
+                              //                         Text(
+                              //                           'Meeting',
+                              //                           style: TextStyle(
+                              //                               fontWeight:
+                              //                                   FontWeight
+                              //                                       .bold),
+                              //                         ),
+                              //                         Text('at Town Hall'),
+                              //                       ],
+                              //                     )),
+                              //                 BsCol(
+                              //                     sizes:
+                              //                         ColScreen(sm: Col.col_1),
+                              //                     child: Column(
+                              //                       children: [
+                              //                         OutlinedDotIndicator()
+                              //                       ],
+                              //                     )),
+                              //                 BsCol(
+                              //                     sizes:
+                              //                         ColScreen(sm: Col.col_2),
+                              //                     child: Text('Yesterday')),
+                              //                 BsCol(
+                              //                     sizes:
+                              //                         ColScreen(sm: Col.col_9),
+                              //                     child: Column(
+                              //                       crossAxisAlignment:
+                              //                           CrossAxisAlignment
+                              //                               .start,
+                              //                       children: [
+                              //                         Text(
+                              //                           'Meeting',
+                              //                           style: TextStyle(
+                              //                               fontWeight:
+                              //                                   FontWeight
+                              //                                       .bold),
+                              //                         ),
+                              //                         Text('at Town Hall'),
+                              //                       ],
+                              //                     )),
+                              //               ],
+                              //             )
+                              //           ],
+                              //         ),
+                              //       ),
+                              //       Column(
+                              //         mainAxisAlignment:
+                              //             MainAxisAlignment.center,
+                              //         children: [Text('Activity')],
+                              //       ),
+                              //       Column(
+                              //         mainAxisAlignment:
+                              //             MainAxisAlignment.center,
+                              //         children: [Text('Notes')],
+                              //       ),
+                              //       Column(
+                              //         mainAxisAlignment:
+                              //             MainAxisAlignment.center,
+                              //         children: [Text('Email')],
+                              //       ),
+                              //       Column(
+                              //         mainAxisAlignment:
+                              //             MainAxisAlignment.center,
+                              //         children: [Text('Invoices')],
+                              //       ),
+                              //       Column(
+                              //         mainAxisAlignment:
+                              //             MainAxisAlignment.center,
+                              //         children: [Text('Documents')],
+                              //       ),
+                              //       Column(
+                              //         mainAxisAlignment:
+                              //             MainAxisAlignment.center,
+                              //         children: [Text('Files')],
+                              //       ),
+                              //       Column(
+                              //         mainAxisAlignment:
+                              //             MainAxisAlignment.center,
+                              //         children: [Text('Changelog')],
+                              //       ),
+                              //     ],
+                              //   ),
+                              // )
                             ],
                           ),
                         ),

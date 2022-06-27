@@ -60,7 +60,7 @@ class ProspectDetailForm {
 
   Widget selectTypes() {
     return FormGroup(
-      label: Obx(() => Text(ProspectDetailText.labelType,
+      label: Obx(() => Text(ProspectActivityText.labelType,
           style: TextStyle(
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
@@ -68,10 +68,10 @@ class ProspectDetailForm {
         searchable: false,
         disabled: source.isProcessing,
         controller: source.selectType,
-        hintText: BaseText.hiintSelect(field: ProspectDetailText.labelType),
+        hintText: BaseText.hiintSelect(field: ProspectActivityText.labelType),
         serverSide: (params) => selectApiProspectType(params),
         validators: [
-          Validators.selectRequired(ProspectDetailText.labelType),
+          Validators.selectRequired(ProspectActivityText.labelType),
         ],
       ),
     );
@@ -79,7 +79,7 @@ class ProspectDetailForm {
 
   Widget selectCategory() {
     return FormGroup(
-      label: Obx(() => Text(ProspectDetailText.labelCategory,
+      label: Obx(() => Text(ProspectActivityText.labelCategory,
           style: TextStyle(
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
@@ -96,10 +96,10 @@ class ProspectDetailForm {
             disabled: source.isProcessing,
             controller: source.selectCat,
             hintText:
-                BaseText.hiintSelect(field: ProspectDetailText.labelCategory),
+                BaseText.hiintSelect(field: ProspectActivityText.labelCategory),
             serverSide: (params) => selectApiProspectCategory(params),
             validators: [
-              Validators.selectRequired(ProspectDetailText.labelCategory),
+              Validators.selectRequired(ProspectActivityText.labelCategory),
             ],
           )),
     );
@@ -107,7 +107,7 @@ class ProspectDetailForm {
 
   Widget inputExpected(context) {
     return FormGroup(
-      label: Obx(() => Text(ProspectDetailText.labelExpected,
+      label: Obx(() => Text(ProspectActivityText.labelExpected,
           style: TextStyle(
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
@@ -135,11 +135,11 @@ class ProspectDetailForm {
 
   Widget inputDesc() {
     return FormGroup(
-      label: Text(ProspectDetailText.labelDesc),
+      label: Text(ProspectActivityText.labelDesc),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputDesc,
-        hintText: BaseText.hintText(field: ProspectDetailText.labelDesc),
+        hintText: BaseText.hintText(field: ProspectActivityText.labelDesc),
         maxLines: 5,
         minLines: 3,
       ),
@@ -153,7 +153,7 @@ class ProspectDetailForm {
           margin: EdgeInsets.only(right: 10),
           sizes: ColScreen(lg: Col.col_12),
           child: FormGroup(
-            label: Obx(() => Text(ProspectDetailText.labelPlace,
+            label: Obx(() => Text(ProspectActivityText.labelPlace,
                 style: TextStyle(
                     color: _navigation.darkTheme.value
                         ? Colors.white

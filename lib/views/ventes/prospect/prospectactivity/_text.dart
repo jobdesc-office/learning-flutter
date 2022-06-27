@@ -1,4 +1,4 @@
-class ProspectDetailText {
+class ProspectActivityText {
   static String title = 'Prospect';
 
   static String labelTitle = 'Title';

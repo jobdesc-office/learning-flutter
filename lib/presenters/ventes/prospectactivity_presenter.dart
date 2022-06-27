@@ -8,8 +8,8 @@ import '../../contracts/base/index_view_contract.dart';
 import '../../services/ventes/prospect_service.dart';
 import '../../services/ventes/prospectactivity_service.dart';
 import '../../utils/custom_get_controller.dart';
-import '../../views/ventes/prospect/prospectdetail/prospect_detail.dart';
-import '../../views/ventes/prospect/prospectdetail/prospectdetail_form.dart';
+import '../../views/ventes/prospect/prospectactivity/prospect_activity.dart';
+import '../../views/ventes/prospect/prospectactivity/prospectactivity_form.dart';
 import '../../widgets/confirm_dialog.dart';
 
 class ProspectActivityPresenter extends CustomGetXController {
@@ -58,7 +58,7 @@ class ProspectActivityPresenter extends CustomGetXController {
     setProcessing(true);
     showDialog(
       context: context,
-      builder: (context) => ProspectDetailDetails(),
+      builder: (context) => ProspectActivityDetails(),
     );
     Response response = await _prospectService.show(userid);
     if (response.statusCode == 200)

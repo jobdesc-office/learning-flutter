@@ -14,13 +14,13 @@ import '_text.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 
-class ProspectDetailDetails extends GetView implements DetailViewContract {
+class ProspectActivityDetails extends GetView implements DetailViewContract {
   final ProspectActivityPresenter presenter =
       Get.find<ProspectActivityPresenter>();
   final prospectActivityDetailsSource controller =
       Get.put(prospectActivityDetailsSource());
 
-  ProspectDetailDetails() {
+  ProspectActivityDetails() {
     presenter.prospectDetailViewContract = this;
   }
 
@@ -39,7 +39,7 @@ class ProspectDetailDetails extends GetView implements DetailViewContract {
               ),
               children: [
                 BsModalContainer(
-                  title: Text(ProspectDetailText.title + ' Details',
+                  title: Text(ProspectActivityText.title + ' Details',
                       style: TextStyle(
                           color: _navigation.darkTheme.value
                               ? Colors.white
