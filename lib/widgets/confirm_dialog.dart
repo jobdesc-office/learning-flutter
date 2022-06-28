@@ -15,8 +15,8 @@ enum ConfirmDialogButton { POSITION_BUTTON, NEGATIVE_BUTTON }
 
 class ConfirmDialog extends StatefulWidget {
   const ConfirmDialog({
-    this.title = 'Konfirmasi Hapus',
-    this.message = 'Apakah anda yakin?',
+    this.title = 'Confirmation',
+    this.message = 'Are You Sure ?',
     this.positiveButton,
     this.negativeButton,
     this.disabled = false,

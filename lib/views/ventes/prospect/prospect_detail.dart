@@ -15,6 +15,7 @@ import '../../../models/masters/type_model.dart';
 import '../../../models/ventes/prospect_model.dart';
 import '../../../models/ventes/prospectactivity_model.dart';
 import '../../../presenters/navigation_presenter.dart';
+import '../../../presenters/ventes/customfield_presenter.dart';
 import '../../../presenters/ventes/prospect_presenter.dart';
 import '../../../presenters/ventes/prospectassign_presenter.dart';
 import '../../../presenters/ventes/prospectactivity_presenter.dart';
@@ -48,6 +49,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
   final detailPresenter = Get.find<ProspectActivityPresenter>();
   final assignPresenter = Get.find<ProspectAssignPresenter>();
   final productPresenter = Get.find<ProspectProductPresenter>();
+  final customFieldPresenter = Get.find<CustomFieldPresenter>();
   final presenter = Get.find<ProspectPresenter>();
   final source = Get.put(prospectDetailsSource());
   final controller = Get.put(ButtonController());
@@ -260,91 +262,24 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                               MainAxisAlignment.spaceAround,
                                           children: [
                                             BsButton(
-                                                style: BsButtonStyle.success,
+                                                size: BsButtonSize.btnSm,
                                                 onPressed: () {},
-                                                label: Text(
-                                                    'Add Prospect Detail')),
-                                            // BsButton(
-                                            //     onPressed: () {},
-                                            //     label: Text('Customize Files'))
+                                                label: Icon(
+                                                  Icons.edit,
+                                                  size: 13,
+                                                )),
+                                            BsButton(
+                                                margin:
+                                                    EdgeInsets.only(left: 5),
+                                                size: BsButtonSize.btnSm,
+                                                onPressed: () => Get.toNamed(
+                                                    RouteList.ventesCustomField
+                                                        .index),
+                                                label: Text('Customize Fields'))
                                           ],
                                         ),
                                       ],
                                     ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Column(
-                                      children: [
-                                        ListView.builder(
-                                            shrinkWrap: true,
-                                            itemCount: source.detailData.length,
-                                            itemBuilder: (context, index) {
-                                              var schedule =
-                                                  source.detailData[index];
-
-                                              return InkWell(
-                                                onLongPress: () {
-                                                  Get.defaultDialog(
-                                                      middleText: '',
-                                                      title: 'Setting',
-                                                      actions: [
-                                                        ButtonEditDatatables(
-                                                            onPressed: () {
-                                                          detailPresenter.edit(
-                                                              context,
-                                                              schedule
-                                                                  .prospectdtid,
-                                                              source.prospectid
-                                                                  .value);
-                                                        }),
-                                                        ButtonDeleteDatatables(
-                                                            onPressed: () {
-                                                          detailPresenter.delete(
-                                                              context,
-                                                              schedule
-                                                                  .prospectdtid,
-                                                              '${schedule.prospectdttype!.typename} at ${schedule.prospectdtdate}');
-                                                        }),
-                                                      ]);
-                                                },
-                                                onTap: () {
-                                                  detailPresenter.detail(
-                                                      context,
-                                                      schedule.prospectdtid);
-                                                },
-                                                child: Container(
-                                                  margin:
-                                                      EdgeInsets.only(top: 3),
-                                                  padding: EdgeInsets.all(5),
-                                                  decoration: BoxDecoration(
-                                                    color: _navigation
-                                                            .darkTheme.value
-                                                        ? ColorPallates
-                                                            .secondary
-                                                        : ColorPallates
-                                                            .datatableLightEvenRowColor,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                  ),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Text(schedule
-                                                          .prospectdttype
-                                                          .typename),
-                                                      Text(schedule
-                                                          .prospectdtdate)
-                                                    ],
-                                                  ),
-                                                ),
-                                              );
-                                            }),
-                                      ],
-                                    )
                                   ],
                                 ),
                               ),
@@ -468,6 +403,9 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                         unselectedLabelColor: Colors.black,
                                         tabs: [
                                           Tab(
+                                              text: 'Notes',
+                                              icon: Icon(Icons.note)),
+                                          Tab(
                                               text: 'Assign',
                                               icon: Icon(Icons.group)),
                                           Tab(
@@ -480,9 +418,6 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                           Tab(
                                               text: 'Call',
                                               icon: Icon(Icons.phone)),
-                                          Tab(
-                                              text: 'Email',
-                                              icon: Icon(Icons.email)),
                                           Tab(
                                               text: 'Files',
                                               icon: Icon(Icons.file_copy)),
@@ -499,6 +434,11 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                       child: TabBarView(
                                         controller: _tabController,
                                         children: [
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [Text('Notes')],
+                                          ),
                                           if (source.assign.length != 0)
                                             SingleChildScrollView(
                                               child: Column(
@@ -961,11 +901,6 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                           Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
-                                            children: [Text('Email')],
-                                          ),
-                                          Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
                                             children: [Text('Files')],
                                           ),
                                           Column(
@@ -993,35 +928,142 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                   BsBadge(
                                     child: Text('PLANNED'),
                                   ),
-                                  Column(
-                                    children: [
-                                      Text('You have no upcoming activities.'),
-                                      SizedBox(height: 10),
-                                      InkWell(
-                                        child: Text('+ Schedule an activity'),
-                                        onTap: () => detailPresenter.add(
-                                            context, source.prospectid.value),
-                                      ),
-                                    ],
-                                  ),
+                                  if (source.detailData.length == 0)
+                                    Column(
+                                      children: [
+                                        Text(
+                                            'You have no upcoming activities.'),
+                                        SizedBox(height: 10),
+                                        InkWell(
+                                          child: Text('+ Schedule an activity'),
+                                          onTap: () => detailPresenter.add(
+                                              context, source.prospectid.value),
+                                        ),
+                                      ],
+                                    )
+                                  else
+                                    Column(
+                                      children: [
+                                        Container(
+                                          alignment: Alignment.topRight,
+                                          child: BsButton(
+                                              style: BsButtonStyle.success,
+                                              onPressed: () =>
+                                                  detailPresenter.add(context,
+                                                      source.prospectid.value),
+                                              label: Text('Add Activity')),
+                                        ),
+                                        ListView.builder(
+                                            shrinkWrap: true,
+                                            itemCount: source.detailData.length,
+                                            itemBuilder: (context, index) {
+                                              var schedule =
+                                                  source.detailData[index];
+
+                                              return InkWell(
+                                                onLongPress: () {
+                                                  Get.defaultDialog(
+                                                      middleText: '',
+                                                      title: 'Setting',
+                                                      actions: [
+                                                        ButtonEditDatatables(
+                                                            onPressed: () {
+                                                          detailPresenter.edit(
+                                                              context,
+                                                              schedule
+                                                                  .prospectactivityid,
+                                                              source.prospectid
+                                                                  .value);
+                                                        }),
+                                                        ButtonDeleteDatatables(
+                                                            onPressed: () {
+                                                          detailPresenter.delete(
+                                                              context,
+                                                              schedule
+                                                                  .prospectactivityid,
+                                                              '${schedule.prospectactivitytype!.typename} at ${schedule.prospectactivitydate}');
+                                                        }),
+                                                      ]);
+                                                },
+                                                onTap: () {
+                                                  detailPresenter.detail(
+                                                      context,
+                                                      schedule
+                                                          .prospectactivityid);
+                                                },
+                                                child: BsRow(
+                                                  children: [
+                                                    BsCol(
+                                                        sizes: ColScreen(
+                                                            sm: Col.col_1),
+                                                        child: Column(
+                                                          children: [
+                                                            OutlinedDotIndicator(),
+                                                            SizedBox(
+                                                              height: 50.0,
+                                                              child:
+                                                                  SolidLineConnector(),
+                                                            )
+                                                          ],
+                                                        )),
+                                                    BsCol(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        sizes: ColScreen(
+                                                            sm: Col.col_3),
+                                                        child: Text(schedule
+                                                            .prospectactivitydate)),
+                                                    BsCol(
+                                                        sizes: ColScreen(
+                                                            sm: Col.col_8),
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              schedule
+                                                                  .prospectactivitycat
+                                                                  .typename,
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
+                                                            Container(
+                                                              margin: EdgeInsets
+                                                                  .only(top: 5),
+                                                              child: Text(schedule
+                                                                  .prospectactivitytype
+                                                                  .typename),
+                                                            ),
+                                                          ],
+                                                        )),
+                                                  ],
+                                                ),
+                                              );
+                                            }),
+                                      ],
+                                    )
                                 ],
                               ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Column(
-                                children: [
-                                  BsBadge(
-                                    child: Text('DONE'),
-                                  ),
-                                  Column(
-                                    children: [
-                                      Text(
-                                          'You don\'t have complete activities.'),
-                                    ],
-                                  ),
-                                ],
-                              ),
+                              // SizedBox(
+                              //   height: 20,
+                              // ),
+                              // Column(
+                              //   children: [
+                              //     BsBadge(
+                              //       child: Text('DONE'),
+                              //     ),
+                              //     Column(
+                              //       children: [
+                              //         Text(
+                              //             'You don\'t have complete activities.'),
+                              //       ],
+                              //     ),
+                              //   ],
+                              // ),
+
                               // SizedBox(
                               //   height: 30,
                               // ),
@@ -1187,8 +1229,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     ProspectModel dt = ProspectModel.fromJson(response.body);
     source.prospectid.value = dt.prospectid!;
 
-    detailPresenter
-        .details(context, {'id': source.prospectid.value.toString()});
+    detailPresenter.details(context, {'id': dt.prospectid.toString()});
 
     source.prospectname.value = dt.prospectname.toString();
     source.prospectvalue.value = dt.prospectvalue ?? '0.0';

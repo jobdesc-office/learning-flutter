@@ -13,6 +13,7 @@ import '../../../models/ventes/schedule_model.dart';
 import '../../../presenters/default/home_presenter.dart';
 import '../../../presenters/ventes/schedule_presenter.dart';
 import '../../../routes/route_list.dart';
+import '../../../styles/custom_painter.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/snackbar.dart';
 import '../../skins/template.dart';
@@ -61,34 +62,42 @@ class _HomeViewState extends State<HomeView>
                 children: [
                   BsCol(
                     sizes: ColScreen(sm: Col.col_3),
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      color: ColorPallates.pipeline,
-                      child: Center(child: Text('Meeting')),
+                    child: CustomPaint(
+                      painter: StageCountinuePaint(),
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        child: Center(child: Text('Meeting')),
+                      ),
                     ),
                   ),
                   BsCol(
                     sizes: ColScreen(sm: Col.col_3),
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      color: ColorPallates.pipeline,
-                      child: Center(child: Text('Proposal')),
+                    child: CustomPaint(
+                      painter: StageCountinuePaint(),
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        child: Center(child: Text('Proposal')),
+                      ),
                     ),
                   ),
                   BsCol(
                     sizes: ColScreen(sm: Col.col_3),
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      color: ColorPallates.pipeline,
-                      child: Center(child: Text('Negociation')),
+                    child: CustomPaint(
+                      painter: StageCountinuePaint(),
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        child: Center(child: Text('Negociation')),
+                      ),
                     ),
                   ),
                   BsCol(
                     sizes: ColScreen(sm: Col.col_3),
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      color: ColorPallates.pipeline,
-                      child: Center(child: Text('Closed')),
+                    child: CustomPaint(
+                      painter: StageCountinuePaint(),
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        child: Center(child: Text('Closed')),
+                      ),
                     ),
                   ),
                   // BsCol(

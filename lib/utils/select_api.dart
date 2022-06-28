@@ -169,7 +169,7 @@ Future<BsSelectBoxResponse> selectApiTypeSchedule(
 
 Future<BsSelectBoxResponse> selectApiTaxTypes(
     Map<String, String> params) async {
-  final typeService = Get.find<TypeService>();
+  final typeService = Get.put(TypeService());
   Response response = await typeService.byCode(ConfigType.taxType);
 
   if (response.isOk) {
@@ -187,7 +187,7 @@ Future<BsSelectBoxResponse> selectApiTaxTypes(
 
 Future<BsSelectBoxResponse> selectApiContactTypes(
     Map<String, String> params) async {
-  final typeService = Get.find<TypeService>();
+  final typeService = Get.put(TypeService());
   Response response = await typeService.byCode(ConfigType.contactType);
 
   if (response.isOk) {
@@ -205,8 +205,27 @@ Future<BsSelectBoxResponse> selectApiContactTypes(
 
 Future<BsSelectBoxResponse> selectApiProspectTypes(
     Map<String, String> params) async {
-  final typeService = Get.find<TypeService>();
+  final typeService = Get.put(TypeService());
   Response response = await typeService.byCode(ConfigType.prospectType);
+
+  if (response.isOk) {
+    if (response.statusCode == 200) {
+      return BsSelectBoxResponse.createFromJson(
+        response.body,
+        value: (data) => TypeModel.fromJson(data).typeid,
+        renderText: (data) => Text(TypeModel.fromJson(data).typename),
+      );
+    }
+  }
+
+  return BsSelectBoxResponse(options: []);
+}
+
+Future<BsSelectBoxResponse> selectApiCustomFieldTypes(
+    Map<String, String> params) async {
+  final typeService = Get.put(TypeService());
+  Response response =
+      await typeService.byCode(ConfigType.prospectCustomizeField);
 
   if (response.isOk) {
     if (response.statusCode == 200) {

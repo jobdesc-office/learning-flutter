@@ -19,6 +19,9 @@ class ConfigType {
 
   static String prospectType = notNull(types['prospectType']);
 
+  static String prospectCustomizeField =
+      notNull(types['prospectCustomizeField']);
+
   static String prospectStatus = notNull(types['prospectStatus']);
 
   static String prospectCategory = notNull(types['prospectCategory']);

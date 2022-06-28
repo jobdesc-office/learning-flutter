@@ -158,7 +158,7 @@ class SidebarSkins extends StatelessWidget {
                           ]),
                       MenuData(
                         id: no++,
-                        route: RouteList.settings.index,
+                        route: RouteList.type.index,
                         label: 'Types',
                         icon: Icons.category,
                         children: [
@@ -189,11 +189,24 @@ class SidebarSkins extends StatelessWidget {
                           icon: FontAwesomeIcons.calendarAlt,
                         ),
                         MenuData(
-                          id: no++,
-                          route: RouteList.ventesProspect.index,
-                          label: 'Prospects',
-                          icon: Icons.analytics,
-                        ),
+                            id: no++,
+                            route: RouteList.prospect.index,
+                            label: 'Prospects',
+                            icon: Icons.analytics,
+                            children: [
+                              MenuData(
+                                id: no++,
+                                route: RouteList.ventesProspect.index,
+                                label: 'Prospects',
+                                icon: Icons.analytics,
+                              ),
+                              MenuData(
+                                id: no++,
+                                route: RouteList.ventesCustomField.index,
+                                label: 'Custom Fields',
+                                icon: Icons.add_box,
+                              ),
+                            ]),
                         MenuData(
                           id: no++,
                           route: RouteList.ventesBpCustomer.index,

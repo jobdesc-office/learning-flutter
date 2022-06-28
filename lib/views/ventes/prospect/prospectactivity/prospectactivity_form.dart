@@ -121,14 +121,15 @@ class ProspectActivityFormView extends StatelessWidget
       ProspectActivityModel prospect =
           ProspectActivityModel.fromJson(response.body);
       source.value.selectType.setSelected(BsSelectBoxOption(
-          value: prospect.prospectdttype!.typeid,
-          text: Text(prospect.prospectdttype!.typename.toString())));
+          value: prospect.prospectactivitytype!.typeid,
+          text: Text(prospect.prospectactivitytype!.typename.toString())));
       source.value.selectCat.setSelected(BsSelectBoxOption(
-          value: prospect.prospectdtcat!.typeid,
-          text: Text(prospect.prospectdtcat!.typename.toString())));
-      source.value.inputDesc.text = prospect.prospectdtdesc ?? '';
-      source.value.selectedDateExpect.value = prospect.prospectdtdate ?? '';
-      map.linkCoordinate.value = prospect.prospectdtloc ?? '';
+          value: prospect.prospectactivitycat!.typeid,
+          text: Text(prospect.prospectactivitycat!.typename.toString())));
+      source.value.inputDesc.text = prospect.prospectactivitydesc ?? '';
+      source.value.selectedDateExpect.value =
+          prospect.prospectactivitydate ?? '';
+      map.linkCoordinate.value = prospect.prospectactivityloc ?? '';
     });
   }
 }

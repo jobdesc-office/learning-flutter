@@ -1,97 +1,99 @@
 class ProspectActivityModel {
-  int? prospectdtid;
-  int? prospectdtprospectid;
-  int? prospectdtcatid;
-  int? prospectdttypeid;
-  String? prospectdtdate;
-  String? prospectdtdesc;
-  String? prospectdtloc;
-  double? prospectdtlatitude;
-  double? prospectdtlongitude;
+  int? prospectactivityid;
+  int? prospectactivityprospectid;
+  int? prospectactivitycatid;
+  int? prospectactivitytypeid;
+  String? prospectactivitydate;
+  String? prospectactivitydesc;
+  String? prospectactivityloc;
+  double? prospectactivitylatitude;
+  double? prospectactivitylongitude;
   int? createdby;
   String? createddate;
   int? updatedby;
   String? updateddate;
   bool? isactive;
-  Prospectdtprospect? prospectdtprospect;
-  Prospectdtcat? prospectdtcat;
-  Prospectdtcat? prospectdttype;
+  Prospectactivityprospect? prospectactivityprospect;
+  Prospectactivitycat? prospectactivitycat;
+  Prospectactivitycat? prospectactivitytype;
 
   ProspectActivityModel(
-      {this.prospectdtid,
-      this.prospectdtprospectid,
-      this.prospectdtcatid,
-      this.prospectdttypeid,
-      this.prospectdtdate,
-      this.prospectdtdesc,
-      this.prospectdtloc,
-      this.prospectdtlatitude,
-      this.prospectdtlongitude,
+      {this.prospectactivityid,
+      this.prospectactivityprospectid,
+      this.prospectactivitycatid,
+      this.prospectactivitytypeid,
+      this.prospectactivitydate,
+      this.prospectactivitydesc,
+      this.prospectactivityloc,
+      this.prospectactivitylatitude,
+      this.prospectactivitylongitude,
       this.createdby,
       this.createddate,
       this.updatedby,
       this.updateddate,
       this.isactive,
-      this.prospectdtprospect,
-      this.prospectdtcat,
-      this.prospectdttype});
+      this.prospectactivityprospect,
+      this.prospectactivitycat,
+      this.prospectactivitytype});
 
   ProspectActivityModel.fromJson(Map<String, dynamic> json) {
-    prospectdtid = json['prospectdtid'];
-    prospectdtprospectid = json['prospectdtprospectid'];
-    prospectdtcatid = json['prospectdtcatid'];
-    prospectdttypeid = json['prospectdttypeid'];
-    prospectdtdate = json['prospectdtdate'];
-    prospectdtdesc = json['prospectdtdesc'];
-    prospectdtloc = json['prospectdtloc'];
-    prospectdtlatitude = json['prospectdtlatitude'];
-    prospectdtlongitude = json['prospectdtlongitude'];
+    prospectactivityid = json['prospectactivityid'];
+    prospectactivityprospectid = json['prospectactivityprospectid'];
+    prospectactivitycatid = json['prospectactivitycatid'];
+    prospectactivitytypeid = json['prospectactivitytypeid'];
+    prospectactivitydate = json['prospectactivitydate'];
+    prospectactivitydesc = json['prospectactivitydesc'];
+    prospectactivityloc = json['prospectactivityloc'];
+    prospectactivitylatitude = json['prospectactivitylatitude'];
+    prospectactivitylongitude = json['prospectactivitylongitude'];
     createdby = json['createdby'];
     createddate = json['createddate'];
     updatedby = json['updatedby'];
     updateddate = json['updateddate'];
     isactive = json['isactive'];
-    prospectdtprospect = json['prospectdtprospect'] != null
-        ? new Prospectdtprospect.fromJson(json['prospectdtprospect'])
+    prospectactivityprospect = json['prospectactivityprospect'] != null
+        ? new Prospectactivityprospect.fromJson(
+            json['prospectactivityprospect'])
         : null;
-    prospectdtcat = json['prospectdtcat'] != null
-        ? new Prospectdtcat.fromJson(json['prospectdtcat'])
+    prospectactivitycat = json['prospectactivitycat'] != null
+        ? new Prospectactivitycat.fromJson(json['prospectactivitycat'])
         : null;
-    prospectdttype = json['prospectdttype'] != null
-        ? new Prospectdtcat.fromJson(json['prospectdttype'])
+    prospectactivitytype = json['prospectactivitytype'] != null
+        ? new Prospectactivitycat.fromJson(json['prospectactivitytype'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['prospectdtid'] = this.prospectdtid;
-    data['prospectdtprospectid'] = this.prospectdtprospectid;
-    data['prospectdtcatid'] = this.prospectdtcatid;
-    data['prospectdttypeid'] = this.prospectdttypeid;
-    data['prospectdtdate'] = this.prospectdtdate;
-    data['prospectdtdesc'] = this.prospectdtdesc;
-    data['prospectdtloc'] = this.prospectdtloc;
-    data['prospectdtlatitude'] = this.prospectdtlatitude;
-    data['prospectdtlongitude'] = this.prospectdtlongitude;
+    data['prospectactivityid'] = this.prospectactivityid;
+    data['prospectactivityprospectid'] = this.prospectactivityprospectid;
+    data['prospectactivitycatid'] = this.prospectactivitycatid;
+    data['prospectactivitytypeid'] = this.prospectactivitytypeid;
+    data['prospectactivitydate'] = this.prospectactivitydate;
+    data['prospectactivitydesc'] = this.prospectactivitydesc;
+    data['prospectactivityloc'] = this.prospectactivityloc;
+    data['prospectactivitylatitude'] = this.prospectactivitylatitude;
+    data['prospectactivitylongitude'] = this.prospectactivitylongitude;
     data['createdby'] = this.createdby;
     data['createddate'] = this.createddate;
     data['updatedby'] = this.updatedby;
     data['updateddate'] = this.updateddate;
     data['isactive'] = this.isactive;
-    if (this.prospectdtprospect != null) {
-      data['prospectdtprospect'] = this.prospectdtprospect!.toJson();
+    if (this.prospectactivityprospect != null) {
+      data['prospectactivityprospect'] =
+          this.prospectactivityprospect!.toJson();
     }
-    if (this.prospectdtcat != null) {
-      data['prospectdtcat'] = this.prospectdtcat!.toJson();
+    if (this.prospectactivitycat != null) {
+      data['prospectactivitycat'] = this.prospectactivitycat!.toJson();
     }
-    if (this.prospectdttype != null) {
-      data['prospectdttype'] = this.prospectdttype!.toJson();
+    if (this.prospectactivitytype != null) {
+      data['prospectactivitytype'] = this.prospectactivitytype!.toJson();
     }
     return data;
   }
 }
 
-class Prospectdtprospect {
+class Prospectactivityprospect {
   int? prospectid;
   String? prospectname;
   String? prospectstartdate;
@@ -112,7 +114,7 @@ class Prospectdtprospect {
   String? updateddate;
   bool? isactive;
 
-  Prospectdtprospect(
+  Prospectactivityprospect(
       {this.prospectid,
       this.prospectname,
       this.prospectstartdate,
@@ -133,7 +135,7 @@ class Prospectdtprospect {
       this.updateddate,
       this.isactive});
 
-  Prospectdtprospect.fromJson(Map<String, dynamic> json) {
+  Prospectactivityprospect.fromJson(Map<String, dynamic> json) {
     prospectid = json['prospectid'];
     prospectname = json['prospectname'];
     prospectstartdate = json['prospectstartdate'];
@@ -180,13 +182,13 @@ class Prospectdtprospect {
   }
 }
 
-class Prospectdtcat {
+class Prospectactivitycat {
   int? typeid;
   String? typename;
 
-  Prospectdtcat({this.typeid, this.typename});
+  Prospectactivitycat({this.typeid, this.typename});
 
-  Prospectdtcat.fromJson(Map<String, dynamic> json) {
+  Prospectactivitycat.fromJson(Map<String, dynamic> json) {
     typeid = json['typeid'];
     typename = json['typename'];
   }

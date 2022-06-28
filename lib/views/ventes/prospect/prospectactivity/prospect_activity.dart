@@ -150,12 +150,13 @@ class ProspectActivityDetails extends GetView implements DetailViewContract {
 
   @override
   void onSuccessFetchData(Response response) {
-    ProspectActivityModel dt = ProspectActivityModel.fromJson(response.body);
-    controller.category.value = dt.prospectdtcat!.typename ?? '';
-    controller.date.value = dt.prospectdtdate ?? '';
-    controller.desc.value = dt.prospectdtdesc ?? '';
-    controller.type.value = dt.prospectdttype!.typename ?? '';
-    controller.link.value = dt.prospectdtloc ?? '';
+    ProspectActivityModel activity =
+        ProspectActivityModel.fromJson(response.body);
+    controller.category.value = activity.prospectactivitycat!.typename ?? '';
+    controller.date.value = activity.prospectactivitydate ?? '';
+    controller.desc.value = activity.prospectactivitydesc ?? '';
+    controller.type.value = activity.prospectactivitytype!.typename ?? '';
+    controller.link.value = activity.prospectactivityloc ?? '';
     presenter.setProcessing(false);
   }
 }

@@ -14,6 +14,8 @@ class RouteList {
   static final RouteData masterUser = RouteData(prefix: '/masters/user');
   static final RouteData masterBusinessPartner =
       RouteData(prefix: '/masters/businesspartner');
+
+  static final RouteData type = RouteData(prefix: '/-type');
   static final RouteData masterTypeParent =
       RouteData(prefix: '/masters/typeparent');
   static final RouteData masterTypeChildren =
@@ -32,9 +34,12 @@ class RouteList {
   static final RouteData ventes = RouteData(prefix: '/-ventes');
 
   static final RouteData ventesSchedule = RouteData(prefix: '/ventes/schedule');
+  static final RouteData prospect = RouteData(prefix: '/-prospect');
   static final RouteData ventesProspect = RouteData(prefix: '/ventes/prospect');
   static final RouteData ventesBpCustomer =
       RouteData(prefix: '/ventes/bpcustomer');
+  static final RouteData ventesCustomField =
+      RouteData(prefix: '/ventes/customfield');
 
   static final RouteData settings = RouteData(prefix: '/-settings');
 
