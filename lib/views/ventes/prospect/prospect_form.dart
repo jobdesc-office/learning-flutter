@@ -310,8 +310,8 @@ class ProspectFormView extends StatelessWidget
       }
 
       source.value.selectCustomer.setSelected(BsSelectBoxOption(
-          value: prospect.prospectcusts!.sbcid,
-          text: Text(prospect.prospectcusts!.sbccstmname.toString())));
+          value: prospect.prospectcust!.sbcid,
+          text: Text(prospect.prospectcust!.sbccstmname.toString())));
       source.value.inputCompanyName.text = prospect.prospectname ?? '';
       source.value.selectStatus.setSelected(BsSelectBoxOption(
           value: prospect.prospectstatus!.typeid,

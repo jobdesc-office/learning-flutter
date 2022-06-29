@@ -26,7 +26,7 @@ class ProspectModel {
   Prospectstage? prospectstatus;
   Prospectreference? prospectreference;
   Prospectbp? prospectbp;
-  Prospectcusts? prospectcusts;
+  Prospectcust? prospectcust;
 
   ProspectModel(
       {this.prospectid,
@@ -54,7 +54,7 @@ class ProspectModel {
       this.prospectstatus,
       this.prospectreference,
       this.prospectbp,
-      this.prospectcusts});
+      this.prospectcust});
 
   ProspectModel.fromJson(Map<String, dynamic> json) {
     prospectid = json['prospectid'];
@@ -102,8 +102,8 @@ class ProspectModel {
     prospectbp = json['prospectbp'] != null
         ? new Prospectbp.fromJson(json['prospectbp'])
         : null;
-    prospectcusts = json['prospectcusts'] != null
-        ? new Prospectcusts.fromJson(json['prospectcusts'])
+    prospectcust = json['prospectcusts'] != null
+        ? new Prospectcust.fromJson(json['prospectcusts'])
         : null;
   }
 
@@ -150,8 +150,8 @@ class ProspectModel {
     if (this.prospectbp != null) {
       data['prospectbp'] = this.prospectbp!.toJson();
     }
-    if (this.prospectcusts != null) {
-      data['prospectcusts'] = this.prospectcusts!.toJson();
+    if (this.prospectcust != null) {
+      data['prospectcusts'] = this.prospectcust!.toJson();
     }
     return data;
   }
@@ -583,7 +583,7 @@ class Prospectreference {
   int? updatedby;
   String? updateddate;
   bool? isactive;
-  Prospectcusts? prospectcusts;
+  Prospectcust? prospectcusts;
 
   Prospectreference(
       {this.prospectid,
@@ -626,7 +626,7 @@ class Prospectreference {
     updateddate = json['updateddate'];
     isactive = json['isactive'];
     prospectcusts = json['prospectcusts'] != null
-        ? new Prospectcusts.fromJson(json['prospectcusts'])
+        ? new Prospectcust.fromJson(json['prospectcusts'])
         : null;
   }
 
@@ -657,7 +657,7 @@ class Prospectreference {
   }
 }
 
-class Prospectcusts {
+class Prospectcust {
   int? sbcid;
   int? sbcbpid;
   int? sbccstmid;
@@ -672,7 +672,7 @@ class Prospectcusts {
   String? updateddate;
   bool? isactive;
 
-  Prospectcusts(
+  Prospectcust(
       {this.sbcid,
       this.sbcbpid,
       this.sbccstmid,
@@ -687,7 +687,7 @@ class Prospectcusts {
       this.updateddate,
       this.isactive});
 
-  Prospectcusts.fromJson(Map<String, dynamic> json) {
+  Prospectcust.fromJson(Map<String, dynamic> json) {
     sbcid = json['sbcid'];
     sbcbpid = json['sbcbpid'];
     sbccstmid = json['sbccstmid'];

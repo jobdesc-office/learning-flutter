@@ -80,7 +80,7 @@ class ProspectDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.prospectcusts!.sbccstmname.toString()),
+          Text(row.prospectcust!.sbccstmname.toString()),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
