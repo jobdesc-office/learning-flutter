@@ -17,6 +17,7 @@ import '../models/auth_model.dart';
 import '../models/masters/subdistrict_model.dart';
 import '../models/masters/user_model.dart';
 import '../models/ventes/bpcustomer_model.dart';
+import '../models/ventes/customfield_model.dart';
 import '../models/ventes/selectbp_model.dart';
 import '../presenters/auth_presenter.dart';
 import '../services/masters/city_service.dart';
@@ -30,6 +31,7 @@ import '../services/masters/typechildren_service.dart';
 import '../services/masters/user_service.dart';
 import '../services/security/menu_service.dart';
 import '../services/ventes/bpcustomer_service.dart';
+import '../services/ventes/customfield_service.dart';
 import '../services/ventes/prospect_service.dart';
 import 'connect_internet_api.dart';
 
@@ -286,6 +288,23 @@ Future<BsSelectBoxResponse> selectApiProspectOwner(
         value: (data) => SelectUserBpModel.fromJson(data).userid,
         renderText: (data) =>
             Text(SelectUserBpModel.fromJson(data).userfullname!),
+      );
+    }
+  }
+
+  return BsSelectBoxResponse(options: []);
+}
+
+Future<BsSelectBoxResponse> selectApiCustomField(
+    Map<String, String> params) async {
+  final customFieldService = Get.find<CustomFieldService>();
+  Response response = await customFieldService.selectBp(params);
+  if (response.isOk) {
+    if (response.statusCode == 200) {
+      return BsSelectBoxResponse.createFromJson(
+        response.body,
+        value: (data) => CustomFieldModel.fromJson(data).custfid,
+        renderText: (data) => Text(CustomFieldModel.fromJson(data).custfname!),
       );
     }
   }

@@ -16,6 +16,7 @@ import '../presenters/ventes/bpcustomer_presenter.dart';
 import '../presenters/ventes/customfield_presenter.dart';
 import '../presenters/ventes/prospectassign_presenter.dart';
 import '../presenters/ventes/prospectactivity_presenter.dart';
+import '../presenters/ventes/prospectcustomfield_presenter.dart';
 import '../presenters/ventes/prospectproduct_presenter.dart';
 import '../presenters/ventes/schedule_presenter.dart';
 import '../presenters/masters/typechildren_presenter.dart';
@@ -37,6 +38,7 @@ import '../services/ventes/customfield_service.dart';
 import '../services/ventes/prospect_service.dart';
 import '../services/ventes/prospectassign_service.dart';
 import '../services/ventes/prospectactivity_service.dart';
+import '../services/ventes/prospectcustomfield_service.dart';
 import '../services/ventes/prospectproduct_service.dart';
 import '../services/ventes/schedule_service.dart';
 import '../services/masters/type_service.dart';
@@ -245,6 +247,8 @@ class AppRoute {
           Get.lazyPut(() => CustomFieldPresenter());
           Get.lazyPut(() => ProspectProductService());
           Get.lazyPut(() => ProspectProductPresenter());
+          Get.lazyPut(() => ProspectCustomFieldService());
+          Get.lazyPut(() => ProspectCustomFieldPresenter());
         }),
       ),
       CustomGetPage(

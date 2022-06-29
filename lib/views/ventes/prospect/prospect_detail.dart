@@ -20,6 +20,7 @@ import '../../../presenters/ventes/customfield_presenter.dart';
 import '../../../presenters/ventes/prospect_presenter.dart';
 import '../../../presenters/ventes/prospectassign_presenter.dart';
 import '../../../presenters/ventes/prospectactivity_presenter.dart';
+import '../../../presenters/ventes/prospectcustomfield_presenter.dart';
 import '../../../presenters/ventes/prospectproduct_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../styles/color_palattes.dart';
@@ -27,10 +28,13 @@ import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/button_controller.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_info_assign.dart';
+import '../../../widgets/button/theme_button_cancel.dart';
+import '../../../widgets/button/theme_button_save.dart';
 import '../../../widgets/map/_map_source.dart';
 import '../../../widgets/snackbar.dart';
 import '_detail_source.dart';
 import '_stagePipeline.dart';
+import 'prospectcustomfield/_form_source.dart';
 
 class ProspectDetails extends StatefulWidget {
   const ProspectDetails({Key? key}) : super(key: key);
@@ -51,10 +55,15 @@ class _ProspectDetailsState extends State<ProspectDetails>
   final assignPresenter = Get.find<ProspectAssignPresenter>();
   final productPresenter = Get.find<ProspectProductPresenter>();
   final customFieldPresenter = Get.find<CustomFieldPresenter>();
+  final prospectCustomFieldPresenter = Get.find<ProspectCustomFieldPresenter>();
   final presenter = Get.find<ProspectPresenter>();
   final source = Get.put(prospectDetailsSource());
   final controller = Get.put(ButtonController());
   final map = Get.put(mapSource());
+  final cfForm = ProspectCustomFieldSource().obs;
+  final GlobalKey<FormState> formState = GlobalKey<FormState>();
+
+  late ProspectCustomFieldForm prospectCustomFieldForm;
 
   final currencyFormatter = NumberFormat('#,##0.00', 'ID');
 
@@ -68,6 +77,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     detailPresenter.prospectViewContract = this;
     assignPresenter.prospectViewContract = this;
     productPresenter.prospectViewContract = this;
+    prospectCustomFieldPresenter.prospectViewContract = this;
   }
 
   final _navigation = Get.find<NavigationPresenter>();
@@ -126,7 +136,8 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                       margin: EdgeInsets.only(left: 10),
                                       style: BsButtonStyle.danger,
                                       onPressed: () {
-                                        Get.snackbar('Awokawokawok', 'Kalah');
+                                        Get.snackbar(
+                                            'Gimana sih Kamu ??!!', '');
                                       },
                                       // prefixIcon: Icons.settings,
                                       label: Text('Lost'),
@@ -282,7 +293,9 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                           children: [
                                             BsButton(
                                                 size: BsButtonSize.btnSm,
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  source.isAdd.toggle();
+                                                },
                                                 label: Icon(
                                                   Icons.edit,
                                                   size: 13,
@@ -300,6 +313,82 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                         ),
                                       ],
                                     ),
+                                    if (source.isAdd.value)
+                                      AnimatedContainer(
+                                        duration: Duration(seconds: 3),
+                                        child: Obx(() {
+                                          prospectCustomFieldForm =
+                                              ProspectCustomFieldForm(
+                                                  cfForm.value);
+                                          return Form(
+                                            key: formState,
+                                            child: Column(
+                                              children: [
+                                                BsRow(
+                                                  children: [
+                                                    BsCol(
+                                                      margin: EdgeInsets.only(
+                                                          right: 5),
+                                                      sizes: ColScreen(
+                                                          sm: Col.col_12),
+                                                      child: Container(
+                                                        child: Container(
+                                                          margin:
+                                                              EdgeInsets.all(
+                                                                  10),
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              prospectCustomFieldForm
+                                                                  .selectCf(),
+                                                              prospectCustomFieldForm
+                                                                  .inputValue(),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                                Obx(
+                                                  () => Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                      ThemeButtonSave(
+                                                        disabled:
+                                                            prospectCustomFieldPresenter
+                                                                .isProcessing
+                                                                .value,
+                                                        processing: presenter
+                                                            .isProcessing.value,
+                                                        margin: EdgeInsets.only(
+                                                            right: 5),
+                                                        onPressed: () =>
+                                                            onClickSaveModal(
+                                                                context),
+                                                      ),
+                                                      ThemeButtonCancel(
+                                                        disabled:
+                                                            prospectCustomFieldPresenter
+                                                                .isProcessing
+                                                                .value,
+                                                        margin: EdgeInsets.only(
+                                                            right: 5),
+                                                        onPressed: () =>
+                                                            onClickCancelModal(
+                                                                context),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        }),
+                                      )
                                   ],
                                 ),
                               ),
@@ -1266,6 +1355,19 @@ class _ProspectDetailsState extends State<ProspectDetails>
     }
   }
 
+  void onClickSaveModal(BuildContext context) async {
+    source.isAdd.value = false;
+    prospectCustomFieldPresenter.setProcessing(true);
+    if (formState.currentState!.validate())
+      prospectCustomFieldPresenter.save(context, await cfForm.toJson());
+    else
+      presenter.setProcessing(false);
+  }
+
+  void onClickCancelModal(BuildContext context) {
+    Navigator.pop(context);
+  }
+
   @override
   void onLoadSuccess(Response response) {
     source.prospectStageController.options = List<TypeModel>.from(
@@ -1278,6 +1380,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
   @override
   void onCreateSuccess(Response response, {BuildContext? context}) {
     map.reset();
+    prospectCustomFieldPresenter.setProcessing(false);
     detailPresenter.setProcessing(false);
     assignPresenter.setProcessing(false);
     Navigator.pop(context!);
@@ -1290,6 +1393,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
   @override
   void onDeleteSuccess(Response response, {BuildContext? context}) {
     map.reset();
+    prospectCustomFieldPresenter.setProcessing(false);
     detailPresenter.setProcessing(false);
     assignPresenter.setProcessing(false);
     Navigator.pop(context!);
@@ -1303,6 +1407,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
   @override
   void onEditSuccess(Response response, {BuildContext? context}) {
     map.reset();
+    prospectCustomFieldPresenter.setProcessing(false);
     detailPresenter.setProcessing(false);
     assignPresenter.setProcessing(false);
     if (context != null) Navigator.pop(context);

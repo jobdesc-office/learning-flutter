@@ -8,6 +8,7 @@ import '../../contracts/base/index_view_contract.dart';
 import '../../services/ventes/prospect_service.dart';
 import '../../services/ventes/prospectcustomfield_service.dart';
 import '../../utils/custom_get_controller.dart';
+import '../../widgets/confirm_dialog.dart';
 
 class ProspectCustomFieldPresenter extends CustomGetXController {
   final _prospectService = Get.find<ProspectCustomFieldService>();
@@ -23,7 +24,8 @@ class ProspectCustomFieldPresenter extends CustomGetXController {
   }
 
   late DetailViewContract _prospectTypeViewContract;
-  set ProspectCustomFieldViewContract(DetailViewContract prospectViewContract) {
+  set setProspectCustomFieldViewContract(
+      DetailViewContract prospectViewContract) {
     _prospectTypeViewContract = prospectViewContract;
   }
 
@@ -35,13 +37,13 @@ class ProspectCustomFieldPresenter extends CustomGetXController {
   //   );
   // }
 
-  // void save(BuildContext context, Map<String, dynamic> body) async {
-  //   Response response = await _prospectService.store(body);
-  //   if (response.statusCode == 200)
-  //     _prospectViewContract.onCreateSuccess(response, context: context);
-  //   else
-  //     _prospectViewContract.onErrorRequest(response);
-  // }
+  void save(BuildContext context, Map<String, dynamic> body) async {
+    Response response = await _prospectService.store(body);
+    if (response.statusCode == 200)
+      _prospectViewContract.onCreateSuccess(response, context: context);
+    else
+      _prospectViewContract.onErrorRequest(response);
+  }
 
   // void edit(BuildContext context, int Prospectid, int id) async {
   //   setProcessing(true);
@@ -58,34 +60,34 @@ class ProspectCustomFieldPresenter extends CustomGetXController {
   //     _prospectViewContract.onErrorRequest(response);
   // }
 
-  // void update(
-  //     BuildContext context, Map<String, dynamic> body, int Prospectid) async {
-  //   setProcessing(true);
-  //   Response response = await _prospectService.update(Prospectid, body);
-  //   if (response.statusCode == 200)
-  //     _prospectViewContract.onEditSuccess(response, context: context);
-  //   else
-  //     _prospectViewContract.onErrorRequest(response);
-  // }
+  void update(
+      BuildContext context, Map<String, dynamic> body, int Prospectid) async {
+    setProcessing(true);
+    Response response = await _prospectService.update(Prospectid, body);
+    if (response.statusCode == 200)
+      _prospectViewContract.onEditSuccess(response, context: context);
+    else
+      _prospectViewContract.onErrorRequest(response);
+  }
 
-  // void delete(BuildContext context, int Prospectid, String name) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) => ConfirmDialog(
-  //       title: BaseText.confirmTitle,
-  //       message: BaseText.deleteConfirmDatatable(field: name),
-  //       onPressed: (_, value) async {
-  //         if (value == ConfirmDialogOption.YES_OPTION) {
-  //           Response response = await _prospectService.destroy(Prospectid);
-  //           if (response.statusCode == 200)
-  //             _prospectViewContract.onDeleteSuccess(response, context: context);
-  //           else
-  //             _prospectViewContract.onErrorRequest(response);
-  //         } else {
-  //           Navigator.pop(context);
-  //         }
-  //       },
-  //     ),
-  //   );
-  // }
+  void delete(BuildContext context, int Prospectid, String name) {
+    showDialog(
+      context: context,
+      builder: (context) => ConfirmDialog(
+        title: BaseText.confirmTitle,
+        message: BaseText.deleteConfirmDatatable(field: name),
+        onPressed: (_, value) async {
+          if (value == ConfirmDialogOption.YES_OPTION) {
+            Response response = await _prospectService.destroy(Prospectid);
+            if (response.statusCode == 200)
+              _prospectViewContract.onDeleteSuccess(response, context: context);
+            else
+              _prospectViewContract.onErrorRequest(response);
+          } else {
+            Navigator.pop(context);
+          }
+        },
+      ),
+    );
+  }
 }

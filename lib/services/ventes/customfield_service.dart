@@ -11,4 +11,8 @@ class CustomFieldService extends ApiConnectProvider {
   Future<Response> selectWithBp(Map<String, dynamic> params) {
     return post('$api/selectwithbp/${authPresenter.bpActiveId.value}', params);
   }
+
+  Future<Response> selectBp(Map<String, dynamic> params) {
+    return get('$api/select/${authPresenter.bpActiveId.value}', query: params);
+  }
 }

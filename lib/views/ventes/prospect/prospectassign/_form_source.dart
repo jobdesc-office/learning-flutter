@@ -86,7 +86,10 @@ class ProspectAssignForm {
 
   Widget inputDesc() {
     return FormGroup(
-      label: Text(ProspectAssignText.labelDesc),
+      label: Text(ProspectAssignText.labelDesc,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black)),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputDesc,

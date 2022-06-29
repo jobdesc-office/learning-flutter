@@ -31,4 +31,6 @@ class prospectDetailsSource extends GetxController {
   var assign = [].obs;
   var report = [].obs;
   var product = [].obs;
+
+  var isAdd = false.obs;
 }
