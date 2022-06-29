@@ -62,7 +62,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
   void initState() {
     super.initState();
     presenter.prospectViewContract = this;
-    _tabController = TabController(length: 7, vsync: this);
+    _tabController = TabController(length: 6, vsync: this);
     // _tabControllerTimeline = TabController(length: 8, vsync: this);
     presenter.prospectTypeViewDetailContract = this;
     detailPresenter.prospectViewContract = this;
@@ -115,6 +115,24 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                       MainAxisAlignment.spaceAround,
                                   children: [
                                     BsButton(
+                                      style: BsButtonStyle.success,
+                                      onPressed: () {
+                                        Get.snackbar('Biasa aja', '');
+                                      },
+                                      // prefixIcon: Icons.settings,
+                                      label: Text('Won'),
+                                    ),
+                                    BsButton(
+                                      margin: EdgeInsets.only(left: 10),
+                                      style: BsButtonStyle.danger,
+                                      onPressed: () {
+                                        Get.snackbar('Awokawokawok', 'Kalah');
+                                      },
+                                      // prefixIcon: Icons.settings,
+                                      label: Text('Lost'),
+                                    ),
+                                    BsButton(
+                                      margin: EdgeInsets.only(left: 10),
                                       style: BsButtonStyle.success,
                                       onPressed: () {
                                         assignPresenter.add(
@@ -423,10 +441,6 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                           Tab(
                                               text: 'Files',
                                               icon: Icon(Icons.file_copy)),
-                                          Tab(
-                                              text: 'Documents',
-                                              icon:
-                                                  Icon(Icons.document_scanner))
                                         ],
                                       ),
                                     ),
@@ -904,11 +918,6 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [Text('Files')],
-                                          ),
-                                          Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [Text('Documents')],
                                           ),
                                         ],
                                       ),

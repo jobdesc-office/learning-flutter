@@ -74,7 +74,7 @@ class SidebarSkins extends StatelessWidget {
                 activeRoute: activeRoute,
                 menus: [
                   MenuDataGroup(
-                    title: 'Navigasi Menu',
+                    title: 'Navigation',
                     children: [
                       MenuData(
                         id: no++,
@@ -85,46 +85,61 @@ class SidebarSkins extends StatelessWidget {
                     ],
                   ),
                   MenuDataGroup(
-                    title: 'Master Data',
+                    title: 'Master Data\'s',
                     icon: Icons.storage_outlined,
                     children: [
                       MenuData(
+                          id: no++,
+                          route: RouteList.masterBusinessPartner.index,
+                          label: 'Business Partner\'s',
+                          icon: Icons.handshake),
+                      MenuData(
+                          id: no++,
+                          route: RouteList.masterContact.index,
+                          label: 'Contact\'s',
+                          icon: Icons.contacts),
+                      MenuData(
+                          id: no++,
+                          route: RouteList.customer.index,
+                          label: 'Customer\'s',
+                          icon: Icons.groups,
+                          children: [
+                            MenuData(
+                              id: no++,
+                              route: RouteList.ventesBpCustomer.index,
+                              label: 'BpCustomer\'s',
+                              icon: FontAwesomeIcons.userPlus,
+                            ),
+                            MenuData(
+                              id: no++,
+                              route: RouteList.masterCustomer.index,
+                              label: 'Customer\'s',
+                              icon: Icons.groups,
+                            )
+                          ]),
+                      MenuData(
                         id: no++,
                         route: RouteList.masterMenu.index,
-                        label: 'Menus',
+                        label: 'Menu\'s',
                         icon: Icons.dehaze,
                       ),
                       MenuData(
                           id: no++,
-                          route: RouteList.masterUser.index,
-                          label: 'Users',
-                          icon: Icons.group),
-                      MenuData(
-                          id: no++,
-                          route: RouteList.masterCustomer.index,
-                          label: 'Customers',
-                          icon: Icons.groups),
-                      MenuData(
-                          id: no++,
-                          route: RouteList.masterContact.index,
-                          label: 'Contacts',
-                          icon: Icons.contacts),
-                      MenuData(
-                          id: no++,
-                          route: RouteList.masterBusinessPartner.index,
-                          label: 'Business Partners',
-                          icon: Icons.handshake),
-                      MenuData(
-                          id: no++,
                           route: RouteList.masterProduct.index,
-                          label: 'Products',
+                          label: 'Product\'s',
                           icon: Icons.sell),
                       MenuData(
                           id: no++,
-                          label: 'Region',
+                          label: 'Region\'s',
                           route: RouteList.settings.index,
                           icon: FontAwesomeIcons.earthAmericas,
                           children: [
+                            MenuData(
+                              id: no++,
+                              route: RouteList.masterCity.index,
+                              label: 'Cities',
+                              icon: FontAwesomeIcons.city,
+                            ),
                             MenuData(
                               id: no++,
                               route: RouteList.masterCountry.index,
@@ -139,79 +154,72 @@ class SidebarSkins extends StatelessWidget {
                             ),
                             MenuData(
                               id: no++,
-                              route: RouteList.masterCity.index,
-                              label: 'Cities',
-                              icon: FontAwesomeIcons.city,
-                            ),
-                            MenuData(
-                              id: no++,
                               route: RouteList.masterSubdistrict.index,
-                              label: 'Subdistricts',
+                              label: 'Subdistrict\'s',
                               icon: FontAwesomeIcons.city,
                             ),
                             MenuData(
                               id: no++,
                               route: RouteList.masterVillage.index,
-                              label: 'Villages',
+                              label: 'Village\'s',
                               icon: FontAwesomeIcons.city,
                             ),
                           ]),
                       MenuData(
                         id: no++,
                         route: RouteList.type.index,
-                        label: 'Types',
+                        label: 'Type\'s',
                         icon: Icons.category,
                         children: [
                           MenuData(
                             id: no++,
-                            route: RouteList.masterTypeParent.index,
-                            label: 'Type Parents',
-                            icon: Icons.category,
+                            route: RouteList.masterTypeChildren.index,
+                            label: 'Type Data\'s',
+                            icon: Icons.square,
                           ),
                           MenuData(
                             id: no++,
-                            route: RouteList.masterTypeChildren.index,
-                            label: 'Type Datas',
-                            icon: Icons.square,
+                            route: RouteList.masterTypeParent.index,
+                            label: 'Type Parent\'s',
+                            icon: Icons.category,
                           ),
                         ],
                       ),
+                      MenuData(
+                          id: no++,
+                          route: RouteList.masterUser.index,
+                          label: 'User\'s',
+                          icon: Icons.group),
                     ],
                   ),
                   MenuDataGroup(
-                      title: 'Ventes Data',
+                      title: 'Ventes Data\'s',
                       icon: Icons.analytics,
                       children: [
                         MenuData(
-                          id: no++,
-                          route: RouteList.ventesSchedule.index,
-                          label: 'Schedules',
-                          icon: FontAwesomeIcons.calendarAlt,
-                        ),
-                        MenuData(
                             id: no++,
                             route: RouteList.prospect.index,
-                            label: 'Prospects',
+                            label: 'Prospect\'s',
                             icon: Icons.analytics,
                             children: [
                               MenuData(
                                 id: no++,
                                 route: RouteList.ventesProspect.index,
-                                label: 'Prospects',
+                                label: 'Prospect\'s',
                                 icon: Icons.analytics,
                               ),
                               MenuData(
                                 id: no++,
                                 route: RouteList.ventesCustomField.index,
-                                label: 'Custom Fields',
+                                label: 'Custom Field\'s',
                                 icon: Icons.add_box,
                               ),
                             ]),
                         MenuData(
                           id: no++,
-                          route: RouteList.ventesBpCustomer.index,
-                          label: 'BpCustomer',
-                          icon: FontAwesomeIcons.userPlus,
+                          route: RouteList.ventesSchedule.index,
+                          label: 'Schedule\'s',
+                          icon: FontAwesomeIcons.calendarAlt,
                         ),
                       ])
 
