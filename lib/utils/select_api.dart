@@ -304,7 +304,7 @@ Future<BsSelectBoxResponse> selectApiProspectReference(
         value: (data) => ProspectModel.fromJson(data).prospectid,
         renderText: (data) => Text(ProspectModel.fromJson(data).prospectname! +
             ' || ' +
-            ProspectModel.fromJson(data).prospectcust!.sbccstmname!),
+            ProspectModel.fromJson(data).prospectcusts!.sbccstmname!),
       );
     }
   }

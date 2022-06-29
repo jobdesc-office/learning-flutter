@@ -62,42 +62,34 @@ class _HomeViewState extends State<HomeView>
                 children: [
                   BsCol(
                     sizes: ColScreen(sm: Col.col_3),
-                    child: CustomPaint(
-                      painter: StageCountinuePaint(),
-                      child: Container(
-                        padding: EdgeInsets.all(10),
-                        child: Center(child: Text('Meeting')),
-                      ),
+                    child: Container(
+                      color: ColorPallates.pipeline,
+                      padding: EdgeInsets.all(10),
+                      child: Center(child: Text('Meeting')),
                     ),
                   ),
                   BsCol(
                     sizes: ColScreen(sm: Col.col_3),
-                    child: CustomPaint(
-                      painter: StageCountinuePaint(),
-                      child: Container(
-                        padding: EdgeInsets.all(10),
-                        child: Center(child: Text('Proposal')),
-                      ),
+                    child: Container(
+                      color: ColorPallates.pipeline,
+                      padding: EdgeInsets.all(10),
+                      child: Center(child: Text('Proposal')),
                     ),
                   ),
                   BsCol(
                     sizes: ColScreen(sm: Col.col_3),
-                    child: CustomPaint(
-                      painter: StageCountinuePaint(),
-                      child: Container(
-                        padding: EdgeInsets.all(10),
-                        child: Center(child: Text('Negociation')),
-                      ),
+                    child: Container(
+                      color: ColorPallates.pipeline,
+                      padding: EdgeInsets.all(10),
+                      child: Center(child: Text('Negociation')),
                     ),
                   ),
                   BsCol(
                     sizes: ColScreen(sm: Col.col_3),
-                    child: CustomPaint(
-                      painter: StageCountinuePaint(),
-                      child: Container(
-                        padding: EdgeInsets.all(10),
-                        child: Center(child: Text('Closed')),
-                      ),
+                    child: Container(
+                      color: ColorPallates.pipeline,
+                      padding: EdgeInsets.all(10),
+                      child: Center(child: Text('Closed')),
                     ),
                   ),
                   // BsCol(

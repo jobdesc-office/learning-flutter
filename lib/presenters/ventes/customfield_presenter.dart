@@ -5,10 +5,12 @@ import '../../constants/base_text.dart';
 import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
+import '../../contracts/ventes/customfield_contract.dart';
 import '../../services/ventes/customfield_service.dart';
 import '../../utils/custom_get_controller.dart';
 import '../../views/ventes/customfield/customfield_details.dart';
 import '../../views/ventes/customfield/customfield_form.dart';
+import '../../views/ventes/prospect/customfield_popup.dart';
 import '../../widgets/confirm_dialog.dart';
 
 class CustomFieldPresenter extends CustomGetXController {
@@ -29,6 +31,11 @@ class CustomFieldPresenter extends CustomGetXController {
   set CustomFieldDataDetailsContract(
       DetailViewContract CustomFieldDataDetailsContract) {
     _CustomFieldDataDetailsContract = CustomFieldDataDetailsContract;
+  }
+
+  late CustomFieldContract _CustomFieldContract;
+  set setCustomFieldContract(CustomFieldContract CustomFieldContract) {
+    _CustomFieldContract = CustomFieldContract;
   }
 
   Future datatables(BuildContext context, Map<String, String> params) async {
@@ -56,6 +63,23 @@ class CustomFieldPresenter extends CustomGetXController {
       _CustomFieldDataDetailsContract.onSuccessFetchData(response);
     else
       _CustomFieldViewContract.onErrorRequest(response);
+  }
+
+  Future allWithBp(BuildContext context, Map<String, String> params) async {
+    Response response = await _CustomFieldService.selectWithBp(params);
+    print(response.body);
+    if (response.statusCode == 200)
+      _CustomFieldContract.onLoadSuccess(context, response);
+    else
+      _CustomFieldContract.onErrorRequest(response);
+  }
+
+  void popup(BuildContext context) async {
+    setProcessing(true);
+    showDialog(
+      context: context,
+      builder: (context) => CustomFieldPopup(),
+    );
   }
 
   void add(BuildContext context) async {

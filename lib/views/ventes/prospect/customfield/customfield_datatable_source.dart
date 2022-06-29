@@ -3,24 +3,23 @@ import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../models/auth_model.dart';
-import '../../../models/ventes/prospect_model.dart';
-import '../../../presenters/navigation_presenter.dart';
-import '../../../styles/color_palattes.dart';
-import '../../../widgets/button/button_delete_datatable.dart';
-import '../../../widgets/button/button_details_datatable.dart';
-import '../../../widgets/button/button_edit_datatable.dart';
-import '../../../widgets/datatables/custom_datatable_tablecell.dart';
-import '../../../widgets/datatables/custom_datatable_tablehead.dart';
+import '../../../../models/ventes/customfield_model.dart';
+import '../../../../presenters/navigation_presenter.dart';
+import '../../../../styles/color_palattes.dart';
+import '../../../../widgets/button/button_delete_datatable.dart';
+import '../../../../widgets/button/button_details_datatable.dart';
+import '../../../../widgets/button/button_edit_datatable.dart';
+import '../../../../widgets/datatables/custom_datatable_tablecell.dart';
+import '../../../../widgets/datatables/custom_datatable_tablehead.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 
-class ProspectDataTableSource extends BsDatatableSource {
+class CustomFieldPopUpDataTableSource extends BsDatatableSource {
   ValueChanged<int> onDetailsListener = (value) {};
   ValueChanged<int> onEditListener = (value) {};
   Function onDeleteListener = (value, name) {};
 
-  ProspectDataTableSource({
+  CustomFieldPopUpDataTableSource({
     List data = const [],
   }) : super(data: data);
 
@@ -33,14 +32,14 @@ class ProspectDataTableSource extends BsDatatableSource {
         orderable: false,
       ),
       CustomBsDataColumn(
-          label: Text('Prospect Title'), columnName: 'prospectname'),
+          label: Text('CustomField Name'), columnName: 'custfname'),
       CustomBsDataColumn(
-        label: Text('Prospect Customer'),
+        label: Text('CustomField Format'),
         searchable: false,
         orderable: false,
       ),
       // CustomBsDataColumn(
-      //     label: Text('Prospect Status'), orderable: false, searchable: false),
+      //     label: Text('CustomField Status'), orderable: false, searchable: false),
       CustomBsDataColumn(
           label: Text('Actions'),
           width: 100,
@@ -49,8 +48,8 @@ class ProspectDataTableSource extends BsDatatableSource {
     ];
   }
 
-  List<ProspectModel> get users =>
-      response.data.map((data) => ProspectModel.fromJson(data)).toList();
+  List<CustomFieldModel> get users =>
+      response.data.map((data) => CustomFieldModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
@@ -70,7 +69,7 @@ class ProspectDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.prospectname!),
+          Text(row.custfname!),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -80,7 +79,7 @@ class ProspectDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.prospectcusts!.sbccstmname.toString()),
+          Text(row.custftype!.typename!),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -90,7 +89,7 @@ class ProspectDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         // CustomBsDataCell(
-        //   Text(row.prospectstatus!.typename.toString()),
+        //   Text(row.CustomFieldstatus!.typename.toString()),
         //   color: _navigation.darkTheme.value
         //       ? x % 2 == 0
         //           ? ColorPallates.datatableDarkEvenRowColor
@@ -104,25 +103,25 @@ class ProspectDataTableSource extends BsDatatableSource {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Tooltip(
-                message: BaseText.detailHintDatatable(field: row.prospectname),
+                message: BaseText.detailHintDatatable(field: row.custfname),
                 child: ButtonDetailsDatatables(
                   margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onDetailsListener(row.prospectid!),
+                  onPressed: () => onDetailsListener(row.custfid!),
                 ),
               ),
-              Tooltip(
-                message: BaseText.editHintDatatable(field: row.prospectname),
-                child: ButtonEditDatatables(
-                  margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onEditListener(row.prospectid!),
-                ),
-              ),
-              Tooltip(
-                message: BaseText.deleteHintDatatable(field: row.prospectname),
-                child: ButtonDeleteDatatables(
-                    onPressed: () =>
-                        onDeleteListener(row.prospectid!, row.prospectname)),
-              ),
+              // Tooltip(
+              //   message: BaseText.editHintDatatable(field: row.custfname),
+              //   child: ButtonEditDatatables(
+              //     margin: EdgeInsets.only(right: 5),
+              //     onPressed: () => onEditListener(row.custfid!),
+              //   ),
+              // ),
+              // Tooltip(
+              //   message: BaseText.deleteHintDatatable(field: row.custfname),
+              //   child: ButtonDeleteDatatables(
+              //       onPressed: () =>
+              //           onDeleteListener(row.custfid!, row.custfname)),
+              // ),
             ],
           ),
           color: _navigation.darkTheme.value

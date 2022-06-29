@@ -14,6 +14,7 @@ import '../../../contracts/base/index_view_contract.dart';
 import '../../../models/masters/type_model.dart';
 import '../../../models/ventes/prospect_model.dart';
 import '../../../models/ventes/prospectactivity_model.dart';
+import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../presenters/ventes/customfield_presenter.dart';
 import '../../../presenters/ventes/prospect_presenter.dart';
@@ -272,9 +273,10 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                 margin:
                                                     EdgeInsets.only(left: 5),
                                                 size: BsButtonSize.btnSm,
-                                                onPressed: () => Get.toNamed(
-                                                    RouteList.ventesCustomField
-                                                        .index),
+                                                onPressed: () =>
+                                                    customFieldPresenter.popup(
+                                                      context,
+                                                    ),
                                                 label: Text('Customize Fields'))
                                           ],
                                         ),
@@ -501,7 +503,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                                             }),
                                                                             ButtonDeleteDatatables(onPressed:
                                                                                 () {
-                                                                              assignPresenter.delete(context, assigns.prospectassignid, 'Assignment for ${assigns.prospectassign!.user!.userfullname}');
+                                                                              assignPresenter.delete(context, assigns.prospectassignid, 'Assignment for ${assigns.prospectassign.userfullname}');
                                                                             }),
                                                                           ]);
                                                                     }),
@@ -530,8 +532,8 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                                           sizes:
                                                                               ColScreen(sm: Col.col_9),
                                                                           child: Text(assigns
-                                                                              .prospectassign!
-                                                                              .user!
+                                                                              .prospectassign
+                                                                              .user
                                                                               .userfullname),
                                                                         ),
                                                                         BsCol(
@@ -556,8 +558,8 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                                           sizes:
                                                                               ColScreen(sm: Col.col_9),
                                                                           child: Text(assigns
-                                                                              .prospectassign!
-                                                                              .user!
+                                                                              .prospectassign
+                                                                              .user
                                                                               .useremail),
                                                                         ),
                                                                         BsCol(
@@ -582,8 +584,8 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                                           sizes:
                                                                               ColScreen(sm: Col.col_9),
                                                                           child: Text(assigns
-                                                                              .prospectassign!
-                                                                              .user!
+                                                                              .prospectassign
+                                                                              .user
                                                                               .userphone),
                                                                         )
                                                                       ],
@@ -671,8 +673,8 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                                         sizes: ColScreen(
                                                                             sm: Col.col_9),
                                                                         child: Text(reports
-                                                                            .prospectreport!
-                                                                            .user!
+                                                                            .prospectreport
+                                                                            .user
                                                                             .userfullname),
                                                                       ),
                                                                       BsCol(
@@ -700,8 +702,8 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                                         sizes: ColScreen(
                                                                             sm: Col.col_9),
                                                                         child: Text(reports
-                                                                            .prospectreport!
-                                                                            .user!
+                                                                            .prospectreport
+                                                                            .user
                                                                             .useremail),
                                                                       ),
                                                                       BsCol(
@@ -729,8 +731,8 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                                         sizes: ColScreen(
                                                                             sm: Col.col_9),
                                                                         child: Text(reports
-                                                                            .prospectreport!
-                                                                            .user!
+                                                                            .prospectreport
+                                                                            .user
                                                                             .userphone),
                                                                       )
                                                                     ],
@@ -1231,29 +1233,28 @@ class _ProspectDetailsState extends State<ProspectDetails>
 
     detailPresenter.details(context, {'id': dt.prospectid.toString()});
 
-    source.prospectname.value = dt.prospectname.toString();
+    source.prospectname.value = dt.prospectname ?? '';
     source.prospectvalue.value = dt.prospectvalue ?? '0.0';
-    source.userfullname.value =
-        dt.prospectowneruser!.user!.userfullname.toString();
-    source.bpname.value = dt.prospectbp!.bpname.toString();
-    source.prospectstartdate.value = dt.prospectstartdate.toString();
+    source.userfullname.value = dt.prospectowneruser!.user!.userfullname ?? '';
+    source.bpname.value = dt.prospectbp!.bpname ?? '';
+    source.prospectstartdate.value = dt.prospectstartdate ?? '';
     source.prospectStageController.selected = dt.prospectstage;
 
-    dt.prospectassign?.forEach((element) {
-      assign.add(element);
-    });
-    source.assign.value = assign;
-
-    dt.prospectassign?.forEach((element) {
-      report.add(element);
-    });
-    source.report.value = report;
-
-    dt.prospectproduct?.forEach((element) {
-      products.add(element);
-    });
-    source.product.value = products;
-    presenter.setProcessing(false);
+    if (dt.prospectassigns != null) {
+      dt.prospectassigns?.forEach((element) {
+        assign.add(element);
+        report.add(element);
+        source.assign.value = assign;
+        source.report.value = assign;
+      });
+    }
+    if (dt.prospectproduct != null) {
+      dt.prospectproduct?.forEach((element) {
+        products.add(element);
+      });
+      source.product.value = products;
+      presenter.setProcessing(false);
+    }
   }
 
   @override

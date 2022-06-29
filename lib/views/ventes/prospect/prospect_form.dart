@@ -298,24 +298,32 @@ class ProspectFormView extends StatelessWidget
       ProspectModel prospect = ProspectModel.fromJson(response.body);
       source.value.prospectStageController.selected = prospect.prospectstage;
       source.value.selectOwner.setSelected(BsSelectBoxOption(
-          value: prospect.prospectowneruser!.user!.userid,
+          value: prospect.prospectowneruser!..userid,
           text: Text(prospect.prospectowneruser!.user!.userfullname!)));
-      source.value.selectReference.setSelected(BsSelectBoxOption(
-          value: prospect.prospectreference!.prospectid,
-          text: Text(prospect.prospectreference!.prospectname! +
-              ' || ' +
-              prospect.prospectreference!.prospectcust!.sbccstmname!)));
+
+      if (prospect.prospectreference != null) {
+        source.value.selectReference.setSelected(BsSelectBoxOption(
+            value: prospect.prospectreference!.prospectid,
+            text: Text(prospect.prospectreference!.prospectname! +
+                ' || ' +
+                prospect.prospectreference!.prospectcusts!.sbccstmname!)));
+      }
+
       source.value.selectCustomer.setSelected(BsSelectBoxOption(
-          value: prospect.prospectcust!.sbcid,
-          text: Text(prospect.prospectcust!.sbccstmname.toString())));
+          value: prospect.prospectcusts!.sbcid,
+          text: Text(prospect.prospectcusts!.sbccstmname.toString())));
       source.value.inputCompanyName.text = prospect.prospectname ?? '';
       source.value.selectStatus.setSelected(BsSelectBoxOption(
           value: prospect.prospectstatus!.typeid,
           text: Text(prospect.prospectstatus!.typename.toString())));
-      source.value.inputValue.text = currencyFormatter
-          .format(double.parse(prospect.prospectvalue ?? '0.0'))
-          .replaceAll(',00', '')
-          .replaceAll('.', ',');
+
+      if (prospect.prospectvalue != null) {
+        source.value.inputValue.text = currencyFormatter
+            .format(double.parse(prospect.prospectvalue!))
+            .replaceAll(',00', '')
+            .replaceAll('.', ',');
+      }
+
       source.value.inputDesc.text = prospect.prospectdescription ?? '';
 
       source.value.selectedDateStart.value = prospect.prospectstartdate ?? '';
