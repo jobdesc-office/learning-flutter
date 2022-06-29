@@ -16,7 +16,7 @@ class ProspectModel {
   int? prospectrefid;
   int? createdby;
   String? createddate;
-  int? updatedby;
+  Null? updatedby;
   String? updateddate;
   bool? isactive;
   Prospectowneruser? prospectowneruser;
@@ -102,8 +102,8 @@ class ProspectModel {
     prospectbp = json['prospectbp'] != null
         ? new Prospectbp.fromJson(json['prospectbp'])
         : null;
-    prospectcust = json['prospectcusts'] != null
-        ? new Prospectcust.fromJson(json['prospectcusts'])
+    prospectcust = json['prospectcust'] != null
+        ? new Prospectcust.fromJson(json['prospectcust'])
         : null;
   }
 
@@ -151,7 +151,7 @@ class ProspectModel {
       data['prospectbp'] = this.prospectbp!.toJson();
     }
     if (this.prospectcust != null) {
-      data['prospectcusts'] = this.prospectcust!.toJson();
+      data['prospectcust'] = this.prospectcust!.toJson();
     }
     return data;
   }
@@ -162,9 +162,9 @@ class Prospectowneruser {
   int? userid;
   int? userdttypeid;
   int? userdtbpid;
-  int? userdtbranchnm;
-  int? userdtreferalcode;
-  int? userdtrelationid;
+  Null? userdtbranchnm;
+  Null? userdtreferalcode;
+  Null? userdtrelationid;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -231,8 +231,8 @@ class User {
   String? userfullname;
   String? useremail;
   String? userphone;
-  int? userdeviceid;
-  int? userfcmtoken;
+  Null? userdeviceid;
+  Null? userfcmtoken;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -368,9 +368,9 @@ class Prospectproduct {
   String? prosproductdiscount;
   String? prosproductamount;
   int? prosproducttaxtypeid;
-  int? createdby;
+  Null? createdby;
   String? createddate;
-  int? updatedby;
+  Null? updatedby;
   String? updateddate;
   bool? isactive;
   Prosproductproduct? prosproductproduct;
@@ -447,9 +447,9 @@ class Prosproductproduct {
   int? productid;
   String? productname;
   int? productbpid;
-  int? createdby;
+  Null? createdby;
   String? createddate;
-  int? updatedby;
+  Null? updatedby;
   String? updateddate;
   bool? isactive;
 
@@ -490,11 +490,11 @@ class Prosproductproduct {
 
 class Prosproducttaxtype {
   int? typeid;
-  String? typecd;
+  Null? typecd;
   String? typename;
-  int? typeseq;
+  Null? typeseq;
   int? typemasterid;
-  String? typedesc;
+  Null? typedesc;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -569,21 +569,21 @@ class Prospectreference {
   String? prospectname;
   String? prospectstartdate;
   String? prospectenddate;
-  int? prospectvalue;
+  Null? prospectvalue;
   int? prospectowner;
   int? prospectstageid;
   int? prospectstatusid;
   String? prospectexpclosedate;
   int? prospectbpid;
-  String? prospectdescription;
+  Null? prospectdescription;
   int? prospectcustid;
-  int? prospectrefid;
+  Null? prospectrefid;
   int? createdby;
   String? createddate;
-  int? updatedby;
+  Null? updatedby;
   String? updateddate;
   bool? isactive;
-  Prospectcust? prospectcusts;
+  Prospectcust? prospectcust;
 
   Prospectreference(
       {this.prospectid,
@@ -604,7 +604,7 @@ class Prospectreference {
       this.updatedby,
       this.updateddate,
       this.isactive,
-      this.prospectcusts});
+      this.prospectcust});
 
   Prospectreference.fromJson(Map<String, dynamic> json) {
     prospectid = json['prospectid'];
@@ -625,8 +625,8 @@ class Prospectreference {
     updatedby = json['updatedby'];
     updateddate = json['updateddate'];
     isactive = json['isactive'];
-    prospectcusts = json['prospectcusts'] != null
-        ? new Prospectcust.fromJson(json['prospectcusts'])
+    prospectcust = json['prospectcust'] != null
+        ? new Prospectcust.fromJson(json['prospectcust'])
         : null;
   }
 
@@ -650,8 +650,8 @@ class Prospectreference {
     data['updatedby'] = this.updatedby;
     data['updateddate'] = this.updateddate;
     data['isactive'] = this.isactive;
-    if (this.prospectcusts != null) {
-      data['prospectcusts'] = this.prospectcusts!.toJson();
+    if (this.prospectcust != null) {
+      data['prospectcust'] = this.prospectcust!.toJson();
     }
     return data;
   }
@@ -665,7 +665,7 @@ class Prospectcust {
   String? sbccstmname;
   String? sbccstmphone;
   String? sbccstmaddress;
-  String? sbccstmpic;
+  Null? sbccstmpic;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -781,7 +781,7 @@ class Prospectbp {
 
 class Sbccstm {
   int? cstmid;
-  String? cstmprefix;
+  Null? cstmprefix;
   String? cstmname;
   String? cstmphone;
   String? cstmaddress;
@@ -793,7 +793,7 @@ class Sbccstm {
   String? cstmpostalcode;
   String? cstmlatitude;
   String? cstmlongitude;
-  int? referalcode;
+  Null? referalcode;
   int? createdby;
   String? createddate;
   int? updatedby;

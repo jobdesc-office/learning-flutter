@@ -306,7 +306,7 @@ class ProspectFormView extends StatelessWidget
             value: prospect.prospectreference!.prospectid,
             text: Text(prospect.prospectreference!.prospectname! +
                 ' || ' +
-                prospect.prospectreference!.prospectcusts!.sbccstmname!)));
+                prospect.prospectreference!.prospectcust!.sbccstmname!)));
       }
 
       source.value.selectCustomer.setSelected(BsSelectBoxOption(
