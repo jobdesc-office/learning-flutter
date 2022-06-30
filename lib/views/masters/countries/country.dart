@@ -90,7 +90,7 @@ class CountryView extends GetView implements IndexViewContract {
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onEditListener =
         (countryid) => presenter.edit(context, countryid);
-    if (btn.btnRegionDelete.value)
+    if (btn.btnDeleteDisabled.value)
       datatable.onDeleteListener =
           (countryid, name) => presenter.delete(context, countryid, name);
     else

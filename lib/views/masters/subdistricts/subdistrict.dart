@@ -94,7 +94,7 @@ class SubdistrictView extends GetView implements IndexViewContract {
     datatable.onEditListener =
         (Subdistrictid) => presenter.edit(context, Subdistrictid);
 
-    if (btn.btnRegionDelete.value)
+    if (btn.btnDeleteDisabled.value)
       datatable.onDeleteListener = (Subdistrictid, name) =>
           presenter.delete(context, Subdistrictid, name);
     else

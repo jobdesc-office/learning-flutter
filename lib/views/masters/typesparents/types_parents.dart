@@ -7,6 +7,7 @@ import '../../../presenters/masters/typeparent_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../utils/handle_error_request.dart';
 import '../../../widgets/breadcrumb.dart';
+import '../../../widgets/button/button_controller.dart';
 import '../../../widgets/button/theme_button_create.dart';
 import '../../../widgets/datatables/custom_datatable.dart';
 import '../../../widgets/snackbar.dart';
@@ -85,12 +86,17 @@ class TypesParentView extends StatelessWidget
 
   @override
   void onLoadDatatables(BuildContext context, Response response) {
+    final btn = Get.put(ButtonController());
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onDetailsListener =
         (typeid) => presenter.details(context, typeid);
     datatable.onEditListener = (typeid) => presenter.edit(context, typeid);
-    datatable.onDeleteListener =
-        (typeid, name) => presenter.delete(context, typeid, name);
+    if (btn.btnDeleteDisabled.value)
+      datatable.onDeleteListener =
+          (typeid, name) => presenter.delete(context, typeid, name);
+    else
+      datatable.onDeleteListener =
+          (Provinceid, name) => Snackbar().regionDeletePermission();
   }
 }

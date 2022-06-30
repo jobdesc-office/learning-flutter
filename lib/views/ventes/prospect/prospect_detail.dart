@@ -395,7 +395,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                         }),
                                       ),
                                     AnimatedContainer(
-                                      margin: EdgeInsets.only(top: 20),
+                                      margin: EdgeInsets.only(top: 10),
                                       duration: Duration(seconds: 3),
                                       child: ListView.builder(
                                           shrinkWrap: true,
@@ -433,6 +433,13 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                     ]);
                                               },
                                               child: BsRow(
+                                                margin: EdgeInsets.all(3),
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                  color: ColorPallates.tertiary,
+                                                ),
+                                                padding: EdgeInsets.all(5),
                                                 children: [
                                                   BsCol(
                                                       alignment:
@@ -1456,7 +1463,6 @@ class _ProspectDetailsState extends State<ProspectDetails>
   }
 
   void onClickCancelModal(BuildContext context) {
-    Navigator.pop(context);
     source.isUpdate.value = false;
   }
 

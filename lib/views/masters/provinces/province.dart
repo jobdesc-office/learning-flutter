@@ -91,7 +91,7 @@ class ProvinceView extends GetView implements IndexViewContract {
     datatable.onEditListener =
         (Provinceid) => presenter.edit(context, Provinceid);
 
-    if (btn.btnRegionDelete.value)
+    if (btn.btnDeleteDisabled.value)
       datatable.onDeleteListener =
           (Provinceid, name) => presenter.delete(context, Provinceid, name);
     else

@@ -90,7 +90,7 @@ class CityView extends GetView implements IndexViewContract {
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onEditListener = (cityid) => presenter.edit(context, cityid);
 
-    if (btn.btnRegionDelete.value)
+    if (btn.btnDeleteDisabled.value)
       datatable.onDeleteListener =
           (cityid, name) => presenter.delete(context, cityid, name);
     else

@@ -91,7 +91,7 @@ class VillageView extends GetView implements IndexViewContract {
     datatable.onEditListener =
         (Villageid) => presenter.edit(context, Villageid);
 
-    if (btn.btnRegionDelete.value)
+    if (btn.btnDeleteDisabled.value)
       datatable.onDeleteListener =
           (Villageid, name) => presenter.delete(context, Villageid, name);
     else
