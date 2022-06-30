@@ -136,6 +136,44 @@ class UserDetails extends GetView implements DetailViewContract {
                                               context, controller.id.value);
                                         },
                                       )),
+                                  if (controller.role.length != 0)
+                                    BsCol(
+                                        margin: EdgeInsets.only(top: 5),
+                                        sizes: ColScreen(lg: Col.col_12),
+                                        child: BsRow(
+                                          children: [
+                                            BsCol(
+                                                sizes:
+                                                    ColScreen(lg: Col.col_12),
+                                                child: Text('Job :')),
+                                            BsCol(
+                                                sizes:
+                                                    ColScreen(lg: Col.col_12),
+                                                child: ListView.builder(
+                                                    shrinkWrap: true,
+                                                    itemCount:
+                                                        controller.role.length,
+                                                    itemBuilder:
+                                                        (context, index) {
+                                                      var role = controller
+                                                          .role[index];
+                                                      int x = index + 1;
+
+                                                      return Container(
+                                                          margin:
+                                                              EdgeInsets.only(
+                                                                  top: 5),
+                                                          child: Text(x
+                                                                  .toString() +
+                                                              ' )  ' +
+                                                              role.usertype
+                                                                  .typename +
+                                                              ' at ' +
+                                                              role.businesspartner
+                                                                  .bpname));
+                                                    })),
+                                          ],
+                                        )),
                                 ],
                               )),
                         ],
@@ -147,16 +185,21 @@ class UserDetails extends GetView implements DetailViewContract {
 
   @override
   void onSuccessFetchData(Response response) {
+    var role = [];
     UserModel dt = UserModel.fromJson(response.body);
     controller.id.value = dt.userid!;
-    controller.name.value = dt.userfullname!;
-    controller.username.value = dt.username!;
-    controller.email.value = dt.useremail!;
-    controller.phone.value = dt.userphone!;
+    controller.name.value = dt.userfullname ?? '-';
+    controller.username.value = dt.username ?? '-';
+    controller.email.value = dt.useremail ?? '-';
+    controller.phone.value = dt.userphone ?? '-';
     controller.deviceid.value = dt.userdeviceid ?? '';
-    controller.type.value = dt.userdetails!.first.usertype!.typename!;
-    controller.bp.value = dt.userdetails!.first.businesspartner!.bpname!;
     controller.active.value = dt.isactive!;
+    if (dt.userdetails != null) {
+      for (var item in dt.userdetails!) {
+        role.add(item);
+      }
+      controller.role.value = role;
+    }
     presenter.setProcessing(false);
   }
 }

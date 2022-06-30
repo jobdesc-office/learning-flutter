@@ -10,4 +10,5 @@ class userDetailsSource extends GetxController {
   var type = ''.obs;
   var bp = ''.obs;
   var active = true.obs;
+  var role = [].obs;
 }
