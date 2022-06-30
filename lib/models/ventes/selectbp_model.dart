@@ -5,8 +5,8 @@ class SelectUserBpModel {
   String? userfullname;
   String? useremail;
   String? userphone;
-  int? userdeviceid;
-  int? userfcmtoken;
+  String? userdeviceid;
+  String? userfcmtoken;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -15,8 +15,8 @@ class SelectUserBpModel {
   int? userdtid;
   int? userdttypeid;
   int? userdtbpid;
-  int? userdtbranchnm;
-  int? userdtreferalcode;
+  String? userdtbranchnm;
+  String? userdtreferalcode;
   int? userdtrelationid;
 
   SelectUserBpModel(

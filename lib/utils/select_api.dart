@@ -287,7 +287,7 @@ Future<BsSelectBoxResponse> selectApiProspectOwner(
         response.body,
         value: (data) => SelectUserBpModel.fromJson(data).userid,
         renderText: (data) =>
-            Text(SelectUserBpModel.fromJson(data).userfullname!),
+            Text(SelectUserBpModel.fromJson(data).userfullname ?? ''),
       );
     }
   }

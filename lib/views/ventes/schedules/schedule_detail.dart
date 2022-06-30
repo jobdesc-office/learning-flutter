@@ -287,6 +287,36 @@ class ScheduleDetails extends GetView implements DetailViewContract {
                                     child: Text(controller.desc.value))
                               ],
                             )),
+                        if (controller.guest.length != 0)
+                          BsCol(
+                              margin: EdgeInsets.only(top: 10),
+                              sizes: ColScreen(lg: Col.col_12),
+                              child: BsRow(
+                                children: [
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_3),
+                                      child: Text('Guext')),
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_1),
+                                      child: Text(':')),
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_8),
+                                      child: ListView.builder(
+                                          shrinkWrap: true,
+                                          itemCount: controller.guest.length,
+                                          itemBuilder: (context, index) {
+                                            var guest = controller.guest[index];
+                                            int x = index + 1;
+
+                                            return Container(
+                                                margin: EdgeInsets.only(top: 5),
+                                                child: Text(x.toString() +
+                                                    ' )  ' +
+                                                    guest.scheuser
+                                                        .userfullname));
+                                          }))
+                                ],
+                              )),
                       ],
                     );
                   }),
@@ -297,6 +327,7 @@ class ScheduleDetails extends GetView implements DetailViewContract {
 
   @override
   void onSuccessFetchData(Response response) {
+    var guest = [];
     ScheduleModel dt = ScheduleModel.fromJson(response.body);
     controller.title.value = dt.schenm ?? '';
     controller.name.value = dt.schetoward!.userfullname ?? '';
@@ -315,6 +346,12 @@ class ScheduleDetails extends GetView implements DetailViewContract {
     controller.online.value = dt.scheonline ?? false;
     controller.private.value = dt.scheprivate ?? false;
     controller.bp.value = dt.schebp!.bpname ?? '';
+    if (dt.scheguest != null) {
+      for (var item in dt.scheguest!) {
+        guest.add(item);
+      }
+      controller.guest.value = guest;
+    }
     presenter.setProcessing(false);
   }
 }

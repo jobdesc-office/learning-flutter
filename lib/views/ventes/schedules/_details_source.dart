@@ -20,4 +20,6 @@ class scheduleDetailsSource extends GetxController {
   var online = false.obs;
   var allday = false.obs;
   var private = false.obs;
+
+  var guest = [].obs;
 }

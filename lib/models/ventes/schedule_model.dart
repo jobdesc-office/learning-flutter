@@ -243,8 +243,8 @@ class Scheuser {
   String? userfullname;
   String? useremail;
   String? userphone;
-  int? userdeviceid;
-  int? userfcmtoken;
+  String? userdeviceid;
+  String? userfcmtoken;
   int? createdby;
   String? createddate;
   int? updatedby;
