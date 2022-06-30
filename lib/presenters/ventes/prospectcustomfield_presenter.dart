@@ -5,6 +5,7 @@ import '../../constants/base_text.dart';
 import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
+import '../../contracts/ventes/prospectcustomfield_contract.dart';
 import '../../services/ventes/prospect_service.dart';
 import '../../services/ventes/prospectcustomfield_service.dart';
 import '../../utils/custom_get_controller.dart';
@@ -29,6 +30,11 @@ class ProspectCustomFieldPresenter extends CustomGetXController {
     _prospectTypeViewContract = prospectViewContract;
   }
 
+  late ProspectCustomFieldContract _customFieldViewContract;
+  set setcustomFieldContract(ProspectCustomFieldContract customFieldContract) {
+    _customFieldViewContract = customFieldContract;
+  }
+
   // void add(BuildContext context, int id) async {
   //   showDialog(
   //     context: context,
@@ -45,20 +51,15 @@ class ProspectCustomFieldPresenter extends CustomGetXController {
       _prospectViewContract.onErrorRequest(response);
   }
 
-  // void edit(BuildContext context, int Prospectid, int id) async {
-  //   setProcessing(true);
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) => ProspectCustomFieldFormView(
-  //         onSave: (body) => update(context, body, Prospectid), id: id),
-  //   );
+  void edit(BuildContext context, int Prospectid) async {
+    setProcessing(true);
 
-  //   Response response = await _prospectService.show(Prospectid);
-  //   if (response.statusCode == 200)
-  //     _prospectFetchDataContract.onSuccessFetchData(response);
-  //   else
-  //     _prospectViewContract.onErrorRequest(response);
-  // }
+    Response response = await _prospectService.show(Prospectid);
+    if (response.statusCode == 200)
+      _customFieldViewContract.onFetchCustomFieldSuccess(context, response);
+    else
+      _customFieldViewContract.onFetchCustomFieldErrorRequest(response);
+  }
 
   void update(
       BuildContext context, Map<String, dynamic> body, int Prospectid) async {

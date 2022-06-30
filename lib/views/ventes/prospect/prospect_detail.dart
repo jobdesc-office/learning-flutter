@@ -4,6 +4,7 @@ import 'package:boilerplate/views/skins/template.dart';
 import 'package:boilerplate/widgets/button/button_edit_datatable.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
+import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -11,9 +12,11 @@ import 'package:timelines/timelines.dart';
 
 import '../../../contracts/base/details_view_contract.dart';
 import '../../../contracts/base/index_view_contract.dart';
+import '../../../contracts/ventes/prospectcustomfield_contract.dart';
 import '../../../models/masters/type_model.dart';
 import '../../../models/ventes/prospect_model.dart';
 import '../../../models/ventes/prospectactivity_model.dart';
+import '../../../models/ventes/prospectcustomfield_model.dart';
 import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../presenters/ventes/customfield_presenter.dart';
@@ -48,7 +51,8 @@ class _ProspectDetailsState extends State<ProspectDetails>
     implements
         DetailViewContract,
         MenuTypeViewDetailContract,
-        IndexViewContract {
+        IndexViewContract,
+        ProspectCustomFieldContract {
   late TabController _tabController;
   // late TabController _tabControllerTimeline;
   final detailPresenter = Get.find<ProspectActivityPresenter>();
@@ -78,6 +82,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     assignPresenter.prospectViewContract = this;
     productPresenter.prospectViewContract = this;
     prospectCustomFieldPresenter.prospectViewContract = this;
+    prospectCustomFieldPresenter.setcustomFieldContract = this;
   }
 
   final _navigation = Get.find<NavigationPresenter>();
@@ -388,7 +393,73 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                             ),
                                           );
                                         }),
-                                      )
+                                      ),
+                                    AnimatedContainer(
+                                      margin: EdgeInsets.only(top: 20),
+                                      duration: Duration(seconds: 3),
+                                      child: ListView.builder(
+                                          shrinkWrap: true,
+                                          itemCount: source.customField.length,
+                                          itemBuilder: (context, index) {
+                                            var customField =
+                                                source.customField[index];
+
+                                            return InkWell(
+                                              onLongPress: () {
+                                                Get.defaultDialog(
+                                                    middleText: '',
+                                                    title: 'Setting',
+                                                    actions: [
+                                                      ButtonEditDatatables(
+                                                          onPressed: () {
+                                                        prospectCustomFieldPresenter
+                                                            .edit(
+                                                                context,
+                                                                customField
+                                                                    .prospectcfid);
+                                                        source.cfid.value =
+                                                            customField
+                                                                .prospectcfid;
+                                                      }),
+                                                      ButtonDeleteDatatables(
+                                                          onPressed: () {
+                                                        prospectCustomFieldPresenter
+                                                            .delete(
+                                                                context,
+                                                                customField
+                                                                    .prospectcfid,
+                                                                '${customField.prospectcfvalue}');
+                                                      }),
+                                                    ]);
+                                              },
+                                              child: BsRow(
+                                                children: [
+                                                  BsCol(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      sizes: ColScreen(
+                                                          sm: Col.col_5),
+                                                      child: Text(customField
+                                                          .customfield
+                                                          .custfname)),
+                                                  BsCol(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      sizes: ColScreen(
+                                                          sm: Col.col_2),
+                                                      child: Text(':')),
+                                                  BsCol(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      sizes: ColScreen(
+                                                          sm: Col.col_5),
+                                                      child: Text(customField
+                                                          .prospectcfvalue)),
+                                                ],
+                                              ),
+                                            );
+                                          }),
+                                    )
                                   ],
                                 ),
                               ),
@@ -1326,6 +1397,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     List products = [];
     List assign = [];
     List report = [];
+    List customField = [];
     ProspectModel dt = ProspectModel.fromJson(response.body);
     source.prospectid.value = dt.prospectid!;
 
@@ -1351,21 +1423,41 @@ class _ProspectDetailsState extends State<ProspectDetails>
         products.add(element);
       });
       source.product.value = products;
-      presenter.setProcessing(false);
     }
+    if (dt.prospectcustomfield != null) {
+      dt.prospectcustomfield?.forEach((element) {
+        customField.add(element);
+      });
+      source.customField.value = customField;
+    }
+    presenter.setProcessing(false);
+    print(source.customField);
   }
 
   void onClickSaveModal(BuildContext context) async {
     source.isAdd.value = false;
     prospectCustomFieldPresenter.setProcessing(true);
-    if (formState.currentState!.validate())
-      prospectCustomFieldPresenter.save(context, await cfForm.toJson());
-    else
-      presenter.setProcessing(false);
+    if (source.isUpdate.value) {
+      if (formState.currentState!.validate()) {
+        prospectCustomFieldPresenter.update(
+            context, await cfForm.toJson(), source.cfid.value);
+        source.isUpdate.value = false;
+        source.cfid.value = 0;
+      } else {
+        prospectCustomFieldPresenter.setProcessing(false);
+        source.isUpdate.value = false;
+      }
+    } else {
+      if (formState.currentState!.validate())
+        prospectCustomFieldPresenter.save(context, await cfForm.toJson());
+      else
+        prospectCustomFieldPresenter.setProcessing(false);
+    }
   }
 
   void onClickCancelModal(BuildContext context) {
     Navigator.pop(context);
+    source.isUpdate.value = false;
   }
 
   @override
@@ -1430,5 +1522,24 @@ class _ProspectDetailsState extends State<ProspectDetails>
       x.add(ProspectActivityModel.fromJson(item));
     }
     source.detailData.value = x;
+  }
+
+  @override
+  void onFetchCustomFieldErrorRequest(Response response) {
+    // TODO: implement onFetchCustomFieldErrorRequest
+  }
+
+  @override
+  void onFetchCustomFieldSuccess(BuildContext context, Response response) {
+    prospectCustomFieldPresenter.setProcessing(false);
+    Navigator.pop(context);
+    source.isAdd.value = true;
+    ProspectCustomFieldModel prospect =
+        ProspectCustomFieldModel.fromJson(response.body);
+    cfForm.value.inputValue.text = prospect.prospectcfvalue!;
+    cfForm.value.selectCustomfield.setSelected(BsSelectBoxOption(
+        value: prospect.prospectcustfid,
+        text: Text(prospect.customfield!.custfname!)));
+    source.isUpdate.value = true;
   }
 }

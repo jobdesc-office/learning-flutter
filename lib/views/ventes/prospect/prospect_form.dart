@@ -298,7 +298,7 @@ class ProspectFormView extends StatelessWidget
       ProspectModel prospect = ProspectModel.fromJson(response.body);
       source.value.prospectStageController.selected = prospect.prospectstage;
       source.value.selectOwner.setSelected(BsSelectBoxOption(
-          value: prospect.prospectowneruser!..userid,
+          value: prospect.prospectowneruser!.user!.userid,
           text: Text(prospect.prospectowneruser!.user!.userfullname!)));
 
       if (prospect.prospectreference != null) {
