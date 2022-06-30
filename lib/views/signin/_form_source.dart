@@ -4,11 +4,14 @@ import 'package:flutter/cupertino.dart';
 import '../../styles/color_palattes.dart';
 import '../../utils/validators.dart';
 import '../../widgets/form_group.dart';
+import 'signin.dart';
 
 class LoginForm {
   Widget username({required TextEditingController controller}) {
     return FormGroup(
       child: BsInput(
+        textInputAction: TextInputAction.next,
+        autofocus: true,
         style: BsInputStyle(
           border: Border.all(color: Color(0xffdedede)),
           backgroundColor: Color.fromARGB(255, 255, 255, 255),
@@ -43,6 +46,7 @@ class LoginForm {
     bool obsecureText = true,
     IconData? suffixIcon,
     VoidCallback? onTapSuffixIcon,
+    FormFieldSetter<String>? onFieldSubmitted,
   }) {
     return FormGroup(
       child: BsInput(
@@ -74,6 +78,7 @@ class LoginForm {
           Validators.inputRequired('Password'),
         ],
         onTapSuffixIcon: onTapSuffixIcon,
+        onFieldSubmitted: onFieldSubmitted,
       ),
     );
   }

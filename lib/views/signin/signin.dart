@@ -37,7 +37,6 @@ class _SignInViewState extends State<SignInView>
   final controller = Get.put(LoginSource());
 
   final GlobalKey<FormState> _formStateSignIn = GlobalKey<FormState>();
-  final GlobalKey<FormState> _formStateSignUp = GlobalKey<FormState>();
 
   late TabController _tabController;
 
@@ -128,7 +127,10 @@ class _SignInViewState extends State<SignInView>
                                                   suffixIcon: controller
                                                           .showPassword.isTrue
                                                       ? Icons.visibility
-                                                      : Icons.visibility_off)
+                                                      : Icons.visibility_off,
+                                                  onFieldSubmitted: (value) {
+                                                    onClickLogin();
+                                                  })
                                             ],
                                           ),
                                         ),
