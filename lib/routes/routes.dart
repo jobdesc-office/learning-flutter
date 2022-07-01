@@ -14,6 +14,7 @@ import '../presenters/masters/subdistrict_presenter.dart';
 import '../presenters/masters/village_presenter.dart';
 import '../presenters/ventes/bpcustomer_presenter.dart';
 import '../presenters/ventes/customfield_presenter.dart';
+import '../presenters/ventes/prospect_presenter.dart';
 import '../presenters/ventes/prospectassign_presenter.dart';
 import '../presenters/ventes/prospectactivity_presenter.dart';
 import '../presenters/ventes/prospectcustomfield_presenter.dart';
@@ -255,6 +256,8 @@ class AppRoute {
         name: RouteList.ventesCustomField.index,
         page: () => CustomFieldView(),
         binding: BindingsBuilder(() {
+          Get.lazyPut(() => ProspectService());
+          Get.lazyPut(() => ProspectPresenter());
           Get.lazyPut(() => CustomFieldService());
           Get.lazyPut(() => CustomFieldPresenter());
         }),

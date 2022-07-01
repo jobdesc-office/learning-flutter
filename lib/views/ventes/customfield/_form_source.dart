@@ -20,6 +20,7 @@ import '../../../presenters/masters/businesspartner_presenter.dart';
 import '../../../presenters/masters/customer_presenter.dart';
 import '../../../presenters/ventes/customfield_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
+import '../../../presenters/ventes/prospect_presenter.dart';
 import '../../../styles/color_palattes.dart';
 import '../../../utils/select_api.dart';
 import '../../../utils/session_manager.dart';
@@ -48,6 +49,8 @@ class CustomFieldSource extends GetxController {
   TextEditingController inputName = TextEditingController();
 
   Future<Map<String, dynamic>> toJson() async {
+    final _prospectPresenter = Get.find<ProspectPresenter>();
+    int lastid = await _prospectPresenter.lastid();
     SessionModel session = await SessionManager.current();
     return {
       'custfbpid': selectBp.getSelectedAsString(),
@@ -55,6 +58,7 @@ class CustomFieldSource extends GetxController {
       'custfname': inputName.text,
       'isvisiblesidebar': visible.value,
       'onlyinnewprospect': newprospect.value,
+      'lastprospectid': lastid,
       'createdby': session.userid,
       'updatedby': session.userid,
     };

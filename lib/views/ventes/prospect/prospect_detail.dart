@@ -154,7 +154,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                         assignPresenter.add(
                                             context, source.prospectid.value);
                                       },
-                                      prefixIcon: Icons.settings,
+                                      prefixIcon: Icons.assignment,
                                       label: Text('Add Assignation'),
                                     ),
                                     BsButton(
@@ -164,7 +164,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                         productPresenter.add(
                                             context, source.prospectid.value);
                                       },
-                                      prefixIcon: Icons.settings,
+                                      prefixIcon: Icons.shopping_bag,
                                       label: Text('Add Product'),
                                     )
                                     // Container(
@@ -1531,9 +1531,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
   }
 
   @override
-  void onFetchCustomFieldErrorRequest(Response response) {
-    // TODO: implement onFetchCustomFieldErrorRequest
-  }
+  void onFetchCustomFieldErrorRequest(Response response) {}
 
   @override
   void onFetchCustomFieldSuccess(BuildContext context, Response response) {

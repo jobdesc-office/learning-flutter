@@ -1,3 +1,4 @@
+import 'package:boilerplate/models/ventes/prospect_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -54,6 +55,14 @@ class ProspectPresenter extends CustomGetXController {
       _ProspectViewContract.onLoadDatatables(context, response);
     else
       _ProspectViewContract.onErrorRequest(response);
+  }
+
+  Future lastid() async {
+    Response response = await _prospectService.lastid();
+    if (response.statusCode == 200) {
+      return ProspectModel.fromJson(response.body).prospectid;
+    } else
+      return null;
   }
 
   Future _loadType() async {
