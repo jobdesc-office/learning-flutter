@@ -295,7 +295,7 @@ class ScheduleDetails extends GetView implements DetailViewContract {
                                 children: [
                                   BsCol(
                                       sizes: ColScreen(lg: Col.col_3),
-                                      child: Text('Guext')),
+                                      child: Text('Guest')),
                                   BsCol(
                                       sizes: ColScreen(lg: Col.col_1),
                                       child: Text(':')),

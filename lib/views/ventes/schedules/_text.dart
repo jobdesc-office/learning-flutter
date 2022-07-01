@@ -9,6 +9,8 @@ class ScheduleText {
   static String labelTimeZone = 'Time Zone';
   static String labelName = 'Title';
   static String labelType = 'Type';
+  static String labelRefType = 'Reference Type';
+  static String labelRef = 'Reference';
   static String labelToward = 'Toward';
   static String labelGuest = 'Guest';
   static String labelPermission = 'Permission';

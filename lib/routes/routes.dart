@@ -226,6 +226,7 @@ class AppRoute {
         name: RouteList.ventesSchedule.index,
         page: () => ScheduleView(),
         binding: BindingsBuilder(() {
+          Get.lazyPut(() => ProspectService());
           Get.lazyPut(() => ScheduleService());
           Get.lazyPut(() => SchedulePresenter());
           Get.lazyPut(() => TypeChildrenService());

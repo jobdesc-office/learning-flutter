@@ -242,6 +242,24 @@ Future<BsSelectBoxResponse> selectApiCustomFieldTypes(
   return BsSelectBoxResponse(options: []);
 }
 
+Future<BsSelectBoxResponse> selectApiScheduleRefTypes(
+    Map<String, String> params) async {
+  final typeService = Get.put(TypeService());
+  Response response = await typeService.byCode(ConfigType.scheRefType);
+
+  if (response.isOk) {
+    if (response.statusCode == 200) {
+      return BsSelectBoxResponse.createFromJson(
+        response.body,
+        value: (data) => TypeModel.fromJson(data).typeid,
+        renderText: (data) => Text(TypeModel.fromJson(data).typename),
+      );
+    }
+  }
+
+  return BsSelectBoxResponse(options: []);
+}
+
 Future<BsSelectBoxResponse> selectApiMenu(Map<String, String> params) async {
   final menuService = Get.find<MenuService>();
   Response response = await menuService.select(params);
@@ -313,6 +331,25 @@ Future<BsSelectBoxResponse> selectApiCustomField(
 }
 
 Future<BsSelectBoxResponse> selectApiProspectReference(
+    Map<String, String> params) async {
+  final prospectService = Get.find<ProspectService>();
+  Response response = await prospectService.selectref(params);
+  if (response.isOk) {
+    if (response.statusCode == 200) {
+      return BsSelectBoxResponse.createFromJson(
+        response.body,
+        value: (data) => ProspectModel.fromJson(data).prospectid,
+        renderText: (data) => Text(ProspectModel.fromJson(data).prospectname! +
+            ' || ' +
+            ProspectModel.fromJson(data).prospectcust!.sbccstmname!),
+      );
+    }
+  }
+
+  return BsSelectBoxResponse(options: []);
+}
+
+Future<BsSelectBoxResponse> selectApiProspect(
     Map<String, String> params) async {
   final prospectService = Get.find<ProspectService>();
   Response response = await prospectService.select(params);

@@ -27,6 +27,7 @@ class ScheduleModel {
   String? updateddate;
   bool? isactive;
   Schetype? schetype;
+  Schetype? schereftype;
   List<Scheguest>? scheguest;
   Schebp? schebp;
   Schetoward? schetoward;
@@ -59,6 +60,7 @@ class ScheduleModel {
       this.updateddate,
       this.isactive,
       this.schetype,
+      this.schereftype,
       this.scheguest,
       this.schebp,
       this.schetoward,
@@ -92,6 +94,9 @@ class ScheduleModel {
     isactive = json['isactive'];
     schetype = json['schetype'] != null
         ? new Schetype.fromJson(json['schetype'])
+        : null;
+    schereftype = json['schereftype'] != null
+        ? new Schetype.fromJson(json['schereftype'])
         : null;
     if (json['scheguest'] != null) {
       scheguest = <Scheguest>[];
@@ -135,6 +140,9 @@ class ScheduleModel {
     data['isactive'] = this.isactive;
     if (this.schetype != null) {
       data['schetype'] = this.schetype!.toJson();
+    }
+    if (this.schereftype != null) {
+      data['schetype'] = this.schereftype!.toJson();
     }
     if (this.scheguest != null) {
       data['scheguest'] = this.scheguest!.map((v) => v.toJson()).toList();

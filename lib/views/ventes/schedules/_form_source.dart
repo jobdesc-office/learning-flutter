@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../constants/base_text.dart';
+import '../../../models/masters/type_model.dart';
 import '../../../models/session_model.dart';
 import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
@@ -30,6 +31,9 @@ class ScheduleSource extends GetxController {
 
   final _auth = Get.put(AuthPresenter());
 
+  var refType = ''.obs;
+  var refTypeIsNotChoosed = true.obs;
+
   bool isProcessing = false;
 
   var selectedDateStart = ''.obs;
@@ -47,6 +51,8 @@ class ScheduleSource extends GetxController {
   TextEditingController inputRemind = TextEditingController();
 
   BsSelectBoxController selectType = BsSelectBoxController();
+  BsSelectBoxController selectRefType = BsSelectBoxController();
+  BsSelectBoxController selectRef = BsSelectBoxController();
   BsSelectBoxController selectToward = BsSelectBoxController();
   BsSelectBoxController selectTimeZone = BsSelectBoxController();
   // BsSelectBoxController selectPermission = BsSelectBoxController(options: [
@@ -84,6 +90,8 @@ class ScheduleSource extends GetxController {
       'scheactdate': selectedDateAct.value,
       'schetowardid': selectToward.getSelectedAsString(),
       'schebpid': _auth.bpActiveId.value,
+      'schereftypeid': selectRefType.getSelectedAsString(),
+      'scherefid': selectRef.getSelectedAsString(),
       'scheallday': allDay.value,
       'scheloc': map.linkCoordinate.value,
       'scheprivate': private.value,
@@ -382,7 +390,7 @@ class ScheduleForm {
       children: [
         BsCol(
           margin: EdgeInsets.only(right: 10),
-          sizes: ColScreen(lg: Col.col_12),
+          sizes: ColScreen(lg: Col.col_4),
           child: FormGroup(
             label: Obx(() => Text(ScheduleText.labelType,
                 style: TextStyle(
@@ -395,6 +403,53 @@ class ScheduleForm {
               controller: source.selectType,
               hintText: BaseText.hiintSelect(field: ScheduleText.labelType),
               serverSide: (params) => selectApiTypeSchedule(params),
+            ),
+          ),
+        ),
+        BsCol(
+          margin: EdgeInsets.only(right: 10),
+          sizes: ColScreen(lg: Col.col_4),
+          child: FormGroup(
+            label: Obx(() => Text(ScheduleText.labelRefType,
+                style: TextStyle(
+                    color: _navigation.darkTheme.value
+                        ? Colors.white
+                        : Colors.black))),
+            child: Obx(() => CustomSelectBox(
+                  searchable: false,
+                  disabled: source.isProcessing,
+                  controller: source.selectRefType,
+                  hintText:
+                      BaseText.hiintSelect(field: ScheduleText.labelRefType),
+                  serverSide: (params) => selectApiScheduleRefTypes(params),
+                  onChange: (value) {
+                    var text = TypeModel.fromJson(value.getOtherValue());
+                    source.refType.value = text.typename;
+                    source.refTypeIsNotChoosed.value = false;
+                  },
+                )),
+          ),
+        ),
+        BsCol(
+          margin: EdgeInsets.only(right: 10),
+          sizes: ColScreen(lg: Col.col_4),
+          child: FormGroup(
+            label: Obx(() => Text(ScheduleText.labelRef,
+                style: TextStyle(
+                    color: _navigation.darkTheme.value
+                        ? Colors.white
+                        : Colors.black))),
+            child: CustomSelectBox(
+              searchable: false,
+              disabled: source.refTypeIsNotChoosed.value,
+              controller: source.selectRef,
+              hintText: BaseText.hiintSelect(field: ScheduleText.labelRef),
+              serverSide: (params) {
+                if (source.refType.value == 'Prospect Activity')
+                  return selectApiProspect(params);
+                else
+                  return selectApiTypeSchedule(params);
+              },
             ),
           ),
         ),

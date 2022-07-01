@@ -11,8 +11,12 @@ import '../../../../widgets/button/button_details_datatable.dart';
 import '../../../../widgets/button/button_edit_datatable.dart';
 import '../../../../widgets/datatables/custom_datatable_tablecell.dart';
 import '../../../../widgets/datatables/custom_datatable_tablehead.dart';
+import '../_detail_source.dart';
+import '_helper.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
+final controllers = Get.put(prospectDetailsSource());
+final helper = Get.put(CustomFieldDatatableHelper());
 
 class CustomFieldPopUpDataTableSource extends BsDatatableSource {
   ValueChanged<int> onDetailsListener = (value) {};
@@ -38,8 +42,6 @@ class CustomFieldPopUpDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      // CustomBsDataColumn(
-      //     label: Text('CustomField Status'), orderable: false, searchable: false),
       CustomBsDataColumn(
           label: Text('Actions'),
           width: 100,
@@ -48,11 +50,24 @@ class CustomFieldPopUpDataTableSource extends BsDatatableSource {
     ];
   }
 
-  List<CustomFieldModel> get users =>
-      response.data.map((data) => CustomFieldModel.fromJson(data)).toList();
+  List<CustomFieldModel> get users => response.data.map((data) {
+        return CustomFieldModel.fromJson(data);
+      }).toList();
 
   @override
   BsDataRow getRow(int index) {
+    // List<CustomFieldModel> data = [];
+    for (var item in users) {
+      // helper.newProspectOnly.value = item.onlyinnewprospect ?? false;
+      // helper.lastid.value = item.lastprospectid ?? 1;
+      // print(helper.newProspectOnly.value);
+      // print(helper.lastid.value);
+      // if (helper.newProspectOnly.value) {
+      //   if (helper.lastid.value > controllers.prospectid.value) {
+      users.remove(item);
+      //   }
+      // }
+    }
     final row = users[index];
     int x = controller.start + index + 1;
     return BsDataRow(
@@ -88,16 +103,6 @@ class CustomFieldPopUpDataTableSource extends BsDatatableSource {
                   ? ColorPallates.datatableLightEvenRowColor
                   : ColorPallates.datatableLightOddRowColor,
         ),
-        // CustomBsDataCell(
-        //   Text(row.CustomFieldstatus!.typename.toString()),
-        //   color: _navigation.darkTheme.value
-        //       ? x % 2 == 0
-        //           ? ColorPallates.datatableDarkEvenRowColor
-        //           : ColorPallates.datatableDarkOddRowColor
-        //       : x % 2 == 0
-        //           ? ColorPallates.datatableLightEvenRowColor
-        //           : ColorPallates.datatableLightOddRowColor,
-        // ),
         CustomBsDataCell(
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -109,19 +114,6 @@ class CustomFieldPopUpDataTableSource extends BsDatatableSource {
                   onPressed: () => onDetailsListener(row.custfid!),
                 ),
               ),
-              // Tooltip(
-              //   message: BaseText.editHintDatatable(field: row.custfname),
-              //   child: ButtonEditDatatables(
-              //     margin: EdgeInsets.only(right: 5),
-              //     onPressed: () => onEditListener(row.custfid!),
-              //   ),
-              // ),
-              // Tooltip(
-              //   message: BaseText.deleteHintDatatable(field: row.custfname),
-              //   child: ButtonDeleteDatatables(
-              //       onPressed: () =>
-              //           onDeleteListener(row.custfid!, row.custfname)),
-              // ),
             ],
           ),
           color: _navigation.darkTheme.value

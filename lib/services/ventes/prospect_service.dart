@@ -8,4 +8,8 @@ class ProspectService extends ApiConnectProvider {
   Future<Response> lastid() {
     return get('$api/lastid');
   }
+
+  Future<Response> selectref(Map<String, dynamic> params) {
+    return get('$api/selectref', query: params);
+  }
 }
