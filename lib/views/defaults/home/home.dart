@@ -143,13 +143,14 @@ class _HomeViewState extends State<HomeView>
                             child: TabBarView(
                               controller: _tabController,
                               children: [
-                                if (source.data.length != 0)
+                                if (source.dataSchedule.length != 0)
                                   Container(
                                     margin: EdgeInsets.all(20),
                                     child: ListView.builder(
-                                        itemCount: source.data.length,
+                                        itemCount: source.dataSchedule.length,
                                         itemBuilder: (context, index) {
-                                          var schedule = source.data[index];
+                                          var schedule =
+                                              source.dataSchedule[index];
 
                                           return BsRow(
                                             children: [
@@ -214,10 +215,82 @@ class _HomeViewState extends State<HomeView>
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [Text('You have no activity')],
                                   ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [Text('Activity')],
-                                ),
+                                if (source.dataScheduleGuest.length != 0)
+                                  Container(
+                                    margin: EdgeInsets.all(20),
+                                    child: ListView.builder(
+                                        itemCount:
+                                            source.dataScheduleGuest.length,
+                                        itemBuilder: (context, index) {
+                                          var schedule =
+                                              source.dataScheduleGuest[index];
+
+                                          return BsRow(
+                                            children: [
+                                              BsCol(
+                                                  sizes:
+                                                      ColScreen(sm: Col.col_1),
+                                                  child: Column(
+                                                    children: [
+                                                      OutlinedDotIndicator(),
+                                                      SizedBox(
+                                                        height: 50.0,
+                                                        child:
+                                                            SolidLineConnector(),
+                                                      )
+                                                    ],
+                                                  )),
+                                              BsCol(
+                                                  alignment: Alignment.center,
+                                                  sizes:
+                                                      ColScreen(sm: Col.col_3),
+                                                  child: Text(schedule
+                                                      .schedule.schestartdate)),
+                                              BsCol(
+                                                  sizes:
+                                                      ColScreen(sm: Col.col_8),
+                                                  child: InkWell(
+                                                    onTap: () =>
+                                                        schedulePresenter
+                                                            .details(
+                                                                context,
+                                                                schedule
+                                                                    .schedule
+                                                                    .scheid),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          schedule
+                                                              .schedule.schenm,
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                        Container(
+                                                          margin:
+                                                              EdgeInsets.only(
+                                                                  top: 5),
+                                                          child: Text(schedule
+                                                              .schedule
+                                                              .schetype
+                                                              .typename),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  )),
+                                            ],
+                                          );
+                                        }),
+                                  )
+                                else
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [Text('You have no activity')],
+                                  ),
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [Text('Propose Time')],
@@ -547,12 +620,23 @@ class _HomeViewState extends State<HomeView>
   @override
   void onSuccess(Response response) {
     int x = 0;
-    List data = [];
-    for (var item in response.body) {
-      data.add(ScheduleModel.fromJson(item));
-      x++;
+    List dataSchedule = [];
+    List dataScheduleGuest = [];
+    var home = HomeModel.fromJson(response.body);
+    if (home.mySchedules != null) {
+      for (var item in home.mySchedules!) {
+        dataSchedule.add(item);
+        x++;
+      }
     }
-    source.data.value = data;
+    if (home.mySchedulesGuest != null) {
+      for (var item in home.mySchedulesGuest!) {
+        dataScheduleGuest.add(item);
+      }
+    }
+
+    source.dataSchedule.value = dataSchedule;
+    source.dataScheduleGuest.value = dataScheduleGuest;
     source.x.value = x;
   }
 }

@@ -47,37 +47,6 @@ class ScheduleDetails extends GetView implements DetailViewContract {
                 ),
                 BsModalContainer(
                   child: Obx(() {
-                    var link;
-                    if (controller.link.value != '')
-                      link = Tooltip(
-                        message: 'Tap to Copy',
-                        child: GestureDetector(
-                            onTap: () {
-                              Clipboard.setData(
-                                ClipboardData(text: controller.link.value),
-                              );
-                              Snackbar().copySuccess();
-                            },
-                            child: Text(controller.link.value)),
-                      );
-                    else
-                      link = Text('');
-                    var loc;
-                    if (controller.loc.value != '')
-                      loc = Tooltip(
-                        message: 'Tap to Copy',
-                        child: GestureDetector(
-                            onTap: () {
-                              Clipboard.setData(
-                                ClipboardData(text: controller.link.value),
-                              );
-                              Snackbar().copySuccess();
-                            },
-                            child: Text(controller.link.value)),
-                      );
-                    else
-                      loc = Text('');
-
                     return BsRow(
                       children: [
                         BsCol(
@@ -240,37 +209,63 @@ class ScheduleDetails extends GetView implements DetailViewContract {
                                     child: Text(controller.timezone.value))
                               ],
                             )),
-                        BsCol(
-                            margin: EdgeInsets.only(top: 10),
-                            sizes: ColScreen(lg: Col.col_12),
-                            child: BsRow(
-                              children: [
-                                BsCol(
-                                    sizes: ColScreen(lg: Col.col_3),
-                                    child: Text('Location')),
-                                BsCol(
-                                    sizes: ColScreen(lg: Col.col_1),
-                                    child: Text(':')),
-                                BsCol(
-                                    sizes: ColScreen(lg: Col.col_8), child: loc)
-                              ],
-                            )),
-                        BsCol(
-                            margin: EdgeInsets.only(top: 10),
-                            sizes: ColScreen(lg: Col.col_12),
-                            child: BsRow(
-                              children: [
-                                BsCol(
-                                    sizes: ColScreen(lg: Col.col_3),
-                                    child: Text('Link')),
-                                BsCol(
-                                    sizes: ColScreen(lg: Col.col_1),
-                                    child: Text(':')),
-                                BsCol(
-                                    sizes: ColScreen(lg: Col.col_8),
-                                    child: link)
-                              ],
-                            )),
+                        if (controller.loc.value != '')
+                          BsCol(
+                              margin: EdgeInsets.only(top: 10),
+                              sizes: ColScreen(lg: Col.col_12),
+                              child: BsRow(
+                                children: [
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_3),
+                                      child: Text('Location')),
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_1),
+                                      child: Text(':')),
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_8),
+                                      child: Tooltip(
+                                        message: 'Tap to Copy',
+                                        child: InkWell(
+                                            onTap: () {
+                                              Clipboard.setData(
+                                                ClipboardData(
+                                                    text: controller.loc.value),
+                                              );
+                                              Snackbar().copySuccess();
+                                            },
+                                            child: Text(controller.loc.value)),
+                                      ))
+                                ],
+                              )),
+                        if (controller.link.value != '')
+                          BsCol(
+                              margin: EdgeInsets.only(top: 10),
+                              sizes: ColScreen(lg: Col.col_12),
+                              child: BsRow(
+                                children: [
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_3),
+                                      child: Text('Link')),
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_1),
+                                      child: Text(':')),
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_8),
+                                      child: Tooltip(
+                                        message: 'Tap to Copy',
+                                        child: InkWell(
+                                            onTap: () {
+                                              Clipboard.setData(
+                                                ClipboardData(
+                                                    text:
+                                                        controller.link.value),
+                                              );
+                                              Snackbar().copySuccess();
+                                            },
+                                            child: Text(controller.link.value)),
+                                      ))
+                                ],
+                              )),
                         BsCol(
                             margin: EdgeInsets.only(top: 10),
                             sizes: ColScreen(lg: Col.col_12),
@@ -307,13 +302,33 @@ class ScheduleDetails extends GetView implements DetailViewContract {
                                           itemBuilder: (context, index) {
                                             var guest = controller.guest[index];
                                             int x = index + 1;
+                                            String permis;
+
+                                            switch (guest.schepermisid) {
+                                              case '{1}':
+                                                permis = 'Read Only';
+                                                break;
+                                              case '{2}':
+                                                permis = 'Add Member';
+                                                break;
+                                              case '{3}':
+                                                permis = 'Share Link';
+                                                break;
+                                              default:
+                                                permis =
+                                                    'Add Member & Share Link';
+                                                break;
+                                            }
 
                                             return Container(
                                                 margin: EdgeInsets.only(top: 5),
                                                 child: Text(x.toString() +
                                                     ' )  ' +
-                                                    guest.scheuser
-                                                        .userfullname));
+                                                    guest
+                                                        .scheuser.userfullname +
+                                                    ' ( ' +
+                                                    permis +
+                                                    ' )'));
                                           }))
                                 ],
                               )),
