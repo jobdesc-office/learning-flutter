@@ -67,11 +67,18 @@ class CustomFieldPresenter extends CustomGetXController {
 
   Future allWithBp(BuildContext context, Map<String, String> params) async {
     Response response = await _CustomFieldService.selectWithBp(params);
-    print(response.body);
     if (response.statusCode == 200)
-      _CustomFieldContract.onLoadSuccess(context, response);
+      _CustomFieldContract.onLoadCustomFieldSuccess(context, response);
     else
-      _CustomFieldContract.onErrorRequest(response);
+      _CustomFieldContract.onErrorCustomFieldRequest(response);
+  }
+
+  Future allBp(BuildContext context) async {
+    Response response = await _CustomFieldService.withBp();
+    if (response.statusCode == 200)
+      _CustomFieldContract.onLoadCustomFieldSuccess(context, response);
+    else
+      _CustomFieldContract.onErrorCustomFieldRequest(response);
   }
 
   void popup(BuildContext context) async {

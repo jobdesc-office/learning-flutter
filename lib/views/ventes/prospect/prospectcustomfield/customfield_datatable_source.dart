@@ -56,18 +56,15 @@ class CustomFieldPopUpDataTableSource extends BsDatatableSource {
 
   @override
   BsDataRow getRow(int index) {
-    // List<CustomFieldModel> data = [];
-    for (var item in users) {
-      // helper.newProspectOnly.value = item.onlyinnewprospect ?? false;
-      // helper.lastid.value = item.lastprospectid ?? 1;
-      // print(helper.newProspectOnly.value);
-      // print(helper.lastid.value);
-      // if (helper.newProspectOnly.value) {
-      //   if (helper.lastid.value > controllers.prospectid.value) {
-      users.remove(item);
-      //   }
-      // }
-    }
+    List<CustomFieldModel> data = [];
+    // print(users.indexWhere((element) =>
+    //     element.onlyinnewprospect == true &&
+    //     element.lastprospectid! > controllers.prospectid.value));
+    // print(users.removeAt(users.indexWhere((element) =>
+    //     element.onlyinnewprospect == true &&
+    //     element.lastprospectid! > controllers.prospectid.value)));
+    // print(users.length);
+
     final row = users[index];
     int x = controller.start + index + 1;
     return BsDataRow(

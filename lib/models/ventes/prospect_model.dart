@@ -1,4 +1,5 @@
 import '../masters/type_model.dart';
+import 'prospectcustomfield_model.dart';
 
 class ProspectModel {
   int? prospectid;
@@ -26,7 +27,7 @@ class ProspectModel {
   Prospectstage? prospectstatus;
   Prospectreference? prospectreference;
   Prospectbp? prospectbp;
-  List<Prospectcustomfield>? prospectcustomfield;
+  List<ProspectCustomFieldModel>? prospectcustomfield;
   Prospectcust? prospectcust;
 
   ProspectModel(
@@ -105,9 +106,9 @@ class ProspectModel {
         ? new Prospectbp.fromJson(json['prospectbp'])
         : null;
     if (json['prospectcustomfield'] != null) {
-      prospectcustomfield = <Prospectcustomfield>[];
+      prospectcustomfield = <ProspectCustomFieldModel>[];
       json['prospectcustomfield'].forEach((v) {
-        prospectcustomfield!.add(new Prospectcustomfield.fromJson(v));
+        prospectcustomfield!.add(new ProspectCustomFieldModel.fromJson(v));
       });
     }
     prospectcust = json['prospectcust'] != null

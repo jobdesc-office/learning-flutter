@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../../../models/ventes/customfield_model.dart';
+import '../../../models/ventes/prospectcustomfield_model.dart';
 import '_stagePipeline.dart';
 
 class prospectDetailsSource extends GetxController {
@@ -31,7 +33,8 @@ class prospectDetailsSource extends GetxController {
   var assign = [].obs;
   var report = [].obs;
   var product = [].obs;
-  var customField = [].obs;
+  var customField = <ProspectCustomFieldModel>[].obs;
+  var rawcustomField = <CustomFieldModel>[].obs;
 
   var isAdd = false.obs;
   var isUpdate = false.obs;

@@ -161,7 +161,6 @@ class ProspectSource extends GetxController {
 
   Future<Map<String, dynamic>> toJson() async {
     SessionModel session = await SessionManager.current();
-    print(jsonEncode(jsonProducts()));
     return {
       'prospectname': inputCompanyName.text,
       'prospectstartdate': selectedDateStart.value,

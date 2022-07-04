@@ -63,7 +63,7 @@ class CustomFieldPopup extends GetView implements CustomFieldContract {
   }
 
   @override
-  void onLoadSuccess(BuildContext context, Response response) {
+  void onLoadCustomFieldSuccess(BuildContext context, Response response) {
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onDetailsListener =
@@ -74,7 +74,7 @@ class CustomFieldPopup extends GetView implements CustomFieldContract {
   }
 
   @override
-  void onErrorRequest(Response response) {
+  void onErrorCustomFieldRequest(Response response) {
     print(response.body);
   }
 }
