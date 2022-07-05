@@ -33,6 +33,7 @@ import '../services/security/menu_service.dart';
 import '../services/ventes/bpcustomer_service.dart';
 import '../services/ventes/customfield_service.dart';
 import '../services/ventes/prospect_service.dart';
+import '../views/ventes/prospect/_detail_source.dart';
 import 'connect_internet_api.dart';
 
 Future<BsSelectBoxResponse> selectApiRole(Map<String, String> params) async {
@@ -316,13 +317,21 @@ Future<BsSelectBoxResponse> selectApiProspectOwner(
 Future<BsSelectBoxResponse> selectApiCustomField(
     Map<String, String> params) async {
   final customFieldService = Get.find<CustomFieldService>();
+  final source = Get.put(prospectDetailsSource());
   Response response = await customFieldService.selectBp(params);
   if (response.isOk) {
     if (response.statusCode == 200) {
+      List data = [];
+      for (var item in response.body) {
+        data.add(CustomFieldModel.fromJson(item));
+      }
+      data.removeWhere((element) =>
+          element.onlyinnewprospect! &&
+          element.lastprospectid! > source.prospectid.value);
       return BsSelectBoxResponse.createFromJson(
-        response.body,
-        value: (data) => CustomFieldModel.fromJson(data).custfid,
-        renderText: (data) => Text(CustomFieldModel.fromJson(data).custfname!),
+        data,
+        value: (data) => data.custfid,
+        renderText: (data) => Text(data.custfname!),
       );
     }
   }

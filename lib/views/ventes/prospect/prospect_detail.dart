@@ -1490,6 +1490,14 @@ class _ProspectDetailsState extends State<ProspectDetails>
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    source.report.value = [];
+    source.assign.value = [];
+    source.isAdd.value = false;
+  }
+
+  @override
   void onSuccessFetchData(Response response) {
     List products = [];
     List assign = [];
@@ -1514,6 +1522,9 @@ class _ProspectDetailsState extends State<ProspectDetails>
         source.assign.value = assign;
         source.report.value = assign;
       });
+    } else {
+      source.assign.value = [];
+      source.report.value = [];
     }
     if (dt.prospectproduct != null) {
       dt.prospectproduct?.forEach((element) {
@@ -1528,7 +1539,6 @@ class _ProspectDetailsState extends State<ProspectDetails>
       source.customField.value = customField;
     }
     presenter.setProcessing(false);
-    print('up first');
   }
 
   void onClickSaveModal(BuildContext context) async {
@@ -1644,9 +1654,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
   }
 
   @override
-  void onErrorCustomFieldRequest(Response response) {
-    // TODO: implement onErrorCustomFieldRequest
-  }
+  void onErrorCustomFieldRequest(Response response) {}
 
   @override
   void onLoadCustomFieldSuccess(BuildContext context, Response response) {
@@ -1661,6 +1669,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     cf.removeWhere((element) =>
         element.onlyinnewprospect == true &&
         element.lastprospectid! > source.prospectid.value);
+    cf.removeWhere((element) => element.isvisiblesidebar == false);
     source.rawcustomField.value = cf;
   }
 }

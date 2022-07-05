@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import '../../../../models/ventes/customfield_model.dart';
 import '../../../../presenters/navigation_presenter.dart';
 import '../../../../styles/color_palattes.dart';
+import '../../../../widgets/button/button_X_datatable.dart';
+import '../../../../widgets/button/button_check_datatable.dart';
 import '../../../../widgets/button/button_delete_datatable.dart';
 import '../../../../widgets/button/button_details_datatable.dart';
 import '../../../../widgets/button/button_edit_datatable.dart';
@@ -111,6 +113,28 @@ class CustomFieldPopUpDataTableSource extends BsDatatableSource {
                   onPressed: () => onDetailsListener(row.custfid!),
                 ),
               ),
+              if (row.onlyinnewprospect! &&
+                  row.lastprospectid! > controllers.prospectid.value)
+                Tooltip(
+                  message: '${row.custfname} is Not Available',
+                  child: ButtonXDatatables(
+                    margin: EdgeInsets.only(right: 5),
+                    onPressed: () {
+                      // Get.defaultDialog(
+                      //     title: '${row.custfname} is Not Available',
+                      //     middleText:
+                      //         'Because This Custom Field is Only for New Prospect');
+                    },
+                  ),
+                )
+              else
+                Tooltip(
+                  message: '${row.custfname} is Available',
+                  child: ButtonCheckDatatables(
+                    margin: EdgeInsets.only(right: 5),
+                    onPressed: () {},
+                  ),
+                ),
             ],
           ),
           color: _navigation.darkTheme.value

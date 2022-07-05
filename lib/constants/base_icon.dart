@@ -8,4 +8,6 @@ class BaseIcon {
   static IconData buttonDetail = Icons.visibility;
   static IconData buttonEdit = Icons.edit_rounded;
   static IconData buttonDelete = Icons.delete_rounded;
+  static IconData buttonCheck = Icons.check;
+  static IconData buttonX = Icons.close_rounded;
 }
