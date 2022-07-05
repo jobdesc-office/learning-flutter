@@ -76,6 +76,7 @@ class Customfield {
   int? updatedby;
   String? updateddate;
   bool? isactive;
+  Custftype? custftype;
 
   Customfield(
       {this.custfid,
@@ -89,7 +90,8 @@ class Customfield {
       this.createddate,
       this.updatedby,
       this.updateddate,
-      this.isactive});
+      this.isactive,
+      this.custftype});
 
   Customfield.fromJson(Map<String, dynamic> json) {
     custfid = json['custfid'];
@@ -104,6 +106,9 @@ class Customfield {
     updatedby = json['updatedby'];
     updateddate = json['updateddate'];
     isactive = json['isactive'];
+    custftype = json['custftype'] != null
+        ? new Custftype.fromJson(json['custftype'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -115,6 +120,66 @@ class Customfield {
     data['isvisiblesidebar'] = this.isvisiblesidebar;
     data['onlyinnewprospect'] = this.onlyinnewprospect;
     data['lastprospectid'] = this.lastprospectid;
+    data['createdby'] = this.createdby;
+    data['createddate'] = this.createddate;
+    data['updatedby'] = this.updatedby;
+    data['updateddate'] = this.updateddate;
+    data['isactive'] = this.isactive;
+    if (this.custftype != null) {
+      data['custftype'] = this.custftype!.toJson();
+    }
+    return data;
+  }
+}
+
+class Custftype {
+  int? typeid;
+  String? typecd;
+  String? typename;
+  int? typeseq;
+  int? typemasterid;
+  String? typedesc;
+  int? createdby;
+  String? createddate;
+  int? updatedby;
+  String? updateddate;
+  bool? isactive;
+
+  Custftype(
+      {this.typeid,
+      this.typecd,
+      this.typename,
+      this.typeseq,
+      this.typemasterid,
+      this.typedesc,
+      this.createdby,
+      this.createddate,
+      this.updatedby,
+      this.updateddate,
+      this.isactive});
+
+  Custftype.fromJson(Map<String, dynamic> json) {
+    typeid = json['typeid'];
+    typecd = json['typecd'];
+    typename = json['typename'];
+    typeseq = json['typeseq'];
+    typemasterid = json['typemasterid'];
+    typedesc = json['typedesc'];
+    createdby = json['createdby'];
+    createddate = json['createddate'];
+    updatedby = json['updatedby'];
+    updateddate = json['updateddate'];
+    isactive = json['isactive'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['typeid'] = this.typeid;
+    data['typecd'] = this.typecd;
+    data['typename'] = this.typename;
+    data['typeseq'] = this.typeseq;
+    data['typemasterid'] = this.typemasterid;
+    data['typedesc'] = this.typedesc;
     data['createdby'] = this.createdby;
     data['createddate'] = this.createddate;
     data['updatedby'] = this.updatedby;

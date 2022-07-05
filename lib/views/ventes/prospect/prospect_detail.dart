@@ -1813,6 +1813,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     source.isAdd.value = true;
     ProspectCustomFieldModel prospect =
         ProspectCustomFieldModel.fromJson(response.body);
+    cfForm.value.format.value = prospect.customfield!.custftype!.typename!;
     cfForm.value.inputValue.text = prospect.prospectcfvalue!;
     cfForm.value.selectCustomfield.setSelected(BsSelectBoxOption(
         value: prospect.prospectcustfid,
