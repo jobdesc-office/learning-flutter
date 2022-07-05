@@ -1,7 +1,10 @@
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../constants/base_text.dart';
 import '../../../../models/session_model.dart';
@@ -21,6 +24,8 @@ final source = Get.put(prospectDetailsSource());
 
 class ProspectCustomFieldSource extends GetxController {
   bool isProcessing = false;
+
+  var format = ''.obs;
 
   BsSelectBoxController selectCustomfield = BsSelectBoxController();
 
@@ -49,17 +54,22 @@ class ProspectCustomFieldForm {
           style: TextStyle(
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
-      child: CustomSelectBox(
-        searchable: true,
-        disabled: source.isProcessing,
-        controller: source.selectCustomfield,
-        hintText: BaseText.hiintSelect(
-            field: ProspectCustomFieldText.labelCustomField),
-        serverSide: (params) => selectApiCustomField(params),
-        validators: [
-          Validators.selectRequired(ProspectCustomFieldText.labelCustomField),
-        ],
-      ),
+      child: Obx(() => CustomSelectBox(
+            searchable: true,
+            disabled: source.isProcessing,
+            controller: source.selectCustomfield,
+            hintText: BaseText.hiintSelect(
+                field: ProspectCustomFieldText.labelCustomField),
+            serverSide: (params) => selectApiCustomField(params),
+            validators: [
+              Validators.selectRequired(
+                  ProspectCustomFieldText.labelCustomField),
+            ],
+            onChange: (value) {
+              source.format.value = value.getOtherValue().custftype.typename;
+              print(source.format.value);
+            },
+          )),
     );
   }
 
@@ -69,14 +79,26 @@ class ProspectCustomFieldForm {
           style: TextStyle(
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black)),
-      child: CustomInput(
-        disabled: source.isProcessing,
-        controller: source.inputValue,
-        hintText: BaseText.hintText(field: ProspectCustomFieldText.labelValue),
-        validators: [
-          Validators.inputRequired(ProspectCustomFieldText.labelValue)
-        ],
-      ),
+      child: Obx(() => CustomInput(
+            disabled: source.isProcessing,
+            controller: source.inputValue,
+            inputFormatters: [
+              if (source.format.value == 'Number' ||
+                  source.format.value == 'Phone')
+                FilteringTextInputFormatter.digitsOnly,
+              if (source.format.value == 'Price')
+                CurrencyTextInputFormatter(
+                  decimalDigits: 0,
+                  symbol: '',
+                )
+            ],
+            hintText:
+                BaseText.hintText(field: ProspectCustomFieldText.labelValue),
+            validators: [
+              Validators.inputRequired(ProspectCustomFieldText.labelValue),
+              if (source.format.value == 'Email') Validators.inputEmail()
+            ],
+          )),
     );
   }
 }

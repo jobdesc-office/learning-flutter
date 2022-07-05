@@ -39,6 +39,7 @@ import '../../../widgets/map/_map_source.dart';
 import '../../../widgets/snackbar.dart';
 import '_detail_source.dart';
 import '_stagePipeline.dart';
+import 'customfield/_form_source.dart';
 import 'prospectcustomfield/_form_source.dart';
 
 class ProspectDetails extends StatefulWidget {
@@ -68,9 +69,12 @@ class _ProspectDetailsState extends State<ProspectDetails>
   final controller = Get.put(ButtonController());
   final map = Get.put(mapSource());
   final cfForm = ProspectCustomFieldSource().obs;
+  final cfieldForm = CustomFieldSource().obs;
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
+  final GlobalKey<FormState> formStateCF = GlobalKey<FormState>();
 
   late ProspectCustomFieldForm prospectCustomFieldForm;
+  late CustomFieldForm customFieldForm;
 
   final currencyFormatter = NumberFormat('#,##0.00', 'ID');
 
@@ -85,6 +89,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     assignPresenter.prospectViewContract = this;
     productPresenter.prospectViewContract = this;
     customFieldPresenter.setCustomFieldContract = this;
+    customFieldPresenter.CustomFieldViewContract = this;
     prospectCustomFieldPresenter.prospectViewContract = this;
     prospectCustomFieldPresenter.setcustomFieldContract = this;
 
@@ -305,11 +310,30 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                             BsButton(
                                                 size: BsButtonSize.btnSm,
                                                 onPressed: () {
-                                                  source.isAdd.toggle();
+                                                  source.isAddCF.toggle();
+                                                  source.isAdd.value = false;
                                                 },
-                                                label: Icon(
-                                                  Icons.edit,
-                                                  size: 13,
+                                                label: Tooltip(
+                                                  message: 'Add Custom Field',
+                                                  child: Icon(
+                                                    Icons.add,
+                                                    size: 13,
+                                                  ),
+                                                )),
+                                            BsButton(
+                                                margin:
+                                                    EdgeInsets.only(left: 5),
+                                                size: BsButtonSize.btnSm,
+                                                onPressed: () {
+                                                  source.isAdd.toggle();
+                                                  source.isAddCF.value = false;
+                                                },
+                                                label: Tooltip(
+                                                  message: 'Write Custom Field',
+                                                  child: Icon(
+                                                    Icons.edit,
+                                                    size: 13,
+                                                  ),
                                                 )),
                                             BsButton(
                                                 margin:
@@ -319,13 +343,111 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                     customFieldPresenter.popup(
                                                       context,
                                                     ),
-                                                label: Text('Customize Fields'))
+                                                label: Tooltip(
+                                                    message:
+                                                        'View Available Custom Field',
+                                                    child: Text(
+                                                        'Customize Fields')))
                                           ],
                                         ),
                                       ],
                                     ),
+                                    if (source.isAddCF.value)
+                                      AnimatedContainer(
+                                        margin: EdgeInsets.only(top: 10),
+                                        duration: Duration(seconds: 3),
+                                        child: Obx(() {
+                                          customFieldForm =
+                                              CustomFieldForm(cfieldForm.value);
+                                          return Form(
+                                            key: formStateCF,
+                                            child: Column(
+                                              children: [
+                                                BsRow(
+                                                  children: [
+                                                    BsCol(
+                                                      margin: EdgeInsets.only(
+                                                          right: 5),
+                                                      sizes: ColScreen(
+                                                          sm: Col.col_12),
+                                                      child: Text(
+                                                          'Add Custom Field',
+                                                          style: TextStyle(
+                                                              color: _navigation
+                                                                      .darkTheme
+                                                                      .value
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .black)),
+                                                    ),
+                                                    BsCol(
+                                                      margin: EdgeInsets.only(
+                                                          right: 5),
+                                                      sizes: ColScreen(
+                                                          sm: Col.col_12),
+                                                      child: Container(
+                                                        child: Container(
+                                                          margin:
+                                                              EdgeInsets.all(
+                                                                  10),
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              customFieldForm
+                                                                  .selectTypes(),
+                                                              customFieldForm
+                                                                  .inputName(),
+                                                              customFieldForm
+                                                                  .checkBoxForm()
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                                Obx(
+                                                  () => Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                      ThemeButtonSave(
+                                                        disabled:
+                                                            prospectCustomFieldPresenter
+                                                                .isProcessing
+                                                                .value,
+                                                        processing: presenter
+                                                            .isProcessing.value,
+                                                        margin: EdgeInsets.only(
+                                                            right: 5),
+                                                        onPressed: () =>
+                                                            onClickSave(
+                                                                context),
+                                                      ),
+                                                      ThemeButtonCancel(
+                                                        disabled:
+                                                            prospectCustomFieldPresenter
+                                                                .isProcessing
+                                                                .value,
+                                                        margin: EdgeInsets.only(
+                                                            right: 5),
+                                                        onPressed: () =>
+                                                            onClickCancel(
+                                                                context),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        }),
+                                      ),
                                     if (source.isAdd.value)
                                       AnimatedContainer(
+                                        margin: EdgeInsets.only(top: 10),
                                         duration: Duration(seconds: 3),
                                         child: Obx(() {
                                           prospectCustomFieldForm =
@@ -337,6 +459,21 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                               children: [
                                                 BsRow(
                                                   children: [
+                                                    BsCol(
+                                                      margin: EdgeInsets.only(
+                                                          right: 5),
+                                                      sizes: ColScreen(
+                                                          sm: Col.col_12),
+                                                      child: Text(
+                                                          'Write Custom Field',
+                                                          style: TextStyle(
+                                                              color: _navigation
+                                                                      .darkTheme
+                                                                      .value
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .black)),
+                                                    ),
                                                     BsCol(
                                                       margin: EdgeInsets.only(
                                                           right: 5),
@@ -400,163 +537,172 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                           );
                                         }),
                                       ),
-                                    AnimatedContainer(
-                                      margin: EdgeInsets.only(top: 10),
-                                      duration: Duration(seconds: 3),
-                                      child: Column(
-                                        children: [
-                                          ListView.builder(
-                                              shrinkWrap: true,
-                                              itemCount:
-                                                  source.customField.length,
-                                              itemBuilder: (context, index) {
-                                                var customField =
-                                                    source.customField[index];
+                                    if (!source.isAddCF.value)
+                                      AnimatedContainer(
+                                        margin: EdgeInsets.only(top: 10),
+                                        duration: Duration(seconds: 3),
+                                        child: Column(
+                                          children: [
+                                            ListView.builder(
+                                                shrinkWrap: true,
+                                                itemCount:
+                                                    source.customField.length,
+                                                itemBuilder: (context, index) {
+                                                  var customField =
+                                                      source.customField[index];
 
-                                                return InkWell(
-                                                  onLongPress: () {
-                                                    Get.defaultDialog(
-                                                        middleText: '',
-                                                        title: 'Setting',
-                                                        actions: [
-                                                          ButtonEditDatatables(
-                                                              onPressed: () {
-                                                            prospectCustomFieldPresenter
-                                                                .edit(
-                                                                    context,
-                                                                    customField
-                                                                        .prospectcfid!);
-                                                            source.cfid.value =
+                                                  return InkWell(
+                                                    onLongPress: () {
+                                                      Get.defaultDialog(
+                                                          middleText: '',
+                                                          title: 'Setting',
+                                                          actions: [
+                                                            ButtonEditDatatables(
+                                                                onPressed: () {
+                                                              prospectCustomFieldPresenter
+                                                                  .edit(
+                                                                      context,
+                                                                      customField
+                                                                          .prospectcfid!);
+                                                              source.cfid
+                                                                      .value =
+                                                                  customField
+                                                                      .prospectcfid!;
+                                                            }),
+                                                            ButtonDeleteDatatables(
+                                                                onPressed: () {
+                                                              prospectCustomFieldPresenter.delete(
+                                                                  context,
+                                                                  customField
+                                                                      .prospectcfid!,
+                                                                  '${customField.prospectcfvalue}');
+                                                            }),
+                                                          ]);
+                                                    },
+                                                    child: BsRow(
+                                                      margin: EdgeInsets.all(3),
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        color: ColorPallates
+                                                            .primary,
+                                                      ),
+                                                      padding:
+                                                          EdgeInsets.all(5),
+                                                      children: [
+                                                        BsCol(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            sizes: ColScreen(
+                                                                sm: Col.col_5),
+                                                            child: Text(
                                                                 customField
-                                                                    .prospectcfid!;
-                                                          }),
-                                                          ButtonDeleteDatatables(
-                                                              onPressed: () {
-                                                            prospectCustomFieldPresenter.delete(
-                                                                context,
+                                                                    .customfield!
+                                                                    .custfname!,
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white))),
+                                                        BsCol(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            sizes: ColScreen(
+                                                                sm: Col.col_2),
+                                                            child: Text(':',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white))),
+                                                        BsCol(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            sizes: ColScreen(
+                                                                sm: Col.col_5),
+                                                            child: Text(
                                                                 customField
-                                                                    .prospectcfid!,
-                                                                '${customField.prospectcfvalue}');
-                                                          }),
-                                                        ]);
-                                                  },
-                                                  child: BsRow(
-                                                    margin: EdgeInsets.all(3),
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
-                                                      color:
-                                                          ColorPallates.primary,
+                                                                    .prospectcfvalue!,
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white))),
+                                                      ],
                                                     ),
-                                                    padding: EdgeInsets.all(5),
-                                                    children: [
-                                                      BsCol(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          sizes: ColScreen(
-                                                              sm: Col.col_5),
-                                                          child: Text(
-                                                              customField
-                                                                  .customfield!
+                                                  );
+                                                }),
+                                            // Y
+                                            ListView.builder(
+                                                shrinkWrap: true,
+                                                itemCount: source
+                                                    .rawcustomField.length,
+                                                itemBuilder: (context, index) {
+                                                  var rawcustomField = source
+                                                      .rawcustomField[index];
+
+                                                  return InkWell(
+                                                    onTap: () {
+                                                      source.isAdd.value = true;
+                                                      cfForm.value.format
+                                                              .value =
+                                                          rawcustomField
+                                                              .custftype!
+                                                              .typename!;
+                                                      cfForm.value
+                                                          .selectCustomfield
+                                                          .setSelected(BsSelectBoxOption(
+                                                              value:
+                                                                  rawcustomField
+                                                                      .custfid,
+                                                              text: Text(
+                                                                  rawcustomField
+                                                                      .custfname!)));
+                                                    },
+                                                    child: BsRow(
+                                                      margin: EdgeInsets.all(3),
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        color: ColorPallates
+                                                            .tertiary,
+                                                      ),
+                                                      padding:
+                                                          EdgeInsets.all(5),
+                                                      children: [
+                                                        BsCol(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            sizes: ColScreen(
+                                                                sm: Col.col_5),
+                                                            child: Text(
+                                                              rawcustomField
                                                                   .custfname!,
                                                               style: TextStyle(
                                                                   color: Colors
-                                                                      .white))),
-                                                      BsCol(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          sizes: ColScreen(
-                                                              sm: Col.col_2),
-                                                          child: Text(':',
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white))),
-                                                      BsCol(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          sizes: ColScreen(
-                                                              sm: Col.col_5),
-                                                          child: Text(
-                                                              customField
-                                                                  .prospectcfvalue!,
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white))),
-                                                    ],
-                                                  ),
-                                                );
-                                              }),
-                                          // Y
-                                          ListView.builder(
-                                              shrinkWrap: true,
-                                              itemCount:
-                                                  source.rawcustomField.length,
-                                              itemBuilder: (context, index) {
-                                                var rawcustomField = source
-                                                    .rawcustomField[index];
-
-                                                return InkWell(
-                                                  onTap: () {
-                                                    source.isAdd.value = true;
-                                                    cfForm
-                                                        .value.selectCustomfield
-                                                        .setSelected(BsSelectBoxOption(
-                                                            value:
-                                                                rawcustomField
-                                                                    .custfid,
-                                                            text: Text(
-                                                                rawcustomField
-                                                                    .custfname!)));
-                                                  },
-                                                  child: BsRow(
-                                                    margin: EdgeInsets.all(3),
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
-                                                      color: ColorPallates
-                                                          .tertiary,
+                                                                      .white),
+                                                            )),
+                                                        BsCol(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            sizes: ColScreen(
+                                                                sm: Col.col_2),
+                                                            child: Text(':',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white))),
+                                                        BsCol(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            sizes: ColScreen(
+                                                                sm: Col.col_5),
+                                                            child: Text('-',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white))),
+                                                      ],
                                                     ),
-                                                    padding: EdgeInsets.all(5),
-                                                    children: [
-                                                      BsCol(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          sizes: ColScreen(
-                                                              sm: Col.col_5),
-                                                          child: Text(
-                                                            rawcustomField
-                                                                .custfname!,
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white),
-                                                          )),
-                                                      BsCol(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          sizes: ColScreen(
-                                                              sm: Col.col_2),
-                                                          child: Text(':',
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white))),
-                                                      BsCol(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          sizes: ColScreen(
-                                                              sm: Col.col_5),
-                                                          child: Text('-',
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white))),
-                                                    ],
-                                                  ),
-                                                );
-                                              }),
-                                        ],
-                                      ),
-                                    )
+                                                  );
+                                                }),
+                                          ],
+                                        ),
+                                      )
                                   ],
                                 ),
                               ),
@@ -1494,7 +1640,9 @@ class _ProspectDetailsState extends State<ProspectDetails>
     super.dispose();
     source.report.value = [];
     source.assign.value = [];
+
     source.isAdd.value = false;
+    source.isAddCF.value = false;
   }
 
   @override
@@ -1505,6 +1653,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     List<ProspectCustomFieldModel> customField = [];
     ProspectModel dt = ProspectModel.fromJson(response.body);
     source.prospectid.value = dt.prospectid!;
+    source.prospectbpid.value = dt.prospectbp!.bpid!;
 
     detailPresenter.details(context, {'id': dt.prospectid.toString()});
 
@@ -1569,6 +1718,23 @@ class _ProspectDetailsState extends State<ProspectDetails>
     cfForm.value.selectCustomfield.clear();
   }
 
+  void onClickSave(BuildContext context) async {
+    source.isAddCF.value = false;
+    customFieldPresenter.setProcessing(true);
+    if (formStateCF.currentState!.validate())
+      customFieldPresenter.save(context, await cfieldForm.toJson());
+    else
+      customFieldPresenter.setProcessing(false);
+  }
+
+  void onClickCancel(BuildContext context) {
+    source.isAddCF.value = false;
+    cfieldForm.value.inputName.text = '';
+    cfieldForm.value.selectType.clear();
+    cfieldForm.value.visible.value = false;
+    cfieldForm.value.newprospect.value = false;
+  }
+
   @override
   void onLoadSuccess(Response response) {
     source.prospectStageController.options = List<TypeModel>.from(
@@ -1582,6 +1748,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
   void onCreateSuccess(Response response, {BuildContext? context}) {
     map.reset();
     prospectCustomFieldPresenter.setProcessing(false);
+    customFieldPresenter.setProcessing(false);
     detailPresenter.setProcessing(false);
     assignPresenter.setProcessing(false);
     Navigator.pop(context!);

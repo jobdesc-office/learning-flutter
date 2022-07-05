@@ -6,6 +6,7 @@ import '_stagePipeline.dart';
 
 class prospectDetailsSource extends GetxController {
   var prospectid = 0.obs;
+  var prospectbpid = 0.obs;
   var prospectname = ''.obs;
   var prospectvalue = '0.0'.obs;
 
@@ -39,4 +40,6 @@ class prospectDetailsSource extends GetxController {
   var isAdd = false.obs;
   var isUpdate = false.obs;
   var cfid = 0.obs;
+
+  var isAddCF = false.obs;
 }

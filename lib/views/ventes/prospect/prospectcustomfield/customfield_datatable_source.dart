@@ -14,11 +14,9 @@ import '../../../../widgets/button/button_edit_datatable.dart';
 import '../../../../widgets/datatables/custom_datatable_tablecell.dart';
 import '../../../../widgets/datatables/custom_datatable_tablehead.dart';
 import '../_detail_source.dart';
-import '_helper.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 final controllers = Get.put(prospectDetailsSource());
-final helper = Get.put(CustomFieldDatatableHelper());
 
 class CustomFieldPopUpDataTableSource extends BsDatatableSource {
   ValueChanged<int> onDetailsListener = (value) {};
