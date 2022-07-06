@@ -46,8 +46,6 @@ class CustomFieldSource extends GetxController {
   TextEditingController inputName = TextEditingController();
 
   Future<Map<String, dynamic>> toJson() async {
-    final _prospectPresenter = Get.find<ProspectPresenter>();
-    int lastid = await _prospectPresenter.lastid();
     SessionModel session = await SessionManager.current();
     return {
       'custfbpid': source.prospectbpid.value,
@@ -55,7 +53,7 @@ class CustomFieldSource extends GetxController {
       'custfname': inputName.text,
       'isvisiblesidebar': visible.value,
       'onlyinnewprospect': newprospect.value,
-      'lastprospectid': lastid,
+      'lastprospectid': source.prospectid.value,
       'createdby': session.userid,
       'updatedby': session.userid,
     };

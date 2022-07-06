@@ -99,42 +99,45 @@ BsCol prospectDetailCustomFieldSection(context) {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        BsButton(
+                        Tooltip(
+                          message: 'View Available Custom Field',
+                          child: BsButton(
+                              size: BsButtonSize.btnSm,
+                              onPressed: () => customFieldPresenter.popup(
+                                    context,
+                                  ),
+                              label: Icon(
+                                Icons.info,
+                                size: 13,
+                              )),
+                        ),
+                        Tooltip(
+                          message: 'Write Custom Field',
+                          child: BsButton(
+                              margin: EdgeInsets.only(left: 5),
+                              size: BsButtonSize.btnSm,
+                              onPressed: () {
+                                source.isAdd.toggle();
+                                source.isAddCF.value = false;
+                              },
+                              label: Icon(
+                                Icons.edit,
+                                size: 13,
+                              )),
+                        ),
+                        Tooltip(
+                          message: 'Add Custom Field',
+                          child: BsButton(
+                            margin: EdgeInsets.only(left: 5),
                             size: BsButtonSize.btnSm,
                             onPressed: () {
                               source.isAddCF.toggle();
                               source.isAdd.value = false;
                             },
-                            label: Tooltip(
-                              message: 'Add Custom Field',
-                              child: Icon(
-                                Icons.add,
-                                size: 13,
-                              ),
-                            )),
-                        BsButton(
-                            margin: EdgeInsets.only(left: 5),
-                            size: BsButtonSize.btnSm,
-                            onPressed: () {
-                              source.isAdd.toggle();
-                              source.isAddCF.value = false;
-                            },
-                            label: Tooltip(
-                              message: 'Write Custom Field',
-                              child: Icon(
-                                Icons.edit,
-                                size: 13,
-                              ),
-                            )),
-                        BsButton(
-                            margin: EdgeInsets.only(left: 5),
-                            size: BsButtonSize.btnSm,
-                            onPressed: () => customFieldPresenter.popup(
-                                  context,
-                                ),
-                            label: Tooltip(
-                                message: 'View Available Custom Field',
-                                child: Text('Customize Fields')))
+                            prefixIcon: Icons.add,
+                            label: Text('Customize Fields'),
+                          ),
+                        )
                       ],
                     ),
                   ],
