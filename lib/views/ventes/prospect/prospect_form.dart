@@ -1,3 +1,4 @@
+import 'package:boilerplate/services/ventes/customfield_service.dart';
 import 'package:boilerplate/views/skins/template.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
@@ -61,14 +62,12 @@ class ProspectFormView extends StatelessWidget
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          prospectForm.selectBp(),
                           prospectForm.selectOwner(),
                           prospectForm.inputContact(),
                           prospectForm.inputTitle(),
                           prospectForm.inputPipelineStage(),
-                          prospectForm.inputStatus(),
-                          prospectForm.inputOrganization(context),
-                          // prospectForm.inputPipeline(),
-                          prospectForm.inputExpected(context),
+                          prospectForm.inputStatus()
                         ],
                       ),
                     ),
@@ -140,6 +139,14 @@ class ProspectFormView extends StatelessWidget
                                   // ),
                                   BsRow(
                                     children: [
+                                      BsCol(
+                                          sizes: ColScreen(sm: Col.col_7),
+                                          child: prospectForm
+                                              .inputExpected(context)),
+                                      BsCol(
+                                          sizes: ColScreen(sm: Col.col_7),
+                                          child: prospectForm
+                                              .inputOrganization(context)),
                                       BsCol(
                                           sizes: ColScreen(sm: Col.col_7),
                                           child:
@@ -295,6 +302,11 @@ class ProspectFormView extends StatelessWidget
     source.update((val) {
       ProspectModel prospect = ProspectModel.fromJson(response.body);
       source.value.prospectStageController.selected = prospect.prospectstage;
+      source.value.selectBp.setSelected(BsSelectBoxOption(
+          value: prospect.prospectbpid,
+          text: Text(prospect.prospectbp!.bpname!)));
+      authPresenter.bpActiveId.value = prospect.prospectbpid!;
+      source.value.isBpNotSelected.value = false;
       source.value.selectOwner.setSelected(BsSelectBoxOption(
           value: prospect.prospectowneruser!.user!.userid,
           text: Text(prospect.prospectowneruser!.user!.userfullname!)));

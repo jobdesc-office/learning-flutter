@@ -1,3 +1,4 @@
+import 'package:boilerplate/services/ventes/customfield_service.dart';
 import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:boilerplate/views/skins/template.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
@@ -155,6 +156,10 @@ class ScheduleFormView extends StatelessWidget
       source.value.inputDesc.text = menu.schedesc ?? '';
       source.value.inputRemind.text = menu.scheremind.toString();
 
+      authPresenter.bpActiveId.value = menu.schebp!.bpid!;
+
+      source.value.isBpNotSelected.value = false;
+
       source.value.selectType.setSelected(BsSelectBoxOption(
           value: menu.schetype!.typeid,
           text: Text(menu.schetype!.typename.toString())));
@@ -163,6 +168,8 @@ class ScheduleFormView extends StatelessWidget
             value: menu.schereftype!.typeid,
             text: Text(menu.schereftype!.typename.toString())));
       }
+      source.value.selectBp.setSelected(BsSelectBoxOption(
+          value: menu.schebpid, text: Text(menu.schebp!.bpname.toString())));
       source.value.selectToward.setSelected(BsSelectBoxOption(
           value: menu.schetoward!.userid,
           text: Text(menu.schetoward!.userfullname.toString())));

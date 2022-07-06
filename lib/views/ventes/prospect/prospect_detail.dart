@@ -103,6 +103,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
   }
 
   final _navigation = Get.find<NavigationPresenter>();
+  final _auth = Get.put(AuthPresenter());
 
   @override
   Widget build(BuildContext context) {
@@ -932,6 +933,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     ProspectModel dt = ProspectModel.fromJson(response.body);
     source.prospectid.value = dt.prospectid!;
     source.prospectbpid.value = dt.prospectbp!.bpid!;
+    _auth.bpActiveId.value = dt.prospectbp!.bpid!;
     source.status.value = dt.prospectstatus!.typename!;
 
     detailPresenter.details(context, {'id': dt.prospectid.toString()});

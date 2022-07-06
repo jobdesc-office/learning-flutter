@@ -44,21 +44,6 @@ class UserPresenter extends CustomGetXController {
     _userResetContract = userFetchDataContract;
   }
 
-  Future checkDetail() async {
-    Response response = await _userService.session(box.read('id'));
-    var data = AuthModel.fromJson(response.body);
-    List x = [];
-
-    _auth.roleActive.value = data.userdetails!.first.usertype!.typename!;
-    _auth.roleActiveId.value = data.userdetails!.first.usertype!.typeid!;
-    _auth.bpActive.value = data.userdetails!.first.businesspartner!.bpname!;
-    _auth.bpActiveId.value = data.userdetails!.first.businesspartner!.bpid!;
-    for (var item in data.userdetails!) {
-      x.add(item);
-    }
-    _auth.detail.value = x;
-  }
-
   Future datatables(BuildContext context, Map<String, String> params) async {
     Response response = await _userService.datatables(params);
     if (response.statusCode == 200)

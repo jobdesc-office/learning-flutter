@@ -14,11 +14,7 @@ import '../views/signin/_source.dart';
 import 'navigation_presenter.dart';
 
 class AuthPresenter extends CustomGetXController {
-  var detail = [].obs;
-  var roleActiveId = 0.obs;
-  var roleActive = ''.obs;
   var bpActiveId = 0.obs;
-  var bpActive = ''.obs;
 
   final _authService = Get.find<AuthService>();
   final _navService = Get.find<NavigationPresenter>();

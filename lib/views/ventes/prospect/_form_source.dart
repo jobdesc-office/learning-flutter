@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:boilerplate/services/ventes/customfield_service.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_inputtext/bs_flutter_inputtext.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
@@ -39,6 +40,8 @@ class ProspectSource extends GetxController {
   var quantity = 0.0.obs;
   var price = 0.0.obs;
 
+  var isBpNotSelected = true.obs;
+
   var selectedDateStart = ''.obs;
   var selectedDateEnd = ''.obs;
   var selectedDateExpect = ''.obs;
@@ -69,6 +72,7 @@ class ProspectSource extends GetxController {
   //   BsSelectBoxOption(value: '{1}', text: Text('Pipeline')),
   //   BsSelectBoxOption(value: '{2}', text: Text('Dougnut'))
   // ]);
+  BsSelectBoxController selectBp = BsSelectBoxController();
   BsSelectBoxController selectOwner = BsSelectBoxController();
   BsSelectBoxController selectReference = BsSelectBoxController();
   BsSelectBoxController selectCustomer = BsSelectBoxController();
@@ -199,7 +203,7 @@ class ProspectForm {
       label: Text(ProspectText.labelCustomer),
       child: CustomSelectBox(
         searchable: true,
-        disabled: source.isProcessing,
+        disabled: source.isBpNotSelected.value,
         controller: source.selectCustomer,
         hintText: BaseText.hiintSelect(field: ProspectText.labelCustomer),
         serverSide: (params) => selectApiBpCustomer(params),
@@ -387,12 +391,32 @@ class ProspectForm {
     );
   }
 
+  Widget selectBp() {
+    return FormGroup(
+      label: Text(ProspectText.labelBp),
+      child: CustomSelectBox(
+        searchable: true,
+        disabled: source.isProcessing,
+        controller: source.selectBp,
+        hintText: BaseText.hiintSelect(field: ProspectText.labelBp),
+        serverSide: (params) => selectApiPartner(params),
+        validators: [Validators.selectRequired(ProspectText.labelBp)],
+        onChange: (value) {
+          if (value.getValue() != null) {
+            source.isBpNotSelected.value = false;
+            authPresenter.bpActiveId.value = value.getValue();
+          }
+        },
+      ),
+    );
+  }
+
   Widget selectOwner() {
     return FormGroup(
       label: Text(ProspectText.labelOwner),
       child: CustomSelectBox(
         searchable: true,
-        disabled: source.isProcessing,
+        disabled: source.isBpNotSelected.value,
         controller: source.selectOwner,
         hintText: BaseText.hiintSelect(field: ProspectText.labelOwner),
         serverSide: (params) => selectApiProspectOwner(params),
@@ -558,7 +582,7 @@ class ProspectForm {
                       label: Text(ProspectText.labelItem),
                       child: CustomSelectBox(
                         searchable: true,
-                        disabled: source.isProcessing,
+                        disabled: source.isBpNotSelected.value,
                         controller: selectItem,
                         hintText:
                             BaseText.hiintSelect(field: ProspectText.labelItem),

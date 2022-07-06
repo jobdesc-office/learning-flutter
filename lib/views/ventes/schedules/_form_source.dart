@@ -36,6 +36,8 @@ class ScheduleSource extends GetxController {
 
   bool isProcessing = false;
 
+  var isBpNotSelected = true.obs;
+
   var selectedDateStart = ''.obs;
   var selectedDateEnd = ''.obs;
   var selectedDateAct = ''.obs;
@@ -54,6 +56,7 @@ class ScheduleSource extends GetxController {
   BsSelectBoxController selectRefType = BsSelectBoxController();
   BsSelectBoxController selectRef = BsSelectBoxController();
   BsSelectBoxController selectToward = BsSelectBoxController();
+  BsSelectBoxController selectBp = BsSelectBoxController();
   BsSelectBoxController selectTimeZone = BsSelectBoxController();
   // BsSelectBoxController selectPermission = BsSelectBoxController(options: [
   //   BsSelectBoxOption(value: '{1}', text: Text('Read Only')),
@@ -89,7 +92,7 @@ class ScheduleSource extends GetxController {
       'schetypeid': selectType.getSelectedAsString(),
       'scheactdate': selectedDateAct.value,
       'schetowardid': selectToward.getSelectedAsString(),
-      'schebpid': _auth.bpActiveId.value,
+      'schebpid': selectBp.getSelectedAsString(),
       'schereftypeid': selectRefType.getSelectedAsString(),
       'scherefid': selectRef.getSelectedAsString(),
       'scheallday': allDay.value,
@@ -110,6 +113,7 @@ class ScheduleSource extends GetxController {
 
 class ScheduleForm {
   final map = Get.put(mapSource());
+  final _auth = Get.put(AuthPresenter());
   final ScheduleSource source;
 
   ScheduleForm(this.source);
@@ -135,7 +139,7 @@ class ScheduleForm {
                               : Colors.black))),
                   child: CustomSelectBox(
                     searchable: true,
-                    disabled: source.isProcessing,
+                    disabled: source.isBpNotSelected.value,
                     controller: selectMember,
                     hintText: BaseText.hiintSelect(
                         field: ScheduleText.labelGuest + ' ${index + 1}'),
@@ -155,7 +159,7 @@ class ScheduleForm {
                               : Colors.black))),
                   child: CustomSelectBox(
                     searchable: false,
-                    disabled: source.isProcessing,
+                    disabled: source.isBpNotSelected.value,
                     controller: selectPermission,
                     hintText: BaseText.hiintSelect(
                         field: ScheduleText.labelPermission + ' ${index + 1}'),
@@ -553,7 +557,31 @@ class ScheduleForm {
         ),
         BsCol(
           margin: EdgeInsets.only(left: 10),
-          sizes: ColScreen(lg: Col.col_6),
+          sizes: ColScreen(lg: Col.col_3),
+          child: FormGroup(
+            label: Obx(() => Text(ScheduleText.labelBp,
+                style: TextStyle(
+                    color: _navigation.darkTheme.value
+                        ? Colors.white
+                        : Colors.black))),
+            child: CustomSelectBox(
+              searchable: true,
+              disabled: source.isProcessing,
+              controller: source.selectBp,
+              hintText: BaseText.hiintSelect(field: ScheduleText.labelBp),
+              serverSide: (params) => selectApiPartner(params),
+              onChange: (value) {
+                if (value.getValue() != null) {
+                  source.isBpNotSelected.value = false;
+                  _auth.bpActiveId.value = value.getValue();
+                }
+              },
+            ),
+          ),
+        ),
+        BsCol(
+          margin: EdgeInsets.only(left: 10),
+          sizes: ColScreen(lg: Col.col_3),
           child: FormGroup(
             label: Obx(() => Text(ScheduleText.labelToward,
                 style: TextStyle(
@@ -562,7 +590,7 @@ class ScheduleForm {
                         : Colors.black))),
             child: CustomSelectBox(
               searchable: true,
-              disabled: source.isProcessing,
+              disabled: source.isBpNotSelected.value,
               controller: source.selectToward,
               hintText: BaseText.hiintSelect(field: ScheduleText.labelToward),
               serverSide: (params) => selectApiProspectOwner(params),

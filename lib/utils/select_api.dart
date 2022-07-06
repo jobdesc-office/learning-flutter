@@ -397,7 +397,7 @@ Future<BsSelectBoxResponse> selectApiProspect(
 Future<BsSelectBoxResponse> selectApiBpCustomer(
     Map<String, String> params) async {
   final bpCustomerService = Get.put(BpCustomerService());
-  Response response = await bpCustomerService.select(params);
+  Response response = await bpCustomerService.selectBp(params);
   if (response.isOk) {
     if (response.statusCode == 200) {
       return BsSelectBoxResponse.createFromJson(

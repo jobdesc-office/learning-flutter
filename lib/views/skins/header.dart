@@ -24,9 +24,6 @@ class HeaderSkins extends StatelessWidget implements LogoutViewContract {
 
   HeaderSkins() {
     checkJwtToken();
-    if (_auth.detail.isEmpty) {
-      _presenter.checkDetail();
-    }
     _auth.logoutViewContract = this;
   }
 
@@ -95,9 +92,6 @@ class HeaderSkins extends StatelessWidget implements LogoutViewContract {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(box.read('name')),
-                                  Container(
-                                      margin: EdgeInsets.only(top: 5),
-                                      child: Text(_auth.bpActive.value))
                                 ],
                               ),
                             ),

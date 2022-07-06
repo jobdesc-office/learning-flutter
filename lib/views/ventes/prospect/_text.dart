@@ -11,6 +11,7 @@ class ProspectText {
   static String labelPipelineStage = 'Pipeline Stage';
   static String labelExpected = 'Expected Close Date';
   static String labelOwner = 'Owner';
+  static String labelBp = 'Business Partner';
   static String labelReference = 'Reference';
   static String labelStartDate = 'Start Date';
   static String labelEndDate = 'End Date';
