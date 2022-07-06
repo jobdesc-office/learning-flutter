@@ -136,6 +136,23 @@ Future<BsSelectBoxResponse> selectApiProspectType(
   return BsSelectBoxResponse(options: []);
 }
 
+Future<BsSelectBoxResponse> selectApiProspectLostType(
+    Map<String, String> params) async {
+  final typeService = Get.put(TypeService());
+  Response response = await typeService.byCode(ConfigType.prospectLostReason);
+  if (response.isOk) {
+    if (response.statusCode == 200) {
+      return BsSelectBoxResponse.createFromJson(
+        response.body,
+        value: (data) => TypeModel.fromJson(data).typeid,
+        renderText: (data) => Text(TypeModel.fromJson(data).typename),
+      );
+    }
+  }
+
+  return BsSelectBoxResponse(options: []);
+}
+
 Future<BsSelectBoxResponse> selectApiBpCustomerStatus(
     Map<String, String> params) async {
   final typeService = Get.put(TypeService());

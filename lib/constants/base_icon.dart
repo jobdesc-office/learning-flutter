@@ -10,4 +10,5 @@ class BaseIcon {
   static IconData buttonDelete = Icons.delete_rounded;
   static IconData buttonCheck = Icons.check;
   static IconData buttonX = Icons.close_rounded;
+  static IconData buttonDanger = Icons.dangerous;
 }

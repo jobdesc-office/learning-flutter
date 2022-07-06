@@ -8,6 +8,7 @@ import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
 import '../../helpers/function.dart';
+import '../../models/masters/type_model.dart';
 import '../../services/masters/type_service.dart';
 import '../../services/masters/user_service.dart';
 import '../../services/ventes/prospect_service.dart';
@@ -16,6 +17,7 @@ import '../../views/masters/menus/_menu_type.dart';
 import '../../views/ventes/prospect/_stagePipeline.dart';
 import '../../views/ventes/prospect/prospect_detail.dart';
 import '../../views/ventes/prospect/prospect_form.dart';
+import '../../views/ventes/prospect/prospectlost/prospect_lost.dart';
 import '../../widgets/confirm_dialog.dart';
 
 class ProspectPresenter extends CustomGetXController {
@@ -73,6 +75,32 @@ class ProspectPresenter extends CustomGetXController {
       _ProspectViewContract.onErrorRequest(response);
   }
 
+  Future lostStatus() async {
+    Response response = await _typeService.byCode(ConfigType.prospectStatus);
+    if (response.statusCode == 200) {
+      List<TypeModel> data = [];
+      for (var item in response.body) {
+        data.add(TypeModel.fromJson(item));
+      }
+      data.removeWhere((element) => element.typename != 'Closed Lost');
+      return data.first.typeid;
+    }
+    return null;
+  }
+
+  Future wonStatus() async {
+    Response response = await _typeService.byCode(ConfigType.prospectStatus);
+    if (response.statusCode == 200) {
+      List<TypeModel> data = [];
+      for (var item in response.body) {
+        data.add(TypeModel.fromJson(item));
+      }
+      data.removeWhere((element) => element.typename != 'Closed Won');
+      return data.first.typeid;
+    }
+    return null;
+  }
+
   Future _loadStage() async {
     Response response = await _typeService.byCode(ConfigType.prospectStage);
     if (response.statusCode == 200)
@@ -111,6 +139,16 @@ class ProspectPresenter extends CustomGetXController {
       _ProspectTypeViewContract.onSuccessFetchData(response);
     else
       _ProspectViewContract.onErrorRequest(response);
+  }
+
+  void lose(BuildContext context, int Prospectid) async {
+    setProcessing(true);
+    showDialog(
+      context: context,
+      builder: (context) => ProspectLose(
+        onSave: (body) => update(context, body, Prospectid),
+      ),
+    );
   }
 
   void edit(BuildContext context, int Prospectid) async {

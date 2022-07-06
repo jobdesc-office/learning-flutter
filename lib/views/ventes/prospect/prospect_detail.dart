@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:timelines/timelines.dart';
 
+import '../../../constants/base_text.dart';
 import '../../../contracts/base/details_view_contract.dart';
 import '../../../contracts/base/index_view_contract.dart';
 import '../../../contracts/ventes/customfield_contract.dart';
@@ -35,6 +36,7 @@ import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_info_assign.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
+import '../../../widgets/confirm_dialog.dart';
 import '../../../widgets/map/_map_source.dart';
 import '../../../widgets/snackbar.dart';
 import '_detail_source.dart';
@@ -127,127 +129,167 @@ class _ProspectDetailsState extends State<ProspectDetails>
                         child: Container(
                           margin: EdgeInsets.all(10),
                           child: Column(children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(source.prospectname.value),
-                                    Icon(Icons.label)
-                                  ],
-                                ),
-                                Row(
+                            Obx(() => Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    BsButton(
-                                      style: BsButtonStyle.success,
-                                      onPressed: () {
-                                        Get.snackbar('Biasa aja', '');
-                                      },
-                                      // prefixIcon: Icons.settings,
-                                      label: Text('Won'),
+                                    Row(
+                                      children: [
+                                        Text(source.prospectname.value),
+                                        Icon(Icons.label)
+                                      ],
                                     ),
-                                    BsButton(
-                                      margin: EdgeInsets.only(left: 10),
-                                      style: BsButtonStyle.danger,
-                                      onPressed: () {
-                                        Get.snackbar(
-                                            'Gimana sih Kamu ??!!', '');
-                                      },
-                                      // prefixIcon: Icons.settings,
-                                      label: Text('Lost'),
-                                    ),
-                                    BsButton(
-                                      margin: EdgeInsets.only(left: 10),
-                                      style: BsButtonStyle.success,
-                                      onPressed: () {
-                                        assignPresenter.add(
-                                            context, source.prospectid.value);
-                                      },
-                                      prefixIcon: Icons.assignment,
-                                      label: Text('Add Assignation'),
-                                    ),
-                                    BsButton(
-                                      style: BsButtonStyle.success,
-                                      margin: EdgeInsets.only(left: 10),
-                                      onPressed: () {
-                                        productPresenter.add(
-                                            context, source.prospectid.value);
-                                      },
-                                      prefixIcon: Icons.shopping_bag,
-                                      label: Text('Add Product'),
-                                    )
-                                    // Container(
-                                    //   margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
-                                    //   child: ElevatedButton(
-                                    //       onPressed: () {},
-                                    //       child: Text('data')),
-                                    // ),
-                                    // Container(
-                                    //   margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
-                                    //   child: ElevatedButton(
-                                    //       onPressed: () {},
-                                    //       child: Text('data')),
-                                    // ),
-                                    // Container(
-                                    //   margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
-                                    //   child: ElevatedButton(
-                                    //       onPressed: () {},
-                                    //       child: Text('data')),
-                                    // ),
-                                    // Container(
-                                    //   margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
-                                    //   child: ElevatedButton(
-                                    //       onPressed: () {},
-                                    //       child: Text('data')),
-                                    // )
+                                    if (source.status.value == 'Closed Lose')
+                                      Row(
+                                        children: [
+                                          Text('This Prospect is Lose !!!')
+                                        ],
+                                      )
+                                    else if (source.status.value ==
+                                        'Closed Won')
+                                      Row(
+                                        children: [
+                                          Text('This Prospect is Won !!!')
+                                        ],
+                                      )
+                                    else
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          BsButton(
+                                            style: BsButtonStyle.success,
+                                            onPressed: () async {
+                                              int data =
+                                                  await presenter.wonStatus();
+                                              showDialog(
+                                                context: context,
+                                                builder: (context) =>
+                                                    ConfirmDialog(
+                                                  title: BaseText.confirmTitle,
+                                                  message:
+                                                      'Are You Sure This Prospect is Won ???',
+                                                  onPressed: (_, value) async {
+                                                    if (value ==
+                                                        ConfirmDialogOption
+                                                            .YES_OPTION) {
+                                                      presenter.update(
+                                                          context,
+                                                          {
+                                                            'prospectstatusid':
+                                                                data,
+                                                          },
+                                                          source.prospectid
+                                                              .value);
+                                                    } else {
+                                                      Navigator.pop(context);
+                                                    }
+                                                  },
+                                                ),
+                                              );
+                                            },
+                                            // prefixIcon: Icons.settings,
+                                            label: Text('Won'),
+                                          ),
+                                          BsButton(
+                                            margin: EdgeInsets.only(left: 10),
+                                            style: BsButtonStyle.danger,
+                                            onPressed: () {
+                                              presenter.lose(context,
+                                                  source.prospectid.value);
+                                            },
+                                            // prefixIcon: Icons.settings,
+                                            label: Text('Lost'),
+                                          ),
+                                          BsButton(
+                                            margin: EdgeInsets.only(left: 10),
+                                            style: BsButtonStyle.success,
+                                            onPressed: () {
+                                              assignPresenter.add(context,
+                                                  source.prospectid.value);
+                                            },
+                                            prefixIcon: Icons.assignment,
+                                            label: Text('Add Assignation'),
+                                          ),
+                                          BsButton(
+                                            style: BsButtonStyle.success,
+                                            margin: EdgeInsets.only(left: 10),
+                                            onPressed: () {
+                                              productPresenter.add(context,
+                                                  source.prospectid.value);
+                                            },
+                                            prefixIcon: Icons.shopping_bag,
+                                            label: Text('Add Product'),
+                                          )
+                                          // Container(
+                                          //   margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                                          //   child: ElevatedButton(
+                                          //       onPressed: () {},
+                                          //       child: Text('data')),
+                                          // ),
+                                          // Container(
+                                          //   margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                                          //   child: ElevatedButton(
+                                          //       onPressed: () {},
+                                          //       child: Text('data')),
+                                          // ),
+                                          // Container(
+                                          //   margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                                          //   child: ElevatedButton(
+                                          //       onPressed: () {},
+                                          //       child: Text('data')),
+                                          // ),
+                                          // Container(
+                                          //   margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                                          //   child: ElevatedButton(
+                                          //       onPressed: () {},
+                                          //       child: Text('data')),
+                                          // )
+                                        ],
+                                      )
                                   ],
-                                )
-                              ],
-                            ),
+                                )),
                             SizedBox(
                               height: 20,
                             ),
-                            BsRow(
-                              children: [
-                                BsCol(
-                                    sizes: ColScreen(sm: Col.col_2),
-                                    child: Text('Rp. ' +
-                                        currencyFormatter.format(double.parse(
-                                            source.prospectvalue.value)))),
-                                BsCol(
-                                  sizes: ColScreen(sm: Col.col_10),
-                                  child: Container(
-                                    child: BsRow(
-                                      children: [
-                                        // BsCol(
-                                        //     sizes: ColScreen(sm: Col.col_3),
-                                        //     child: Text('Add Product')),
-                                        BsCol(
-                                          sizes: ColScreen(sm: Col.col_4),
-                                          child: Row(
-                                            children: [
-                                              Icon(Icons.person),
-                                              Text(source.userfullname.value)
-                                            ],
-                                          ),
+                            Obx(() => BsRow(
+                                  children: [
+                                    BsCol(
+                                        sizes: ColScreen(sm: Col.col_2),
+                                        child: Text('Rp. ' +
+                                            currencyFormatter.format(
+                                                double.parse(source
+                                                    .prospectvalue.value)))),
+                                    BsCol(
+                                      sizes: ColScreen(sm: Col.col_10),
+                                      child: Container(
+                                        child: BsRow(
+                                          children: [
+                                            BsCol(
+                                              sizes: ColScreen(sm: Col.col_4),
+                                              child: Row(
+                                                children: [
+                                                  Icon(Icons.person),
+                                                  Text(
+                                                      source.userfullname.value)
+                                                ],
+                                              ),
+                                            ),
+                                            BsCol(
+                                              sizes: ColScreen(sm: Col.col_5),
+                                              child: Row(
+                                                children: [
+                                                  Icon(Icons.domain),
+                                                  Text(source.bpname.value)
+                                                ],
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                        BsCol(
-                                          sizes: ColScreen(sm: Col.col_5),
-                                          child: Row(
-                                            children: [
-                                              Icon(Icons.domain),
-                                              Text(source.bpname.value)
-                                            ],
-                                          ),
-                                        )
-                                      ],
+                                      ),
                                     ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                                  ],
+                                )),
                             SizedBox(
                               height: 10,
                             ),
@@ -396,9 +438,9 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                                     .start,
                                                             children: [
                                                               customFieldForm
-                                                                  .selectTypes(),
-                                                              customFieldForm
                                                                   .inputName(),
+                                                              customFieldForm
+                                                                  .selectTypes(),
                                                               customFieldForm
                                                                   .checkBoxForm()
                                                             ],
@@ -1654,6 +1696,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     ProspectModel dt = ProspectModel.fromJson(response.body);
     source.prospectid.value = dt.prospectid!;
     source.prospectbpid.value = dt.prospectbp!.bpid!;
+    source.status.value = dt.prospectstatus!.typename!;
 
     detailPresenter.details(context, {'id': dt.prospectid.toString()});
 
@@ -1777,16 +1820,16 @@ class _ProspectDetailsState extends State<ProspectDetails>
   @override
   void onEditSuccess(Response response, {BuildContext? context}) {
     map.reset();
-    prospectCustomFieldPresenter.setProcessing(false);
-    detailPresenter.setProcessing(false);
-    assignPresenter.setProcessing(false);
-    if (context != null) Navigator.pop(context);
-    Navigator.pop(context!);
-    presenter.details(context, source.prospectid.value);
+    presenter.details(context!, source.prospectid.value);
     Snackbar().editSuccess();
     detailPresenter
         .details(context, {'id': source.prospectid.value.toString()});
     customFieldPresenter.allBp(context);
+    prospectCustomFieldPresenter.setProcessing(false);
+    detailPresenter.setProcessing(false);
+    assignPresenter.setProcessing(false);
+    if (context != null) Navigator.pop(context);
+    Navigator.pop(context);
   }
 
   @override

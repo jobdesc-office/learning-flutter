@@ -23,7 +23,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="boilerplate">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
-  <link rel="icon" href="icons/logo.png" type="image/ico">
+  <link rel="icon" href="icons/logo-short.png" type="image/ico">
 
   <title>Ventes</title>
 
@@ -34,9 +34,89 @@
     crossOrigin="anonymous">
 
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUYfxm7qJq8dcMMhvhaoUukhQqMxBO6oc"></script>
+
+  <style>
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+
+    .indicator {
+      width: 10vw;
+    }
+  </style>
+
+  <style>
+    body {
+      background-color: #ffffff;
+    }
+
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+
+    .loader {
+      border: 16px solid #f3f3f3;
+      border-radius: 50%;
+      border: 15px solid;
+      border-top: 16px solid #FFFFFF;
+      border-right: 16px solid #212121;
+      border-bottom: 16px solid #FFFFFF;
+      border-left: 16px solid #212121;
+      width: 220px;
+      height: 220px;
+      -webkit-animation: spin 2s linear infinite;
+      animation: spin 2s linear infinite;
+    }
+
+    @-webkit-keyframes spin {
+      0% {
+        -webkit-transform: rotate(0deg);
+      }
+
+      100% {
+        -webkit-transform: rotate(360deg);
+      }
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+
 </head>
 
-<body>
+<body style="overflow: hidden">
+
+  <div class="loading">
+    <div class="loader"></div>
+  </div>
+
+  <div id="loading_indicator" class="container">
+    <img class="indicator" src="icons/loading.png" />
+  </div>
+
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
@@ -104,6 +184,18 @@
       loadMainDartJs();
     }
   </script>
+
+  <!-- <script>
+    window.onload = function () {
+      setTimeout(function () {
+        var loadingIndicator = document.getElementById("loading_indicator");
+        if (loadingIndicator) {
+          loadingIndicator.remove();
+        }
+      }, 10000);
+    };
+  </script> -->
+
 </body>
 
 </html>
