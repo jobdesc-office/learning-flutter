@@ -70,18 +70,40 @@
       transform: translate(-50%, -50%);
     }
 
+    .loaders {
+      border-radius: 50%;
+      border: 15px solid;
+      border-top: 16px solid #212121;
+      border-right: 16px solid #FFFFFF;
+      border-bottom: 16px solid #212121;
+      border-left: 16px solid #FFFFFF;
+      width: 220px;
+      height: 220px;
+      -webkit-animation: spin 2s linear infinite;
+      animation: spins 2s linear infinite;
+    }
+
     .loader {
-      border: 16px solid #f3f3f3;
       border-radius: 50%;
       border: 15px solid;
       border-top: 16px solid #FFFFFF;
       border-right: 16px solid #212121;
       border-bottom: 16px solid #FFFFFF;
       border-left: 16px solid #212121;
-      width: 220px;
-      height: 220px;
+      width: 320px;
+      height: 320px;
       -webkit-animation: spin 2s linear infinite;
       animation: spin 2s linear infinite;
+    }
+
+    @keyframes spins {
+      0% {
+        -webkit-transform: rotate(-0deg);
+      }
+
+      100% {
+        -webkit-transform: rotate(-360deg);
+      }
     }
 
     @-webkit-keyframes spin {
@@ -110,7 +132,12 @@
 <body style="overflow: hidden">
 
   <div class="loading">
-    <div class="loader"></div>
+    <div class="loader">
+    </div>
+  </div>
+
+  <div class="loading">
+    <div class="loaders"></div>
   </div>
 
   <div id="loading_indicator" class="container">
