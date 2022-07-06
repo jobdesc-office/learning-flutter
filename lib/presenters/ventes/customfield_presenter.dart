@@ -10,7 +10,7 @@ import '../../services/ventes/customfield_service.dart';
 import '../../utils/custom_get_controller.dart';
 import '../../views/ventes/customfield/customfield_details.dart';
 import '../../views/ventes/customfield/customfield_form.dart';
-import '../../views/ventes/prospect/customfield_popup.dart';
+import '../../views/ventes/prospect/prospectcustomfield/customfield_popup.dart';
 import '../../widgets/confirm_dialog.dart';
 
 class CustomFieldPresenter extends CustomGetXController {

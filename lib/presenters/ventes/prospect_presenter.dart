@@ -14,7 +14,7 @@ import '../../services/masters/user_service.dart';
 import '../../services/ventes/prospect_service.dart';
 import '../../utils/custom_get_controller.dart';
 import '../../views/masters/menus/_menu_type.dart';
-import '../../views/ventes/prospect/_stagePipeline.dart';
+import '../../views/ventes/prospect/prospectdetail_component/_stagePipeline.dart';
 import '../../views/ventes/prospect/prospect_detail.dart';
 import '../../views/ventes/prospect/prospect_form.dart';
 import '../../views/ventes/prospect/prospectlost/prospect_lost.dart';

@@ -13,6 +13,7 @@ import '../../../../widgets/button/theme_button_cancel.dart';
 import '../../../../widgets/button/theme_button_lost.dart';
 import '../../../../widgets/button/theme_button_save.dart';
 import '../../../../widgets/confirm_dialog.dart';
+import '../_detail_source.dart';
 import '_form_source.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
@@ -22,6 +23,7 @@ class ProspectLose extends GetView {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final source = ProspectLostSource().obs;
   final Function(Map<String, dynamic> body) onSave;
+  final sources = Get.put(prospectDetailsSource());
 
   late ProspectLostForm prospectForm;
 
@@ -119,7 +121,7 @@ class ProspectLose extends GetView {
           onPressed: (_, value) async {
             if (value == ConfirmDialogOption.YES_OPTION) {
               onSave(await source.toJson());
-
+              sources.status.value = 'Closed Lost';
               Navigator.pop(context);
             } else {
               presenter.setProcessing(false);

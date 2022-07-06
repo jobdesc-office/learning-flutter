@@ -15,7 +15,6 @@ import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
 
 import '../../masters/menus/_menu_type.dart';
-import '_form_controller.dart';
 import '_form_source.dart';
 
 class ProspectFormView extends StatelessWidget
@@ -24,7 +23,6 @@ class ProspectFormView extends StatelessWidget
   final ProspectPresenter presenter = Get.find<ProspectPresenter>();
   final source = ProspectSource().obs;
   final Function(Map<String, dynamic> body) onSave;
-  final ctrl = Get.put(ProspectFormController());
 
   late ProspectForm prospectForm;
 
@@ -162,7 +160,7 @@ class ProspectFormView extends StatelessWidget
                       ),
                       BsCol(
                         margin: EdgeInsets.only(top: 5),
-                        child: ctrl.isProduct.value
+                        child: source.value.isProduct.value
                             ? null
                             : Container(
                                 child: Container(

@@ -2,6 +2,7 @@ import 'dart:html';
 
 import 'package:boilerplate/models/ventes/customfield_model.dart';
 import 'package:boilerplate/views/skins/template.dart';
+import 'package:boilerplate/views/ventes/prospect/prospectdetail_component/title_section.dart';
 import 'package:boilerplate/widgets/button/button_edit_datatable.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
@@ -40,9 +41,12 @@ import '../../../widgets/confirm_dialog.dart';
 import '../../../widgets/map/_map_source.dart';
 import '../../../widgets/snackbar.dart';
 import '_detail_source.dart';
-import '_stagePipeline.dart';
+import 'prospectdetail_component/_stagePipeline.dart';
 import 'customfield/_form_source.dart';
 import 'prospectcustomfield/_form_source.dart';
+import 'prospectdetail_component/activity_section.dart';
+import 'prospectdetail_component/customfield_section.dart';
+import 'prospectdetail_component/organization_section.dart';
 
 class ProspectDetails extends StatefulWidget {
   const ProspectDetails({Key? key}) : super(key: key);
@@ -116,731 +120,14 @@ class _ProspectDetailsState extends State<ProspectDetails>
           children: [
             BsRow(
               children: [
-                BsCol(
-                  margin: EdgeInsets.fromLTRB(0, 0, 5, 5),
-                  sizes: ColScreen(sm: Col.col_12),
-                  child: Obx(() => Container(
-                        decoration: BoxDecoration(
-                          color: _navigation.darkTheme.value
-                              ? ColorPallates.elseDarkColor
-                              : Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Container(
-                          margin: EdgeInsets.all(10),
-                          child: Column(children: [
-                            Obx(() => Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text(source.prospectname.value),
-                                        Icon(Icons.label)
-                                      ],
-                                    ),
-                                    if (source.status.value == 'Closed Lose')
-                                      Row(
-                                        children: [
-                                          Text('This Prospect is Lose !!!')
-                                        ],
-                                      )
-                                    else if (source.status.value ==
-                                        'Closed Won')
-                                      Row(
-                                        children: [
-                                          Text('This Prospect is Won !!!')
-                                        ],
-                                      )
-                                    else
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          BsButton(
-                                            style: BsButtonStyle.success,
-                                            onPressed: () async {
-                                              int data =
-                                                  await presenter.wonStatus();
-                                              showDialog(
-                                                context: context,
-                                                builder: (context) =>
-                                                    ConfirmDialog(
-                                                  title: BaseText.confirmTitle,
-                                                  message:
-                                                      'Are You Sure This Prospect is Won ???',
-                                                  onPressed: (_, value) async {
-                                                    if (value ==
-                                                        ConfirmDialogOption
-                                                            .YES_OPTION) {
-                                                      presenter.update(
-                                                          context,
-                                                          {
-                                                            'prospectstatusid':
-                                                                data,
-                                                          },
-                                                          source.prospectid
-                                                              .value);
-                                                    } else {
-                                                      Navigator.pop(context);
-                                                    }
-                                                  },
-                                                ),
-                                              );
-                                            },
-                                            // prefixIcon: Icons.settings,
-                                            label: Text('Won'),
-                                          ),
-                                          BsButton(
-                                            margin: EdgeInsets.only(left: 10),
-                                            style: BsButtonStyle.danger,
-                                            onPressed: () {
-                                              presenter.lose(context,
-                                                  source.prospectid.value);
-                                            },
-                                            // prefixIcon: Icons.settings,
-                                            label: Text('Lost'),
-                                          ),
-                                          BsButton(
-                                            margin: EdgeInsets.only(left: 10),
-                                            style: BsButtonStyle.success,
-                                            onPressed: () {
-                                              assignPresenter.add(context,
-                                                  source.prospectid.value);
-                                            },
-                                            prefixIcon: Icons.assignment,
-                                            label: Text('Add Assignation'),
-                                          ),
-                                          BsButton(
-                                            style: BsButtonStyle.success,
-                                            margin: EdgeInsets.only(left: 10),
-                                            onPressed: () {
-                                              productPresenter.add(context,
-                                                  source.prospectid.value);
-                                            },
-                                            prefixIcon: Icons.shopping_bag,
-                                            label: Text('Add Product'),
-                                          )
-                                          // Container(
-                                          //   margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
-                                          //   child: ElevatedButton(
-                                          //       onPressed: () {},
-                                          //       child: Text('data')),
-                                          // ),
-                                          // Container(
-                                          //   margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
-                                          //   child: ElevatedButton(
-                                          //       onPressed: () {},
-                                          //       child: Text('data')),
-                                          // ),
-                                          // Container(
-                                          //   margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
-                                          //   child: ElevatedButton(
-                                          //       onPressed: () {},
-                                          //       child: Text('data')),
-                                          // ),
-                                          // Container(
-                                          //   margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
-                                          //   child: ElevatedButton(
-                                          //       onPressed: () {},
-                                          //       child: Text('data')),
-                                          // )
-                                        ],
-                                      )
-                                  ],
-                                )),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Obx(() => BsRow(
-                                  children: [
-                                    BsCol(
-                                        sizes: ColScreen(sm: Col.col_2),
-                                        child: Text('Rp. ' +
-                                            currencyFormatter.format(
-                                                double.parse(source
-                                                    .prospectvalue.value)))),
-                                    BsCol(
-                                      sizes: ColScreen(sm: Col.col_10),
-                                      child: Container(
-                                        child: BsRow(
-                                          children: [
-                                            BsCol(
-                                              sizes: ColScreen(sm: Col.col_4),
-                                              child: Row(
-                                                children: [
-                                                  Icon(Icons.person),
-                                                  Text(
-                                                      source.userfullname.value)
-                                                ],
-                                              ),
-                                            ),
-                                            BsCol(
-                                              sizes: ColScreen(sm: Col.col_5),
-                                              child: Row(
-                                                children: [
-                                                  Icon(Icons.domain),
-                                                  Text(source.bpname.value)
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                )),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              child: BsRow(
-                                children: [
-                                  BsCol(
-                                    sizes: ColScreen(sm: Col.col_12),
-                                    child: Container(
-                                      padding: EdgeInsets.all(10),
-                                      child: MenuTypeOptions(
-                                        controller:
-                                            source.prospectStageController,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text('Prospect Start'),
-                                Text(source.prospectstartdate.value),
-                              ],
-                            )
-                          ]),
-                        ),
-                      )),
-                ),
+                prospectDetailTitleSection(context),
                 BsCol(
                   margin: EdgeInsets.fromLTRB(0, 0, 5, 5),
                   sizes: ColScreen(sm: Col.col_4),
                   child: BsRow(
                     children: [
-                      BsCol(
-                        child: Obx(() => Container(
-                              decoration: BoxDecoration(
-                                color: _navigation.darkTheme.value
-                                    ? ColorPallates.elseDarkColor
-                                    : Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Container(
-                                margin: EdgeInsets.all(10),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text('Detail'),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            BsButton(
-                                                size: BsButtonSize.btnSm,
-                                                onPressed: () {
-                                                  source.isAddCF.toggle();
-                                                  source.isAdd.value = false;
-                                                },
-                                                label: Tooltip(
-                                                  message: 'Add Custom Field',
-                                                  child: Icon(
-                                                    Icons.add,
-                                                    size: 13,
-                                                  ),
-                                                )),
-                                            BsButton(
-                                                margin:
-                                                    EdgeInsets.only(left: 5),
-                                                size: BsButtonSize.btnSm,
-                                                onPressed: () {
-                                                  source.isAdd.toggle();
-                                                  source.isAddCF.value = false;
-                                                },
-                                                label: Tooltip(
-                                                  message: 'Write Custom Field',
-                                                  child: Icon(
-                                                    Icons.edit,
-                                                    size: 13,
-                                                  ),
-                                                )),
-                                            BsButton(
-                                                margin:
-                                                    EdgeInsets.only(left: 5),
-                                                size: BsButtonSize.btnSm,
-                                                onPressed: () =>
-                                                    customFieldPresenter.popup(
-                                                      context,
-                                                    ),
-                                                label: Tooltip(
-                                                    message:
-                                                        'View Available Custom Field',
-                                                    child: Text(
-                                                        'Customize Fields')))
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    if (source.isAddCF.value)
-                                      AnimatedContainer(
-                                        margin: EdgeInsets.only(top: 10),
-                                        duration: Duration(seconds: 3),
-                                        child: Obx(() {
-                                          customFieldForm =
-                                              CustomFieldForm(cfieldForm.value);
-                                          return Form(
-                                            key: formStateCF,
-                                            child: Column(
-                                              children: [
-                                                BsRow(
-                                                  children: [
-                                                    BsCol(
-                                                      margin: EdgeInsets.only(
-                                                          right: 5),
-                                                      sizes: ColScreen(
-                                                          sm: Col.col_12),
-                                                      child: Text(
-                                                          'Add Custom Field',
-                                                          style: TextStyle(
-                                                              color: _navigation
-                                                                      .darkTheme
-                                                                      .value
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .black)),
-                                                    ),
-                                                    BsCol(
-                                                      margin: EdgeInsets.only(
-                                                          right: 5),
-                                                      sizes: ColScreen(
-                                                          sm: Col.col_12),
-                                                      child: Container(
-                                                        child: Container(
-                                                          margin:
-                                                              EdgeInsets.all(
-                                                                  10),
-                                                          child: Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              customFieldForm
-                                                                  .inputName(),
-                                                              customFieldForm
-                                                                  .selectTypes(),
-                                                              customFieldForm
-                                                                  .checkBoxForm()
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                                Obx(
-                                                  () => Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.end,
-                                                    children: [
-                                                      ThemeButtonSave(
-                                                        disabled:
-                                                            prospectCustomFieldPresenter
-                                                                .isProcessing
-                                                                .value,
-                                                        processing: presenter
-                                                            .isProcessing.value,
-                                                        margin: EdgeInsets.only(
-                                                            right: 5),
-                                                        onPressed: () =>
-                                                            onClickSave(
-                                                                context),
-                                                      ),
-                                                      ThemeButtonCancel(
-                                                        disabled:
-                                                            prospectCustomFieldPresenter
-                                                                .isProcessing
-                                                                .value,
-                                                        margin: EdgeInsets.only(
-                                                            right: 5),
-                                                        onPressed: () =>
-                                                            onClickCancel(
-                                                                context),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        }),
-                                      ),
-                                    if (source.isAdd.value)
-                                      AnimatedContainer(
-                                        margin: EdgeInsets.only(top: 10),
-                                        duration: Duration(seconds: 3),
-                                        child: Obx(() {
-                                          prospectCustomFieldForm =
-                                              ProspectCustomFieldForm(
-                                                  cfForm.value);
-                                          return Form(
-                                            key: formState,
-                                            child: Column(
-                                              children: [
-                                                BsRow(
-                                                  children: [
-                                                    BsCol(
-                                                      margin: EdgeInsets.only(
-                                                          right: 5),
-                                                      sizes: ColScreen(
-                                                          sm: Col.col_12),
-                                                      child: Text(
-                                                          'Write Custom Field',
-                                                          style: TextStyle(
-                                                              color: _navigation
-                                                                      .darkTheme
-                                                                      .value
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .black)),
-                                                    ),
-                                                    BsCol(
-                                                      margin: EdgeInsets.only(
-                                                          right: 5),
-                                                      sizes: ColScreen(
-                                                          sm: Col.col_12),
-                                                      child: Container(
-                                                        child: Container(
-                                                          margin:
-                                                              EdgeInsets.all(
-                                                                  10),
-                                                          child: Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              prospectCustomFieldForm
-                                                                  .selectCf(),
-                                                              prospectCustomFieldForm
-                                                                  .inputValue(),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                                Obx(
-                                                  () => Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.end,
-                                                    children: [
-                                                      ThemeButtonSave(
-                                                        disabled:
-                                                            prospectCustomFieldPresenter
-                                                                .isProcessing
-                                                                .value,
-                                                        processing: presenter
-                                                            .isProcessing.value,
-                                                        margin: EdgeInsets.only(
-                                                            right: 5),
-                                                        onPressed: () =>
-                                                            onClickSaveModal(
-                                                                context),
-                                                      ),
-                                                      ThemeButtonCancel(
-                                                        disabled:
-                                                            prospectCustomFieldPresenter
-                                                                .isProcessing
-                                                                .value,
-                                                        margin: EdgeInsets.only(
-                                                            right: 5),
-                                                        onPressed: () =>
-                                                            onClickCancelModal(
-                                                                context),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        }),
-                                      ),
-                                    if (!source.isAddCF.value)
-                                      AnimatedContainer(
-                                        margin: EdgeInsets.only(top: 10),
-                                        duration: Duration(seconds: 3),
-                                        child: Column(
-                                          children: [
-                                            ListView.builder(
-                                                shrinkWrap: true,
-                                                itemCount:
-                                                    source.customField.length,
-                                                itemBuilder: (context, index) {
-                                                  var customField =
-                                                      source.customField[index];
-
-                                                  return InkWell(
-                                                    onLongPress: () {
-                                                      Get.defaultDialog(
-                                                          middleText: '',
-                                                          title: 'Setting',
-                                                          actions: [
-                                                            ButtonEditDatatables(
-                                                                onPressed: () {
-                                                              prospectCustomFieldPresenter
-                                                                  .edit(
-                                                                      context,
-                                                                      customField
-                                                                          .prospectcfid!);
-                                                              source.cfid
-                                                                      .value =
-                                                                  customField
-                                                                      .prospectcfid!;
-                                                            }),
-                                                            ButtonDeleteDatatables(
-                                                                onPressed: () {
-                                                              prospectCustomFieldPresenter.delete(
-                                                                  context,
-                                                                  customField
-                                                                      .prospectcfid!,
-                                                                  '${customField.prospectcfvalue}');
-                                                            }),
-                                                          ]);
-                                                    },
-                                                    child: BsRow(
-                                                      margin: EdgeInsets.all(3),
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
-                                                        color: ColorPallates
-                                                            .primary,
-                                                      ),
-                                                      padding:
-                                                          EdgeInsets.all(5),
-                                                      children: [
-                                                        BsCol(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            sizes: ColScreen(
-                                                                sm: Col.col_5),
-                                                            child: Text(
-                                                                customField
-                                                                    .customfield!
-                                                                    .custfname!,
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .white))),
-                                                        BsCol(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            sizes: ColScreen(
-                                                                sm: Col.col_2),
-                                                            child: Text(':',
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .white))),
-                                                        BsCol(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            sizes: ColScreen(
-                                                                sm: Col.col_5),
-                                                            child: Text(
-                                                                customField
-                                                                    .prospectcfvalue!,
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .white))),
-                                                      ],
-                                                    ),
-                                                  );
-                                                }),
-                                            // Y
-                                            ListView.builder(
-                                                shrinkWrap: true,
-                                                itemCount: source
-                                                    .rawcustomField.length,
-                                                itemBuilder: (context, index) {
-                                                  var rawcustomField = source
-                                                      .rawcustomField[index];
-
-                                                  return InkWell(
-                                                    onTap: () {
-                                                      source.isAdd.value = true;
-                                                      cfForm.value.format
-                                                              .value =
-                                                          rawcustomField
-                                                              .custftype!
-                                                              .typename!;
-                                                      cfForm.value
-                                                          .selectCustomfield
-                                                          .setSelected(BsSelectBoxOption(
-                                                              value:
-                                                                  rawcustomField
-                                                                      .custfid,
-                                                              text: Text(
-                                                                  rawcustomField
-                                                                      .custfname!)));
-                                                    },
-                                                    child: BsRow(
-                                                      margin: EdgeInsets.all(3),
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
-                                                        color: ColorPallates
-                                                            .tertiary,
-                                                      ),
-                                                      padding:
-                                                          EdgeInsets.all(5),
-                                                      children: [
-                                                        BsCol(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            sizes: ColScreen(
-                                                                sm: Col.col_5),
-                                                            child: Text(
-                                                              rawcustomField
-                                                                  .custfname!,
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white),
-                                                            )),
-                                                        BsCol(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            sizes: ColScreen(
-                                                                sm: Col.col_2),
-                                                            child: Text(':',
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .white))),
-                                                        BsCol(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            sizes: ColScreen(
-                                                                sm: Col.col_5),
-                                                            child: Text('-',
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .white))),
-                                                      ],
-                                                    ),
-                                                  );
-                                                }),
-                                          ],
-                                        ),
-                                      )
-                                  ],
-                                ),
-                              ),
-                            )),
-                      ),
-                      BsCol(
-                        margin: EdgeInsets.only(top: 10),
-                        child: Obx(() => Container(
-                              decoration: BoxDecoration(
-                                color: _navigation.darkTheme.value
-                                    ? ColorPallates.elseDarkColor
-                                    : Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Container(
-                                margin: EdgeInsets.all(5),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text('Organization'),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            BsButton(
-                                                onPressed: () {},
-                                                label: Icon(
-                                                  Icons.edit,
-                                                  size: 13,
-                                                )),
-                                            // BsButton(
-                                            //     onPressed: () {},
-                                            //     label: Icon(
-                                            //       Icons.edit,
-                                            //       size: 13,
-                                            //     )),
-                                            // BsButton(
-                                            //     onPressed: () {},
-                                            //     label: Icon(
-                                            //       Icons.edit,
-                                            //       size: 13,
-                                            //     )),
-                                            // BsButton(
-                                            //     onPressed: () {},
-                                            //     label: Icon(
-                                            //       Icons.edit,
-                                            //       size: 13,
-                                            //     )),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Column(
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Column(
-                                              children: [
-                                                CircleAvatar(
-                                                  child: Icon(Icons.domain),
-                                                ),
-                                                Text('Address')
-                                              ],
-                                            ),
-                                            Text(source.bpname.value)
-                                          ],
-                                        ),
-                                        ExpansionTile(
-                                          title: Text(
-                                            "Title",
-                                            style: TextStyle(
-                                                fontSize: 18.0,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          children: <Widget>[
-                                            ListTile(
-                                              subtitle: Text(
-                                                  'data data data data data data data data'),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ),
-                            )),
-                      ),
+                      prospectDetailCustomFieldSection(context),
+                      prospectDetailOrganizationSection(context),
                     ],
                   ),
                 ),
@@ -904,16 +191,38 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                             SingleChildScrollView(
                                               child: Column(
                                                 children: [
-                                                  Container(
-                                                    alignment:
-                                                        Alignment.topLeft,
-                                                    margin: EdgeInsets.only(
-                                                        top: 15, bottom: 10),
-                                                    child: Text(
-                                                      'This Prospect is Assigned to : ',
-                                                      style: TextStyle(
-                                                          fontSize: 18),
-                                                    ),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Container(
+                                                        alignment:
+                                                            Alignment.topLeft,
+                                                        margin: EdgeInsets.only(
+                                                            top: 15,
+                                                            bottom: 10),
+                                                        child: Text(
+                                                          'This Prospect is Assigned to : ',
+                                                          style: TextStyle(
+                                                              fontSize: 18),
+                                                        ),
+                                                      ),
+                                                      BsButton(
+                                                        style: BsButtonStyle
+                                                            .success,
+                                                        onPressed: () {
+                                                          assignPresenter.add(
+                                                              context,
+                                                              source.prospectid
+                                                                  .value);
+                                                        },
+                                                        prefixIcon:
+                                                            Icons.assignment,
+                                                        label: Text(
+                                                            'Add Assignation'),
+                                                      ),
+                                                    ],
                                                   ),
                                                   Obx(() => Container(
                                                         child: ListView.builder(
@@ -1065,7 +374,21 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                   MainAxisAlignment.center,
                                               children: [
                                                 Text(
-                                                    'This Prospect is not Assigned')
+                                                    'This Prospect is not Assigned'),
+                                                BsButton(
+                                                  margin:
+                                                      EdgeInsets.only(top: 10),
+                                                  style: BsButtonStyle.success,
+                                                  onPressed: () {
+                                                    assignPresenter.add(
+                                                        context,
+                                                        source
+                                                            .prospectid.value);
+                                                  },
+                                                  prefixIcon: Icons.assignment,
+                                                  label:
+                                                      Text('Add Assignation'),
+                                                ),
                                               ],
                                             ),
                                           if (source.assign.length != 0)
@@ -1218,16 +541,38 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                             SingleChildScrollView(
                                               child: Column(
                                                 children: [
-                                                  Container(
-                                                    alignment:
-                                                        Alignment.topLeft,
-                                                    margin: EdgeInsets.only(
-                                                        top: 15, bottom: 10),
-                                                    child: Text(
-                                                      'Prospect Product : ',
-                                                      style: TextStyle(
-                                                          fontSize: 18),
-                                                    ),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Container(
+                                                        alignment:
+                                                            Alignment.topLeft,
+                                                        margin: EdgeInsets.only(
+                                                            top: 15,
+                                                            bottom: 10),
+                                                        child: Text(
+                                                          'Prospect Product : ',
+                                                          style: TextStyle(
+                                                              fontSize: 18),
+                                                        ),
+                                                      ),
+                                                      BsButton(
+                                                        style: BsButtonStyle
+                                                            .success,
+                                                        onPressed: () {
+                                                          productPresenter.add(
+                                                              context,
+                                                              source.prospectid
+                                                                  .value);
+                                                        },
+                                                        prefixIcon:
+                                                            Icons.shopping_bag,
+                                                        label:
+                                                            Text('Add Product'),
+                                                      )
+                                                    ],
                                                   ),
                                                   Obx(() => Container(
                                                         child: ListView.builder(
@@ -1351,7 +696,21 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                   MainAxisAlignment.center,
                                               children: [
                                                 Text(
-                                                    'This Prospect Don\'t Have Product')
+                                                    'This Prospect Don\'t Have Product'),
+                                                BsButton(
+                                                  style: BsButtonStyle.success,
+                                                  margin:
+                                                      EdgeInsets.only(top: 10),
+                                                  onPressed: () {
+                                                    productPresenter.add(
+                                                        context,
+                                                        source
+                                                            .prospectid.value);
+                                                  },
+                                                  prefixIcon:
+                                                      Icons.shopping_bag,
+                                                  label: Text('Add Product'),
+                                                )
                                               ],
                                             ),
                                           Column(
@@ -1379,130 +738,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Column(
-                                children: [
-                                  BsBadge(
-                                    child: Text('PLANNED'),
-                                  ),
-                                  if (source.detailData.length == 0)
-                                    Column(
-                                      children: [
-                                        Text(
-                                            'You have no upcoming activities.'),
-                                        SizedBox(height: 10),
-                                        InkWell(
-                                          child: Text('+ Schedule an activity'),
-                                          onTap: () => detailPresenter.add(
-                                              context, source.prospectid.value),
-                                        ),
-                                      ],
-                                    )
-                                  else
-                                    Column(
-                                      children: [
-                                        Container(
-                                          alignment: Alignment.topRight,
-                                          child: BsButton(
-                                              style: BsButtonStyle.success,
-                                              onPressed: () =>
-                                                  detailPresenter.add(context,
-                                                      source.prospectid.value),
-                                              label: Text('Add Activity')),
-                                        ),
-                                        ListView.builder(
-                                            shrinkWrap: true,
-                                            itemCount: source.detailData.length,
-                                            itemBuilder: (context, index) {
-                                              var schedule =
-                                                  source.detailData[index];
-
-                                              return InkWell(
-                                                onLongPress: () {
-                                                  Get.defaultDialog(
-                                                      middleText: '',
-                                                      title: 'Setting',
-                                                      actions: [
-                                                        ButtonEditDatatables(
-                                                            onPressed: () {
-                                                          detailPresenter.edit(
-                                                              context,
-                                                              schedule
-                                                                  .prospectactivityid,
-                                                              source.prospectid
-                                                                  .value);
-                                                        }),
-                                                        ButtonDeleteDatatables(
-                                                            onPressed: () {
-                                                          detailPresenter.delete(
-                                                              context,
-                                                              schedule
-                                                                  .prospectactivityid,
-                                                              '${schedule.prospectactivitytype!.typename} at ${schedule.prospectactivitydate}');
-                                                        }),
-                                                      ]);
-                                                },
-                                                onTap: () {
-                                                  detailPresenter.detail(
-                                                      context,
-                                                      schedule
-                                                          .prospectactivityid);
-                                                },
-                                                child: BsRow(
-                                                  children: [
-                                                    BsCol(
-                                                        sizes: ColScreen(
-                                                            sm: Col.col_1),
-                                                        child: Column(
-                                                          children: [
-                                                            OutlinedDotIndicator(),
-                                                            SizedBox(
-                                                              height: 50.0,
-                                                              child:
-                                                                  SolidLineConnector(),
-                                                            )
-                                                          ],
-                                                        )),
-                                                    BsCol(
-                                                        alignment:
-                                                            Alignment.center,
-                                                        sizes: ColScreen(
-                                                            sm: Col.col_3),
-                                                        child: Text(schedule
-                                                            .prospectactivitydate)),
-                                                    BsCol(
-                                                        sizes: ColScreen(
-                                                            sm: Col.col_8),
-                                                        child: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                              schedule
-                                                                  .prospectactivitycat
-                                                                  .typename,
-                                                              style: TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
-                                                            ),
-                                                            Container(
-                                                              margin: EdgeInsets
-                                                                  .only(top: 5),
-                                                              child: Text(schedule
-                                                                  .prospectactivitytype
-                                                                  .typename),
-                                                            ),
-                                                          ],
-                                                        )),
-                                                  ],
-                                                ),
-                                              );
-                                            }),
-                                      ],
-                                    )
-                                ],
-                              ),
+                              prospectDetailActivitySection(context),
                               // SizedBox(
                               //   height: 20,
                               // ),
@@ -1731,51 +967,6 @@ class _ProspectDetailsState extends State<ProspectDetails>
       source.customField.value = customField;
     }
     presenter.setProcessing(false);
-  }
-
-  void onClickSaveModal(BuildContext context) async {
-    source.isAdd.value = false;
-    prospectCustomFieldPresenter.setProcessing(true);
-    if (source.isUpdate.value) {
-      if (formState.currentState!.validate()) {
-        prospectCustomFieldPresenter.update(
-            context, await cfForm.toJson(), source.cfid.value);
-        source.isUpdate.value = false;
-        source.cfid.value = 0;
-      } else {
-        prospectCustomFieldPresenter.setProcessing(false);
-        source.isUpdate.value = false;
-      }
-    } else {
-      if (formState.currentState!.validate())
-        prospectCustomFieldPresenter.save(context, await cfForm.toJson());
-      else
-        prospectCustomFieldPresenter.setProcessing(false);
-    }
-  }
-
-  void onClickCancelModal(BuildContext context) {
-    source.isAdd.value = false;
-    source.isUpdate.value = false;
-    cfForm.value.inputValue.text = '';
-    cfForm.value.selectCustomfield.clear();
-  }
-
-  void onClickSave(BuildContext context) async {
-    source.isAddCF.value = false;
-    customFieldPresenter.setProcessing(true);
-    if (formStateCF.currentState!.validate())
-      customFieldPresenter.save(context, await cfieldForm.toJson());
-    else
-      customFieldPresenter.setProcessing(false);
-  }
-
-  void onClickCancel(BuildContext context) {
-    source.isAddCF.value = false;
-    cfieldForm.value.inputName.text = '';
-    cfieldForm.value.selectType.clear();
-    cfieldForm.value.visible.value = false;
-    cfieldForm.value.newprospect.value = false;
   }
 
   @override

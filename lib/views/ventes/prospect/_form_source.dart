@@ -27,7 +27,6 @@ import '../../../widgets/input/custom_input_currency.dart';
 import '../../../widgets/input/custom_input_number.dart';
 import '../../../widgets/selectbox/custom_selectbox.dart';
 import '../../masters/menus/_menu_type.dart';
-import '_form_controller.dart';
 import '_text.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
@@ -46,6 +45,11 @@ class ProspectSource extends GetxController {
   var usd = false.obs;
   var totals = [].obs;
   var subtotal = 0.0.obs;
+
+  final addProduct = 'Add Product';
+  final dontAddProduct = "Don't Add Product";
+
+  var isProduct = false.obs;
 
   List<String> total() {
     return List<String>.from(inputAmounts.map((controller) {
@@ -183,7 +187,6 @@ class ProspectSource extends GetxController {
 }
 
 class ProspectForm {
-  final ctrl = Get.put(ProspectFormController());
   final ProspectSource source;
   // final source = Get.put(ProspectSource());
 
@@ -292,7 +295,7 @@ class ProspectForm {
                 margin: EdgeInsets.only(right: 5),
                 sizes: ColScreen(md: Col.col_12),
                 child: CustomInputCurrency(
-                  disabled: ctrl.isProduct.value,
+                  disabled: source.isProduct.value,
                   controller: source.inputValue,
                   hintText: BaseText.hintText(field: ProspectText.labelValue),
                 ),
@@ -316,11 +319,11 @@ class ProspectForm {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       GestureDetector(
-                          onTap: (() => ctrl.isProduct.toggle()),
+                          onTap: (() => source.isProduct.toggle()),
                           child: Text(
-                            ctrl.isProduct.value
-                                ? ctrl.addProduct
-                                : ctrl.dontAddProduct,
+                            source.isProduct.value
+                                ? source.addProduct
+                                : source.dontAddProduct,
                             style: TextStyle(color: Colors.blue.shade300),
                           ))
                     ],
@@ -587,7 +590,7 @@ class ProspectForm {
                             // source.subtotal.value += parseDouble(amount);
                           }
                         },
-                        disabled: ctrl.isProduct.value,
+                        disabled: source.isProduct.value,
                         controller: inputQuantity,
                         hintText: BaseText.hintText(
                             field: ProspectText.labelQuantity),
@@ -615,7 +618,7 @@ class ProspectForm {
                             // source.subtotal.value += amount;
                           }
                         },
-                        disabled: ctrl.isProduct.value,
+                        disabled: source.isProduct.value,
                         controller: inputPrice,
                         hintText:
                             BaseText.hintText(field: ProspectText.labelPrice),
@@ -634,7 +637,7 @@ class ProspectForm {
                           inputAmount.text = currencyFormatter.format(value);
                         },
                         readOnly: true,
-                        disabled: ctrl.isProduct.value,
+                        disabled: source.isProduct.value,
                         controller: inputAmount,
                         hintText: 'Type ' +
                             ProspectText.labelPrice +
@@ -651,7 +654,7 @@ class ProspectForm {
                     child: FormGroup(
                       label: Text(ProspectText.labelDiscount),
                       child: CustomInput(
-                        disabled: ctrl.isProduct.value,
+                        disabled: source.isProduct.value,
                         controller: inputDiscount,
                         hintText: BaseText.hintText(
                             field: ProspectText.labelDiscount),
@@ -676,7 +679,7 @@ class ProspectForm {
                     child: FormGroup(
                       label: Text(ProspectText.labelTax),
                       child: CustomInput(
-                        disabled: ctrl.isProduct.value,
+                        disabled: source.isProduct.value,
                         controller: inputTax,
                         hintText:
                             BaseText.hintText(field: ProspectText.labelTax),
@@ -702,7 +705,7 @@ class ProspectForm {
                       label: Text(ProspectText.labelTaxType),
                       child: CustomSelectBox(
                         searchable: false,
-                        disabled: ctrl.isProduct.value,
+                        disabled: source.isProduct.value,
                         controller: selectTax,
                         hintText: BaseText.hiintSelect(
                             field: ProspectText.labelTaxType),

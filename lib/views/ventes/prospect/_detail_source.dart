@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 
 import '../../../models/ventes/customfield_model.dart';
 import '../../../models/ventes/prospectcustomfield_model.dart';
-import '_stagePipeline.dart';
+import 'prospectdetail_component/_stagePipeline.dart';
 
 class prospectDetailsSource extends GetxController {
   var prospectid = 0.obs;

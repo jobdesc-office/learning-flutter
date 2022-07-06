@@ -2,9 +2,9 @@ import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../models/masters/type_model.dart';
-import '../../../presenters/navigation_presenter.dart';
-import '../../../styles/color_palattes.dart';
+import '../../../../models/masters/type_model.dart';
+import '../../../../presenters/navigation_presenter.dart';
+import '../../../../styles/color_palattes.dart';
 
 abstract class MenuTypeViewDetailContract {
   void onLoadSuccess(Response response);
