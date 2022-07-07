@@ -1,3 +1,4 @@
+import 'package:boilerplate/models/masters/type_model.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
@@ -41,11 +42,11 @@ BsCol prospectDetailTitleSection(context) {
                       ),
                       if (source.status.value == 'Closed Lost')
                         Row(
-                          children: [Text('This Prospect is Lose !!!')],
+                          children: [Text('This Prospect Lost !!!')],
                         )
                       else if (source.status.value == 'Closed Won')
                         Row(
-                          children: [Text('This Prospect is Won !!!')],
+                          children: [Text('This Prospect Won !!!')],
                         )
                       else
                         Row(
@@ -55,12 +56,14 @@ BsCol prospectDetailTitleSection(context) {
                               style: BsButtonStyle.success,
                               onPressed: () async {
                                 int data = await presenter.wonStatus();
+                                TypeModel stage =
+                                    await presenter.completePipeline();
                                 showDialog(
                                   context: context,
                                   builder: (context) => ConfirmDialog(
                                     title: BaseText.confirmTitle,
                                     message:
-                                        'Are You Sure This Prospect is Won ???',
+                                        'Are You Sure This Prospect Won ???',
                                     onPressed: (_, value) async {
                                       if (value ==
                                           ConfirmDialogOption.YES_OPTION) {
@@ -68,9 +71,12 @@ BsCol prospectDetailTitleSection(context) {
                                             context,
                                             {
                                               'prospectstatusid': data,
+                                              'prospectstageid': stage.typeid,
                                             },
                                             source.prospectid.value);
                                         source.status.value = 'Closed Won';
+                                        source.prospectStageController
+                                            .selected = stage;
                                       } else {
                                         Navigator.pop(context);
                                       }

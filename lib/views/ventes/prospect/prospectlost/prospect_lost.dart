@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../../../constants/base_text.dart';
 import '../../../../contracts/base/details_view_contract.dart';
+import '../../../../models/masters/type_model.dart';
 import '../../../../models/ventes/prospectassign_model.dart';
 import '../../../../presenters/navigation_presenter.dart';
 import '../../../../presenters/ventes/prospect_presenter.dart';
@@ -112,6 +113,7 @@ class ProspectLose extends GetView {
 
   void onClickSaveModal(BuildContext context) async {
     presenter.setProcessing(true);
+    TypeModel stage = await presenter.completePipeline();
     if (formState.currentState!.validate()) {
       showDialog(
         context: context,
@@ -122,6 +124,7 @@ class ProspectLose extends GetView {
             if (value == ConfirmDialogOption.YES_OPTION) {
               onSave(await source.toJson());
               sources.status.value = 'Closed Lost';
+              sources.prospectStageController.selected = stage;
               Navigator.pop(context);
             } else {
               presenter.setProcessing(false);

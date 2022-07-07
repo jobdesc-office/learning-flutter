@@ -935,6 +935,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     source.prospectbpid.value = dt.prospectbp!.bpid!;
     _auth.bpActiveId.value = dt.prospectbp!.bpid!;
     source.status.value = dt.prospectstatus!.typename!;
+    customFieldPresenter.allBp(context);
 
     detailPresenter.details(context, {'id': dt.prospectid.toString()});
 

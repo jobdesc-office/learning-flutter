@@ -88,6 +88,19 @@ class ProspectPresenter extends CustomGetXController {
     return null;
   }
 
+  Future completePipeline() async {
+    Response response = await _typeService.byCode(ConfigType.prospectStage);
+    if (response.statusCode == 200) {
+      List<TypeModel> data = [];
+      for (var item in response.body) {
+        data.add(TypeModel.fromJson(item));
+      }
+      data.removeWhere((element) => element.typename != 'Complete');
+      return data.first;
+    }
+    return null;
+  }
+
   Future wonStatus() async {
     Response response = await _typeService.byCode(ConfigType.prospectStatus);
     if (response.statusCode == 200) {

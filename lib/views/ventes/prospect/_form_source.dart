@@ -198,20 +198,6 @@ class ProspectForm {
 
   ProspectForm(this.source);
 
-  Widget inputContact() {
-    return FormGroup(
-      label: Text(ProspectText.labelCustomer),
-      child: CustomSelectBox(
-        searchable: true,
-        disabled: source.isBpNotSelected.value,
-        controller: source.selectCustomer,
-        hintText: BaseText.hiintSelect(field: ProspectText.labelCustomer),
-        serverSide: (params) => selectApiBpCustomer(params),
-        validators: [Validators.selectRequired(ProspectText.labelCustomer)],
-      ),
-    );
-  }
-
   Widget inputOrganization(context) {
     return FormGroup(
       child: BsRow(
@@ -412,16 +398,39 @@ class ProspectForm {
   }
 
   Widget selectOwner() {
-    return FormGroup(
-      label: Text(ProspectText.labelOwner),
-      child: CustomSelectBox(
-        searchable: true,
-        disabled: source.isBpNotSelected.value,
-        controller: source.selectOwner,
-        hintText: BaseText.hiintSelect(field: ProspectText.labelOwner),
-        serverSide: (params) => selectApiProspectOwner(params),
-        validators: [Validators.selectRequired(ProspectText.labelOwner)],
-      ),
+    return BsRow(
+      children: [
+        BsCol(
+          sizes: ColScreen(sm: Col.col_6),
+          child: FormGroup(
+            label: Text(ProspectText.labelOwner),
+            child: CustomSelectBox(
+              searchable: true,
+              disabled: source.isBpNotSelected.value,
+              controller: source.selectOwner,
+              hintText: BaseText.hiintSelect(field: ProspectText.labelOwner),
+              serverSide: (params) => selectApiProspectOwner(params),
+              validators: [Validators.selectRequired(ProspectText.labelOwner)],
+            ),
+          ),
+        ),
+        BsCol(
+          sizes: ColScreen(sm: Col.col_6),
+          child: FormGroup(
+            label: Text(ProspectText.labelCustomer),
+            child: CustomSelectBox(
+              searchable: true,
+              disabled: source.isBpNotSelected.value,
+              controller: source.selectCustomer,
+              hintText: BaseText.hiintSelect(field: ProspectText.labelCustomer),
+              serverSide: (params) => selectApiBpCustomer(params),
+              validators: [
+                Validators.selectRequired(ProspectText.labelCustomer)
+              ],
+            ),
+          ),
+        )
+      ],
     );
   }
 
@@ -539,8 +548,8 @@ class ProspectForm {
         disabled: source.isProcessing,
         controller: source.inputDesc,
         hintText: BaseText.hintText(field: ProspectText.labelDesc),
-        maxLines: 5,
-        minLines: 3,
+        maxLines: 2,
+        minLines: 2,
       ),
     );
   }

@@ -35,9 +35,11 @@ class ProspectLostSource extends GetxController {
   Future<Map<String, dynamic>> toJson() async {
     SessionModel session = await SessionManager.current();
     int data = await _prospectPresenter.lostStatus();
+    TypeModel stage = await _prospectPresenter.completePipeline();
 
     return {
       'prospectstatusid': data,
+      'prospectstageid': stage.typeid,
       'prospectlostreasonid': selectReason.getSelectedAsString(),
       'prospectlostdesc': inputDesc.text,
       'createdby': session.userid,

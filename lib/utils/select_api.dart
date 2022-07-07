@@ -91,10 +91,16 @@ Future<BsSelectBoxResponse> selectApiProspectStatus(
   Response response = await typeService.byCode(ConfigType.prospectStatus);
   if (response.isOk) {
     if (response.statusCode == 200) {
+      List<TypeModel> data = [];
+      for (var item in response.body) {
+        data.add(TypeModel.fromJson(item));
+      }
+      data.removeWhere((element) => element.typename == 'Closed Lost');
+      data.removeWhere((element) => element.typename == 'Closed Won');
       return BsSelectBoxResponse.createFromJson(
-        response.body,
-        value: (data) => TypeModel.fromJson(data).typeid,
-        renderText: (data) => Text(TypeModel.fromJson(data).typename),
+        data,
+        value: (data) => data.typeid,
+        renderText: (data) => Text(data.typename),
       );
     }
   }

@@ -62,12 +62,11 @@ class ProspectFormView extends StatelessWidget
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          prospectForm.inputTitle(),
                           prospectForm.selectBp(),
                           prospectForm.selectOwner(),
-                          prospectForm.inputContact(),
-                          prospectForm.inputTitle(),
-                          prospectForm.inputPipelineStage(),
-                          prospectForm.inputStatus()
+                          prospectForm.inputStatus(),
+                          prospectForm.inputPipelineStage()
                         ],
                       ),
                     ),
