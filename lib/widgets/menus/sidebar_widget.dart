@@ -19,10 +19,13 @@ class SidebarWidgets {
   }
 
   static Widget logoCollapse() {
-    // return Image.asset('assets/images/logo.png');
-    return Center(
-        child: Text('V',
-            style: TextStyle(fontSize: 15, color: ColorPallates.secondary)));
+    return Row(
+      children: [
+        Expanded(
+            child: Image.asset('assets/images/logo-short.png',
+                width: 150, height: 50))
+      ],
+    );
   }
 
   static Widget menuParent(List<MenuData> history, {VoidCallback? onTab}) {
