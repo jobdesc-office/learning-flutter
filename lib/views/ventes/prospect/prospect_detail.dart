@@ -301,7 +301,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                                           sizes:
                                                                               ColScreen(sm: Col.col_9),
                                                                           child: Text(assigns
-                                                                              .prospectassign
+                                                                              .prospectassignss
                                                                               .userfullname),
                                                                         ),
                                                                         BsCol(
@@ -326,7 +326,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                                           sizes:
                                                                               ColScreen(sm: Col.col_9),
                                                                           child: Text(assigns
-                                                                              .prospectassign
+                                                                              .prospectassignss
                                                                               .useremail),
                                                                         ),
                                                                         BsCol(
@@ -351,7 +351,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                                           sizes:
                                                                               ColScreen(sm: Col.col_9),
                                                                           child: Text(assigns
-                                                                              .prospectassign
+                                                                              .prospectassignss
                                                                               .userphone),
                                                                         )
                                                                       ],
@@ -453,7 +453,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                                         sizes: ColScreen(
                                                                             sm: Col.col_9),
                                                                         child: Text(reports
-                                                                            .prospectreport
+                                                                            .prospectreportss
                                                                             .userfullname),
                                                                       ),
                                                                       BsCol(
@@ -481,7 +481,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                                         sizes: ColScreen(
                                                                             sm: Col.col_9),
                                                                         child: Text(reports
-                                                                            .prospectreport
+                                                                            .prospectreportss
                                                                             .useremail),
                                                                       ),
                                                                       BsCol(
@@ -509,7 +509,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                                         sizes: ColScreen(
                                                                             sm: Col.col_9),
                                                                         child: Text(reports
-                                                                            .prospectreport
+                                                                            .prospectreportss
                                                                             .userphone),
                                                                       )
                                                                     ],

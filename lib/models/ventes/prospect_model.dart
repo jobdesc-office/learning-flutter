@@ -1,6 +1,5 @@
+import 'package:boilerplate/models/masters/type_model.dart';
 import 'package:boilerplate/models/ventes/prospectcustomfield_model.dart';
-
-import '../masters/type_model.dart';
 
 class ProspectModel {
   int? prospectid;
@@ -206,8 +205,8 @@ class Prospectassigns {
   int? updatedby;
   String? updateddate;
   bool? isactive;
-  Prospectassign? prospectassign;
-  Prospectassign? prospectreport;
+  Prospectassignss? prospectassignss;
+  Prospectassignss? prospectreportss;
 
   Prospectassigns(
       {this.prospectassignid,
@@ -220,8 +219,8 @@ class Prospectassigns {
       this.updatedby,
       this.updateddate,
       this.isactive,
-      this.prospectassign,
-      this.prospectreport});
+      this.prospectassignss,
+      this.prospectreportss});
 
   Prospectassigns.fromJson(Map<String, dynamic> json) {
     prospectassignid = json['prospectassignid'];
@@ -234,11 +233,11 @@ class Prospectassigns {
     updatedby = json['updatedby'];
     updateddate = json['updateddate'];
     isactive = json['isactive'];
-    prospectassign = json['prospectassign'] != null
-        ? new Prospectassign.fromJson(json['prospectassign'])
+    prospectassignss = json['prospectassignss'] != null
+        ? new Prospectassignss.fromJson(json['prospectassignss'])
         : null;
-    prospectreport = json['prospectreport'] != null
-        ? new Prospectassign.fromJson(json['prospectreport'])
+    prospectreportss = json['prospectreportss'] != null
+        ? new Prospectassignss.fromJson(json['prospectreportss'])
         : null;
   }
 
@@ -254,17 +253,17 @@ class Prospectassigns {
     data['updatedby'] = this.updatedby;
     data['updateddate'] = this.updateddate;
     data['isactive'] = this.isactive;
-    if (this.prospectassign != null) {
-      data['prospectassign'] = this.prospectassign!.toJson();
+    if (this.prospectassignss != null) {
+      data['prospectassignss'] = this.prospectassignss!.toJson();
     }
-    if (this.prospectreport != null) {
-      data['prospectreport'] = this.prospectreport!.toJson();
+    if (this.prospectreportss != null) {
+      data['prospectreportss'] = this.prospectreportss!.toJson();
     }
     return data;
   }
 }
 
-class Prospectassign {
+class Prospectassignss {
   int? userid;
   String? username;
   String? userpassword;
@@ -280,7 +279,7 @@ class Prospectassign {
   String? updateddate;
   bool? isactive;
 
-  Prospectassign(
+  Prospectassignss(
       {this.userid,
       this.username,
       this.userpassword,
@@ -296,7 +295,7 @@ class Prospectassign {
       this.updateddate,
       this.isactive});
 
-  Prospectassign.fromJson(Map<String, dynamic> json) {
+  Prospectassignss.fromJson(Map<String, dynamic> json) {
     userid = json['userid'];
     username = json['username'];
     userpassword = json['userpassword'];
@@ -1136,7 +1135,7 @@ class Sbccstm {
   String? cstmpostalcode;
   String? cstmlatitude;
   String? cstmlongitude;
-  String? referalcode;
+  int? referalcode;
   int? createdby;
   String? createddate;
   int? updatedby;
