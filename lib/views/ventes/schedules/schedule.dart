@@ -32,7 +32,7 @@ class ScheduleView extends GetView
       body: TemplateView(
         title: ScheduleText.title,
         breadcrumbs: [
-          BreadcrumbWidget('Dashboard', route: RouteList.home.index),
+          BreadcrumbWidget('Insight', route: RouteList.home.index),
           BreadcrumbWidget('Venteses'),
           BreadcrumbWidget('Schedule', active: true),
         ],

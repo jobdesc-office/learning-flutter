@@ -29,7 +29,7 @@ class BusinessPartnerView extends GetView
       body: TemplateView(
         title: 'Business Partner',
         breadcrumbs: [
-          BreadcrumbWidget('Dashboard', route: RouteList.home.index),
+          BreadcrumbWidget('Insight', route: RouteList.home.index),
           BreadcrumbWidget('Masters'),
           BreadcrumbWidget('Business Partner', active: true),
         ],

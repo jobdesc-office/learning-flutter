@@ -31,7 +31,7 @@ class CityFormView extends StatelessWidget implements EditViewContract {
       body: TemplateView(
         title: 'City Form',
         breadcrumbs: [
-          BreadcrumbWidget('Dashboard', route: RouteList.home.index),
+          BreadcrumbWidget('Insight', route: RouteList.home.index),
           BreadcrumbWidget('Masters'),
           BreadcrumbWidget('Cities', back: true),
           BreadcrumbWidget('City Form', active: true),

@@ -33,7 +33,7 @@ class UserView extends GetView
       body: TemplateView(
         title: 'Users',
         breadcrumbs: [
-          BreadcrumbWidget('Dashboard', route: RouteList.home.index),
+          BreadcrumbWidget('Insight', route: RouteList.home.index),
           BreadcrumbWidget('Masters'),
           BreadcrumbWidget('Users', active: true),
         ],

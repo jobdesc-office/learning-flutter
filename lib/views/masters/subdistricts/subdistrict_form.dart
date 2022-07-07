@@ -31,7 +31,7 @@ class SubdistrictFormView extends StatelessWidget implements EditViewContract {
       body: TemplateView(
         title: 'Subdistrict Form',
         breadcrumbs: [
-          BreadcrumbWidget('Dashboard', route: RouteList.home.index),
+          BreadcrumbWidget('Insight', route: RouteList.home.index),
           BreadcrumbWidget('Masters'),
           BreadcrumbWidget('Subdistricts', back: true),
           BreadcrumbWidget('Subdistrict Form', active: true),

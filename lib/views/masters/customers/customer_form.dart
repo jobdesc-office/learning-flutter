@@ -38,7 +38,7 @@ class CustomerFormView extends StatelessWidget
       body: TemplateView(
         title: 'Customer Form',
         breadcrumbs: [
-          BreadcrumbWidget('Dashboard', route: RouteList.home.index),
+          BreadcrumbWidget('Insight', route: RouteList.home.index),
           BreadcrumbWidget('Masters'),
           BreadcrumbWidget('Customers', back: true),
           BreadcrumbWidget('Customer Form', active: true),

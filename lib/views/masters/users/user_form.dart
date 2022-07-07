@@ -33,7 +33,7 @@ class UserFormView extends GetView implements EditViewContract {
       body: TemplateView(
         title: 'User Form',
         breadcrumbs: [
-          BreadcrumbWidget('Dashboard', route: RouteList.home.index),
+          BreadcrumbWidget('Insight', route: RouteList.home.index),
           BreadcrumbWidget('Masters'),
           BreadcrumbWidget('Users', back: true),
           BreadcrumbWidget('User Form', active: true),

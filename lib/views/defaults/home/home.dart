@@ -48,9 +48,9 @@ class _HomeViewState extends State<HomeView>
   Widget build(BuildContext context) {
     return Scaffold(
       body: TemplateView(
-        title: 'Dashboard',
+        title: 'Insight',
         breadcrumbs: [
-          BreadcrumbWidget('Dashboard', active: true),
+          BreadcrumbWidget('Insight', active: true),
         ],
         activeRoutes: [RouteList.home.index],
         child: BsRow(

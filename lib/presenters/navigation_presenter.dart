@@ -5,7 +5,7 @@ import '../widgets/menus/menu_data.dart';
 import '../widgets/menus/overlay_collapse_menu.dart';
 
 class NavigationPresenter extends GetxController {
-  final isCollapse = false.obs;
+  final isCollapse = true.obs;
   final darkTheme = false.obs;
 
   void toggleCollapse() {

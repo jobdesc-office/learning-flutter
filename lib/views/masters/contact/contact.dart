@@ -27,7 +27,7 @@ class ContactView extends GetView implements IndexViewContract {
       body: TemplateView(
         title: 'Contacts',
         breadcrumbs: [
-          BreadcrumbWidget('Dashboard', route: RouteList.home.index),
+          BreadcrumbWidget('Insight', route: RouteList.home.index),
           BreadcrumbWidget('Masters'),
           BreadcrumbWidget('Contact', active: true),
         ],

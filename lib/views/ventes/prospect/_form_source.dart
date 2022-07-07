@@ -54,6 +54,16 @@ class ProspectSource extends GetxController {
 
   var isProduct = false.obs;
 
+  reset() {
+    selectsTax.clear();
+    selectsItem.clear();
+    inputPrices.clear();
+    inputQuantities.clear();
+    inputAmounts.clear();
+    inputDiscounts.clear();
+    inputTaxes.clear();
+  }
+
   List<String> total() {
     return List<String>.from(inputAmounts.map((controller) {
       int index = inputAmounts.indexOf(controller);
@@ -309,7 +319,11 @@ class ProspectForm {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       GestureDetector(
-                          onTap: (() => source.isProduct.toggle()),
+                          onTap: (() {
+                            source.reset();
+                            source.inputValue.text = '';
+                            source.isProduct.toggle();
+                          }),
                           child: Text(
                             source.isProduct.value
                                 ? source.addProduct

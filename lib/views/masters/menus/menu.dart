@@ -32,7 +32,7 @@ class MenuView extends StatelessWidget
       body: TemplateView(
         title: 'Menus',
         breadcrumbs: [
-          BreadcrumbWidget('Dashboard', route: RouteList.home.index),
+          BreadcrumbWidget('Insight', route: RouteList.home.index),
           BreadcrumbWidget('Masters'),
           BreadcrumbWidget('Menus', active: true),
         ],

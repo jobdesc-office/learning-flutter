@@ -28,7 +28,7 @@ class ProvinceView extends GetView implements IndexViewContract {
       body: TemplateView(
         title: 'Provinces',
         breadcrumbs: [
-          BreadcrumbWidget('Dashboard', route: RouteList.home.index),
+          BreadcrumbWidget('Insight', route: RouteList.home.index),
           BreadcrumbWidget('Masters'),
           BreadcrumbWidget('Provinces', active: true),
         ],

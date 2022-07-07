@@ -79,7 +79,7 @@ class SidebarSkins extends StatelessWidget {
                       MenuData(
                         id: no++,
                         route: RouteList.home.index,
-                        label: 'Dashboard',
+                        label: 'Insight',
                         icon: Icons.dashboard,
                       ),
                     ],
@@ -196,25 +196,25 @@ class SidebarSkins extends StatelessWidget {
                       title: 'Ventes Datas',
                       icon: Icons.analytics,
                       children: [
+                        // MenuData(
+                        //     id: no++,
+                        //     route: RouteList.prospect.index,
+                        //     label: 'Prospects',
+                        //     icon: Icons.analytics,
+                        //     children: [
                         MenuData(
-                            id: no++,
-                            route: RouteList.prospect.index,
-                            label: 'Prospects',
-                            icon: Icons.analytics,
-                            children: [
-                              MenuData(
-                                id: no++,
-                                route: RouteList.ventesProspect.index,
-                                label: 'Prospects',
-                                icon: Icons.analytics,
-                              ),
-                              MenuData(
-                                id: no++,
-                                route: RouteList.ventesCustomField.index,
-                                label: 'Custom Fields',
-                                icon: Icons.add_box,
-                              ),
-                            ]),
+                          id: no++,
+                          route: RouteList.ventesProspect.index,
+                          label: 'Prospects',
+                          icon: Icons.analytics,
+                        ),
+                        //   MenuData(
+                        //     id: no++,
+                        //     route: RouteList.ventesCustomField.index,
+                        //     label: 'Custom Fields',
+                        //     icon: Icons.add_box,
+                        //   ),
+                        // ]),
                         MenuData(
                           id: no++,
                           route: RouteList.ventesSchedule.index,

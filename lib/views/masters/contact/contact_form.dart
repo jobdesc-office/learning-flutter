@@ -31,7 +31,7 @@ class ContactFormView extends StatelessWidget implements EditViewContract {
       body: TemplateView(
         title: 'Contact Form',
         breadcrumbs: [
-          BreadcrumbWidget('Dashboard', route: RouteList.home.index),
+          BreadcrumbWidget('Insight', route: RouteList.home.index),
           BreadcrumbWidget('Masters'),
           BreadcrumbWidget('Contact', back: true),
           BreadcrumbWidget('Contact Form', active: true),
