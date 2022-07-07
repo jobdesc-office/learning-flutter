@@ -302,7 +302,6 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                                               ColScreen(sm: Col.col_9),
                                                                           child: Text(assigns
                                                                               .prospectassign
-                                                                              .user
                                                                               .userfullname),
                                                                         ),
                                                                         BsCol(
@@ -328,7 +327,6 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                                               ColScreen(sm: Col.col_9),
                                                                           child: Text(assigns
                                                                               .prospectassign
-                                                                              .user
                                                                               .useremail),
                                                                         ),
                                                                         BsCol(
@@ -354,7 +352,6 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                                               ColScreen(sm: Col.col_9),
                                                                           child: Text(assigns
                                                                               .prospectassign
-                                                                              .user
                                                                               .userphone),
                                                                         )
                                                                       ],
@@ -457,7 +454,6 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                                             sm: Col.col_9),
                                                                         child: Text(reports
                                                                             .prospectreport
-                                                                            .user
                                                                             .userfullname),
                                                                       ),
                                                                       BsCol(
@@ -486,7 +482,6 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                                             sm: Col.col_9),
                                                                         child: Text(reports
                                                                             .prospectreport
-                                                                            .user
                                                                             .useremail),
                                                                       ),
                                                                       BsCol(
@@ -515,7 +510,6 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                                             sm: Col.col_9),
                                                                         child: Text(reports
                                                                             .prospectreport
-                                                                            .user
                                                                             .userphone),
                                                                       )
                                                                     ],
@@ -941,7 +935,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
 
     source.prospectname.value = dt.prospectname ?? '';
     source.prospectvalue.value = dt.prospectvalue ?? '0.0';
-    source.userfullname.value = dt.prospectowneruser!.user!.userfullname ?? '';
+    source.userfullname.value = dt.prospectownerusers!.userfullname ?? '';
     source.bpname.value = dt.prospectbp!.bpname ?? '';
     source.prospectstartdate.value = dt.prospectstartdate ?? '';
     source.prospectStageController.selected = dt.prospectstage;

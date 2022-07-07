@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 class BackgroundAuth extends GetView {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return SingleChildScrollView(
       child: BsRow(
         margin: EdgeInsets.only(top: 15, bottom: 20),

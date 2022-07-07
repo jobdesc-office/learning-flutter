@@ -307,8 +307,8 @@ class ProspectFormView extends StatelessWidget
       authPresenter.bpActiveId.value = prospect.prospectbpid!;
       source.value.isBpNotSelected.value = false;
       source.value.selectOwner.setSelected(BsSelectBoxOption(
-          value: prospect.prospectowneruser!.user!.userid,
-          text: Text(prospect.prospectowneruser!.user!.userfullname!)));
+          value: prospect.prospectownerusers!.userid,
+          text: Text(prospect.prospectownerusers!.userfullname!)));
 
       if (prospect.prospectreference != null) {
         source.value.selectReference.setSelected(BsSelectBoxOption(
