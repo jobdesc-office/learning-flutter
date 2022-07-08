@@ -107,8 +107,11 @@ BsCol prospectDetailTitleSection(context) {
                       BsCol(
                           sizes: ColScreen(sm: Col.col_2),
                           child: Text('Rp ' +
-                              currencyFormatter.format(
-                                  double.parse(source.prospectvalue.value)))),
+                              currencyFormatter
+                                  .format(
+                                      double.parse(source.prospectvalue.value))
+                                  .replaceAll(',00', '')
+                                  .replaceAll('.', ','))),
                       BsCol(
                         sizes: ColScreen(sm: Col.col_10),
                         child: Container(

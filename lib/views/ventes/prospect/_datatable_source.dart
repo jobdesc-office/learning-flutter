@@ -33,7 +33,7 @@ class ProspectDataTableSource extends BsDatatableSource {
     return <BsDataColumn>[
       CustomBsDataColumn(
         label: Text('No'),
-        width: 70,
+        width: 65,
         searchable: false,
         orderable: false,
       ),
@@ -187,7 +187,9 @@ class ProspectDataTableSource extends BsDatatableSource {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(currencyFormatter
-                  .format(parseDouble(row.prospectvalue ?? 0.0))),
+                  .format(parseDouble(row.prospectvalue ?? 0.0))
+                  .replaceAll(',00', '')
+                  .replaceAll('.', ',')),
               Text(''),
               if (_navigation.isCollapse.value) Text(''),
             ],

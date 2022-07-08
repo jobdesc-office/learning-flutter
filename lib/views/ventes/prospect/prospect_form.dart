@@ -283,9 +283,14 @@ class ProspectFormView extends StatelessWidget
 
   void onClickSaveModal(BuildContext context) async {
     presenter.setProcessing(true);
-    if (formState.currentState!.validate())
-      onSave(await source.toJson());
-    else
+    if (formState.currentState!.validate()) {
+      if (source.value.prospectStageController.selected == null) {
+        Get.defaultDialog(
+            title: 'Something Wrong', middleText: 'Stage Required');
+        presenter.isProcessing.value = false;
+      } else
+        onSave(await source.toJson());
+    } else
       presenter.setProcessing(false);
   }
 
