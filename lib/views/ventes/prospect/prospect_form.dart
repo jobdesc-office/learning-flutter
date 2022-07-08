@@ -141,11 +141,11 @@ class ProspectFormView extends StatelessWidget
                                       BsCol(
                                           sizes: ColScreen(sm: Col.col_7),
                                           child: prospectForm
-                                              .inputExpected(context)),
+                                              .inputOrganization(context)),
                                       BsCol(
                                           sizes: ColScreen(sm: Col.col_7),
                                           child: prospectForm
-                                              .inputOrganization(context)),
+                                              .inputExpected(context)),
                                       BsCol(
                                           sizes: ColScreen(sm: Col.col_7),
                                           child:
@@ -315,7 +315,7 @@ class ProspectFormView extends StatelessWidget
             value: prospect.prospectreference!.prospectid,
             text: Text(prospect.prospectreference!.prospectname! +
                 ' || ' +
-                prospect.prospectreference!.prospectcust!.sbccstmname!)));
+                prospect.prospectcust!.sbccstmname!)));
       }
 
       source.value.selectCustomer.setSelected(BsSelectBoxOption(

@@ -85,23 +85,21 @@ class ProspectLose extends GetView {
                             )
                           ],
                         ),
-                        Obx(
-                          () => Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              ThemeButtonLost(
-                                disabled: presenter.isProcessing.value,
-                                processing: presenter.isProcessing.value,
-                                margin: EdgeInsets.only(right: 5),
-                                onPressed: () => onClickSaveModal(context),
-                              ),
-                              ThemeButtonCancel(
-                                disabled: presenter.isProcessing.value,
-                                margin: EdgeInsets.only(right: 5),
-                                onPressed: () => onClickCancelModal(context),
-                              ),
-                            ],
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            ThemeButtonLost(
+                              disabled: presenter.isProcessing.value,
+                              processing: presenter.isProcessing.value,
+                              margin: EdgeInsets.only(right: 5),
+                              onPressed: () => onClickSaveModal(context),
+                            ),
+                            ThemeButtonCancel(
+                              disabled: presenter.isProcessing.value,
+                              margin: EdgeInsets.only(right: 5),
+                              onPressed: () => onClickCancelModal(context),
+                            ),
+                          ],
                         ),
                       ],
                     ),

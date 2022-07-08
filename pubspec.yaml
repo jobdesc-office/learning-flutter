@@ -72,7 +72,7 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - assets/images/logo.png
+    - assets/images/ventes-logo.png
     - assets/images/logo-short.png
     - assets/images/bg_auth.png
     - assets/images/fb.png

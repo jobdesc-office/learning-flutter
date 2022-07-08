@@ -14,8 +14,8 @@ class BackgroundAuth extends GetView {
           BsCol(
             margin: EdgeInsets.only(bottom: 20),
             sizes: ColScreen(lg: Col.col_2),
-            child:
-                Image.asset('assets/images/logo.png', width: 125, height: 64.5),
+            child: Image.asset('assets/images/ventes-logo.png',
+                width: 125, height: 64.5),
           ),
           BsCol(
             sizes: ColScreen(lg: Col.col_4),

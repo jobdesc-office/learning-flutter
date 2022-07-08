@@ -106,7 +106,7 @@ BsCol prospectDetailTitleSection(context) {
                     children: [
                       BsCol(
                           sizes: ColScreen(sm: Col.col_2),
-                          child: Text('Rp. ' +
+                          child: Text('Rp ' +
                               currencyFormatter.format(
                                   double.parse(source.prospectvalue.value)))),
                       BsCol(

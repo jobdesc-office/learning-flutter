@@ -415,6 +415,7 @@ class ProspectForm {
     return BsRow(
       children: [
         BsCol(
+          margin: EdgeInsets.only(right: 5),
           sizes: ColScreen(sm: Col.col_6),
           child: FormGroup(
             label: Text(ProspectText.labelOwner),
@@ -429,6 +430,7 @@ class ProspectForm {
           ),
         ),
         BsCol(
+          margin: EdgeInsets.only(left: 5),
           sizes: ColScreen(sm: Col.col_6),
           child: FormGroup(
             label: Text(ProspectText.labelCustomer),
