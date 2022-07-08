@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../constants/base_text.dart';
+import '../../../models/address_model.dart';
 import '../../../models/session_model.dart';
 import '../../../presenters/masters/customer_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
@@ -41,15 +42,14 @@ class CustomerSource extends GetxController {
   BsSelectBoxController selectType = BsSelectBoxController();
 
   Future<Map<String, dynamic>> toJson() async {
-    // _presenter.getProvinceId({'name': inputProvince.text});
-    // _presenter.getCityId({'name': inputCity.text});
-    // _presenter.getSubdistrictId({'name': inputSubdistrict.text});
-    int provid = await _presenter.getProvinceId({'name': inputProvince.text});
-    int cityid = await _presenter.getCityId({'name': inputCity.text});
-    int subdistrictid =
-        await _presenter.getSubdistrictId({'name': inputSubdistrict.text});
-    int villageid =
-        await _presenter.getVillageId({'name': inputSubdistrict.text});
+    var json = {
+      'village': inputVillage.text,
+      'subdistrict': inputSubdistrict.text,
+      'city': inputCity.text,
+      'province': inputProvince.text
+    };
+    List ids = await _presenter.getId(json);
+    AddressModel id = AddressModel.fromJson(ids.first);
     SessionModel session = await SessionManager.current();
     final map = Get.put(mapSource());
     return {
@@ -58,10 +58,11 @@ class CustomerSource extends GetxController {
       'cstmphone': inputPhone.text,
       'cstmaddress': inputAddress.text,
       'cstmtypeid': selectType.getSelectedAsString(),
-      'cstmprovinceid': provid.toString(),
-      'cstmcityid': cityid.toString(),
-      'cstmsubdistrictid': subdistrictid.toString(),
-      'cstmuvid': villageid.toString(),
+      'cstmprovinceid':
+          id.villagesubdistrict!.subdistrictcity!.cityprov!.provid.toString(),
+      'cstmcityid': id.villagesubdistrict!.subdistrictcity!.cityid.toString(),
+      'cstmsubdistrictid': id.villagesubdistrict!.subdistrictid.toString(),
+      'cstmuvid': id.villageid.toString(),
       'cstmpostalcode': inputPostal.text,
       'cstmlatitude': map.latitude.value,
       'cstmlongitude': map.longitude.value,

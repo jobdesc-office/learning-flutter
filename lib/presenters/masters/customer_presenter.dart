@@ -80,34 +80,10 @@ class CustomerPresenter extends CustomGetXController {
       _customerViewContract.onErrorRequest(response);
   }
 
-  Future getProvinceId(Map<String, dynamic> params) async {
-    Response response = await _provinceService.byName(params);
-    if (response.statusCode == 200) {
-      return response.body['provid'];
-    }
-    return null;
-  }
-
-  Future getCityId(Map<String, dynamic> params) async {
-    Response response = await _cityService.byName(params);
-    if (response.statusCode == 200) {
-      return response.body['cityid'];
-    }
-    return null;
-  }
-
-  Future getSubdistrictId(Map<String, dynamic> params) async {
-    Response response = await _subdistrictService.byName(params);
-    if (response.statusCode == 200) {
-      return response.body['subdistrictid'];
-    }
-    return null;
-  }
-
-  Future getVillageId(Map<String, dynamic> params) async {
+  Future getId(Map<String, dynamic> params) async {
     Response response = await _villageService.byName(params);
     if (response.statusCode == 200) {
-      return response.body['villageid'];
+      return response.body;
     }
     return null;
   }
