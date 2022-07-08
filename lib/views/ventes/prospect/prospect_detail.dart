@@ -257,104 +257,105 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                                       sm: Col
                                                                           .col_11),
                                                                   child:
-                                                                      InkWell(
-                                                                    onLongPress:
-                                                                        (() {
-                                                                      Get.defaultDialog(
-                                                                          middleText:
-                                                                              '',
-                                                                          title:
-                                                                              'Setting',
-                                                                          actions: [
-                                                                            ButtonEditDatatables(onPressed:
-                                                                                () {
-                                                                              assignPresenter.edit(context, assigns.prospectassignid, source.prospectid.value);
-                                                                            }),
-                                                                            ButtonDeleteDatatables(onPressed:
-                                                                                () {
-                                                                              assignPresenter.delete(context, assigns.prospectassignid, 'Assignment for ${assigns.prospectassign.userfullname}');
-                                                                            }),
-                                                                          ]);
-                                                                    }),
-                                                                    onTap: () {
-                                                                      assignPresenter.detail(
-                                                                          context,
-                                                                          assigns
-                                                                              .prospectassignid);
-                                                                    },
+                                                                      Tooltip(
+                                                                    message:
+                                                                        BaseText
+                                                                            .editDelete,
                                                                     child:
-                                                                        BsRow(
-                                                                      children: [
-                                                                        BsCol(
-                                                                          sizes:
-                                                                              ColScreen(sm: Col.col_2),
-                                                                          child:
-                                                                              Text("Name"),
-                                                                        ),
-                                                                        BsCol(
-                                                                          sizes:
-                                                                              ColScreen(sm: Col.col_1),
-                                                                          child:
-                                                                              Text(':'),
-                                                                        ),
-                                                                        BsCol(
-                                                                          sizes:
-                                                                              ColScreen(sm: Col.col_9),
-                                                                          child: Text(assigns
-                                                                              .prospectassignss
-                                                                              .userfullname),
-                                                                        ),
-                                                                        BsCol(
-                                                                          margin:
-                                                                              EdgeInsets.only(top: 5),
-                                                                          sizes:
-                                                                              ColScreen(sm: Col.col_2),
-                                                                          child:
-                                                                              Text("Email"),
-                                                                        ),
-                                                                        BsCol(
-                                                                          margin:
-                                                                              EdgeInsets.only(top: 5),
-                                                                          sizes:
-                                                                              ColScreen(sm: Col.col_1),
-                                                                          child:
-                                                                              Text(':'),
-                                                                        ),
-                                                                        BsCol(
-                                                                          margin:
-                                                                              EdgeInsets.only(top: 5),
-                                                                          sizes:
-                                                                              ColScreen(sm: Col.col_9),
-                                                                          child: Text(assigns
-                                                                              .prospectassignss
-                                                                              .useremail),
-                                                                        ),
-                                                                        BsCol(
-                                                                          margin:
-                                                                              EdgeInsets.only(top: 5),
-                                                                          sizes:
-                                                                              ColScreen(sm: Col.col_2),
-                                                                          child:
-                                                                              Text("Phone"),
-                                                                        ),
-                                                                        BsCol(
-                                                                          margin:
-                                                                              EdgeInsets.only(top: 5),
-                                                                          sizes:
-                                                                              ColScreen(sm: Col.col_1),
-                                                                          child:
-                                                                              Text(':'),
-                                                                        ),
-                                                                        BsCol(
-                                                                          margin:
-                                                                              EdgeInsets.only(top: 5),
-                                                                          sizes:
-                                                                              ColScreen(sm: Col.col_9),
-                                                                          child: Text(assigns
-                                                                              .prospectassignss
-                                                                              .userphone),
-                                                                        )
-                                                                      ],
+                                                                        InkWell(
+                                                                      onLongPress:
+                                                                          (() {
+                                                                        Get.defaultDialog(
+                                                                            middleText:
+                                                                                '',
+                                                                            title:
+                                                                                'Setting',
+                                                                            actions: [
+                                                                              ButtonEditDatatables(onPressed: () {
+                                                                                assignPresenter.edit(context, assigns.prospectassignid, source.prospectid.value);
+                                                                              }),
+                                                                              ButtonDeleteDatatables(onPressed: () {
+                                                                                assignPresenter.delete(context, assigns.prospectassignid, 'Assignment for ${assigns.prospectassign.userfullname}');
+                                                                              }),
+                                                                            ]);
+                                                                      }),
+                                                                      onTap:
+                                                                          () {
+                                                                        assignPresenter.detail(
+                                                                            context,
+                                                                            assigns.prospectassignid);
+                                                                      },
+                                                                      child:
+                                                                          BsRow(
+                                                                        children: [
+                                                                          BsCol(
+                                                                            sizes:
+                                                                                ColScreen(sm: Col.col_2),
+                                                                            child:
+                                                                                Text("Name"),
+                                                                          ),
+                                                                          BsCol(
+                                                                            sizes:
+                                                                                ColScreen(sm: Col.col_1),
+                                                                            child:
+                                                                                Text(':'),
+                                                                          ),
+                                                                          BsCol(
+                                                                            sizes:
+                                                                                ColScreen(sm: Col.col_9),
+                                                                            child:
+                                                                                Text(assigns.prospectassignss.userfullname),
+                                                                          ),
+                                                                          BsCol(
+                                                                            margin:
+                                                                                EdgeInsets.only(top: 5),
+                                                                            sizes:
+                                                                                ColScreen(sm: Col.col_2),
+                                                                            child:
+                                                                                Text("Email"),
+                                                                          ),
+                                                                          BsCol(
+                                                                            margin:
+                                                                                EdgeInsets.only(top: 5),
+                                                                            sizes:
+                                                                                ColScreen(sm: Col.col_1),
+                                                                            child:
+                                                                                Text(':'),
+                                                                          ),
+                                                                          BsCol(
+                                                                            margin:
+                                                                                EdgeInsets.only(top: 5),
+                                                                            sizes:
+                                                                                ColScreen(sm: Col.col_9),
+                                                                            child:
+                                                                                Text(assigns.prospectassignss.useremail),
+                                                                          ),
+                                                                          BsCol(
+                                                                            margin:
+                                                                                EdgeInsets.only(top: 5),
+                                                                            sizes:
+                                                                                ColScreen(sm: Col.col_2),
+                                                                            child:
+                                                                                Text("Phone"),
+                                                                          ),
+                                                                          BsCol(
+                                                                            margin:
+                                                                                EdgeInsets.only(top: 5),
+                                                                            sizes:
+                                                                                ColScreen(sm: Col.col_1),
+                                                                            child:
+                                                                                Text(':'),
+                                                                          ),
+                                                                          BsCol(
+                                                                            margin:
+                                                                                EdgeInsets.only(top: 5),
+                                                                            sizes:
+                                                                                ColScreen(sm: Col.col_9),
+                                                                            child:
+                                                                                Text(assigns.prospectassignss.userphone),
+                                                                          )
+                                                                        ],
+                                                                      ),
                                                                     ),
                                                                   ),
                                                                 ),
@@ -602,78 +603,81 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                                       sm: Col
                                                                           .col_11),
                                                                   child:
-                                                                      InkWell(
-                                                                    onTap: () {
-                                                                      productPresenter.detail(
-                                                                          context,
-                                                                          products
-                                                                              .prosproductid);
-                                                                    },
-                                                                    onLongPress:
-                                                                        () {
-                                                                      Get.defaultDialog(
-                                                                          middleText:
-                                                                              '',
-                                                                          title:
-                                                                              'Setting',
-                                                                          actions: [
-                                                                            ButtonEditDatatables(onPressed:
-                                                                                () {
-                                                                              productPresenter.edit(context, products.prosproductid, source.prospectid.value);
-                                                                            }),
-                                                                            ButtonDeleteDatatables(onPressed:
-                                                                                () {
-                                                                              productPresenter.delete(context, products.prosproductid, '${products.prosproductproduct?.productname}');
-                                                                            }),
-                                                                          ]);
-                                                                    },
+                                                                      Tooltip(
+                                                                    message:
+                                                                        BaseText
+                                                                            .editDelete,
                                                                     child:
-                                                                        BsRow(
-                                                                      children: [
-                                                                        BsCol(
-                                                                          sizes:
-                                                                              ColScreen(sm: Col.col_2),
-                                                                          child:
-                                                                              Text("Name"),
-                                                                        ),
-                                                                        BsCol(
-                                                                          sizes:
-                                                                              ColScreen(sm: Col.col_1),
-                                                                          child:
-                                                                              Text(':'),
-                                                                        ),
-                                                                        BsCol(
-                                                                          sizes:
-                                                                              ColScreen(sm: Col.col_9),
-                                                                          child: Text(products
-                                                                              .prosproductproduct
-                                                                              ?.productname),
-                                                                        ),
-                                                                        BsCol(
-                                                                          margin:
-                                                                              EdgeInsets.only(top: 5),
-                                                                          sizes:
-                                                                              ColScreen(sm: Col.col_2),
-                                                                          child:
-                                                                              Text("Amount"),
-                                                                        ),
-                                                                        BsCol(
-                                                                          margin:
-                                                                              EdgeInsets.only(top: 5),
-                                                                          sizes:
-                                                                              ColScreen(sm: Col.col_1),
-                                                                          child:
-                                                                              Text(':'),
-                                                                        ),
-                                                                        BsCol(
-                                                                          margin:
-                                                                              EdgeInsets.only(top: 5),
-                                                                          sizes:
-                                                                              ColScreen(sm: Col.col_9),
-                                                                          child:
-                                                                              Text('Rp. ' + currencyFormatter.format(double.parse(products.prosproductamount))),
-                                                                        ),
-                                                                      ],
+                                                                        InkWell(
+                                                                      onTap:
+                                                                          () {
+                                                                        productPresenter.detail(
+                                                                            context,
+                                                                            products.prosproductid);
+                                                                      },
+                                                                      onLongPress:
+                                                                          () {
+                                                                        Get.defaultDialog(
+                                                                            middleText:
+                                                                                '',
+                                                                            title:
+                                                                                'Setting',
+                                                                            actions: [
+                                                                              ButtonEditDatatables(onPressed: () {
+                                                                                productPresenter.edit(context, products.prosproductid, source.prospectid.value);
+                                                                              }),
+                                                                              ButtonDeleteDatatables(onPressed: () {
+                                                                                productPresenter.delete(context, products.prosproductid, '${products.prosproductproduct?.productname}');
+                                                                              }),
+                                                                            ]);
+                                                                      },
+                                                                      child:
+                                                                          BsRow(
+                                                                        children: [
+                                                                          BsCol(
+                                                                            sizes:
+                                                                                ColScreen(sm: Col.col_2),
+                                                                            child:
+                                                                                Text("Name"),
+                                                                          ),
+                                                                          BsCol(
+                                                                            sizes:
+                                                                                ColScreen(sm: Col.col_1),
+                                                                            child:
+                                                                                Text(':'),
+                                                                          ),
+                                                                          BsCol(
+                                                                            sizes:
+                                                                                ColScreen(sm: Col.col_9),
+                                                                            child:
+                                                                                Text(products.prosproductproduct?.productname),
+                                                                          ),
+                                                                          BsCol(
+                                                                            margin:
+                                                                                EdgeInsets.only(top: 5),
+                                                                            sizes:
+                                                                                ColScreen(sm: Col.col_2),
+                                                                            child:
+                                                                                Text("Amount"),
+                                                                          ),
+                                                                          BsCol(
+                                                                            margin:
+                                                                                EdgeInsets.only(top: 5),
+                                                                            sizes:
+                                                                                ColScreen(sm: Col.col_1),
+                                                                            child:
+                                                                                Text(':'),
+                                                                          ),
+                                                                          BsCol(
+                                                                            margin:
+                                                                                EdgeInsets.only(top: 5),
+                                                                            sizes:
+                                                                                ColScreen(sm: Col.col_9),
+                                                                            child:
+                                                                                Text('Rp. ' + currencyFormatter.format(double.parse(products.prosproductamount))),
+                                                                          ),
+                                                                        ],
+                                                                      ),
                                                                     ),
                                                                   ),
                                                                 ),

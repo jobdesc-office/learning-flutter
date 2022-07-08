@@ -287,56 +287,60 @@ BsCol prospectDetailCustomFieldSection(context) {
                             itemBuilder: (context, index) {
                               var customField = source.customField[index];
 
-                              return InkWell(
-                                onLongPress: () {
-                                  Get.defaultDialog(
-                                      middleText: '',
-                                      title: 'Setting',
-                                      actions: [
-                                        ButtonEditDatatables(onPressed: () {
-                                          prospectCustomFieldPresenter.edit(
-                                              context,
-                                              customField.prospectcfid!);
-                                          source.cfid.value =
-                                              customField.prospectcfid!;
-                                        }),
-                                        ButtonDeleteDatatables(onPressed: () {
-                                          prospectCustomFieldPresenter.delete(
-                                              context,
-                                              customField.prospectcfid!,
-                                              '${customField.prospectcfvalue}');
-                                        }),
-                                      ]);
-                                },
-                                child: BsRow(
-                                  margin: EdgeInsets.all(3),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: ColorPallates.primary,
+                              return Tooltip(
+                                message: BaseText.editDelete,
+                                child: InkWell(
+                                  onLongPress: () {
+                                    Get.defaultDialog(
+                                        middleText: '',
+                                        title: 'Setting',
+                                        actions: [
+                                          ButtonEditDatatables(onPressed: () {
+                                            prospectCustomFieldPresenter.edit(
+                                                context,
+                                                customField.prospectcfid!);
+                                            source.cfid.value =
+                                                customField.prospectcfid!;
+                                          }),
+                                          ButtonDeleteDatatables(onPressed: () {
+                                            prospectCustomFieldPresenter.delete(
+                                                context,
+                                                customField.prospectcfid!,
+                                                '${customField.prospectcfvalue}');
+                                          }),
+                                        ]);
+                                  },
+                                  child: BsRow(
+                                    margin: EdgeInsets.all(3),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: ColorPallates.primary,
+                                    ),
+                                    padding: EdgeInsets.all(5),
+                                    children: [
+                                      BsCol(
+                                          alignment: Alignment.center,
+                                          sizes: ColScreen(sm: Col.col_5),
+                                          child: Text(
+                                              customField
+                                                  .customfield!.custfname!,
+                                              style: TextStyle(
+                                                  color: Colors.white))),
+                                      BsCol(
+                                          alignment: Alignment.center,
+                                          sizes: ColScreen(sm: Col.col_2),
+                                          child: Text(':',
+                                              style: TextStyle(
+                                                  color: Colors.white))),
+                                      BsCol(
+                                          alignment: Alignment.center,
+                                          sizes: ColScreen(sm: Col.col_5),
+                                          child: Text(
+                                              customField.prospectcfvalue!,
+                                              style: TextStyle(
+                                                  color: Colors.white))),
+                                    ],
                                   ),
-                                  padding: EdgeInsets.all(5),
-                                  children: [
-                                    BsCol(
-                                        alignment: Alignment.center,
-                                        sizes: ColScreen(sm: Col.col_5),
-                                        child: Text(
-                                            customField.customfield!.custfname!,
-                                            style: TextStyle(
-                                                color: Colors.white))),
-                                    BsCol(
-                                        alignment: Alignment.center,
-                                        sizes: ColScreen(sm: Col.col_2),
-                                        child: Text(':',
-                                            style: TextStyle(
-                                                color: Colors.white))),
-                                    BsCol(
-                                        alignment: Alignment.center,
-                                        sizes: ColScreen(sm: Col.col_5),
-                                        child: Text(
-                                            customField.prospectcfvalue!,
-                                            style: TextStyle(
-                                                color: Colors.white))),
-                                  ],
                                 ),
                               );
                             }),

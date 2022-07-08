@@ -412,6 +412,12 @@ class ProspectForm {
   }
 
   Widget selectOwner() {
+    String message;
+    if (!source.isBpNotSelected.value) {
+      message = 'Long Press to Add New Customer';
+    } else {
+      message = '';
+    }
     return BsRow(
       children: [
         BsCol(
@@ -434,15 +440,26 @@ class ProspectForm {
           sizes: ColScreen(sm: Col.col_6),
           child: FormGroup(
             label: Text(ProspectText.labelCustomer),
-            child: CustomSelectBox(
-              searchable: true,
-              disabled: source.isBpNotSelected.value,
-              controller: source.selectCustomer,
-              hintText: BaseText.hiintSelect(field: ProspectText.labelCustomer),
-              serverSide: (params) => selectApiBpCustomer(params),
-              validators: [
-                Validators.selectRequired(ProspectText.labelCustomer)
-              ],
+            child: Tooltip(
+              message: message,
+              child: InkWell(
+                onLongPress: () {
+                  if (!source.isBpNotSelected.value) {
+                    Get.snackbar('title', 'message');
+                  }
+                },
+                child: CustomSelectBox(
+                  searchable: true,
+                  disabled: source.isBpNotSelected.value,
+                  controller: source.selectCustomer,
+                  hintText:
+                      BaseText.hiintSelect(field: ProspectText.labelCustomer),
+                  serverSide: (params) => selectApiBpCustomer(params),
+                  validators: [
+                    Validators.selectRequired(ProspectText.labelCustomer)
+                  ],
+                ),
+              ),
             ),
           ),
         )
