@@ -100,7 +100,7 @@ class ScheduleView extends GetView
                   } else {
                     return Container(
                       child: Center(
-                        child: Text('Loading ...'),
+                        child: Text('Processing ...'),
                       ),
                     );
                   }

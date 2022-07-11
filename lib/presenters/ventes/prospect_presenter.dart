@@ -135,6 +135,14 @@ class ProspectPresenter extends CustomGetXController {
       _addCustomerViewContract.onErrorRequest(response);
   }
 
+  void saveProduct(BuildContext context, Map<String, dynamic> body) async {
+    Response response = await _prospectService.storeProduct(body);
+    if (response.statusCode == 200)
+      _addCustomerViewContract.onCreateSuccess(response, context: context);
+    else
+      _addCustomerViewContract.onErrorRequest(response);
+  }
+
   void add(BuildContext context) async {
     showDialog(
       context: context,

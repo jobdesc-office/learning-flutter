@@ -37,7 +37,7 @@ class PCustomerFormFormView extends StatelessWidget
   Widget build(BuildContext context) {
     return Scaffold(
       body: TemplateView(
-        title: 'Custom Field Form',
+        title: 'Customer Form',
         breadcrumbs: [
           BreadcrumbWidget('Insight', route: RouteList.home.index),
           BreadcrumbWidget('Venteses'),
@@ -258,7 +258,6 @@ class PCustomerFormFormView extends StatelessWidget
   void onClickSaveModal(BuildContext context) async {
     presenter.setProcessing(true);
     if (formState.currentState!.validate()) {
-      print(await source.value.toJson());
       presenter.saveCustomer(context, await source.value.toJson());
     } else
       presenter.setProcessing(false);

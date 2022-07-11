@@ -16,4 +16,8 @@ class ProspectService extends ApiConnectProvider {
   Future<Response> storeCustomer(Map<String, dynamic> body) {
     return post('$api/customer', body);
   }
+
+  Future<Response> storeProduct(Map<String, dynamic> body) {
+    return post('$api/product', body);
+  }
 }

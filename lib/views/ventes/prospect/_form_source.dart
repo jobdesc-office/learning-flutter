@@ -30,6 +30,7 @@ import '../../../widgets/input/custom_input_number.dart';
 import '../../../widgets/selectbox/custom_selectbox.dart';
 import '../../masters/menus/_menu_type.dart';
 import '_text.dart';
+import 'product/product_form.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 final _auth = Get.put(AuthPresenter());
@@ -621,20 +622,26 @@ class ProspectForm {
                 children: [
                   BsCol(
                     sizes: ColScreen(md: Col.col_6),
-                    child: FormGroup(
-                      label: Text(ProspectText.labelItem),
-                      child: CustomSelectBox(
-                        searchable: true,
-                        disabled: source.isBpNotSelected.value,
-                        controller: selectItem,
-                        hintText:
-                            BaseText.hiintSelect(field: ProspectText.labelItem),
-                        serverSide: (params) => selectApiProductWithBp(
-                            params, _auth.bpActiveId.value.toString()),
-                        // serverSide: (params) => selectApiProduct(params),
-                        validators: [
-                          Validators.selectRequired(ProspectText.labelItem)
-                        ],
+                    child: Tooltip(
+                      message: 'Long Press to Add New Product',
+                      child: InkWell(
+                        onLongPress: () => Get.to(PProductFormFormView()),
+                        child: FormGroup(
+                          label: Text(ProspectText.labelItem),
+                          child: CustomSelectBox(
+                            searchable: true,
+                            disabled: source.isBpNotSelected.value,
+                            controller: selectItem,
+                            hintText: BaseText.hiintSelect(
+                                field: ProspectText.labelItem),
+                            serverSide: (params) => selectApiProductWithBp(
+                                params, _auth.bpActiveId.value.toString()),
+                            // serverSide: (params) => selectApiProduct(params),
+                            validators: [
+                              Validators.selectRequired(ProspectText.labelItem)
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   ),

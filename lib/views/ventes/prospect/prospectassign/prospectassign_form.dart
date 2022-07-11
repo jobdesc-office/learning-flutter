@@ -121,7 +121,7 @@ class ProspectAssignFormView extends StatelessWidget
       source.value.selectReport.setSelected(BsSelectBoxOption(
           value: prospect.prospectreportto,
           text: Text(prospect.prospectreport!.user!.userfullname.toString())));
-      source.value.inputDesc.text = prospect.prospectassigndesc.toString();
+      source.value.inputDesc.text = prospect.prospectassigndesc ?? '';
     });
   }
 }

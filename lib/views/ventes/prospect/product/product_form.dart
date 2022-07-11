@@ -1,0 +1,94 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:boilerplate/views/skins/template.dart';
+import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
+import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:path/path.dart' as path;
+
+import '../../../../contracts/master/customerAddress_contract.dart';
+import '../../../../models/masters/maps_model.dart';
+import '../../../../presenters/masters/customer_presenter.dart';
+import '../../../../presenters/ventes/prospect_presenter.dart';
+
+import '../../../../routes/route_list.dart';
+import '../../../../widgets/breadcrumb.dart';
+import '../../../../widgets/button/theme_button_cancel.dart';
+import '../../../../widgets/button/theme_button_save.dart';
+import '../../../../widgets/snackbar.dart';
+import '_form_source.dart';
+
+class PProductFormFormView extends StatelessWidget {
+  final GlobalKey<FormState> formState = GlobalKey<FormState>();
+  final ProspectPresenter presenter = Get.find<ProspectPresenter>();
+  final CustomerPresenter cpresenter = Get.find<CustomerPresenter>();
+  final source = PProductSource().obs;
+
+  late PProductForm pProductForm;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: TemplateView(
+        title: 'Product Form',
+        breadcrumbs: [
+          BreadcrumbWidget('Insight', route: RouteList.home.index),
+          BreadcrumbWidget('Venteses'),
+          BreadcrumbWidget('Prospects'),
+          BreadcrumbWidget('Prospect Form', back: true),
+          BreadcrumbWidget('Product Form', active: true),
+        ],
+        activeRoutes: [RouteList.master.index, RouteList.ventesProspect.index],
+        child: Obx(() {
+          pProductForm = PProductForm(source.value);
+          return Form(
+            key: formState,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    pProductForm.inputName(),
+                    Obx(
+                      () => Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          ThemeButtonSave(
+                            disabled: presenter.isProcessing.value,
+                            processing: presenter.isProcessing.value,
+                            margin: EdgeInsets.only(right: 5),
+                            onPressed: () => onClickSaveModal(context),
+                          ),
+                          ThemeButtonCancel(
+                            disabled: presenter.isProcessing.value,
+                            margin: EdgeInsets.only(right: 5),
+                            onPressed: () => onClickCancelModal(context),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          );
+        }),
+      ),
+    );
+  }
+
+  void onClickSaveModal(BuildContext context) async {
+    presenter.setProcessing(true);
+    if (formState.currentState!.validate()) {
+      presenter.saveProduct(context, await source.value.toJson());
+    } else
+      presenter.setProcessing(false);
+  }
+
+  void onClickCancelModal(BuildContext context) {
+    Navigator.pop(context);
+  }
+}

@@ -55,7 +55,7 @@ class ProspectDataTableSource extends BsDatatableSource {
         label: Text('Prospect Total'),
         searchable: false,
         orderable: false,
-        width: 170,
+        width: 150,
       ),
       CustomBsDataColumn(
         label: Text('Prospect Customer'),
