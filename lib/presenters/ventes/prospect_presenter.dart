@@ -51,6 +51,11 @@ class ProspectPresenter extends CustomGetXController {
     _prospectTypeViewDetailContract = prospectTypeViewContract;
   }
 
+  late IndexViewContract _addCustomerViewContract;
+  set addCustomerViewContract(IndexViewContract addCustomerViewContract) {
+    _addCustomerViewContract = addCustomerViewContract;
+  }
+
   Future datatables(BuildContext context, Map<String, String> params) async {
     Response response = await _prospectService.datatables(params);
     if (response.statusCode == 200)
@@ -120,6 +125,14 @@ class ProspectPresenter extends CustomGetXController {
       _prospectTypeViewDetailContract.onLoadSuccess(response);
     else
       _ProspectViewContract.onErrorRequest(response);
+  }
+
+  void saveCustomer(BuildContext context, Map<String, dynamic> body) async {
+    Response response = await _prospectService.storeCustomer(body);
+    if (response.statusCode == 200)
+      _addCustomerViewContract.onCreateSuccess(response, context: context);
+    else
+      _addCustomerViewContract.onErrorRequest(response);
   }
 
   void add(BuildContext context) async {

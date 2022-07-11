@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../contracts/base/edit_view_contract.dart';
+import '../../../contracts/base/index_view_contract.dart';
 import '../../../models/masters/type_model.dart';
 import '../../../models/ventes/prospect_model.dart';
 import '../../../presenters/ventes/prospect_presenter.dart';
@@ -15,11 +16,12 @@ import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
 
+import '../../../widgets/snackbar.dart';
 import '../../masters/menus/_menu_type.dart';
 import '_form_source.dart';
 
 class ProspectFormView extends StatelessWidget
-    implements EditViewContract, MenuTypeViewContract {
+    implements EditViewContract, MenuTypeViewContract, IndexViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final ProspectPresenter presenter = Get.find<ProspectPresenter>();
   final source = ProspectSource().obs;
@@ -30,6 +32,7 @@ class ProspectFormView extends StatelessWidget
   ProspectFormView({required this.onSave}) {
     presenter.ProspectFetchDataContract = this;
     presenter.prospectTypeViewContract = this;
+    presenter.addCustomerViewContract = this;
   }
 
   @override
@@ -388,4 +391,33 @@ class ProspectFormView extends StatelessWidget
       );
     });
   }
+
+  @override
+  void onCreateSuccess(Response response, {BuildContext? context}) {
+    presenter.setProcessing(false);
+    if (context != null) Navigator.pop(context);
+    Snackbar().createSuccess();
+  }
+
+  @override
+  void onDeleteSuccess(Response response, {BuildContext? context}) {
+    presenter.setProcessing(false);
+    if (context != null) Navigator.pop(context);
+    Snackbar().deleteSuccess();
+  }
+
+  @override
+  void onEditSuccess(Response response, {BuildContext? context}) {
+    presenter.setProcessing(false);
+    if (context != null) Navigator.pop(context);
+    Snackbar().editSuccess();
+  }
+
+  @override
+  void onErrorRequest(Response response) {
+    presenter.setProcessing(false);
+  }
+
+  @override
+  void onLoadDatatables(BuildContext context, Response response) {}
 }

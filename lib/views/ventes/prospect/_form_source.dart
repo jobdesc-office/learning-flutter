@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:boilerplate/services/ventes/customfield_service.dart';
+import 'package:boilerplate/views/ventes/prospect/customer/customer_form.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_inputtext/bs_flutter_inputtext.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
@@ -445,7 +446,7 @@ class ProspectForm {
               child: InkWell(
                 onLongPress: () {
                   if (!source.isBpNotSelected.value) {
-                    Get.snackbar('title', 'message');
+                    Get.to(PCustomerFormFormView());
                   }
                 },
                 child: CustomSelectBox(

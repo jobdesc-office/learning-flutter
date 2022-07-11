@@ -237,6 +237,10 @@ class AppRoute {
         name: RouteList.ventesProspect.index,
         page: () => ProspectView(),
         binding: BindingsBuilder(() {
+          Get.lazyPut(() => VillageService());
+          Get.lazyPut(() => SubdistrictService());
+          Get.lazyPut(() => CityService());
+          Get.lazyPut(() => ProvinceService());
           Get.lazyPut(() => UserService());
           Get.lazyPut(() => CustomerService());
           Get.lazyPut(() => ProductService());
@@ -245,6 +249,7 @@ class AppRoute {
           Get.lazyPut(() => ProspectActivityPresenter());
           Get.lazyPut(() => ProspectAssignService());
           Get.lazyPut(() => ProspectAssignPresenter());
+          Get.lazyPut(() => CustomerPresenter());
           Get.lazyPut(() => CustomFieldService());
           Get.lazyPut(() => CustomFieldPresenter());
           Get.lazyPut(() => ProspectProductService());

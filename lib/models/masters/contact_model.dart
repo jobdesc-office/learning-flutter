@@ -81,7 +81,7 @@ class Contactcustomer {
   String? cstmpostalcode;
   String? cstmlatitude;
   String? cstmlongitude;
-  int? referalcode;
+  String? referalcode;
   int? createdby;
   String? createddate;
   int? updatedby;

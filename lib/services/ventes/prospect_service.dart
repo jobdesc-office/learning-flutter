@@ -12,4 +12,8 @@ class ProspectService extends ApiConnectProvider {
   Future<Response> selectref(Map<String, dynamic> params) {
     return get('$api/selectref', query: params);
   }
+
+  Future<Response> storeCustomer(Map<String, dynamic> body) {
+    return post('$api/customer', body);
+  }
 }

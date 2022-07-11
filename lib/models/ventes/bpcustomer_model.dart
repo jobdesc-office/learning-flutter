@@ -117,7 +117,7 @@ class Sbccstm {
   String? cstmpostalcode;
   String? cstmlatitude;
   String? cstmlongitude;
-  int? referalcode;
+  String? referalcode;
   int? createdby;
   String? createddate;
   int? updatedby;
