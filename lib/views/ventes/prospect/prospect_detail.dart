@@ -1387,6 +1387,11 @@ class _ProspectDetailsState extends State<ProspectDetails>
     source.prospectstartdate.value = dt.prospectstartdate ?? '';
     source.prospectStageController.selected = dt.prospectstage;
 
+    if (dt.prospectlostreasonid != null) {
+      source.losttype.value = dt.prospectlost!.typename!;
+      source.lostdesc.value = dt.prospectlostdesc!;
+    }
+
     if (dt.prospectassigns != null) {
       dt.prospectassigns?.forEach((element) {
         assign.add(element);

@@ -42,7 +42,14 @@ BsCol prospectDetailTitleSection(context) {
                       ),
                       if (source.status.value == 'Closed Lost')
                         Row(
-                          children: [Text('This Prospect Lost !!!')],
+                          children: [
+                            Tooltip(
+                              message: 'Details',
+                              child: InkWell(
+                                  onTap: () => presenter.losePopup(context),
+                                  child: Text('This Prospect Lost !!!')),
+                            )
+                          ],
                         )
                       else if (source.status.value == 'Closed Won')
                         Row(

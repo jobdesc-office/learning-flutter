@@ -15,6 +15,9 @@ class prospectDetailsSource extends GetxController {
   var prospectstartdate = ''.obs;
   var endtime = ''.obs;
 
+  var losttype = ''.obs;
+  var lostdesc = ''.obs;
+
   var desc = ''.obs;
   var type = ''.obs;
   var bp = ''.obs;
