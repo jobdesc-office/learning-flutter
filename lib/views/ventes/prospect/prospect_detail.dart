@@ -718,7 +718,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                                                 assignPresenter.edit(context, assigns.prospectassignid, source.prospectid.value);
                                                                               }),
                                                                               ButtonDeleteDatatables(onPressed: () {
-                                                                                assignPresenter.delete(context, assigns.prospectassignid, 'Assignment for ${assigns.prospectassign.userfullname}');
+                                                                                assignPresenter.delete(context, assigns.prospectassignid, 'Assignment for ${assigns.prospectassignss.userfullname}');
                                                                               }),
                                                                             ]);
                                                                       }),
