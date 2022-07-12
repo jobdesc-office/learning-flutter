@@ -623,7 +623,9 @@ class ProspectForm {
                   BsCol(
                     sizes: ColScreen(md: Col.col_6),
                     child: Tooltip(
-                      message: 'Long Press to Add New Product',
+                      message: source.isBpNotSelected.value
+                          ? ''
+                          : 'Long Press to Add New Product',
                       child: InkWell(
                         onLongPress: () => Get.to(PProductFormFormView()),
                         child: FormGroup(
