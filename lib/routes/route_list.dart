@@ -41,6 +41,8 @@ class RouteList {
       RouteData(prefix: '/ventes/bpcustomer');
   static final RouteData ventesCustomField =
       RouteData(prefix: '/ventes/customfield');
+  static final RouteData ventesCompetitor =
+      RouteData(prefix: '/ventes/competitor');
 
   static final RouteData settings = RouteData(prefix: '/-settings');
 

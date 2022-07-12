@@ -15,6 +15,8 @@ class ConfigType {
 
   static String scheRefType = notNull(types['scheRefType']);
 
+  static String competitorreftype = notNull(types['competitorreftype']);
+
   static String taxType = notNull(types['taxType']);
 
   static String prospectStage = notNull(types['prospectStage']);

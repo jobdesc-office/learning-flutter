@@ -13,6 +13,7 @@ import '../presenters/masters/province_presenter.dart';
 import '../presenters/masters/subdistrict_presenter.dart';
 import '../presenters/masters/village_presenter.dart';
 import '../presenters/ventes/bpcustomer_presenter.dart';
+import '../presenters/ventes/competitor_presenter.dart';
 import '../presenters/ventes/customfield_presenter.dart';
 import '../presenters/ventes/prospect_presenter.dart';
 import '../presenters/ventes/prospectassign_presenter.dart';
@@ -35,6 +36,7 @@ import '../services/masters/province_service.dart';
 import '../services/masters/subdistrict_service.dart';
 import '../services/masters/village_service.dart';
 import '../services/ventes/bpcustomer_service.dart';
+import '../services/ventes/competitor_service.dart';
 import '../services/ventes/customfield_service.dart';
 import '../services/ventes/prospect_service.dart';
 import '../services/ventes/prospectassign_service.dart';
@@ -62,6 +64,7 @@ import '../views/masters/provinces/province.dart';
 import '../views/masters/subdistricts/subdistrict.dart';
 import '../views/masters/villages/village.dart';
 import '../views/ventes/bpcustomers/bpcustomer.dart';
+import '../views/ventes/competitor/competitor.dart';
 import '../views/ventes/customfield/customfield.dart';
 import '../views/ventes/prospect/prospect.dart';
 import '../views/ventes/schedules/schedule.dart';
@@ -282,6 +285,14 @@ class AppRoute {
           Get.lazyPut(() => BpCustomerPresenter());
           Get.lazyPut(() => CustomerService());
           Get.lazyPut(() => CustomerPresenter());
+        }),
+      ),
+      CustomGetPage(
+        name: RouteList.ventesCompetitor.index,
+        page: () => CompetitorView(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => CompetitorService());
+          Get.lazyPut(() => CompetitorPresenter());
         }),
       ),
     ];

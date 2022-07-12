@@ -284,6 +284,24 @@ Future<BsSelectBoxResponse> selectApiScheduleRefTypes(
   return BsSelectBoxResponse(options: []);
 }
 
+Future<BsSelectBoxResponse> selectApiCompetitorRefType(
+    Map<String, String> params) async {
+  final typeService = Get.put(TypeService());
+  Response response = await typeService.byCode(ConfigType.competitorreftype);
+
+  if (response.isOk) {
+    if (response.statusCode == 200) {
+      return BsSelectBoxResponse.createFromJson(
+        response.body,
+        value: (data) => TypeModel.fromJson(data).typeid,
+        renderText: (data) => Text(TypeModel.fromJson(data).typename),
+      );
+    }
+  }
+
+  return BsSelectBoxResponse(options: []);
+}
+
 Future<BsSelectBoxResponse> selectApiMenu(Map<String, String> params) async {
   final menuService = Get.find<MenuService>();
   Response response = await menuService.select(params);
