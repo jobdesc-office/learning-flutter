@@ -69,64 +69,64 @@ class ProfileProfileView extends GetView implements DetailViewContract {
                     ),
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.only(top: 5),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(color: Colors.grey.shade300)),
-                  child: Container(
-                    margin: EdgeInsets.all(10),
-                    child: Column(
-                      children: [
-                        BsRow(
-                          margin: EdgeInsets.only(top: 10),
-                          children: [
-                            // BsCol(
-                            //   sizes: ColScreen(sm: Col.col_12),
-                            //   child: ListView.builder(
-                            //       shrinkWrap: true,
-                            //       itemCount: _auth.detail.length,
-                            //       itemBuilder: ((context, index) {
-                            //         var details = _auth.detail[index];
-                            //         return InkWell(
-                            //           onTap: () {
-                            //             Get.defaultDialog(
-                            //                 actions: [
-                            //                   BsButton(
-                            //                     style: BsButtonStyle.success,
-                            //                     onPressed: () {
-                            //                       Navigator.pop(context);
-                            //                     },
-                            //                     label: Text('Ok'),
-                            //                   )
-                            //                 ],
-                            //                 title: 'Warning',
-                            //                 middleText:
-                            //                     'Your Current Role is ${_auth.roleActive.value}\nYour Current Business Partner is ${_auth.bpActive.value}');
-                            //           },
-                            //           child: Container(
-                            //             margin: _auth.detail[index] == 0
-                            //                 ? EdgeInsets.zero
-                            //                 : EdgeInsets.only(top: 10),
-                            //             child: Row(
-                            //               mainAxisAlignment:
-                            //                   MainAxisAlignment.spaceBetween,
-                            //               children: [
-                            //                 Text(details!.usertype!.typename),
-                            //                 Text(details!
-                            //                     .businesspartner!.bpname),
-                            //               ],
-                            //             ),
-                            //           ),
-                            //         );
-                            //       })),
-                            // ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                // Container(
+                //   margin: EdgeInsets.only(top: 5),
+                //   decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(5),
+                //       border: Border.all(color: Colors.grey.shade300)),
+                //   child: Container(
+                //     margin: EdgeInsets.all(10),
+                //     child: Column(
+                //       children: [
+                //         BsRow(
+                //           margin: EdgeInsets.only(top: 10),
+                //           children: [
+                // BsCol(
+                //   sizes: ColScreen(sm: Col.col_12),
+                //   child: ListView.builder(
+                //       shrinkWrap: true,
+                //       itemCount: _auth.detail.length,
+                //       itemBuilder: ((context, index) {
+                //         var details = _auth.detail[index];
+                //         return InkWell(
+                //           onTap: () {
+                //             Get.defaultDialog(
+                //                 actions: [
+                //                   BsButton(
+                //                     style: BsButtonStyle.success,
+                //                     onPressed: () {
+                //                       Navigator.pop(context);
+                //                     },
+                //                     label: Text('Ok'),
+                //                   )
+                //                 ],
+                //                 title: 'Warning',
+                //                 middleText:
+                //                     'Your Current Role is ${_auth.roleActive.value}\nYour Current Business Partner is ${_auth.bpActive.value}');
+                //           },
+                //           child: Container(
+                //             margin: _auth.detail[index] == 0
+                //                 ? EdgeInsets.zero
+                //                 : EdgeInsets.only(top: 10),
+                //             child: Row(
+                //               mainAxisAlignment:
+                //                   MainAxisAlignment.spaceBetween,
+                //               children: [
+                //                 Text(details!.usertype!.typename),
+                //                 Text(details!
+                //                     .businesspartner!.bpname),
+                //               ],
+                //             ),
+                //           ),
+                //         );
+                //       })),
+                // ),
+                //           ],
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),

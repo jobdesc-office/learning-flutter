@@ -75,8 +75,6 @@ flutter:
     - assets/images/ventes-logo.png
     - assets/images/logo-short.png
     - assets/images/bg_auth.png
-    - assets/images/fb.png
-    - assets/images/google.png
     - assets/images/location.png
 
   # To add assets to your application, add an assets section, like this:
