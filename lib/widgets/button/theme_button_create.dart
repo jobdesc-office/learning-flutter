@@ -22,9 +22,7 @@ class ThemeButtonCreate extends BsButton {
           label: Text('${BaseText.buttonCreate} $prefix'),
           prefixIcon: BaseIcon.buttonCreate,
           style: BsButtonStyle(
-            backgroundColor: _navigation.darkTheme.value
-                ? ColorPallates.delete
-                : ColorPallates.primary,
+            backgroundColor: ColorPallates.primary,
             color: Colors.white,
             borderRadius: BorderRadius.circular(5),
           ),

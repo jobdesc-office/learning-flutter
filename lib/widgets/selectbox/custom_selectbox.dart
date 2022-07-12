@@ -25,6 +25,9 @@ class CustomSelectBox extends BsSelectBox {
           validators: validators,
           serverSide: serverSide,
           style: BsSelectBoxStyle(
+            selectedColor: _navigation.darkTheme.value
+                ? ColorPallates.contentDarkColor
+                : Colors.white,
             selectedTextColor:
                 _navigation.darkTheme.value ? Colors.white : Colors.black,
             searchTextColor:
