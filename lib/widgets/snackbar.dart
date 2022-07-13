@@ -107,10 +107,10 @@ class Snackbar {
 
   void unknowLocation() {
     Get.snackbar('Warning', 'Location Selected But...',
-        messageText: Text("Maybe some fields can't be filled"),
+        messageText: Text("Maybe some fields can't be Automatically filled"),
         backgroundColor: ColorPallates.danger,
-        margin: EdgeInsets.only(top: 10, right: 10, bottom: 10, left: 1170),
-        maxWidth: 200,
+        margin: EdgeInsets.only(top: 10, right: 10, bottom: 10, left: 1050),
+        maxWidth: 250,
         icon: Icon(
           Icons.dangerous_outlined,
           size: 30,

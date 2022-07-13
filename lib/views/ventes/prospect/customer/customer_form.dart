@@ -274,70 +274,73 @@ class PCustomerFormFormView extends StatelessWidget
     List<AddressComponents>? addresses =
         address.adresses?.first.addressComponents;
 
-    if (addresses!
+    try {
+      if (addresses!
+                  .firstWhere((element) =>
+                      element.types!.contains('administrative_area_level_1'))
+                  .longName !=
+              null &&
+          addresses
+                  .firstWhere((element) =>
+                      element.types!.contains('administrative_area_level_2'))
+                  .longName !=
+              null &&
+          addresses
+                  .firstWhere((element) =>
+                      element.types!.contains('administrative_area_level_3'))
+                  .longName !=
+              null &&
+          addresses
+                  .firstWhere(
+                      (element) => element.types!.contains('postal_code'))
+                  .longName !=
+              null &&
+          address.adresses!.first.formattedAddress != null) {
+        String province = addresses
                 .firstWhere((element) =>
                     element.types!.contains('administrative_area_level_1'))
-                .longName !=
-            null &&
-        addresses
+                .longName ??
+            "";
+
+        String cityy = addresses
                 .firstWhere((element) =>
                     element.types!.contains('administrative_area_level_2'))
-                .longName !=
-            null &&
-        addresses
+                .longName ??
+            "";
+        // replace word Kota, Kab, or Kabupaten with Empty String
+        String city =
+            cityy.replaceAll(RegExp(r'Kota |Kabupaten |Kab |Regency '), '');
+
+        String subdistrictt = addresses
                 .firstWhere((element) =>
                     element.types!.contains('administrative_area_level_3'))
-                .longName !=
-            null &&
-        addresses
+                .longName ??
+            "";
+
+        String subdistrict =
+            subdistrictt.replaceAll(RegExp(r'Kecamatan |Kec '), '');
+
+        String village = addresses
+                .firstWhere((element) =>
+                    element.types!.contains('administrative_area_level_4'))
+                .longName ??
+            "";
+
+        String postalCode = addresses
                 .firstWhere((element) => element.types!.contains('postal_code'))
-                .longName !=
-            null &&
-        address.adresses!.first.formattedAddress != null) {
-      String province = addresses
-              .firstWhere((element) =>
-                  element.types!.contains('administrative_area_level_1'))
-              .longName ??
-          "";
+                .longName ??
+            "";
 
-      String cityy = addresses
-              .firstWhere((element) =>
-                  element.types!.contains('administrative_area_level_2'))
-              .longName ??
-          "";
-      // replace word Kota, Kab, or Kabupaten with Empty String
-      String city =
-          cityy.replaceAll(RegExp(r'Kota |Kabupaten |Kab |Regency '), '');
+        String adres = address.adresses!.first.formattedAddress ?? "";
 
-      String subdistrictt = addresses
-              .firstWhere((element) =>
-                  element.types!.contains('administrative_area_level_3'))
-              .longName ??
-          "";
-
-      String subdistrict =
-          subdistrictt.replaceAll(RegExp(r'Kecamatan |Kec '), '');
-
-      String village = addresses
-              .firstWhere((element) =>
-                  element.types!.contains('administrative_area_level_4'))
-              .longName ??
-          "";
-
-      String postalCode = addresses
-              .firstWhere((element) => element.types!.contains('postal_code'))
-              .longName ??
-          "";
-
-      String adres = address.adresses!.first.formattedAddress ?? "";
-
-      source.value.inputProvince.text = province;
-      source.value.inputCity.text = city;
-      source.value.inputSubdistrict.text = subdistrict;
-      source.value.inputVillage.text = village;
-      source.value.inputPostal.text = postalCode;
-      source.value.inputAddress.text = adres;
-    } else {
+        source.value.inputProvince.text = province;
+        source.value.inputCity.text = city;
+        source.value.inputSubdistrict.text = subdistrict;
+        source.value.inputVillage.text = village;
+        source.value.inputPostal.text = postalCode;
+        source.value.inputAddress.text = adres;
+      }
+    } catch (e) {
       Snackbar().unknowLocation();
     }
   }
