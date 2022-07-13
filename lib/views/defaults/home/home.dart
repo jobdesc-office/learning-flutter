@@ -14,6 +14,7 @@ import '../../../presenters/default/home_presenter.dart';
 import '../../../presenters/ventes/schedule_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../styles/custom_painter.dart';
+import '../../../styles/shape.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/snackbar.dart';
 import '../../skins/template.dart';
@@ -70,10 +71,12 @@ class _HomeViewState extends State<HomeView>
                   ),
                   BsCol(
                     sizes: ColScreen(sm: Col.col_3),
-                    child: Container(
-                      color: ColorPallates.pipeline,
-                      padding: EdgeInsets.all(10),
-                      child: Center(child: Text('Proposal')),
+                    child: CustomPaint(
+                      painter: PipelineStageShapeFill(),
+                      child: Container(
+                          width: 40,
+                          height: 37,
+                          child: Center(child: Text('Proposal'))),
                     ),
                   ),
                   BsCol(
