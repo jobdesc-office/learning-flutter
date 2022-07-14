@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-class userDetailsSource extends GetxController {
+class UserDetailsSource extends GetxController {
   var id = 0.obs;
   var name = ''.obs;
   var username = ''.obs;

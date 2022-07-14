@@ -1,12 +1,10 @@
 import 'package:boilerplate/views/skins/template.dart';
-import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/edit_view_contract.dart';
 import '../../../models/masters/Competitor_model.dart';
-import '../../../models/masters/maps_model.dart';
 import '../../../presenters/ventes/competitor_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
@@ -14,7 +12,6 @@ import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
 
 import '../../../widgets/map/_map_source.dart';
-import '../../../widgets/snackbar.dart';
 import '_form_source.dart';
 
 class CompetitorFormView extends StatelessWidget implements EditViewContract {
@@ -26,7 +23,7 @@ class CompetitorFormView extends StatelessWidget implements EditViewContract {
   late CompetitorForm competitorForm;
 
   CompetitorFormView({required this.onSave}) {
-    presenter.CompetitorFetchDataContract = this;
+    presenter.competitorFetchDataContract = this;
   }
 
   @override
@@ -91,7 +88,7 @@ class CompetitorFormView extends StatelessWidget implements EditViewContract {
   }
 
   void onClickCancelModal(BuildContext context) {
-    final map = Get.find<mapSource>();
+    final map = Get.find<MapSource>();
     map.reset();
     Navigator.pop(context);
   }
@@ -101,16 +98,16 @@ class CompetitorFormView extends StatelessWidget implements EditViewContract {
     presenter.setProcessing(false);
 
     source.update((val) {
-      CompetitorModel Competitor = CompetitorModel.fromJson(response.body);
+      CompetitorModel competitor = CompetitorModel.fromJson(response.body);
       source.value.selectType.setSelected(BsSelectBoxOption(
-          value: Competitor.comptreftypeid,
-          text: Text(Competitor.comptreftype!.typename!)));
+          value: competitor.comptreftypeid,
+          text: Text(competitor.comptreftype!.typename!)));
       source.value.selectBp.setSelected(BsSelectBoxOption(
-          value: Competitor.comptbpid,
-          text: Text(Competitor.comptbp!.bpname!)));
-      source.value.inputName.text = Competitor.comptname ?? '';
-      source.value.inputProductName.text = Competitor.comptproductname ?? '';
-      source.value.inputDesc.text = Competitor.description ?? '';
+          value: competitor.comptbpid,
+          text: Text(competitor.comptbp!.bpname!)));
+      source.value.inputName.text = competitor.comptname ?? '';
+      source.value.inputProductName.text = competitor.comptproductname ?? '';
+      source.value.inputDesc.text = competitor.description ?? '';
     });
   }
 }

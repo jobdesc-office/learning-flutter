@@ -1,4 +1,3 @@
-import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_modal/bs_flutter_modal.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
@@ -6,9 +5,7 @@ import 'package:get/get.dart';
 
 import '../../../contracts/base/details_view_contract.dart';
 import '../../../models/masters/contact_model.dart';
-import '../../../models/security/menu_model.dart';
 import '../../../presenters/masters/contact_presenter.dart';
-import '../../../presenters/masters/menu_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../styles/color_palattes.dart';
 import '_details_source.dart';

@@ -91,13 +91,13 @@ class SubdistrictView extends GetView implements IndexViewContract {
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onEditListener =
-        (Subdistrictid) => presenter.edit(context, Subdistrictid);
+        (subdistrictid) => presenter.edit(context, subdistrictid);
 
     if (btn.btnDeleteDisabled.value)
-      datatable.onDeleteListener = (Subdistrictid, name) =>
-          presenter.delete(context, Subdistrictid, name);
+      datatable.onDeleteListener = (subdistrictid, name) =>
+          presenter.delete(context, subdistrictid, name);
     else
       datatable.onDeleteListener =
-          (Subdistrictid, name) => Snackbar().regionDeletePermission();
+          (subdistrictid, name) => Snackbar().regionDeletePermission();
   }
 }

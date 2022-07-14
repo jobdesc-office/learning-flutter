@@ -7,10 +7,8 @@ import '../../constants/config_types.dart';
 import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
-import '../../helpers/function.dart';
 import '../../models/masters/type_model.dart';
 import '../../services/masters/type_service.dart';
-import '../../services/masters/user_service.dart';
 import '../../services/ventes/prospect_service.dart';
 import '../../utils/custom_get_controller.dart';
 import '../../views/masters/menus/_menu_type.dart';
@@ -23,22 +21,21 @@ import '../../widgets/confirm_dialog.dart';
 
 class ProspectPresenter extends CustomGetXController {
   final _prospectService = Get.find<ProspectService>();
-  final _userService = Get.find<UserService>();
   final _typeService = Get.put(TypeService());
 
-  late IndexViewContract _ProspectViewContract;
-  set ProspectViewContract(IndexViewContract ProspectViewContract) {
-    _ProspectViewContract = ProspectViewContract;
+  late IndexViewContract _prospectViewContract;
+  set prospectViewContract(IndexViewContract prospectViewContract) {
+    _prospectViewContract = prospectViewContract;
   }
 
-  late EditViewContract _ProspectFetchDataContract;
-  set ProspectFetchDataContract(EditViewContract ProspectFetchDataContract) {
-    _ProspectFetchDataContract = ProspectFetchDataContract;
+  late EditViewContract _prospectFetchDataContract;
+  set prospectFetchDataContract(EditViewContract prospectFetchDataContract) {
+    _prospectFetchDataContract = prospectFetchDataContract;
   }
 
-  late DetailViewContract _ProspectTypeViewContract;
-  set prospectViewContract(DetailViewContract ProspectViewContract) {
-    _ProspectTypeViewContract = ProspectViewContract;
+  late DetailViewContract _prospectDetailsViewContract;
+  set prospectDetailsViewContract(DetailViewContract prospectViewContract) {
+    _prospectDetailsViewContract = prospectViewContract;
   }
 
   late MenuTypeViewContract _prospectTypeViewContract;
@@ -60,9 +57,9 @@ class ProspectPresenter extends CustomGetXController {
   Future datatables(BuildContext context, Map<String, String> params) async {
     Response response = await _prospectService.datatables(params);
     if (response.statusCode == 200)
-      _ProspectViewContract.onLoadDatatables(context, response);
+      _prospectViewContract.onLoadDatatables(context, response);
     else
-      _ProspectViewContract.onErrorRequest(response);
+      _prospectViewContract.onErrorRequest(response);
   }
 
   Future lastid() async {
@@ -78,7 +75,7 @@ class ProspectPresenter extends CustomGetXController {
     if (response.statusCode == 200)
       _prospectTypeViewContract.onLoadSuccess(response);
     else
-      _ProspectViewContract.onErrorRequest(response);
+      _prospectViewContract.onErrorRequest(response);
   }
 
   Future lostStatus() async {
@@ -125,7 +122,7 @@ class ProspectPresenter extends CustomGetXController {
     if (response.statusCode == 200)
       _prospectTypeViewDetailContract.onLoadSuccess(response);
     else
-      _ProspectViewContract.onErrorRequest(response);
+      _prospectViewContract.onErrorRequest(response);
   }
 
   void losePopup(BuildContext context) async {
@@ -165,9 +162,9 @@ class ProspectPresenter extends CustomGetXController {
   void save(BuildContext context, Map<String, dynamic> body) async {
     Response response = await _prospectService.store(body);
     if (response.statusCode == 200)
-      _ProspectViewContract.onCreateSuccess(response, context: context);
+      _prospectViewContract.onCreateSuccess(response, context: context);
     else
-      _ProspectViewContract.onErrorRequest(response);
+      _prospectViewContract.onErrorRequest(response);
   }
 
   void details(BuildContext context, int userid) async {
@@ -179,49 +176,49 @@ class ProspectPresenter extends CustomGetXController {
     _loadStage();
     Response response = await _prospectService.show(userid);
     if (response.statusCode == 200)
-      _ProspectTypeViewContract.onSuccessFetchData(response);
+      _prospectDetailsViewContract.onSuccessFetchData(response);
     else
-      _ProspectViewContract.onErrorRequest(response);
+      _prospectViewContract.onErrorRequest(response);
   }
 
-  void lose(BuildContext context, int Prospectid) async {
+  void lose(BuildContext context, int prospectid) async {
     setProcessing(true);
     showDialog(
       context: context,
       builder: (context) => ProspectLose(
-        onSave: (body) => update(context, body, Prospectid),
+        onSave: (body) => update(context, body, prospectid),
       ),
     );
   }
 
-  void edit(BuildContext context, int Prospectid) async {
+  void edit(BuildContext context, int prospectid) async {
     setProcessing(true);
     showDialog(
       context: context,
       builder: (context) => ProspectFormView(
-        onSave: (body) => update(context, body, Prospectid),
+        onSave: (body) => update(context, body, prospectid),
       ),
     );
     _loadType();
 
-    Response response = await _prospectService.show(Prospectid);
+    Response response = await _prospectService.show(prospectid);
     if (response.statusCode == 200)
-      _ProspectFetchDataContract.onSuccessFetchData(response);
+      _prospectFetchDataContract.onSuccessFetchData(response);
     else
-      _ProspectViewContract.onErrorRequest(response);
+      _prospectViewContract.onErrorRequest(response);
   }
 
   void update(
-      BuildContext context, Map<String, dynamic> body, int Prospectid) async {
+      BuildContext context, Map<String, dynamic> body, int prospectid) async {
     setProcessing(true);
-    Response response = await _prospectService.update(Prospectid, body);
+    Response response = await _prospectService.update(prospectid, body);
     if (response.statusCode == 200)
-      _ProspectViewContract.onEditSuccess(response, context: context);
+      _prospectViewContract.onEditSuccess(response, context: context);
     else
-      _ProspectViewContract.onErrorRequest(response);
+      _prospectViewContract.onErrorRequest(response);
   }
 
-  void delete(BuildContext context, int Prospectid, String name) {
+  void delete(BuildContext context, int prospectid, String name) {
     showDialog(
       context: context,
       builder: (context) => ConfirmDialog(
@@ -229,11 +226,11 @@ class ProspectPresenter extends CustomGetXController {
         message: BaseText.deleteConfirmDatatable(field: name),
         onPressed: (_, value) async {
           if (value == ConfirmDialogOption.YES_OPTION) {
-            Response response = await _prospectService.destroy(Prospectid);
+            Response response = await _prospectService.destroy(prospectid);
             if (response.statusCode == 200)
-              _ProspectViewContract.onDeleteSuccess(response, context: context);
+              _prospectViewContract.onDeleteSuccess(response, context: context);
             else
-              _ProspectViewContract.onErrorRequest(response);
+              _prospectViewContract.onErrorRequest(response);
           } else {
             Navigator.pop(context);
           }

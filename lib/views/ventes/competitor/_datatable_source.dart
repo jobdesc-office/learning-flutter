@@ -1,4 +1,3 @@
-import 'package:boilerplate/widgets/theme_badge.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -53,12 +52,12 @@ class CompetitorDataTableSource extends BsDatatableSource {
     ];
   }
 
-  List<CompetitorModel> get Competitors =>
+  List<CompetitorModel> get competitors =>
       response.data.map((data) => CompetitorModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
-    final row = Competitors[index];
+    final row = competitors[index];
     int x = controller.start + index + 1;
     return BsDataRow(
       index: index,

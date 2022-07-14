@@ -2,7 +2,6 @@ import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:bs_flutter_modal/bs_flutter_modal.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../../../contracts/base/details_view_contract.dart';
@@ -17,12 +16,12 @@ final _navigation = Get.find<NavigationPresenter>();
 class ProspectProductDetails extends GetView implements DetailViewContract {
   final ProspectProductPresenter presenter =
       Get.find<ProspectProductPresenter>();
-  final prospectProductDetailsSource controller =
-      Get.put(prospectProductDetailsSource());
+  final ProspectProductDetailsSource controller =
+      Get.put(ProspectProductDetailsSource());
   final currencyFormatter = NumberFormat('#,##0.00', 'ID');
 
   ProspectProductDetails() {
-    presenter.ProspectProductViewContract = this;
+    presenter.prospectProductViewContract = this;
   }
 
   @override

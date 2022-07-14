@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 
 import '../../../contracts/base/details_view_contract.dart';
 import '../../../models/masters/user_model.dart';
-import '../../../models/masters/userdt_model.dart';
 import '../../../presenters/masters/user_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../styles/color_palattes.dart';
@@ -17,7 +16,7 @@ final _navigation = Get.find<NavigationPresenter>();
 
 class UserDetails extends GetView implements DetailViewContract {
   final UserPresenter presenter = Get.find<UserPresenter>();
-  final userDetailsSource controller = Get.put(userDetailsSource());
+  final UserDetailsSource controller = Get.put(UserDetailsSource());
 
   UserDetails() {
     presenter.userFetchDataDetailsContract = this;

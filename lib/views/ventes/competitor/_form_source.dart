@@ -1,21 +1,14 @@
-import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../constants/base_text.dart';
-import '../../../models/address_model.dart';
 import '../../../models/session_model.dart';
 import '../../../presenters/navigation_presenter.dart';
-import '../../../presenters/ventes/competitor_presenter.dart';
-import '../../../styles/color_palattes.dart';
 import '../../../utils/select_api.dart';
 import '../../../utils/session_manager.dart';
 import '../../../utils/validators.dart';
 import '../../../widgets/input/custom_input.dart';
-import '../../../widgets/input/custom_input_number.dart';
-import '../../../widgets/map/_map_source.dart';
-import '../../../widgets/map/map.dart';
 import '../../../widgets/selectbox/custom_selectbox.dart';
 import '../../../widgets/form_group.dart';
 

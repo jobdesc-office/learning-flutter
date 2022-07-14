@@ -18,7 +18,7 @@ class CompetitorDetails extends GetView implements DetailViewContract {
   final CompetitorDetailsSource controller = Get.put(CompetitorDetailsSource());
 
   CompetitorDetails() {
-    presenter.CompetitorDataDetailsContract = this;
+    presenter.competitorDataDetailsContract = this;
   }
 
   @override

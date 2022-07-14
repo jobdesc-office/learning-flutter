@@ -86,8 +86,8 @@ class ProductView extends GetView implements IndexViewContract {
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onEditListener =
-        (Productid) => presenter.edit(context, Productid);
+        (productid) => presenter.edit(context, productid);
     datatable.onDeleteListener =
-        (Productid, name) => presenter.delete(context, Productid, name);
+        (productid, name) => presenter.delete(context, productid, name);
   }
 }

@@ -28,9 +28,9 @@ class TypesChildrenPresenter extends CustomGetXController {
     _typeChildrenFetchDataContract = typeChildrenFetchDataContract;
   }
 
-  late typeChildrenContract _typeChildrenParentDataContract;
+  late TypeChildrenContract _typeChildrenParentDataContract;
   set typeChildrenParentDataContract(
-      typeChildrenContract typeChildrenParentDataContract) {
+      TypeChildrenContract typeChildrenParentDataContract) {
     _typeChildrenParentDataContract = typeChildrenParentDataContract;
   }
 

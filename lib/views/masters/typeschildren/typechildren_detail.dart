@@ -15,7 +15,7 @@ import '_text.dart';
 final _navigation = Get.find<NavigationPresenter>();
 
 class TypeChildrenDetails extends GetView
-    implements DetailViewContract, typeChildrenContract {
+    implements DetailViewContract, TypeChildrenContract {
   final TypesChildrenPresenter presenter = Get.find<TypesChildrenPresenter>();
   final TypeChildrenDetailsSource controller =
       Get.put(TypeChildrenDetailsSource());

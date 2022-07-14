@@ -11,7 +11,6 @@ import '../../../widgets/datatables/custom_datatable.dart';
 import '../../../widgets/map/_map_source.dart';
 import '../../../widgets/snackbar.dart';
 import '../../skins/template.dart';
-import '../prospect/_detail_source.dart';
 import '_datatable_source.dart';
 import '_text.dart';
 
@@ -20,7 +19,7 @@ class CustomFieldView extends GetView implements IndexViewContract {
   final datatable = CustomFieldDataTableSource();
 
   CustomFieldView() {
-    presenter.CustomFieldViewContract = this;
+    presenter.customFieldViewContract = this;
   }
 
   @override
@@ -60,7 +59,7 @@ class CustomFieldView extends GetView implements IndexViewContract {
 
   @override
   void onCreateSuccess(Response response, {BuildContext? context}) {
-    final map = Get.find<mapSource>();
+    final map = Get.find<MapSource>();
     map.reset();
     presenter.setProcessing(false);
     datatable.controller.reload();
@@ -70,7 +69,7 @@ class CustomFieldView extends GetView implements IndexViewContract {
 
   @override
   void onDeleteSuccess(Response response, {BuildContext? context}) {
-    final map = Get.find<mapSource>();
+    final map = Get.find<MapSource>();
     map.reset();
     presenter.setProcessing(false);
     datatable.controller.reload();
@@ -80,7 +79,7 @@ class CustomFieldView extends GetView implements IndexViewContract {
 
   @override
   void onEditSuccess(Response response, {BuildContext? context}) {
-    final map = Get.find<mapSource>();
+    final map = Get.find<MapSource>();
     map.reset();
     presenter.setProcessing(false);
     datatable.controller.reload();

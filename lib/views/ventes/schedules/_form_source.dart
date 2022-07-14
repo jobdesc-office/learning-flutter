@@ -27,7 +27,7 @@ import '_text.dart';
 final _navigation = Get.find<NavigationPresenter>();
 
 class ScheduleSource extends GetxController {
-  final map = Get.put(mapSource());
+  final map = Get.put(MapSource());
 
   final _auth = Get.put(AuthPresenter());
 
@@ -112,7 +112,7 @@ class ScheduleSource extends GetxController {
 }
 
 class ScheduleForm {
-  final map = Get.put(mapSource());
+  final map = Get.put(MapSource());
   final _auth = Get.put(AuthPresenter());
   final ScheduleSource source;
 

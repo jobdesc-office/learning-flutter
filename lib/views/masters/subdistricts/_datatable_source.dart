@@ -45,12 +45,12 @@ class SubdistrictDataTableSource extends BsDatatableSource {
     ];
   }
 
-  List<SubdistrictModel> get Subdistricts =>
+  List<SubdistrictModel> get subdistrict =>
       response.data.map((data) => SubdistrictModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
-    final row = Subdistricts[index];
+    final row = subdistrict[index];
     int x = controller.start + index + 1;
     return BsDataRow(
       index: index,

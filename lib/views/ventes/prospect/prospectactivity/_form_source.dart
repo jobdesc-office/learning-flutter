@@ -21,7 +21,7 @@ import '../../../../widgets/selectbox/custom_selectbox.dart';
 import '_text.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
-final map = Get.put(mapSource());
+final map = Get.put(MapSource());
 final typepresenter = Get.put(TypesChildrenPresenter());
 
 class ProspectActivitySource extends GetxController {

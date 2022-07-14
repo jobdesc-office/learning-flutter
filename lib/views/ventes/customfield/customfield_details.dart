@@ -19,7 +19,7 @@ class CustomFieldDetails extends GetView implements DetailViewContract {
       Get.put(CustomFieldDetailsSource());
 
   CustomFieldDetails() {
-    presenter.CustomFieldDataDetailsContract = this;
+    presenter.customFieldDataDetailsContract = this;
   }
 
   @override

@@ -17,8 +17,8 @@ final _navigation = Get.find<NavigationPresenter>();
 class ProspectActivityDetails extends GetView implements DetailViewContract {
   final ProspectActivityPresenter presenter =
       Get.find<ProspectActivityPresenter>();
-  final prospectActivityDetailsSource controller =
-      Get.put(prospectActivityDetailsSource());
+  final ProspectActivityDetailsSource controller =
+      Get.put(ProspectActivityDetailsSource());
 
   ProspectActivityDetails() {
     presenter.prospectDetailViewContract = this;

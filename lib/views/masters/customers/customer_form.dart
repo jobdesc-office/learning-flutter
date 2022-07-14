@@ -133,7 +133,7 @@ class CustomerFormView extends StatelessWidget
   }
 
   void onClickCancelModal(BuildContext context) {
-    final map = Get.find<mapSource>();
+    final map = Get.find<MapSource>();
     map.reset();
     Navigator.pop(context);
   }

@@ -1,4 +1,3 @@
-import 'package:boilerplate/widgets/theme_badge.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -49,12 +48,12 @@ class CustomFieldDataTableSource extends BsDatatableSource {
     ];
   }
 
-  List<CustomFieldModel> get CustomFields =>
+  List<CustomFieldModel> get customFields =>
       response.data.map((data) => CustomFieldModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
-    final row = CustomFields[index];
+    final row = customFields[index];
     int x = controller.start + index + 1;
     return BsDataRow(
       index: index,

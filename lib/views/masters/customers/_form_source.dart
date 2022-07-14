@@ -13,7 +13,6 @@ import '../../../utils/select_api.dart';
 import '../../../utils/session_manager.dart';
 import '../../../utils/validators.dart';
 import '../../../widgets/input/custom_input.dart';
-import '../../../widgets/input/custom_input_number.dart';
 import '../../../widgets/map/_map_source.dart';
 import '../../../widgets/map/map.dart';
 import '../../../widgets/selectbox/custom_selectbox.dart';
@@ -51,7 +50,7 @@ class CustomerSource extends GetxController {
     List ids = await _presenter.getId(json);
     AddressModel id = AddressModel.fromJson(ids.first);
     SessionModel session = await SessionManager.current();
-    final map = Get.put(mapSource());
+    final map = Get.put(MapSource());
     return {
       'cstmprefix': inputPrefix.text,
       'cstmname': inputName.text,
@@ -75,7 +74,7 @@ class CustomerSource extends GetxController {
 
 class CustomerForm {
   final CustomerSource source;
-  final map = Get.put(mapSource());
+  final map = Get.put(MapSource());
   final CustomerPresenter presenter = Get.find<CustomerPresenter>();
 
   CustomerForm(this.source);

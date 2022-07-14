@@ -1,30 +1,17 @@
-import 'dart:typed_data';
-import 'dart:io';
-import 'dart:html' as html;
-
-import 'package:boilerplate/helpers/function.dart';
-import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:get/get.dart';
-import 'package:mime_type/mime_type.dart';
-import 'package:path/path.dart' as Path;
-import 'package:image_picker_web/image_picker_web.dart';
-import 'package:path_provider/path_provider.dart';
 
 import '../../../../constants/base_text.dart';
 import '../../../../models/session_model.dart';
 import '../../../../presenters/navigation_presenter.dart';
 import '../../../../presenters/ventes/customfield_presenter.dart';
-import '../../../../presenters/ventes/prospect_presenter.dart';
 import '../../../../utils/select_api.dart';
 import '../../../../utils/session_manager.dart';
 import '../../../../utils/validators.dart';
 import '../../../../widgets/form_group.dart';
 import '../../../../widgets/input/custom_input.dart';
-import '../../../../widgets/map/_map_source.dart';
 import '../../../../widgets/selectbox/custom_selectbox.dart';
 import '../_detail_source.dart';
 import '_text.dart';
@@ -32,7 +19,7 @@ import '_text.dart';
 final _navigation = Get.find<NavigationPresenter>();
 
 class CustomFieldSource extends GetxController {
-  final source = Get.put(prospectDetailsSource());
+  final source = Get.put(ProspectDetailsSource());
 
   bool isProcessing = false;
   var id = 0.obs;

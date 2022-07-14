@@ -1,4 +1,3 @@
-import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -150,7 +149,7 @@ class SidebarSkins extends StatelessWidget {
                               id: no++,
                               route: RouteList.masterProvince.index,
                               label: 'Provinces',
-                              icon: FontAwesomeIcons.mapMarkerAlt,
+                              icon: FontAwesomeIcons.locationDot,
                             ),
                             MenuData(
                               id: no++,
@@ -225,7 +224,7 @@ class SidebarSkins extends StatelessWidget {
                           id: no++,
                           route: RouteList.ventesSchedule.index,
                           label: 'Schedules',
-                          icon: FontAwesomeIcons.calendarAlt,
+                          icon: FontAwesomeIcons.calendarDays,
                         ),
                       ])
 

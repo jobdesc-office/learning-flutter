@@ -3,20 +3,15 @@ import 'package:boilerplate/presenters/navigation_presenter.dart';
 import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:timelines/timelines.dart';
 
 import '../../../models/default/home_model.dart';
-import '../../../models/ventes/schedule_model.dart';
 import '../../../presenters/default/home_presenter.dart';
 import '../../../presenters/ventes/schedule_presenter.dart';
 import '../../../routes/route_list.dart';
-import '../../../styles/custom_painter.dart';
 import '../../../styles/shape.dart';
 import '../../../widgets/breadcrumb.dart';
-import '../../../widgets/snackbar.dart';
 import '../../skins/template.dart';
 import '_source.dart';
 

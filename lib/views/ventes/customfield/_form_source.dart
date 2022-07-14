@@ -1,34 +1,18 @@
-import 'dart:typed_data';
-import 'dart:io';
-import 'dart:html' as html;
-
-import 'package:boilerplate/helpers/function.dart';
-import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:get/get.dart';
-import 'package:mime_type/mime_type.dart';
-import 'package:path/path.dart' as Path;
-import 'package:image_picker_web/image_picker_web.dart';
-import 'package:path_provider/path_provider.dart';
 
 import '../../../constants/base_text.dart';
 import '../../../models/session_model.dart';
-import '../../../presenters/masters/businesspartner_presenter.dart';
-import '../../../presenters/masters/customer_presenter.dart';
 import '../../../presenters/ventes/customfield_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../presenters/ventes/prospect_presenter.dart';
-import '../../../styles/color_palattes.dart';
 import '../../../utils/select_api.dart';
 import '../../../utils/session_manager.dart';
 import '../../../utils/validators.dart';
 import '../../../widgets/input/custom_input.dart';
-import '../../../widgets/input/custom_input_number.dart';
 import '../../../widgets/map/_map_source.dart';
-import '../../../widgets/map/map.dart';
 import '../../../widgets/selectbox/custom_selectbox.dart';
 import '../../../widgets/form_group.dart';
 
@@ -67,7 +51,7 @@ class CustomFieldSource extends GetxController {
 
 class CustomFieldForm {
   final CustomFieldSource source;
-  final map = Get.put(mapSource());
+  final map = Get.put(MapSource());
   final CustomFieldPresenter presenter = Get.find<CustomFieldPresenter>();
 
   CustomFieldForm(this.source);

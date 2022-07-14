@@ -88,13 +88,13 @@ class ProvinceView extends GetView implements IndexViewContract {
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onEditListener =
-        (Provinceid) => presenter.edit(context, Provinceid);
+        (provinceid) => presenter.edit(context, provinceid);
 
     if (btn.btnDeleteDisabled.value)
       datatable.onDeleteListener =
-          (Provinceid, name) => presenter.delete(context, Provinceid, name);
+          (provinceid, name) => presenter.delete(context, provinceid, name);
     else
       datatable.onDeleteListener =
-          (Provinceid, name) => Snackbar().regionDeletePermission();
+          (provinceid, name) => Snackbar().regionDeletePermission();
   }
 }

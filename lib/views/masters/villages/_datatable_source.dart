@@ -45,12 +45,12 @@ class VillageDataTableSource extends BsDatatableSource {
     ];
   }
 
-  List<VillageModel> get Villages =>
+  List<VillageModel> get villages =>
       response.data.map((data) => VillageModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
-    final row = Villages[index];
+    final row = villages[index];
     int x = controller.start + index + 1;
     return BsDataRow(
       index: index,

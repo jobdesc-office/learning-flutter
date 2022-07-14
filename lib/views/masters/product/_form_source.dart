@@ -9,7 +9,6 @@ import '../../../presenters/navigation_presenter.dart';
 import '../../../utils/session_manager.dart';
 import '../../../utils/validators.dart';
 import '../../../widgets/input/custom_input.dart';
-import '../../../widgets/input/custom_input_number.dart';
 import '../../../widgets/selectbox/custom_selectbox.dart';
 import '../../../widgets/form_group.dart';
 

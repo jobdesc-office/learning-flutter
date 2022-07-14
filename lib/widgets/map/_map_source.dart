@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-class mapSource extends GetxController {
+class MapSource extends GetxController {
   var latitude = 0.0.obs;
   var longitude = 0.0.obs;
   var linkCoordinate = ''.obs;

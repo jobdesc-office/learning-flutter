@@ -8,7 +8,6 @@ import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_create.dart';
 import '../../../widgets/datatables/custom_datatable.dart';
-import '../../../widgets/map/_map_source.dart';
 import '../../../widgets/snackbar.dart';
 import '../../skins/template.dart';
 import '_datatable_source.dart';
@@ -19,7 +18,7 @@ class BpCustomerView extends GetView implements IndexViewContract {
   final datatable = BpCustomerDataTableSource();
 
   BpCustomerView() {
-    presenter.BpCustomerViewContract = this;
+    presenter.bpCustomerViewContract = this;
   }
 
   @override

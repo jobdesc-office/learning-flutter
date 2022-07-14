@@ -2,22 +2,15 @@ import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:timelines/timelines.dart';
 
-import '../../../../constants/base_text.dart';
-import '../../../../presenters/navigation_presenter.dart';
-import '../../../../presenters/ventes/prospect_presenter.dart';
 import '../../../../presenters/ventes/prospectactivity_presenter.dart';
-import '../../../../styles/color_palattes.dart';
 import '../../../../widgets/button/button_delete_datatable.dart';
 import '../../../../widgets/button/button_edit_datatable.dart';
-import '../../../../widgets/confirm_dialog.dart';
 import '../_detail_source.dart';
-import '_stagePipeline.dart';
 
 Widget prospectDetailActivitySection(context) {
-  final source = Get.put(prospectDetailsSource());
+  final source = Get.put(ProspectDetailsSource());
   final detailPresenter = Get.find<ProspectActivityPresenter>();
   return Column(
     children: [

@@ -1,15 +1,7 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:boilerplate/views/skins/template.dart';
-import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
-import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:path/path.dart' as path;
 
-import '../../../../contracts/master/customerAddress_contract.dart';
-import '../../../../models/masters/maps_model.dart';
 import '../../../../presenters/masters/customer_presenter.dart';
 import '../../../../presenters/ventes/prospect_presenter.dart';
 
@@ -17,7 +9,6 @@ import '../../../../routes/route_list.dart';
 import '../../../../widgets/breadcrumb.dart';
 import '../../../../widgets/button/theme_button_cancel.dart';
 import '../../../../widgets/button/theme_button_save.dart';
-import '../../../../widgets/snackbar.dart';
 import '_form_source.dart';
 
 class PProductFormFormView extends StatelessWidget {

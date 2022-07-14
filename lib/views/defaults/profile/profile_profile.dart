@@ -1,5 +1,4 @@
 import 'package:boilerplate/styles/color_palattes.dart';
-import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,14 +6,11 @@ import 'package:get_storage/get_storage.dart';
 
 import '../../../contracts/base/details_view_contract.dart';
 import '../../../models/masters/user_model.dart';
-import '../../../models/masters/userdt_model.dart';
-import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/masters/user_presenter.dart';
 import '_profile_profile_source.dart';
 
 class ProfileProfileView extends GetView implements DetailViewContract {
   final presenter = Get.find<UserPresenter>();
-  final _auth = Get.find<AuthPresenter>();
   final control = Get.put(ProfileProfileSource());
   final box = GetStorage();
 

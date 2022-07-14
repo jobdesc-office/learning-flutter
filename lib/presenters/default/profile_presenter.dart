@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import '../../models/default/profile_model.dart';
 import '../../services/default/profile_service.dart';
 import '../../utils/custom_get_controller.dart';
 

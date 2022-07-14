@@ -8,10 +8,8 @@ import 'package:get/get.dart';
 import '../../../../constants/base_text.dart';
 import '../../../../models/address_model.dart';
 import '../../../../models/session_model.dart';
-import '../../../../presenters/auth_presenter.dart';
 import '../../../../presenters/masters/customer_presenter.dart';
 import '../../../../presenters/navigation_presenter.dart';
-import '../../../../presenters/ventes/prospect_presenter.dart';
 import '../../../../styles/color_palattes.dart';
 import '../../../../utils/select_api.dart';
 import '../../../../utils/session_manager.dart';
@@ -24,8 +22,6 @@ import '../../../../widgets/selectbox/custom_selectbox.dart';
 import '_text.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
-final _auth = Get.find<AuthPresenter>();
-final _presenter = Get.find<ProspectPresenter>();
 final _cpresenter = Get.find<CustomerPresenter>();
 
 class PCustomerSource extends GetxController {
@@ -57,7 +53,7 @@ class PCustomerSource extends GetxController {
   Future<Map<String, dynamic>> toJson() async {
     var json;
     SessionModel session = await SessionManager.current();
-    final map = Get.put(mapSource());
+    final map = Get.put(MapSource());
     if (isRegistered.value) {
       json = {
         'isregistered': isRegistered.value,
@@ -110,7 +106,7 @@ class PCustomerSource extends GetxController {
 
 class PCustomerForm {
   final PCustomerSource source;
-  final map = Get.put(mapSource());
+  final map = Get.put(MapSource());
   final CustomerPresenter presenter = Get.find<CustomerPresenter>();
 
   PCustomerForm(this.source);

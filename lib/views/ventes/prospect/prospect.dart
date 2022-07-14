@@ -1,9 +1,7 @@
 import 'package:boilerplate/contracts/base/index_view_contract.dart';
-import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 import '../../../presenters/ventes/prospect_presenter.dart';
 import '../../../routes/route_list.dart';
@@ -20,7 +18,7 @@ class ProspectView extends GetView implements IndexViewContract {
   final datatable = ProspectDataTableSource();
 
   ProspectView() {
-    presenter.ProspectViewContract = this;
+    presenter.prospectViewContract = this;
   }
 
   @override
@@ -84,7 +82,6 @@ class ProspectView extends GetView implements IndexViewContract {
 
   @override
   void onLoadDatatables(BuildContext context, Response response) {
-    // TODO: implement onLoadDatatables
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onDetailsListener =

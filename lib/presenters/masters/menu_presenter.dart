@@ -106,7 +106,6 @@ class MenuPresenter extends CustomGetXController {
           ]);
       _menuViewContract.onErrorRequest(response);
     }
-    ;
   }
 
   void edit(BuildContext context, int menuid) async {

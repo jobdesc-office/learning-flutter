@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-class scheduleDetailsSource extends GetxController {
+class ScheduleDetailsSource extends GetxController {
   var title = ''.obs;
   var name = ''.obs;
 

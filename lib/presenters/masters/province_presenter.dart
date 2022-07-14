@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../constants/base_text.dart';
-import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
 import '../../services/masters/province_service.dart';
@@ -21,12 +20,6 @@ class ProvincePresenter extends CustomGetXController {
   late EditViewContract _provinceFetchDataContract;
   set provinceFetchDataContract(EditViewContract provinceFetchDataContract) {
     _provinceFetchDataContract = provinceFetchDataContract;
-  }
-
-  late DetailViewContract _provinceDataDetailsContract;
-  set provinceDataDetailsContract(
-      DetailViewContract provinceDataDetailsContract) {
-    _provinceDataDetailsContract = provinceDataDetailsContract;
   }
 
   Future datatables(BuildContext context, Map<String, String> params) async {

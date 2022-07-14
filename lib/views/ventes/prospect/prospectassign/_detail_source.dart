@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-class prospectAssignDetailsSource extends GetxController {
+class ProspectAssignDetailsSource extends GetxController {
   var prospectid = 0.obs;
   var assign = ''.obs;
   var report = ''.obs;

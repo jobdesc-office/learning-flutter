@@ -96,6 +96,6 @@ class TypesParentView extends StatelessWidget
           (typeid, name) => presenter.delete(context, typeid, name);
     else
       datatable.onDeleteListener =
-          (Provinceid, name) => Snackbar().regionDeletePermission();
+          (typeid, name) => Snackbar().regionDeletePermission();
   }
 }

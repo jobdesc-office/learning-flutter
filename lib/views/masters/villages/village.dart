@@ -88,13 +88,13 @@ class VillageView extends GetView implements IndexViewContract {
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onEditListener =
-        (Villageid) => presenter.edit(context, Villageid);
+        (villageid) => presenter.edit(context, villageid);
 
     if (btn.btnDeleteDisabled.value)
       datatable.onDeleteListener =
-          (Villageid, name) => presenter.delete(context, Villageid, name);
+          (villageid, name) => presenter.delete(context, villageid, name);
     else
       datatable.onDeleteListener =
-          (Villageid, name) => Snackbar().regionDeletePermission();
+          (villageid, name) => Snackbar().regionDeletePermission();
   }
 }

@@ -49,12 +49,12 @@ class ContactDataTableSource extends BsDatatableSource {
     ];
   }
 
-  List<ContactModel> get Contacts =>
+  List<ContactModel> get contacts =>
       response.data.map((data) => ContactModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
-    final row = Contacts[index];
+    final row = contacts[index];
     int x = controller.start + index + 1;
     return BsDataRow(
       index: index,

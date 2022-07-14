@@ -1,26 +1,16 @@
 import 'package:boilerplate/services/ventes/customfield_service.dart';
-import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
-import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
-import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../constants/base_text.dart';
-import '../../../../models/address_model.dart';
 import '../../../../models/session_model.dart';
-import '../../../../presenters/auth_presenter.dart';
 import '../../../../presenters/masters/customer_presenter.dart';
 import '../../../../presenters/navigation_presenter.dart';
-import '../../../../presenters/ventes/prospect_presenter.dart';
-import '../../../../styles/color_palattes.dart';
-import '../../../../utils/select_api.dart';
 import '../../../../utils/session_manager.dart';
 import '../../../../utils/validators.dart';
 import '../../../../widgets/form_group.dart';
 import '../../../../widgets/input/custom_input.dart';
 import '../../../../widgets/map/_map_source.dart';
-import '../../../../widgets/map/map.dart';
-import '../../../../widgets/selectbox/custom_selectbox.dart';
 import '_text.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
@@ -43,7 +33,7 @@ class PProductSource extends GetxController {
 
 class PProductForm {
   final PProductSource source;
-  final map = Get.put(mapSource());
+  final map = Get.put(MapSource());
   final CustomerPresenter presenter = Get.find<CustomerPresenter>();
 
   PProductForm(this.source);

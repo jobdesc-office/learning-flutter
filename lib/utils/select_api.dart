@@ -13,7 +13,6 @@ import '../models/masters/country_model.dart';
 import '../models/masters/customer_model.dart';
 import '../models/masters/product_model.dart';
 import '../models/masters/province_model.dart';
-import '../models/auth_model.dart';
 import '../models/masters/subdistrict_model.dart';
 import '../models/masters/user_model.dart';
 import '../models/ventes/bpcustomer_model.dart';
@@ -358,7 +357,7 @@ Future<BsSelectBoxResponse> selectApiProspectOwner(
 Future<BsSelectBoxResponse> selectApiCustomField(
     Map<String, String> params) async {
   final customFieldService = Get.find<CustomFieldService>();
-  final source = Get.put(prospectDetailsSource());
+  final source = Get.put(ProspectDetailsSource());
   Response response = await customFieldService.selectBp(params);
   if (response.isOk) {
     if (response.statusCode == 200) {

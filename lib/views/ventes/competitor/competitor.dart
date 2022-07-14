@@ -17,10 +17,10 @@ import '_text.dart';
 class CompetitorView extends GetView implements IndexViewContract {
   final presenter = Get.find<CompetitorPresenter>();
   final datatable = CompetitorDataTableSource();
-  final map = Get.put(mapSource());
+  final map = Get.put(MapSource());
 
   CompetitorView() {
-    presenter.CompetitorViewContract = this;
+    presenter.competitorViewContract = this;
   }
 
   @override
@@ -60,7 +60,7 @@ class CompetitorView extends GetView implements IndexViewContract {
 
   @override
   void onCreateSuccess(Response response, {BuildContext? context}) {
-    final map = Get.find<mapSource>();
+    final map = Get.find<MapSource>();
     map.reset();
     presenter.setProcessing(false);
     datatable.controller.reload();
@@ -70,7 +70,7 @@ class CompetitorView extends GetView implements IndexViewContract {
 
   @override
   void onDeleteSuccess(Response response, {BuildContext? context}) {
-    final map = Get.find<mapSource>();
+    final map = Get.find<MapSource>();
     map.reset();
     presenter.setProcessing(false);
     datatable.controller.reload();
@@ -80,7 +80,7 @@ class CompetitorView extends GetView implements IndexViewContract {
 
   @override
   void onEditSuccess(Response response, {BuildContext? context}) {
-    final map = Get.find<mapSource>();
+    final map = Get.find<MapSource>();
     map.reset();
     presenter.setProcessing(false);
     datatable.controller.reload();
@@ -95,7 +95,7 @@ class CompetitorView extends GetView implements IndexViewContract {
 
   @override
   void onLoadDatatables(BuildContext context, Response response) {
-    final map = Get.find<mapSource>();
+    final map = Get.find<MapSource>();
     presenter.setProcessing(false);
     map.reset();
     datatable.response = BsDatatableResponse.createFromJson(response.body);

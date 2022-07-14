@@ -2,16 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../constants/base_text.dart';
-import '../../constants/config_types.dart';
 import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
-import '../../helpers/function.dart';
-import '../../services/masters/type_service.dart';
-import '../../services/masters/user_service.dart';
 import '../../services/ventes/bpcustomer_service.dart';
 import '../../utils/custom_get_controller.dart';
-import '../../views/masters/menus/_menu_type.dart';
 import '../../views/ventes/bpcustomers/bpcustomer_details.dart';
 import '../../views/ventes/bpcustomers/bpcustomer_form.dart';
 import '../../widgets/confirm_dialog.dart';
@@ -20,7 +15,7 @@ class BpCustomerPresenter extends CustomGetXController {
   final _bpCustomerService = Get.find<BpCustomerService>();
 
   late IndexViewContract _bpCustomerViewContract;
-  set BpCustomerViewContract(IndexViewContract bpCustomerViewContract) {
+  set bpCustomerViewContract(IndexViewContract bpCustomerViewContract) {
     _bpCustomerViewContract = bpCustomerViewContract;
   }
 
@@ -31,8 +26,8 @@ class BpCustomerPresenter extends CustomGetXController {
   }
 
   late DetailViewContract _bpCustomerTypeViewContract;
-  set bpCustomerDetailViewContract(DetailViewContract BpCustomerViewContract) {
-    _bpCustomerTypeViewContract = BpCustomerViewContract;
+  set bpCustomerDetailViewContract(DetailViewContract bpCustomerViewContract) {
+    _bpCustomerTypeViewContract = bpCustomerViewContract;
   }
 
   Future datatables(BuildContext context, Map<String, String> params) async {
@@ -74,16 +69,16 @@ class BpCustomerPresenter extends CustomGetXController {
       _bpCustomerViewContract.onErrorRequest(response);
   }
 
-  void edit(BuildContext context, int BpCustomerid) async {
+  void edit(BuildContext context, int bpCustomerid) async {
     setProcessing(true);
     showDialog(
       context: context,
       builder: (context) => BpCustomerFormView(
-        onSave: (body) => update(context, body, BpCustomerid),
+        onSave: (body) => update(context, body, bpCustomerid),
       ),
     );
 
-    Response response = await _bpCustomerService.show(BpCustomerid);
+    Response response = await _bpCustomerService.show(bpCustomerid);
     if (response.statusCode == 200)
       _bpCustomerFetchDataContract.onSuccessFetchData(response);
     else
@@ -91,16 +86,16 @@ class BpCustomerPresenter extends CustomGetXController {
   }
 
   void update(
-      BuildContext context, Map<String, dynamic> body, int BpCustomerid) async {
+      BuildContext context, Map<String, dynamic> body, int bpCustomerid) async {
     setProcessing(true);
-    Response response = await _bpCustomerService.update(BpCustomerid, body);
+    Response response = await _bpCustomerService.update(bpCustomerid, body);
     if (response.statusCode == 200)
       _bpCustomerViewContract.onEditSuccess(response, context: context);
     else
       _bpCustomerViewContract.onErrorRequest(response);
   }
 
-  void delete(BuildContext context, int BpCustomerid, String name) {
+  void delete(BuildContext context, int bpCustomerid, String name) {
     showDialog(
       context: context,
       builder: (context) => ConfirmDialog(
@@ -108,7 +103,7 @@ class BpCustomerPresenter extends CustomGetXController {
         message: BaseText.deleteConfirmDatatable(field: name),
         onPressed: (_, value) async {
           if (value == ConfirmDialogOption.YES_OPTION) {
-            Response response = await _bpCustomerService.destroy(BpCustomerid);
+            Response response = await _bpCustomerService.destroy(bpCustomerid);
             if (response.statusCode == 200)
               _bpCustomerViewContract.onDeleteSuccess(response,
                   context: context);

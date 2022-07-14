@@ -17,7 +17,7 @@ final _navigation = Get.find<NavigationPresenter>();
 
 class ScheduleDetails extends GetView implements DetailViewContract {
   final SchedulePresenter presenter = Get.find<SchedulePresenter>();
-  final scheduleDetailsSource controller = Get.put(scheduleDetailsSource());
+  final ScheduleDetailsSource controller = Get.put(ScheduleDetailsSource());
 
   ScheduleDetails() {
     presenter.scheduleFetchDataDetailsContract = this;

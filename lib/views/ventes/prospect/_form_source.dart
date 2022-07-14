@@ -6,9 +6,7 @@ import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_inputtext/bs_flutter_inputtext.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
-import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -17,7 +15,6 @@ import '../../../helpers/function.dart';
 import '../../../models/session_model.dart';
 import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
-import '../../../presenters/ventes/prospect_presenter.dart';
 import '../../../styles/color_palattes.dart';
 import '../../../utils/select_api.dart';
 import '../../../utils/session_manager.dart';
@@ -26,7 +23,6 @@ import '../../../widgets/button/button_role_user.dart';
 import '../../../widgets/form_group.dart';
 import '../../../widgets/input/custom_input.dart';
 import '../../../widgets/input/custom_input_currency.dart';
-import '../../../widgets/input/custom_input_number.dart';
 import '../../../widgets/selectbox/custom_selectbox.dart';
 import '../../masters/menus/_menu_type.dart';
 import '_text.dart';
@@ -36,7 +32,6 @@ final _navigation = Get.find<NavigationPresenter>();
 final _auth = Get.put(AuthPresenter());
 
 class ProspectSource extends GetxController {
-  final _presenter = Get.find<ProspectPresenter>();
   bool isProcessing = false;
 
   var quantity = 0.0.obs;
@@ -818,7 +813,6 @@ class ProspectForm {
     return Container(
         margin: EdgeInsets.only(right: 20),
         child: Obx(() {
-          source.total;
           return Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [

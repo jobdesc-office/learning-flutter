@@ -88,10 +88,10 @@ class VillageFormView extends StatelessWidget implements EditViewContract {
     presenter.setProcessing(false);
 
     source.update((val) {
-      VillageModel Village = VillageModel.fromJson(response.body);
-      source.value.inputName.text = Village.villagename;
+      VillageModel village = VillageModel.fromJson(response.body);
+      source.value.inputName.text = village.villagename;
       source.value.choosedSubdistrict.setSelected(BsSelectBoxOption(
-          value: Village.subdistrictid, text: Text(Village.subdistrictname)));
+          value: village.subdistrictid, text: Text(village.subdistrictname)));
     });
   }
 }

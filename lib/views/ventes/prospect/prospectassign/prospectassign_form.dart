@@ -23,7 +23,7 @@ class ProspectAssignFormView extends StatelessWidget
   late ProspectAssignForm prospectForm;
 
   ProspectAssignFormView({required this.onSave, id}) {
-    presenter.setProspectFetchDataContract = this;
+    presenter.setprospectFetchDataContract = this;
     source.value.id.value = id;
   }
 

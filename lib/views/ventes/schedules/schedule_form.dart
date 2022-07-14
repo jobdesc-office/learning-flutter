@@ -22,7 +22,7 @@ import '_text.dart';
 class ScheduleFormView extends StatelessWidget
     implements IndexViewContract, EditViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
-  final map = Get.put(mapSource());
+  final map = Get.put(MapSource());
   final SchedulePresenter presenter = Get.find<SchedulePresenter>();
   final source = ScheduleSource().obs;
   final Function(Map<String, dynamic> body) onSave;
@@ -139,7 +139,7 @@ class ScheduleFormView extends StatelessWidget
   }
 
   void onClickCancelModal(BuildContext context) {
-    final map = Get.find<mapSource>();
+    final map = Get.find<MapSource>();
     map.reset();
     Navigator.pop(context);
   }
@@ -252,12 +252,8 @@ class ScheduleFormView extends StatelessWidget
   }
 
   @override
-  void onErrorRequest(Response response) {
-    // TODO: implement onErrorRequest
-  }
+  void onErrorRequest(Response response) {}
 
   @override
-  void onLoadDatatables(BuildContext context, Response response) {
-    // TODO: implement onLoadDatatables
-  }
+  void onLoadDatatables(BuildContext context, Response response) {}
 }

@@ -1,4 +1,3 @@
-import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,7 +5,6 @@ import 'package:get/get.dart';
 import '../../../../constants/base_text.dart';
 import '../../../../models/session_model.dart';
 import '../../../../presenters/navigation_presenter.dart';
-import '../../../../styles/color_palattes.dart';
 import '../../../../utils/select_api.dart';
 import '../../../../utils/session_manager.dart';
 import '../../../../utils/validators.dart';

@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/details_view_contract.dart';
-import '../../../models/masters/customer_model.dart';
 import '../../../models/ventes/bpcustomer_model.dart';
-import '../../../presenters/masters/customer_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../presenters/ventes/bpcustomer_presenter.dart';
 import '../../../styles/color_palattes.dart';

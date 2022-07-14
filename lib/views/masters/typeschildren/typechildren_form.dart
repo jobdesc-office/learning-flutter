@@ -16,7 +16,7 @@ import '_form_source.dart';
 import '_text.dart';
 
 class TypeChildrenFormView extends StatelessWidget
-    implements EditViewContract, typeChildrenContract {
+    implements EditViewContract, TypeChildrenContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final TypesChildrenPresenter presenter = Get.find<TypesChildrenPresenter>();
   final source = TypeChildrenSource().obs;

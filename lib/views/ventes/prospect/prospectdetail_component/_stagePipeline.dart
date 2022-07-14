@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../models/masters/type_model.dart';
-import '../../../../presenters/navigation_presenter.dart';
 import '../../../../styles/color_palattes.dart';
 
 abstract class MenuTypeViewDetailContract {
@@ -51,7 +50,6 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
 
   @override
   Widget build(BuildContext context) {
-    final _navigation = Get.find<NavigationPresenter>();
     if (widget.controller.processing) return loadingState();
     return BsRow(
       children: widget.controller.options.map((type) {

@@ -17,7 +17,7 @@ import '_text.dart';
 class CustomerView extends GetView implements IndexViewContract {
   final presenter = Get.find<CustomerPresenter>();
   final datatable = CustomerDataTableSource();
-  final map = Get.put(mapSource());
+  final map = Get.put(MapSource());
 
   CustomerView() {
     presenter.customerViewContract = this;
@@ -57,7 +57,7 @@ class CustomerView extends GetView implements IndexViewContract {
 
   @override
   void onCreateSuccess(Response response, {BuildContext? context}) {
-    final map = Get.find<mapSource>();
+    final map = Get.find<MapSource>();
     map.reset();
     presenter.setProcessing(false);
     datatable.controller.reload();
@@ -67,7 +67,7 @@ class CustomerView extends GetView implements IndexViewContract {
 
   @override
   void onDeleteSuccess(Response response, {BuildContext? context}) {
-    final map = Get.find<mapSource>();
+    final map = Get.find<MapSource>();
     map.reset();
     presenter.setProcessing(false);
     datatable.controller.reload();
@@ -77,7 +77,7 @@ class CustomerView extends GetView implements IndexViewContract {
 
   @override
   void onEditSuccess(Response response, {BuildContext? context}) {
-    final map = Get.find<mapSource>();
+    final map = Get.find<MapSource>();
     map.reset();
     presenter.setProcessing(false);
     datatable.controller.reload();
@@ -92,7 +92,7 @@ class CustomerView extends GetView implements IndexViewContract {
 
   @override
   void onLoadDatatables(BuildContext context, Response response) {
-    final map = Get.find<mapSource>();
+    final map = Get.find<MapSource>();
     presenter.setProcessing(false);
     map.reset();
     datatable.response = BsDatatableResponse.createFromJson(response.body);

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../constants/base_text.dart';
-import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
 import '../../services/masters/country_service.dart';
@@ -21,12 +20,6 @@ class CountryPresenter extends CustomGetXController {
   late EditViewContract _countryFetchDataContract;
   set countryFetchDataContract(EditViewContract countryFetchDataContract) {
     _countryFetchDataContract = countryFetchDataContract;
-  }
-
-  late DetailViewContract _countryDataDetailsContract;
-  set countryDataDetailsContract(
-      DetailViewContract countryDataDetailsContract) {
-    _countryDataDetailsContract = countryDataDetailsContract;
   }
 
   Future datatables(BuildContext context, Map<String, String> params) async {

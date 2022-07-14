@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-class prospectProductDetailsSource extends GetxController {
+class ProspectProductDetailsSource extends GetxController {
   var prospectid = 0.obs;
   var name = ''.obs;
   var price = '0.0'.obs;

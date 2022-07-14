@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../constants/base_text.dart';
-import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
 import '../../services/masters/product_service.dart';
@@ -21,12 +20,6 @@ class ProductPresenter extends CustomGetXController {
   late EditViewContract _productFetchDataContract;
   set productFetchDataContract(EditViewContract productFetchDataContract) {
     _productFetchDataContract = productFetchDataContract;
-  }
-
-  late DetailViewContract _productDataDetailsContract;
-  set productDataDetailsContract(
-      DetailViewContract productDataDetailsContract) {
-    _productDataDetailsContract = productDataDetailsContract;
   }
 
   Future datatables(BuildContext context, Map<String, String> params) async {

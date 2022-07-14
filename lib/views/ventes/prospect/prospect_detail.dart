@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:boilerplate/models/ventes/customfield_model.dart';
 import 'package:boilerplate/views/skins/template.dart';
 import 'package:boilerplate/views/ventes/prospect/prospectdetail_component/title_section.dart';
@@ -10,7 +8,6 @@ import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:timelines/timelines.dart';
 
 import '../../../constants/base_text.dart';
 import '../../../contracts/base/details_view_contract.dart';
@@ -34,10 +31,8 @@ import '../../../styles/color_palattes.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/button_controller.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
-import '../../../widgets/button/button_info_assign.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
-import '../../../widgets/confirm_dialog.dart';
 import '../../../widgets/map/_map_source.dart';
 import '../../../widgets/snackbar.dart';
 import '_detail_source.dart';
@@ -70,9 +65,9 @@ class _ProspectDetailsState extends State<ProspectDetails>
   final customFieldPresenter = Get.find<CustomFieldPresenter>();
   final prospectCustomFieldPresenter = Get.find<ProspectCustomFieldPresenter>();
   final presenter = Get.find<ProspectPresenter>();
-  final source = Get.put(prospectDetailsSource());
+  final source = Get.put(ProspectDetailsSource());
   final controller = Get.put(ButtonController());
-  final map = Get.put(mapSource());
+  final map = Get.put(MapSource());
   final cfForm = ProspectCustomFieldSource().obs;
   final cfieldForm = CustomFieldSource().obs;
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
@@ -94,7 +89,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     assignPresenter.prospectViewContract = this;
     productPresenter.prospectViewContract = this;
     customFieldPresenter.setCustomFieldContract = this;
-    customFieldPresenter.CustomFieldViewContract = this;
+    customFieldPresenter.customFieldViewContract = this;
     prospectCustomFieldPresenter.prospectViewContract = this;
     prospectCustomFieldPresenter.setcustomFieldContract = this;
 
@@ -1467,7 +1462,6 @@ class _ProspectDetailsState extends State<ProspectDetails>
     prospectCustomFieldPresenter.setProcessing(false);
     detailPresenter.setProcessing(false);
     assignPresenter.setProcessing(false);
-    if (context != null) Navigator.pop(context);
     Navigator.pop(context);
   }
 

@@ -1,16 +1,11 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:boilerplate/views/skins/template.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:path/path.dart' as path;
 
 import '../../../contracts/base/edit_view_contract.dart';
 import '../../../models/ventes/bpcustomer_model.dart';
-import '../../../models/masters/maps_model.dart';
 import '../../../presenters/ventes/bpcustomer_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';

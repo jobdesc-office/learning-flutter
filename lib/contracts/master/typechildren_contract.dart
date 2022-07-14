@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
 
-abstract class typeChildrenContract {
+abstract class TypeChildrenContract {
   void onLoadParentSuccess(Response response);
 }

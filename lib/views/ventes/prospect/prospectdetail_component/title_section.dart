@@ -16,7 +16,7 @@ import '_stagePipeline.dart';
 BsCol prospectDetailTitleSection(context) {
   final _navigation = Get.find<NavigationPresenter>();
   final presenter = Get.find<ProspectPresenter>();
-  final source = Get.put(prospectDetailsSource());
+  final source = Get.put(ProspectDetailsSource());
   final currencyFormatter = NumberFormat('#,##0.00', 'ID');
   return BsCol(
     margin: EdgeInsets.fromLTRB(0, 0, 5, 5),

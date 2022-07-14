@@ -8,15 +8,13 @@ import '../../../../presenters/navigation_presenter.dart';
 import '../../../../styles/color_palattes.dart';
 import '../../../../widgets/button/button_X_datatable.dart';
 import '../../../../widgets/button/button_check_datatable.dart';
-import '../../../../widgets/button/button_delete_datatable.dart';
 import '../../../../widgets/button/button_details_datatable.dart';
-import '../../../../widgets/button/button_edit_datatable.dart';
 import '../../../../widgets/datatables/custom_datatable_tablecell.dart';
 import '../../../../widgets/datatables/custom_datatable_tablehead.dart';
 import '../_detail_source.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
-final controllers = Get.put(prospectDetailsSource());
+final controllers = Get.put(ProspectDetailsSource());
 
 class CustomFieldPopUpDataTableSource extends BsDatatableSource {
   ValueChanged<int> onDetailsListener = (value) {};
@@ -56,7 +54,6 @@ class CustomFieldPopUpDataTableSource extends BsDatatableSource {
 
   @override
   BsDataRow getRow(int index) {
-    List<CustomFieldModel> data = [];
     // print(users.indexWhere((element) =>
     //     element.onlyinnewprospect == true &&
     //     element.lastprospectid! > controllers.prospectid.value));

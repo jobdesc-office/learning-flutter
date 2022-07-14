@@ -6,10 +6,7 @@ import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
 import '../../contracts/master/customerAddress_contract.dart';
-import '../../services/masters/city_service.dart';
 import '../../services/masters/customer_service.dart';
-import '../../services/masters/province_service.dart';
-import '../../services/masters/subdistrict_service.dart';
 import '../../services/masters/village_service.dart';
 import '../../utils/connect_internet_api.dart';
 import '../../utils/custom_get_controller.dart';
@@ -19,9 +16,6 @@ import '../../widgets/confirm_dialog.dart';
 
 class CustomerPresenter extends CustomGetXController {
   final _customerService = Get.find<CustomerService>();
-  final _provinceService = Get.find<ProvinceService>();
-  final _cityService = Get.find<CityService>();
-  final _subdistrictService = Get.find<SubdistrictService>();
   final _villageService = Get.find<VillageService>();
 
   late IndexViewContract _customerViewContract;

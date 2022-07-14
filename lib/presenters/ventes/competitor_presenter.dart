@@ -5,47 +5,42 @@ import '../../constants/base_text.dart';
 import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
-import '../../services/masters/city_service.dart';
-import '../../services/masters/province_service.dart';
-import '../../services/masters/subdistrict_service.dart';
-import '../../services/masters/village_service.dart';
 import '../../services/ventes/competitor_service.dart';
-import '../../utils/connect_internet_api.dart';
 import '../../utils/custom_get_controller.dart';
 import '../../views/ventes/competitor/competitor_details.dart';
 import '../../views/ventes/competitor/competitor_form.dart';
 import '../../widgets/confirm_dialog.dart';
 
 class CompetitorPresenter extends CustomGetXController {
-  final _CompetitorService = Get.find<CompetitorService>();
+  final _competitorService = Get.find<CompetitorService>();
 
-  late IndexViewContract _CompetitorViewContract;
-  set CompetitorViewContract(IndexViewContract CompetitorViewContract) {
-    _CompetitorViewContract = CompetitorViewContract;
+  late IndexViewContract _competitorViewContract;
+  set competitorViewContract(IndexViewContract competitorViewContract) {
+    _competitorViewContract = competitorViewContract;
   }
 
-  late EditViewContract _CompetitorFetchDataContract;
-  set CompetitorFetchDataContract(
-      EditViewContract CompetitorFetchDataContract) {
-    _CompetitorFetchDataContract = CompetitorFetchDataContract;
+  late EditViewContract _competitorFetchDataContract;
+  set competitorFetchDataContract(
+      EditViewContract competitorFetchDataContract) {
+    _competitorFetchDataContract = competitorFetchDataContract;
   }
 
-  late DetailViewContract _CompetitorDataDetailsContract;
-  set CompetitorDataDetailsContract(
-      DetailViewContract CompetitorDataDetailsContract) {
-    _CompetitorDataDetailsContract = CompetitorDataDetailsContract;
+  late DetailViewContract _competitorDataDetailsContract;
+  set competitorDataDetailsContract(
+      DetailViewContract competitorDataDetailsContract) {
+    _competitorDataDetailsContract = competitorDataDetailsContract;
   }
 
   Future datatables(BuildContext context, Map<String, String> params) async {
-    Response response = await _CompetitorService.datatables(params);
+    Response response = await _competitorService.datatables(params);
     if (response.statusCode == 200)
-      _CompetitorViewContract.onLoadDatatables(context, response);
+      _competitorViewContract.onLoadDatatables(context, response);
     else
-      _CompetitorViewContract.onErrorRequest(response);
+      _competitorViewContract.onErrorRequest(response);
   }
 
   Future cstm(int id) async {
-    Response response = await _CompetitorService.show(id);
+    Response response = await _competitorService.show(id);
     return response.body['cstmname'];
   }
 
@@ -56,11 +51,11 @@ class CompetitorPresenter extends CustomGetXController {
       builder: (context) => CompetitorDetails(),
     );
 
-    Response response = await _CompetitorService.show(userid);
+    Response response = await _competitorService.show(userid);
     if (response.statusCode == 200)
-      _CompetitorDataDetailsContract.onSuccessFetchData(response);
+      _competitorDataDetailsContract.onSuccessFetchData(response);
     else
-      _CompetitorViewContract.onErrorRequest(response);
+      _competitorViewContract.onErrorRequest(response);
   }
 
   void add(BuildContext context) async {
@@ -73,11 +68,11 @@ class CompetitorPresenter extends CustomGetXController {
   }
 
   void save(BuildContext context, Map<String, dynamic> body) async {
-    Response response = await _CompetitorService.store(body);
+    Response response = await _competitorService.store(body);
     if (response.statusCode == 200)
-      _CompetitorViewContract.onCreateSuccess(response, context: context);
+      _competitorViewContract.onCreateSuccess(response, context: context);
     else
-      _CompetitorViewContract.onErrorRequest(response);
+      _competitorViewContract.onErrorRequest(response);
   }
 
   void edit(BuildContext context, int id) async {
@@ -89,20 +84,20 @@ class CompetitorPresenter extends CustomGetXController {
       ),
     );
 
-    Response response = await _CompetitorService.show(id);
+    Response response = await _competitorService.show(id);
     if (response.statusCode == 200)
-      _CompetitorFetchDataContract.onSuccessFetchData(response);
+      _competitorFetchDataContract.onSuccessFetchData(response);
     else
-      _CompetitorViewContract.onErrorRequest(response);
+      _competitorViewContract.onErrorRequest(response);
   }
 
   void update(BuildContext context, Map<String, dynamic> body, int id) async {
     setProcessing(true);
-    Response response = await _CompetitorService.update(id, body);
+    Response response = await _competitorService.update(id, body);
     if (response.statusCode == 200)
-      _CompetitorViewContract.onEditSuccess(response, context: context);
+      _competitorViewContract.onEditSuccess(response, context: context);
     else
-      _CompetitorViewContract.onErrorRequest(response);
+      _competitorViewContract.onErrorRequest(response);
   }
 
   void delete(BuildContext context, int typeid, String name) {
@@ -113,12 +108,12 @@ class CompetitorPresenter extends CustomGetXController {
         message: BaseText.deleteConfirmDatatable(field: name),
         onPressed: (_, value) async {
           if (value == ConfirmDialogOption.YES_OPTION) {
-            Response response = await _CompetitorService.destroy(typeid);
+            Response response = await _competitorService.destroy(typeid);
             if (response.statusCode == 200)
-              _CompetitorViewContract.onDeleteSuccess(response,
+              _competitorViewContract.onDeleteSuccess(response,
                   context: context);
             else
-              _CompetitorViewContract.onErrorRequest(response);
+              _competitorViewContract.onErrorRequest(response);
           } else {
             Navigator.pop(context);
           }

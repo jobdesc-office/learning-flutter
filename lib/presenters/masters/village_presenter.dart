@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../constants/base_text.dart';
-import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
 import '../../services/masters/village_service.dart';
@@ -21,12 +20,6 @@ class VillagePresenter extends CustomGetXController {
   late EditViewContract _villageFetchDataContract;
   set villageFetchDataContract(EditViewContract villageFetchDataContract) {
     _villageFetchDataContract = villageFetchDataContract;
-  }
-
-  late DetailViewContract _villageDataDetailsContract;
-  set villageDataDetailsContract(
-      DetailViewContract villageDataDetailsContract) {
-    _villageDataDetailsContract = villageDataDetailsContract;
   }
 
   Future datatables(BuildContext context, Map<String, String> params) async {

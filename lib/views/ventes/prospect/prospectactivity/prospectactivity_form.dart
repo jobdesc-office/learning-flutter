@@ -5,9 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../contracts/base/edit_view_contract.dart';
-import '../../../../models/masters/type_model.dart';
 import '../../../../models/ventes/prospectactivity_model.dart';
-import '../../../../presenters/ventes/prospect_presenter.dart';
 import '../../../../presenters/ventes/prospectactivity_presenter.dart';
 import '../../../../routes/route_list.dart';
 import '../../../../widgets/breadcrumb.dart';
@@ -26,7 +24,7 @@ class ProspectActivityFormView extends StatelessWidget
   late ProspectDetailForm prospectForm;
 
   ProspectActivityFormView({required this.onSave, id}) {
-    presenter.setProspectFetchDataContract = this;
+    presenter.setprospectFetchDataContract = this;
     source.value.id.value = id;
   }
 

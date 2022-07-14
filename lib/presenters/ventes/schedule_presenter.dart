@@ -1,7 +1,5 @@
 import 'dart:math';
 
-import 'package:boilerplate/widgets/button/button_delete_datatable.dart';
-import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,7 +18,7 @@ import '../../widgets/map/_map_source.dart';
 class SchedulePresenter extends CustomGetXController {
   List<Color> _colorCollection = <Color>[];
   final _scheduleService = Get.find<ScheduleService>();
-  final map = Get.put(mapSource());
+  final map = Get.put(MapSource());
 
   late IndexViewContract _scheduleViewContract;
   set scheduleViewContract(IndexViewContract scheduleViewContract) {

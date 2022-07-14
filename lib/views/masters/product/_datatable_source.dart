@@ -1,4 +1,3 @@
-import 'package:boilerplate/widgets/theme_badge.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -46,12 +45,12 @@ class ProductDataTableSource extends BsDatatableSource {
     ];
   }
 
-  List<ProductModel> get Products =>
+  List<ProductModel> get products =>
       response.data.map((data) => ProductModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
-    final row = Products[index];
+    final row = products[index];
     int x = controller.start + index + 1;
     return BsDataRow(
       index: index,

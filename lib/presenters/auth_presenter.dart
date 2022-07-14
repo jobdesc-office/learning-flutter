@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 import '../contracts/auth/guard_contract.dart';
 import '../contracts/auth/login_view_contract.dart';

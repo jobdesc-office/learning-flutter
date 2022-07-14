@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../constants/base_text.dart';
-import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
 import '../../services/masters/subdistrict_service.dart';
@@ -22,12 +21,6 @@ class SubdistrictPresenter extends CustomGetXController {
   set subdistrictFetchDataContract(
       EditViewContract subdistrictFetchDataContract) {
     _subdistrictFetchDataContract = subdistrictFetchDataContract;
-  }
-
-  late DetailViewContract _subdistrictDataDetailsContract;
-  set subdistrictDataDetailsContract(
-      DetailViewContract subdistrictDataDetailsContract) {
-    _subdistrictDataDetailsContract = subdistrictDataDetailsContract;
   }
 
   Future datatables(BuildContext context, Map<String, String> params) async {

@@ -2,17 +2,13 @@ import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:bs_flutter_modal/bs_flutter_modal.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../../../constants/base_text.dart';
-import '../../../../contracts/base/details_view_contract.dart';
 import '../../../../models/masters/type_model.dart';
-import '../../../../models/ventes/prospectassign_model.dart';
 import '../../../../presenters/navigation_presenter.dart';
 import '../../../../presenters/ventes/prospect_presenter.dart';
 import '../../../../widgets/button/theme_button_cancel.dart';
 import '../../../../widgets/button/theme_button_lost.dart';
-import '../../../../widgets/button/theme_button_save.dart';
 import '../../../../widgets/confirm_dialog.dart';
 import '../_detail_source.dart';
 import '_form_source.dart';
@@ -24,7 +20,7 @@ class ProspectLose extends GetView {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final source = ProspectLostSource().obs;
   final Function(Map<String, dynamic> body) onSave;
-  final sources = Get.put(prospectDetailsSource());
+  final sources = Get.put(ProspectDetailsSource());
 
   late ProspectLostForm prospectForm;
 

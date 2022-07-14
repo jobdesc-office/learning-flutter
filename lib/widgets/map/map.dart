@@ -21,14 +21,10 @@ class GoogleMapsPage extends StatefulWidget {
 
 class _GoogleMapsPageState extends State<GoogleMapsPage>
     implements CustomerAddressContract {
-  final controller = Get.put(mapSource());
+  final controller = Get.put(MapSource());
   final _controller = Completer<GoogleMapController>();
   final presenter = Get.put(MapPresenter());
   MapPickerController mapPickerController = MapPickerController();
-
-  _GoogleMapsPageState() {
-    presenter.mapAddresContract = this;
-  }
 
   CameraPosition cameraPosition = const CameraPosition(
     target: LatLng(-6.199086, 106.5750849),

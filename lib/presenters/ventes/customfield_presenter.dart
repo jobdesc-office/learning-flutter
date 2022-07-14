@@ -14,40 +14,40 @@ import '../../views/ventes/prospect/customfield/customfield_popup.dart';
 import '../../widgets/confirm_dialog.dart';
 
 class CustomFieldPresenter extends CustomGetXController {
-  final _CustomFieldService = Get.find<CustomFieldService>();
+  final _customFieldService = Get.find<CustomFieldService>();
 
-  late IndexViewContract _CustomFieldViewContract;
-  set CustomFieldViewContract(IndexViewContract CustomFieldViewContract) {
-    _CustomFieldViewContract = CustomFieldViewContract;
+  late IndexViewContract _customFieldViewContract;
+  set customFieldViewContract(IndexViewContract customFieldViewContract) {
+    _customFieldViewContract = customFieldViewContract;
   }
 
-  late EditViewContract _CustomFieldFetchDataContract;
-  set CustomFieldFetchDataContract(
-      EditViewContract CustomFieldFetchDataContract) {
-    _CustomFieldFetchDataContract = CustomFieldFetchDataContract;
+  late EditViewContract _customFieldFetchDataContract;
+  set customFieldFetchDataContract(
+      EditViewContract customFieldFetchDataContract) {
+    _customFieldFetchDataContract = customFieldFetchDataContract;
   }
 
-  late DetailViewContract _CustomFieldDataDetailsContract;
-  set CustomFieldDataDetailsContract(
-      DetailViewContract CustomFieldDataDetailsContract) {
-    _CustomFieldDataDetailsContract = CustomFieldDataDetailsContract;
+  late DetailViewContract _customFieldDataDetailsContract;
+  set customFieldDataDetailsContract(
+      DetailViewContract customFieldDataDetailsContract) {
+    _customFieldDataDetailsContract = customFieldDataDetailsContract;
   }
 
-  late CustomFieldContract _CustomFieldContract;
-  set setCustomFieldContract(CustomFieldContract CustomFieldContract) {
-    _CustomFieldContract = CustomFieldContract;
+  late CustomFieldContract _customFieldContract;
+  set setCustomFieldContract(CustomFieldContract customFieldContract) {
+    _customFieldContract = customFieldContract;
   }
 
   Future datatables(BuildContext context, Map<String, String> params) async {
-    Response response = await _CustomFieldService.datatables(params);
+    Response response = await _customFieldService.datatables(params);
     if (response.statusCode == 200)
-      _CustomFieldViewContract.onLoadDatatables(context, response);
+      _customFieldViewContract.onLoadDatatables(context, response);
     else
-      _CustomFieldViewContract.onErrorRequest(response);
+      _customFieldViewContract.onErrorRequest(response);
   }
 
   Future cstm(int id) async {
-    Response response = await _CustomFieldService.show(id);
+    Response response = await _customFieldService.show(id);
     return response.body['cstmname'];
   }
 
@@ -58,27 +58,27 @@ class CustomFieldPresenter extends CustomGetXController {
       builder: (context) => CustomFieldDetails(),
     );
 
-    Response response = await _CustomFieldService.show(userid);
+    Response response = await _customFieldService.show(userid);
     if (response.statusCode == 200)
-      _CustomFieldDataDetailsContract.onSuccessFetchData(response);
+      _customFieldDataDetailsContract.onSuccessFetchData(response);
     else
-      _CustomFieldViewContract.onErrorRequest(response);
+      _customFieldViewContract.onErrorRequest(response);
   }
 
   Future allWithBp(BuildContext context, Map<String, String> params) async {
-    Response response = await _CustomFieldService.selectWithBp(params);
+    Response response = await _customFieldService.selectWithBp(params);
     if (response.statusCode == 200)
-      _CustomFieldContract.onLoadCustomFieldSuccess(context, response);
+      _customFieldContract.onLoadCustomFieldSuccess(context, response);
     else
-      _CustomFieldContract.onErrorCustomFieldRequest(response);
+      _customFieldContract.onErrorCustomFieldRequest(response);
   }
 
   Future allBp(BuildContext context) async {
-    Response response = await _CustomFieldService.withBp();
+    Response response = await _customFieldService.withBp();
     if (response.statusCode == 200)
-      _CustomFieldContract.onLoadCustomFieldSuccess(context, response);
+      _customFieldContract.onLoadCustomFieldSuccess(context, response);
     else
-      _CustomFieldContract.onErrorCustomFieldRequest(response);
+      _customFieldContract.onErrorCustomFieldRequest(response);
   }
 
   void popup(BuildContext context) async {
@@ -99,11 +99,11 @@ class CustomFieldPresenter extends CustomGetXController {
   }
 
   void save(BuildContext context, Map<String, dynamic> body) async {
-    Response response = await _CustomFieldService.store(body);
+    Response response = await _customFieldService.store(body);
     if (response.statusCode == 200)
-      _CustomFieldViewContract.onCreateSuccess(response, context: context);
+      _customFieldViewContract.onCreateSuccess(response, context: context);
     else
-      _CustomFieldViewContract.onErrorRequest(response);
+      _customFieldViewContract.onErrorRequest(response);
   }
 
   void edit(BuildContext context, int id) async {
@@ -115,20 +115,20 @@ class CustomFieldPresenter extends CustomGetXController {
       ),
     );
 
-    Response response = await _CustomFieldService.show(id);
+    Response response = await _customFieldService.show(id);
     if (response.statusCode == 200)
-      _CustomFieldFetchDataContract.onSuccessFetchData(response);
+      _customFieldFetchDataContract.onSuccessFetchData(response);
     else
-      _CustomFieldViewContract.onErrorRequest(response);
+      _customFieldViewContract.onErrorRequest(response);
   }
 
   void update(BuildContext context, Map<String, dynamic> body, int id) async {
     setProcessing(true);
-    Response response = await _CustomFieldService.update(id, body);
+    Response response = await _customFieldService.update(id, body);
     if (response.statusCode == 200)
-      _CustomFieldViewContract.onEditSuccess(response, context: context);
+      _customFieldViewContract.onEditSuccess(response, context: context);
     else
-      _CustomFieldViewContract.onErrorRequest(response);
+      _customFieldViewContract.onErrorRequest(response);
   }
 
   void delete(BuildContext context, int typeid, String name) {
@@ -139,12 +139,12 @@ class CustomFieldPresenter extends CustomGetXController {
         message: BaseText.deleteConfirmDatatable(field: name),
         onPressed: (_, value) async {
           if (value == ConfirmDialogOption.YES_OPTION) {
-            Response response = await _CustomFieldService.destroy(typeid);
+            Response response = await _customFieldService.destroy(typeid);
             if (response.statusCode == 200)
-              _CustomFieldViewContract.onDeleteSuccess(response,
+              _customFieldViewContract.onDeleteSuccess(response,
                   context: context);
             else
-              _CustomFieldViewContract.onErrorRequest(response);
+              _customFieldViewContract.onErrorRequest(response);
           } else {
             Navigator.pop(context);
           }

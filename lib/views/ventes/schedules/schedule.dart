@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
-import '../../../constants/base_text.dart';
 import '../../../models/ventes/schedule_model.dart';
 import '../../../presenters/ventes/schedule_presenter.dart';
 import '../../../routes/route_list.dart';
@@ -21,7 +20,7 @@ import '_text.dart';
 class ScheduleView extends GetView
     implements HandleErrorRequest, IndexViewContract {
   final presenter = Get.find<SchedulePresenter>();
-  final map = Get.put(mapSource());
+  final map = Get.put(MapSource());
 
   ScheduleView() {
     presenter.scheduleViewContract = this;

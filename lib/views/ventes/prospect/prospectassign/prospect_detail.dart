@@ -2,7 +2,6 @@ import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:bs_flutter_modal/bs_flutter_modal.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../../../contracts/base/details_view_contract.dart';
 import '../../../../models/ventes/prospectassign_model.dart';
@@ -15,11 +14,11 @@ final _navigation = Get.find<NavigationPresenter>();
 
 class ProspectAssignDetails extends GetView implements DetailViewContract {
   final ProspectAssignPresenter presenter = Get.find<ProspectAssignPresenter>();
-  final prospectAssignDetailsSource controller =
-      Get.put(prospectAssignDetailsSource());
+  final ProspectAssignDetailsSource controller =
+      Get.put(ProspectAssignDetailsSource());
 
   ProspectAssignDetails() {
-    presenter.ProspectAssignViewContract = this;
+    presenter.prospectAssignViewContract = this;
   }
 
   @override

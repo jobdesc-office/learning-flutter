@@ -30,7 +30,7 @@ class ProspectFormView extends StatelessWidget
   late ProspectForm prospectForm;
 
   ProspectFormView({required this.onSave}) {
-    presenter.ProspectFetchDataContract = this;
+    presenter.prospectFetchDataContract = this;
     presenter.prospectTypeViewContract = this;
     presenter.addCustomerViewContract = this;
   }

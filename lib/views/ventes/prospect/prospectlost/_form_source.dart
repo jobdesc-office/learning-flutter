@@ -1,5 +1,3 @@
-import 'package:boilerplate/constants/config_types.dart';
-import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,8 +7,6 @@ import '../../../../models/masters/type_model.dart';
 import '../../../../models/session_model.dart';
 import '../../../../presenters/navigation_presenter.dart';
 import '../../../../presenters/ventes/prospect_presenter.dart';
-import '../../../../services/masters/type_service.dart';
-import '../../../../styles/color_palattes.dart';
 import '../../../../utils/select_api.dart';
 import '../../../../utils/session_manager.dart';
 import '../../../../utils/validators.dart';
