@@ -29,7 +29,6 @@ class CompetitorView extends GetView implements IndexViewContract {
       body: TemplateView(
         title: 'Competitors',
         breadcrumbs: [
-          BreadcrumbWidget('Insight', route: RouteList.home.index),
           BreadcrumbWidget('Venteses'),
           BreadcrumbWidget('Competitors', active: true),
         ],

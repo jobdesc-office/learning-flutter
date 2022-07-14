@@ -29,7 +29,6 @@ class CustomFieldView extends GetView implements IndexViewContract {
       body: TemplateView(
         title: 'Custom Fields',
         breadcrumbs: [
-          BreadcrumbWidget('Insight', route: RouteList.home.index),
           BreadcrumbWidget('Venteses'),
           BreadcrumbWidget('Prospect'),
           BreadcrumbWidget('Custom Fields', active: true),

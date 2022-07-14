@@ -31,7 +31,6 @@ class ProvinceFormView extends StatelessWidget implements EditViewContract {
       body: TemplateView(
         title: 'Province Form',
         breadcrumbs: [
-          BreadcrumbWidget('Insight', route: RouteList.home.index),
           BreadcrumbWidget('Masters'),
           BreadcrumbWidget('Provinces', back: true),
           BreadcrumbWidget('Province Form', active: true),

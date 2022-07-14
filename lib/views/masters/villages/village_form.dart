@@ -31,7 +31,6 @@ class VillageFormView extends StatelessWidget implements EditViewContract {
       body: TemplateView(
         title: 'Village Form',
         breadcrumbs: [
-          BreadcrumbWidget('Insight', route: RouteList.home.index),
           BreadcrumbWidget('Masters'),
           BreadcrumbWidget('Villages ', back: true),
           BreadcrumbWidget('Village Form', active: true),

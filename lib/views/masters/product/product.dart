@@ -27,7 +27,6 @@ class ProductView extends GetView implements IndexViewContract {
       body: TemplateView(
         title: 'Products',
         breadcrumbs: [
-          BreadcrumbWidget('Insight', route: RouteList.home.index),
           BreadcrumbWidget('Masters'),
           BreadcrumbWidget('Products', active: true),
         ],

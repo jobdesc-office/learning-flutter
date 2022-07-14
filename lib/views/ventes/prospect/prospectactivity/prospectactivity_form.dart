@@ -36,7 +36,6 @@ class ProspectActivityFormView extends StatelessWidget
       body: TemplateView(
         title: 'Prospect Activity Form',
         breadcrumbs: [
-          BreadcrumbWidget('Insight', route: RouteList.home.index),
           BreadcrumbWidget('Venteses'),
           BreadcrumbWidget('Prospect'),
           BreadcrumbWidget('Prospect Details', back: true),

@@ -31,7 +31,6 @@ class TypeParentFormView extends StatelessWidget implements EditViewContract {
       body: TemplateView(
         title: TypeParentsText.title + ' Form',
         breadcrumbs: [
-          BreadcrumbWidget('Insight', route: RouteList.home.index),
           BreadcrumbWidget('Masters'),
           BreadcrumbWidget('Type'),
           BreadcrumbWidget('Type Parent', back: true),

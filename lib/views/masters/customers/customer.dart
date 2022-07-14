@@ -29,7 +29,6 @@ class CustomerView extends GetView implements IndexViewContract {
       body: TemplateView(
         title: 'Customers',
         breadcrumbs: [
-          BreadcrumbWidget('Insight', route: RouteList.home.index),
           BreadcrumbWidget('Masters'),
           BreadcrumbWidget('Customers', active: true),
         ],

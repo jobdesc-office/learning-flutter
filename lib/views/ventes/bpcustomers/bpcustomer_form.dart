@@ -37,7 +37,6 @@ class BpCustomerFormView extends StatelessWidget implements EditViewContract {
       body: TemplateView(
         title: 'BpCustomer Form',
         breadcrumbs: [
-          BreadcrumbWidget('Insight', route: RouteList.home.index),
           BreadcrumbWidget('Venteses'),
           BreadcrumbWidget('BpCustomers', back: true),
           BreadcrumbWidget('BpCustomer Form', active: true),

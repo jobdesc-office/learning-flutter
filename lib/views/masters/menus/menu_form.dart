@@ -35,7 +35,6 @@ class MenuFormView extends StatelessWidget
       body: TemplateView(
         title: 'Menu Form',
         breadcrumbs: [
-          BreadcrumbWidget('Insight', route: RouteList.home.index),
           BreadcrumbWidget('Masters'),
           BreadcrumbWidget('Menus', back: true),
           BreadcrumbWidget('Menu Form', active: true),

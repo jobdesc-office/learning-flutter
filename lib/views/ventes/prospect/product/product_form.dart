@@ -34,7 +34,6 @@ class PProductFormFormView extends StatelessWidget {
       body: TemplateView(
         title: 'Product Form',
         breadcrumbs: [
-          BreadcrumbWidget('Insight', route: RouteList.home.index),
           BreadcrumbWidget('Venteses'),
           BreadcrumbWidget('Prospects'),
           BreadcrumbWidget('Prospect Form', back: true),

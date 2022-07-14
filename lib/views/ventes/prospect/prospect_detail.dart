@@ -110,7 +110,6 @@ class _ProspectDetailsState extends State<ProspectDetails>
       body: TemplateView(
         title: 'Prospect Details',
         breadcrumbs: [
-          BreadcrumbWidget('Insight', route: RouteList.home.index),
           BreadcrumbWidget('Venteses'),
           BreadcrumbWidget('Prospect', back: true),
           BreadcrumbWidget('Prospect Details', active: true),

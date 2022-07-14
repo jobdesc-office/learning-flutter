@@ -35,7 +35,6 @@ class TypeChildrenFormView extends StatelessWidget
       body: TemplateView(
         title: TypeChildrenText.title + ' Form',
         breadcrumbs: [
-          BreadcrumbWidget('Insight', route: RouteList.home.index),
           BreadcrumbWidget('Masters'),
           BreadcrumbWidget('Type'),
           BreadcrumbWidget('Type Data', back: true),

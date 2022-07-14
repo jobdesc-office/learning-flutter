@@ -30,7 +30,6 @@ class CountryFormView extends StatelessWidget implements EditViewContract {
       body: TemplateView(
         title: 'Country Form',
         breadcrumbs: [
-          BreadcrumbWidget('Insight', route: RouteList.home.index),
           BreadcrumbWidget('Masters'),
           BreadcrumbWidget('Countries', back: true),
           BreadcrumbWidget('Country Form', active: true),

@@ -35,7 +35,6 @@ class CompetitorFormView extends StatelessWidget implements EditViewContract {
       body: TemplateView(
         title: 'Competitor Form',
         breadcrumbs: [
-          BreadcrumbWidget('Insight', route: RouteList.home.index),
           BreadcrumbWidget('Venteses'),
           BreadcrumbWidget('Competitors', back: true),
           BreadcrumbWidget('Competitor Form', active: true),

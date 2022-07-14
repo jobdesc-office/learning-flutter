@@ -39,7 +39,6 @@ class PCustomerFormFormView extends StatelessWidget
       body: TemplateView(
         title: 'Customer Form',
         breadcrumbs: [
-          BreadcrumbWidget('Insight', route: RouteList.home.index),
           BreadcrumbWidget('Venteses'),
           BreadcrumbWidget('Prospects'),
           BreadcrumbWidget('Prospect Form', back: true),

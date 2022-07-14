@@ -36,7 +36,6 @@ class BusinessPartnerFormView extends StatelessWidget
       body: TemplateView(
         title: 'Business Partner Form',
         breadcrumbs: [
-          BreadcrumbWidget('Insight', route: RouteList.home.index),
           BreadcrumbWidget('Masters'),
           BreadcrumbWidget(
             'Business Partner',
