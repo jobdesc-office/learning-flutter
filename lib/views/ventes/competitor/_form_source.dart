@@ -77,7 +77,6 @@ class CompetitorForm {
         controller: source.selectType,
         hintText: BaseText.hiintSelect(field: CompetitorText.labelType),
         serverSide: (params) => selectApiCompetitorRefType(params),
-        validators: [Validators.selectRequired(CompetitorText.labelType)],
       ),
     );
   }
@@ -94,9 +93,6 @@ class CompetitorForm {
         controller: source.selectBp,
         hintText: BaseText.hiintSelect(field: CompetitorText.labelBp),
         serverSide: (params) => selectApiPartner(params),
-        validators: [
-          Validators.selectRequired(CompetitorText.labelBp),
-        ],
       ),
     );
   }
