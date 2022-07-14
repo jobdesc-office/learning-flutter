@@ -19,7 +19,7 @@ class TypeParentFormView extends StatelessWidget implements EditViewContract {
   final source = TypeParentSource().obs;
   final Function(Map<String, dynamic> body) onSave;
 
-  late TypeParentForm tpForm;
+  late final TypeParentForm tpForm;
 
   TypeParentFormView({required this.onSave}) {
     presenter.typeParentFetchDataContract = this;

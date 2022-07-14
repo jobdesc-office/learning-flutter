@@ -90,7 +90,7 @@ class ProspectProductForm {
                 source.quantity.value = 0;
                 source.inputAmount.text = '';
                 source.inputPrice.text = '';
-              } else if (source.inputPrice != '') {
+              } else if (source.inputPrice.text != '') {
                 var amount = source.quantity.value * source.price.value;
                 // inputAmount.text = amount.toString();
                 source.inputAmount.text = currencyFormatter.format(amount);
@@ -115,7 +115,7 @@ class ProspectProductForm {
                 source.price.value = 0;
                 source.inputAmount.text = '';
                 source.inputQuantity.text = '';
-              } else if (source.inputQuantity != '') {
+              } else if (source.inputQuantity.text != '') {
                 var amount = source.price.value * source.quantity.value;
                 // inputAmount.text = amount.toString();
                 source.inputAmount.text = currencyFormatter.format(amount);

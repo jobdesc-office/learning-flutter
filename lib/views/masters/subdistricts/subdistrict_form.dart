@@ -19,7 +19,7 @@ class SubdistrictFormView extends StatelessWidget implements EditViewContract {
   final source = SubdistrictSource().obs;
   final Function(Map<String, dynamic> body) onSave;
 
-  late SubdistrictForm subdistrictForm;
+  late final SubdistrictForm subdistrictForm;
 
   SubdistrictFormView({required this.onSave}) {
     presenter.subdistrictFetchDataContract = this;

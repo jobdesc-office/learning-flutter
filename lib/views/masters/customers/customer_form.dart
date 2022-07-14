@@ -25,7 +25,7 @@ class CustomerFormView extends StatelessWidget
   final source = CustomerSource().obs;
   final Function(Map<String, dynamic> body) onSave;
 
-  late CustomerForm customerForm;
+  late final CustomerForm customerForm;
 
   CustomerFormView({required this.onSave}) {
     presenter.customerFetchDataContract = this;

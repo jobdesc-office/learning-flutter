@@ -650,7 +650,7 @@ class ScheduleForm {
       firstDate: DateTime.now(),
       lastDate: DateTime.now().add(const Duration(days: 365)),
     );
-    if (selectedStart != null && selectedStart != source.selectedDateStart) {
+    if (selectedStart != null) {
       source.selectedDateStart.value =
           '${selectedStart.year}-${selectedStart.month}-${selectedStart.day}';
     }
@@ -663,7 +663,7 @@ class ScheduleForm {
       firstDate: DateTime.now(),
       lastDate: DateTime.now().add(const Duration(days: 365)),
     );
-    if (selectedEnd != null && selectedEnd != source.selectedDateEnd) {
+    if (selectedEnd != null) {
       source.selectedDateEnd.value =
           '${selectedEnd.year}-${selectedEnd.month}-${selectedEnd.day}';
     }
@@ -676,7 +676,7 @@ class ScheduleForm {
       firstDate: DateTime.now(),
       lastDate: DateTime.now().add(const Duration(days: 365)),
     );
-    if (selectedAct != null && selectedAct != source.selectedDateEnd) {
+    if (selectedAct != null) {
       source.selectedDateAct.value =
           '${selectedAct.year}-${selectedAct.month}-${selectedAct.day}';
     }
@@ -688,7 +688,7 @@ class ScheduleForm {
       initialTime: TimeOfDay.now(),
       initialEntryMode: TimePickerEntryMode.dial,
     );
-    if (timeOfDayStart != null && timeOfDayStart != source.selectedTimeStart) {
+    if (timeOfDayStart != null) {
       source.selectedTimeStart.value =
           '${timeOfDayStart.hour}:${timeOfDayStart.minute}';
     }
@@ -700,7 +700,7 @@ class ScheduleForm {
       initialTime: TimeOfDay.now(),
       initialEntryMode: TimePickerEntryMode.dial,
     );
-    if (timeOfDayEnd != null && timeOfDayEnd != source.selectedTimeEnd) {
+    if (timeOfDayEnd != null) {
       source.selectedTimeEnd.value =
           '${timeOfDayEnd.hour}:${timeOfDayEnd.minute}';
     }

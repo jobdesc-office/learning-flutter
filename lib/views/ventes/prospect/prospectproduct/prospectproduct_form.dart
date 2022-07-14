@@ -22,7 +22,7 @@ class ProspectProductFormView extends StatelessWidget
   final source = ProspectProductSource().obs;
   final Function(Map<String, dynamic> body) onSave;
 
-  late ProspectProductForm prospectForm;
+  late final ProspectProductForm prospectForm;
 
   ProspectProductFormView({required this.onSave, id}) {
     presenter.setprospectFetchDataContract = this;

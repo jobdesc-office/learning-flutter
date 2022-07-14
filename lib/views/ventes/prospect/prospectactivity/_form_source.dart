@@ -186,8 +186,7 @@ class ProspectDetailForm {
       firstDate: DateTime.now(),
       lastDate: DateTime.now().add(const Duration(days: 365)),
     );
-    if (selectedExpected != null &&
-        selectedExpected != source.selectedDateExpect) {
+    if (selectedExpected != null) {
       source.selectedDateExpect.value =
           '${selectedExpected.year}-${selectedExpected.month}-${selectedExpected.day}';
     }

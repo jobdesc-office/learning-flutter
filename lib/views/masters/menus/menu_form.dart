@@ -22,7 +22,7 @@ class MenuFormView extends StatelessWidget
   final source = MenuSource().obs;
   final Function(Map<String, dynamic> body) onSave;
 
-  late MenuForm menuForm;
+  late final MenuForm menuForm;
 
   MenuFormView({required this.onSave}) {
     presenter.menuFetchDataContract = this;

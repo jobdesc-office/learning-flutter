@@ -20,7 +20,7 @@ class ProspectAssignFormView extends StatelessWidget
   final source = ProspectAssignSource().obs;
   final Function(Map<String, dynamic> body) onSave;
 
-  late ProspectAssignForm prospectForm;
+  late final ProspectAssignForm prospectForm;
 
   ProspectAssignFormView({required this.onSave, id}) {
     presenter.setprospectFetchDataContract = this;

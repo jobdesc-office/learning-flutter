@@ -17,7 +17,7 @@ class PProductFormFormView extends StatelessWidget {
   final CustomerPresenter cpresenter = Get.find<CustomerPresenter>();
   final source = PProductSource().obs;
 
-  late PProductForm pProductForm;
+  late final PProductForm pProductForm;
 
   @override
   Widget build(BuildContext context) {

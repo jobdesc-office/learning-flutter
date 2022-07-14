@@ -19,7 +19,7 @@ class ProductFormView extends StatelessWidget implements EditViewContract {
   final source = ProductSource().obs;
   final Function(Map<String, dynamic> body) onSave;
 
-  late ProductForm productForm;
+  late final ProductForm productForm;
 
   ProductFormView({required this.onSave}) {
     presenter.productFetchDataContract = this;

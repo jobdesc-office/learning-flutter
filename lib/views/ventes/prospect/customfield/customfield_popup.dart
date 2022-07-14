@@ -15,7 +15,7 @@ final _navigation = Get.find<NavigationPresenter>();
 class CustomFieldPopup extends GetView implements CustomFieldContract {
   final CustomFieldPresenter presenter = Get.find<CustomFieldPresenter>();
   final datatable = CustomFieldPopUpDataTableSource();
-  var data = [].obs;
+  final data = [].obs;
 
   CustomFieldPopup() {
     presenter.setCustomFieldContract = this;

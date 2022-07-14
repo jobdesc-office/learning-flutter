@@ -24,7 +24,7 @@ class UserFormView extends GetView implements EditViewContract {
     presenter.userFetchDataContract = this;
   }
 
-  late UserForm userForm;
+  late final UserForm userForm;
 
   @override
   Widget build(BuildContext context) {

@@ -19,7 +19,7 @@ class ProvinceFormView extends StatelessWidget implements EditViewContract {
   final source = ProvinceSource().obs;
   final Function(Map<String, dynamic> body) onSave;
 
-  late ProvinceForm provinceForm;
+  late final ProvinceForm provinceForm;
 
   ProvinceFormView({required this.onSave}) {
     presenter.provinceFetchDataContract = this;

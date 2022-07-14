@@ -20,7 +20,7 @@ class BpCustomerFormView extends StatelessWidget implements EditViewContract {
   final source = BpCustomerSource().obs;
   final Function(dynamic body) onSave;
 
-  late BpCustomerForm bpCustomerForm;
+  late final BpCustomerForm bpCustomerForm;
 
   BpCustomerFormView({required this.onSave}) {
     presenter.bpCustomerFetchDataContract = this;

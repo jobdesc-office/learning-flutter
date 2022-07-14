@@ -22,7 +22,7 @@ class TypeChildrenFormView extends StatelessWidget
   final source = TypeChildrenSource().obs;
   final Function(Map<String, dynamic> body) onSave;
 
-  late TypeChildrenForm tpForm;
+  late final TypeChildrenForm tpForm;
 
   TypeChildrenFormView({required this.onSave}) {
     presenter.typeChildrenParentDataContract = this;

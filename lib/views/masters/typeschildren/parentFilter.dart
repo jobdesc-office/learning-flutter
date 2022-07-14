@@ -15,11 +15,11 @@ import '_parent_controller.dart';
 class TypeChildrenFilter extends StatelessWidget {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final controller = Get.find<ParentSource>();
-  BsSelectBoxController selectParent = BsSelectBoxController();
+  final BsSelectBoxController selectParent = BsSelectBoxController();
   final sources = ParentSource().obs;
   final TypesChildrenPresenter presenter = Get.find<TypesChildrenPresenter>();
 
-  late ParentForm tpForm;
+  late final ParentForm tpForm;
 
   @override
   Widget build(BuildContext context) {

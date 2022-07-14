@@ -19,7 +19,7 @@ class VillageFormView extends StatelessWidget implements EditViewContract {
   final source = VillageSource().obs;
   final Function(Map<String, dynamic> body) onSave;
 
-  late VillageForm villageForm;
+  late final VillageForm villageForm;
 
   VillageFormView({required this.onSave}) {
     presenter.villageFetchDataContract = this;

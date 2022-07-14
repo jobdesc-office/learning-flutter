@@ -20,7 +20,7 @@ class CompetitorFormView extends StatelessWidget implements EditViewContract {
   final source = CompetitorSource().obs;
   final Function(Map<String, dynamic> body) onSave;
 
-  late CompetitorForm competitorForm;
+  late final CompetitorForm competitorForm;
 
   CompetitorFormView({required this.onSave}) {
     presenter.competitorFetchDataContract = this;

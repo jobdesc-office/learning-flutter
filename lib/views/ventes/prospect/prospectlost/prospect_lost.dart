@@ -22,7 +22,7 @@ class ProspectLose extends GetView {
   final Function(Map<String, dynamic> body) onSave;
   final sources = Get.put(ProspectDetailsSource());
 
-  late ProspectLostForm prospectForm;
+  late final ProspectLostForm prospectForm;
 
   ProspectLose({required this.onSave, id}) {
     presenter.isProcessing.value = false;

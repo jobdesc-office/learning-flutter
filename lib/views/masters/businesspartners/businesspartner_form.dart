@@ -23,7 +23,7 @@ class BusinessPartnerFormView extends StatelessWidget
   final source = BusinessPartnerSource().obs;
   final Function(Map<String, dynamic> body) onSave;
 
-  late BusinessPartnerForm businessPartnerForm;
+  late final BusinessPartnerForm businessPartnerForm;
 
   BusinessPartnerFormView({required this.onSave}) {
     presenter.businessPartnerFetchDataContract = this;

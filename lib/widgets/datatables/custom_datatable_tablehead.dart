@@ -7,6 +7,7 @@ import '../../styles/color_palattes.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 
+// ignore: must_be_immutable
 class CustomBsDataColumn extends BsDataColumn {
   CustomBsDataColumn({
     Key? key,

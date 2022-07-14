@@ -19,7 +19,7 @@ class CustomFieldFormView extends StatelessWidget implements EditViewContract {
   final source = CustomFieldSource().obs;
   final Function(dynamic body) onSave;
 
-  late CustomFieldForm customFieldForm;
+  late final CustomFieldForm customFieldForm;
 
   CustomFieldFormView({required this.onSave}) {
     presenter.customFieldFetchDataContract = this;

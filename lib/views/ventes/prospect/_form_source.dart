@@ -653,7 +653,7 @@ class ProspectForm {
                           if (value == '') {
                             source.quantity.value = 0;
                             inputAmount.text = '';
-                          } else if (inputPrice != '') {
+                          } else if (inputPrice.text != '') {
                             var amount =
                                 source.quantity.value * source.price.value;
                             // inputAmount.text = amount.toString();
@@ -681,7 +681,7 @@ class ProspectForm {
                           if (value == '') {
                             source.price.value = 0;
                             inputAmount.text = '';
-                          } else if (inputQuantity != '') {
+                          } else if (inputQuantity.text != '') {
                             var amount =
                                 source.price.value * source.quantity.value;
                             // inputAmount.text = amount.toString();
@@ -831,7 +831,7 @@ class ProspectForm {
       firstDate: DateTime.now(),
       lastDate: DateTime.now().add(const Duration(days: 365)),
     );
-    if (selectedStart != null && selectedStart != source.selectedDateStart) {
+    if (selectedStart != null) {
       source.selectedDateStart.value =
           '${selectedStart.year}-${selectedStart.month}-${selectedStart.day}';
     }
@@ -844,7 +844,7 @@ class ProspectForm {
       firstDate: DateTime.now(),
       lastDate: DateTime.now().add(const Duration(days: 365)),
     );
-    if (selectedEnd != null && selectedEnd != source.selectedDateEnd) {
+    if (selectedEnd != null) {
       source.selectedDateEnd.value =
           '${selectedEnd.year}-${selectedEnd.month}-${selectedEnd.day}';
     }
@@ -857,8 +857,7 @@ class ProspectForm {
       firstDate: DateTime.now(),
       lastDate: DateTime.now().add(const Duration(days: 365)),
     );
-    if (selectedExpected != null &&
-        selectedExpected != source.selectedDateExpect) {
+    if (selectedExpected != null) {
       source.selectedDateExpect.value =
           '${selectedExpected.year}-${selectedExpected.month}-${selectedExpected.day}';
     }

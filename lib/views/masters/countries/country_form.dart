@@ -18,7 +18,7 @@ class CountryFormView extends StatelessWidget implements EditViewContract {
   final source = CountrySource().obs;
   final Function(Map<String, dynamic> body) onSave;
 
-  late CountryForm countryForm;
+  late final CountryForm countryForm;
 
   CountryFormView({required this.onSave}) {
     presenter.countryFetchDataContract = this;

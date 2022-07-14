@@ -22,7 +22,7 @@ class PCustomerFormFormView extends StatelessWidget
   final CustomerPresenter cpresenter = Get.find<CustomerPresenter>();
   final source = PCustomerSource().obs;
 
-  late PCustomerForm pCustomerForm;
+  late final PCustomerForm pCustomerForm;
 
   PCustomerFormFormView() {
     cpresenter.customerAddresContract = this;

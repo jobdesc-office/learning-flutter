@@ -27,7 +27,7 @@ class ScheduleFormView extends StatelessWidget
   final source = ScheduleSource().obs;
   final Function(Map<String, dynamic> body) onSave;
 
-  late ScheduleForm menuForm;
+  late final ScheduleForm menuForm;
 
   ScheduleFormView({required this.onSave}) {
     presenter.scheduleFetchDataContract = this;

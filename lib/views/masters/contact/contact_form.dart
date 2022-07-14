@@ -19,7 +19,7 @@ class ContactFormView extends StatelessWidget implements EditViewContract {
   final source = ContactSource().obs;
   final Function(Map<String, dynamic> body) onSave;
 
-  late ContactForm contactForm;
+  late final ContactForm contactForm;
 
   ContactFormView({required this.onSave}) {
     presenter.contactFetchDataContract = this;

@@ -19,7 +19,7 @@ class CityFormView extends StatelessWidget implements EditViewContract {
   final source = CitySource().obs;
   final Function(Map<String, dynamic> body) onSave;
 
-  late CityForm cityForm;
+  late final CityForm cityForm;
 
   CityFormView({required this.onSave}) {
     presenter.cityFetchDataContract = this;
