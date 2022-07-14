@@ -19,9 +19,10 @@ import '_parent_controller.dart';
 import 'parents.dart';
 import '_text.dart';
 
+// ignore: must_be_immutable
 class TypesChildrenView extends StatelessWidget
     with IndexViewContract, HandleErrorRequest, ParentViewContract {
-  late final ParentForm parent;
+  late ParentForm parent;
   final controller = Get.put(ParentSource());
   final presenter = Get.find<TypesChildrenPresenter>();
   final datatable = TypeChildrenDataTableSource();

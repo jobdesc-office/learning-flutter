@@ -11,13 +11,14 @@ import '../../../../widgets/button/theme_button_cancel.dart';
 import '../../../../widgets/button/theme_button_save.dart';
 import '_form_source.dart';
 
+// ignore: must_be_immutable
 class PProductFormFormView extends StatelessWidget {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final ProspectPresenter presenter = Get.find<ProspectPresenter>();
   final CustomerPresenter cpresenter = Get.find<CustomerPresenter>();
   final source = PProductSource().obs;
 
-  late final PProductForm pProductForm;
+  late PProductForm pProductForm;
 
   @override
   Widget build(BuildContext context) {

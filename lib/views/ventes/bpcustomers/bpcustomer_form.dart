@@ -14,13 +14,14 @@ import '../../../widgets/button/theme_button_save.dart';
 
 import '_form_source.dart';
 
+// ignore: must_be_immutable
 class BpCustomerFormView extends StatelessWidget implements EditViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final BpCustomerPresenter presenter = Get.find<BpCustomerPresenter>();
   final source = BpCustomerSource().obs;
   final Function(dynamic body) onSave;
 
-  late final BpCustomerForm bpCustomerForm;
+  late BpCustomerForm bpCustomerForm;
 
   BpCustomerFormView({required this.onSave}) {
     presenter.bpCustomerFetchDataContract = this;

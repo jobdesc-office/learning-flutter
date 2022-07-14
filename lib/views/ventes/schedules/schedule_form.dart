@@ -19,6 +19,7 @@ import '../../../widgets/snackbar.dart';
 import '_form_source.dart';
 import '_text.dart';
 
+// ignore: must_be_immutable
 class ScheduleFormView extends StatelessWidget
     implements IndexViewContract, EditViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
@@ -27,7 +28,7 @@ class ScheduleFormView extends StatelessWidget
   final source = ScheduleSource().obs;
   final Function(Map<String, dynamic> body) onSave;
 
-  late final ScheduleForm menuForm;
+  late ScheduleForm menuForm;
 
   ScheduleFormView({required this.onSave}) {
     presenter.scheduleFetchDataContract = this;

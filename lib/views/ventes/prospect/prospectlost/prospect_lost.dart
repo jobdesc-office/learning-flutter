@@ -15,6 +15,7 @@ import '_form_source.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 
+// ignore: must_be_immutable
 class ProspectLose extends GetView {
   final ProspectPresenter presenter = Get.find<ProspectPresenter>();
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
@@ -22,7 +23,7 @@ class ProspectLose extends GetView {
   final Function(Map<String, dynamic> body) onSave;
   final sources = Get.put(ProspectDetailsSource());
 
-  late final ProspectLostForm prospectForm;
+  late ProspectLostForm prospectForm;
 
   ProspectLose({required this.onSave, id}) {
     presenter.isProcessing.value = false;

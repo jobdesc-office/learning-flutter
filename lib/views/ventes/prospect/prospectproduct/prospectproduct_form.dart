@@ -14,6 +14,7 @@ import '../../../../widgets/button/theme_button_cancel.dart';
 import '../../../../widgets/button/theme_button_save.dart';
 import '_form_source.dart';
 
+// ignore: must_be_immutable
 class ProspectProductFormView extends StatelessWidget
     implements EditViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
@@ -22,7 +23,7 @@ class ProspectProductFormView extends StatelessWidget
   final source = ProspectProductSource().obs;
   final Function(Map<String, dynamic> body) onSave;
 
-  late final ProspectProductForm prospectForm;
+  late ProspectProductForm prospectForm;
 
   ProspectProductFormView({required this.onSave, id}) {
     presenter.setprospectFetchDataContract = this;

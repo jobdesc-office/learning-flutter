@@ -18,6 +18,7 @@ import '../../../widgets/map/_map_source.dart';
 import '../../../widgets/snackbar.dart';
 import '_form_source.dart';
 
+// ignore: must_be_immutable
 class CustomerFormView extends StatelessWidget
     implements EditViewContract, CustomerAddressContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
@@ -25,7 +26,7 @@ class CustomerFormView extends StatelessWidget
   final source = CustomerSource().obs;
   final Function(Map<String, dynamic> body) onSave;
 
-  late final CustomerForm customerForm;
+  late CustomerForm customerForm;
 
   CustomerFormView({required this.onSave}) {
     presenter.customerFetchDataContract = this;

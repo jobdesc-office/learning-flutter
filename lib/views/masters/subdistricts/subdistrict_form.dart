@@ -13,13 +13,14 @@ import '../../../widgets/button/theme_button_save.dart';
 
 import '_form_source.dart';
 
+// ignore: must_be_immutable
 class SubdistrictFormView extends StatelessWidget implements EditViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final SubdistrictPresenter presenter = Get.find<SubdistrictPresenter>();
   final source = SubdistrictSource().obs;
   final Function(Map<String, dynamic> body) onSave;
 
-  late final SubdistrictForm subdistrictForm;
+  late SubdistrictForm subdistrictForm;
 
   SubdistrictFormView({required this.onSave}) {
     presenter.subdistrictFetchDataContract = this;

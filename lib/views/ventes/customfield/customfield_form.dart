@@ -13,13 +13,14 @@ import '../../../widgets/button/theme_button_save.dart';
 
 import '_form_source.dart';
 
+// ignore: must_be_immutable
 class CustomFieldFormView extends StatelessWidget implements EditViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final CustomFieldPresenter presenter = Get.find<CustomFieldPresenter>();
   final source = CustomFieldSource().obs;
   final Function(dynamic body) onSave;
 
-  late final CustomFieldForm customFieldForm;
+  late CustomFieldForm customFieldForm;
 
   CustomFieldFormView({required this.onSave}) {
     presenter.customFieldFetchDataContract = this;

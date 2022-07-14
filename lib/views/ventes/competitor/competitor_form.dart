@@ -14,13 +14,14 @@ import '../../../widgets/button/theme_button_save.dart';
 import '../../../widgets/map/_map_source.dart';
 import '_form_source.dart';
 
+// ignore: must_be_immutable
 class CompetitorFormView extends StatelessWidget implements EditViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final CompetitorPresenter presenter = Get.find<CompetitorPresenter>();
   final source = CompetitorSource().obs;
   final Function(Map<String, dynamic> body) onSave;
 
-  late final CompetitorForm competitorForm;
+  late CompetitorForm competitorForm;
 
   CompetitorFormView({required this.onSave}) {
     presenter.competitorFetchDataContract = this;

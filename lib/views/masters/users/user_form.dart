@@ -13,6 +13,7 @@ import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
 import '_form_source.dart';
 
+// ignore: must_be_immutable
 class UserFormView extends GetView implements EditViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final UserPresenter presenter = Get.find<UserPresenter>();
@@ -24,7 +25,7 @@ class UserFormView extends GetView implements EditViewContract {
     presenter.userFetchDataContract = this;
   }
 
-  late final UserForm userForm;
+  late UserForm userForm;
 
   @override
   Widget build(BuildContext context) {

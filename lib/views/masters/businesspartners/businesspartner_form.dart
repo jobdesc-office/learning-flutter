@@ -15,6 +15,7 @@ import '../../../widgets/button/theme_button_save.dart';
 import '_form_source.dart';
 import '_businesspartner_type.dart';
 
+// ignore: must_be_immutable
 class BusinessPartnerFormView extends StatelessWidget
     implements EditViewContract, BusinessPartnerTypeViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
@@ -23,7 +24,7 @@ class BusinessPartnerFormView extends StatelessWidget
   final source = BusinessPartnerSource().obs;
   final Function(Map<String, dynamic> body) onSave;
 
-  late final BusinessPartnerForm businessPartnerForm;
+  late BusinessPartnerForm businessPartnerForm;
 
   BusinessPartnerFormView({required this.onSave}) {
     presenter.businessPartnerFetchDataContract = this;

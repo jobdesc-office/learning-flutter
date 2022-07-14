@@ -13,13 +13,14 @@ import '../../../widgets/button/theme_button_save.dart';
 import '_form_source.dart';
 import '_text.dart';
 
+// ignore: must_be_immutable
 class TypeParentFormView extends StatelessWidget implements EditViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final TypeParentPresenter presenter = Get.find<TypeParentPresenter>();
   final source = TypeParentSource().obs;
   final Function(Map<String, dynamic> body) onSave;
 
-  late final TypeParentForm tpForm;
+  late TypeParentForm tpForm;
 
   TypeParentFormView({required this.onSave}) {
     presenter.typeParentFetchDataContract = this;

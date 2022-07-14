@@ -15,6 +15,7 @@ import '../../../../widgets/button/theme_button_save.dart';
 import '../../../../widgets/snackbar.dart';
 import '_form_source.dart';
 
+// ignore: must_be_immutable
 class PCustomerFormFormView extends StatelessWidget
     implements CustomerAddressContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
@@ -22,7 +23,7 @@ class PCustomerFormFormView extends StatelessWidget
   final CustomerPresenter cpresenter = Get.find<CustomerPresenter>();
   final source = PCustomerSource().obs;
 
-  late final PCustomerForm pCustomerForm;
+  late PCustomerForm pCustomerForm;
 
   PCustomerFormFormView() {
     cpresenter.customerAddresContract = this;

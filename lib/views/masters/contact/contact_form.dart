@@ -13,13 +13,14 @@ import '../../../widgets/button/theme_button_save.dart';
 
 import '_form_source.dart';
 
+// ignore: must_be_immutable
 class ContactFormView extends StatelessWidget implements EditViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final ContactPresenter presenter = Get.find<ContactPresenter>();
   final source = ContactSource().obs;
   final Function(Map<String, dynamic> body) onSave;
 
-  late final ContactForm contactForm;
+  late ContactForm contactForm;
 
   ContactFormView({required this.onSave}) {
     presenter.contactFetchDataContract = this;

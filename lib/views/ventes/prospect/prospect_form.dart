@@ -20,6 +20,7 @@ import '../../../widgets/snackbar.dart';
 import '../../masters/menus/_menu_type.dart';
 import '_form_source.dart';
 
+// ignore: must_be_immutable
 class ProspectFormView extends StatelessWidget
     implements EditViewContract, MenuTypeViewContract, IndexViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
@@ -27,7 +28,7 @@ class ProspectFormView extends StatelessWidget
   final source = ProspectSource().obs;
   final Function(Map<String, dynamic> body) onSave;
 
-  late final ProspectForm prospectForm;
+  late ProspectForm prospectForm;
 
   ProspectFormView({required this.onSave}) {
     presenter.prospectFetchDataContract = this;

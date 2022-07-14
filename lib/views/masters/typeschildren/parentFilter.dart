@@ -12,6 +12,7 @@ import '../../../widgets/selectbox/custom_selectbox.dart';
 import '../../../utils/select_api.dart';
 import '_parent_controller.dart';
 
+// ignore: must_be_immutable
 class TypeChildrenFilter extends StatelessWidget {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final controller = Get.find<ParentSource>();
@@ -19,7 +20,7 @@ class TypeChildrenFilter extends StatelessWidget {
   final sources = ParentSource().obs;
   final TypesChildrenPresenter presenter = Get.find<TypesChildrenPresenter>();
 
-  late final ParentForm tpForm;
+  late ParentForm tpForm;
 
   @override
   Widget build(BuildContext context) {

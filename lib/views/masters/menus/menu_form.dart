@@ -15,6 +15,7 @@ import '../../../widgets/button/theme_button_save.dart';
 import '_form_source.dart';
 import '_menu_type.dart';
 
+// ignore: must_be_immutable
 class MenuFormView extends StatelessWidget
     implements EditViewContract, MenuTypeViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
@@ -22,7 +23,7 @@ class MenuFormView extends StatelessWidget
   final source = MenuSource().obs;
   final Function(Map<String, dynamic> body) onSave;
 
-  late final MenuForm menuForm;
+  late MenuForm menuForm;
 
   MenuFormView({required this.onSave}) {
     presenter.menuFetchDataContract = this;

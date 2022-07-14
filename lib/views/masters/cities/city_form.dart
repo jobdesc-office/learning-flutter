@@ -13,13 +13,14 @@ import '../../../widgets/button/theme_button_save.dart';
 
 import '_form_source.dart';
 
+// ignore: must_be_immutable
 class CityFormView extends StatelessWidget implements EditViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final CityPresenter presenter = Get.find<CityPresenter>();
   final source = CitySource().obs;
   final Function(Map<String, dynamic> body) onSave;
 
-  late final CityForm cityForm;
+  late CityForm cityForm;
 
   CityFormView({required this.onSave}) {
     presenter.cityFetchDataContract = this;
