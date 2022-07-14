@@ -71,20 +71,31 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
           borderRadius = BorderRadius.only(
             topLeft: Radius.circular(5),
             bottomLeft: Radius.circular(5),
+            topRight: Radius.elliptical(35, 25),
+            bottomRight: Radius.elliptical(35, 25),
           );
         else if (index == widget.controller.options.length - 1) {
           borderRadius = BorderRadius.only(
             topRight: Radius.circular(5),
             bottomRight: Radius.circular(5),
           );
+        } else {
+          borderRadius = BorderRadius.only(
+            topRight: Radius.elliptical(35, 25),
+            bottomRight: Radius.elliptical(35, 25),
+          );
         }
         return BsCol(
           sizes: ColScreen(sm: Col.col_3),
           padding: EdgeInsets.fromLTRB(15, 8, 15, 8),
           decoration: BoxDecoration(
-            color: backgroundColor,
-            borderRadius: borderRadius,
-          ),
+              color: backgroundColor,
+              borderRadius: borderRadius,
+              border: Border(
+                  right: BorderSide(color: Colors.grey),
+                  bottom: BorderSide(color: Colors.grey),
+                  top: BorderSide(color: Colors.grey),
+                  left: BorderSide(color: Colors.grey))),
           child: Center(
             child: Text(
               type.typename,
