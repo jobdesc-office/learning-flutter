@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 /// Wrapper overlay of options
+// ignore: must_be_immutable
 class BsWrapperOptions extends StatefulWidget {
   /// Constructor of BsWrapperOptions
   BsWrapperOptions({
