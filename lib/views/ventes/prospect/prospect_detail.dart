@@ -85,6 +85,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     _tabController = TabController(length: 6, vsync: this);
     // _tabControllerTimeline = TabController(length: 8, vsync: this);
     presenter.prospectTypeViewDetailContract = this;
+    presenter.prospectDetailsViewContract = this;
     detailPresenter.prospectViewContract = this;
     assignPresenter.prospectViewContract = this;
     productPresenter.prospectViewContract = this;
