@@ -73,12 +73,12 @@ class SidebarSkins extends StatelessWidget {
                 activeRoute: activeRoute,
                 menus: [
                   MenuDataGroup(
-                    title: 'Navigation',
+                    title: 'Insight',
                     children: [
                       MenuData(
                         id: no++,
                         route: RouteList.home.index,
-                        label: 'Insight',
+                        label: 'Dashboard',
                         icon: Icons.dashboard,
                       ),
                     ],
