@@ -1,3 +1,7 @@
+// ignore: avoid_web_libraries_in_flutter
+import 'dart:html' as html;
+import 'dart:typed_data';
+
 import 'package:boilerplate/helpers/function.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
@@ -27,10 +31,15 @@ class BpCustomerSource extends GetxController {
   var isnGetLatLong = true.obs;
 
   var imgname = ''.obs;
-  var image = Image(
-          image: NetworkImage(
-              'https://cdn.icon-icons.com/icons2/1674/PNG/512/person_110935.png'))
-      .obs;
+  var image = Uint8List(1).obs;
+  var isImage = false.obs;
+
+  void loadImage(html.File file) async {
+    final reader = html.FileReader();
+    reader.readAsArrayBuffer(file);
+    await reader.onLoad.first;
+    image.value = reader.result as Uint8List;
+  }
 
   BsSelectBoxController selectType = BsSelectBoxController();
   BsSelectBoxController selectBp = BsSelectBoxController();
@@ -123,13 +132,17 @@ class BpCustomerForm {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            source.image.value,
+            if (source.isImage.value) Image.memory(source.image.value),
             BsButton(
               margin: EdgeInsets.only(top: 10),
               onPressed: () async {
-                Image? fromPicker = await ImagePickerWeb.getImageAsWidget();
+                html.File? fromPicker = await ImagePickerWeb.getImageAsFile();
+                // Image? preview = await ImagePickerWeb.getImageAsWidget();
                 if (fromPicker != null) {
-                  source.image.value = fromPicker;
+                  source.imgname.value = fromPicker.name;
+                  source.loadImage(fromPicker);
+                  source.isImage.value = true;
+                  // source.image.value = fromPicker;
                 }
               },
               label: Text(
