@@ -47,8 +47,11 @@ class BpCustomerPresenter extends CustomGetXController {
     );
   }
 
-  void save(BuildContext context, Map<String, dynamic> body) async {
-    Response response = await _bpCustomerService.store(body);
+  void save(BuildContext context, FormData body) async {
+    Response response = await _bpCustomerService.storeBpCustomer(
+      body,
+      contentType: "multipart/form-data",
+    );
     if (response.statusCode == 200)
       _bpCustomerViewContract.onCreateSuccess(response, context: context);
     else

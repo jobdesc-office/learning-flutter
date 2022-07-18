@@ -120,7 +120,10 @@ class BpCustomerFormView extends StatelessWidget implements EditViewContract {
   void onClickSaveModal(BuildContext context) async {
     presenter.setProcessing(true);
     if (formState.currentState!.validate()) {
-      onSave(await source.toJson());
+      // Map<String, dynamic> data = await source.toJson();
+      // data['sbccstmpic'] = MultipartFile(data['sbccstmpic'],
+      //     filename: source.value.imgname.value);
+      onSave(FormData(await source.toJson()));
     } else
       presenter.setProcessing(false);
   }

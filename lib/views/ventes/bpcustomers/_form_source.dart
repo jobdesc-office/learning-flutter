@@ -1,5 +1,3 @@
-// ignore: avoid_web_libraries_in_flutter
-import 'dart:html' as html;
 import 'dart:typed_data';
 
 import 'package:boilerplate/helpers/function.dart';
@@ -25,7 +23,7 @@ import '_text.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 
-class BpCustomerSource extends GetxController {
+class BpCustomerSource {
   final customerPresenter = Get.find<CustomerPresenter>();
   bool isProcessing = false;
   var isnGetLatLong = true.obs;
@@ -33,13 +31,6 @@ class BpCustomerSource extends GetxController {
   var imgname = ''.obs;
   var image = Uint8List(1).obs;
   var isImage = false.obs;
-
-  void loadImage(html.File file) async {
-    final reader = html.FileReader();
-    reader.readAsArrayBuffer(file);
-    await reader.onLoad.first;
-    image.value = reader.result as Uint8List;
-  }
 
   BsSelectBoxController selectType = BsSelectBoxController();
   BsSelectBoxController selectBp = BsSelectBoxController();
@@ -55,14 +46,14 @@ class BpCustomerSource extends GetxController {
       'sbcbpid': selectBp.getSelectedAsString(),
       'cstmid': selectCustomer.getSelectedAsString(),
       'sbccstmstatusid': selectType.getSelectedAsString(),
-      // 'sbccstmpic': '',
+      'sbccstmpic': MultipartFile(image.value, filename: imgname.value),
       'createdby': session.userid,
       'updatedby': session.userid,
     };
   }
 }
 
-class BpCustomerForm {
+class BpCustomerForm extends GetxController {
   final BpCustomerSource source;
   final map = Get.put(MapSource());
   final BpCustomerPresenter presenter = Get.find<BpCustomerPresenter>();
@@ -136,13 +127,10 @@ class BpCustomerForm {
             BsButton(
               margin: EdgeInsets.only(top: 10),
               onPressed: () async {
-                html.File? fromPicker = await ImagePickerWeb.getImageAsFile();
-                // Image? preview = await ImagePickerWeb.getImageAsWidget();
+                Uint8List? fromPicker = await ImagePickerWeb.getImageAsBytes();
                 if (fromPicker != null) {
-                  source.imgname.value = fromPicker.name;
-                  source.loadImage(fromPicker);
+                  source.image.value = fromPicker;
                   source.isImage.value = true;
-                  // source.image.value = fromPicker;
                 }
               },
               label: Text(

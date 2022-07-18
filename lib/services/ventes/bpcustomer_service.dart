@@ -10,4 +10,19 @@ class BpCustomerService extends ApiConnectProvider {
   Future<Response> selectBp(Map<String, dynamic> params) {
     return get('$api/select/${authPresenter.bpActiveId.value}', query: params);
   }
+
+  Future<Response> storeBpCustomer(
+    dynamic body, {
+    String? contentType,
+  }) {
+    return post(api, body, contentType: contentType);
+  }
+
+  Future<Response> updateBpCustomer(
+    int id,
+    dynamic body, {
+    String? contentType,
+  }) {
+    return put('$api/$id', body);
+  }
 }
