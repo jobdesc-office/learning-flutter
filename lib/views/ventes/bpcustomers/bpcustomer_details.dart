@@ -59,115 +59,81 @@ class BpCustomerDetails extends GetView implements DetailViewContract {
                               child: BsRow(
                                 children: [
                                   BsCol(
-                                    sizes: ColScreen(sm: Col.col_3),
-                                    child: Column(
+                                    sizes: ColScreen(sm: Col.col_12),
+                                    child: BsRow(
                                       children: [
-                                        Row(
-                                          children: [
-                                            Text(
-                                              'Name',
-                                            ),
-                                          ],
+                                        BsCol(
+                                          sizes: ColScreen(sm: Col.col_4),
+                                          child: Text('Name'),
                                         ),
-                                        SizedBox(
-                                          height: 10,
+                                        BsCol(
+                                          sizes: ColScreen(sm: Col.col_1),
+                                          child: Text(':'),
                                         ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              'Phone',
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              'Address',
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
+                                        BsCol(
+                                          sizes: ColScreen(sm: Col.col_7),
+                                          child: Text(controller.name.value),
+                                        )
                                       ],
                                     ),
                                   ),
                                   BsCol(
-                                    sizes: ColScreen(sm: Col.col_1),
-                                    child: Column(
+                                    margin: EdgeInsets.only(top: 5),
+                                    sizes: ColScreen(sm: Col.col_12),
+                                    child: BsRow(
                                       children: [
-                                        Row(
-                                          children: [
-                                            Text(
-                                              ':',
-                                            ),
-                                          ],
+                                        BsCol(
+                                          sizes: ColScreen(sm: Col.col_4),
+                                          child: Text('Type'),
                                         ),
-                                        SizedBox(
-                                          height: 10,
+                                        BsCol(
+                                          sizes: ColScreen(sm: Col.col_1),
+                                          child: Text(':'),
                                         ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              ':',
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              ':',
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
+                                        BsCol(
+                                          sizes: ColScreen(sm: Col.col_7),
+                                          child: Text(controller.type.value),
+                                        )
                                       ],
                                     ),
                                   ),
                                   BsCol(
-                                    sizes: ColScreen(sm: Col.col_8),
-                                    child: Column(
+                                    margin: EdgeInsets.only(top: 5),
+                                    sizes: ColScreen(sm: Col.col_12),
+                                    child: BsRow(
                                       children: [
-                                        Row(
-                                          children: [
-                                            Text(
-                                              controller.name.value,
-                                            ),
-                                          ],
+                                        BsCol(
+                                          sizes: ColScreen(sm: Col.col_4),
+                                          child: Text('Phone'),
                                         ),
-                                        SizedBox(
-                                          height: 10,
+                                        BsCol(
+                                          sizes: ColScreen(sm: Col.col_1),
+                                          child: Text(':'),
                                         ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              controller.phone.value,
-                                            ),
-                                          ],
+                                        BsCol(
+                                          sizes: ColScreen(sm: Col.col_7),
+                                          child: Text(controller.phone.value),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  BsCol(
+                                    margin: EdgeInsets.only(top: 5),
+                                    sizes: ColScreen(sm: Col.col_12),
+                                    child: BsRow(
+                                      children: [
+                                        BsCol(
+                                          sizes: ColScreen(sm: Col.col_4),
+                                          child: Text('Address'),
                                         ),
-                                        SizedBox(
-                                          height: 10,
+                                        BsCol(
+                                          sizes: ColScreen(sm: Col.col_1),
+                                          child: Text(':'),
                                         ),
-                                        BsRow(
-                                          children: [
-                                            BsCol(
-                                              child: Text(
-                                                controller.address.value,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
+                                        BsCol(
+                                          sizes: ColScreen(sm: Col.col_7),
+                                          child: Text(controller.address.value),
+                                        )
                                       ],
                                     ),
                                   ),
@@ -192,8 +158,9 @@ class BpCustomerDetails extends GetView implements DetailViewContract {
     BusinessPartnerCustomerModel dt =
         BusinessPartnerCustomerModel.fromJson(response.body);
     controller.name.value = dt.sbccstmname.toString();
-    controller.phone.value = dt.sbccstmphone.toString();
-    controller.address.value = dt.sbccstmaddress.toString();
+    controller.phone.value = dt.sbccstmphone ?? '';
+    controller.type.value = dt.sbccstmstatus!.typename ?? '';
+    controller.address.value = dt.sbccstmaddress ?? '';
     controller.pic.value = dt.sbccstmpic ??
         'https://cdn.icon-icons.com/icons2/1674/PNG/512/person_110935.png';
     presenter.setProcessing(false);

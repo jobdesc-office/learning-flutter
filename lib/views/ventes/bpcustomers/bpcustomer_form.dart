@@ -33,7 +33,7 @@ class BpCustomerFormView extends StatelessWidget implements EditViewContract {
       body: TemplateView(
         title: 'BpCustomer Form',
         breadcrumbs: [
-          BreadcrumbWidget('Venteses'),
+          BreadcrumbWidget('Masters'),
           BreadcrumbWidget('BpCustomers', back: true),
           BreadcrumbWidget('BpCustomer Form', active: true),
         ],
@@ -61,9 +61,6 @@ class BpCustomerFormView extends StatelessWidget implements EditViewContract {
                           margin: EdgeInsets.all(10),
                           child: Column(
                             children: [
-                              // bpCustomerForm.inputName(),
-                              // bpCustomerForm.inputPhone(),
-                              // bpCustomerForm.inputAddress(),
                               bpCustomerForm.btnImage(),
                             ],
                           ),

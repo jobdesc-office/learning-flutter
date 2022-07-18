@@ -27,7 +27,7 @@ class BpCustomerView extends GetView implements IndexViewContract {
       body: TemplateView(
         title: 'BpCustomers',
         breadcrumbs: [
-          BreadcrumbWidget('Venteses'),
+          BreadcrumbWidget('Masters'),
           BreadcrumbWidget('BpCustomers', active: true),
         ],
         activeRoutes: [
