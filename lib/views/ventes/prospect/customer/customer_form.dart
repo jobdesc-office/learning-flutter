@@ -127,47 +127,67 @@ class PCustomerFormFormView extends StatelessWidget
                           BsCol(
                             margin: EdgeInsets.only(left: 10, bottom: 10),
                             sizes: ColScreen(sm: Col.col_4),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  border:
-                                      Border.all(color: Colors.grey.shade300)),
-                              child: Container(
-                                margin: EdgeInsets.all(10),
-                                child: Column(
-                                  children: [
-                                    pCustomerForm.inputContactName(),
-                                    // pCustomerForm.selectCustomer(),
-                                    pCustomerForm.selectContactType(),
-                                    pCustomerForm.inputValue(),
-
-                                    Obx(
-                                      () => Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          ThemeButtonSave(
-                                            disabled:
-                                                presenter.isProcessing.value,
-                                            processing:
-                                                presenter.isProcessing.value,
-                                            margin: EdgeInsets.only(right: 5),
-                                            onPressed: () =>
-                                                onClickSaveModal(context),
-                                          ),
-                                          ThemeButtonCancel(
-                                            disabled:
-                                                presenter.isProcessing.value,
-                                            margin: EdgeInsets.only(right: 5),
-                                            onPressed: () =>
-                                                onClickCancelModal(context),
-                                          ),
-                                        ],
-                                      ),
+                            child: Column(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      border: Border.all(
+                                          color: Colors.grey.shade300)),
+                                  child: Container(
+                                    margin: EdgeInsets.all(10),
+                                    child: Column(
+                                      children: [
+                                        pCustomerForm.btnImage(),
+                                      ],
                                     ),
-                                  ],
+                                  ),
                                 ),
-                              ),
+                                Container(
+                                  margin: EdgeInsets.only(top: 5),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      border: Border.all(
+                                          color: Colors.grey.shade300)),
+                                  child: Container(
+                                    margin: EdgeInsets.all(10),
+                                    child: Column(
+                                      children: [
+                                        pCustomerForm.inputContactName(),
+                                        // pCustomerForm.selectCustomer(),
+                                        pCustomerForm.selectContactType(),
+                                        pCustomerForm.inputValue(),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Obx(
+                                  () => Container(
+                                    margin: EdgeInsets.only(top: 5),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        ThemeButtonSave(
+                                          disabled:
+                                              presenter.isProcessing.value,
+                                          processing:
+                                              presenter.isProcessing.value,
+                                          margin: EdgeInsets.only(right: 5),
+                                          onPressed: () =>
+                                              onClickSaveModal(context),
+                                        ),
+                                        ThemeButtonCancel(
+                                          disabled:
+                                              presenter.isProcessing.value,
+                                          margin: EdgeInsets.only(right: 5),
+                                          onPressed: () =>
+                                              onClickCancelModal(context),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           )
                         ],
@@ -178,20 +198,39 @@ class PCustomerFormFormView extends StatelessWidget
                           BsCol(
                             margin: EdgeInsets.only(left: 10, bottom: 10),
                             sizes: ColScreen(sm: Col.col_4),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  border:
-                                      Border.all(color: Colors.grey.shade300)),
-                              child: Container(
-                                margin: EdgeInsets.all(10),
-                                child: Column(
-                                  children: [
-                                    pCustomerForm.selectCustomer(),
-                                    pCustomerForm.selectBpCustomerTypes(),
-                                  ],
+                            child: Column(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      border: Border.all(
+                                          color: Colors.grey.shade300)),
+                                  child: Container(
+                                    margin: EdgeInsets.all(10),
+                                    child: Column(
+                                      children: [
+                                        pCustomerForm.selectCustomer(),
+                                        pCustomerForm.selectBpCustomerTypes(),
+                                      ],
+                                    ),
+                                  ),
                                 ),
-                              ),
+                                Container(
+                                  margin: EdgeInsets.only(top: 10),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      border: Border.all(
+                                          color: Colors.grey.shade300)),
+                                  child: Container(
+                                    margin: EdgeInsets.all(10),
+                                    child: Column(
+                                      children: [
+                                        pCustomerForm.btnImage(),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                           BsCol(
@@ -253,7 +292,7 @@ class PCustomerFormFormView extends StatelessWidget
   void onClickSaveModal(BuildContext context) async {
     presenter.setProcessing(true);
     if (formState.currentState!.validate()) {
-      presenter.saveCustomer(context, await source.value.toJson());
+      presenter.saveCustomer(context, FormData(await source.value.toJson()));
     } else
       presenter.setProcessing(false);
   }

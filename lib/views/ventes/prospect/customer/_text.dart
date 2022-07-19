@@ -15,6 +15,7 @@ class PCustomerText {
   static String labelSubdistrict = 'Subdistrict';
   static String labelVillage = 'Village';
   static String labelPostal = 'Postal Code';
+  static String labelImage = 'Image';
 
   static String labelContactName = 'Contact ' + BaseText.defaultLabelName;
   static String labelCustomer = 'Customer';

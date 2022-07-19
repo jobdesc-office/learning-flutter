@@ -1,11 +1,15 @@
+import 'dart:typed_data';
+
 import 'package:boilerplate/services/ventes/customfield_service.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker_web/image_picker_web.dart';
 
 import '../../../../constants/base_text.dart';
+import '../../../../helpers/function.dart';
 import '../../../../models/address_model.dart';
 import '../../../../models/session_model.dart';
 import '../../../../presenters/masters/customer_presenter.dart';
@@ -28,6 +32,10 @@ class PCustomerSource extends GetxController {
   bool isProcessing = false;
   var isnGetLatLong = true.obs;
   var isRegistered = false.obs;
+
+  var imgname = ''.obs;
+  var image = Uint8List(1).obs;
+  var isImage = false.obs;
 
   TextEditingController inputPrefix = TextEditingController();
   TextEditingController inputName = TextEditingController();
@@ -55,6 +63,9 @@ class PCustomerSource extends GetxController {
     SessionModel session = await SessionManager.current();
     final map = Get.put(MapSource());
     if (isRegistered.value) {
+      String name = await _cpresenter
+          .cstm(parseInt(selectCustomer.getSelectedAsString()));
+      imgname.value = name;
       json = {
         'isregistered': isRegistered.value,
         'contactcustomerid': selectCustomer.getSelectedAsString(),
@@ -63,7 +74,10 @@ class PCustomerSource extends GetxController {
         'contactvalueid': inputValue.text,
         'sbcbpid': authPresenter.bpActiveId.value,
         'cstmid': selectCustomer.getSelectedAsString(),
-        'sbccstmstatusid': selectType.getSelectedAsString(),
+        'sbccstmstatusid': selectStatus.getSelectedAsString(),
+        'sbccstmpic': isImage.value
+            ? MultipartFile(image.value, filename: imgname.value)
+            : null,
         'createdby': session.userid,
         'updatedby': session.userid,
       };
@@ -94,6 +108,9 @@ class PCustomerSource extends GetxController {
         'contactname': inputContactName.text,
         'contacttypeid': selectContactType.getSelectedAsString(),
         'contactvalueid': inputValue.text,
+        'sbccstmpic': isImage.value
+            ? MultipartFile(image.value, filename: inputName.text)
+            : null,
         'sbcbpid': authPresenter.bpActiveId.value,
         'sbccstmstatusid': selectStatus.getSelectedAsString(),
         'createdby': session.userid,
@@ -210,6 +227,34 @@ class PCustomerForm {
         validators: [
           Validators.maxLength(PCustomerText.labelPhone, 255),
         ],
+      ),
+    );
+  }
+
+  Widget btnImage() {
+    return FormGroup(
+      child: Center(
+        child: Obx(() => Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (source.isImage.value) Image.memory(source.image.value),
+                BsButton(
+                  margin: EdgeInsets.only(top: 10),
+                  onPressed: () async {
+                    Uint8List? fromPicker =
+                        await ImagePickerWeb.getImageAsBytes();
+                    if (fromPicker != null) {
+                      source.image.value = fromPicker;
+                      source.isImage.value = true;
+                    }
+                  },
+                  label: Text(
+                    PCustomerText.labelImage,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ],
+            )),
       ),
     );
   }

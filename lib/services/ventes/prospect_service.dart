@@ -13,8 +13,11 @@ class ProspectService extends ApiConnectProvider {
     return get('$api/selectref', query: params);
   }
 
-  Future<Response> storeCustomer(Map<String, dynamic> body) {
-    return post('$api/customer', body);
+  Future<Response> storeCustomer(
+    dynamic body, {
+    String? contentType,
+  }) {
+    return post('$api/customer', body, contentType: contentType);
   }
 
   Future<Response> storeProduct(Map<String, dynamic> body) {
