@@ -161,8 +161,12 @@ class BpCustomerDetails extends GetView implements DetailViewContract {
     controller.phone.value = dt.sbccstmphone ?? '';
     controller.type.value = dt.sbccstmstatus!.typename ?? '';
     controller.address.value = dt.sbccstmaddress ?? '';
-    controller.pic.value = dt.sbccstmpic ??
-        'https://cdn.icon-icons.com/icons2/1674/PNG/512/person_110935.png';
+    if (dt.sbccstmpics!.isNotEmpty) {
+      controller.pic.value = dt.sbccstmpics!.first.url!;
+    } else {
+      controller.pic.value =
+          'http://10.21.1.63/learning-api/public/storage/files/defaultuser.png';
+    }
     presenter.setProcessing(false);
   }
 }

@@ -94,11 +94,6 @@ class SidebarSkins extends StatelessWidget {
                           icon: Icons.handshake),
                       MenuData(
                           id: no++,
-                          route: RouteList.masterContact.index,
-                          label: 'Contacts',
-                          icon: Icons.contacts),
-                      MenuData(
-                          id: no++,
                           route: RouteList.customer.index,
                           label: 'Customers',
                           icon: Icons.groups,
@@ -109,6 +104,11 @@ class SidebarSkins extends StatelessWidget {
                               label: 'BpCustomers',
                               icon: FontAwesomeIcons.userPlus,
                             ),
+                            MenuData(
+                                id: no++,
+                                route: RouteList.masterContact.index,
+                                label: 'Contacts',
+                                icon: Icons.contacts),
                             MenuData(
                               id: no++,
                               route: RouteList.masterCustomer.index,

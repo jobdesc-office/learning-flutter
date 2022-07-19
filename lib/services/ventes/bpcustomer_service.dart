@@ -23,6 +23,6 @@ class BpCustomerService extends ApiConnectProvider {
     dynamic body, {
     String? contentType,
   }) {
-    return put('$api/$id', body);
+    return post('$api/$id', body);
   }
 }

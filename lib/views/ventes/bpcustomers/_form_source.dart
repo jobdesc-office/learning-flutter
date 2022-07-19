@@ -30,7 +30,10 @@ class BpCustomerSource {
 
   var imgname = ''.obs;
   var image = Uint8List(1).obs;
+  var imageupdate =
+      'http://10.21.1.63/learning-api/public/storage/files/defaultuser.png'.obs;
   var isImage = false.obs;
+  var isUpdate = false.obs;
 
   BsSelectBoxController selectType = BsSelectBoxController();
   BsSelectBoxController selectBp = BsSelectBoxController();
@@ -49,6 +52,7 @@ class BpCustomerSource {
       'sbccstmpic': MultipartFile(image.value, filename: imgname.value),
       'createdby': session.userid,
       'updatedby': session.userid,
+      '_method': isUpdate.value ? 'put' : null
     };
   }
 }
@@ -120,26 +124,30 @@ class BpCustomerForm extends GetxController {
   Widget btnImage() {
     return FormGroup(
       child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (source.isImage.value) Image.memory(source.image.value),
-            BsButton(
-              margin: EdgeInsets.only(top: 10),
-              onPressed: () async {
-                Uint8List? fromPicker = await ImagePickerWeb.getImageAsBytes();
-                if (fromPicker != null) {
-                  source.image.value = fromPicker;
-                  source.isImage.value = true;
-                }
-              },
-              label: Text(
-                BpCustomerText.labelImage,
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-          ],
-        ),
+        child: Obx(() => Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (source.isImage.value) Image.memory(source.image.value),
+                if (source.isUpdate.value)
+                  Image.network(source.imageupdate.value),
+                BsButton(
+                  margin: EdgeInsets.only(top: 10),
+                  onPressed: () async {
+                    Uint8List? fromPicker =
+                        await ImagePickerWeb.getImageAsBytes();
+                    if (fromPicker != null) {
+                      source.isUpdate.value = false;
+                      source.image.value = fromPicker;
+                      source.isImage.value = true;
+                    }
+                  },
+                  label: Text(
+                    BpCustomerText.labelImage,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ],
+            )),
       ),
     );
   }

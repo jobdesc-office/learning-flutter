@@ -117,9 +117,6 @@ class BpCustomerFormView extends StatelessWidget implements EditViewContract {
   void onClickSaveModal(BuildContext context) async {
     presenter.setProcessing(true);
     if (formState.currentState!.validate()) {
-      // Map<String, dynamic> data = await source.toJson();
-      // data['sbccstmpic'] = MultipartFile(data['sbccstmpic'],
-      //     filename: source.value.imgname.value);
       onSave(FormData(await source.toJson()));
     } else
       presenter.setProcessing(false);
@@ -145,9 +142,10 @@ class BpCustomerFormView extends StatelessWidget implements EditViewContract {
       source.value.selectCustomer.setSelected(BsSelectBoxOption(
           value: bpCustomer.sbccstm!.cstmid,
           text: Text(bpCustomer.sbccstm!.cstmname.toString())));
-      // source.value.image.value = Image(
-      //     image: NetworkImage(
-      //         '${bpCustomer.sbccstmpic ?? 'https://cdn.icon-icons.com/icons2/1674/PNG/512/person_110935.png'}'));
+      if (bpCustomer.sbccstmpics!.isNotEmpty) {
+        source.value.imageupdate.value = bpCustomer.sbccstmpics!.first.url!;
+      }
+      source.value.isUpdate.value = true;
     });
   }
 }

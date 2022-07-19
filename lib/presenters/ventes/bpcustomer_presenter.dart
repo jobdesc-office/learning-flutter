@@ -88,10 +88,13 @@ class BpCustomerPresenter extends CustomGetXController {
       _bpCustomerViewContract.onErrorRequest(response);
   }
 
-  void update(
-      BuildContext context, Map<String, dynamic> body, int bpCustomerid) async {
+  void update(BuildContext context, FormData body, int bpCustomerid) async {
     setProcessing(true);
-    Response response = await _bpCustomerService.update(bpCustomerid, body);
+    Response response = await _bpCustomerService.updateBpCustomer(
+      bpCustomerid,
+      body,
+      contentType: "multipart/form-data",
+    );
     if (response.statusCode == 200)
       _bpCustomerViewContract.onEditSuccess(response, context: context);
     else
