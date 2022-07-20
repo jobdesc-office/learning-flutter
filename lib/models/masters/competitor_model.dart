@@ -13,6 +13,7 @@ class CompetitorModel {
   bool? isactive;
   Comptreftype? comptreftype;
   Comptbp? comptbp;
+  List<Comptpics>? comptpics;
 
   CompetitorModel(
       {this.comptid,
@@ -28,7 +29,8 @@ class CompetitorModel {
       this.updateddate,
       this.isactive,
       this.comptreftype,
-      this.comptbp});
+      this.comptbp,
+      this.comptpics});
 
   CompetitorModel.fromJson(Map<String, dynamic> json) {
     comptid = json['comptid'];
@@ -48,6 +50,12 @@ class CompetitorModel {
         : null;
     comptbp =
         json['comptbp'] != null ? new Comptbp.fromJson(json['comptbp']) : null;
+    if (json['comptpics'] != null) {
+      comptpics = <Comptpics>[];
+      json['comptpics'].forEach((v) {
+        comptpics!.add(new Comptpics.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -69,6 +77,9 @@ class CompetitorModel {
     }
     if (this.comptbp != null) {
       data['comptbp'] = this.comptbp!.toJson();
+    }
+    if (this.comptpics != null) {
+      data['comptpics'] = this.comptpics!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -146,6 +157,71 @@ class Comptbp {
     data['updatedby'] = this.updatedby;
     data['updateddate'] = this.updateddate;
     data['isactive'] = this.isactive;
+    return data;
+  }
+}
+
+class Comptpics {
+  int? fileid;
+  int? transtypeid;
+  int? refid;
+  String? directories;
+  String? filename;
+  String? mimetype;
+  String? filesize;
+  int? createdby;
+  String? createddate;
+  int? updatedby;
+  String? updateddate;
+  bool? isactive;
+  String? url;
+
+  Comptpics(
+      {this.fileid,
+      this.transtypeid,
+      this.refid,
+      this.directories,
+      this.filename,
+      this.mimetype,
+      this.filesize,
+      this.createdby,
+      this.createddate,
+      this.updatedby,
+      this.updateddate,
+      this.isactive,
+      this.url});
+
+  Comptpics.fromJson(Map<String, dynamic> json) {
+    fileid = json['fileid'];
+    transtypeid = json['transtypeid'];
+    refid = json['refid'];
+    directories = json['directories'];
+    filename = json['filename'];
+    mimetype = json['mimetype'];
+    filesize = json['filesize'];
+    createdby = json['createdby'];
+    createddate = json['createddate'];
+    updatedby = json['updatedby'];
+    updateddate = json['updateddate'];
+    isactive = json['isactive'];
+    url = json['url'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['fileid'] = this.fileid;
+    data['transtypeid'] = this.transtypeid;
+    data['refid'] = this.refid;
+    data['directories'] = this.directories;
+    data['filename'] = this.filename;
+    data['mimetype'] = this.mimetype;
+    data['filesize'] = this.filesize;
+    data['createdby'] = this.createdby;
+    data['createddate'] = this.createddate;
+    data['updatedby'] = this.updatedby;
+    data['updateddate'] = this.updateddate;
+    data['isactive'] = this.isactive;
+    data['url'] = this.url;
     return data;
   }
 }

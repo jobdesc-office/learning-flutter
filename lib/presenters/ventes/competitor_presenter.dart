@@ -67,8 +67,11 @@ class CompetitorPresenter extends CustomGetXController {
     );
   }
 
-  void save(BuildContext context, Map<String, dynamic> body) async {
-    Response response = await _competitorService.store(body);
+  void save(BuildContext context, FormData body) async {
+    Response response = await _competitorService.storeCompetitor(
+      body,
+      contentType: "multipart/form-data",
+    );
     if (response.statusCode == 200)
       _competitorViewContract.onCreateSuccess(response, context: context);
     else
@@ -91,9 +94,9 @@ class CompetitorPresenter extends CustomGetXController {
       _competitorViewContract.onErrorRequest(response);
   }
 
-  void update(BuildContext context, Map<String, dynamic> body, int id) async {
+  void update(BuildContext context, FormData body, int id) async {
     setProcessing(true);
-    Response response = await _competitorService.update(id, body);
+    Response response = await _competitorService.updateCompetitor(id, body);
     if (response.statusCode == 200)
       _competitorViewContract.onEditSuccess(response, context: context);
     else

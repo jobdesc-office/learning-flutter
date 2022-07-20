@@ -31,7 +31,8 @@ class BpCustomerSource {
   var imgname = ''.obs;
   var image = Uint8List(1).obs;
   var imageupdate =
-      'http://10.21.1.63/learning-api/public/storage/files/defaultuser.png'.obs;
+      'http://10.21.1.63/learning-api/public/storage/images/ventes-28March2022-defaultuser.png'
+          .obs;
   var isImage = false.obs;
   var isUpdate = false.obs;
 

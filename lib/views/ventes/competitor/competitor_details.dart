@@ -1,6 +1,7 @@
 import 'package:bs_flutter_modal/bs_flutter_modal.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gallery_3d/gallery3d.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/details_view_contract.dart';
@@ -26,7 +27,7 @@ class CompetitorDetails extends GetView implements DetailViewContract {
     return BsModal(
         context: context,
         dialog: BsModalDialog(
-          size: BsModalSize.md,
+          size: BsModalSize.lg,
           child: BsModalContent(
               decoration: BoxDecoration(
                 color: _navigation.darkTheme.value
@@ -47,87 +48,148 @@ class CompetitorDetails extends GetView implements DetailViewContract {
                   child: Obx(() => BsRow(
                         children: [
                           BsCol(
-                              margin: EdgeInsets.only(top: 10),
-                              sizes: ColScreen(lg: Col.col_12),
-                              child: BsRow(
-                                children: [
+                            sizes: ColScreen(sm: Col.col_5),
+                            child: BsRow(
+                              children: [
+                                if (controller.pic.length >= 3)
                                   BsCol(
-                                      sizes: ColScreen(lg: Col.col_4),
-                                      child: Text('Name')),
+                                      alignment: Alignment.center,
+                                      child: Gallery3D(
+                                          width: 300,
+                                          itemConfig: GalleryItemConfig(
+                                            width: 120,
+                                            height: 180,
+                                            radius: 10,
+                                            isShowTransformMask: false,
+                                          ),
+                                          itemCount: controller.pic.length,
+                                          itemBuilder: (context, index) {
+                                            return Image.network(
+                                              controller.pic[index],
+                                              fit: BoxFit.fill,
+                                            );
+                                          })),
+                                if (controller.pic.length == 2)
                                   BsCol(
-                                      sizes: ColScreen(lg: Col.col_1),
-                                      child: Text(':')),
+                                    child: Row(
+                                      children: [
+                                        Image.network(
+                                          controller.pic.first,
+                                          width: 150,
+                                          height: 130,
+                                        ),
+                                        Image.network(
+                                          controller.pic.last,
+                                          width: 150,
+                                          height: 130,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                if (controller.pic.length == 1)
                                   BsCol(
-                                      sizes: ColScreen(lg: Col.col_7),
-                                      child: Text(controller.name.value))
-                                ],
-                              )),
+                                    child: Image.network(
+                                      controller.pic.first,
+                                      width: 250,
+                                      height: 120,
+                                    ),
+                                  )
+                              ],
+                            ),
+                          ),
                           BsCol(
-                              margin: EdgeInsets.only(top: 10),
-                              sizes: ColScreen(lg: Col.col_12),
-                              child: BsRow(
-                                children: [
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_4),
-                                      child: Text('Product Name')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_1),
-                                      child: Text(':')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_7),
-                                      child: Text(controller.product.value))
-                                ],
-                              )),
-                          BsCol(
-                              margin: EdgeInsets.only(top: 10),
-                              sizes: ColScreen(lg: Col.col_12),
-                              child: BsRow(
-                                children: [
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_4),
-                                      child: Text('Business Partner')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_1),
-                                      child: Text(':')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_7),
-                                      child: Text(controller.bp.value)),
-                                  BsCol(
-                                      margin: EdgeInsets.only(top: 10),
-                                      sizes: ColScreen(lg: Col.col_12),
-                                      child: BsRow(
-                                        children: [
-                                          BsCol(
-                                              sizes: ColScreen(lg: Col.col_4),
-                                              child: Text('Type')),
-                                          BsCol(
-                                              sizes: ColScreen(lg: Col.col_1),
-                                              child: Text(':')),
-                                          BsCol(
-                                              sizes: ColScreen(lg: Col.col_7),
-                                              child:
-                                                  Text(controller.type.value))
-                                        ],
-                                      )),
-                                  BsCol(
-                                      margin: EdgeInsets.only(top: 10),
-                                      sizes: ColScreen(lg: Col.col_12),
-                                      child: BsRow(
-                                        children: [
-                                          BsCol(
-                                              sizes: ColScreen(lg: Col.col_4),
-                                              child: Text('Description')),
-                                          BsCol(
-                                              sizes: ColScreen(lg: Col.col_1),
-                                              child: Text(':')),
-                                          BsCol(
-                                              sizes: ColScreen(lg: Col.col_7),
-                                              child:
-                                                  Text(controller.desc.value))
-                                        ],
-                                      )),
-                                ],
-                              )),
+                            sizes: ColScreen(sm: Col.col_7),
+                            child: BsRow(children: [
+                              BsCol(
+                                  margin: EdgeInsets.only(top: 10),
+                                  sizes: ColScreen(lg: Col.col_12),
+                                  child: BsRow(
+                                    children: [
+                                      BsCol(
+                                          sizes: ColScreen(lg: Col.col_4),
+                                          child: Text('Name')),
+                                      BsCol(
+                                          sizes: ColScreen(lg: Col.col_1),
+                                          child: Text(':')),
+                                      BsCol(
+                                          sizes: ColScreen(lg: Col.col_7),
+                                          child: Text(controller.name.value))
+                                    ],
+                                  )),
+                              BsCol(
+                                  margin: EdgeInsets.only(top: 10),
+                                  sizes: ColScreen(lg: Col.col_12),
+                                  child: BsRow(
+                                    children: [
+                                      BsCol(
+                                          sizes: ColScreen(lg: Col.col_4),
+                                          child: Text('Product Name')),
+                                      BsCol(
+                                          sizes: ColScreen(lg: Col.col_1),
+                                          child: Text(':')),
+                                      BsCol(
+                                          sizes: ColScreen(lg: Col.col_7),
+                                          child: Text(controller.product.value))
+                                    ],
+                                  )),
+                              BsCol(
+                                  margin: EdgeInsets.only(top: 10),
+                                  sizes: ColScreen(lg: Col.col_12),
+                                  child: BsRow(
+                                    children: [
+                                      BsCol(
+                                          sizes: ColScreen(lg: Col.col_4),
+                                          child: Text('Business Partner')),
+                                      BsCol(
+                                          sizes: ColScreen(lg: Col.col_1),
+                                          child: Text(':')),
+                                      BsCol(
+                                          sizes: ColScreen(lg: Col.col_7),
+                                          child: Text(controller.bp.value)),
+                                      BsCol(
+                                          margin: EdgeInsets.only(top: 10),
+                                          sizes: ColScreen(lg: Col.col_12),
+                                          child: BsRow(
+                                            children: [
+                                              BsCol(
+                                                  sizes:
+                                                      ColScreen(lg: Col.col_4),
+                                                  child: Text('Type')),
+                                              BsCol(
+                                                  sizes:
+                                                      ColScreen(lg: Col.col_1),
+                                                  child: Text(':')),
+                                              BsCol(
+                                                  sizes:
+                                                      ColScreen(lg: Col.col_7),
+                                                  child: Text(
+                                                      controller.type.value))
+                                            ],
+                                          )),
+                                      BsCol(
+                                          margin: EdgeInsets.only(top: 10),
+                                          sizes: ColScreen(lg: Col.col_12),
+                                          child: BsRow(
+                                            children: [
+                                              BsCol(
+                                                  sizes:
+                                                      ColScreen(lg: Col.col_4),
+                                                  child: Text('Description')),
+                                              BsCol(
+                                                  sizes:
+                                                      ColScreen(lg: Col.col_1),
+                                                  child: Text(':')),
+                                              BsCol(
+                                                  sizes:
+                                                      ColScreen(lg: Col.col_7),
+                                                  child: Text(
+                                                      controller.desc.value))
+                                            ],
+                                          )),
+                                    ],
+                                  )),
+                            ]),
+                          )
                         ],
                       )),
                 )
@@ -141,8 +203,19 @@ class CompetitorDetails extends GetView implements DetailViewContract {
     controller.name.value = dt.comptname ?? '';
     controller.product.value = dt.comptproductname ?? '';
     controller.desc.value = dt.description ?? '';
-    controller.type.value = dt.comptreftype!.typename ?? '';
-    controller.bp.value = dt.comptbp!.bpname ?? '';
+    if (dt.comptreftype != null) {
+      controller.type.value = dt.comptreftype!.typename!;
+    }
+    if (dt.comptpics != null) {
+      var pic = [];
+      for (var item in dt.comptpics!) {
+        pic.add(item.url);
+      }
+      controller.pic.value = pic;
+    }
+    if (dt.comptbp != null) {
+      controller.bp.value = dt.comptbp!.bpname!;
+    }
     presenter.setProcessing(false);
   }
 }

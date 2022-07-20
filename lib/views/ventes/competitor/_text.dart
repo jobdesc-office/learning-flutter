@@ -7,5 +7,6 @@ class CompetitorText {
   static String labelType = 'Reference Type';
   static String labelBp = 'Business Partner';
   static String labelRef = 'Reference';
+  static String labelImage = 'Image';
   static String labelDesc = 'Description';
 }
