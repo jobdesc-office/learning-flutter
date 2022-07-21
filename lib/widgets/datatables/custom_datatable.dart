@@ -10,19 +10,29 @@ typedef CustomizeHeaderDatatable = Widget Function(BsDatatableElement _);
 final _navigation = Get.find<NavigationPresenter>();
 
 class CustomDatabales extends BsDatatable {
-  CustomDatabales({
-    required BsDatatableSource source,
-    required List<BsDataColumn> columns,
-    CustomizeHeaderDatatable? customizeLeftHeader,
-    CustomizeHeaderDatatable? customizeRightHeader,
-    List<Widget> headerActions = const [],
-    BsDatatableServerSide? serverSide,
-    String searchHintText = 'Search By Marked Column',
-  }) : super(
+  CustomDatabales(
+      {required BsDatatableSource source,
+      required List<BsDataColumn> columns,
+      CustomizeHeaderDatatable? customizeLeftHeader,
+      CustomizeHeaderDatatable? customizeRightHeader,
+      List<Widget> headerActions = const [],
+      BsDatatableServerSide? serverSide,
+      String searchHintText = 'Search By Marked Column',
+      Widget? notFoundText})
+      : super(
           source: source,
           columns: columns,
           serverSide: serverSide,
           style: BsDatatableStyle(borderColor: Colors.transparent),
+          notFoundText: Obx(() => Text(
+                'No Data Found',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: _navigation.darkTheme.value
+                      ? ColorPallates.elseLightColor
+                      : ColorPallates.elseDarkColor,
+                ),
+              )),
           customizeLayout: (el) => Container(
             child: Column(
               children: [
