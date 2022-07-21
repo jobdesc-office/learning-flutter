@@ -4,7 +4,6 @@ import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gallery_3d/gallery3d.dart';
 import 'package:get/get.dart';
 import 'package:image_picker_web/image_picker_web.dart';
 
@@ -29,7 +28,8 @@ class CompetitorSource extends GetxController {
   var imgname = ''.obs;
   var image = <Uint8List>[].obs;
   var imageupdate =
-      'http://10.21.1.63/learning-api/public/storage/files/defaultuser.png'.obs;
+      'http://10.21.1.63/learning-api/public/storage/images/defaultuser.png'
+          .obs;
   var isImage = false.obs;
   var isUpdate = false.obs;
 
@@ -72,63 +72,66 @@ class CompetitorForm {
 
   CompetitorForm(this.source);
 
-  Widget gallery() {
-    return Gallery3D(
-        delayTime: 2000,
-        width: 500,
-        itemConfig: GalleryItemConfig(
-          width: 200,
-          height: 270,
-          radius: 10,
-          isShowTransformMask: false,
-        ),
-        itemCount: source.image.length,
-        itemBuilder: (context, index) {
-          return InkWell(
-            onTap: () {
-              source.image.removeAt(index);
-            },
-            child: Tooltip(
-              message: 'Tap to Remove',
-              child: Image.memory(
-                source.image[index],
-                fit: BoxFit.fill,
-              ),
-            ),
-          );
-        });
-  }
-
   Widget photoViewer() {
-    if (source.image.length >= 3) {
-      return Obx(() => gallery());
-    } else if (source.image.length == 2) {
-      return Obx(() => BsRow(
-            children: source.image.map((element) {
-              return BsCol(
-                  sizes: ColScreen(sm: Col.col_6),
-                  child: InkWell(
-                      onTap: (() =>
-                          source.image.removeWhere((item) => item == element)),
-                      child: Tooltip(
-                          message: 'Tap to Remove',
-                          child: Image.memory(element))));
-            }).toList(),
-          ));
-    } else {
-      return Obx(() => BsRow(
-            children: source.image.map((element) {
-              return BsCol(
-                  sizes: ColScreen(sm: Col.col_12),
-                  child: InkWell(
-                      onTap: (() =>
-                          source.image.removeWhere((item) => item == element)),
-                      child: Tooltip(
-                          message: 'Tap to Remove',
-                          child: Image.memory(element))));
-            }).toList(),
-          ));
+    var gallery;
+    switch (source.image.length) {
+      case 3:
+        gallery = Obx(() => BsRow(
+              children: source.image.map((element) {
+                return BsCol(
+                    sizes: ColScreen(sm: Col.col_4),
+                    child: InkWell(
+                        onTap: (() => source.image
+                            .removeWhere((item) => item == element)),
+                        child: Tooltip(
+                            message: 'Tap to Remove',
+                            child: Image.memory(element))));
+              }).toList(),
+            ));
+        break;
+      case 2:
+        gallery = Obx(() => BsRow(
+              children: source.image.map((element) {
+                return BsCol(
+                    sizes: ColScreen(sm: Col.col_6),
+                    child: InkWell(
+                        onTap: (() => source.image
+                            .removeWhere((item) => item == element)),
+                        child: Tooltip(
+                            message: 'Tap to Remove',
+                            child: Image.memory(element))));
+              }).toList(),
+            ));
+        break;
+      case 1:
+        gallery = Obx(() => BsRow(
+              children: source.image.map((element) {
+                return BsCol(
+                    sizes: ColScreen(sm: Col.col_12),
+                    child: InkWell(
+                        onTap: (() => source.image
+                            .removeWhere((item) => item == element)),
+                        child: Tooltip(
+                            message: 'Tap to Remove',
+                            child: Image.memory(element))));
+              }).toList(),
+            ));
+        break;
+      default:
+        gallery = Obx(() => BsRow(
+              children: source.image.map((element) {
+                return BsCol(
+                    sizes: ColScreen(sm: Col.col_3),
+                    child: InkWell(
+                        onTap: (() => source.image
+                            .removeWhere((item) => item == element)),
+                        child: Tooltip(
+                            message: 'Tap to Remove',
+                            child: Image.memory(element))));
+              }).toList(),
+            ));
     }
+    return gallery;
   }
 
   Widget inputName() {
