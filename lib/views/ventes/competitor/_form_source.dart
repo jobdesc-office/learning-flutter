@@ -62,7 +62,7 @@ class CompetitorSource extends GetxController {
       'description': inputDesc.text,
       'createdby': session.userid,
       'updatedby': session.userid,
-      'comptpics': jsonImages(),
+      'comptpics': jsonImages()
     };
   }
 }
@@ -79,6 +79,7 @@ class CompetitorForm {
         gallery = Obx(() => BsRow(
               children: source.image.map((element) {
                 return BsCol(
+                    margin: EdgeInsets.all(3),
                     sizes: ColScreen(sm: Col.col_4),
                     child: InkWell(
                         onTap: (() => source.image
@@ -93,6 +94,7 @@ class CompetitorForm {
         gallery = Obx(() => BsRow(
               children: source.image.map((element) {
                 return BsCol(
+                    margin: EdgeInsets.all(3),
                     sizes: ColScreen(sm: Col.col_6),
                     child: InkWell(
                         onTap: (() => source.image
@@ -107,6 +109,7 @@ class CompetitorForm {
         gallery = Obx(() => BsRow(
               children: source.image.map((element) {
                 return BsCol(
+                    margin: EdgeInsets.all(3),
                     sizes: ColScreen(sm: Col.col_12),
                     child: InkWell(
                         onTap: (() => source.image
@@ -121,6 +124,7 @@ class CompetitorForm {
         gallery = Obx(() => BsRow(
               children: source.image.map((element) {
                 return BsCol(
+                    margin: EdgeInsets.all(3),
                     sizes: ColScreen(sm: Col.col_3),
                     child: InkWell(
                         onTap: (() => source.image
