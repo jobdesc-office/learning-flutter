@@ -122,6 +122,17 @@ class CompetitorFormView extends StatelessWidget implements EditViewContract {
         source.value.selectType.setSelected(BsSelectBoxOption(
             value: competitor.comptreftypeid,
             text: Text(competitor.comptreftype!.typename!)));
+
+      if (competitor.comptpics != null) {
+        source.value.isUpdate.value = true;
+        source.value.isImage.value = false;
+        List image = [];
+        for (var item in competitor.comptpics!) {
+          image.add(item.url);
+        }
+        source.value.imageupdate.value = image;
+      }
+
       source.value.inputName.text = competitor.comptname ?? '';
       source.value.inputProductName.text = competitor.comptproductname ?? '';
       source.value.inputDesc.text = competitor.description ?? '';

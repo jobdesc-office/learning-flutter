@@ -27,9 +27,7 @@ class CompetitorSource extends GetxController {
 
   var imgname = ''.obs;
   var image = <Uint8List>[].obs;
-  var imageupdate =
-      'http://10.21.1.63/learning-api/public/storage/images/defaultuser.png'
-          .obs;
+  var imageupdate = [].obs;
   var isImage = false.obs;
   var isUpdate = false.obs;
 
@@ -132,6 +130,72 @@ class CompetitorForm {
                         child: Tooltip(
                             message: 'Tap to Remove',
                             child: Image.memory(element))));
+              }).toList(),
+            ));
+    }
+    return gallery;
+  }
+
+  Widget photoViewerUpdate() {
+    var gallery;
+    switch (source.imageupdate.length) {
+      case 3:
+        gallery = Obx(() => BsRow(
+              children: source.imageupdate.map((element) {
+                return BsCol(
+                    margin: EdgeInsets.all(3),
+                    sizes: ColScreen(sm: Col.col_4),
+                    child: InkWell(
+                        onTap: (() => source.imageupdate
+                            .removeWhere((item) => item == element)),
+                        child: Tooltip(
+                            message: 'Tap to Remove',
+                            child: Image.network(element))));
+              }).toList(),
+            ));
+        break;
+      case 2:
+        gallery = Obx(() => BsRow(
+              children: source.imageupdate.map((element) {
+                return BsCol(
+                    margin: EdgeInsets.all(3),
+                    sizes: ColScreen(sm: Col.col_6),
+                    child: InkWell(
+                        onTap: (() => source.imageupdate
+                            .removeWhere((item) => item == element)),
+                        child: Tooltip(
+                            message: 'Tap to Remove',
+                            child: Image.network(element))));
+              }).toList(),
+            ));
+        break;
+      case 1:
+        gallery = Obx(() => BsRow(
+              children: source.imageupdate.map((element) {
+                return BsCol(
+                    margin: EdgeInsets.all(3),
+                    sizes: ColScreen(sm: Col.col_12),
+                    child: InkWell(
+                        onTap: (() => source.imageupdate
+                            .removeWhere((item) => item == element)),
+                        child: Tooltip(
+                            message: 'Tap to Remove',
+                            child: Image.network(element))));
+              }).toList(),
+            ));
+        break;
+      default:
+        gallery = Obx(() => BsRow(
+              children: source.imageupdate.map((element) {
+                return BsCol(
+                    margin: EdgeInsets.all(3),
+                    sizes: ColScreen(sm: Col.col_3),
+                    child: InkWell(
+                        onTap: (() => source.imageupdate
+                            .removeWhere((item) => item == element)),
+                        child: Tooltip(
+                            message: 'Tap to Remove',
+                            child: Image.network(element))));
               }).toList(),
             ));
     }
@@ -243,6 +307,7 @@ class CompetitorForm {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 if (source.isImage.value) photoViewer(),
+                if (source.isUpdate.value) photoViewerUpdate(),
                 BsButton(
                   margin: EdgeInsets.only(top: 10),
                   onPressed: () async {

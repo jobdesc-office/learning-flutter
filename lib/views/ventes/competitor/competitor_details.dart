@@ -48,6 +48,7 @@ class CompetitorDetails extends GetView implements DetailViewContract {
                   child: Obx(() => BsRow(
                         children: [
                           BsCol(
+                            margin: EdgeInsets.only(right: 10),
                             sizes: ColScreen(sm: Col.col_5),
                             child: BsRow(
                               children: [
@@ -55,10 +56,11 @@ class CompetitorDetails extends GetView implements DetailViewContract {
                                   BsCol(
                                       alignment: Alignment.center,
                                       child: Gallery3D(
+                                          delayTime: 2000,
                                           width: 300,
                                           itemConfig: GalleryItemConfig(
-                                            width: 120,
-                                            height: 180,
+                                            width: 110,
+                                            height: 160,
                                             radius: 10,
                                             isShowTransformMask: false,
                                           ),
