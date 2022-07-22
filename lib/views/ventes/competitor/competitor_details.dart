@@ -11,6 +11,7 @@ import '../../../presenters/ventes/competitor_presenter.dart';
 import '../../../styles/color_palattes.dart';
 import '_details_source.dart';
 import '_text.dart';
+import 'image_picture_competitor.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 
@@ -56,44 +57,66 @@ class CompetitorDetails extends GetView implements DetailViewContract {
                                   BsCol(
                                       alignment: Alignment.center,
                                       child: Gallery3D(
-                                          delayTime: 2000,
+                                          onClickItem: (value) {
+                                            showDialog(
+                                              context: context,
+                                              builder: (context) =>
+                                                  ImagePictureCompetitor(
+                                                title: controller.title[value],
+                                                image: controller.pic[value],
+                                              ),
+                                            );
+                                          },
+                                          delayTime: 1500,
                                           width: 300,
                                           itemConfig: GalleryItemConfig(
-                                            width: 110,
-                                            height: 160,
-                                            radius: 10,
+                                            width: 300,
+                                            height: 280,
                                             isShowTransformMask: false,
                                           ),
                                           itemCount: controller.pic.length,
                                           itemBuilder: (context, index) {
-                                            return Image.network(
-                                              controller.pic[index],
-                                              fit: BoxFit.fill,
+                                            return Tooltip(
+                                              message:
+                                                  'Tap to See Full Picture',
+                                              child: Image.network(
+                                                controller.pic[index],
+                                                fit: BoxFit.fill,
+                                              ),
                                             );
                                           })),
                                 if (controller.pic.length == 2)
                                   BsCol(
                                     child: Row(
                                       children: [
-                                        Image.network(
-                                          controller.pic.first,
-                                          width: 150,
-                                          height: 130,
+                                        Tooltip(
+                                          message: 'Tap to See Full Picture',
+                                          child: Image.network(
+                                            controller.pic.first,
+                                            width: 150,
+                                            height: 130,
+                                          ),
                                         ),
-                                        Image.network(
-                                          controller.pic.last,
-                                          width: 150,
-                                          height: 130,
+                                        Tooltip(
+                                          message: 'Tap to See Full Picture',
+                                          child: Image.network(
+                                            controller.pic.last,
+                                            width: 150,
+                                            height: 130,
+                                          ),
                                         ),
                                       ],
                                     ),
                                   ),
                                 if (controller.pic.length == 1)
                                   BsCol(
-                                    child: Image.network(
-                                      controller.pic.first,
-                                      width: 250,
-                                      height: 120,
+                                    child: Tooltip(
+                                      message: 'Tap to See Full Image',
+                                      child: Image.network(
+                                        controller.pic.first,
+                                        width: 250,
+                                        height: 120,
+                                      ),
                                     ),
                                   )
                               ],
@@ -210,10 +233,13 @@ class CompetitorDetails extends GetView implements DetailViewContract {
     }
     if (dt.comptpics != null) {
       var pic = [];
+      var title = [];
       for (var item in dt.comptpics!) {
         pic.add(item.url);
+        title.add(item.filename!.replaceAll('%20', ' '));
       }
       controller.pic.value = pic;
+      controller.title.value = title;
     }
     if (dt.comptbp != null) {
       controller.bp.value = dt.comptbp!.bpname!;

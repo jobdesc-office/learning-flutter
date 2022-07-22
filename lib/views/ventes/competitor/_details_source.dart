@@ -8,4 +8,5 @@ class CompetitorDetailsSource extends GetxController {
   var product = ''.obs;
   var ref = ''.obs;
   var pic = [].obs;
+  var title = [].obs;
 }
