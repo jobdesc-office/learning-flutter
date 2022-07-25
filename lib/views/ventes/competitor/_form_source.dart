@@ -60,7 +60,7 @@ class CompetitorSource extends GetxController {
       'description': inputDesc.text,
       'createdby': session.userid,
       'updatedby': session.userid,
-      'comptpics': jsonImages()
+      'comptpics[]': jsonImages()
     };
   }
 }
