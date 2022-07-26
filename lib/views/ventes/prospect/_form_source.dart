@@ -149,27 +149,32 @@ class ProspectSource extends GetxController {
   List<Map<String, dynamic>> jsonProducts() {
     return List<Map<String, dynamic>>.from(selectsItem.map((controller) {
       int index = selectsItem.indexOf(controller);
-      String discount;
-      String tax;
+      var discount;
+      var tax;
+      var taxtype;
       if (inputDiscounts[index].text == '') {
-        discount = '0';
+        discount = null;
       } else {
         discount = inputDiscounts[index].text;
       }
       if (inputTaxes[index].text == '') {
-        tax = '0';
+        tax = null;
       } else {
         tax = inputTaxes[index].text;
+      }
+      if (selectsTax[index].getSelectedAsString() == '') {
+        taxtype = null;
+      } else {
+        taxtype = selectsTax[index].getSelectedAsString();
       }
       return {
         'item': selectsItem[index].getSelectedAsString(),
         'price': inputPrices[index].text.replaceAll(',', ''),
         'quantity': inputQuantities[index].text,
         'discount': discount,
-        'amount':
-            inputAmounts[index].text.replaceAll('.', '').replaceAll(',00', ''),
+        'amount': inputAmounts[index].text.replaceAll(',', ''),
         'tax': tax,
-        'taxtype': selectsTax[index].getSelectedAsString()
+        'taxtype': taxtype
       };
     }));
   }
@@ -657,7 +662,10 @@ class ProspectForm {
                             var amount =
                                 source.quantity.value * source.price.value;
                             // inputAmount.text = amount.toString();
-                            inputAmount.text = currencyFormatter.format(amount);
+                            inputAmount.text = currencyFormatter
+                                .format(amount)
+                                .replaceAll(',00', '')
+                                .replaceAll('.', ',');
                             // source.subtotal.value += parseDouble(amount);
                           }
                         },
@@ -685,7 +693,10 @@ class ProspectForm {
                             var amount =
                                 source.price.value * source.quantity.value;
                             // inputAmount.text = amount.toString();
-                            inputAmount.text = currencyFormatter.format(amount);
+                            inputAmount.text = currencyFormatter
+                                .format(amount)
+                                .replaceAll(',00', '')
+                                .replaceAll('.', ',');
                             // source.subtotal.value += amount;
                           }
                         },
