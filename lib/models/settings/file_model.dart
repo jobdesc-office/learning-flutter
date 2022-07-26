@@ -6,9 +6,9 @@ class FileModel {
   String? filename;
   String? mimetype;
   String? filesize;
-  Null? createdby;
+  int? createdby;
   String? createddate;
-  Null? updatedby;
+  int? updatedby;
   String? updateddate;
   bool? isactive;
   String? url;

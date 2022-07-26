@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 
 import '../../../contracts/base/details_view_contract.dart';
 import '../../../helpers/function.dart';
-import '../../../models/masters/type_model.dart';
 import '../../../models/settings/file_model.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../presenters/settings/file_presenter.dart';
