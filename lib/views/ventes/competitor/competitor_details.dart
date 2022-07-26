@@ -1,3 +1,4 @@
+import 'package:boilerplate/constants/base_text.dart';
 import 'package:bs_flutter_modal/bs_flutter_modal.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
@@ -77,8 +78,7 @@ class CompetitorDetails extends GetView implements DetailViewContract {
                                           itemCount: controller.pic.length,
                                           itemBuilder: (context, index) {
                                             return Tooltip(
-                                              message:
-                                                  'Tap to See Full Picture',
+                                              message: BaseText.seePicture,
                                               child: Image.network(
                                                 controller.pic[index],
                                                 fit: BoxFit.fill,
@@ -90,7 +90,7 @@ class CompetitorDetails extends GetView implements DetailViewContract {
                                     child: Row(
                                       children: [
                                         Tooltip(
-                                          message: 'Tap to See Full Picture',
+                                          message: BaseText.seePicture,
                                           child: Image.network(
                                             controller.pic.first,
                                             width: 150,
@@ -98,7 +98,7 @@ class CompetitorDetails extends GetView implements DetailViewContract {
                                           ),
                                         ),
                                         Tooltip(
-                                          message: 'Tap to See Full Picture',
+                                          message: BaseText.seePicture,
                                           child: Image.network(
                                             controller.pic.last,
                                             width: 150,

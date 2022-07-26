@@ -1,4 +1,4 @@
-import 'package:boilerplate/services/ventes/customfield_service.dart';
+import 'package:boilerplate/services/settings/customfield_service.dart';
 import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:boilerplate/views/skins/template.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';

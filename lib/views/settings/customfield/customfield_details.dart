@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import '../../../contracts/base/details_view_contract.dart';
 import '../../../models/ventes/customfield_model.dart';
 import '../../../presenters/navigation_presenter.dart';
-import '../../../presenters/ventes/customfield_presenter.dart';
+import '../../../presenters/settings/customfield_presenter.dart';
 import '../../../styles/color_palattes.dart';
 import '_details_source.dart';
 import '_text.dart';

@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 import '../../../constants/base_text.dart';
 import '../../../models/session_model.dart';
-import '../../../presenters/ventes/customfield_presenter.dart';
+import '../../../presenters/settings/customfield_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../presenters/ventes/prospect_presenter.dart';
 import '../../../utils/select_api.dart';

@@ -1,4 +1,4 @@
-import 'package:boilerplate/services/ventes/customfield_service.dart';
+import 'package:boilerplate/services/settings/customfield_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'package:boilerplate/services/ventes/customfield_service.dart';
+import 'package:boilerplate/services/settings/customfield_service.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';

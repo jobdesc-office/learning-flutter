@@ -12,9 +12,10 @@ import '../presenters/masters/product_presenter.dart';
 import '../presenters/masters/province_presenter.dart';
 import '../presenters/masters/subdistrict_presenter.dart';
 import '../presenters/masters/village_presenter.dart';
+import '../presenters/settings/file_presenter.dart';
 import '../presenters/ventes/bpcustomer_presenter.dart';
 import '../presenters/ventes/competitor_presenter.dart';
-import '../presenters/ventes/customfield_presenter.dart';
+import '../presenters/settings/customfield_presenter.dart';
 import '../presenters/ventes/prospect_presenter.dart';
 import '../presenters/ventes/prospectassign_presenter.dart';
 import '../presenters/ventes/prospectactivity_presenter.dart';
@@ -35,9 +36,10 @@ import '../services/masters/product_service.dart';
 import '../services/masters/province_service.dart';
 import '../services/masters/subdistrict_service.dart';
 import '../services/masters/village_service.dart';
+import '../services/settings/file_service.dart';
 import '../services/ventes/bpcustomer_service.dart';
 import '../services/ventes/competitor_service.dart';
-import '../services/ventes/customfield_service.dart';
+import '../services/settings/customfield_service.dart';
 import '../services/ventes/prospect_service.dart';
 import '../services/ventes/prospectassign_service.dart';
 import '../services/ventes/prospectactivity_service.dart';
@@ -63,9 +65,10 @@ import '../views/masters/product/product.dart';
 import '../views/masters/provinces/province.dart';
 import '../views/masters/subdistricts/subdistrict.dart';
 import '../views/masters/villages/village.dart';
+import '../views/settings/customfield/customfield.dart';
+import '../views/settings/files/file.dart';
 import '../views/ventes/bpcustomers/bpcustomer.dart';
 import '../views/ventes/competitor/competitor.dart';
-import '../views/ventes/customfield/customfield.dart';
 import '../views/ventes/prospect/prospect.dart';
 import '../views/ventes/schedules/schedule.dart';
 import '../views/masters/typeschildren/types_children.dart';
@@ -262,16 +265,6 @@ class AppRoute {
         }),
       ),
       CustomGetPage(
-        name: RouteList.ventesCustomField.index,
-        page: () => CustomFieldView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => ProspectService());
-          Get.lazyPut(() => ProspectPresenter());
-          Get.lazyPut(() => CustomFieldService());
-          Get.lazyPut(() => CustomFieldPresenter());
-        }),
-      ),
-      CustomGetPage(
         name: RouteList.ventesBpCustomer.index,
         page: () => BpCustomerView(),
         binding: BindingsBuilder(() {
@@ -293,6 +286,26 @@ class AppRoute {
         binding: BindingsBuilder(() {
           Get.lazyPut(() => CompetitorService());
           Get.lazyPut(() => CompetitorPresenter());
+        }),
+      ),
+
+      /** Settings **/
+      CustomGetPage(
+        name: RouteList.settingsCustomField.index,
+        page: () => CustomFieldView(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => ProspectService());
+          Get.lazyPut(() => ProspectPresenter());
+          Get.lazyPut(() => CustomFieldService());
+          Get.lazyPut(() => CustomFieldPresenter());
+        }),
+      ),
+      CustomGetPage(
+        name: RouteList.settingsFiles.index,
+        page: () => FileView(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => FileService());
+          Get.lazyPut(() => FilePresenter());
         }),
       ),
     ];

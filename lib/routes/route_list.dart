@@ -39,8 +39,6 @@ class RouteList {
   static final RouteData ventesProspect = RouteData(prefix: '/ventes/prospect');
   static final RouteData ventesBpCustomer =
       RouteData(prefix: '/ventes/bpcustomer');
-  static final RouteData ventesCustomField =
-      RouteData(prefix: '/ventes/customfield');
   static final RouteData ventesCompetitor =
       RouteData(prefix: '/ventes/competitor');
 
@@ -48,5 +46,8 @@ class RouteList {
 
   static final RouteData settingsPrevileges =
       RouteData(prefix: '/settings/previleges');
+  static final RouteData settingsCustomField =
+      RouteData(prefix: '/settings/customfield');
+  static final RouteData settingsFiles = RouteData(prefix: '/settings/files');
   static final RouteData settingsUser = RouteData(prefix: '/settings/users');
 }

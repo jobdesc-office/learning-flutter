@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 import '../../../contracts/base/edit_view_contract.dart';
 import '../../../models/ventes/customfield_model.dart';
-import '../../../presenters/ventes/customfield_presenter.dart';
+import '../../../presenters/settings/customfield_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
@@ -39,7 +39,7 @@ class CustomFieldFormView extends StatelessWidget implements EditViewContract {
         ],
         activeRoutes: [
           RouteList.master.index,
-          RouteList.ventesCustomField.index
+          RouteList.settingsCustomField.index
         ],
         child: Obx(() {
           customFieldForm = CustomFieldForm(source.value);

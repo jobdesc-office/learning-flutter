@@ -3,7 +3,7 @@ import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../presenters/ventes/customfield_presenter.dart';
+import '../../../presenters/settings/customfield_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_create.dart';
@@ -28,13 +28,12 @@ class CustomFieldView extends GetView implements IndexViewContract {
       body: TemplateView(
         title: 'Custom Fields',
         breadcrumbs: [
-          BreadcrumbWidget('Venteses'),
-          BreadcrumbWidget('Prospect'),
+          BreadcrumbWidget('Settings'),
           BreadcrumbWidget('Custom Fields', active: true),
         ],
         activeRoutes: [
           RouteList.master.index,
-          RouteList.ventesCustomField.index
+          RouteList.settingsCustomField.index
         ],
         child: Container(
           child: Column(

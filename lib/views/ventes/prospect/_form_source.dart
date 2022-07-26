@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:boilerplate/services/ventes/customfield_service.dart';
+import 'package:boilerplate/services/settings/customfield_service.dart';
 import 'package:boilerplate/views/ventes/prospect/customer/customer_form.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_inputtext/bs_flutter_inputtext.dart';

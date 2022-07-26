@@ -195,12 +195,6 @@ class SidebarSkins extends StatelessWidget {
                       title: 'Ventes Datas',
                       icon: Icons.analytics,
                       children: [
-                        // MenuData(
-                        //     id: no++,
-                        //     route: RouteList.prospect.index,
-                        //     label: 'Prospects',
-                        //     icon: Icons.analytics,
-                        //     children: [
                         MenuData(
                           id: no++,
                           route: RouteList.ventesCompetitor.index,
@@ -213,82 +207,85 @@ class SidebarSkins extends StatelessWidget {
                           label: 'Prospects',
                           icon: Icons.analytics,
                         ),
-                        //   MenuData(
-                        //     id: no++,
-                        //     route: RouteList.ventesCustomField.index,
-                        //     label: 'Custom Fields',
-                        //     icon: Icons.add_box,
-                        //   ),
-                        // ]),
                         MenuData(
                           id: no++,
                           route: RouteList.ventesSchedule.index,
                           label: 'Schedules',
                           icon: FontAwesomeIcons.calendarDays,
                         ),
-                      ])
-
-                  // MenuDataGroup(
-                  //   title: 'Settings',
-                  //   icon: Icons.settings_outlined,
-                  //   children: [
-                  //     MenuData(
-                  //       id: no++,
-                  //       route: RouteList.settings.index,
-                  //       label: 'Security',
-                  //       children: [
-                  //         MenuData(
-                  //           id: no++,
-                  //           route: RouteList.settingsPrevileges.index,
-                  //           label: 'Previleges',
-                  //         ),
-                  //         MenuData(
-                  //           id: no++,
-                  //           route: RouteList.settingsUser.index,
-                  //           label: 'Role User',
-                  //         ),
-                  //       ],
-                  //     ),
-                  //     MenuData(
-                  //         id: no++,
-                  //         route: '/level',
-                  //         label: 'Level Menu 1',
-                  //         children: [
-                  //           MenuData(
-                  //               id: no++,
-                  //               route: '/level-1',
-                  //               label: 'Level Menu 1.1',
-                  //               children: [
-                  //                 MenuData(
-                  //                   id: no++,
-                  //                   route: '/level-1-1',
-                  //                   label: 'Level Menu 1.1.1',
-                  //                 ),
-                  //                 MenuData(
-                  //                     id: no++,
-                  //                     route: '/level-1-2',
-                  //                     label: 'Level Menu 1.1.2',
-                  //                     children: [
-                  //                       MenuData(
-                  //                         id: no++,
-                  //                         route: '/level-1-1-1',
-                  //                         label: 'Level Menu 1.1.1.1',
-                  //                       ),
-                  //                       MenuData(
-                  //                         id: no++,
-                  //                         route: '/level-1-1-1',
-                  //                         label: 'Level Menu 1.1.1.2',
-                  //                       ),
-                  //                     ]),
-                  //               ]),
-                  //           MenuData(
-                  //             id: no++,
-                  //             route: '/level-2',
-                  //             label: 'Level Menu 1.2',
-                  //           ),
-                  //         ]),
-                  //   ],
-                  // ),
+                      ]),
+                  MenuDataGroup(
+                    title: 'Settings',
+                    icon: Icons.settings_outlined,
+                    children: [
+                      MenuData(
+                        id: no++,
+                        route: RouteList.settingsCustomField.index,
+                        label: 'Custom Fields',
+                        icon: Icons.add_box,
+                      ),
+                      MenuData(
+                          id: no++,
+                          route: RouteList.settingsFiles.index,
+                          label: 'Files',
+                          icon: Icons.file_open),
+                      // MenuData(
+                      //   id: no++,
+                      //   route: RouteList.settings.index,
+                      //   label: 'Security',
+                      //   children: [
+                      //     MenuData(
+                      //       id: no++,
+                      //       route: RouteList.settingsPrevileges.index,
+                      //       label: 'Previleges',
+                      //     ),
+                      //     MenuData(
+                      //       id: no++,
+                      //       route: RouteList.settingsUser.index,
+                      //       label: 'Role User',
+                      //     ),
+                      //   ],
+                      // ),
+                      // MenuData(
+                      //     id: no++,
+                      //     route: '/level',
+                      //     label: 'Level Menu 1',
+                      //     children: [
+                      //       MenuData(
+                      //           id: no++,
+                      //           route: '/level-1',
+                      //           label: 'Level Menu 1.1',
+                      //           children: [
+                      //             MenuData(
+                      //               id: no++,
+                      //               route: '/level-1-1',
+                      //               label: 'Level Menu 1.1.1',
+                      //             ),
+                      //             MenuData(
+                      //                 id: no++,
+                      //                 route: '/level-1-2',
+                      //                 label: 'Level Menu 1.1.2',
+                      //                 children: [
+                      //                   MenuData(
+                      //                     id: no++,
+                      //                     route: '/level-1-1-1',
+                      //                     label: 'Level Menu 1.1.1.1',
+                      //                   ),
+                      //                   MenuData(
+                      //                     id: no++,
+                      //                     route: '/level-1-1-1',
+                      //                     label: 'Level Menu 1.1.1.2',
+                      //                   ),
+                      //                 ]),
+                      //           ]),
+                      //       MenuData(
+                      //         id: no++,
+                      //         route: '/level-2',
+                      //         label: 'Level Menu 1.2',
+                      //       ),
+                      //     ]),
+                    ],
+                  ),
                 ],
               ),
             ),

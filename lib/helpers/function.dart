@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:get/get.dart';
 
 import '../presenters/navigation_presenter.dart';
@@ -44,4 +46,14 @@ void toNameRoute(String name, {bool pushReplace = false}) {
   final navigation = Get.find<NavigationPresenter>();
 
   navigation.to(name, pushReplace: pushReplace);
+}
+
+formatBytes(int size, int precision) {
+  String result;
+  if (size <= 0) return "0 B";
+  const suffixes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+  var i = (log(size) / log(1024)).floor();
+  result =
+      ((size / pow(1024, i)).toStringAsFixed(precision)) + ' ' + suffixes[i];
+  return result;
 }

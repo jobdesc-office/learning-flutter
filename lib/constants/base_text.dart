@@ -15,6 +15,8 @@ class BaseText {
   static String active = 'Active';
   static String nonactive = 'Non Active';
 
+  static String seePicture = 'Tap to See Full Picture';
+
   static String editDelete = 'Long Press to Edit or Delete';
 
   static String hintText({String? field}) {

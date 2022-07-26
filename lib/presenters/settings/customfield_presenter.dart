@@ -6,10 +6,10 @@ import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
 import '../../contracts/ventes/customfield_contract.dart';
-import '../../services/ventes/customfield_service.dart';
+import '../../services/settings/customfield_service.dart';
 import '../../utils/custom_get_controller.dart';
-import '../../views/ventes/customfield/customfield_details.dart';
-import '../../views/ventes/customfield/customfield_form.dart';
+import '../../views/settings/customfield/customfield_details.dart';
+import '../../views/settings/customfield/customfield_form.dart';
 import '../../views/ventes/prospect/customfield/customfield_popup.dart';
 import '../../widgets/confirm_dialog.dart';
 

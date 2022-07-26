@@ -30,7 +30,7 @@ import '../services/masters/typechildren_service.dart';
 import '../services/masters/user_service.dart';
 import '../services/security/menu_service.dart';
 import '../services/ventes/bpcustomer_service.dart';
-import '../services/ventes/customfield_service.dart';
+import '../services/settings/customfield_service.dart';
 import '../services/ventes/prospect_service.dart';
 import '../views/ventes/prospect/_detail_source.dart';
 import 'connect_internet_api.dart';
