@@ -95,9 +95,14 @@ class CompetitorFormView extends StatelessWidget implements EditViewContract {
 
   void onClickSaveModal(BuildContext context) async {
     presenter.setProcessing(true);
-    if (formState.currentState!.validate())
+    if (formState.currentState!.validate()) {
+      Map<String, dynamic> images = {
+        'transtypeid': source.value.transtypeid.value,
+        'refid': source.value.refid.value
+      };
+      presenter.deleteImages(context, images);
       onSave(FormData(await source.toJson()));
-    else
+    } else
       presenter.setProcessing(false);
   }
 
@@ -136,6 +141,11 @@ class CompetitorFormView extends StatelessWidget implements EditViewContract {
       source.value.inputName.text = competitor.comptname ?? '';
       source.value.inputProductName.text = competitor.comptproductname ?? '';
       source.value.inputDesc.text = competitor.description ?? '';
+      if (competitor.comptpics != []) {
+        source.value.transtypeid.value =
+            competitor.comptpics!.first.transtypeid!;
+        source.value.refid.value = competitor.comptpics!.first.refid!;
+      }
     });
   }
 }

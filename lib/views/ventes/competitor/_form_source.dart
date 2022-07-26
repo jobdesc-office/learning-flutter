@@ -25,6 +25,9 @@ class CompetitorSource extends GetxController {
   bool isProcessing = false;
   var isnGetLatLong = true.obs;
 
+  var transtypeid = 0.obs;
+  var refid = 0.obs;
+
   var imgname = ''.obs;
   var image = <Uint8List>[].obs;
   var imageupdate = [].obs;

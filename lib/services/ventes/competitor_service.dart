@@ -19,4 +19,10 @@ class CompetitorService extends ApiConnectProvider {
   }) {
     return post('$api/$id', body);
   }
+
+  Future<Response> deleteImages({
+    Map<String, dynamic>? query,
+  }) {
+    return post('$api/deleteimages', query);
+  }
 }

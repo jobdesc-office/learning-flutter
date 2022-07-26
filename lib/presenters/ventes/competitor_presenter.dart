@@ -44,6 +44,12 @@ class CompetitorPresenter extends CustomGetXController {
     return response.body['cstmname'];
   }
 
+  void deleteImages(BuildContext context, Map<String, dynamic> body) async {
+    await _competitorService.deleteImages(
+      query: body,
+    );
+  }
+
   void details(BuildContext context, int userid) async {
     setProcessing(true);
     showDialog(
