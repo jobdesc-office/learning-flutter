@@ -129,6 +129,51 @@ class SidebarSkins extends StatelessWidget {
                           icon: Icons.sell),
                       MenuData(
                           id: no++,
+                          route: RouteList.masterUser.index,
+                          label: 'Users',
+                          icon: Icons.group),
+                    ],
+                  ),
+                  MenuDataGroup(
+                      title: 'Ventes Datas',
+                      icon: Icons.analytics,
+                      children: [
+                        MenuData(
+                          id: no++,
+                          route: RouteList.ventesCompetitor.index,
+                          label: 'Competitors',
+                          icon: Icons.sentiment_dissatisfied,
+                        ),
+                        MenuData(
+                          id: no++,
+                          route: RouteList.ventesProspect.index,
+                          label: 'Prospects',
+                          icon: Icons.analytics,
+                        ),
+                        MenuData(
+                          id: no++,
+                          route: RouteList.ventesSchedule.index,
+                          label: 'Schedules',
+                          icon: FontAwesomeIcons.calendarDays,
+                        ),
+                      ]),
+                  MenuDataGroup(
+                    title: 'Settings',
+                    icon: Icons.settings_outlined,
+                    children: [
+                      MenuData(
+                        id: no++,
+                        route: RouteList.settingsCustomField.index,
+                        label: 'Custom Fields',
+                        icon: Icons.add_box,
+                      ),
+                      MenuData(
+                          id: no++,
+                          route: RouteList.settingsFiles.index,
+                          label: 'Files',
+                          icon: Icons.file_open),
+                      MenuData(
+                          id: no++,
                           label: 'Regions',
                           route: RouteList.settings.index,
                           icon: FontAwesomeIcons.earthAmericas,
@@ -184,51 +229,6 @@ class SidebarSkins extends StatelessWidget {
                           ),
                         ],
                       ),
-                      MenuData(
-                          id: no++,
-                          route: RouteList.masterUser.index,
-                          label: 'Users',
-                          icon: Icons.group),
-                    ],
-                  ),
-                  MenuDataGroup(
-                      title: 'Ventes Datas',
-                      icon: Icons.analytics,
-                      children: [
-                        MenuData(
-                          id: no++,
-                          route: RouteList.ventesCompetitor.index,
-                          label: 'Competitors',
-                          icon: Icons.sentiment_dissatisfied,
-                        ),
-                        MenuData(
-                          id: no++,
-                          route: RouteList.ventesProspect.index,
-                          label: 'Prospects',
-                          icon: Icons.analytics,
-                        ),
-                        MenuData(
-                          id: no++,
-                          route: RouteList.ventesSchedule.index,
-                          label: 'Schedules',
-                          icon: FontAwesomeIcons.calendarDays,
-                        ),
-                      ]),
-                  MenuDataGroup(
-                    title: 'Settings',
-                    icon: Icons.settings_outlined,
-                    children: [
-                      MenuData(
-                        id: no++,
-                        route: RouteList.settingsCustomField.index,
-                        label: 'Custom Fields',
-                        icon: Icons.add_box,
-                      ),
-                      MenuData(
-                          id: no++,
-                          route: RouteList.settingsFiles.index,
-                          label: 'Files',
-                          icon: Icons.file_open),
                       // MenuData(
                       //   id: no++,
                       //   route: RouteList.settings.index,

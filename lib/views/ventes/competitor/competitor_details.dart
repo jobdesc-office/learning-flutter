@@ -89,20 +89,40 @@ class CompetitorDetails extends GetView implements DetailViewContract {
                                   BsCol(
                                     child: Row(
                                       children: [
-                                        Tooltip(
-                                          message: BaseText.seePicture,
-                                          child: Image.network(
-                                            controller.pic.first,
-                                            width: 150,
-                                            height: 130,
+                                        InkWell(
+                                          onTap: () => showDialog(
+                                            context: context,
+                                            builder: (context) =>
+                                                ImagePictureCompetitor(
+                                              title: controller.title.last,
+                                              image: controller.pic.first,
+                                            ),
+                                          ),
+                                          child: Tooltip(
+                                            message: BaseText.seePicture,
+                                            child: Image.network(
+                                              controller.pic.first,
+                                              width: 150,
+                                              height: 130,
+                                            ),
                                           ),
                                         ),
-                                        Tooltip(
-                                          message: BaseText.seePicture,
-                                          child: Image.network(
-                                            controller.pic.last,
-                                            width: 150,
-                                            height: 130,
+                                        InkWell(
+                                          onTap: () => showDialog(
+                                            context: context,
+                                            builder: (context) =>
+                                                ImagePictureCompetitor(
+                                              title: controller.title.last,
+                                              image: controller.pic.first,
+                                            ),
+                                          ),
+                                          child: Tooltip(
+                                            message: BaseText.seePicture,
+                                            child: Image.network(
+                                              controller.pic.last,
+                                              width: 150,
+                                              height: 130,
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -110,12 +130,22 @@ class CompetitorDetails extends GetView implements DetailViewContract {
                                   ),
                                 if (controller.pic.length == 1)
                                   BsCol(
-                                    child: Tooltip(
-                                      message: 'Tap to See Full Image',
-                                      child: Image.network(
-                                        controller.pic.first,
-                                        width: 250,
-                                        height: 120,
+                                    child: InkWell(
+                                      onTap: () => showDialog(
+                                        context: context,
+                                        builder: (context) =>
+                                            ImagePictureCompetitor(
+                                          title: controller.title.last,
+                                          image: controller.pic.first,
+                                        ),
+                                      ),
+                                      child: Tooltip(
+                                        message: 'Tap to See Full Image',
+                                        child: Image.network(
+                                          controller.pic.first,
+                                          width: 250,
+                                          height: 120,
+                                        ),
                                       ),
                                     ),
                                   )
