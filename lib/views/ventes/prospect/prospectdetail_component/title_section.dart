@@ -34,12 +34,8 @@ BsCol prospectDetailTitleSection(context) {
               Obx(() => Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          Text(source.prospectname.value),
-                          Icon(Icons.label)
-                        ],
-                      ),
+                      Text(
+                          '${source.prospectname.value} | ${source.status.value}'),
                       if (source.status.value == 'Closed Lost')
                         Row(
                           children: [
@@ -153,6 +149,7 @@ BsCol prospectDetailTitleSection(context) {
               ),
               Container(
                 child: BsRow(
+                  margin: EdgeInsets.only(top: 10),
                   children: [
                     BsCol(
                       sizes: ColScreen(sm: Col.col_12),
@@ -161,21 +158,23 @@ BsCol prospectDetailTitleSection(context) {
                         child: MenuTypeOptions(
                           controller: source.prospectStageController,
                         ),
+                        // child: Row(
+                        //   children: [
+
+                        //   ],
+                        // ),
                       ),
                     ),
                   ],
                 ),
               ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(source.status.value),
-                  Text(source.prospectstartdate.value),
-                ],
-              )
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     Text(source.status.value),
+              //     Text(source.prospectstartdate.value),
+              //   ],
+              // )
             ]),
           ),
         )),

@@ -1419,7 +1419,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
       response.body.map((data) {
         return TypeModel.fromJson(data);
       }),
-    );
+    ).reversed.toList();
   }
 
   @override
