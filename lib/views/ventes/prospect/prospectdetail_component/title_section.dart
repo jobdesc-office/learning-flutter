@@ -158,11 +158,6 @@ BsCol prospectDetailTitleSection(context) {
                         child: MenuTypeOptions(
                           controller: source.prospectStageController,
                         ),
-                        // child: Row(
-                        //   children: [
-
-                        //   ],
-                        // ),
                       ),
                     ),
                   ],

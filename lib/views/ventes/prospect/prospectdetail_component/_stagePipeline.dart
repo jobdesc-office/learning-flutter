@@ -62,10 +62,12 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
             child: TimelineNode(
               direction: Axis.horizontal,
               indicator: DotIndicator(
+                  size: 24,
                   color: ColorPallates.primary,
                   child: Icon(
-                    Icons.check,
+                    Icons.done,
                     color: Colors.white,
+                    size: 18,
                   )),
               startConnector: SolidLineConnector(color: ColorPallates.primary),
               endConnector: DashedLineConnector(color: ColorPallates.primary),
@@ -77,10 +79,12 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
             child: TimelineNode(
               direction: Axis.horizontal,
               indicator: DotIndicator(
+                  size: 24,
                   color: ColorPallates.primary,
                   child: Icon(
                     Icons.check,
                     color: Colors.white,
+                    size: 18,
                   )),
               startConnector: SolidLineConnector(color: ColorPallates.primary),
               endConnector: SolidLineConnector(color: ColorPallates.primary),
