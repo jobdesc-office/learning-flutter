@@ -55,7 +55,26 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
     return BsRow(
       children: widget.controller.options.map((type) {
         Widget indicator;
-        if (widget.controller.selected != null &&
+
+        if (widget.controller.selected!.typeseq ==
+            widget.controller.options.length) {
+          indicator = SizedBox(
+            width: 350,
+            child: TimelineNode(
+              direction: Axis.horizontal,
+              indicator: DotIndicator(
+                  size: 24,
+                  color: ColorPallates.primary,
+                  child: Icon(
+                    Icons.done,
+                    color: Colors.white,
+                    size: 18,
+                  )),
+              startConnector: SolidLineConnector(color: ColorPallates.primary),
+              endConnector: SolidLineConnector(color: ColorPallates.primary),
+            ),
+          );
+        } else if (widget.controller.selected != null &&
             widget.controller.selected!.typeid == type.typeid) {
           indicator = SizedBox(
             width: 350,

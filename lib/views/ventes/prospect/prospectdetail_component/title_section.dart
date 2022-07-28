@@ -35,7 +35,10 @@ BsCol prospectDetailTitleSection(context) {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                          '${source.prospectname.value} | ${source.status.value}'),
+                        '${source.prospectname.value} | ${source.status.value}',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
                       if (source.status.value == 'Closed Lost')
                         Row(
                           children: [

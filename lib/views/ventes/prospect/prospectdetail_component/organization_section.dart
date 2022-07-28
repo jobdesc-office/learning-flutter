@@ -11,7 +11,7 @@ BsCol prospectDetailOrganizationSection(context) {
   final _navigation = Get.find<NavigationPresenter>();
   final source = Get.put(ProspectDetailsSource());
   return BsCol(
-    margin: EdgeInsets.only(top: 10),
+    margin: EdgeInsets.only(top: 5),
     child: Obx(() => Container(
           decoration: BoxDecoration(
             color: _navigation.darkTheme.value
