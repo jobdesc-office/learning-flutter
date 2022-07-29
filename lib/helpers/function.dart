@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:get/get.dart';
+import 'package:date_time_format/date_time_format.dart';
 
 import '../presenters/navigation_presenter.dart';
 
@@ -30,6 +31,13 @@ String parseString(dynamic value) {
 
 DateTime? parseDate(dynamic value) {
   return value == null ? null : DateTime.parse(value.toString());
+}
+
+String dateFormat(DateTime? dateTime,
+    {String format = 'd F Y H:i:s', String nullValue = '-'}) {
+  return dateTime != null
+      ? DateTimeFormat.format(dateTime, format: format)
+      : nullValue;
 }
 
 bool parseBool(dynamic value) {

@@ -7,6 +7,7 @@ import '../../constants/base_text.dart';
 import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
+import '../../contracts/ventes/schedule_contract.dart';
 import '../../models/ventes/schedule_model.dart';
 import '../../services/ventes/schedule_service.dart';
 import '../../utils/custom_get_controller.dart';
@@ -16,7 +17,6 @@ import '../../widgets/confirm_dialog.dart';
 import '../../widgets/map/_map_source.dart';
 
 class SchedulePresenter extends CustomGetXController {
-  List<Color> _colorCollection = <Color>[];
   final _scheduleService = Get.find<ScheduleService>();
   final map = Get.put(MapSource());
 
@@ -36,6 +36,11 @@ class SchedulePresenter extends CustomGetXController {
     _scheduleFetchDataContract = scheduleFetchDataContract;
   }
 
+  late ScheduleContract _scheduleContract;
+  set scheduleContract(ScheduleContract scheduleContract) {
+    _scheduleContract = scheduleContract;
+  }
+
   Future datatables(BuildContext context, Map<String, String> params) async {
     Response response = await _scheduleService.datatables(params);
     if (response.statusCode == 200)
@@ -44,40 +49,20 @@ class SchedulePresenter extends CustomGetXController {
       _scheduleViewContract.onErrorRequest(response);
   }
 
-  Future<List<ScheduleModel>> getDataFromAPI() async {
+  getDataFromAPI() async {
     Response response = await _scheduleService.all();
-    var jsonData = response.body;
 
-    final Random random = new Random();
     final List<ScheduleModel> appointmentData = [];
-    for (var data in jsonData) {
-      _initializeEventColor();
+    for (var data in response.body) {
       ScheduleModel meetingData = ScheduleModel(
-          scheid: data['scheid'],
-          schenm: data['schenm'],
-          schestartdate: data['schestartdate'],
-          // scheenddate: data['scheenddate'],
-          bg: _colorCollection[random.nextInt(9)]
-          // scheactdate: data['scheactdate'],
-          // schestarttime: data['schestarttime'],
-          // scheendtime: data['scheendtime'],
-          );
+        scheid: data['scheid'],
+        schenm: data['schenm'],
+        schestartdate: data['schestartdate'],
+        scheenddate: data['scheenddate'],
+      );
       appointmentData.add(meetingData);
     }
-    return appointmentData;
-  }
-
-  void _initializeEventColor() {
-    _colorCollection.add(const Color(0xFF0F8644));
-    _colorCollection.add(const Color(0xFF8B1FA9));
-    _colorCollection.add(const Color(0xFFD20100));
-    _colorCollection.add(const Color(0xFFFC571D));
-    _colorCollection.add(const Color(0xFF36B37B));
-    _colorCollection.add(const Color(0xFF01A1EF));
-    _colorCollection.add(const Color(0xFF3D4FB5));
-    _colorCollection.add(const Color(0xFFE47C73));
-    _colorCollection.add(const Color(0xFF636363));
-    _colorCollection.add(const Color(0xFF0A8043));
+    _scheduleContract.onLoadScheduleSuccess(appointmentData);
   }
 
   void add(BuildContext context) async {
