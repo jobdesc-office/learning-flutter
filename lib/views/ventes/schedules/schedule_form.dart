@@ -17,6 +17,7 @@ import '../../../widgets/button/theme_button_save.dart';
 import '../../../widgets/map/_map_source.dart';
 import '../../../widgets/snackbar.dart';
 import '_form_source.dart';
+import '_schedule_source.dart';
 import '_text.dart';
 
 // ignore: must_be_immutable
@@ -132,6 +133,10 @@ class ScheduleFormView extends StatelessWidget
   }
 
   void onClickSaveModal(BuildContext context) async {
+    if (source.value.selectedDateStart.value == '') {
+      Get.defaultDialog(title: 'Warning', middleText: 'Start Date is Required');
+      return;
+    }
     presenter.setProcessing(true);
     if (formState.currentState!.validate())
       onSave(await source.toJson());
@@ -154,7 +159,9 @@ class ScheduleFormView extends StatelessWidget
       source.value.inputName.text = menu.schenm ?? '';
       source.value.inputOnLink.text = menu.scheonlink ?? '';
       source.value.inputDesc.text = menu.schedesc ?? '';
-      source.value.inputRemind.text = menu.scheremind.toString();
+      if (menu.scheremind != null) {
+        source.value.inputRemind.text = menu.scheremind.toString();
+      }
 
       authPresenter.bpActiveId.value = menu.schebp!.bpid!;
 
@@ -173,8 +180,11 @@ class ScheduleFormView extends StatelessWidget
       source.value.selectToward.setSelected(BsSelectBoxOption(
           value: menu.schetoward!.userid,
           text: Text(menu.schetoward!.userfullname.toString())));
-      source.value.selectTimeZone.setSelected(
-          BsSelectBoxOption(value: menu.schetz, text: Text(menu.schetz!)));
+
+      if (menu.schetz != null) {
+        source.value.selectTimeZone.setSelected(
+            BsSelectBoxOption(value: menu.schetz, text: Text(menu.schetz!)));
+      }
 
       // source.value.selectsMember.add(BsSelectBoxController());
       // source.value.selectsPermission.add(BsSelectBoxController(options: [

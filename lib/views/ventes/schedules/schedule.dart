@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:boilerplate/constants/base_text.dart';
 import 'package:boilerplate/contracts/base/index_view_contract.dart';
 import 'package:boilerplate/contracts/ventes/schedule_contract.dart';
 import 'package:boilerplate/presenters/navigation_presenter.dart';
@@ -7,7 +8,6 @@ import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:boilerplate/utils/handle_error_request.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../../helpers/function.dart';
@@ -15,6 +15,8 @@ import '../../../models/ventes/schedule_model.dart';
 import '../../../presenters/ventes/schedule_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
+import '../../../widgets/button/button_delete_datatable.dart';
+import '../../../widgets/button/button_edit_datatable.dart';
 import '../../../widgets/button/theme_button_create.dart';
 import '../../../widgets/map/_map_source.dart';
 import '../../../widgets/snackbar.dart';
@@ -27,7 +29,7 @@ class ScheduleView extends GetView
   final presenter = Get.find<SchedulePresenter>();
   final map = Get.put(MapSource());
   final _nav = Get.find<NavigationPresenter>();
-  final source = Get.put(ScheduleSource());
+  final source = Get.put(ScheduleHelper());
 
   ScheduleView() {
     presenter.scheduleViewContract = this;
@@ -57,71 +59,126 @@ class ScheduleView extends GetView
                     )
                   ],
                 ),
-                if (source.done.value)
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.8,
-                    child: TableCalendar(
-                      calendarStyle: CalendarStyle(),
-                      rowHeight: 72,
-                      daysOfWeekHeight: 24,
-                      headerStyle: HeaderStyle(
-                          headerMargin: EdgeInsets.only(bottom: 5),
-                          leftChevronIcon: Icon(
-                            Icons.chevron_left,
-                            color: Colors.white,
+                if (source.isTap.value)
+                  SingleChildScrollView(
+                    child: Column(
+                      children: source.tappedData.map((element) {
+                        return Tooltip(
+                          message: BaseText.editDelete,
+                          child: InkWell(
+                            onLongPress: () => Get.defaultDialog(
+                                middleText: '',
+                                title: 'Setting',
+                                actions: [
+                                  ButtonEditDatatables(onPressed: () {
+                                    presenter.edit(context, element.scheid!);
+                                  }),
+                                  ButtonDeleteDatatables(onPressed: () {
+                                    presenter.delete(context, element.scheid!,
+                                        '${element.schenm!}');
+                                  }),
+                                ]),
+                            onTap: () =>
+                                presenter.details(context, element.scheid!),
+                            child: Container(
+                              margin: EdgeInsets.only(top: 5),
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5)),
+                                color: Colors.primaries[
+                                    Random().nextInt(Colors.primaries.length)],
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(element.schenm!),
+                                ],
+                              ),
+                            ),
                           ),
-                          rightChevronIcon: Icon(
-                            Icons.chevron_right,
-                            color: Colors.white,
-                          ),
-                          formatButtonTextStyle: TextStyle(color: Colors.white),
-                          formatButtonDecoration: BoxDecoration(
-                              border: Border.fromBorderSide(
-                                  BorderSide(color: Colors.white)),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(12.0))),
-                          titleTextStyle: TextStyle(color: Colors.white),
-                          decoration: BoxDecoration(
-                              color: _nav.darkTheme.value
-                                  ? ColorPallates.sidebarDarkColor
-                                  : ColorPallates.primary,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(5)))),
-                      focusedDay: source.focusedDay.value,
-                      firstDay: DateTime.utc(2022, 1, 1),
-                      lastDay: DateTime.utc(DateTime.now().year + 1, 12, 31),
-                      eventLoader: getScheduleInDate,
-                      calendarBuilders: CalendarBuilders(
-                        markerBuilder: (_, date, schedules) {
-                          return schedules.isNotEmpty
-                              ? Container(
-                                  width: 20,
-                                  height: 20,
-                                  margin: EdgeInsets.only(bottom: 5),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "${schedules.length}",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 10,
-                                    ),
-                                  ),
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.primaries[Random()
-                                        .nextInt(Colors.primaries.length)],
-                                  ),
-                                )
-                              : SizedBox();
-                        },
-                      ),
-                      onDaySelected:
-                          (DateTime selectedDay, DateTime focusedDay) {
-                        source.focusedDay.value = selectedDay;
-                        Get.snackbar(
-                            '${source.focusedDay.value}', '$focusedDay');
-                      },
+                        );
+                      }).toList(),
                     ),
+                  ),
+                if (source.done.value)
+                  Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(top: 5),
+                        height: MediaQuery.of(context).size.height * 0.8,
+                        child: TableCalendar<ScheduleModel>(
+                          calendarStyle: CalendarStyle(),
+                          rowHeight: 72,
+                          daysOfWeekHeight: 24,
+                          headerStyle: HeaderStyle(
+                              headerMargin: EdgeInsets.only(bottom: 5),
+                              leftChevronIcon: Icon(
+                                Icons.chevron_left,
+                                color: Colors.white,
+                              ),
+                              rightChevronIcon: Icon(
+                                Icons.chevron_right,
+                                color: Colors.white,
+                              ),
+                              formatButtonTextStyle:
+                                  TextStyle(color: Colors.white),
+                              formatButtonDecoration: BoxDecoration(
+                                  border: Border.fromBorderSide(
+                                      BorderSide(color: Colors.white)),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(12.0))),
+                              titleTextStyle: TextStyle(color: Colors.white),
+                              decoration: BoxDecoration(
+                                  color: _nav.darkTheme.value
+                                      ? ColorPallates.sidebarDarkColor
+                                      : ColorPallates.primary,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5)))),
+                          focusedDay: source.focusedDay.value,
+                          firstDay: DateTime.utc(2022, 1, 1),
+                          lastDay:
+                              DateTime.utc(DateTime.now().year + 1, 12, 31),
+                          eventLoader: getScheduleInDate,
+                          calendarBuilders: CalendarBuilders(
+                            markerBuilder: (_, date, schedules) {
+                              return schedules.isNotEmpty
+                                  ? InkWell(
+                                      onTap: () {
+                                        source.tappedData.value = schedules;
+                                        source.isTap.value = true;
+                                      },
+                                      child: Container(
+                                        width: 20,
+                                        height: 20,
+                                        margin: EdgeInsets.only(bottom: 5),
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "${schedules.length}",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 10,
+                                          ),
+                                        ),
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.primaries[Random()
+                                              .nextInt(
+                                                  Colors.primaries.length)],
+                                        ),
+                                      ),
+                                    )
+                                  : SizedBox();
+                            },
+                          ),
+                          onDaySelected:
+                              (DateTime selectedDay, DateTime focusedDay) {
+                            source.focusedDay.value = selectedDay;
+                          },
+                        ),
+                      ),
+                    ],
                   )
                 else
                   Container(
@@ -157,16 +214,15 @@ class ScheduleView extends GetView
     presenter.setProcessing(false);
     map.reset();
     Snackbar().createSuccess();
-    Get.toNamed(RouteList.ventesSchedule.index);
     Navigator.pop(context!);
   }
 
   @override
   void onDeleteSuccess(Response response, {BuildContext? context}) {
+    source.done.value = true;
     presenter.setProcessing(false);
     map.reset();
     Snackbar().deleteSuccess();
-    Get.toNamed(RouteList.ventesSchedule.index);
     Navigator.pop(context!);
   }
 
@@ -175,7 +231,6 @@ class ScheduleView extends GetView
     presenter.setProcessing(false);
     map.reset();
     Snackbar().editSuccess();
-    Get.toNamed(RouteList.ventesSchedule.index);
     Navigator.pop(context!);
   }
 
