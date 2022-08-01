@@ -109,10 +109,14 @@ class ScheduleView extends GetView
                         margin: EdgeInsets.only(top: 5),
                         height: MediaQuery.of(context).size.height * 0.8,
                         child: TableCalendar<ScheduleModel>(
-                          calendarStyle: CalendarStyle(),
+                          calendarStyle: CalendarStyle(
+                              todayDecoration: BoxDecoration(
+                                  color: ColorPallates.primary,
+                                  shape: BoxShape.circle)),
                           rowHeight: 72,
                           daysOfWeekHeight: 24,
                           headerStyle: HeaderStyle(
+                              formatButtonVisible: false,
                               headerMargin: EdgeInsets.only(bottom: 5),
                               leftChevronIcon: Icon(
                                 Icons.chevron_left,
@@ -138,14 +142,14 @@ class ScheduleView extends GetView
                                       BorderRadius.all(Radius.circular(5)))),
                           focusedDay: source.focusedDay.value,
                           firstDay: DateTime.utc(2022, 1, 1),
-                          lastDay:
-                              DateTime.utc(DateTime.now().year + 1, 12, 31),
+                          lastDay: DateTime.utc(DateTime.now().year, 12, 31),
                           eventLoader: getScheduleInDate,
                           calendarBuilders: CalendarBuilders(
                             markerBuilder: (_, date, schedules) {
                               return schedules.isNotEmpty
                                   ? InkWell(
                                       onTap: () {
+                                        source.focusedDay.value = date;
                                         source.tappedData.value = schedules;
                                         source.isTap.value = true;
                                       },
@@ -172,10 +176,6 @@ class ScheduleView extends GetView
                                   : SizedBox();
                             },
                           ),
-                          onDaySelected:
-                              (DateTime selectedDay, DateTime focusedDay) {
-                            source.focusedDay.value = selectedDay;
-                          },
                         ),
                       ),
                     ],
