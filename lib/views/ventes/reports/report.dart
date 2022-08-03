@@ -11,6 +11,7 @@ import 'package:table_calendar/table_calendar.dart';
 
 import '../../../contracts/ventes/report_contract.dart';
 import '../../../contracts/ventes/schedule_contract.dart';
+import '../../../helpers/function.dart';
 import '../../../models/ventes/report_model.dart';
 import '../../../presenters/ventes/report_presenter.dart';
 import '../../../routes/route_list.dart';
@@ -43,103 +44,200 @@ class ReportView extends GetView
           BreadcrumbWidget('Report', active: true),
         ],
         activeRoutes: [RouteList.master.index, RouteList.ventesReport.index],
-        child: Obx(() => TableCalendar<ReportModel>(
-              calendarStyle: CalendarStyle(
-                  todayDecoration: BoxDecoration(
-                      color: ColorPallates.primary, shape: BoxShape.circle)),
-              rowHeight: 160,
-              daysOfWeekHeight: 24,
-              headerStyle: HeaderStyle(
-                  formatButtonVisible: false,
-                  headerMargin: EdgeInsets.only(bottom: 5),
-                  leftChevronIcon: Icon(
-                    Icons.chevron_left,
-                    color: Colors.white,
-                  ),
-                  rightChevronIcon: Icon(
-                    Icons.chevron_right,
-                    color: Colors.white,
-                  ),
-                  formatButtonTextStyle: TextStyle(color: Colors.white),
-                  formatButtonDecoration: BoxDecoration(
-                      border: Border.fromBorderSide(
-                          BorderSide(color: Colors.white)),
-                      borderRadius: BorderRadius.all(Radius.circular(12.0))),
-                  titleTextStyle: TextStyle(color: Colors.white),
-                  decoration: BoxDecoration(
-                      color: _nav.darkTheme.value
-                          ? ColorPallates.sidebarDarkColor
-                          : ColorPallates.primary,
-                      borderRadius: BorderRadius.all(Radius.circular(5)))),
-              focusedDay: source.focusedDay.value,
-              firstDay: DateTime.utc(2022, 1, 1),
-              lastDay: DateTime.utc(DateTime.now().year, 12, 31),
-              // eventLoader: getReportInDate,
-              calendarBuilders: CalendarBuilders(
-                outsideBuilder: (context, date, events) => source.dayContainer(
-                  context,
-                  date,
-                  outsideDay: true,
-                  color: Color.fromARGB(255, 156, 156, 156),
-                ),
-                todayBuilder: (context, date, events) => source.dayContainer(
-                  context,
-                  date,
-                  color: Colors.white,
-                  textBackground: ColorPallates.tertiary,
-                ),
-                defaultBuilder: (context, date, _) =>
-                    source.dayContainer(context, date),
-                markerBuilder: (_, date, reports) {
-                  return reports.isNotEmpty
-                      ? InkWell(
-                          onTap: () {
-                            source.focusedDay.value = date;
-                            // source.tappedData.value = Reports;
-                            source.isTap.value = true;
-                          },
-                          child: Container(
-                            width: 20,
-                            height: 20,
-                            margin: EdgeInsets.only(bottom: 5),
-                            alignment: Alignment.center,
-                            child: Text(
-                              "${reports.length}",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 10,
-                              ),
-                            ),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.primaries[
-                                  Random().nextInt(Colors.primaries.length)],
-                            ),
+        child: Obx(() => SingleChildScrollView(
+              child: Column(
+                children: [
+                  if (source.done.value)
+                    TableCalendar<Activities>(
+                      calendarStyle: CalendarStyle(
+                          todayDecoration: BoxDecoration(
+                              color: ColorPallates.primary,
+                              shape: BoxShape.circle)),
+                      rowHeight: 160,
+                      daysOfWeekHeight: 24,
+                      headerStyle: HeaderStyle(
+                          formatButtonVisible: false,
+                          headerMargin: EdgeInsets.only(bottom: 5),
+                          leftChevronIcon: Icon(
+                            Icons.chevron_left,
+                            color: Colors.white,
                           ),
-                        )
-                      : SizedBox();
-                },
+                          rightChevronIcon: Icon(
+                            Icons.chevron_right,
+                            color: Colors.white,
+                          ),
+                          formatButtonTextStyle: TextStyle(color: Colors.white),
+                          formatButtonDecoration: BoxDecoration(
+                              border: Border.fromBorderSide(
+                                  BorderSide(color: Colors.white)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(12.0))),
+                          titleTextStyle: TextStyle(color: Colors.white),
+                          decoration: BoxDecoration(
+                              color: _nav.darkTheme.value
+                                  ? ColorPallates.sidebarDarkColor
+                                  : ColorPallates.primary,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5)))),
+                      focusedDay: source.focusedDay.value,
+                      firstDay: DateTime.utc(2022, 1, 1),
+                      lastDay: DateTime.utc(DateTime.now().year, 12, 31),
+                      eventLoader: getReportInDate,
+                      calendarBuilders: CalendarBuilders(
+                        outsideBuilder: (context, date, events) =>
+                            source.dayContainer(
+                          context,
+                          date,
+                          outsideDay: true,
+                          color: Color.fromARGB(255, 156, 156, 156),
+                        ),
+                        todayBuilder: (context, date, events) =>
+                            source.dayContainer(
+                          context,
+                          date,
+                          color: Colors.white,
+                          textBackground: ColorPallates.tertiary,
+                        ),
+                        defaultBuilder: (context, date, _) =>
+                            source.dayContainer(context, date),
+                        markerBuilder: (_, date, reports) {
+                          List<int> employee = source.employees.value;
+                          for (var item in reports) {
+                            employee.removeWhere(
+                                (element) => element == item.createdby);
+                          }
+                          return reports.isNotEmpty
+                              ? InkWell(
+                                  onTap: () {
+                                    source.focusedDay.value = date;
+                                    // source.tappedData.value = Reports;
+                                    source.isTap.value = true;
+                                  },
+                                  child: Container(
+                                    margin: EdgeInsets.only(top: 50),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          width: 150,
+                                          height: 20,
+                                          margin: EdgeInsets.only(bottom: 5),
+                                          padding: EdgeInsets.only(left: 5),
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            "Daily Activity : ${reports.length}",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 10,
+                                            ),
+                                          ),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(5)),
+                                            color: Colors.primaries[Random()
+                                                .nextInt(
+                                                    Colors.primaries.length)],
+                                          ),
+                                        ),
+                                        Container(
+                                          width: 150,
+                                          height: 20,
+                                          margin: EdgeInsets.only(bottom: 5),
+                                          padding: EdgeInsets.only(left: 5),
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            "Non Daily Activity : ${employee.length}",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 10,
+                                            ),
+                                          ),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(5)),
+                                            color: Colors.primaries[Random()
+                                                .nextInt(
+                                                    Colors.primaries.length)],
+                                          ),
+                                        ),
+                                        Container(
+                                          width: 150,
+                                          height: 20,
+                                          margin: EdgeInsets.only(bottom: 5),
+                                          padding: EdgeInsets.only(left: 5),
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            "Employees : ${source.employeesCount.value}",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 10,
+                                            ),
+                                          ),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(5)),
+                                            color: Colors.primaries[Random()
+                                                .nextInt(
+                                                    Colors.primaries.length)],
+                                          ),
+                                        ),
+                                        Container(
+                                          width: 150,
+                                          height: 20,
+                                          margin: EdgeInsets.only(bottom: 5),
+                                          padding: EdgeInsets.only(left: 5),
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            "Other : ${reports.length}",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 10,
+                                            ),
+                                          ),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(5)),
+                                            color: Colors.primaries[Random()
+                                                .nextInt(
+                                                    Colors.primaries.length)],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              : SizedBox();
+                        },
+                      ),
+                    )
+                  else
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.5,
+                      child: Center(
+                        child: Text('Proccessing ...'),
+                      ),
+                    ),
+                ],
               ),
             )),
       ),
     );
   }
 
-  // List<ReportModel> getReportInDate(DateTime date) {
-  //   date = DateTime(date.year, date.month, date.day);
-  //   return source.data.where((element) {
-  //     DateTime startDate = parseDate(element.schestartdate)!;
-  //     bool result = date.isAtSameMomentAs(startDate);
+  List<Activities> getReportInDate(DateTime date) {
+    date = DateTime(date.year, date.month, date.day);
+    return source.data.where((element) {
+      DateTime startDate = parseDate(element.dayactdate)!;
+      bool result = date.isAtSameMomentAs(startDate);
 
-  //     // if (element.scheenddate != null) {
-  //     //   DateTime endDate = parseDate(element.scheenddate)!;
-  //     //   result = result ||
-  //     //       date.isAtSameMomentAs(endDate) ||
-  //     //       (date.isAfter(startDate) && date.isBefore(endDate));
-  //     // }
-  //     return result;
-  //   }).toList();
-  // }
+      // if (element.scheenddate != null) {
+      //   DateTime endDate = parseDate(element.scheenddate)!;
+      //   result = result ||
+      //       date.isAtSameMomentAs(endDate) ||
+      //       (date.isAfter(startDate) && date.isBefore(endDate));
+      // }
+      return result;
+    }).toList();
+  }
 
   @override
   void onCreateSuccess(Response response, {BuildContext? context}) {
@@ -179,7 +277,20 @@ class ReportView extends GetView
   }
 
   @override
-  void onLoadReportSuccess(List<ReportModel> response) {
-    print(response);
+  void onLoadReportSuccess(ReportModel response) {
+    final data = <Activities>[];
+    for (var item in response.activities!) {
+      data.add(item);
+    }
+    source.data.value = data;
+
+    final employees = <int>[];
+    for (var item in response.employees!) {
+      employees.add(item.userid!);
+    }
+    source.employees.value = employees;
+    source.employeesCount.value = employees.length;
+
+    source.done.value = true;
   }
 }

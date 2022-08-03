@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../models/ventes/report_model.dart';
+
 class ReportHelper extends GetxController {
-  // var data = <ReportModel>[].obs;
-  // var tappedData = <ReportModel>[].obs;
+  var data = <Activities>[].obs;
+  var employees = <int>[].obs;
+  var employeesCount = 0.obs;
+  var tappedData = <ReportModel>[].obs;
   var done = false.obs;
   var isTap = false.obs;
 

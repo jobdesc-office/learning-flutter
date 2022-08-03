@@ -36,12 +36,7 @@ class ReportPresenter extends CustomGetXController {
   getDataFromAPI() async {
     Response response = await _reportService.bpid(box.read('mybpid'));
 
-    final List<ReportModel> appointmentData = [];
-    print(response.body);
-    for (var item in response.body) {
-      appointmentData.add(ReportModel.fromJson(item));
-    }
-    _reportContract.onLoadReportSuccess(appointmentData);
+    _reportContract.onLoadReportSuccess(ReportModel.fromJson(response.body));
   }
 
   void details(BuildContext context, int scheid) async {
