@@ -198,13 +198,16 @@ class _SignInViewState extends State<SignInView>
   @override
   void onLoginSuccess(AuthModel userModel) {
     final box = GetStorage();
-    List data = [];
+    List<Userdetails> data = [];
     box.write('name', userModel.userfullname!);
     box.write('id', userModel.userid!);
     box.write('username', userModel.username!);
     for (var item in userModel.userdetails!) {
       data.add(item);
     }
+    box.write('details', data);
+    box.write('mybpid', data.first.businesspartner!.bpid);
+    authPresenter.detailUser.value = data;
     if (userModel.jwtToken == '') {
       authPresenter.setProcessing(false);
       toNameRoute(RouteList.sigin.index);

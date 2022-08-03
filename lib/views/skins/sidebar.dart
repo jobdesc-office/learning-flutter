@@ -156,6 +156,12 @@ class SidebarSkins extends StatelessWidget {
                           label: 'Schedules',
                           icon: FontAwesomeIcons.calendarDays,
                         ),
+                        MenuData(
+                          id: no++,
+                          route: RouteList.ventesReport.index,
+                          label: 'Reports',
+                          icon: FontAwesomeIcons.addressBook,
+                        ),
                       ]),
                   MenuDataGroup(
                     title: 'Settings',

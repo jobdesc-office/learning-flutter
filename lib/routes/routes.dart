@@ -21,6 +21,7 @@ import '../presenters/ventes/prospectassign_presenter.dart';
 import '../presenters/ventes/prospectactivity_presenter.dart';
 import '../presenters/ventes/prospectcustomfield_presenter.dart';
 import '../presenters/ventes/prospectproduct_presenter.dart';
+import '../presenters/ventes/report_presenter.dart';
 import '../presenters/ventes/schedule_presenter.dart';
 import '../presenters/masters/typechildren_presenter.dart';
 import '../presenters/masters/typeparent_presenter.dart';
@@ -45,6 +46,7 @@ import '../services/ventes/prospectassign_service.dart';
 import '../services/ventes/prospectactivity_service.dart';
 import '../services/ventes/prospectcustomfield_service.dart';
 import '../services/ventes/prospectproduct_service.dart';
+import '../services/ventes/report_service.dart';
 import '../services/ventes/schedule_service.dart';
 import '../services/masters/type_service.dart';
 import '../services/masters/typechildren_service.dart';
@@ -70,6 +72,7 @@ import '../views/settings/files/file.dart';
 import '../views/ventes/bpcustomers/bpcustomer.dart';
 import '../views/ventes/competitor/competitor.dart';
 import '../views/ventes/prospect/prospect.dart';
+import '../views/ventes/reports/report.dart';
 import '../views/ventes/schedules/schedule.dart';
 import '../views/masters/typeschildren/types_children.dart';
 import '../views/masters/typesparents/types_parents.dart';
@@ -237,6 +240,14 @@ class AppRoute {
           Get.lazyPut(() => SchedulePresenter());
           Get.lazyPut(() => TypeChildrenService());
           Get.lazyPut(() => UserService());
+        }),
+      ),
+      CustomGetPage(
+        name: RouteList.ventesReport.index,
+        page: () => ReportView(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => ReportService());
+          Get.lazyPut(() => ReportPresenter());
         }),
       ),
       CustomGetPage(

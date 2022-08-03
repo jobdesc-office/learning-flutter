@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:boilerplate/services/settings/customfield_service.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -94,6 +97,50 @@ class HeaderSkins extends StatelessWidget implements LogoutViewContract {
                               ),
                             ),
                             children: [
+                              BsDropdownItem(
+                                style: BoxDecoration(
+                                    color: _navigation.darkTheme.value
+                                        ? ColorPallates.elseDarkColor
+                                        : ColorPallates.elseLightColor),
+                                child: Column(
+                                  children: authPresenter.detailUser
+                                      .map((element) => Container(
+                                            margin: EdgeInsets.all(3),
+                                            child: InkWell(
+                                              onTap: () {
+                                                box.writeInMemory(
+                                                    'mybpid',
+                                                    element.businesspartner!
+                                                        .bpid!);
+                                                Get.defaultDialog(
+                                                    title: 'Caution',
+                                                    middleText:
+                                                        'Bp : ${element.businesspartner!.bpname} \n Role : ${element.usertype!.typename}');
+                                              },
+                                              child: Container(
+                                                padding: EdgeInsets.all(3),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      element.businesspartner!
+                                                          .bpname!,
+                                                      style: TextStyle(
+                                                          color: _navigation
+                                                                  .darkTheme
+                                                                  .value
+                                                              ? Colors.white
+                                                              : Colors.black),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ))
+                                      .toList(),
+                                ),
+                              ),
                               BsDropdownItem(
                                 style: BoxDecoration(
                                     color: _navigation.darkTheme.value
