@@ -55,7 +55,7 @@ class ProspectView extends GetView implements IndexViewContract {
   void onCreateSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
     datatable.controller.reload();
-    if (context != null) Navigator.pop(context);
+    Navigator.pop(context!);
     Snackbar().createSuccess();
   }
 
@@ -63,7 +63,7 @@ class ProspectView extends GetView implements IndexViewContract {
   void onDeleteSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
     datatable.controller.reload();
-    if (context != null) Navigator.pop(context);
+    Navigator.pop(context!);
     Snackbar().deleteSuccess();
   }
 
@@ -71,7 +71,7 @@ class ProspectView extends GetView implements IndexViewContract {
   void onEditSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
     datatable.controller.reload();
-    if (context != null) Navigator.pop(context);
+    Navigator.pop(context!);
     Snackbar().editSuccess();
   }
 

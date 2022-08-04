@@ -106,6 +106,7 @@ class ReportView extends GetView
                             employee.removeWhere(
                                 (element) => element == item.createdby);
                           }
+
                           return reports.isNotEmpty
                               ? InkWell(
                                   onTap: () {
@@ -133,9 +134,7 @@ class ReportView extends GetView
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(5)),
-                                            color: Colors.primaries[Random()
-                                                .nextInt(
-                                                    Colors.primaries.length)],
+                                            color: Colors.blue,
                                           ),
                                         ),
                                         Container(
@@ -145,7 +144,7 @@ class ReportView extends GetView
                                           padding: EdgeInsets.only(left: 5),
                                           alignment: Alignment.centerLeft,
                                           child: Text(
-                                            "Non Daily Activity : ${employee.length}",
+                                            "No Daily Activity : ${employee.length}",
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 10,
@@ -154,9 +153,7 @@ class ReportView extends GetView
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(5)),
-                                            color: Colors.primaries[Random()
-                                                .nextInt(
-                                                    Colors.primaries.length)],
+                                            color: Colors.green,
                                           ),
                                         ),
                                         Container(
@@ -175,9 +172,7 @@ class ReportView extends GetView
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(5)),
-                                            color: Colors.primaries[Random()
-                                                .nextInt(
-                                                    Colors.primaries.length)],
+                                            color: Colors.purple,
                                           ),
                                         ),
                                         Container(
@@ -196,9 +191,7 @@ class ReportView extends GetView
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(5)),
-                                            color: Colors.primaries[Random()
-                                                .nextInt(
-                                                    Colors.primaries.length)],
+                                            color: Colors.grey,
                                           ),
                                         ),
                                       ],

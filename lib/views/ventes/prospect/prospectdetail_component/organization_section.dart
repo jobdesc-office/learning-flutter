@@ -77,19 +77,19 @@ BsCol prospectDetailOrganizationSection(context) {
                         Text(source.bpname.value)
                       ],
                     ),
-                    ExpansionTile(
-                      title: Text(
-                        "Title",
-                        style: TextStyle(
-                            fontSize: 18.0, fontWeight: FontWeight.bold),
-                      ),
-                      children: <Widget>[
-                        ListTile(
-                          subtitle:
-                              Text('data data data data data data data data'),
-                        )
-                      ],
-                    ),
+                    // ExpansionTile(
+                    //   title: Text(
+                    //     "Title",
+                    //     style: TextStyle(
+                    //         fontSize: 18.0, fontWeight: FontWeight.bold),
+                    //   ),
+                    //   children: <Widget>[
+                    //     ListTile(
+                    //       subtitle:
+                    //           Text('data data data data data data data data'),
+                    //     )
+                    //   ],
+                    // ),
                   ],
                 )
               ],

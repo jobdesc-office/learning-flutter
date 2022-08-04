@@ -289,7 +289,7 @@ class ProspectFormView extends StatelessWidget
     if (formState.currentState!.validate()) {
       if (source.value.prospectStageController.selected == null) {
         Get.defaultDialog(
-            title: 'Something Wrong', middleText: 'Stage Required');
+            title: '', middleText: 'Please Choose Prospect Stage');
         presenter.isProcessing.value = false;
       } else
         onSave(await source.toJson());

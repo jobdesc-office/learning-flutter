@@ -58,46 +58,45 @@ class _HomeViewState extends State<HomeView>
               child: BsRow(
                 children: [
                   BsCol(
-                    sizes: ColScreen(sm: Col.col_3),
+                    sizes: ColScreen(sm: Col.col_2),
                     child: Container(
-                      color: ColorPallates.pipeline,
+                      color: Colors.grey,
                       padding: EdgeInsets.all(10),
-                      child: Center(child: Text('Meeting')),
+                      child: Center(child: Text('Qualified')),
                     ),
                   ),
                   BsCol(
-                    sizes: ColScreen(sm: Col.col_3),
-                    child: CustomPaint(
-                      painter: PipelineStageShapeFill(),
-                      child: Container(
-                          width: 40,
-                          height: 37,
-                          child: Center(child: Text('Proposal'))),
+                    sizes: ColScreen(sm: Col.col_4),
+                    child: Container(
+                      color: ColorPallates.primary,
+                      padding: EdgeInsets.all(10),
+                      child: Center(child: Text('Contact Made')),
                     ),
                   ),
                   BsCol(
-                    sizes: ColScreen(sm: Col.col_3),
+                    sizes: ColScreen(sm: Col.col_2),
                     child: Container(
-                      color: ColorPallates.pipeline,
+                      color: Colors.grey,
                       padding: EdgeInsets.all(10),
-                      child: Center(child: Text('Negociation')),
+                      child: Center(child: Text('Demo Scheduled')),
                     ),
                   ),
                   BsCol(
-                    sizes: ColScreen(sm: Col.col_3),
+                    sizes: ColScreen(sm: Col.col_2),
                     child: Container(
-                      color: ColorPallates.pipeline,
+                      color: Colors.grey,
                       padding: EdgeInsets.all(10),
-                      child: Center(child: Text('Closed')),
+                      child: Center(child: Text('Proposal Made')),
                     ),
                   ),
-                  // BsCol(
-                  //   sizes: ColScreen(sm: Col.col_2),
-                  //   child: Container(
-                  //     color: Colors.grey,
-                  //     child: Text('data'),
-                  //   ),
-                  // )
+                  BsCol(
+                    sizes: ColScreen(sm: Col.col_2),
+                    child: Container(
+                      color: Colors.grey,
+                      padding: EdgeInsets.all(10),
+                      child: Center(child: Text('Negotiations Started')),
+                    ),
+                  )
                 ],
               ),
             ),

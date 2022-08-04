@@ -58,8 +58,9 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
 
         if (widget.controller.selected!.typeseq ==
             widget.controller.options.length) {
+          // col = Col.col_4;
           indicator = SizedBox(
-            width: 350,
+            width: 500,
             child: TimelineNode(
               direction: Axis.horizontal,
               indicator: DotIndicator(
@@ -76,8 +77,9 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
           );
         } else if (widget.controller.selected != null &&
             widget.controller.selected!.typeid == type.typeid) {
+          // col = Col.col_4;
           indicator = SizedBox(
-            width: 350,
+            width: 500,
             child: TimelineNode(
               direction: Axis.horizontal,
               indicator: DotIndicator(
@@ -93,8 +95,9 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
             ),
           );
         } else if (widget.controller.selected!.typeseq > type.typeseq) {
+          // col = Col.col_4;
           indicator = SizedBox(
-            width: 350,
+            width: 500,
             child: TimelineNode(
               direction: Axis.horizontal,
               indicator: DotIndicator(
@@ -110,8 +113,9 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
             ),
           );
         } else {
+          // col = Col.col_4;
           indicator = SizedBox(
-            width: 350,
+            width: 500,
             child: TimelineNode(
               direction: Axis.horizontal,
               indicator: OutlinedDotIndicator(
@@ -128,7 +132,10 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
         if (index == 0) {
         } else if (index == widget.controller.options.length - 1) {}
         return BsCol(
-          sizes: ColScreen(sm: Col.col_3),
+          sizes: ColScreen(
+              sm: widget.controller.selected!.typeid == type.typeid
+                  ? Col.col_4
+                  : Col.col_2),
           child: Container(
             child: Column(
               children: [

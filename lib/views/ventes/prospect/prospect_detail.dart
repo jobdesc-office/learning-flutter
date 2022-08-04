@@ -82,7 +82,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
   void initState() {
     super.initState();
     presenter.prospectViewContract = this;
-    _tabController = TabController(length: 6, vsync: this);
+    _tabController = TabController(length: 7, vsync: this);
     // _tabControllerTimeline = TabController(length: 8, vsync: this);
     presenter.prospectTypeViewDetailContract = this;
     presenter.prospectDetailsViewContract = this;
@@ -594,6 +594,9 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                         unselectedLabelColor: Colors.black,
                                         tabs: [
                                           Tab(
+                                              text: 'Activities',
+                                              icon: Icon(Icons.local_activity)),
+                                          Tab(
                                               text: 'Notes',
                                               icon: Icon(Icons.note)),
                                           Tab(
@@ -607,7 +610,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                               text: 'Product',
                                               icon: Icon(Icons.sell)),
                                           Tab(
-                                              text: 'Call',
+                                              text: 'Contact',
                                               icon: Icon(Icons.phone)),
                                           Tab(
                                               text: 'Files',
@@ -617,14 +620,87 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                     ),
                                     Container(
                                       width: double.infinity,
-                                      height: 200,
+                                      height: 330,
                                       child: TabBarView(
                                         controller: _tabController,
                                         children: [
                                           Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [Text('Notes')],
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                margin: EdgeInsets.all(5),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                      alignment:
+                                                          Alignment.topLeft,
+                                                      margin: EdgeInsets.only(
+                                                          top: 10, bottom: 10),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Text(
+                                                            'Activities :',
+                                                            style: TextStyle(
+                                                                fontSize: 18),
+                                                          ),
+                                                          BsButton(
+                                                              style:
+                                                                  BsButtonStyle
+                                                                      .success,
+                                                              onPressed: () =>
+                                                                  detailPresenter.add(
+                                                                      context,
+                                                                      source
+                                                                          .prospectid
+                                                                          .value),
+                                                              label: Text(
+                                                                  'Add Activity')),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    prospectDetailActivitySection(
+                                                        context)
+                                                  ],
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                margin: EdgeInsets.all(5),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                      alignment:
+                                                          Alignment.topLeft,
+                                                      margin: EdgeInsets.only(
+                                                          top: 10, bottom: 10),
+                                                      child: Text(
+                                                        'Notes :',
+                                                        style: TextStyle(
+                                                            fontSize: 18),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                        margin: EdgeInsets.only(
+                                                            top: 20),
+                                                        child: Text(
+                                                            source.desc.value))
+                                                  ],
+                                                ),
+                                              )
+                                            ],
                                           ),
                                           if (source.assign.length != 0)
                                             SingleChildScrollView(
@@ -1112,7 +1188,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                                             sizes:
                                                                                 ColScreen(sm: Col.col_9),
                                                                             child:
-                                                                                Text('Rp. ' + currencyFormatter.format(double.parse(products.prosproductamount))),
+                                                                                Text('Rp. ' + currencyFormatter.format(double.parse(products.prosproductamount)).replaceAll(',00', '').replaceAll('.', ',')),
                                                                           ),
                                                                         ],
                                                                       ),
@@ -1153,7 +1229,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                           Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
-                                            children: [Text('Call')],
+                                            children: [Text('Contact')],
                                           ),
                                           Column(
                                             mainAxisAlignment:
@@ -1168,177 +1244,177 @@ class _ProspectDetailsState extends State<ProspectDetails>
                               ),
                             )),
                       ),
-                      BsCol(
-                        margin: EdgeInsets.only(top: 10),
-                        child: Container(
-                          margin: EdgeInsets.all(10),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              prospectDetailActivitySection(context),
-                              // SizedBox(
-                              //   height: 20,
-                              // ),
-                              // Column(
-                              //   children: [
-                              //     BsBadge(
-                              //       child: Text('DONE'),
-                              //     ),
-                              //     Column(
-                              //       children: [
-                              //         Text(
-                              //             'You don\'t have complete activities.'),
-                              //       ],
-                              //     ),
-                              //   ],
-                              // ),
+                      // BsCol(
+                      //   margin: EdgeInsets.only(top: 10),
+                      //   child: Container(
+                      //     margin: EdgeInsets.all(10),
+                      //     child: Column(
+                      //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      //       children: [
+                      //         ,
+                      // SizedBox(
+                      //   height: 20,
+                      // ),
+                      // Column(
+                      //   children: [
+                      //     BsBadge(
+                      //       child: Text('DONE'),
+                      //     ),
+                      //     Column(
+                      //       children: [
+                      //         Text(
+                      //             'You don\'t have complete activities.'),
+                      //       ],
+                      //     ),
+                      //   ],
+                      // ),
 
-                              // SizedBox(
-                              //   height: 30,
-                              // ),
-                              // Container(
-                              //   child: TabBar(
-                              //     controller: _tabControllerTimeline,
-                              //     labelColor: Colors.green,
-                              //     unselectedLabelColor: Colors.black,
-                              //     tabs: [
-                              //       Tab(text: 'All'),
-                              //       Tab(text: 'Activity'),
-                              //       Tab(text: 'Notes'),
-                              //       Tab(text: 'Email'),
-                              //       Tab(text: 'Invoices'),
-                              //       Tab(text: 'Documents'),
-                              //       Tab(text: 'Files'),
-                              //       Tab(text: 'Changelog'),
-                              //     ],
-                              //   ),
-                              // ),
-                              // Container(
-                              //   width: double.infinity,
-                              //   height: 200,
-                              //   child: TabBarView(
-                              //     controller: _tabControllerTimeline,
-                              //     children: [
-                              //       Container(
-                              //         margin: EdgeInsets.only(top: 20),
-                              //         child: Column(
-                              //           mainAxisAlignment:
-                              //               MainAxisAlignment.center,
-                              //           children: [
-                              //             BsRow(
-                              //               children: [
-                              //                 BsCol(
-                              //                     sizes:
-                              //                         ColScreen(sm: Col.col_1),
-                              //                     child: Column(
-                              //                       children: [
-                              //                         OutlinedDotIndicator(),
-                              //                         SizedBox(
-                              //                           height: 50.0,
-                              //                           child:
-                              //                               SolidLineConnector(),
-                              //                         )
-                              //                       ],
-                              //                     )),
-                              //                 BsCol(
-                              //                     sizes:
-                              //                         ColScreen(sm: Col.col_2),
-                              //                     child: Text('Today')),
-                              //                 BsCol(
-                              //                     sizes:
-                              //                         ColScreen(sm: Col.col_9),
-                              //                     child: Column(
-                              //                       crossAxisAlignment:
-                              //                           CrossAxisAlignment
-                              //                               .start,
-                              //                       children: [
-                              //                         Text(
-                              //                           'Meeting',
-                              //                           style: TextStyle(
-                              //                               fontWeight:
-                              //                                   FontWeight
-                              //                                       .bold),
-                              //                         ),
-                              //                         Text('at Town Hall'),
-                              //                       ],
-                              //                     )),
-                              //                 BsCol(
-                              //                     sizes:
-                              //                         ColScreen(sm: Col.col_1),
-                              //                     child: Column(
-                              //                       children: [
-                              //                         OutlinedDotIndicator()
-                              //                       ],
-                              //                     )),
-                              //                 BsCol(
-                              //                     sizes:
-                              //                         ColScreen(sm: Col.col_2),
-                              //                     child: Text('Yesterday')),
-                              //                 BsCol(
-                              //                     sizes:
-                              //                         ColScreen(sm: Col.col_9),
-                              //                     child: Column(
-                              //                       crossAxisAlignment:
-                              //                           CrossAxisAlignment
-                              //                               .start,
-                              //                       children: [
-                              //                         Text(
-                              //                           'Meeting',
-                              //                           style: TextStyle(
-                              //                               fontWeight:
-                              //                                   FontWeight
-                              //                                       .bold),
-                              //                         ),
-                              //                         Text('at Town Hall'),
-                              //                       ],
-                              //                     )),
-                              //               ],
-                              //             )
-                              //           ],
-                              //         ),
-                              //       ),
-                              //       Column(
-                              //         mainAxisAlignment:
-                              //             MainAxisAlignment.center,
-                              //         children: [Text('Activity')],
-                              //       ),
-                              //       Column(
-                              //         mainAxisAlignment:
-                              //             MainAxisAlignment.center,
-                              //         children: [Text('Notes')],
-                              //       ),
-                              //       Column(
-                              //         mainAxisAlignment:
-                              //             MainAxisAlignment.center,
-                              //         children: [Text('Email')],
-                              //       ),
-                              //       Column(
-                              //         mainAxisAlignment:
-                              //             MainAxisAlignment.center,
-                              //         children: [Text('Invoices')],
-                              //       ),
-                              //       Column(
-                              //         mainAxisAlignment:
-                              //             MainAxisAlignment.center,
-                              //         children: [Text('Documents')],
-                              //       ),
-                              //       Column(
-                              //         mainAxisAlignment:
-                              //             MainAxisAlignment.center,
-                              //         children: [Text('Files')],
-                              //       ),
-                              //       Column(
-                              //         mainAxisAlignment:
-                              //             MainAxisAlignment.center,
-                              //         children: [Text('Changelog')],
-                              //       ),
-                              //     ],
-                              //   ),
-                              // )
-                            ],
-                          ),
-                        ),
-                      ),
+                      // SizedBox(
+                      //   height: 30,
+                      // ),
+                      // Container(
+                      //   child: TabBar(
+                      //     controller: _tabControllerTimeline,
+                      //     labelColor: Colors.green,
+                      //     unselectedLabelColor: Colors.black,
+                      //     tabs: [
+                      //       Tab(text: 'All'),
+                      //       Tab(text: 'Activity'),
+                      //       Tab(text: 'Notes'),
+                      //       Tab(text: 'Email'),
+                      //       Tab(text: 'Invoices'),
+                      //       Tab(text: 'Documents'),
+                      //       Tab(text: 'Files'),
+                      //       Tab(text: 'Changelog'),
+                      //     ],
+                      //   ),
+                      // ),
+                      // Container(
+                      //   width: double.infinity,
+                      //   height: 200,
+                      //   child: TabBarView(
+                      //     controller: _tabControllerTimeline,
+                      //     children: [
+                      //       Container(
+                      //         margin: EdgeInsets.only(top: 20),
+                      //         child: Column(
+                      //           mainAxisAlignment:
+                      //               MainAxisAlignment.center,
+                      //           children: [
+                      //             BsRow(
+                      //               children: [
+                      //                 BsCol(
+                      //                     sizes:
+                      //                         ColScreen(sm: Col.col_1),
+                      //                     child: Column(
+                      //                       children: [
+                      //                         OutlinedDotIndicator(),
+                      //                         SizedBox(
+                      //                           height: 50.0,
+                      //                           child:
+                      //                               SolidLineConnector(),
+                      //                         )
+                      //                       ],
+                      //                     )),
+                      //                 BsCol(
+                      //                     sizes:
+                      //                         ColScreen(sm: Col.col_2),
+                      //                     child: Text('Today')),
+                      //                 BsCol(
+                      //                     sizes:
+                      //                         ColScreen(sm: Col.col_9),
+                      //                     child: Column(
+                      //                       crossAxisAlignment:
+                      //                           CrossAxisAlignment
+                      //                               .start,
+                      //                       children: [
+                      //                         Text(
+                      //                           'Meeting',
+                      //                           style: TextStyle(
+                      //                               fontWeight:
+                      //                                   FontWeight
+                      //                                       .bold),
+                      //                         ),
+                      //                         Text('at Town Hall'),
+                      //                       ],
+                      //                     )),
+                      //                 BsCol(
+                      //                     sizes:
+                      //                         ColScreen(sm: Col.col_1),
+                      //                     child: Column(
+                      //                       children: [
+                      //                         OutlinedDotIndicator()
+                      //                       ],
+                      //                     )),
+                      //                 BsCol(
+                      //                     sizes:
+                      //                         ColScreen(sm: Col.col_2),
+                      //                     child: Text('Yesterday')),
+                      //                 BsCol(
+                      //                     sizes:
+                      //                         ColScreen(sm: Col.col_9),
+                      //                     child: Column(
+                      //                       crossAxisAlignment:
+                      //                           CrossAxisAlignment
+                      //                               .start,
+                      //                       children: [
+                      //                         Text(
+                      //                           'Meeting',
+                      //                           style: TextStyle(
+                      //                               fontWeight:
+                      //                                   FontWeight
+                      //                                       .bold),
+                      //                         ),
+                      //                         Text('at Town Hall'),
+                      //                       ],
+                      //                     )),
+                      //               ],
+                      //             )
+                      //           ],
+                      //         ),
+                      //       ),
+                      //       Column(
+                      //         mainAxisAlignment:
+                      //             MainAxisAlignment.center,
+                      //         children: [Text('Activity')],
+                      //       ),
+                      //       Column(
+                      //         mainAxisAlignment:
+                      //             MainAxisAlignment.center,
+                      //         children: [Text('Notes')],
+                      //       ),
+                      //       Column(
+                      //         mainAxisAlignment:
+                      //             MainAxisAlignment.center,
+                      //         children: [Text('Email')],
+                      //       ),
+                      //       Column(
+                      //         mainAxisAlignment:
+                      //             MainAxisAlignment.center,
+                      //         children: [Text('Invoices')],
+                      //       ),
+                      //       Column(
+                      //         mainAxisAlignment:
+                      //             MainAxisAlignment.center,
+                      //         children: [Text('Documents')],
+                      //       ),
+                      //       Column(
+                      //         mainAxisAlignment:
+                      //             MainAxisAlignment.center,
+                      //         children: [Text('Files')],
+                      //       ),
+                      //       Column(
+                      //         mainAxisAlignment:
+                      //             MainAxisAlignment.center,
+                      //         children: [Text('Changelog')],
+                      //       ),
+                      //     ],
+                      //   ),
+                      // )
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
@@ -1369,6 +1445,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     ProspectModel dt = ProspectModel.fromJson(response.body);
     source.prospectid.value = dt.prospectid!;
     source.prospectbpid.value = dt.prospectbp!.bpid!;
+    source.desc.value = dt.prospectdescription ?? '';
     _auth.bpActiveId.value = dt.prospectbp!.bpid!;
     source.status.value = dt.prospectstatus!.typename!;
     customFieldPresenter.allBp(context);
@@ -1419,7 +1496,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
       response.body.map((data) {
         return TypeModel.fromJson(data);
       }),
-    ).reversed.toList();
+    ).toList();
   }
 
   @override

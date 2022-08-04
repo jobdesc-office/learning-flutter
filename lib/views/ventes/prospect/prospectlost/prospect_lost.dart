@@ -114,7 +114,7 @@ class ProspectLose extends GetView {
         context: context,
         builder: (context) => ConfirmDialog(
           title: BaseText.confirmTitle,
-          message: 'Are You Sure This Prospect is Lose ???',
+          message: 'Are You Sure This Prospect is Lose ?',
           onPressed: (_, value) async {
             if (value == ConfirmDialogOption.YES_OPTION) {
               onSave(await source.toJson());

@@ -169,10 +169,12 @@ class ProspectSource extends GetxController {
       }
       return {
         'item': selectsItem[index].getSelectedAsString(),
-        'price': inputPrices[index].text.replaceAll(',', ''),
+        'price':
+            inputPrices[index].text.replaceAll('.', '').replaceAll(',', ''),
         'quantity': inputQuantities[index].text,
         'discount': discount,
-        'amount': inputAmounts[index].text.replaceAll(',', ''),
+        'amount':
+            inputAmounts[index].text.replaceAll('.', '').replaceAll(',', ''),
         'tax': tax,
         'taxtype': taxtype
       };
@@ -414,12 +416,6 @@ class ProspectForm {
   }
 
   Widget selectOwner() {
-    String message;
-    if (!source.isBpNotSelected.value) {
-      message = 'Long Press to Add New Customer';
-    } else {
-      message = '';
-    }
     return BsRow(
       children: [
         BsCol(
@@ -442,15 +438,9 @@ class ProspectForm {
           sizes: ColScreen(sm: Col.col_6),
           child: FormGroup(
             label: Text(ProspectText.labelCustomer),
-            child: Tooltip(
-              message: message,
-              child: InkWell(
-                onLongPress: () {
-                  if (!source.isBpNotSelected.value) {
-                    Get.to(PCustomerFormFormView());
-                  }
-                },
-                child: CustomSelectBox(
+            child: Column(
+              children: [
+                CustomSelectBox(
                   searchable: true,
                   disabled: source.isBpNotSelected.value,
                   controller: source.selectCustomer,
@@ -461,7 +451,19 @@ class ProspectForm {
                     Validators.selectRequired(ProspectText.labelCustomer)
                   ],
                 ),
-              ),
+                Container(
+                  child: InkWell(
+                    onTap: () => Get.to(PCustomerFormFormView()),
+                    child: Container(
+                        margin: EdgeInsets.only(top: 3),
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          'Add More Customer',
+                          style: TextStyle(color: Colors.blue),
+                        )),
+                  ),
+                )
+              ],
             ),
           ),
         )
@@ -622,15 +624,11 @@ class ProspectForm {
                 children: [
                   BsCol(
                     sizes: ColScreen(md: Col.col_6),
-                    child: Tooltip(
-                      message: source.isBpNotSelected.value
-                          ? ''
-                          : 'Long Press to Add New Product',
-                      child: InkWell(
-                        onLongPress: () => Get.to(PProductFormFormView()),
-                        child: FormGroup(
-                          label: Text(ProspectText.labelItem),
-                          child: CustomSelectBox(
+                    child: FormGroup(
+                      label: Text(ProspectText.labelItem),
+                      child: Column(
+                        children: [
+                          CustomSelectBox(
                             searchable: true,
                             disabled: source.isBpNotSelected.value,
                             controller: selectItem,
@@ -643,7 +641,19 @@ class ProspectForm {
                               Validators.selectRequired(ProspectText.labelItem)
                             ],
                           ),
-                        ),
+                          Container(
+                            margin: EdgeInsets.only(top: 3),
+                            child: InkWell(
+                              onTap: () => Get.to(PProductFormFormView()),
+                              child: Container(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    'Add More Item',
+                                    style: TextStyle(color: Colors.blue),
+                                  )),
+                            ),
+                          )
+                        ],
                       ),
                     ),
                   ),

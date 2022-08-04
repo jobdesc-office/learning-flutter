@@ -22,5 +22,5 @@ class PCustomerText {
   static String labelContactType = 'Contact Type';
   static String labelValue = 'Value';
 
-  static String labelBpCustomerType = 'BpCustomer Status';
+  static String labelBpCustomerType = 'Customer Status';
 }

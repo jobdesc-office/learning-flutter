@@ -82,7 +82,7 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
           color: Colors.transparent,
           child: InkWell(
             child: Container(
-              padding: EdgeInsets.fromLTRB(15, 8, 15, 8),
+              padding: EdgeInsets.fromLTRB(7, 8, 7, 8),
               decoration: BoxDecoration(
                 color: backgroundColor,
                 borderRadius: borderRadius,
@@ -91,7 +91,7 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
                 type.typename,
                 style: TextStyle(
                   color: textColor,
-                  fontSize: 12,
+                  fontSize: 11,
                 ),
               ),
             ),

@@ -71,7 +71,7 @@ class ProspectPresenter extends CustomGetXController {
   }
 
   Future _loadType() async {
-    Response response = await _typeService.byCode(ConfigType.prospectStage);
+    Response response = await _typeService.bySeq(ConfigType.prospectStage);
     if (response.statusCode == 200)
       _prospectTypeViewContract.onLoadSuccess(response);
     else
@@ -98,7 +98,7 @@ class ProspectPresenter extends CustomGetXController {
       for (var item in response.body) {
         data.add(TypeModel.fromJson(item));
       }
-      data.removeWhere((element) => element.typename != 'Complete');
+      data.removeWhere((element) => element.typename != 'Negotiations Started');
       return data.first;
     }
     return null;
@@ -118,7 +118,7 @@ class ProspectPresenter extends CustomGetXController {
   }
 
   Future _loadStage() async {
-    Response response = await _typeService.byCode(ConfigType.prospectStage);
+    Response response = await _typeService.bySeq(ConfigType.prospectStage);
     if (response.statusCode == 200)
       _prospectTypeViewDetailContract.onLoadSuccess(response);
     else

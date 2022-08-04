@@ -16,6 +16,7 @@ import '../../../../widgets/input/custom_input.dart';
 import '../../../../widgets/input/custom_input_currency.dart';
 import '../../../../widgets/selectbox/custom_selectbox.dart';
 import '../_text.dart';
+import '../product/product_form.dart';
 
 class ProspectProductSource extends GetxController {
   bool isProcessing = false;
@@ -67,15 +68,31 @@ class ProspectProductForm {
   Widget selectProduct() {
     return FormGroup(
       label: Text(ProspectText.labelItem),
-      child: CustomSelectBox(
-        searchable: true,
-        disabled: source.isProcessing,
-        controller: source.selectItem,
-        hintText: BaseText.hiintSelect(field: ProspectText.labelItem),
-        serverSide: (params) =>
-            selectApiProductWithBp(params, _auth.bpActiveId.value.toString()),
-        // serverSide: (params) => selectApiProduct(params),
-        validators: [Validators.selectRequired(ProspectText.labelItem)],
+      child: Column(
+        children: [
+          CustomSelectBox(
+            searchable: true,
+            disabled: source.isProcessing,
+            controller: source.selectItem,
+            hintText: BaseText.hiintSelect(field: ProspectText.labelItem),
+            serverSide: (params) => selectApiProductWithBp(
+                params, _auth.bpActiveId.value.toString()),
+            // serverSide: (params) => selectApiProduct(params),
+            validators: [Validators.selectRequired(ProspectText.labelItem)],
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 3),
+            child: InkWell(
+              onTap: () => Get.to(PProductFormFormView()),
+              child: Container(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    'Add More Item',
+                    style: TextStyle(color: Colors.blue),
+                  )),
+            ),
+          )
+        ],
       ),
     );
   }

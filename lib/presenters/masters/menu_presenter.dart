@@ -90,7 +90,7 @@ class MenuPresenter extends CustomGetXController {
           title: 'Error',
           titleStyle: TextStyle(color: Colors.white),
           content: Text(
-            'Menu Type Must Be Selected !!!',
+            'Menu Type Must Be Selected !',
             style: TextStyle(color: Colors.white),
           ),
           backgroundColor: ColorPallates.danger,

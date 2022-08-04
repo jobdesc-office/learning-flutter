@@ -34,25 +34,68 @@ BsCol prospectDetailTitleSection(context) {
               Obx(() => Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        '${source.prospectname.value} | ${source.status.value}',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
+                      Obx(() {
+                        Widget card = Text('${source.status.value}');
+                        switch (source.status.value) {
+                          case 'Closed Lost':
+                            card = Container(
+                              child: Text(
+                                '${source.status.value}',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
+                              decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(5)),
+                            );
+                            break;
+                          case 'Closed Won':
+                            card = Container(
+                              child: Text(
+                                '${source.status.value}',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
+                              decoration: BoxDecoration(
+                                  color: Colors.green,
+                                  borderRadius: BorderRadius.circular(5)),
+                            );
+                            break;
+                          default:
+                            Text('${source.status.value}',
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold));
+                        }
+                        return Row(
+                          children: [
+                            Text(
+                              '${source.prospectname.value} | ',
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                            card
+                          ],
+                        );
+                      }),
                       if (source.status.value == 'Closed Lost')
                         Row(
                           children: [
-                            Tooltip(
-                              message: 'Details',
-                              child: InkWell(
-                                  onTap: () => presenter.losePopup(context),
-                                  child: Text('This Prospect Lost !!!')),
+                            Column(
+                              children: [
+                                Text('This Prospect Lost !'),
+                                BsButton(
+                                  margin: EdgeInsets.only(top: 3),
+                                  onPressed: () => presenter.losePopup(context),
+                                  label: Text('Details'),
+                                  size: BsButtonSize.btnSm,
+                                )
+                              ],
                             )
                           ],
                         )
                       else if (source.status.value == 'Closed Won')
                         Row(
-                          children: [Text('This Prospect Won !!!')],
+                          children: [Text('This Prospect Won !')],
                         )
                       else
                         Row(
@@ -69,7 +112,7 @@ BsCol prospectDetailTitleSection(context) {
                                   builder: (context) => ConfirmDialog(
                                     title: BaseText.confirmTitle,
                                     message:
-                                        'Are You Sure This Prospect Won ???',
+                                        'are you sure winning this prospect ?',
                                     onPressed: (_, value) async {
                                       if (value ==
                                           ConfirmDialogOption.YES_OPTION) {
