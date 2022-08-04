@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 import '../../../models/ventes/customfield_model.dart';
+import '../../../models/ventes/prospect_model.dart';
 import '../../../models/ventes/prospectcustomfield_model.dart';
 import 'prospectdetail_component/_stagePipeline.dart';
 
@@ -9,6 +10,9 @@ class ProspectDetailsSource extends GetxController {
   var prospectbpid = 0.obs;
   var prospectname = ''.obs;
   var prospectvalue = '0.0'.obs;
+
+  var custid = 0.obs;
+  var custname = ''.obs;
 
   var userfullname = ''.obs;
   var bpname = ''.obs;
@@ -38,6 +42,7 @@ class ProspectDetailsSource extends GetxController {
   var assign = [].obs;
   var report = [].obs;
   var product = [].obs;
+  var contact = <Cstmcontact>[].obs;
   var customField = <ProspectCustomFieldModel>[].obs;
   var rawcustomField = <CustomFieldModel>[].obs;
 

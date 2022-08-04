@@ -19,6 +19,7 @@ import '../presenters/settings/customfield_presenter.dart';
 import '../presenters/ventes/prospect_presenter.dart';
 import '../presenters/ventes/prospectassign_presenter.dart';
 import '../presenters/ventes/prospectactivity_presenter.dart';
+import '../presenters/ventes/prospectcontact_presenter.dart';
 import '../presenters/ventes/prospectcustomfield_presenter.dart';
 import '../presenters/ventes/prospectproduct_presenter.dart';
 import '../presenters/ventes/report_presenter.dart';
@@ -267,6 +268,8 @@ class AppRoute {
           Get.lazyPut(() => ProspectAssignService());
           Get.lazyPut(() => ProspectAssignPresenter());
           Get.lazyPut(() => CustomerPresenter());
+          Get.lazyPut(() => ContactService());
+          Get.lazyPut(() => ProspectContactPresenter());
           Get.lazyPut(() => CustomFieldService());
           Get.lazyPut(() => CustomFieldPresenter());
           Get.lazyPut(() => ProspectProductService());

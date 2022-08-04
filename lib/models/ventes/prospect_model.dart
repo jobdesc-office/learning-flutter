@@ -1,5 +1,6 @@
 import 'package:boilerplate/models/masters/type_model.dart';
-import 'package:boilerplate/models/ventes/prospectcustomfield_model.dart';
+
+import 'prospectcustomfield_model.dart';
 
 class ProspectModel {
   int? prospectid;
@@ -25,15 +26,16 @@ class ProspectModel {
   List<Prospectassigns>? prospectassigns;
   List<Prospectproduct>? prospectproduct;
   TypeModel? prospectstage;
-  Prospectstage? prospectlost;
+  Prospectlost? prospectlost;
   Prospectownerusers? prospectownerusers;
-  Prospectstage? prospectstatus;
-  Prospectstage? prospectlostreason;
+  Prospectlost? prospectstatus;
+  Prospectlost? prospectlostreason;
   Prospectreference? prospectreference;
   Prospectassignss? prospectby;
   Prospectbp? prospectbp;
   List<ProspectCustomFieldModel>? prospectcustomfield;
   Prospectcust? prospectcust;
+  List<Prospectfiles>? prospectfiles;
 
   ProspectModel(
       {this.prospectid,
@@ -67,7 +69,8 @@ class ProspectModel {
       this.prospectby,
       this.prospectbp,
       this.prospectcustomfield,
-      this.prospectcust});
+      this.prospectcust,
+      this.prospectfiles});
 
   ProspectModel.fromJson(Map<String, dynamic> json) {
     prospectid = json['prospectid'];
@@ -106,16 +109,16 @@ class ProspectModel {
         ? new TypeModel.fromJson(json['prospectstage'])
         : null;
     prospectlost = json['prospectlost'] != null
-        ? new Prospectstage.fromJson(json['prospectlost'])
+        ? new Prospectlost.fromJson(json['prospectlost'])
         : null;
     prospectownerusers = json['prospectownerusers'] != null
         ? new Prospectownerusers.fromJson(json['prospectownerusers'])
         : null;
     prospectstatus = json['prospectstatus'] != null
-        ? new Prospectstage.fromJson(json['prospectstatus'])
+        ? new Prospectlost.fromJson(json['prospectstatus'])
         : null;
     prospectlostreason = json['prospectlostreason'] != null
-        ? new Prospectstage.fromJson(json['prospectlostreason'])
+        ? new Prospectlost.fromJson(json['prospectlostreason'])
         : null;
     prospectreference = json['prospectreference'] != null
         ? new Prospectreference.fromJson(json['prospectreference'])
@@ -135,6 +138,12 @@ class ProspectModel {
     prospectcust = json['prospectcust'] != null
         ? new Prospectcust.fromJson(json['prospectcust'])
         : null;
+    if (json['prospectfiles'] != null) {
+      prospectfiles = <Prospectfiles>[];
+      json['prospectfiles'].forEach((v) {
+        prospectfiles!.add(new Prospectfiles.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -197,6 +206,10 @@ class ProspectModel {
     }
     if (this.prospectcust != null) {
       data['prospectcust'] = this.prospectcust!.toJson();
+    }
+    if (this.prospectfiles != null) {
+      data['prospectfiles'] =
+          this.prospectfiles!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -530,10 +543,32 @@ class Prosproducttaxtype {
 class Prospectstage {
   int? typeid;
   String? typename;
+  int? typeseq;
 
-  Prospectstage({this.typeid, this.typename});
+  Prospectstage({this.typeid, this.typename, this.typeseq});
 
   Prospectstage.fromJson(Map<String, dynamic> json) {
+    typeid = json['typeid'];
+    typename = json['typename'];
+    typeseq = json['typeseq'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['typeid'] = this.typeid;
+    data['typename'] = this.typename;
+    data['typeseq'] = this.typeseq;
+    return data;
+  }
+}
+
+class Prospectlost {
+  int? typeid;
+  String? typename;
+
+  Prospectlost({this.typeid, this.typename});
+
+  Prospectlost.fromJson(Map<String, dynamic> json) {
     typeid = json['typeid'];
     typename = json['typename'];
   }
@@ -1064,7 +1099,6 @@ class Prospectcust {
   String? sbccstmname;
   String? sbccstmphone;
   String? sbccstmaddress;
-  String? sbccstmpic;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -1080,7 +1114,6 @@ class Prospectcust {
       this.sbccstmname,
       this.sbccstmphone,
       this.sbccstmaddress,
-      this.sbccstmpic,
       this.createdby,
       this.createddate,
       this.updatedby,
@@ -1096,7 +1129,6 @@ class Prospectcust {
     sbccstmname = json['sbccstmname'];
     sbccstmphone = json['sbccstmphone'];
     sbccstmaddress = json['sbccstmaddress'];
-    sbccstmpic = json['sbccstmpic'];
     createdby = json['createdby'];
     createddate = json['createddate'];
     updatedby = json['updatedby'];
@@ -1115,7 +1147,6 @@ class Prospectcust {
     data['sbccstmname'] = this.sbccstmname;
     data['sbccstmphone'] = this.sbccstmphone;
     data['sbccstmaddress'] = this.sbccstmaddress;
-    data['sbccstmpic'] = this.sbccstmpic;
     data['createdby'] = this.createdby;
     data['createddate'] = this.createddate;
     data['updatedby'] = this.updatedby;
@@ -1142,7 +1173,7 @@ class Sbccstm {
   String? cstmpostalcode;
   String? cstmlatitude;
   String? cstmlongitude;
-  String? referalcode;
+  int? referalcode;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -1239,6 +1270,7 @@ class Cstmcontact {
   int? updatedby;
   String? updateddate;
   bool? isactive;
+  Prosproducttaxtype? contacttype;
 
   Cstmcontact(
       {this.contactpersonid,
@@ -1250,7 +1282,8 @@ class Cstmcontact {
       this.createddate,
       this.updatedby,
       this.updateddate,
-      this.isactive});
+      this.isactive,
+      this.contacttype});
 
   Cstmcontact.fromJson(Map<String, dynamic> json) {
     contactpersonid = json['contactpersonid'];
@@ -1263,6 +1296,9 @@ class Cstmcontact {
     updatedby = json['updatedby'];
     updateddate = json['updateddate'];
     isactive = json['isactive'];
+    contacttype = json['contacttype'] != null
+        ? new Prosproducttaxtype.fromJson(json['contacttype'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -1277,6 +1313,74 @@ class Cstmcontact {
     data['updatedby'] = this.updatedby;
     data['updateddate'] = this.updateddate;
     data['isactive'] = this.isactive;
+    if (this.contacttype != null) {
+      data['contacttype'] = this.contacttype!.toJson();
+    }
+    return data;
+  }
+}
+
+class Prospectfiles {
+  int? fileid;
+  int? transtypeid;
+  int? refid;
+  String? directories;
+  String? filename;
+  String? mimetype;
+  String? filesize;
+  int? createdby;
+  String? createddate;
+  int? updatedby;
+  String? updateddate;
+  bool? isactive;
+  String? url;
+
+  Prospectfiles(
+      {this.fileid,
+      this.transtypeid,
+      this.refid,
+      this.directories,
+      this.filename,
+      this.mimetype,
+      this.filesize,
+      this.createdby,
+      this.createddate,
+      this.updatedby,
+      this.updateddate,
+      this.isactive,
+      this.url});
+
+  Prospectfiles.fromJson(Map<String, dynamic> json) {
+    fileid = json['fileid'];
+    transtypeid = json['transtypeid'];
+    refid = json['refid'];
+    directories = json['directories'];
+    filename = json['filename'];
+    mimetype = json['mimetype'];
+    filesize = json['filesize'];
+    createdby = json['createdby'];
+    createddate = json['createddate'];
+    updatedby = json['updatedby'];
+    updateddate = json['updateddate'];
+    isactive = json['isactive'];
+    url = json['url'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['fileid'] = this.fileid;
+    data['transtypeid'] = this.transtypeid;
+    data['refid'] = this.refid;
+    data['directories'] = this.directories;
+    data['filename'] = this.filename;
+    data['mimetype'] = this.mimetype;
+    data['filesize'] = this.filesize;
+    data['createdby'] = this.createdby;
+    data['createddate'] = this.createddate;
+    data['updatedby'] = this.updatedby;
+    data['updateddate'] = this.updateddate;
+    data['isactive'] = this.isactive;
+    data['url'] = this.url;
     return data;
   }
 }

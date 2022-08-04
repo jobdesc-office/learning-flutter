@@ -3,22 +3,24 @@ import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../contracts/base/details_view_contract.dart';
-import '../../../models/masters/contact_model.dart';
-import '../../../presenters/masters/contact_presenter.dart';
-import '../../../presenters/navigation_presenter.dart';
-import '../../../styles/color_palattes.dart';
+import '../../../../contracts/base/details_view_contract.dart';
+import '../../../../models/masters/contact_model.dart';
+import '../../../../presenters/navigation_presenter.dart';
+import '../../../../presenters/ventes/prospectcontact_presenter.dart';
+import '../../../../styles/color_palattes.dart';
 import '_details_source.dart';
 import '_text.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 
-class ContactDetails extends GetView implements DetailViewContract {
-  final ContactPresenter presenter = Get.find<ContactPresenter>();
-  final ContactDetailsSource controller = Get.put(ContactDetailsSource());
+class ProspectContactDetails extends GetView implements DetailViewContract {
+  final ProspectContactPresenter presenter =
+      Get.find<ProspectContactPresenter>();
+  final ProspectContactDetailsSource controller =
+      Get.put(ProspectContactDetailsSource());
 
-  ContactDetails() {
-    presenter.contactDataDetailsContract = this;
+  ProspectContactDetails() {
+    presenter.prospectContactViewContract = this;
   }
 
   @override
@@ -36,7 +38,7 @@ class ContactDetails extends GetView implements DetailViewContract {
               ),
               children: [
                 BsModalContainer(
-                  title: Text(ContactText.title + ' Details',
+                  title: Text(ProspectContactText.title + ' Details',
                       style: TextStyle(
                           color: _navigation.darkTheme.value
                               ? Colors.white
