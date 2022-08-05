@@ -1,10 +1,13 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:get/get.dart';
 
+import '../../../models/session_model.dart';
 import '../../../models/ventes/customfield_model.dart';
 import '../../../models/ventes/prospect_model.dart';
 import '../../../models/ventes/prospectcustomfield_model.dart';
+import '../../../utils/session_manager.dart';
 import 'prospectdetail_component/_stagePipeline.dart';
 
 class ProspectDetailsSource extends GetxController {
@@ -56,4 +59,26 @@ class ProspectDetailsSource extends GetxController {
   var isAddCF = false.obs;
 
   var pickedFile = <Uint8List>[].obs;
+
+  List<MultipartFile> jsonImages() {
+    List<MultipartFile> img = [];
+    int no = 0;
+    for (var item in pickedFile) {
+      no++;
+      img.add(
+          MultipartFile(item, filename: prospectname.value + no.toString()));
+    }
+    return img;
+  }
+
+  Future<Map<String, dynamic>> toJson() async {
+    SessionModel session = await SessionManager.current();
+    return {
+      'id': prospectid.value,
+      'name': prospectname.value,
+      'createdby': session.userid,
+      'updatedby': session.userid,
+      'files[]': jsonImages()
+    };
+  }
 }

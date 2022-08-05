@@ -9,6 +9,7 @@ import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -30,6 +31,7 @@ import '../../../presenters/ventes/prospectassign_presenter.dart';
 import '../../../presenters/ventes/prospectactivity_presenter.dart';
 import '../../../presenters/ventes/prospectcontact_presenter.dart';
 import '../../../presenters/ventes/prospectcustomfield_presenter.dart';
+import '../../../presenters/ventes/prospectfile_presenter.dart';
 import '../../../presenters/ventes/prospectproduct_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../styles/color_palattes.dart';
@@ -46,6 +48,7 @@ import 'customfield/_form_source.dart';
 import 'prospectcustomfield/_form_source.dart';
 import 'prospectdetail_component/activity_section.dart';
 import 'prospectdetail_component/organization_section.dart';
+import 'prospectfiles/image_picture.dart';
 
 class ProspectDetails extends StatefulWidget {
   const ProspectDetails({Key? key}) : super(key: key);
@@ -69,6 +72,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
   final productPresenter = Get.find<ProspectProductPresenter>();
   final customFieldPresenter = Get.find<CustomFieldPresenter>();
   final contactPresenter = Get.find<ProspectContactPresenter>();
+  final filePresenter = Get.find<ProspectFilePresenter>();
   final prospectCustomFieldPresenter = Get.find<ProspectCustomFieldPresenter>();
   final presenter = Get.find<ProspectPresenter>();
   final source = Get.put(ProspectDetailsSource());
@@ -96,6 +100,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     assignPresenter.prospectViewContract = this;
     productPresenter.prospectViewContract = this;
     contactPresenter.prospectViewContract = this;
+    filePresenter.prospectViewContract = this;
     customFieldPresenter.setCustomFieldContract = this;
     customFieldPresenter.customFieldViewContract = this;
     prospectCustomFieldPresenter.prospectViewContract = this;
@@ -1513,7 +1518,12 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                                   child: Text('Choosed Files : ${source.pickedFile.length}')))
                                                               ],
                                                             ),
-                                                            if (source.pickedFile.isNotEmpty) BsButton(margin: EdgeInsets.only(left: 5), onPressed: (){}, label: Text('Save'),)
+                                                            if (source.pickedFile.isNotEmpty) ThemeButtonSave(
+                                disabled: presenter.isProcessing.value,
+                                processing: presenter.isProcessing.value,
+                                margin: EdgeInsets.only(right: 5),
+                                onPressed: () async {filePresenter.setProcessing(true);filePresenter.save(context, FormData(await source.toJson()));},
+                              )
                                                           ])
                                                       ],
                                                     ),
@@ -1523,24 +1533,44 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                             .map((files) {
                                                           return BsCol(
                                                             margin:
-                                                                EdgeInsets.only(
-                                                                    top: 5,
-                                                                    bottom: 5),
+                                                                EdgeInsets.all(
+                                                                    5,),
                                                             sizes: ColScreen(
                                                                 sm: Col.col_2),
-                                                            child: Column(
-                                                              children: [
-                                                                Container(
-                                                                  child: Icon(
-                                                                    Icons
-                                                                        .file_present,
-                                                                    size: 96,
-                                                                  ),
+                                                            child: Tooltip(
+                                                              message: 'Long Press to Delete',
+                                                              child: InkWell(
+                                                                onTap: () {
+                                                                  if (files.filename!.substring(files.filename!.length - 4) == '.pdf') {
+                                                                    Get.snackbar('Sorry', 'PDF View Coming Soon');
+                                                                  }else{
+                                                                    showDialog(
+                                              context: context,
+                                              builder: (context) =>
+                                                  ImagePictureFiles(
+                                                title: files.filename,
+                                                image: files.url,
+                                              ),
+                                            );
+                                                                  }
+                                                                },
+                                                                onLongPress: (() => filePresenter.delete(context, files.fileid!, files.filename!)),
+                                                                child: Column(
+                                                                  children: [
+                                                                    Image.network(files.url!,
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                        return Icon(
+                                          FontAwesomeIcons.filePdf,
+                                          size: 150,
+                                        );
+                                      },),
+                                                                    Text(files
+                                                                            .filename ??
+                                                                        '')
+                                                                  ],
                                                                 ),
-                                                                Text(files
-                                                                        .filename ??
-                                                                    '')
-                                                              ],
+                                                              ),
                                                             ),
                                                           );
                                                         }).toList(),
@@ -1552,7 +1582,61 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                             Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
-                                              children: [Text('Files')],
+                                              children: [Text('There\'s no Files'),
+                                              Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                                      children: [
+                                                        Column(
+                                                          children: [
+                                                            BsButton(
+                                                              style: BsButtonStyle
+                                                                  .success,
+                                                              margin:
+                                                                  EdgeInsets.only(
+                                                                      top: 10),
+                                                              onPressed: () async {
+                                                                FilePickerResult?
+                                                                    result =
+                                                                    await FilePicker
+                                                                        .platform
+                                                                        .pickFiles(
+                                                                          allowMultiple: true
+                                                                  type: FileType
+                                                                      .custom,
+                                                                  allowedExtensions: [
+                                                                    'jpeg',
+                                                                    'jpg',
+                                                                    'pdf',
+                                                                    'png',
+                                                                    'gif'
+                                                                  ],
+                                                                );
+                                                                if (result != null) {
+                                                                  List<Uint8List> pickedFile = [];
+                                                                  for (var item in result.files) {
+                                                                    pickedFile.add(item.bytes!);
+                                                                  }
+                                                                  source.pickedFile.value = pickedFile;
+                                                                  
+                                                                }
+                                                              },
+                                                              prefixIcon:
+                                                                  Icons.file_open,
+                                                              label:
+                                                                  Text('Add File'),
+                                                            ),
+                                                            if (source.pickedFile.isNotEmpty) Container(margin: EdgeInsets.all(3),child: InkWell(
+                                                              onTap: () => presenter.choosedPopup(context),
+                                                              child: Text('Choosed Files : ${source.pickedFile.length}')))
+                                                          ],
+                                                        ),
+                                                        if (source.pickedFile.isNotEmpty) ThemeButtonSave(disabled: filePresenter.isProcessing.value,
+                                processing: filePresenter.isProcessing.value,
+                                margin: EdgeInsets.only(right: 5),
+                                onPressed: () async {filePresenter.setProcessing(true);filePresenter.save(context, FormData(await source.toJson()));},
+                              )
+                                                      ])],
                                             ),
                                         ],
                                       ),
@@ -1840,6 +1924,8 @@ class _ProspectDetailsState extends State<ProspectDetails>
     customFieldPresenter.setProcessing(false);
     detailPresenter.setProcessing(false);
     assignPresenter.setProcessing(false);
+    filePresenter.setProcessing(false);
+    source.pickedFile.clear();
     Navigator.pop(context!);
     presenter.details(context, source.prospectid.value);
     Snackbar().createSuccess();
