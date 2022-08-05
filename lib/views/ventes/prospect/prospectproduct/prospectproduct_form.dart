@@ -6,26 +6,31 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../contracts/base/edit_view_contract.dart';
+import '../../../../contracts/base/index_view_contract.dart';
 import '../../../../models/ventes/prospectProduct_model.dart';
+import '../../../../presenters/ventes/prospect_presenter.dart';
 import '../../../../presenters/ventes/prospectproduct_presenter.dart';
 import '../../../../routes/route_list.dart';
 import '../../../../widgets/breadcrumb.dart';
 import '../../../../widgets/button/theme_button_cancel.dart';
 import '../../../../widgets/button/theme_button_save.dart';
+import '../../../../widgets/snackbar.dart';
 import '_form_source.dart';
 
 // ignore: must_be_immutable
 class ProspectProductFormView extends StatelessWidget
-    implements EditViewContract {
+    implements EditViewContract, IndexViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final ProspectProductPresenter presenter =
       Get.find<ProspectProductPresenter>();
+  final ProspectPresenter prospectPresenter = Get.find<ProspectPresenter>();
   final source = ProspectProductSource().obs;
   final Function(Map<String, dynamic> body) onSave;
 
   late ProspectProductForm prospectForm;
 
   ProspectProductFormView({required this.onSave, id}) {
+    prospectPresenter.addCustomerViewContract = this;
     presenter.setprospectFetchDataContract = this;
     source.value.id.value = id;
   }
@@ -167,4 +172,23 @@ class ProspectProductFormView extends StatelessWidget
       source.value.inputTax.text = prospect.prosproducttax ?? '';
     });
   }
+
+  @override
+  void onCreateSuccess(Response response, {BuildContext? context}) {
+    prospectPresenter.setProcessing(false);
+    Navigator.pop(context!);
+    Snackbar().createSuccess();
+  }
+
+  @override
+  void onDeleteSuccess(Response response, {BuildContext? context}) {}
+
+  @override
+  void onEditSuccess(Response response, {BuildContext? context}) {}
+
+  @override
+  void onErrorRequest(Response response) {}
+
+  @override
+  void onLoadDatatables(BuildContext context, Response response) {}
 }

@@ -1519,8 +1519,8 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                               ],
                                                             ),
                                                             if (source.pickedFile.isNotEmpty) ThemeButtonSave(
-                                disabled: presenter.isProcessing.value,
-                                processing: presenter.isProcessing.value,
+                                disabled: filePresenter.isProcessing.value,
+                                processing: filePresenter.isProcessing.value,
                                 margin: EdgeInsets.only(right: 5),
                                 onPressed: () async {filePresenter.setProcessing(true);filePresenter.save(context, FormData(await source.toJson()));},
                               )
