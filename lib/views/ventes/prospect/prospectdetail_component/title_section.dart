@@ -82,13 +82,16 @@ BsCol prospectDetailTitleSection(context) {
                           children: [
                             Column(
                               children: [
-                                Text('This Prospect Lost !'),
-                                BsButton(
-                                  margin: EdgeInsets.only(top: 3),
-                                  onPressed: () => presenter.losePopup(context),
-                                  label: Text('Details'),
-                                  size: BsButtonSize.btnSm,
-                                )
+                                Text(
+                                  'This Prospect Lost !',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(source.losttype.value,
+                                    style: TextStyle(fontSize: 14)),
+                                Text(source.lostdesc.value,
+                                    style: TextStyle(fontSize: 12))
                               ],
                             )
                           ],

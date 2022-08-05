@@ -39,7 +39,7 @@ class ProspectActivityDetails extends GetView implements DetailViewContract {
               ),
               children: [
                 BsModalContainer(
-                  title: Text(ProspectActivityText.title + ' Details',
+                  title: Text(ProspectActivityText.title + ' Activity',
                       style: TextStyle(
                           color: _navigation.darkTheme.value
                               ? Colors.white

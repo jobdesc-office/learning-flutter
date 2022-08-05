@@ -39,8 +39,8 @@ class Activities {
   String? dayactdate;
   String? dayactdesc;
   String? dayactloc;
-  String? dayactlatitude;
-  String? dayactlongitude;
+  double? dayactlatitude;
+  double? dayactlongitude;
   int? createdby;
   String? createddate;
   int? updatedby;

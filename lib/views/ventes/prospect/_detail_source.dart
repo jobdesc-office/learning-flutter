@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:get/get.dart';
 
 import '../../../models/ventes/customfield_model.dart';
@@ -43,6 +45,7 @@ class ProspectDetailsSource extends GetxController {
   var report = [].obs;
   var product = [].obs;
   var contact = <Cstmcontact>[].obs;
+  var files = <Prospectfiles>[].obs;
   var customField = <ProspectCustomFieldModel>[].obs;
   var rawcustomField = <CustomFieldModel>[].obs;
 
@@ -51,4 +54,6 @@ class ProspectDetailsSource extends GetxController {
   var cfid = 0.obs;
 
   var isAddCF = false.obs;
+
+  var pickedFile = <Uint8List>[].obs;
 }

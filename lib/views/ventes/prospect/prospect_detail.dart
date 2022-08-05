@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:boilerplate/models/ventes/customfield_model.dart';
 import 'package:boilerplate/views/skins/template.dart';
 import 'package:boilerplate/views/ventes/prospect/prospectdetail_component/title_section.dart';
@@ -5,6 +7,7 @@ import 'package:boilerplate/widgets/button/button_edit_datatable.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -1446,11 +1449,111 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                 )
                                               ],
                                             ),
-                                          Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [Text('Files')],
-                                          ),
+                                          if (source.files.length != 0)
+                                            SingleChildScrollView(
+                                              child: Column(
+                                                children: [
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.topLeft,
+                                                    margin: EdgeInsets.only(
+                                                        top: 15, bottom: 10),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                          'Files : ',
+                                                          style: TextStyle(
+                                                              fontSize: 18),
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            Column(
+                                                              children: [
+                                                                BsButton(
+                                                                  style: BsButtonStyle
+                                                                      .success,
+                                                                  margin:
+                                                                      EdgeInsets.only(
+                                                                          top: 10),
+                                                                  onPressed: () async {
+                                                                    FilePickerResult?
+                                                                        result =
+                                                                        await FilePicker
+                                                                            .platform
+                                                                            .pickFiles(
+                                                                              allowMultiple: true
+                                                                      type: FileType
+                                                                          .custom,
+                                                                      allowedExtensions: [
+                                                                        'jpeg',
+                                                                        'jpg',
+                                                                        'pdf',
+                                                                        'png',
+                                                                        'gif'
+                                                                      ],
+                                                                    );
+                                                                    if (result != null) {
+                                                                      List<Uint8List> pickedFile = [];
+                                                                      for (var item in result.files) {
+                                                                        pickedFile.add(item.bytes!);
+                                                                      }
+                                                                      source.pickedFile.value = pickedFile;
+                                                                    }
+                                                                  },
+                                                                  prefixIcon:
+                                                                      Icons.file_open,
+                                                                  label:
+                                                                      Text('Add File'),
+                                                                ),
+                                                                if (source.pickedFile.isNotEmpty) Container(margin: EdgeInsets.all(3),child: InkWell(
+                                                                  onTap: () => presenter.choosedPopup(context),
+                                                                  child: Text('Choosed Files : ${source.pickedFile.length}')))
+                                                              ],
+                                                            ),
+                                                            if (source.pickedFile.isNotEmpty) BsButton(margin: EdgeInsets.only(left: 5), onPressed: (){}, label: Text('Save'),)
+                                                          ])
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Obx(() => BsRow(
+                                                        children: source.files
+                                                            .map((files) {
+                                                          return BsCol(
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    top: 5,
+                                                                    bottom: 5),
+                                                            sizes: ColScreen(
+                                                                sm: Col.col_2),
+                                                            child: Column(
+                                                              children: [
+                                                                Container(
+                                                                  child: Icon(
+                                                                    Icons
+                                                                        .file_present,
+                                                                    size: 96,
+                                                                  ),
+                                                                ),
+                                                                Text(files
+                                                                        .filename ??
+                                                                    '')
+                                                              ],
+                                                            ),
+                                                          );
+                                                        }).toList(),
+                                                      ))
+                                                ],
+                                              ),
+                                            )
+                                          else
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [Text('Files')],
+                                            ),
                                         ],
                                       ),
                                     )
@@ -1658,6 +1761,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     List report = [];
     List<Cstmcontact> contact = [];
     List<ProspectCustomFieldModel> customField = [];
+    List<Prospectfiles> files = [];
     ProspectModel dt = ProspectModel.fromJson(response.body);
     source.prospectid.value = dt.prospectid!;
     source.prospectbpid.value = dt.prospectbp!.bpid!;
@@ -1710,6 +1814,12 @@ class _ProspectDetailsState extends State<ProspectDetails>
         contact.add(element);
       });
       source.contact.value = contact;
+    }
+    if (dt.prospectfiles != null) {
+      dt.prospectfiles?.forEach((element) {
+        files.add(element);
+      });
+      source.files.value = files;
     }
     presenter.setProcessing(false);
   }
