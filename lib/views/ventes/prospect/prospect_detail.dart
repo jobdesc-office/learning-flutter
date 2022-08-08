@@ -91,7 +91,6 @@ class _ProspectDetailsState extends State<ProspectDetails>
   @override
   void initState() {
     super.initState();
-    presenter.prospectViewContract = this;
     _tabController = TabController(length: 7, vsync: this);
     // _tabControllerTimeline = TabController(length: 8, vsync: this);
     presenter.prospectTypeViewDetailContract = this;
@@ -1940,8 +1939,8 @@ class _ProspectDetailsState extends State<ProspectDetails>
     prospectCustomFieldPresenter.setProcessing(false);
     detailPresenter.setProcessing(false);
     assignPresenter.setProcessing(false);
+    Get.back();
     Navigator.pop(context!);
-    Navigator.pop(context);
     presenter.details(context, source.prospectid.value);
     Snackbar().deleteSuccess();
     detailPresenter
@@ -1952,7 +1951,9 @@ class _ProspectDetailsState extends State<ProspectDetails>
   @override
   void onEditSuccess(Response response, {BuildContext? context}) {
     map.reset();
-    presenter.details(context!, source.prospectid.value);
+    Navigator.pop(context!);
+    Navigator.pop(context);
+    presenter.details(context, source.prospectid.value);
     Snackbar().editSuccess();
     detailPresenter
         .details(context, {'id': source.prospectid.value.toString()});
@@ -1961,7 +1962,6 @@ class _ProspectDetailsState extends State<ProspectDetails>
     detailPresenter.setProcessing(false);
     assignPresenter.setProcessing(false);
     contactPresenter.setProcessing(false);
-    Navigator.pop(context);
   }
 
   @override

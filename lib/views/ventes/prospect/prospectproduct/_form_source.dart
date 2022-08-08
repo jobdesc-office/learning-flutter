@@ -110,7 +110,10 @@ class ProspectProductForm {
               } else if (source.inputPrice.text != '') {
                 var amount = source.quantity.value * source.price.value;
                 // inputAmount.text = amount.toString();
-                source.inputAmount.text = currencyFormatter.format(amount);
+                source.inputAmount.text = currencyFormatter
+                    .format(amount)
+                    .replaceAll(',00', '')
+                    .replaceAll('.', ',');
                 // source.subtotal.value += parseDouble(amount);
               }
             },
@@ -135,7 +138,11 @@ class ProspectProductForm {
               } else if (source.inputQuantity.text != '') {
                 var amount = source.price.value * source.quantity.value;
                 // inputAmount.text = amount.toString();
-                source.inputAmount.text = currencyFormatter.format(amount);
+                source.inputAmount.text = currencyFormatter
+                    .format(amount)
+                    .replaceAll(',00', '')
+                    .replaceAll('.', ',');
+                ;
                 // source.subtotal.value += amount;
               }
             },

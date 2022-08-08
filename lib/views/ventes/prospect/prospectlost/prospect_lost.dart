@@ -120,8 +120,10 @@ class ProspectLose extends GetView {
               onSave(await source.toJson());
               sources.status.value = 'Closed Lost';
               sources.prospectStageController.selected = stage;
-              sources.losttype.value =
-                  source.value.selectReason.getSelected()!.getText().toString();
+              sources.losttype.value = source.value.selectReason
+                  .getSelected()!
+                  .getOtherValue()['typename']
+                  .toString();
               sources.lostdesc.value = source.value.inputDesc.text;
               Navigator.pop(context);
             } else {
