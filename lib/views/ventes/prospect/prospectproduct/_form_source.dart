@@ -142,7 +142,7 @@ class ProspectProductForm {
                     .format(amount)
                     .replaceAll(',00', '')
                     .replaceAll('.', ',');
-                ;
+
                 // source.subtotal.value += amount;
               }
             },
