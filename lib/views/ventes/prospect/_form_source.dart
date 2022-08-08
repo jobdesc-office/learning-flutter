@@ -37,8 +37,6 @@ class ProspectSource extends GetxController {
   var quantity = 0.0.obs;
   var price = 0.0.obs;
 
-  var isBpNotSelected = true.obs;
-
   var selectedDateStart = ''.obs;
   var selectedDateEnd = ''.obs;
   var selectedDateExpect = ''.obs;
@@ -192,7 +190,7 @@ class ProspectSource extends GetxController {
       'prospectstageid': prospectStageController.getSelectedToString(),
       'prospectstatusid': selectStatus.getSelectedAsString(),
       'prospectexpclosedate': selectedDateExpect.value,
-      'prospectbpid': _auth.bpActiveId.value,
+      'prospectbpid': box.read('mybpid'),
       'prospectdescription': inputDesc.text,
       'prospectcustid': selectCustomer.getSelectedAsString(),
       'prospectrefid': selectReference.getSelectedAsString(),
@@ -395,26 +393,6 @@ class ProspectForm {
     );
   }
 
-  Widget selectBp() {
-    return FormGroup(
-      label: Text(ProspectText.labelBp),
-      child: CustomSelectBox(
-        searchable: true,
-        disabled: source.isProcessing,
-        controller: source.selectBp,
-        hintText: BaseText.hiintSelect(field: ProspectText.labelBp),
-        serverSide: (params) => selectApiPartner(params),
-        validators: [Validators.selectRequired(ProspectText.labelBp)],
-        onChange: (value) {
-          if (value.getValue() != null) {
-            source.isBpNotSelected.value = false;
-            authPresenter.bpActiveId.value = value.getValue();
-          }
-        },
-      ),
-    );
-  }
-
   Widget selectOwner() {
     return BsRow(
       children: [
@@ -425,7 +403,7 @@ class ProspectForm {
             label: Text(ProspectText.labelOwner),
             child: CustomSelectBox(
               searchable: true,
-              disabled: source.isBpNotSelected.value,
+              disabled: source.isProcessing,
               controller: source.selectOwner,
               hintText: BaseText.hiintSelect(field: ProspectText.labelOwner),
               serverSide: (params) => selectApiProspectOwner(params),
@@ -442,7 +420,7 @@ class ProspectForm {
               children: [
                 CustomSelectBox(
                   searchable: true,
-                  disabled: source.isBpNotSelected.value,
+                  disabled: source.isProcessing,
                   controller: source.selectCustomer,
                   hintText:
                       BaseText.hiintSelect(field: ProspectText.labelCustomer),
@@ -630,12 +608,12 @@ class ProspectForm {
                         children: [
                           CustomSelectBox(
                             searchable: true,
-                            disabled: source.isBpNotSelected.value,
+                            disabled: source.isProcessing,
                             controller: selectItem,
                             hintText: BaseText.hiintSelect(
                                 field: ProspectText.labelItem),
                             serverSide: (params) => selectApiProductWithBp(
-                                params, _auth.bpActiveId.value.toString()),
+                                params, box.read('mybpid')),
                             // serverSide: (params) => selectApiProduct(params),
                             validators: [
                               Validators.selectRequired(ProspectText.labelItem)

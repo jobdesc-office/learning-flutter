@@ -5,6 +5,7 @@ import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../../constants/base_text.dart';
 import '../../../models/masters/type_model.dart';
@@ -71,11 +72,12 @@ class ScheduleSource extends GetxController {
       List<BsSelectBoxController>.empty(growable: true);
 
   List<Map<String, dynamic>> jsonMember() {
+    final box = GetStorage();
     return List<Map<String, dynamic>>.from(selectsMember.map((controller) {
       int index = selectsMember.indexOf(controller);
       return {
         'scheuserid': selectsMember[index].getSelectedAsString(),
-        'schebpid': _auth.bpActiveId.value,
+        'schebpid': box.read('mybpid'),
         'schepermisid': selectsPermission[index].getSelectedAsString()
       };
     }));
@@ -499,7 +501,7 @@ class ScheduleForm {
       children: [
         BsCol(
           margin: EdgeInsets.only(right: 10),
-          sizes: ColScreen(lg: Col.col_2),
+          sizes: ColScreen(lg: Col.col_3),
           child: FormGroup(
             label: Obx(() => Text(ScheduleText.labelOnline,
                 style: TextStyle(
@@ -518,7 +520,7 @@ class ScheduleForm {
         ),
         BsCol(
           margin: EdgeInsets.only(right: 10),
-          sizes: ColScreen(lg: Col.col_2),
+          sizes: ColScreen(lg: Col.col_3),
           child: FormGroup(
             label: Obx(() => Text(ScheduleText.labelAllDay,
                 style: TextStyle(
@@ -542,7 +544,7 @@ class ScheduleForm {
         ),
         BsCol(
           margin: EdgeInsets.only(right: 10),
-          sizes: ColScreen(lg: Col.col_2),
+          sizes: ColScreen(lg: Col.col_3),
           child: FormGroup(
             label: Obx(() => Text(ScheduleText.labelPrivate,
                 style: TextStyle(
@@ -553,30 +555,6 @@ class ScheduleForm {
                   value: source.private.value,
                   onChanged: (value) => source.private.toggle(),
                 )),
-          ),
-        ),
-        BsCol(
-          margin: EdgeInsets.only(left: 10),
-          sizes: ColScreen(lg: Col.col_3),
-          child: FormGroup(
-            label: Obx(() => Text(ScheduleText.labelBp,
-                style: TextStyle(
-                    color: _navigation.darkTheme.value
-                        ? Colors.white
-                        : Colors.black))),
-            child: CustomSelectBox(
-              searchable: true,
-              disabled: source.isProcessing,
-              controller: source.selectBp,
-              hintText: BaseText.hiintSelect(field: ScheduleText.labelBp),
-              serverSide: (params) => selectApiPartner(params),
-              onChange: (value) {
-                if (value.getValue() != null) {
-                  source.isBpNotSelected.value = false;
-                  _auth.bpActiveId.value = value.getValue();
-                }
-              },
-            ),
           ),
         ),
         BsCol(

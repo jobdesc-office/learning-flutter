@@ -24,7 +24,7 @@ class PProductSource extends GetxController {
     SessionModel session = await SessionManager.current();
     return {
       'productname': inputName.text,
-      'productbpid': authPresenter.bpActiveId.value,
+      'productbpid': box.read('mybpid'),
       'createdby': session.userid,
       'updatedby': session.userid,
     };

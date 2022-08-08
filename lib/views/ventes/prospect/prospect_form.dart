@@ -66,7 +66,6 @@ class ProspectFormView extends StatelessWidget
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           prospectForm.inputTitle(),
-                          prospectForm.selectBp(),
                           prospectForm.selectOwner(),
                           prospectForm.inputStatus(),
                           prospectForm.inputPipelineStage()
@@ -312,8 +311,6 @@ class ProspectFormView extends StatelessWidget
       source.value.selectBp.setSelected(BsSelectBoxOption(
           value: prospect.prospectbpid,
           text: Text(prospect.prospectbp!.bpname!)));
-      authPresenter.bpActiveId.value = prospect.prospectbpid!;
-      source.value.isBpNotSelected.value = false;
       source.value.selectOwner.setSelected(BsSelectBoxOption(
           value: prospect.prospectownerusers!.userid,
           text: Text(prospect.prospectownerusers!.userfullname!)));

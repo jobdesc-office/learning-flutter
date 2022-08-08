@@ -72,7 +72,7 @@ class PCustomerSource extends GetxController {
         'contactname': inputContactName.text,
         'contacttypeid': selectContactType.getSelectedAsString(),
         'contactvalueid': inputValue.text,
-        'sbcbpid': authPresenter.bpActiveId.value,
+        'sbcbpid': box.read('mybpid'),
         'cstmid': selectCustomer.getSelectedAsString(),
         'sbccstmstatusid': selectStatus.getSelectedAsString(),
         'sbccstmpic': isImage.value
@@ -111,7 +111,7 @@ class PCustomerSource extends GetxController {
         'sbccstmpic': isImage.value
             ? MultipartFile(image.value, filename: inputName.text)
             : null,
-        'sbcbpid': authPresenter.bpActiveId.value,
+        'sbcbpid': box.read('mybpid'),
         'sbccstmstatusid': selectStatus.getSelectedAsString(),
         'createdby': session.userid,
         'updatedby': session.userid,

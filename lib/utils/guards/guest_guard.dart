@@ -91,7 +91,7 @@ class GuestGuard extends StatelessWidget implements GuardContract {
     authPresenter.isAuthenticated.value = isOk;
     authPresenter.statusCode.value = 200;
 
-    if (isOk) toNameRoute(RouteList.home.index);
+    if (isOk) toNameRoute(RouteList.ventesProspect.index);
   }
 
   @override

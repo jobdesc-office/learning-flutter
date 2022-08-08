@@ -217,7 +217,7 @@ class _SignInViewState extends State<SignInView>
           userid: userModel.userid,
           jwtToken: userModel.jwtToken,
         ),
-      ).then((value) => toNameRoute(RouteList.home.index));
+      ).then((value) => toNameRoute(RouteList.ventesProspect.index));
     }
   }
 

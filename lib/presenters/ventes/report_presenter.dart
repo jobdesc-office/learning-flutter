@@ -22,10 +22,10 @@ class ReportPresenter extends CustomGetXController {
   final map = Get.put(MapSource());
   final box = GetStorage();
 
-  late DetailViewContract _reportFetchDataDetailsContract;
+  late IndexViewContract _reportViewContract;
   set reportFetchDataDetailsContract(
-      DetailViewContract reportFetchDataDetailsContract) {
-    _reportFetchDataDetailsContract = reportFetchDataDetailsContract;
+      IndexViewContract reportFetchDataDetailsContract) {
+    _reportViewContract = reportFetchDataDetailsContract;
   }
 
   late ReportContract _reportContract;
@@ -39,15 +39,21 @@ class ReportPresenter extends CustomGetXController {
     _reportContract.onLoadReportSuccess(ReportModel.fromJson(response.body));
   }
 
-  void details(BuildContext context, int scheid) async {
+  Future datatables(BuildContext context, Map<String, String> params) async {
+    Response response = await _reportService.datatables(params);
+    if (response.statusCode == 200)
+      _reportViewContract.onLoadDatatables(context, response);
+    else
+      _reportViewContract.onErrorRequest(response);
+  }
+
+  void details(BuildContext context, List<Activities> act) async {
     setProcessing(true);
     showDialog(
       context: context,
-      builder: (context) => ReportDetails(),
+      builder: (context) => ReportDetails(
+        act: act,
+      ),
     );
-
-    Response response = await _reportService.show(scheid);
-    if (response.statusCode == 200)
-      _reportFetchDataDetailsContract.onSuccessFetchData(response);
   }
 }

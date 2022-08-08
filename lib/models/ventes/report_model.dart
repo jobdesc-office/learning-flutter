@@ -34,10 +34,12 @@ class ReportModel {
 class Activities {
   int? dayactid;
   int? dayactcatid;
+  int? dayactcustid;
   int? dayacttypeid;
   String? dayacttypevalue;
   String? dayactdate;
   String? dayactdesc;
+  String? dayactloclabel;
   String? dayactloc;
   double? dayactlatitude;
   double? dayactlongitude;
@@ -61,6 +63,8 @@ class Activities {
   int? userdeviceid;
   int? userfcmtoken;
   int? usersocketid;
+  Dayactuser? dayactuser;
+  Dayactcust? dayactcust;
   Dayactcat? dayactcat;
   Dayactcat? dayacttype;
   Dayactpics? dayactpics;
@@ -68,10 +72,12 @@ class Activities {
   Activities(
       {this.dayactid,
       this.dayactcatid,
+      this.dayactcustid,
       this.dayacttypeid,
       this.dayacttypevalue,
       this.dayactdate,
       this.dayactdesc,
+      this.dayactloclabel,
       this.dayactloc,
       this.dayactlatitude,
       this.dayactlongitude,
@@ -95,6 +101,8 @@ class Activities {
       this.userdeviceid,
       this.userfcmtoken,
       this.usersocketid,
+      this.dayactuser,
+      this.dayactcust,
       this.dayactcat,
       this.dayacttype,
       this.dayactpics});
@@ -102,10 +110,12 @@ class Activities {
   Activities.fromJson(Map<String, dynamic> json) {
     dayactid = json['dayactid'];
     dayactcatid = json['dayactcatid'];
+    dayactcustid = json['dayactcustid'];
     dayacttypeid = json['dayacttypeid'];
     dayacttypevalue = json['dayacttypevalue'];
     dayactdate = json['dayactdate'];
     dayactdesc = json['dayactdesc'];
+    dayactloclabel = json['dayactloclabel'];
     dayactloc = json['dayactloc'];
     dayactlatitude = json['dayactlatitude'];
     dayactlongitude = json['dayactlongitude'];
@@ -129,6 +139,12 @@ class Activities {
     userdeviceid = json['userdeviceid'];
     userfcmtoken = json['userfcmtoken'];
     usersocketid = json['usersocketid'];
+    dayactuser = json['dayactuser'] != null
+        ? new Dayactuser.fromJson(json['dayactuser'])
+        : null;
+    dayactcust = json['dayactcust'] != null
+        ? new Dayactcust.fromJson(json['dayactcust'])
+        : null;
     dayactcat = json['dayactcat'] != null
         ? new Dayactcat.fromJson(json['dayactcat'])
         : null;
@@ -144,10 +160,12 @@ class Activities {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['dayactid'] = this.dayactid;
     data['dayactcatid'] = this.dayactcatid;
+    data['dayactcustid'] = this.dayactcustid;
     data['dayacttypeid'] = this.dayacttypeid;
     data['dayacttypevalue'] = this.dayacttypevalue;
     data['dayactdate'] = this.dayactdate;
     data['dayactdesc'] = this.dayactdesc;
+    data['dayactloclabel'] = this.dayactloclabel;
     data['dayactloc'] = this.dayactloc;
     data['dayactlatitude'] = this.dayactlatitude;
     data['dayactlongitude'] = this.dayactlongitude;
@@ -171,6 +189,12 @@ class Activities {
     data['userdeviceid'] = this.userdeviceid;
     data['userfcmtoken'] = this.userfcmtoken;
     data['usersocketid'] = this.usersocketid;
+    if (this.dayactuser != null) {
+      data['dayactuser'] = this.dayactuser!.toJson();
+    }
+    if (this.dayactcust != null) {
+      data['dayactcust'] = this.dayactcust!.toJson();
+    }
     if (this.dayactcat != null) {
       data['dayactcat'] = this.dayactcat!.toJson();
     }
@@ -180,6 +204,164 @@ class Activities {
     if (this.dayactpics != null) {
       data['dayactpics'] = this.dayactpics!.toJson();
     }
+    return data;
+  }
+}
+
+class Dayactuser {
+  int? userid;
+  String? username;
+  String? userpassword;
+  String? userfullname;
+  String? useremail;
+  String? userphone;
+  int? userdeviceid;
+  int? userfcmtoken;
+  int? usersocketid;
+  int? createdby;
+  String? createddate;
+  int? updatedby;
+  String? updateddate;
+  bool? isactive;
+
+  Dayactuser(
+      {this.userid,
+      this.username,
+      this.userpassword,
+      this.userfullname,
+      this.useremail,
+      this.userphone,
+      this.userdeviceid,
+      this.userfcmtoken,
+      this.usersocketid,
+      this.createdby,
+      this.createddate,
+      this.updatedby,
+      this.updateddate,
+      this.isactive});
+
+  Dayactuser.fromJson(Map<String, dynamic> json) {
+    userid = json['userid'];
+    username = json['username'];
+    userpassword = json['userpassword'];
+    userfullname = json['userfullname'];
+    useremail = json['useremail'];
+    userphone = json['userphone'];
+    userdeviceid = json['userdeviceid'];
+    userfcmtoken = json['userfcmtoken'];
+    usersocketid = json['usersocketid'];
+    createdby = json['createdby'];
+    createddate = json['createddate'];
+    updatedby = json['updatedby'];
+    updateddate = json['updateddate'];
+    isactive = json['isactive'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['userid'] = this.userid;
+    data['username'] = this.username;
+    data['userpassword'] = this.userpassword;
+    data['userfullname'] = this.userfullname;
+    data['useremail'] = this.useremail;
+    data['userphone'] = this.userphone;
+    data['userdeviceid'] = this.userdeviceid;
+    data['userfcmtoken'] = this.userfcmtoken;
+    data['usersocketid'] = this.usersocketid;
+    data['createdby'] = this.createdby;
+    data['createddate'] = this.createddate;
+    data['updatedby'] = this.updatedby;
+    data['updateddate'] = this.updateddate;
+    data['isactive'] = this.isactive;
+    return data;
+  }
+}
+
+class Dayactcust {
+  int? cstmid;
+  String? cstmprefix;
+  String? cstmname;
+  String? cstmphone;
+  String? cstmaddress;
+  int? cstmtypeid;
+  int? cstmprovinceid;
+  int? cstmcityid;
+  int? cstmsubdistrictid;
+  int? cstmuvid;
+  String? cstmpostalcode;
+  String? cstmlatitude;
+  String? cstmlongitude;
+  int? referalcode;
+  int? createdby;
+  String? createddate;
+  int? updatedby;
+  String? updateddate;
+  bool? isactive;
+
+  Dayactcust(
+      {this.cstmid,
+      this.cstmprefix,
+      this.cstmname,
+      this.cstmphone,
+      this.cstmaddress,
+      this.cstmtypeid,
+      this.cstmprovinceid,
+      this.cstmcityid,
+      this.cstmsubdistrictid,
+      this.cstmuvid,
+      this.cstmpostalcode,
+      this.cstmlatitude,
+      this.cstmlongitude,
+      this.referalcode,
+      this.createdby,
+      this.createddate,
+      this.updatedby,
+      this.updateddate,
+      this.isactive});
+
+  Dayactcust.fromJson(Map<String, dynamic> json) {
+    cstmid = json['cstmid'];
+    cstmprefix = json['cstmprefix'];
+    cstmname = json['cstmname'];
+    cstmphone = json['cstmphone'];
+    cstmaddress = json['cstmaddress'];
+    cstmtypeid = json['cstmtypeid'];
+    cstmprovinceid = json['cstmprovinceid'];
+    cstmcityid = json['cstmcityid'];
+    cstmsubdistrictid = json['cstmsubdistrictid'];
+    cstmuvid = json['cstmuvid'];
+    cstmpostalcode = json['cstmpostalcode'];
+    cstmlatitude = json['cstmlatitude'];
+    cstmlongitude = json['cstmlongitude'];
+    referalcode = json['referalcode'];
+    createdby = json['createdby'];
+    createddate = json['createddate'];
+    updatedby = json['updatedby'];
+    updateddate = json['updateddate'];
+    isactive = json['isactive'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['cstmid'] = this.cstmid;
+    data['cstmprefix'] = this.cstmprefix;
+    data['cstmname'] = this.cstmname;
+    data['cstmphone'] = this.cstmphone;
+    data['cstmaddress'] = this.cstmaddress;
+    data['cstmtypeid'] = this.cstmtypeid;
+    data['cstmprovinceid'] = this.cstmprovinceid;
+    data['cstmcityid'] = this.cstmcityid;
+    data['cstmsubdistrictid'] = this.cstmsubdistrictid;
+    data['cstmuvid'] = this.cstmuvid;
+    data['cstmpostalcode'] = this.cstmpostalcode;
+    data['cstmlatitude'] = this.cstmlatitude;
+    data['cstmlongitude'] = this.cstmlongitude;
+    data['referalcode'] = this.referalcode;
+    data['createdby'] = this.createdby;
+    data['createddate'] = this.createddate;
+    data['updatedby'] = this.updatedby;
+    data['updateddate'] = this.updateddate;
+    data['isactive'] = this.isactive;
     return data;
   }
 }
@@ -271,18 +453,114 @@ class Dayactpics {
 class Employees {
   int? userid;
   String? userfullname;
+  List<UserActivity>? userActivity;
 
-  Employees({this.userid, this.userfullname});
+  Employees({this.userid, this.userfullname, this.userActivity});
 
   Employees.fromJson(Map<String, dynamic> json) {
     userid = json['userid'];
     userfullname = json['userfullname'];
+    if (json['user_activity'] != null) {
+      userActivity = <UserActivity>[];
+      json['user_activity'].forEach((v) {
+        userActivity!.add(new UserActivity.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['userid'] = this.userid;
     data['userfullname'] = this.userfullname;
+    if (this.userActivity != null) {
+      data['user_activity'] =
+          this.userActivity!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class UserActivity {
+  int? dayactid;
+  int? dayactcatid;
+  int? dayactcustid;
+  int? dayacttypeid;
+  String? dayacttypevalue;
+  String? dayactdate;
+  String? dayactdesc;
+  String? dayactloclabel;
+  String? dayactloc;
+  double? dayactlatitude;
+  double? dayactlongitude;
+  int? createdby;
+  String? createddate;
+  int? updatedby;
+  String? updateddate;
+  bool? isactive;
+  Dayactuser? dayactuser;
+
+  UserActivity(
+      {this.dayactid,
+      this.dayactcatid,
+      this.dayactcustid,
+      this.dayacttypeid,
+      this.dayacttypevalue,
+      this.dayactdate,
+      this.dayactdesc,
+      this.dayactloclabel,
+      this.dayactloc,
+      this.dayactlatitude,
+      this.dayactlongitude,
+      this.createdby,
+      this.createddate,
+      this.updatedby,
+      this.updateddate,
+      this.isactive,
+      this.dayactuser});
+
+  UserActivity.fromJson(Map<String, dynamic> json) {
+    dayactid = json['dayactid'];
+    dayactcatid = json['dayactcatid'];
+    dayactcustid = json['dayactcustid'];
+    dayacttypeid = json['dayacttypeid'];
+    dayacttypevalue = json['dayacttypevalue'];
+    dayactdate = json['dayactdate'];
+    dayactdesc = json['dayactdesc'];
+    dayactloclabel = json['dayactloclabel'];
+    dayactloc = json['dayactloc'];
+    dayactlatitude = json['dayactlatitude'];
+    dayactlongitude = json['dayactlongitude'];
+    createdby = json['createdby'];
+    createddate = json['createddate'];
+    updatedby = json['updatedby'];
+    updateddate = json['updateddate'];
+    isactive = json['isactive'];
+    dayactuser = json['dayactuser'] != null
+        ? new Dayactuser.fromJson(json['dayactuser'])
+        : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['dayactid'] = this.dayactid;
+    data['dayactcatid'] = this.dayactcatid;
+    data['dayactcustid'] = this.dayactcustid;
+    data['dayacttypeid'] = this.dayacttypeid;
+    data['dayacttypevalue'] = this.dayacttypevalue;
+    data['dayactdate'] = this.dayactdate;
+    data['dayactdesc'] = this.dayactdesc;
+    data['dayactloclabel'] = this.dayactloclabel;
+    data['dayactloc'] = this.dayactloc;
+    data['dayactlatitude'] = this.dayactlatitude;
+    data['dayactlongitude'] = this.dayactlongitude;
+    data['createdby'] = this.createdby;
+    data['createddate'] = this.createddate;
+    data['updatedby'] = this.updatedby;
+    data['updateddate'] = this.updateddate;
+    data['isactive'] = this.isactive;
+    if (this.dayactuser != null) {
+      data['dayactuser'] = this.dayactuser!.toJson();
+    }
     return data;
   }
 }

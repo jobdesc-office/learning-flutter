@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
                   brightness: Brightness.light,
                   primarySwatch: Colors.green,
                   fontFamily: 'Monseratt'),
-          initialRoute: RouteList.home.index,
+          initialRoute: RouteList.ventesProspect.index,
           debugShowCheckedModeBanner: false,
           getPages: AppRoute.routes,
           initialBinding: BindingsBuilder(() {

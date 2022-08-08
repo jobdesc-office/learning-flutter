@@ -13,8 +13,6 @@ import '../views/signin/_source.dart';
 import 'navigation_presenter.dart';
 
 class AuthPresenter extends CustomGetXController {
-  var bpActiveId = 0.obs;
-
   var detailUser = <Userdetails>[].obs;
 
   final _authService = Get.find<AuthService>();

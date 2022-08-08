@@ -2,6 +2,7 @@ import 'package:bs_flutter_inputtext/bs_flutter_inputtext.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../constants/base_text.dart';
@@ -62,6 +63,7 @@ class ProspectProductForm {
   final ProspectProductSource source;
   final _auth = Get.put(AuthPresenter());
   final currencyFormatter = NumberFormat('#,##0.00', 'ID');
+  final box = GetStorage();
 
   ProspectProductForm(this.source);
 
@@ -75,8 +77,8 @@ class ProspectProductForm {
             disabled: source.isProcessing,
             controller: source.selectItem,
             hintText: BaseText.hiintSelect(field: ProspectText.labelItem),
-            serverSide: (params) => selectApiProductWithBp(
-                params, _auth.bpActiveId.value.toString()),
+            serverSide: (params) =>
+                selectApiProductWithBp(params, box.read('mybpid').toString()),
             // serverSide: (params) => selectApiProduct(params),
             validators: [Validators.selectRequired(ProspectText.labelItem)],
           ),

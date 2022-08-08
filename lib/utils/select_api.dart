@@ -339,7 +339,7 @@ Future<BsSelectBoxResponse> selectApiProspectOwner(
   final userService = Get.find<UserService>();
   final _auth = Get.find<AuthPresenter>();
   Response response =
-      await userService.selectsamebp(params, _auth.bpActiveId.value);
+      await userService.selectsamebp(params, box.read('mybpid'));
   if (response.isOk) {
     if (response.statusCode == 200) {
       return BsSelectBoxResponse.createFromJson(

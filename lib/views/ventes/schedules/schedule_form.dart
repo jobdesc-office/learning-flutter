@@ -163,8 +163,6 @@ class ScheduleFormView extends StatelessWidget
         source.value.inputRemind.text = menu.scheremind.toString();
       }
 
-      authPresenter.bpActiveId.value = menu.schebp!.bpid!;
-
       source.value.isBpNotSelected.value = false;
 
       source.value.selectType.setSelected(BsSelectBoxOption(

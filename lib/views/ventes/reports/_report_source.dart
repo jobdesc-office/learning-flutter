@@ -11,6 +11,8 @@ class ReportHelper extends GetxController {
   var done = false.obs;
   var isTap = false.obs;
 
+  var act = <Activities>[].obs;
+
   var focusedDay = DateTime.now().obs;
 
   Widget dayContainer(

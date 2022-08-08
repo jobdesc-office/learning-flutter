@@ -254,7 +254,7 @@ class AppRoute {
       ),
       CustomGetPage(
         name: RouteList.ventesProspect.index,
-        page: () => ProspectView(),
+        page: () => AuthGuard(child: ProspectView()),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => VillageService());
           Get.lazyPut(() => SubdistrictService());

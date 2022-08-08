@@ -101,7 +101,7 @@ class ReportView extends GetView
                         defaultBuilder: (context, date, _) =>
                             source.dayContainer(context, date),
                         markerBuilder: (_, date, reports) {
-                          List<int> employee = source.employees.value;
+                          List<int> employee = source.employees;
                           for (var item in reports) {
                             employee.removeWhere(
                                 (element) => element == item.createdby);
@@ -118,23 +118,27 @@ class ReportView extends GetView
                                     margin: EdgeInsets.only(top: 50),
                                     child: Column(
                                       children: [
-                                        Container(
-                                          width: 150,
-                                          height: 20,
-                                          margin: EdgeInsets.only(bottom: 5),
-                                          padding: EdgeInsets.only(left: 5),
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            "Daily Activity : ${reports.length}",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 10,
+                                        InkWell(
+                                          onTap: () => presenter.details(
+                                              context, reports),
+                                          child: Container(
+                                            width: 150,
+                                            height: 20,
+                                            margin: EdgeInsets.only(bottom: 5),
+                                            padding: EdgeInsets.only(left: 5),
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              "Daily Activity : ${reports.length}",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 10,
+                                              ),
                                             ),
-                                          ),
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(5)),
-                                            color: Colors.blue,
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5)),
+                                              color: Colors.blue,
+                                            ),
                                           ),
                                         ),
                                         Container(
