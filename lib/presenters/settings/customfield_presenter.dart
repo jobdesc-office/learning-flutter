@@ -39,7 +39,7 @@ class CustomFieldPresenter extends CustomGetXController {
   }
 
   Future datatables(BuildContext context, Map<String, String> params) async {
-    Response response = await _customFieldService.datatables(params);
+    Response response = await _customFieldService.datatablesbp(params);
     if (response.statusCode == 200)
       _customFieldViewContract.onLoadDatatables(context, response);
     else

@@ -6,27 +6,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import '../../../contracts/base/details_view_contract.dart';
-import '../../../contracts/base/index_view_contract.dart';
-import '../../../models/ventes/report_model.dart';
-import '../../../presenters/navigation_presenter.dart';
-import '../../../presenters/ventes/report_presenter.dart';
-import '../../../widgets/snackbar.dart';
+import '../../../../contracts/base/index_view_contract.dart';
+import '../../../../models/ventes/report_model.dart';
+import '../../../../presenters/navigation_presenter.dart';
+import '../../../../presenters/ventes/report_presenter.dart';
+import '../_report_source.dart';
+import '../_text.dart';
 import '_datatable_source.dart';
-import '_details_source.dart';
-import '_report_source.dart';
-import '_text.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 
-class ReportDetails extends GetView implements IndexViewContract {
+class ReportDailyActivities extends GetView implements IndexViewContract {
   final ReportPresenter presenter = Get.find<ReportPresenter>();
   final controllers = Get.put(ReportHelper());
-  final datatable = ReportDetailDataTableSource();
+  final datatable = ReportDailyActivityDataTableSource();
 
   List<Activities> act = [];
 
-  ReportDetails({required this.act}) {
+  ReportDailyActivities({required this.act}) {
     presenter.reportFetchDataDetailsContract = this;
     controllers.act.value = act;
     datatable.addAll(act);
@@ -37,7 +34,7 @@ class ReportDetails extends GetView implements IndexViewContract {
     return BsModal(
         context: context,
         dialog: BsModalDialog(
-          size: BsModalSize.lg,
+          size: BsModalSize.xl,
           child: BsModalContent(
               decoration: BoxDecoration(
                 color: _navigation.darkTheme.value
@@ -56,7 +53,10 @@ class ReportDetails extends GetView implements IndexViewContract {
                 ),
                 BsModalContainer(
                   child: CustomDatabales(
-                      source: datatable, columns: datatable.columns),
+                    source: datatable,
+                    columns: datatable.columns,
+                    searchHintText: '',
+                  ),
                 )
               ]),
         ));

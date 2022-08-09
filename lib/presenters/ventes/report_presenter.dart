@@ -1,3 +1,4 @@
+import 'package:boilerplate/views/ventes/reports/dailyactivity/report_dailyactivity.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -11,7 +12,6 @@ import '../../contracts/ventes/schedule_contract.dart';
 import '../../models/ventes/report_model.dart';
 import '../../services/ventes/report_service.dart';
 import '../../utils/custom_get_controller.dart';
-import '../../views/ventes/reports/report_detail.dart';
 import '../../widgets/confirm_dialog.dart';
 import '../../widgets/map/_map_source.dart';
 import '../auth_presenter.dart';
@@ -51,7 +51,7 @@ class ReportPresenter extends CustomGetXController {
     setProcessing(true);
     showDialog(
       context: context,
-      builder: (context) => ReportDetails(
+      builder: (context) => ReportDailyActivities(
         act: act,
       ),
     );

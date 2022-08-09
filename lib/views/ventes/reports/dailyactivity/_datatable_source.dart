@@ -5,19 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import '../../../models/ventes/report_model.dart';
-import '../../../presenters/navigation_presenter.dart';
-import '../../../styles/color_palattes.dart';
-import '../../../widgets/button/button_delete_datatable.dart';
-import '../../../widgets/button/button_details_datatable.dart';
-import '../../../widgets/button/button_edit_datatable.dart';
-import '../../../widgets/datatables/custom_datatable_tablecell.dart';
-import '../../../widgets/datatables/custom_datatable_tablehead.dart';
-import '_report_source.dart';
+import '../../../../models/ventes/report_model.dart';
+import '../../../../presenters/navigation_presenter.dart';
+import '../../../../styles/color_palattes.dart';
+import '../../../../widgets/datatables/custom_datatable_tablecell.dart';
+import '../../../../widgets/datatables/custom_datatable_tablehead.dart';
+import '../_report_source.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 
-class ReportDetailDataTableSource extends BsDatatableSource {
+class ReportDailyActivityDataTableSource extends BsDatatableSource {
   final controllers = Get.put(ReportHelper());
   final currencyFormatter = NumberFormat('#,##0.00', 'ID');
 
@@ -25,7 +22,7 @@ class ReportDetailDataTableSource extends BsDatatableSource {
   ValueChanged<int> onEditListener = (value) {};
   Function onDeleteListener = (value, name) {};
 
-  ReportDetailDataTableSource({
+  ReportDailyActivityDataTableSource({
     List data = const [],
   }) : super(data: data);
 
@@ -39,12 +36,17 @@ class ReportDetailDataTableSource extends BsDatatableSource {
       ),
       CustomBsDataColumn(
         label: Text('Daily Task User'),
-        columnName: 'ReportDetailname',
+        columnName: 'ReportDailyActivityname',
         searchable: false,
         orderable: false,
       ),
       CustomBsDataColumn(
         label: Text('Daily Task Type'),
+        searchable: false,
+        orderable: false,
+      ),
+      CustomBsDataColumn(
+        label: Text('Daily Task Date'),
         searchable: false,
         orderable: false,
       ),
@@ -61,14 +63,7 @@ class ReportDetailDataTableSource extends BsDatatableSource {
       index: index,
       cells: [
         CustomBsDataCell(
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('$x'),
-              Text(''),
-              if (_navigation.isCollapse.value) Text(''),
-            ],
-          ),
+          Text('$x'),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -89,6 +84,16 @@ class ReportDetailDataTableSource extends BsDatatableSource {
         ),
         CustomBsDataCell(
           Text(row.dayactcat!.typename ?? ''),
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
+        ),
+        CustomBsDataCell(
+          Text(row.dayactdate ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor

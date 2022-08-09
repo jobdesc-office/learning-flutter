@@ -83,7 +83,8 @@ class ProspectCustomFieldForm {
               if (source.format.value == 'Number' ||
                   source.format.value == 'Phone')
                 FilteringTextInputFormatter.digitsOnly,
-              if (source.format.value == 'Price')
+              if (source.format.value == 'Price' ||
+                  source.format.value == 'Number')
                 CurrencyTextInputFormatter(
                   decimalDigits: 0,
                   symbol: '',

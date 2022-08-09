@@ -10,6 +10,10 @@ final box = GetStorage();
 class CustomFieldService extends ApiConnectProvider {
   String get api => 'customfield';
 
+  Future<Response> datatablesbp(Map<String, dynamic> params) {
+    return post('$api/datatables/${box.read('mybpid')}', params);
+  }
+
   Future<Response> selectWithBp(Map<String, dynamic> params) {
     return post('$api/selectwithbp/${box.read('mybpid')}', params);
   }

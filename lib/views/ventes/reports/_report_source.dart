@@ -5,7 +5,7 @@ import '../../../models/ventes/report_model.dart';
 
 class ReportHelper extends GetxController {
   var data = <Activities>[].obs;
-  var employees = <int>[].obs;
+  var employees = <Dayactuser>[].obs;
   var employeesCount = 0.obs;
   var tappedData = <ReportModel>[].obs;
   var done = false.obs;

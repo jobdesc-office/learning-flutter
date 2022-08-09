@@ -101,11 +101,10 @@ class ReportView extends GetView
                         defaultBuilder: (context, date, _) =>
                             source.dayContainer(context, date),
                         markerBuilder: (_, date, reports) {
-                          List<int> employee = source.employees;
-                          for (var item in reports) {
+                          List<Dayactuser> employee = source.employees;
+                          for (var item in reports)
                             employee.removeWhere(
                                 (element) => element == item.createdby);
-                          }
 
                           return reports.isNotEmpty
                               ? InkWell(
@@ -281,10 +280,10 @@ class ReportView extends GetView
     }
     source.data.value = data;
 
-    final employees = <int>[];
-    for (var item in response.employees!) {
-      employees.add(item.userid!);
-    }
+    final employees = <Dayactuser>[];
+    // for (var item in response.employees!){ for (var items in item) {
+
+    // }}
     source.employees.value = employees;
     source.employeesCount.value = employees.length;
 
