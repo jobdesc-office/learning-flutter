@@ -101,10 +101,12 @@ class ReportView extends GetView
                         defaultBuilder: (context, date, _) =>
                             source.dayContainer(context, date),
                         markerBuilder: (_, date, reports) {
-                          List<Dayactuser> employee = source.employees;
+                          List<Dayactuser> employee = source.employees.value;
+
                           for (var item in reports)
-                            employee.removeWhere(
-                                (element) => element == item.createdby);
+                            employee.removeWhere((element) =>
+                                element.userfullname ==
+                                item.dayactuser!.userfullname);
 
                           return reports.isNotEmpty
                               ? InkWell(
@@ -140,23 +142,53 @@ class ReportView extends GetView
                                             ),
                                           ),
                                         ),
-                                        Container(
-                                          width: 150,
-                                          height: 20,
-                                          margin: EdgeInsets.only(bottom: 5),
-                                          padding: EdgeInsets.only(left: 5),
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            "No Daily Activity : ${employee.length}",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 10,
+                                        InkWell(
+                                          onTap: () =>
+                                              presenter.detailsNoDayAct(
+                                                  context, employee),
+                                          child: Container(
+                                            width: 150,
+                                            height: 20,
+                                            margin: EdgeInsets.only(bottom: 5),
+                                            padding: EdgeInsets.only(left: 5),
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              "No Daily Activity : ${employee.length}",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 10,
+                                              ),
+                                            ),
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5)),
+                                              color: Colors.green,
                                             ),
                                           ),
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(5)),
-                                            color: Colors.green,
+                                        ),
+                                        InkWell(
+                                          onTap: () {
+                                            print(source.employees.value);
+                                            presenter.detailsEmployees(context);
+                                          },
+                                          child: Container(
+                                            width: 150,
+                                            height: 20,
+                                            margin: EdgeInsets.only(bottom: 5),
+                                            padding: EdgeInsets.only(left: 5),
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              "Employees : ${source.employeesCount.value}",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 10,
+                                              ),
+                                            ),
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5)),
+                                              color: Colors.purple,
+                                            ),
                                           ),
                                         ),
                                         Container(
@@ -166,26 +198,7 @@ class ReportView extends GetView
                                           padding: EdgeInsets.only(left: 5),
                                           alignment: Alignment.centerLeft,
                                           child: Text(
-                                            "Employees : ${source.employeesCount.value}",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 10,
-                                            ),
-                                          ),
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(5)),
-                                            color: Colors.purple,
-                                          ),
-                                        ),
-                                        Container(
-                                          width: 150,
-                                          height: 20,
-                                          margin: EdgeInsets.only(bottom: 5),
-                                          padding: EdgeInsets.only(left: 5),
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            "Other : ${reports.length}",
+                                            "Other : ${source.employees.length}",
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 10,
@@ -281,9 +294,9 @@ class ReportView extends GetView
     source.data.value = data;
 
     final employees = <Dayactuser>[];
-    // for (var item in response.employees!){ for (var items in item) {
-
-    // }}
+    for (var item in response.employees!) {
+      employees.add(item);
+    }
     source.employees.value = employees;
     source.employeesCount.value = employees.length;
 

@@ -6,7 +6,8 @@ class UserModel {
   String? useremail;
   String? userphone;
   String? userdeviceid;
-  int? userfcmtoken;
+  String? userfcmtoken;
+  String? usersocketid;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -23,6 +24,7 @@ class UserModel {
       this.userphone,
       this.userdeviceid,
       this.userfcmtoken,
+      this.usersocketid,
       this.createdby,
       this.createddate,
       this.updatedby,
@@ -39,6 +41,7 @@ class UserModel {
     userphone = json['userphone'];
     userdeviceid = json['userdeviceid'];
     userfcmtoken = json['userfcmtoken'];
+    usersocketid = json['usersocketid'];
     createdby = json['createdby'];
     createddate = json['createddate'];
     updatedby = json['updatedby'];
@@ -62,6 +65,7 @@ class UserModel {
     data['userphone'] = this.userphone;
     data['userdeviceid'] = this.userdeviceid;
     data['userfcmtoken'] = this.userfcmtoken;
+    data['usersocketid'] = this.usersocketid;
     data['createdby'] = this.createdby;
     data['createddate'] = this.createddate;
     data['updatedby'] = this.updatedby;
@@ -79,8 +83,8 @@ class Userdetails {
   int? userid;
   int? userdttypeid;
   int? userdtbpid;
-  int? userdtbranchnm;
-  int? userdtreferalcode;
+  String? userdtbranchnm;
+  String? userdtreferalcode;
   int? userdtrelationid;
   int? createdby;
   String? createddate;

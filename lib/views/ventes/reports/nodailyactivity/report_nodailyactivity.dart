@@ -16,15 +16,15 @@ import '_datatable_source.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 
-class ReportDailyActivities extends GetView implements IndexViewContract {
+class ReportNoDailyActivities extends GetView implements IndexViewContract {
   final ReportPresenter presenter = Get.find<ReportPresenter>();
   final controllers = Get.put(ReportHelper());
-  final datatable = ReportDailyActivityDataTableSource();
+  final datatable = ReportNoDailyActivityDataTableSource();
 
-  List<Activities> act = [];
+  List<Dayactuser> act = [];
 
-  ReportDailyActivities({required this.act}) {
-    controllers.act.value = act;
+  ReportNoDailyActivities({required this.act}) {
+    controllers.employees.value = act;
     datatable.addAll(act);
   }
 
@@ -43,7 +43,7 @@ class ReportDailyActivities extends GetView implements IndexViewContract {
               ),
               children: [
                 BsModalContainer(
-                  title: Text(ReportText.title + ' Details',
+                  title: Text('No ' + ReportText.title + ' Details',
                       style: TextStyle(
                           color: _navigation.darkTheme.value
                               ? Colors.white

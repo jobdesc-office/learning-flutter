@@ -1,5 +1,6 @@
 import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:boilerplate/widgets/datatables/custom_datatable.dart';
+import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:bs_flutter_modal/bs_flutter_modal.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
@@ -16,16 +17,13 @@ import '_datatable_source.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 
-class ReportDailyActivities extends GetView implements IndexViewContract {
+class ReportEmployees extends GetView implements IndexViewContract {
   final ReportPresenter presenter = Get.find<ReportPresenter>();
   final controllers = Get.put(ReportHelper());
-  final datatable = ReportDailyActivityDataTableSource();
+  final datatable = ReportEmployeesDataTableSource();
 
-  List<Activities> act = [];
-
-  ReportDailyActivities({required this.act}) {
-    controllers.act.value = act;
-    datatable.addAll(act);
+  ReportEmployees() {
+    presenter.reportFetchDataDetailsContract = this;
   }
 
   @override
@@ -43,7 +41,7 @@ class ReportDailyActivities extends GetView implements IndexViewContract {
               ),
               children: [
                 BsModalContainer(
-                  title: Text(ReportText.title + ' Details',
+                  title: Text(ReportText.title + ' Employees Details',
                       style: TextStyle(
                           color: _navigation.darkTheme.value
                               ? Colors.white
@@ -54,7 +52,8 @@ class ReportDailyActivities extends GetView implements IndexViewContract {
                   child: CustomDatabales(
                     source: datatable,
                     columns: datatable.columns,
-                    searchHintText: '',
+                    serverSide: (params) =>
+                        presenter.datatables(context, params),
                   ),
                 )
               ]),
@@ -84,5 +83,7 @@ class ReportDailyActivities extends GetView implements IndexViewContract {
   @override
   void onLoadDatatables(BuildContext context, Response response) {
     // TODO: implement onLoadDatatables
+    datatable.response = BsDatatableResponse.createFromJson(response.body);
+    datatable.reload();
   }
 }

@@ -9,6 +9,10 @@ class UserService extends ApiConnectProvider {
     return get('$api/select/$id', query: params);
   }
 
+  Future<Response> datatablesbp(Map<String, dynamic> params, int id) {
+    return post('$api/datatables/$id', params);
+  }
+
   Future<Response> session(int id) {
     return get('$api/session');
   }

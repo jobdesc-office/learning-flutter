@@ -10,14 +10,18 @@ import '../../contracts/base/index_view_contract.dart';
 import '../../contracts/ventes/report_contract.dart';
 import '../../contracts/ventes/schedule_contract.dart';
 import '../../models/ventes/report_model.dart';
+import '../../services/masters/user_service.dart';
 import '../../services/ventes/report_service.dart';
 import '../../utils/custom_get_controller.dart';
+import '../../views/ventes/reports/employees/report_employee.dart';
+import '../../views/ventes/reports/nodailyactivity/report_nodailyactivity.dart';
 import '../../widgets/confirm_dialog.dart';
 import '../../widgets/map/_map_source.dart';
 import '../auth_presenter.dart';
 
 class ReportPresenter extends CustomGetXController {
   final _reportService = Get.find<ReportService>();
+  final _userService = Get.put(UserService());
   final authPresenter = Get.find<AuthPresenter>();
   final map = Get.put(MapSource());
   final box = GetStorage();
@@ -40,7 +44,8 @@ class ReportPresenter extends CustomGetXController {
   }
 
   Future datatables(BuildContext context, Map<String, String> params) async {
-    Response response = await _reportService.datatables(params);
+    Response response =
+        await _userService.datatablesbp(params, box.read('mybpid'));
     if (response.statusCode == 200)
       _reportViewContract.onLoadDatatables(context, response);
     else
@@ -54,6 +59,24 @@ class ReportPresenter extends CustomGetXController {
       builder: (context) => ReportDailyActivities(
         act: act,
       ),
+    );
+  }
+
+  void detailsNoDayAct(BuildContext context, List<Dayactuser> act) async {
+    setProcessing(true);
+    showDialog(
+      context: context,
+      builder: (context) => ReportNoDailyActivities(
+        act: act,
+      ),
+    );
+  }
+
+  void detailsEmployees(BuildContext context) async {
+    setProcessing(true);
+    showDialog(
+      context: context,
+      builder: (context) => ReportEmployees(),
     );
   }
 }
