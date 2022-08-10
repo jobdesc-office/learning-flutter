@@ -61,7 +61,7 @@ class MassProspectContactFormView extends StatelessWidget
                   Container(
                     margin: EdgeInsets.only(top: 5, bottom: 5),
                     child: InkWell(
-                      child: Text('Add More Contact'),
+                      child: Text('+ Add More Contact'),
                       onTap: () {
                         source.update((val) {
                           source.value.selectsItem.add(BsSelectBoxController());
