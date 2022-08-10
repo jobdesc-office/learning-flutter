@@ -83,15 +83,18 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
           child: InkWell(
             child: Container(
               padding: EdgeInsets.fromLTRB(7, 8, 7, 8),
+              height: 43,
               decoration: BoxDecoration(
                 color: backgroundColor,
                 borderRadius: borderRadius,
               ),
-              child: Text(
-                type.typename,
-                style: TextStyle(
-                  color: textColor,
-                  fontSize: 11,
+              child: Center(
+                child: Text(
+                  type.typename.replaceAll(' ', '\n'),
+                  style: TextStyle(
+                    color: textColor,
+                    fontSize: 11,
+                  ),
                 ),
               ),
             ),

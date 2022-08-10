@@ -1,3 +1,4 @@
+import 'package:boilerplate/presenters/navigation_presenter.dart';
 import 'package:boilerplate/views/skins/template.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import '../../../models/masters/businesspartner_model.dart';
 import '../../../models/masters/type_model.dart';
 import '../../../presenters/masters/businesspartner_presenter.dart';
 import '../../../routes/route_list.dart';
+import '../../../styles/color_palattes.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
@@ -23,6 +25,7 @@ class BusinessPartnerFormView extends StatelessWidget
       Get.find<BusinessPartnerPresenter>();
   final source = BusinessPartnerSource().obs;
   final Function(Map<String, dynamic> body) onSave;
+  final _navigation = Get.find<NavigationPresenter>();
 
   late BusinessPartnerForm businessPartnerForm;
 
@@ -50,35 +53,44 @@ class BusinessPartnerFormView extends StatelessWidget
         ],
         child: Obx(() {
           businessPartnerForm = BusinessPartnerForm(source.value);
-          return Form(
-            key: formState,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                businessPartnerForm.businessPartnerType(),
-                businessPartnerForm.inputCompanyName(),
-                businessPartnerForm.inputName(),
-                businessPartnerForm.inputEmail(),
-                businessPartnerForm.inputPhone(),
-                Obx(
-                  () => Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      ThemeButtonSave(
-                        disabled: presenter.isProcessing.value,
-                        processing: presenter.isProcessing.value,
-                        margin: EdgeInsets.only(right: 5),
-                        onPressed: () => onClickSaveModal(context),
-                      ),
-                      ThemeButtonCancel(
-                        disabled: presenter.isProcessing.value,
-                        margin: EdgeInsets.only(right: 5),
-                        onPressed: () => onClickCancelModal(context),
-                      ),
-                    ],
+          return Container(
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: _navigation.darkTheme.value
+                  ? ColorPallates.elseDarkColor
+                  : Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Form(
+              key: formState,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  businessPartnerForm.businessPartnerType(),
+                  businessPartnerForm.inputCompanyName(),
+                  businessPartnerForm.inputName(),
+                  businessPartnerForm.inputEmail(),
+                  businessPartnerForm.inputPhone(),
+                  Obx(
+                    () => Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ThemeButtonSave(
+                          disabled: presenter.isProcessing.value,
+                          processing: presenter.isProcessing.value,
+                          margin: EdgeInsets.only(right: 5),
+                          onPressed: () => onClickSaveModal(context),
+                        ),
+                        ThemeButtonCancel(
+                          disabled: presenter.isProcessing.value,
+                          margin: EdgeInsets.only(right: 5),
+                          onPressed: () => onClickCancelModal(context),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         }),

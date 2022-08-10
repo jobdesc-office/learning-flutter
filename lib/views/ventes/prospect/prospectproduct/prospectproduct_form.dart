@@ -8,9 +8,11 @@ import 'package:intl/intl.dart';
 import '../../../../contracts/base/edit_view_contract.dart';
 import '../../../../contracts/base/index_view_contract.dart';
 import '../../../../models/ventes/prospectProduct_model.dart';
+import '../../../../presenters/navigation_presenter.dart';
 import '../../../../presenters/ventes/prospect_presenter.dart';
 import '../../../../presenters/ventes/prospectproduct_presenter.dart';
 import '../../../../routes/route_list.dart';
+import '../../../../styles/color_palattes.dart';
 import '../../../../widgets/breadcrumb.dart';
 import '../../../../widgets/button/theme_button_cancel.dart';
 import '../../../../widgets/button/theme_button_save.dart';
@@ -26,6 +28,7 @@ class ProspectProductFormView extends StatelessWidget
   final ProspectPresenter prospectPresenter = Get.find<ProspectPresenter>();
   final source = ProspectProductSource().obs;
   final Function(Map<String, dynamic> body) onSave;
+  final _navigation = Get.find<NavigationPresenter>();
 
   late ProspectProductForm prospectForm;
 
@@ -49,83 +52,92 @@ class ProspectProductFormView extends StatelessWidget
         activeRoutes: [RouteList.ventes.index, RouteList.ventesProspect.index],
         child: Obx(() {
           prospectForm = ProspectProductForm(source.value);
-          return Form(
-            key: formState,
-            child: Column(
-              children: [
-                BsRow(
-                  children: [
-                    BsCol(
-                      margin: EdgeInsets.only(right: 5),
-                      sizes: ColScreen(sm: Col.col_12),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: Colors.grey.shade300)),
+          return Container(
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: _navigation.darkTheme.value
+                  ? ColorPallates.elseDarkColor
+                  : Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Form(
+              key: formState,
+              child: Column(
+                children: [
+                  BsRow(
+                    children: [
+                      BsCol(
+                        margin: EdgeInsets.only(right: 5, bottom: 10),
+                        sizes: ColScreen(sm: Col.col_12),
                         child: Container(
-                          margin: EdgeInsets.all(10),
-                          child: BsRow(
-                            children: [
-                              BsCol(
-                                  sizes: ColScreen(sm: Col.col_4),
-                                  child: prospectForm.selectProduct()),
-                              BsCol(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(color: Colors.grey.shade300)),
+                          child: Container(
+                            margin: EdgeInsets.all(10),
+                            child: BsRow(
+                              children: [
+                                BsCol(
+                                    sizes: ColScreen(sm: Col.col_4),
+                                    child: prospectForm.selectProduct()),
+                                BsCol(
+                                    margin: EdgeInsets.only(left: 5),
+                                    sizes: ColScreen(sm: Col.col_4),
+                                    child: prospectForm.inputQuantity()),
+                                BsCol(
+                                    margin: EdgeInsets.only(left: 5),
+                                    sizes: ColScreen(sm: Col.col_4),
+                                    child: prospectForm.inputPrices()),
+                                BsCol(
+                                    sizes: ColScreen(sm: Col.col_4),
+                                    child: prospectForm.inputDiscount()),
+                                BsCol(
+                                    margin: EdgeInsets.only(left: 5),
+                                    sizes: ColScreen(sm: Col.col_4),
+                                    child: prospectForm.inputTax()),
+                                BsCol(
+                                    margin: EdgeInsets.only(left: 5),
+                                    sizes: ColScreen(sm: Col.col_4),
+                                    child: prospectForm.selectTax()),
+                                BsCol(
                                   margin: EdgeInsets.only(left: 5),
                                   sizes: ColScreen(sm: Col.col_4),
-                                  child: prospectForm.inputQuantity()),
-                              BsCol(
+                                ),
+                                BsCol(
                                   margin: EdgeInsets.only(left: 5),
                                   sizes: ColScreen(sm: Col.col_4),
-                                  child: prospectForm.inputPrices()),
-                              BsCol(
-                                  sizes: ColScreen(sm: Col.col_4),
-                                  child: prospectForm.inputDiscount()),
-                              BsCol(
-                                  margin: EdgeInsets.only(left: 5),
-                                  sizes: ColScreen(sm: Col.col_4),
-                                  child: prospectForm.inputTax()),
-                              BsCol(
-                                  margin: EdgeInsets.only(left: 5),
-                                  sizes: ColScreen(sm: Col.col_4),
-                                  child: prospectForm.selectTax()),
-                              BsCol(
-                                margin: EdgeInsets.only(left: 5),
-                                sizes: ColScreen(sm: Col.col_4),
-                              ),
-                              BsCol(
-                                margin: EdgeInsets.only(left: 5),
-                                sizes: ColScreen(sm: Col.col_4),
-                              ),
-                              BsCol(
-                                  margin: EdgeInsets.only(left: 5),
-                                  sizes: ColScreen(sm: Col.col_4),
-                                  child: prospectForm.inputAmounts()),
-                            ],
+                                ),
+                                BsCol(
+                                    margin: EdgeInsets.only(left: 5),
+                                    sizes: ColScreen(sm: Col.col_4),
+                                    child: prospectForm.inputAmounts()),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    )
-                  ],
-                ),
-                Obx(
-                  () => Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      ThemeButtonSave(
-                        disabled: presenter.isProcessing.value,
-                        processing: presenter.isProcessing.value,
-                        margin: EdgeInsets.only(right: 5),
-                        onPressed: () => onClickSaveModal(context),
-                      ),
-                      ThemeButtonCancel(
-                        disabled: presenter.isProcessing.value,
-                        margin: EdgeInsets.only(right: 5),
-                        onPressed: () => onClickCancelModal(context),
-                      ),
+                      )
                     ],
                   ),
-                ),
-              ],
+                  Obx(
+                    () => Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ThemeButtonSave(
+                          disabled: presenter.isProcessing.value,
+                          processing: presenter.isProcessing.value,
+                          margin: EdgeInsets.only(right: 5),
+                          onPressed: () => onClickSaveModal(context),
+                        ),
+                        ThemeButtonCancel(
+                          disabled: presenter.isProcessing.value,
+                          margin: EdgeInsets.only(right: 5),
+                          onPressed: () => onClickCancelModal(context),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         }),

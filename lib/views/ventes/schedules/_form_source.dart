@@ -568,7 +568,7 @@ class ScheduleForm {
                         : Colors.black))),
             child: CustomSelectBox(
               searchable: true,
-              disabled: source.isBpNotSelected.value,
+              disabled: source.isProcessing,
               controller: source.selectToward,
               hintText: BaseText.hiintSelect(field: ScheduleText.labelToward),
               serverSide: (params) => selectApiProspectOwner(params),

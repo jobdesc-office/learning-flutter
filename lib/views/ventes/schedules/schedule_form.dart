@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import '../../../contracts/base/edit_view_contract.dart';
 import '../../../contracts/base/index_view_contract.dart';
 import '../../../models/ventes/schedule_model.dart';
+import '../../../presenters/navigation_presenter.dart';
 import '../../../presenters/ventes/schedule_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
@@ -28,6 +29,7 @@ class ScheduleFormView extends StatelessWidget
   final SchedulePresenter presenter = Get.find<SchedulePresenter>();
   final source = ScheduleSource().obs;
   final Function(Map<String, dynamic> body) onSave;
+  final _navigation = Get.find<NavigationPresenter>();
 
   late ScheduleForm menuForm;
 
@@ -49,63 +51,73 @@ class ScheduleFormView extends StatelessWidget
         activeRoutes: [RouteList.master.index, RouteList.ventesSchedule.index],
         child: Obx(() {
           menuForm = ScheduleForm(source.value);
-          return Form(
-            key: formState,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                menuForm.inputName(),
-                menuForm.checkBoxForm(),
-                menuForm.inputDate(context),
-                menuForm.inputTime(context),
-                menuForm.actDate(context),
-                menuForm.selectType(),
-                menuForm.selectUser(context),
-                menuForm.inputOnLink(),
-                menuForm.inputDesc(),
-                menuForm.inputRemind(),
-                Row(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(bottom: 10),
-                      child: BsButton(
-                        style: BsButtonStyle(
-                          backgroundColor: ColorPallates.secondary,
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        size: BsButtonSize(
-                          padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                          fontSize: 12,
-                          iconSize: 14,
-                        ),
-                        label: Text('Add ' + ScheduleText.labelGuest),
-                        onPressed: onClickAddRole,
-                        // disabled: c.role >= 3 ? true : false,
-                      ),
-                    )
-                  ],
-                ),
-                menuForm.checkBoxTypeForm(onRemoveItem: onClickRemoveRoleItem),
-                Obx(
-                  () => Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+          return Container(
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: _navigation.darkTheme.value
+                  ? ColorPallates.elseDarkColor
+                  : Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Form(
+              key: formState,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  menuForm.inputName(),
+                  menuForm.checkBoxForm(),
+                  menuForm.inputDate(context),
+                  menuForm.inputTime(context),
+                  menuForm.actDate(context),
+                  menuForm.selectType(),
+                  menuForm.selectUser(context),
+                  menuForm.inputOnLink(),
+                  menuForm.inputDesc(),
+                  menuForm.inputRemind(),
+                  Row(
                     children: [
-                      ThemeButtonSave(
-                        disabled: presenter.isProcessing.value,
-                        processing: presenter.isProcessing.value,
-                        margin: EdgeInsets.only(right: 5),
-                        onPressed: () => onClickSaveModal(context),
-                      ),
-                      ThemeButtonCancel(
-                        disabled: presenter.isProcessing.value,
-                        margin: EdgeInsets.only(right: 5),
-                        onPressed: () => onClickCancelModal(context),
-                      ),
+                      Container(
+                        margin: EdgeInsets.only(bottom: 10),
+                        child: BsButton(
+                          style: BsButtonStyle(
+                            backgroundColor: ColorPallates.secondary,
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          size: BsButtonSize(
+                            padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                            fontSize: 12,
+                            iconSize: 14,
+                          ),
+                          label: Text('Add ' + ScheduleText.labelGuest),
+                          onPressed: onClickAddRole,
+                          // disabled: c.role >= 3 ? true : false,
+                        ),
+                      )
                     ],
                   ),
-                ),
-              ],
+                  menuForm.checkBoxTypeForm(
+                      onRemoveItem: onClickRemoveRoleItem),
+                  Obx(
+                    () => Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ThemeButtonSave(
+                          disabled: presenter.isProcessing.value,
+                          processing: presenter.isProcessing.value,
+                          margin: EdgeInsets.only(right: 5),
+                          onPressed: () => onClickSaveModal(context),
+                        ),
+                        ThemeButtonCancel(
+                          disabled: presenter.isProcessing.value,
+                          margin: EdgeInsets.only(right: 5),
+                          onPressed: () => onClickCancelModal(context),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         }),

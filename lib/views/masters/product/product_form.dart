@@ -6,7 +6,9 @@ import 'package:get/get.dart';
 import '../../../contracts/base/edit_view_contract.dart';
 import '../../../models/masters/Product_model.dart';
 import '../../../presenters/masters/product_presenter.dart';
+import '../../../presenters/navigation_presenter.dart';
 import '../../../routes/route_list.dart';
+import '../../../styles/color_palattes.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
@@ -19,6 +21,7 @@ class ProductFormView extends StatelessWidget implements EditViewContract {
   final ProductPresenter presenter = Get.find<ProductPresenter>();
   final source = ProductSource().obs;
   final Function(Map<String, dynamic> body) onSave;
+  final _navigation = Get.find<NavigationPresenter>();
 
   late ProductForm productForm;
 
@@ -39,32 +42,41 @@ class ProductFormView extends StatelessWidget implements EditViewContract {
         activeRoutes: [RouteList.master.index, RouteList.masterProduct.index],
         child: Obx(() {
           productForm = ProductForm(source.value);
-          return Form(
-            key: formState,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                productForm.inputName(),
-                productForm.selectBp(),
-                Obx(
-                  () => Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      ThemeButtonSave(
-                        disabled: presenter.isProcessing.value,
-                        processing: presenter.isProcessing.value,
-                        margin: EdgeInsets.only(right: 5),
-                        onPressed: () => onClickSaveModal(context),
-                      ),
-                      ThemeButtonCancel(
-                        disabled: presenter.isProcessing.value,
-                        margin: EdgeInsets.only(right: 5),
-                        onPressed: () => onClickCancelModal(context),
-                      ),
-                    ],
+          return Container(
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: _navigation.darkTheme.value
+                  ? ColorPallates.elseDarkColor
+                  : Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Form(
+              key: formState,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  productForm.inputName(),
+                  productForm.selectBp(),
+                  Obx(
+                    () => Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ThemeButtonSave(
+                          disabled: presenter.isProcessing.value,
+                          processing: presenter.isProcessing.value,
+                          margin: EdgeInsets.only(right: 5),
+                          onPressed: () => onClickSaveModal(context),
+                        ),
+                        ThemeButtonCancel(
+                          disabled: presenter.isProcessing.value,
+                          margin: EdgeInsets.only(right: 5),
+                          onPressed: () => onClickCancelModal(context),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         }),

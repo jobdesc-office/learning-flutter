@@ -1,3 +1,4 @@
+import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:boilerplate/views/skins/template.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,7 @@ import 'package:get/get.dart';
 
 import '../../../../contracts/base/edit_view_contract.dart';
 import '../../../../models/masters/contact_model.dart';
+import '../../../../presenters/navigation_presenter.dart';
 import '../../../../presenters/ventes/prospectcontact_presenter.dart';
 import '../../../../routes/route_list.dart';
 import '../../../../widgets/breadcrumb.dart';
@@ -20,6 +22,7 @@ class ProspectContactFormView extends StatelessWidget
       Get.find<ProspectContactPresenter>();
   final source = ProspectContactSource().obs;
   final Function(Map<String, dynamic> body) onSave;
+  final _navigation = Get.find<NavigationPresenter>();
 
   late ProspectContactForm prospectContactForm;
 
@@ -41,33 +44,42 @@ class ProspectContactFormView extends StatelessWidget
         activeRoutes: [RouteList.master.index, RouteList.ventesProspect.index],
         child: Obx(() {
           prospectContactForm = ProspectContactForm(source.value);
-          return Form(
-            key: formState,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                prospectContactForm.inputName(),
-                prospectContactForm.selectType(),
-                prospectContactForm.inputValue(),
-                Obx(
-                  () => Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      ThemeButtonSave(
-                        disabled: presenter.isProcessing.value,
-                        processing: presenter.isProcessing.value,
-                        margin: EdgeInsets.only(right: 5),
-                        onPressed: () => onClickSaveModal(context),
-                      ),
-                      ThemeButtonCancel(
-                        disabled: presenter.isProcessing.value,
-                        margin: EdgeInsets.only(right: 5),
-                        onPressed: () => onClickCancelModal(context),
-                      ),
-                    ],
+          return Container(
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: _navigation.darkTheme.value
+                  ? ColorPallates.elseDarkColor
+                  : Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Form(
+              key: formState,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  prospectContactForm.inputName(),
+                  prospectContactForm.selectType(),
+                  prospectContactForm.inputValue(),
+                  Obx(
+                    () => Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ThemeButtonSave(
+                          disabled: presenter.isProcessing.value,
+                          processing: presenter.isProcessing.value,
+                          margin: EdgeInsets.only(right: 5),
+                          onPressed: () => onClickSaveModal(context),
+                        ),
+                        ThemeButtonCancel(
+                          disabled: presenter.isProcessing.value,
+                          margin: EdgeInsets.only(right: 5),
+                          onPressed: () => onClickCancelModal(context),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         }),

@@ -6,8 +6,10 @@ import 'package:get/get.dart';
 
 import '../../../contracts/base/edit_view_contract.dart';
 import '../../../models/ventes/bpcustomer_model.dart';
+import '../../../presenters/navigation_presenter.dart';
 import '../../../presenters/ventes/bpcustomer_presenter.dart';
 import '../../../routes/route_list.dart';
+import '../../../styles/color_palattes.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
@@ -20,6 +22,7 @@ class BpCustomerFormView extends StatelessWidget implements EditViewContract {
   final BpCustomerPresenter presenter = Get.find<BpCustomerPresenter>();
   final source = BpCustomerSource().obs;
   final Function(dynamic body) onSave;
+  final _navigation = Get.find<NavigationPresenter>();
 
   late BpCustomerForm bpCustomerForm;
 
@@ -43,70 +46,79 @@ class BpCustomerFormView extends StatelessWidget implements EditViewContract {
         ],
         child: Obx(() {
           bpCustomerForm = BpCustomerForm(source.value);
-          return Form(
-            key: formState,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                BsRow(
-                  children: [
-                    BsCol(
-                      margin: EdgeInsets.only(bottom: 10),
-                      sizes: ColScreen(sm: Col.col_4),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: Colors.grey.shade300)),
-                        child: Container(
-                          margin: EdgeInsets.all(10),
-                          child: Column(
-                            children: [
-                              bpCustomerForm.btnImage(),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    BsCol(
-                      margin: EdgeInsets.only(left: 10, bottom: 10),
-                      sizes: ColScreen(sm: Col.col_8),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: Colors.grey.shade300)),
-                        child: Container(
-                          margin: EdgeInsets.all(10),
-                          child: Column(
-                            children: [
-                              bpCustomerForm.selectCustomer(),
-                              bpCustomerForm.selectBp(),
-                              bpCustomerForm.selectTypes()
-                            ],
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-                Obx(
-                  () => Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+          return Container(
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: _navigation.darkTheme.value
+                  ? ColorPallates.elseDarkColor
+                  : Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Form(
+              key: formState,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  BsRow(
                     children: [
-                      ThemeButtonSave(
-                        disabled: presenter.isProcessing.value,
-                        processing: presenter.isProcessing.value,
-                        margin: EdgeInsets.only(right: 5),
-                        onPressed: () => onClickSaveModal(context),
+                      BsCol(
+                        margin: EdgeInsets.only(bottom: 10),
+                        sizes: ColScreen(sm: Col.col_4),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(color: Colors.grey.shade300)),
+                          child: Container(
+                            margin: EdgeInsets.all(10),
+                            child: Column(
+                              children: [
+                                bpCustomerForm.btnImage(),
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
-                      ThemeButtonCancel(
-                        disabled: presenter.isProcessing.value,
-                        margin: EdgeInsets.only(right: 5),
-                        onPressed: () => onClickCancelModal(context),
-                      ),
+                      BsCol(
+                        margin: EdgeInsets.only(left: 10, bottom: 10),
+                        sizes: ColScreen(sm: Col.col_8),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(color: Colors.grey.shade300)),
+                          child: Container(
+                            margin: EdgeInsets.all(10),
+                            child: Column(
+                              children: [
+                                bpCustomerForm.selectCustomer(),
+                                bpCustomerForm.selectBp(),
+                                bpCustomerForm.selectTypes()
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
                     ],
                   ),
-                ),
-              ],
+                  Obx(
+                    () => Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ThemeButtonSave(
+                          disabled: presenter.isProcessing.value,
+                          processing: presenter.isProcessing.value,
+                          margin: EdgeInsets.only(right: 5),
+                          onPressed: () => onClickSaveModal(context),
+                        ),
+                        ThemeButtonCancel(
+                          disabled: presenter.isProcessing.value,
+                          margin: EdgeInsets.only(right: 5),
+                          onPressed: () => onClickCancelModal(context),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         }),

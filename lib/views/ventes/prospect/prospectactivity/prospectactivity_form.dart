@@ -6,8 +6,10 @@ import 'package:get/get.dart';
 
 import '../../../../contracts/base/edit_view_contract.dart';
 import '../../../../models/ventes/prospectactivity_model.dart';
+import '../../../../presenters/navigation_presenter.dart';
 import '../../../../presenters/ventes/prospectactivity_presenter.dart';
 import '../../../../routes/route_list.dart';
+import '../../../../styles/color_palattes.dart';
 import '../../../../widgets/breadcrumb.dart';
 import '../../../../widgets/button/theme_button_cancel.dart';
 import '../../../../widgets/button/theme_button_save.dart';
@@ -21,6 +23,7 @@ class ProspectActivityFormView extends StatelessWidget
       Get.find<ProspectActivityPresenter>();
   final source = ProspectActivitySource().obs;
   final Function(Map<String, dynamic> body) onSave;
+  final _navigation = Get.find<NavigationPresenter>();
 
   late ProspectDetailForm prospectForm;
 
@@ -43,55 +46,64 @@ class ProspectActivityFormView extends StatelessWidget
         activeRoutes: [RouteList.ventes.index, RouteList.ventesProspect.index],
         child: Obx(() {
           prospectForm = ProspectDetailForm(source.value);
-          return Form(
-            key: formState,
-            child: Column(
-              children: [
-                BsRow(
-                  children: [
-                    BsCol(
-                      margin: EdgeInsets.only(right: 5),
-                      sizes: ColScreen(sm: Col.col_12),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: Colors.grey.shade300)),
+          return Container(
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: _navigation.darkTheme.value
+                  ? ColorPallates.elseDarkColor
+                  : Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Form(
+              key: formState,
+              child: Column(
+                children: [
+                  BsRow(
+                    children: [
+                      BsCol(
+                        margin: EdgeInsets.only(right: 5, bottom: 10),
+                        sizes: ColScreen(sm: Col.col_12),
                         child: Container(
-                          margin: EdgeInsets.all(10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              prospectForm.selectTypes(),
-                              prospectForm.selectCategory(),
-                              prospectForm.inputExpected(context),
-                              prospectForm.inputDesc(),
-                              prospectForm.selectUser(context),
-                            ],
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(color: Colors.grey.shade300)),
+                          child: Container(
+                            margin: EdgeInsets.all(10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                prospectForm.selectTypes(),
+                                prospectForm.selectCategory(),
+                                prospectForm.inputExpected(context),
+                                prospectForm.inputDesc(),
+                                prospectForm.selectUser(context),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    )
-                  ],
-                ),
-                Obx(
-                  () => Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      ThemeButtonSave(
-                        disabled: presenter.isProcessing.value,
-                        processing: presenter.isProcessing.value,
-                        margin: EdgeInsets.only(right: 5),
-                        onPressed: () => onClickSaveModal(context),
-                      ),
-                      ThemeButtonCancel(
-                        disabled: presenter.isProcessing.value,
-                        margin: EdgeInsets.only(right: 5),
-                        onPressed: () => onClickCancelModal(context),
-                      ),
+                      )
                     ],
                   ),
-                ),
-              ],
+                  Obx(
+                    () => Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ThemeButtonSave(
+                          disabled: presenter.isProcessing.value,
+                          processing: presenter.isProcessing.value,
+                          margin: EdgeInsets.only(right: 5),
+                          onPressed: () => onClickSaveModal(context),
+                        ),
+                        ThemeButtonCancel(
+                          disabled: presenter.isProcessing.value,
+                          margin: EdgeInsets.only(right: 5),
+                          onPressed: () => onClickCancelModal(context),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         }),

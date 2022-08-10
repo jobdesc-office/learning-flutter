@@ -132,10 +132,7 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
         if (index == 0) {
         } else if (index == widget.controller.options.length - 1) {}
         return BsCol(
-          sizes: ColScreen(
-              sm: widget.controller.selected!.typeid == type.typeid
-                  ? Col.col_4
-                  : Col.col_2),
+          sizes: ColScreen(sm: Col.col_2),
           child: Container(
             child: Column(
               children: [

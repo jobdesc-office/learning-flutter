@@ -6,8 +6,10 @@ import 'package:get/get.dart';
 
 import '../../../contracts/base/edit_view_contract.dart';
 import '../../../models/masters/Competitor_model.dart';
+import '../../../presenters/navigation_presenter.dart';
 import '../../../presenters/ventes/competitor_presenter.dart';
 import '../../../routes/route_list.dart';
+import '../../../styles/color_palattes.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
@@ -21,6 +23,7 @@ class CompetitorFormView extends StatelessWidget implements EditViewContract {
   final CompetitorPresenter presenter = Get.find<CompetitorPresenter>();
   final source = CompetitorSource().obs;
   final Function(FormData body) onSave;
+  final _navigation = Get.find<NavigationPresenter>();
 
   late CompetitorForm competitorForm;
 
@@ -44,48 +47,57 @@ class CompetitorFormView extends StatelessWidget implements EditViewContract {
         ],
         child: Obx(() {
           competitorForm = CompetitorForm(source.value);
-          return Form(
-            key: formState,
-            child: BsRow(
-              children: [
-                BsCol(
-                  sizes: ColScreen(sm: Col.col_5),
-                  child: competitorForm.btnImage(),
-                ),
-                BsCol(
-                  margin: EdgeInsets.only(left: 5),
-                  sizes: ColScreen(sm: Col.col_7),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      competitorForm.selectBp(),
-                      competitorForm.inputName(),
-                      competitorForm.inputProductName(),
-                      competitorForm.selectTypes(),
-                      // competitorForm.selectRef(),
-                      competitorForm.inputDesciption(),
-                      Obx(
-                        () => Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            ThemeButtonSave(
-                              disabled: presenter.isProcessing.value,
-                              processing: presenter.isProcessing.value,
-                              margin: EdgeInsets.only(right: 5),
-                              onPressed: () => onClickSaveModal(context),
-                            ),
-                            ThemeButtonCancel(
-                              disabled: presenter.isProcessing.value,
-                              margin: EdgeInsets.only(right: 5),
-                              onPressed: () => onClickCancelModal(context),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+          return Container(
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: _navigation.darkTheme.value
+                  ? ColorPallates.elseDarkColor
+                  : Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Form(
+              key: formState,
+              child: BsRow(
+                children: [
+                  BsCol(
+                    sizes: ColScreen(sm: Col.col_5),
+                    child: competitorForm.btnImage(),
                   ),
-                ),
-              ],
+                  BsCol(
+                    margin: EdgeInsets.only(left: 5),
+                    sizes: ColScreen(sm: Col.col_7),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        competitorForm.selectBp(),
+                        competitorForm.inputName(),
+                        competitorForm.inputProductName(),
+                        competitorForm.selectTypes(),
+                        // competitorForm.selectRef(),
+                        competitorForm.inputDesciption(),
+                        Obx(
+                          () => Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              ThemeButtonSave(
+                                disabled: presenter.isProcessing.value,
+                                processing: presenter.isProcessing.value,
+                                margin: EdgeInsets.only(right: 5),
+                                onPressed: () => onClickSaveModal(context),
+                              ),
+                              ThemeButtonCancel(
+                                disabled: presenter.isProcessing.value,
+                                margin: EdgeInsets.only(right: 5),
+                                onPressed: () => onClickCancelModal(context),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         }),

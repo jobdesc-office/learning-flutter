@@ -7,7 +7,9 @@ import '../../../contracts/base/edit_view_contract.dart';
 import '../../../contracts/master/typechildren_contract.dart';
 import '../../../models/masters/type_model.dart';
 import '../../../presenters/masters/typechildren_presenter.dart';
+import '../../../presenters/navigation_presenter.dart';
 import '../../../routes/route_list.dart';
+import '../../../styles/color_palattes.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
@@ -22,6 +24,7 @@ class TypeChildrenFormView extends StatelessWidget
   final TypesChildrenPresenter presenter = Get.find<TypesChildrenPresenter>();
   final source = TypeChildrenSource().obs;
   final Function(Map<String, dynamic> body) onSave;
+  final _navigation = Get.find<NavigationPresenter>();
 
   late TypeChildrenForm tpForm;
 
@@ -47,35 +50,44 @@ class TypeChildrenFormView extends StatelessWidget
         ],
         child: Obx(() {
           tpForm = TypeChildrenForm(source.value);
-          return Form(
-            key: formState,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                tpForm.inputCode(),
-                tpForm.inputName(),
-                tpForm.selectParent(),
-                tpForm.inputSeq(),
-                tpForm.inputDesc(),
-                Obx(
-                  () => Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      ThemeButtonSave(
-                        disabled: presenter.isProcessing.value,
-                        processing: presenter.isProcessing.value,
-                        margin: EdgeInsets.only(right: 5),
-                        onPressed: () => onClickSaveModal(context),
-                      ),
-                      ThemeButtonCancel(
-                        disabled: presenter.isProcessing.value,
-                        margin: EdgeInsets.only(right: 5),
-                        onPressed: () => onClickCancelModal(context),
-                      ),
-                    ],
-                  ),
-                )
-              ],
+          return Container(
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: _navigation.darkTheme.value
+                  ? ColorPallates.elseDarkColor
+                  : Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Form(
+              key: formState,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  tpForm.inputCode(),
+                  tpForm.inputName(),
+                  tpForm.selectParent(),
+                  tpForm.inputSeq(),
+                  tpForm.inputDesc(),
+                  Obx(
+                    () => Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ThemeButtonSave(
+                          disabled: presenter.isProcessing.value,
+                          processing: presenter.isProcessing.value,
+                          margin: EdgeInsets.only(right: 5),
+                          onPressed: () => onClickSaveModal(context),
+                        ),
+                        ThemeButtonCancel(
+                          disabled: presenter.isProcessing.value,
+                          margin: EdgeInsets.only(right: 5),
+                          onPressed: () => onClickCancelModal(context),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           );
         }),

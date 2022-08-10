@@ -1386,7 +1386,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text('Detail'),
+                                        Text('Additional Information'),
                                         Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceAround,

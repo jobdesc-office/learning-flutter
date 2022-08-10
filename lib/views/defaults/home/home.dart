@@ -14,6 +14,7 @@ import '../../../styles/custom_shape.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../skins/template.dart';
 import '_source.dart';
+import 'chart/_leads_users_chart.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -55,9 +56,9 @@ class _HomeViewState extends State<HomeView>
                 margin: EdgeInsets.all(3),
                 sizes: ColScreen(sm: Col.col_3),
                 child: Container(
+                    padding: EdgeInsets.all(5),
                     width: 200,
-                    height: 70,
-                    child: Text('data'),
+                    child: LeadsUsersChart(),
                     color: Colors.white)),
             BsCol(
                 margin: EdgeInsets.all(3),

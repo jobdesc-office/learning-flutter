@@ -6,7 +6,9 @@ import 'package:get/get.dart';
 import '../../../contracts/base/edit_view_contract.dart';
 import '../../../models/masters/user_model.dart';
 import '../../../presenters/masters/user_presenter.dart';
+import '../../../presenters/navigation_presenter.dart';
 import '../../../routes/route_list.dart';
+import '../../../styles/color_palattes.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/button_role_user.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
@@ -20,6 +22,7 @@ class UserFormView extends GetView implements EditViewContract {
   final UserSource c = Get.put(UserSource());
   final source = UserSource().obs;
   final Function(Map<String, dynamic> body) onSave;
+  final _navigation = Get.find<NavigationPresenter>();
 
   UserFormView({required this.onSave}) {
     presenter.userFetchDataContract = this;
@@ -40,46 +43,56 @@ class UserFormView extends GetView implements EditViewContract {
         activeRoutes: [RouteList.master.index, RouteList.masterUser.index],
         child: Obx(() {
           userForm = UserForm(source.value);
-          return Form(
-            key: formState,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                userForm.inputName(),
-                userForm.inputFullName(),
-                userForm.inputPassword(),
-                userForm.inputConfirmPassword(),
-                userForm.inputEmail(),
-                userForm.inputPhone(),
-                Row(
-                  children: [
-                    ButtonRoleUser(
-                      onPressed: onClickAddRole,
-                      disabled:
-                          source.value.selectsRole.length > 260 ? true : false,
-                    )
-                  ],
-                ),
-                userForm.formDetail(onRemoveItem: onClickRemoveRoleItem),
-                Obx(
-                  () => Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+          return Container(
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: _navigation.darkTheme.value
+                  ? ColorPallates.elseDarkColor
+                  : Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Form(
+              key: formState,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  userForm.inputName(),
+                  userForm.inputFullName(),
+                  userForm.inputPassword(),
+                  userForm.inputConfirmPassword(),
+                  userForm.inputEmail(),
+                  userForm.inputPhone(),
+                  Row(
                     children: [
-                      ThemeButtonSave(
-                        disabled: presenter.isProcessing.value,
-                        processing: presenter.isProcessing.value,
-                        margin: EdgeInsets.only(right: 5),
-                        onPressed: () => onClickSaveModal(context),
-                      ),
-                      ThemeButtonCancel(
-                        disabled: presenter.isProcessing.value,
-                        margin: EdgeInsets.only(right: 5),
-                        onPressed: () => onClickCancelModal(context),
-                      ),
+                      ButtonRoleUser(
+                        onPressed: onClickAddRole,
+                        disabled: source.value.selectsRole.length > 260
+                            ? true
+                            : false,
+                      )
                     ],
                   ),
-                ),
-              ],
+                  userForm.formDetail(onRemoveItem: onClickRemoveRoleItem),
+                  Obx(
+                    () => Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ThemeButtonSave(
+                          disabled: presenter.isProcessing.value,
+                          processing: presenter.isProcessing.value,
+                          margin: EdgeInsets.only(right: 5),
+                          onPressed: () => onClickSaveModal(context),
+                        ),
+                        ThemeButtonCancel(
+                          disabled: presenter.isProcessing.value,
+                          margin: EdgeInsets.only(right: 5),
+                          onPressed: () => onClickCancelModal(context),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         }),
