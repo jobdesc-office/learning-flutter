@@ -9,6 +9,7 @@ import '../../services/masters/contact_service.dart';
 import '../../utils/custom_get_controller.dart';
 import '../../views/ventes/prospect/prospectcontact/contact_details.dart';
 import '../../views/ventes/prospect/prospectcontact/contact_form.dart';
+import '../../views/ventes/prospect/prospectcontact/massContact_form.dart';
 import '../../widgets/confirm_dialog.dart';
 
 class ProspectContactPresenter extends CustomGetXController {
@@ -32,13 +33,13 @@ class ProspectContactPresenter extends CustomGetXController {
   void add(BuildContext context, int id) async {
     showDialog(
       context: context,
-      builder: (context) => ProspectContactFormView(
+      builder: (context) => MassProspectContactFormView(
           onSave: (body) => save(context, body), id: id),
     );
   }
 
   void save(BuildContext context, Map<String, dynamic> body) async {
-    Response response = await _prospectService.store(body);
+    Response response = await _prospectService.massStore(body);
     if (response.statusCode == 200)
       _prospectViewContract.onCreateSuccess(response, context: context);
     else
