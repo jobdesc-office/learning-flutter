@@ -291,9 +291,9 @@ class Prospectassignss {
   String? userfullname;
   String? useremail;
   String? userphone;
-  int? userdeviceid;
-  int? userfcmtoken;
-  int? usersocketid;
+  String? userdeviceid;
+  String? userfcmtoken;
+  String? usersocketid;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -588,9 +588,9 @@ class Prospectownerusers {
   String? userfullname;
   String? useremail;
   String? userphone;
-  int? userdeviceid;
-  int? userfcmtoken;
-  int? usersocketid;
+  String? userdeviceid;
+  String? userfcmtoken;
+  String? usersocketid;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -666,8 +666,8 @@ class Userdetails {
   int? userid;
   int? userdttypeid;
   int? userdtbpid;
-  int? userdtbranchnm;
-  int? userdtreferalcode;
+  String? userdtbranchnm;
+  String? userdtreferalcode;
   int? userdtrelationid;
   int? createdby;
   String? createddate;

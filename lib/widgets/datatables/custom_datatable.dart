@@ -18,6 +18,7 @@ class CustomDatabales extends BsDatatable {
       List<Widget> headerActions = const [],
       BsDatatableServerSide? serverSide,
       String searchHintText = 'Search By Marked Column',
+      bool searchable = true,
       Widget? notFoundText})
       : super(
           source: source,
@@ -46,31 +47,45 @@ class CustomDatabales extends BsDatatable {
                             ? null
                             : customizeLeftHeader(el),
                       ),
-                      Obx(() => Container(
-                            child: customizeRightHeader == null
-                                ? Row(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.only(right: 10),
-                                        child: Row(children: headerActions),
-                                      ),
-                                      el.searchForm(
-                                        decoration: BoxDecoration(
-                                          color: _navigation.darkTheme.value
-                                              ? ColorPallates.elseDarkColor
-                                              : ColorPallates.elseLightColor,
-                                          borderRadius:
-                                              BorderRadius.circular(5),
+                      if (searchable)
+                        Obx(() => Container(
+                              child: customizeRightHeader == null
+                                  ? Row(
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.only(right: 10),
+                                          child: Row(children: headerActions),
                                         ),
-                                        inputDecoration: ThemeDatatablesStyles
-                                            .searchInputDecoration(
-                                                hintText: searchHintText),
-                                        builderLabel: null,
-                                      ),
-                                    ],
-                                  )
-                                : customizeRightHeader(el),
-                          )),
+                                        el.searchForm(
+                                          decoration: BoxDecoration(
+                                            color: _navigation.darkTheme.value
+                                                ? ColorPallates.elseDarkColor
+                                                : ColorPallates.elseLightColor,
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                          ),
+                                          inputDecoration: ThemeDatatablesStyles
+                                              .searchInputDecoration(
+                                                  hintText: searchHintText),
+                                          builderLabel: null,
+                                        ),
+                                      ],
+                                    )
+                                  : customizeRightHeader(el),
+                            ))
+                      else
+                        Container(
+                          child: customizeRightHeader == null
+                              ? Row(
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.only(right: 10),
+                                      child: Row(children: headerActions),
+                                    ),
+                                  ],
+                                )
+                              : customizeRightHeader(el),
+                        ),
                     ],
                   ),
                 ),

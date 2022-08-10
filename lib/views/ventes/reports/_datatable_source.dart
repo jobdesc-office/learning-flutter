@@ -1,28 +1,25 @@
-import 'package:boilerplate/constants/base_text.dart';
-import 'package:boilerplate/helpers/function.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
-import '../../../../models/ventes/report_model.dart';
-import '../../../../presenters/navigation_presenter.dart';
-import '../../../../styles/color_palattes.dart';
-import '../../../../widgets/datatables/custom_datatable_tablecell.dart';
-import '../../../../widgets/datatables/custom_datatable_tablehead.dart';
-import '../_report_source.dart';
+import '../../../constants/base_text.dart';
+import '../../../models/ventes/report_model.dart';
+import '../../../presenters/navigation_presenter.dart';
+import '../../../styles/color_palattes.dart';
+import '../../../widgets/button/button_delete_datatable.dart';
+import '../../../widgets/button/button_details_datatable.dart';
+import '../../../widgets/button/button_edit_datatable.dart';
+import '../../../widgets/datatables/custom_datatable_tablecell.dart';
+import '../../../widgets/datatables/custom_datatable_tablehead.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 
-class ReportNoDailyActivityDataTableSource extends BsDatatableSource {
-  final controllers = Get.put(ReportHelper());
-  final currencyFormatter = NumberFormat('#,##0.00', 'ID');
-
+class ReportDataTableSource extends BsDatatableSource {
   ValueChanged<int> onDetailsListener = (value) {};
   ValueChanged<int> onEditListener = (value) {};
   Function onDeleteListener = (value, name) {};
 
-  ReportNoDailyActivityDataTableSource({
+  ReportDataTableSource({
     List data = const [],
   }) : super(data: data);
 
@@ -30,34 +27,42 @@ class ReportNoDailyActivityDataTableSource extends BsDatatableSource {
     return <BsDataColumn>[
       CustomBsDataColumn(
         label: Text('No'),
-        width: 65,
+        width: 100,
         searchable: false,
         orderable: false,
       ),
       CustomBsDataColumn(
-        label: Text('User Name'),
-        columnName: 'ReportNoDailyActivityname',
+        label: Text('Daily Activity Date'),
         searchable: false,
         orderable: false,
       ),
       CustomBsDataColumn(
-        label: Text('User Email'),
+        label: Text('Daily Activity Category'),
+        columnName: 'comptproductname',
         searchable: false,
         orderable: false,
       ),
       CustomBsDataColumn(
-        label: Text('User Phone'),
+        label: Text('Daily Activity Type'),
+        columnName: 'comptproductname',
         searchable: false,
         orderable: false,
       ),
+      // CustomBsDataColumn(
+      //   label: Text('Report Type'),
+      //   width: 150,
+      //   searchable: false,
+      //   orderable: false,
+      // ),
     ];
   }
 
-  List<Dayactuser> get users => controllers.employees.value;
+  List<Activities> get reports =>
+      response.data.map((data) => Activities.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
-    final row = users[index];
+    final row = reports[index];
     int x = controller.start + index + 1;
     return BsDataRow(
       index: index,
@@ -73,7 +78,7 @@ class ReportNoDailyActivityDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.userfullname ?? ''),
+          Text(row.dayactdate ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -83,7 +88,7 @@ class ReportNoDailyActivityDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.useremail ?? ''),
+          Text(row.dayactcat!.typename ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -93,7 +98,7 @@ class ReportNoDailyActivityDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.userphone ?? ''),
+          Text(row.dayacttype!.typename ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -102,6 +107,16 @@ class ReportNoDailyActivityDataTableSource extends BsDatatableSource {
                   ? ColorPallates.datatableLightEvenRowColor
                   : ColorPallates.datatableLightOddRowColor,
         ),
+        // CustomBsDataCell(
+        //   Text(row.typename),
+        //   color: _navigation.darkTheme.value
+        //       ? x % 2 == 0
+        //           ? ColorPallates.datatableDarkEvenRowColor
+        //           : ColorPallates.datatableDarkOddRowColor
+        //       : x % 2 == 0
+        //           ? ColorPallates.datatableLightEvenRowColor
+        //           : ColorPallates.datatableLightOddRowColor,
+        // ),
       ],
     );
   }

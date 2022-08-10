@@ -26,6 +26,11 @@ class ReportPresenter extends CustomGetXController {
   final map = Get.put(MapSource());
   final box = GetStorage();
 
+  late IndexViewContract _viewContract;
+  set reportDataContract(IndexViewContract reportFetchDataDetailsContract) {
+    _viewContract = reportFetchDataDetailsContract;
+  }
+
   late IndexViewContract _reportViewContract;
   set reportFetchDataDetailsContract(
       IndexViewContract reportFetchDataDetailsContract) {
@@ -43,9 +48,16 @@ class ReportPresenter extends CustomGetXController {
     _reportContract.onLoadReportSuccess(ReportModel.fromJson(response.body));
   }
 
+  Future datatabless(BuildContext context, Map<String, String> params) async {
+    Response response = await _reportService.datatablesbp(params);
+    if (response.statusCode == 200)
+      _viewContract.onLoadDatatables(context, response);
+    else
+      _viewContract.onErrorRequest(response);
+  }
+
   Future datatables(BuildContext context, Map<String, String> params) async {
-    Response response =
-        await _userService.datatablesbp(params, box.read('mybpid'));
+    Response response = await _userService.datatables(params);
     if (response.statusCode == 200)
       _reportViewContract.onLoadDatatables(context, response);
     else

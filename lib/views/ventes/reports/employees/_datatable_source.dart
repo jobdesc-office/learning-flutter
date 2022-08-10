@@ -36,16 +36,16 @@ class ReportEmployeesDataTableSource extends BsDatatableSource {
         orderable: false,
       ),
       CustomBsDataColumn(
-        label: Text('Daily Task User'),
+        label: Text('User Name'),
         columnName: 'userfullname',
       ),
       CustomBsDataColumn(
-        label: Text('Daily Task Type'),
+        label: Text('User Email'),
         searchable: false,
         orderable: false,
       ),
       CustomBsDataColumn(
-        label: Text('Daily Task Date'),
+        label: Text('User Phone'),
         searchable: false,
         orderable: false,
       ),
