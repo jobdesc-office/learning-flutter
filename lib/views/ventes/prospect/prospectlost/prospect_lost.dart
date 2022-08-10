@@ -60,7 +60,7 @@ class ProspectLose extends GetView {
                         BsRow(
                           children: [
                             BsCol(
-                              margin: EdgeInsets.only(right: 5),
+                              margin: EdgeInsets.only(right: 5, bottom: 10),
                               sizes: ColScreen(sm: Col.col_12),
                               child: Container(
                                 decoration: BoxDecoration(
