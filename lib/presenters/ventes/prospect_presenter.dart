@@ -98,7 +98,7 @@ class ProspectPresenter extends CustomGetXController {
       for (var item in response.body) {
         data.add(TypeModel.fromJson(item));
       }
-      data.removeWhere((element) => element.typename != 'Negotiations Started');
+      data.removeWhere((element) => element.typename != 'Negotiate');
       return data.first;
     }
     return null;
