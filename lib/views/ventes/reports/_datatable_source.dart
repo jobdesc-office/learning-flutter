@@ -48,6 +48,12 @@ class ReportDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
+      CustomBsDataColumn(
+        label: Text('Daily Activity Customer'),
+        columnName: 'comptproductname',
+        searchable: false,
+        orderable: false,
+      ),
       // CustomBsDataColumn(
       //   label: Text('Report Type'),
       //   width: 150,
@@ -107,16 +113,16 @@ class ReportDataTableSource extends BsDatatableSource {
                   ? ColorPallates.datatableLightEvenRowColor
                   : ColorPallates.datatableLightOddRowColor,
         ),
-        // CustomBsDataCell(
-        //   Text(row.typename),
-        //   color: _navigation.darkTheme.value
-        //       ? x % 2 == 0
-        //           ? ColorPallates.datatableDarkEvenRowColor
-        //           : ColorPallates.datatableDarkOddRowColor
-        //       : x % 2 == 0
-        //           ? ColorPallates.datatableLightEvenRowColor
-        //           : ColorPallates.datatableLightOddRowColor,
-        // ),
+        CustomBsDataCell(
+          Text(row.dayactcust?.cstmname ?? ''),
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
+        ),
       ],
     );
   }

@@ -49,10 +49,10 @@ class Activities {
   String? updateddate;
   bool? isactive;
   Dayactuser? dayactuser;
-  Null dayactcust;
+  Dayactcust? dayactcust;
   Dayactcat? dayactcat;
   Dayactcat? dayacttype;
-  Null dayactpics;
+  Dayactpics? dayactpics;
 
   Activities(
       {this.dayactid,
@@ -97,14 +97,18 @@ class Activities {
     dayactuser = json['dayactuser'] != null
         ? new Dayactuser.fromJson(json['dayactuser'])
         : null;
-    dayactcust = json['dayactcust'];
+    dayactcust = json['dayactcust'] != null
+        ? new Dayactcust.fromJson(json['dayactcust'])
+        : null;
     dayactcat = json['dayactcat'] != null
         ? new Dayactcat.fromJson(json['dayactcat'])
         : null;
     dayacttype = json['dayacttype'] != null
         ? new Dayactcat.fromJson(json['dayacttype'])
         : null;
-    dayactpics = json['dayactpics'];
+    dayactpics = json['dayactpics'] != null
+        ? new Dayactpics.fromJson(json['dayactpics'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -128,14 +132,18 @@ class Activities {
     if (this.dayactuser != null) {
       data['dayactuser'] = this.dayactuser!.toJson();
     }
-    data['dayactcust'] = this.dayactcust;
+    if (this.dayactcust != null) {
+      data['dayactcust'] = this.dayactcust!.toJson();
+    }
     if (this.dayactcat != null) {
       data['dayactcat'] = this.dayactcat!.toJson();
     }
     if (this.dayacttype != null) {
       data['dayacttype'] = this.dayacttype!.toJson();
     }
-    data['dayactpics'] = this.dayactpics;
+    if (this.dayactpics != null) {
+      data['dayactpics'] = this.dayactpics!.toJson();
+    }
     return data;
   }
 }
@@ -149,7 +157,7 @@ class Dayactuser {
   String? userphone;
   String? userdeviceid;
   String? userfcmtoken;
-  int? usersocketid;
+  String? usersocketid;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -209,6 +217,95 @@ class Dayactuser {
   }
 }
 
+class Dayactcust {
+  int? cstmid;
+  String? cstmprefix;
+  String? cstmname;
+  String? cstmphone;
+  String? cstmaddress;
+  int? cstmtypeid;
+  int? cstmprovinceid;
+  int? cstmcityid;
+  int? cstmsubdistrictid;
+  int? cstmuvid;
+  String? cstmpostalcode;
+  String? cstmlatitude;
+  String? cstmlongitude;
+  int? referalcode;
+  int? createdby;
+  String? createddate;
+  int? updatedby;
+  String? updateddate;
+  bool? isactive;
+
+  Dayactcust(
+      {this.cstmid,
+      this.cstmprefix,
+      this.cstmname,
+      this.cstmphone,
+      this.cstmaddress,
+      this.cstmtypeid,
+      this.cstmprovinceid,
+      this.cstmcityid,
+      this.cstmsubdistrictid,
+      this.cstmuvid,
+      this.cstmpostalcode,
+      this.cstmlatitude,
+      this.cstmlongitude,
+      this.referalcode,
+      this.createdby,
+      this.createddate,
+      this.updatedby,
+      this.updateddate,
+      this.isactive});
+
+  Dayactcust.fromJson(Map<String, dynamic> json) {
+    cstmid = json['cstmid'];
+    cstmprefix = json['cstmprefix'];
+    cstmname = json['cstmname'];
+    cstmphone = json['cstmphone'];
+    cstmaddress = json['cstmaddress'];
+    cstmtypeid = json['cstmtypeid'];
+    cstmprovinceid = json['cstmprovinceid'];
+    cstmcityid = json['cstmcityid'];
+    cstmsubdistrictid = json['cstmsubdistrictid'];
+    cstmuvid = json['cstmuvid'];
+    cstmpostalcode = json['cstmpostalcode'];
+    cstmlatitude = json['cstmlatitude'];
+    cstmlongitude = json['cstmlongitude'];
+    referalcode = json['referalcode'];
+    createdby = json['createdby'];
+    createddate = json['createddate'];
+    updatedby = json['updatedby'];
+    updateddate = json['updateddate'];
+    isactive = json['isactive'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['cstmid'] = this.cstmid;
+    data['cstmprefix'] = this.cstmprefix;
+    data['cstmname'] = this.cstmname;
+    data['cstmphone'] = this.cstmphone;
+    data['cstmaddress'] = this.cstmaddress;
+    data['cstmtypeid'] = this.cstmtypeid;
+    data['cstmprovinceid'] = this.cstmprovinceid;
+    data['cstmcityid'] = this.cstmcityid;
+    data['cstmsubdistrictid'] = this.cstmsubdistrictid;
+    data['cstmuvid'] = this.cstmuvid;
+    data['cstmpostalcode'] = this.cstmpostalcode;
+    data['cstmlatitude'] = this.cstmlatitude;
+    data['cstmlongitude'] = this.cstmlongitude;
+    data['referalcode'] = this.referalcode;
+    data['createdby'] = this.createdby;
+    data['createddate'] = this.createddate;
+    data['updatedby'] = this.updatedby;
+    data['updateddate'] = this.updateddate;
+    data['isactive'] = this.isactive;
+    return data;
+  }
+}
+
 class Dayactcat {
   int? typeid;
   String? typename;
@@ -224,6 +321,71 @@ class Dayactcat {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['typeid'] = this.typeid;
     data['typename'] = this.typename;
+    return data;
+  }
+}
+
+class Dayactpics {
+  int? fileid;
+  int? transtypeid;
+  int? refid;
+  String? directories;
+  String? filename;
+  String? mimetype;
+  String? filesize;
+  int? createdby;
+  String? createddate;
+  int? updatedby;
+  String? updateddate;
+  bool? isactive;
+  String? url;
+
+  Dayactpics(
+      {this.fileid,
+      this.transtypeid,
+      this.refid,
+      this.directories,
+      this.filename,
+      this.mimetype,
+      this.filesize,
+      this.createdby,
+      this.createddate,
+      this.updatedby,
+      this.updateddate,
+      this.isactive,
+      this.url});
+
+  Dayactpics.fromJson(Map<String, dynamic> json) {
+    fileid = json['fileid'];
+    transtypeid = json['transtypeid'];
+    refid = json['refid'];
+    directories = json['directories'];
+    filename = json['filename'];
+    mimetype = json['mimetype'];
+    filesize = json['filesize'];
+    createdby = json['createdby'];
+    createddate = json['createddate'];
+    updatedby = json['updatedby'];
+    updateddate = json['updateddate'];
+    isactive = json['isactive'];
+    url = json['url'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['fileid'] = this.fileid;
+    data['transtypeid'] = this.transtypeid;
+    data['refid'] = this.refid;
+    data['directories'] = this.directories;
+    data['filename'] = this.filename;
+    data['mimetype'] = this.mimetype;
+    data['filesize'] = this.filesize;
+    data['createdby'] = this.createdby;
+    data['createddate'] = this.createddate;
+    data['updatedby'] = this.updatedby;
+    data['updateddate'] = this.updateddate;
+    data['isactive'] = this.isactive;
+    data['url'] = this.url;
     return data;
   }
 }
