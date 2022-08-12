@@ -82,18 +82,18 @@ class CustomfieldSection extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Tooltip(
-                          message: 'View Available Custom Field',
-                          child: BsButton(
-                              size: BsButtonSize.btnSm,
-                              onPressed: () => customFieldPresenter.popup(
-                                    context,
-                                  ),
-                              label: Icon(
-                                Icons.info,
-                                size: 13,
-                              )),
-                        ),
+                        // Tooltip(
+                        //   message: 'View Available Custom Field',
+                        //   child: BsButton(
+                        //       size: BsButtonSize.btnSm,
+                        //       onPressed: () => customFieldPresenter.popup(
+                        //             context,
+                        //           ),
+                        //       label: Icon(
+                        //         Icons.info,
+                        //         size: 13,
+                        //       )),
+                        // ),
                         Tooltip(
                           message: 'Write Custom Field',
                           child: BsButton(

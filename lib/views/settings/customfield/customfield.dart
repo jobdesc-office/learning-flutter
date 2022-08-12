@@ -42,10 +42,10 @@ class CustomFieldView extends GetView implements IndexViewContract {
                 source: datatable,
                 columns: datatable.columns,
                 headerActions: [
-                  ThemeButtonCreate(
-                    prefix: CustomFieldText.title,
-                    onPressed: () => presenter.add(context),
-                  )
+                  // ThemeButtonCreate(
+                  //   prefix: CustomFieldText.title,
+                  //   onPressed: () => presenter.add(context),
+                  // )
                 ],
                 serverSide: (params) => presenter.datatables(context, params),
               )
