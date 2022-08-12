@@ -175,7 +175,9 @@ class ProspectProductFormView extends StatelessWidget
       }
       source.value.inputQuantity.text = prospect.prosproductqty.toString();
       source.value.inputAmount.text = currencyFormatter
-          .format(double.parse(prospect.prosproductamount ?? '0.0'));
+          .format(double.parse(prospect.prosproductamount ?? '0.0'))
+          .replaceAll(',00', '')
+          .replaceAll('.', ',');
       source.value.inputPrice.text = currencyFormatter
           .format(double.parse(prospect.prosproductprice ?? '0.0'))
           .replaceAll(',00', '')

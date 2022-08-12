@@ -24,8 +24,8 @@ class CustomFieldSource extends GetxController {
   bool isProcessing = false;
   var id = 0.obs;
 
-  var visible = false.obs;
-  var newprospect = false.obs;
+  var allprospect = false.obs;
+  var onlythisprospect = false.obs;
 
   BsSelectBoxController selectType = BsSelectBoxController();
   BsSelectBoxController selectBp = BsSelectBoxController();
@@ -38,9 +38,9 @@ class CustomFieldSource extends GetxController {
       'custfbpid': source.prospectbpid.value,
       'custftypeid': selectType.getSelectedAsString(),
       'custfname': inputName.text,
-      'isvisiblesidebar': visible.value,
-      'onlyinnewprospect': newprospect.value,
-      'lastprospectid': source.prospectid.value,
+      'allprospect': allprospect.value,
+      'onlythisprospect': onlythisprospect.value,
+      'thisprospectid': source.prospectid.value,
       'createdby': session.userid,
       'updatedby': session.userid,
     };
@@ -105,8 +105,12 @@ class CustomFieldForm {
                 )),
             child: Obx(() => Center(
                   child: Checkbox(
-                    value: source.visible.value,
-                    onChanged: (value) => source.visible.toggle(),
+                    value: source.onlythisprospect.value,
+                    onChanged: (value) {
+                      source.onlythisprospect.value = value!;
+                      if (source.onlythisprospect.value == true)
+                        source.allprospect.value = !value;
+                    },
                   ),
                 )),
           ),
@@ -124,8 +128,12 @@ class CustomFieldForm {
                 )),
             child: Obx(() => Center(
                   child: Checkbox(
-                    value: source.newprospect.value,
-                    onChanged: (value) => source.newprospect.toggle(),
+                    value: source.allprospect.value,
+                    onChanged: (value) {
+                      source.allprospect.value = value!;
+                      if (source.onlythisprospect.value == true)
+                        source.onlythisprospect.value = !value;
+                    },
                   ),
                 )),
           ),

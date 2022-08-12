@@ -13,6 +13,7 @@ class ProspectText {
   static String labelOwner = 'Owner';
   static String labelBp = 'Business Partner';
   static String labelReference = 'Reference';
+  static String labelCustLab = 'Customer Label';
   static String labelStartDate = 'Start Date';
   static String labelEndDate = 'End Date';
   static String labelItem = 'Item';

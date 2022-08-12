@@ -8,7 +8,7 @@ class _tabFile extends StatelessWidget {
   final filePresenter = Get.find<ProspectFilePresenter>();
   final presenter = Get.find<ProspectPresenter>();
     if (source.files.length != 0)
-                                            return SingleChildScrollView(
+                                            return Obx(() => SingleChildScrollView(
                                               child: Column(
                                                 children: [
                                                   Container(
@@ -130,9 +130,9 @@ class _tabFile extends StatelessWidget {
                                                       ))
                                                 ],
                                               ),
-                                            );
+                                            ));
                                           else
-                                            return Column(
+                                            return Obx(() => Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: [Text('There\'s no Files'),
@@ -190,6 +190,6 @@ class _tabFile extends StatelessWidget {
                                 onPressed: () async {filePresenter.setProcessing(true);filePresenter.save(context, FormData(await source.toJson()));},
                               )
                                                       ])],
-                                            );
+                                            ));
   }
 }

@@ -4,7 +4,9 @@ import 'package:boilerplate/services/settings/customfield_service.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker_web/image_picker_web.dart';
 
@@ -32,6 +34,8 @@ class PCustomerSource extends GetxController {
   bool isProcessing = false;
   var isnGetLatLong = true.obs;
   var isRegistered = false.obs;
+
+  var format = ''.obs;
 
   var imgname = ''.obs;
   var image = Uint8List(1).obs;
@@ -404,16 +408,20 @@ class PCustomerForm {
           style: TextStyle(
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
-      child: CustomSelectBox(
-        searchable: false,
-        disabled: source.isProcessing,
-        controller: source.selectContactType,
-        hintText: BaseText.hiintSelect(field: PCustomerText.labelContactType),
-        serverSide: (params) => selectApiContactTypes(params),
-        validators: [
-          Validators.selectRequired(PCustomerText.labelContactType),
-        ],
-      ),
+      child: Obx(() => CustomSelectBox(
+            searchable: false,
+            disabled: source.isProcessing,
+            controller: source.selectContactType,
+            hintText:
+                BaseText.hiintSelect(field: PCustomerText.labelContactType),
+            serverSide: (params) => selectApiContactTypes(params),
+            validators: [
+              Validators.selectRequired(PCustomerText.labelContactType),
+            ],
+            onChange: (value) {
+              source.format.value = value.getOtherValue()['typename'];
+            },
+          )),
     );
   }
 
@@ -423,13 +431,18 @@ class PCustomerForm {
           style: TextStyle(
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
-      child: CustomInput(
-        minLines: 3,
-        maxLines: 5,
-        disabled: source.isProcessing,
-        controller: source.inputValue,
-        hintText: BaseText.hintText(field: PCustomerText.labelValue),
-      ),
+      child: Obx(() => CustomInput(
+            disabled: source.isProcessing,
+            controller: source.inputValue,
+            hintText: BaseText.hintText(field: PCustomerText.labelValue),
+            inputFormatters: [
+              if (source.format.value == 'Phone')
+                FilteringTextInputFormatter.digitsOnly,
+            ],
+            validators: [
+              if (source.format.value == 'Email') Validators.inputEmail()
+            ],
+          )),
     );
   }
 

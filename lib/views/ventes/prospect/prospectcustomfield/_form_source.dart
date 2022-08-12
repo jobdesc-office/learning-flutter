@@ -64,7 +64,6 @@ class ProspectCustomFieldForm {
             ],
             onChange: (value) {
               source.format.value = value.getOtherValue().custftype.typename;
-              print(source.format.value);
             },
           )),
     );

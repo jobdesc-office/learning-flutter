@@ -57,12 +57,12 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
         Color backgroundColor = widget.controller.selected != null &&
                 widget.controller.selected!.typeid == type.typeid
             ? ColorPallates.tertiary
-            : Colors.grey.withOpacity(.5);
+            : Colors.blue.shade300;
 
         Color? textColor = widget.controller.selected != null &&
                 widget.controller.selected!.typeid == type.typeid
             ? Colors.white
-            : null;
+            : Colors.white;
 
         int index = widget.controller.options.indexOf(type);
         BorderRadius? borderRadius;
@@ -80,28 +80,33 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
 
         return Material(
           color: Colors.transparent,
-          child: InkWell(
-            child: Container(
-              padding: EdgeInsets.fromLTRB(15, 8, 15, 8),
-              height: 43,
-              decoration: BoxDecoration(
-                color: backgroundColor,
-                borderRadius: borderRadius,
-              ),
-              child: Center(
-                child: Text(
-                  type.typename.replaceAll(' ', '\n'),
-                  style: TextStyle(
-                    color: textColor,
-                    fontSize: 11,
+          child: Container(
+            padding: EdgeInsets.fromLTRB(3, 8, 0, 8),
+            height: 43,
+            width: 113.5,
+            child: InkWell(
+              onTap: () {
+                widget.controller.selected = type;
+                setState(() {});
+              },
+              child: Container(
+                padding: EdgeInsets.fromLTRB(3, 5, 0, 5),
+                decoration: BoxDecoration(
+                  // borderRadius: borderRadius,
+                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                  color: backgroundColor,
+                ),
+                child: Center(
+                  child: Text(
+                    type.typename,
+                    style: TextStyle(
+                        color: textColor,
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
             ),
-            onTap: () {
-              widget.controller.selected = type;
-              setState(() {});
-            },
           ),
         );
       }).toList(),

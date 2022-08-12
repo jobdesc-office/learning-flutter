@@ -50,8 +50,7 @@ class ProspectProductSource extends GetxController {
       'prosproductqty': inputQuantity.text,
       'prosproducttax': inputTax.text,
       'prosproductdiscount': inputDiscount.text,
-      'prosproductamount':
-          inputAmount.text.replaceAll('.', '').replaceAll(',00', ''),
+      'prosproductamount': inputAmount.text.replaceAll(',', ''),
       'prosproducttaxtypeid': selectTax.getSelectedAsString(),
       'createdby': session.userid,
       'updatedby': session.userid,

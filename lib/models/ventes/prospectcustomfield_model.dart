@@ -68,9 +68,9 @@ class Customfield {
   int? custfbpid;
   String? custfname;
   int? custftypeid;
-  bool? isvisiblesidebar;
-  bool? onlyinnewprospect;
-  int? lastprospectid;
+  bool? allprospect;
+  bool? onlythisprospect;
+  int? thisprospectid;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -83,9 +83,9 @@ class Customfield {
       this.custfbpid,
       this.custfname,
       this.custftypeid,
-      this.isvisiblesidebar,
-      this.onlyinnewprospect,
-      this.lastprospectid,
+      this.allprospect,
+      this.onlythisprospect,
+      this.thisprospectid,
       this.createdby,
       this.createddate,
       this.updatedby,
@@ -98,9 +98,9 @@ class Customfield {
     custfbpid = json['custfbpid'];
     custfname = json['custfname'];
     custftypeid = json['custftypeid'];
-    isvisiblesidebar = json['isvisiblesidebar'];
-    onlyinnewprospect = json['onlyinnewprospect'];
-    lastprospectid = json['lastprospectid'];
+    allprospect = json['allprospect'];
+    onlythisprospect = json['onlythisprospect'];
+    thisprospectid = json['thisprospectid'];
     createdby = json['createdby'];
     createddate = json['createddate'];
     updatedby = json['updatedby'];
@@ -117,9 +117,9 @@ class Customfield {
     data['custfbpid'] = this.custfbpid;
     data['custfname'] = this.custfname;
     data['custftypeid'] = this.custftypeid;
-    data['isvisiblesidebar'] = this.isvisiblesidebar;
-    data['onlyinnewprospect'] = this.onlyinnewprospect;
-    data['lastprospectid'] = this.lastprospectid;
+    data['allprospect'] = this.allprospect;
+    data['onlythisprospect'] = this.onlythisprospect;
+    data['thisprospectid'] = this.thisprospectid;
     data['createdby'] = this.createdby;
     data['createddate'] = this.createddate;
     data['updatedby'] = this.updatedby;

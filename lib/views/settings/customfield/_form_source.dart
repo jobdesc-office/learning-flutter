@@ -40,9 +40,9 @@ class CustomFieldSource extends GetxController {
       'custfbpid': selectBp.getSelectedAsString(),
       'custftypeid': selectType.getSelectedAsString(),
       'custfname': inputName.text,
-      'isvisiblesidebar': visible.value,
-      'onlyinnewprospect': newprospect.value,
-      'lastprospectid': lastid,
+      'allprospect': visible.value,
+      'onlythisprospect': newprospect.value,
+      'thisprospectid': lastid,
       'createdby': session.userid,
       'updatedby': session.userid,
     };

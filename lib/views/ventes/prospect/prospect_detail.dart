@@ -4,6 +4,7 @@ import 'package:boilerplate/models/ventes/customfield_model.dart';
 import 'package:boilerplate/views/skins/template.dart';
 import 'package:boilerplate/views/ventes/prospect/prospectdetail_component/title_section.dart';
 import 'package:boilerplate/widgets/button/button_edit_datatable.dart';
+import 'package:boilerplate/widgets/datatables/custom_datatable.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
@@ -41,6 +42,7 @@ import '../../../widgets/button/theme_button_save.dart';
 import '../../../widgets/map/_map_source.dart';
 import '../../../widgets/snackbar.dart';
 import '_detail_source.dart';
+import 'prospectcontact/_datatable_source.dart';
 import 'prospectdetail_component/_stagePipeline.dart';
 import 'customfield/_form_source.dart';
 import 'prospectcustomfield/_form_source.dart';
@@ -365,6 +367,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     detailPresenter.setProcessing(false);
     assignPresenter.setProcessing(false);
     filePresenter.setProcessing(false);
+    productPresenter.setProcessing(false);
     source.pickedFile.clear();
     Navigator.pop(context!);
     presenter.details(context, source.prospectid.value);
@@ -451,9 +454,10 @@ class _ProspectDetailsState extends State<ProspectDetails>
       cf.removeWhere((element) => element.custfid == item.prospectcustfid);
     }
     cf.removeWhere((element) =>
-        element.onlyinnewprospect == true &&
-        element.lastprospectid! > source.prospectid.value);
-    cf.removeWhere((element) => element.isvisiblesidebar == false);
+        element.onlythisprospect == true &&
+        element.thisprospectid != source.prospectid.value);
+    cf.removeWhere((element) =>
+        element.allprospect == false && element.onlythisprospect == false);
     source.rawcustomField.value = cf;
   }
 }

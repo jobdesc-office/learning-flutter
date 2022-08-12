@@ -1,10 +1,10 @@
-import 'package:boilerplate/models/masters/type_model.dart';
-
+import '../masters/type_model.dart';
 import 'prospectcustomfield_model.dart';
 
 class ProspectModel {
   int? prospectid;
   String? prospectname;
+  String? prospectcode;
   String? prospectstartdate;
   String? prospectenddate;
   String? prospectvalue;
@@ -18,6 +18,7 @@ class ProspectModel {
   int? prospectrefid;
   int? prospectlostreasonid;
   String? prospectlostdesc;
+  Prospectcustlabel? prospectcustlabel;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -26,12 +27,12 @@ class ProspectModel {
   List<Prospectassigns>? prospectassigns;
   List<Prospectproduct>? prospectproduct;
   TypeModel? prospectstage;
-  Prospectlost? prospectlost;
+  Prospectcustlabel? prospectlost;
   Prospectownerusers? prospectownerusers;
-  Prospectlost? prospectstatus;
-  Prospectlost? prospectlostreason;
+  Prospectcustlabel? prospectstatus;
+  Prospectcustlabel? prospectlostreason;
   Prospectreference? prospectreference;
-  Prospectassignss? prospectby;
+  Prospectby? prospectby;
   Prospectbp? prospectbp;
   List<ProspectCustomFieldModel>? prospectcustomfield;
   Prospectcust? prospectcust;
@@ -40,6 +41,7 @@ class ProspectModel {
   ProspectModel(
       {this.prospectid,
       this.prospectname,
+      this.prospectcode,
       this.prospectstartdate,
       this.prospectenddate,
       this.prospectvalue,
@@ -53,6 +55,7 @@ class ProspectModel {
       this.prospectrefid,
       this.prospectlostreasonid,
       this.prospectlostdesc,
+      this.prospectcustlabel,
       this.createdby,
       this.createddate,
       this.updatedby,
@@ -75,6 +78,7 @@ class ProspectModel {
   ProspectModel.fromJson(Map<String, dynamic> json) {
     prospectid = json['prospectid'];
     prospectname = json['prospectname'];
+    prospectcode = json['prospectcode'];
     prospectstartdate = json['prospectstartdate'];
     prospectenddate = json['prospectenddate'];
     prospectvalue = json['prospectvalue'];
@@ -88,6 +92,9 @@ class ProspectModel {
     prospectrefid = json['prospectrefid'];
     prospectlostreasonid = json['prospectlostreasonid'];
     prospectlostdesc = json['prospectlostdesc'];
+    prospectcustlabel = json['prospectcustlabel'] != null
+        ? new Prospectcustlabel.fromJson(json['prospectcustlabel'])
+        : null;
     createdby = json['createdby'];
     createddate = json['createddate'];
     updatedby = json['updatedby'];
@@ -109,22 +116,22 @@ class ProspectModel {
         ? new TypeModel.fromJson(json['prospectstage'])
         : null;
     prospectlost = json['prospectlost'] != null
-        ? new Prospectlost.fromJson(json['prospectlost'])
+        ? new Prospectcustlabel.fromJson(json['prospectlost'])
         : null;
     prospectownerusers = json['prospectownerusers'] != null
         ? new Prospectownerusers.fromJson(json['prospectownerusers'])
         : null;
     prospectstatus = json['prospectstatus'] != null
-        ? new Prospectlost.fromJson(json['prospectstatus'])
+        ? new Prospectcustlabel.fromJson(json['prospectstatus'])
         : null;
     prospectlostreason = json['prospectlostreason'] != null
-        ? new Prospectlost.fromJson(json['prospectlostreason'])
+        ? new Prospectcustlabel.fromJson(json['prospectlostreason'])
         : null;
     prospectreference = json['prospectreference'] != null
         ? new Prospectreference.fromJson(json['prospectreference'])
         : null;
     prospectby = json['prospectby'] != null
-        ? new Prospectassignss.fromJson(json['prospectby'])
+        ? new Prospectby.fromJson(json['prospectby'])
         : null;
     prospectbp = json['prospectbp'] != null
         ? new Prospectbp.fromJson(json['prospectbp'])
@@ -150,6 +157,7 @@ class ProspectModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['prospectid'] = this.prospectid;
     data['prospectname'] = this.prospectname;
+    data['prospectcode'] = this.prospectcode;
     data['prospectstartdate'] = this.prospectstartdate;
     data['prospectenddate'] = this.prospectenddate;
     data['prospectvalue'] = this.prospectvalue;
@@ -163,6 +171,9 @@ class ProspectModel {
     data['prospectrefid'] = this.prospectrefid;
     data['prospectlostreasonid'] = this.prospectlostreasonid;
     data['prospectlostdesc'] = this.prospectlostdesc;
+    if (this.prospectcustlabel != null) {
+      data['prospectcustlabel'] = this.prospectcustlabel!.toJson();
+    }
     data['createdby'] = this.createdby;
     data['createddate'] = this.createddate;
     data['updatedby'] = this.updatedby;
@@ -211,6 +222,25 @@ class ProspectModel {
       data['prospectfiles'] =
           this.prospectfiles!.map((v) => v.toJson()).toList();
     }
+    return data;
+  }
+}
+
+class Prospectcustlabel {
+  int? typeid;
+  String? typename;
+
+  Prospectcustlabel({this.typeid, this.typename});
+
+  Prospectcustlabel.fromJson(Map<String, dynamic> json) {
+    typeid = json['typeid'];
+    typename = json['typename'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['typeid'] = this.typeid;
+    data['typename'] = this.typename;
     return data;
   }
 }
@@ -562,25 +592,6 @@ class Prospectstage {
   }
 }
 
-class Prospectlost {
-  int? typeid;
-  String? typename;
-
-  Prospectlost({this.typeid, this.typename});
-
-  Prospectlost.fromJson(Map<String, dynamic> json) {
-    typeid = json['typeid'];
-    typename = json['typename'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['typeid'] = this.typeid;
-    data['typename'] = this.typename;
-    return data;
-  }
-}
-
 class Prospectownerusers {
   int? userid;
   String? username;
@@ -725,6 +736,7 @@ class Userdetails {
 class Prospectreference {
   int? prospectid;
   String? prospectname;
+  String? prospectcode;
   String? prospectstartdate;
   String? prospectenddate;
   String? prospectvalue;
@@ -738,6 +750,7 @@ class Prospectreference {
   int? prospectrefid;
   int? prospectlostreasonid;
   String? prospectlostdesc;
+  int? prospectcustlabel;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -747,6 +760,7 @@ class Prospectreference {
   Prospectreference(
       {this.prospectid,
       this.prospectname,
+      this.prospectcode,
       this.prospectstartdate,
       this.prospectenddate,
       this.prospectvalue,
@@ -760,6 +774,7 @@ class Prospectreference {
       this.prospectrefid,
       this.prospectlostreasonid,
       this.prospectlostdesc,
+      this.prospectcustlabel,
       this.createdby,
       this.createddate,
       this.updatedby,
@@ -769,6 +784,7 @@ class Prospectreference {
   Prospectreference.fromJson(Map<String, dynamic> json) {
     prospectid = json['prospectid'];
     prospectname = json['prospectname'];
+    prospectcode = json['prospectcode'];
     prospectstartdate = json['prospectstartdate'];
     prospectenddate = json['prospectenddate'];
     prospectvalue = json['prospectvalue'];
@@ -782,6 +798,7 @@ class Prospectreference {
     prospectrefid = json['prospectrefid'];
     prospectlostreasonid = json['prospectlostreasonid'];
     prospectlostdesc = json['prospectlostdesc'];
+    prospectcustlabel = json['prospectcustlabel'];
     createdby = json['createdby'];
     createddate = json['createddate'];
     updatedby = json['updatedby'];
@@ -793,6 +810,7 @@ class Prospectreference {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['prospectid'] = this.prospectid;
     data['prospectname'] = this.prospectname;
+    data['prospectcode'] = this.prospectcode;
     data['prospectstartdate'] = this.prospectstartdate;
     data['prospectenddate'] = this.prospectenddate;
     data['prospectvalue'] = this.prospectvalue;
@@ -806,6 +824,76 @@ class Prospectreference {
     data['prospectrefid'] = this.prospectrefid;
     data['prospectlostreasonid'] = this.prospectlostreasonid;
     data['prospectlostdesc'] = this.prospectlostdesc;
+    data['prospectcustlabel'] = this.prospectcustlabel;
+    data['createdby'] = this.createdby;
+    data['createddate'] = this.createddate;
+    data['updatedby'] = this.updatedby;
+    data['updateddate'] = this.updateddate;
+    data['isactive'] = this.isactive;
+    return data;
+  }
+}
+
+class Prospectby {
+  int? userid;
+  String? username;
+  String? userpassword;
+  String? userfullname;
+  String? useremail;
+  String? userphone;
+  String? userdeviceid;
+  String? userfcmtoken;
+  String? usersocketid;
+  int? createdby;
+  String? createddate;
+  int? updatedby;
+  String? updateddate;
+  bool? isactive;
+
+  Prospectby(
+      {this.userid,
+      this.username,
+      this.userpassword,
+      this.userfullname,
+      this.useremail,
+      this.userphone,
+      this.userdeviceid,
+      this.userfcmtoken,
+      this.usersocketid,
+      this.createdby,
+      this.createddate,
+      this.updatedby,
+      this.updateddate,
+      this.isactive});
+
+  Prospectby.fromJson(Map<String, dynamic> json) {
+    userid = json['userid'];
+    username = json['username'];
+    userpassword = json['userpassword'];
+    userfullname = json['userfullname'];
+    useremail = json['useremail'];
+    userphone = json['userphone'];
+    userdeviceid = json['userdeviceid'];
+    userfcmtoken = json['userfcmtoken'];
+    usersocketid = json['usersocketid'];
+    createdby = json['createdby'];
+    createddate = json['createddate'];
+    updatedby = json['updatedby'];
+    updateddate = json['updateddate'];
+    isactive = json['isactive'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['userid'] = this.userid;
+    data['username'] = this.username;
+    data['userpassword'] = this.userpassword;
+    data['userfullname'] = this.userfullname;
+    data['useremail'] = this.useremail;
+    data['userphone'] = this.userphone;
+    data['userdeviceid'] = this.userdeviceid;
+    data['userfcmtoken'] = this.userfcmtoken;
+    data['usersocketid'] = this.usersocketid;
     data['createdby'] = this.createdby;
     data['createddate'] = this.createddate;
     data['updatedby'] = this.updatedby;
@@ -883,7 +971,7 @@ class Prospectcustomfield {
   String? updateddate;
   bool? isactive;
   Customfield? customfield;
-  Prospect? prospect;
+  Prospectreference? prospect;
 
   Prospectcustomfield(
       {this.prospectcfid,
@@ -912,7 +1000,7 @@ class Prospectcustomfield {
         ? new Customfield.fromJson(json['customfield'])
         : null;
     prospect = json['prospect'] != null
-        ? new Prospect.fromJson(json['prospect'])
+        ? new Prospectreference.fromJson(json['prospect'])
         : null;
   }
 
@@ -942,9 +1030,9 @@ class Customfield {
   int? custfbpid;
   String? custfname;
   int? custftypeid;
-  bool? isvisiblesidebar;
-  bool? onlyinnewprospect;
-  int? lastprospectid;
+  bool? allprospect;
+  bool? onlythisprospect;
+  int? thisprospectid;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -956,9 +1044,9 @@ class Customfield {
       this.custfbpid,
       this.custfname,
       this.custftypeid,
-      this.isvisiblesidebar,
-      this.onlyinnewprospect,
-      this.lastprospectid,
+      this.allprospect,
+      this.onlythisprospect,
+      this.thisprospectid,
       this.createdby,
       this.createddate,
       this.updatedby,
@@ -970,9 +1058,9 @@ class Customfield {
     custfbpid = json['custfbpid'];
     custfname = json['custfname'];
     custftypeid = json['custftypeid'];
-    isvisiblesidebar = json['isvisiblesidebar'];
-    onlyinnewprospect = json['onlyinnewprospect'];
-    lastprospectid = json['lastprospectid'];
+    allprospect = json['allprospect'];
+    onlythisprospect = json['onlythisprospect'];
+    thisprospectid = json['thisprospectid'];
     createdby = json['createdby'];
     createddate = json['createddate'];
     updatedby = json['updatedby'];
@@ -986,102 +1074,9 @@ class Customfield {
     data['custfbpid'] = this.custfbpid;
     data['custfname'] = this.custfname;
     data['custftypeid'] = this.custftypeid;
-    data['isvisiblesidebar'] = this.isvisiblesidebar;
-    data['onlyinnewprospect'] = this.onlyinnewprospect;
-    data['lastprospectid'] = this.lastprospectid;
-    data['createdby'] = this.createdby;
-    data['createddate'] = this.createddate;
-    data['updatedby'] = this.updatedby;
-    data['updateddate'] = this.updateddate;
-    data['isactive'] = this.isactive;
-    return data;
-  }
-}
-
-class Prospect {
-  int? prospectid;
-  String? prospectname;
-  String? prospectstartdate;
-  String? prospectenddate;
-  String? prospectvalue;
-  int? prospectowner;
-  int? prospectstageid;
-  int? prospectstatusid;
-  String? prospectexpclosedate;
-  int? prospectbpid;
-  String? prospectdescription;
-  int? prospectcustid;
-  int? prospectrefid;
-  int? prospectlostreasonid;
-  String? prospectlostdesc;
-  int? createdby;
-  String? createddate;
-  int? updatedby;
-  String? updateddate;
-  bool? isactive;
-
-  Prospect(
-      {this.prospectid,
-      this.prospectname,
-      this.prospectstartdate,
-      this.prospectenddate,
-      this.prospectvalue,
-      this.prospectowner,
-      this.prospectstageid,
-      this.prospectstatusid,
-      this.prospectexpclosedate,
-      this.prospectbpid,
-      this.prospectdescription,
-      this.prospectcustid,
-      this.prospectrefid,
-      this.prospectlostreasonid,
-      this.prospectlostdesc,
-      this.createdby,
-      this.createddate,
-      this.updatedby,
-      this.updateddate,
-      this.isactive});
-
-  Prospect.fromJson(Map<String, dynamic> json) {
-    prospectid = json['prospectid'];
-    prospectname = json['prospectname'];
-    prospectstartdate = json['prospectstartdate'];
-    prospectenddate = json['prospectenddate'];
-    prospectvalue = json['prospectvalue'];
-    prospectowner = json['prospectowner'];
-    prospectstageid = json['prospectstageid'];
-    prospectstatusid = json['prospectstatusid'];
-    prospectexpclosedate = json['prospectexpclosedate'];
-    prospectbpid = json['prospectbpid'];
-    prospectdescription = json['prospectdescription'];
-    prospectcustid = json['prospectcustid'];
-    prospectrefid = json['prospectrefid'];
-    prospectlostreasonid = json['prospectlostreasonid'];
-    prospectlostdesc = json['prospectlostdesc'];
-    createdby = json['createdby'];
-    createddate = json['createddate'];
-    updatedby = json['updatedby'];
-    updateddate = json['updateddate'];
-    isactive = json['isactive'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['prospectid'] = this.prospectid;
-    data['prospectname'] = this.prospectname;
-    data['prospectstartdate'] = this.prospectstartdate;
-    data['prospectenddate'] = this.prospectenddate;
-    data['prospectvalue'] = this.prospectvalue;
-    data['prospectowner'] = this.prospectowner;
-    data['prospectstageid'] = this.prospectstageid;
-    data['prospectstatusid'] = this.prospectstatusid;
-    data['prospectexpclosedate'] = this.prospectexpclosedate;
-    data['prospectbpid'] = this.prospectbpid;
-    data['prospectdescription'] = this.prospectdescription;
-    data['prospectcustid'] = this.prospectcustid;
-    data['prospectrefid'] = this.prospectrefid;
-    data['prospectlostreasonid'] = this.prospectlostreasonid;
-    data['prospectlostdesc'] = this.prospectlostdesc;
+    data['allprospect'] = this.allprospect;
+    data['onlythisprospect'] = this.onlythisprospect;
+    data['thisprospectid'] = this.thisprospectid;
     data['createdby'] = this.createdby;
     data['createddate'] = this.createddate;
     data['updatedby'] = this.updatedby;
@@ -1173,7 +1168,7 @@ class Sbccstm {
   String? cstmpostalcode;
   String? cstmlatitude;
   String? cstmlongitude;
-  int? referalcode;
+  String? referalcode;
   int? createdby;
   String? createddate;
   int? updatedby;

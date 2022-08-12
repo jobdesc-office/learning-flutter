@@ -87,7 +87,7 @@ Future<BsSelectBoxResponse> selectApiBpType(Map<String, String> params) async {
 Future<BsSelectBoxResponse> selectApiProspectStatus(
     Map<String, String> params) async {
   final typeService = Get.put(TypeService());
-  Response response = await typeService.byCode(ConfigType.prospectStatus);
+  Response response = await typeService.bySeq(ConfigType.prospectStatus);
   if (response.isOk) {
     if (response.statusCode == 200) {
       List<TypeModel> data = [];
@@ -128,6 +128,23 @@ Future<BsSelectBoxResponse> selectApiProspectType(
     Map<String, String> params) async {
   final typeService = Get.put(TypeService());
   Response response = await typeService.byCode(ConfigType.prospectType);
+  if (response.isOk) {
+    if (response.statusCode == 200) {
+      return BsSelectBoxResponse.createFromJson(
+        response.body,
+        value: (data) => TypeModel.fromJson(data).typeid,
+        renderText: (data) => Text(TypeModel.fromJson(data).typename),
+      );
+    }
+  }
+
+  return BsSelectBoxResponse(options: []);
+}
+
+Future<BsSelectBoxResponse> selectApiProspectCustLab(
+    Map<String, String> params) async {
+  final typeService = Get.put(TypeService());
+  Response response = await typeService.bySeq(ConfigType.prospectCustLabel);
   if (response.isOk) {
     if (response.statusCode == 200) {
       return BsSelectBoxResponse.createFromJson(
@@ -366,8 +383,8 @@ Future<BsSelectBoxResponse> selectApiCustomField(
         data.add(CustomFieldModel.fromJson(item));
       }
       data.removeWhere((element) =>
-          element.onlyinnewprospect! &&
-          element.lastprospectid! > source.prospectid.value);
+          element.onlythisprospect! &&
+          element.thisprospectid! > source.prospectid.value);
       return BsSelectBoxResponse.createFromJson(
         data,
         value: (data) => data.custfid,

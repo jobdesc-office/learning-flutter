@@ -57,4 +57,10 @@ class CustomButtonStyle {
         color: Colors.black,
         borderRadius: BorderRadius.circular(5),
       );
+
+  static BsButtonStyle get roundedDelete => BsButtonStyle(
+        backgroundColor: Colors.grey.shade400,
+        color: Colors.black,
+        borderRadius: BorderRadius.circular(5),
+      );
 }

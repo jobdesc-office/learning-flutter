@@ -60,8 +60,8 @@ class CustomfieldSection extends StatelessWidget {
       source.isAddCF.value = false;
       cfieldForm.value.inputName.text = '';
       cfieldForm.value.selectType.clear();
-      cfieldForm.value.visible.value = false;
-      cfieldForm.value.newprospect.value = false;
+      cfieldForm.value.allprospect.value = false;
+      cfieldForm.value.onlythisprospect.value = false;
     }
 
     return Obx(() => Container(

@@ -21,8 +21,8 @@ class ConfirmDialog extends StatefulWidget {
     this.negativeButton,
     this.disabled = false,
     this.buttons = const [
-      ConfirmDialogButton.POSITION_BUTTON,
-      ConfirmDialogButton.NEGATIVE_BUTTON
+      ConfirmDialogButton.NEGATIVE_BUTTON,
+      ConfirmDialogButton.POSITION_BUTTON
     ],
     this.onPressed,
   });
@@ -104,22 +104,6 @@ class _ConfirmDialogState extends State<ConfirmDialog> {
             BsModalContainer(
               mainAxisAlignment: MainAxisAlignment.end,
               actions: [
-                !widget.buttons.contains(ConfirmDialogButton.POSITION_BUTTON)
-                    ? Container()
-                    : widget.positiveButton != null
-                        ? widget.positiveButton!
-                        : BsButton(
-                            disabled: _disabled,
-                            margin: EdgeInsets.only(right: 5),
-                            label: Text(BaseText.yesConfirm),
-                            style: CustomButtonStyle.roundedPrimary,
-                            size: CustomButonSize.confirm,
-                            onPressed: () {
-                              if (widget.onPressed != null)
-                                widget.onPressed!(
-                                    this, ConfirmDialogOption.YES_OPTION);
-                            },
-                          ),
                 !widget.buttons.contains(ConfirmDialogButton.NEGATIVE_BUTTON)
                     ? Container()
                     : widget.negativeButton != null
@@ -134,6 +118,22 @@ class _ConfirmDialogState extends State<ConfirmDialog> {
                               if (widget.onPressed != null)
                                 widget.onPressed!(
                                     this, ConfirmDialogOption.NO_OPTION);
+                            },
+                          ),
+                !widget.buttons.contains(ConfirmDialogButton.POSITION_BUTTON)
+                    ? Container()
+                    : widget.positiveButton != null
+                        ? widget.positiveButton!
+                        : BsButton(
+                            disabled: _disabled,
+                            margin: EdgeInsets.only(right: 5),
+                            label: Text(BaseText.yesConfirm),
+                            style: CustomButtonStyle.roundedDelete,
+                            size: CustomButonSize.confirm,
+                            onPressed: () {
+                              if (widget.onPressed != null)
+                                widget.onPressed!(
+                                    this, ConfirmDialogOption.YES_OPTION);
                             },
                           ),
               ],

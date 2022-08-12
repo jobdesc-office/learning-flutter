@@ -79,7 +79,9 @@ class ProspectFormView extends StatelessWidget
                             prospectForm.inputTitle(),
                             prospectForm.selectOwner(),
                             prospectForm.inputStatus(),
-                            prospectForm.inputPipelineStage()
+                            prospectForm.selectCustLab(),
+                            prospectForm.inputOrganization(context),
+                            prospectForm.inputExpected(context)
                           ],
                         ),
                       ),
@@ -152,13 +154,9 @@ class ProspectFormView extends StatelessWidget
                                     BsRow(
                                       children: [
                                         BsCol(
-                                            sizes: ColScreen(sm: Col.col_7),
+                                            sizes: ColScreen(sm: Col.col_12),
                                             child: prospectForm
-                                                .inputOrganization(context)),
-                                        BsCol(
-                                            sizes: ColScreen(sm: Col.col_7),
-                                            child: prospectForm
-                                                .inputExpected(context)),
+                                                .inputPipelineStage()),
                                         BsCol(
                                             sizes: ColScreen(sm: Col.col_7),
                                             child:

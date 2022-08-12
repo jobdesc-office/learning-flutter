@@ -80,6 +80,7 @@ class ProspectSource extends GetxController {
   BsSelectBoxController selectBp = BsSelectBoxController();
   BsSelectBoxController selectOwner = BsSelectBoxController();
   BsSelectBoxController selectReference = BsSelectBoxController();
+  BsSelectBoxController selectCustLab = BsSelectBoxController();
   BsSelectBoxController selectCustomer = BsSelectBoxController();
   BsSelectBoxController selectStatus = BsSelectBoxController();
 
@@ -193,6 +194,7 @@ class ProspectSource extends GetxController {
       'prospectbpid': box.read('mybpid'),
       'prospectdescription': inputDesc.text,
       'prospectcustid': selectCustomer.getSelectedAsString(),
+      'prospectcustlabel': selectCustLab.getSelectedAsString(),
       'prospectrefid': selectReference.getSelectedAsString(),
       'createdby': session.userid,
       'updatedby': session.userid,
@@ -462,6 +464,19 @@ class ProspectForm {
     );
   }
 
+  Widget selectCustLab() {
+    return FormGroup(
+      label: Text(ProspectText.labelCustLab),
+      child: CustomSelectBox(
+        searchable: true,
+        disabled: source.isProcessing,
+        controller: source.selectCustLab,
+        hintText: BaseText.hiintSelect(field: ProspectText.labelCustLab),
+        serverSide: (params) => selectApiProspectCustLab(params),
+      ),
+    );
+  }
+
   // Widget inputEmail({required ValueChanged<int> onRemoveEmail}) {
   //   return FormGroup(
   //       label: Text(ProspectText.labelEmail),
@@ -613,7 +628,7 @@ class ProspectForm {
                             hintText: BaseText.hiintSelect(
                                 field: ProspectText.labelItem),
                             serverSide: (params) => selectApiProductWithBp(
-                                params, box.read('mybpid')),
+                                params, box.read('mybpid').toString()),
                             // serverSide: (params) => selectApiProduct(params),
                             validators: [
                               Validators.selectRequired(ProspectText.labelItem)
@@ -827,7 +842,7 @@ class ProspectForm {
     final DateTime? selectedStart = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
+      firstDate: DateTime(DateTime.now().year),
       lastDate: DateTime.now().add(const Duration(days: 365)),
     );
     if (selectedStart != null) {
@@ -840,7 +855,7 @@ class ProspectForm {
     final DateTime? selectedEnd = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
+      firstDate: DateTime(DateTime.now().year),
       lastDate: DateTime.now().add(const Duration(days: 365)),
     );
     if (selectedEnd != null) {
@@ -853,7 +868,7 @@ class ProspectForm {
     final DateTime? selectedExpected = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
+      firstDate: DateTime(DateTime.now().year),
       lastDate: DateTime.now().add(const Duration(days: 365)),
     );
     if (selectedExpected != null) {
