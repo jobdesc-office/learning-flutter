@@ -22,4 +22,30 @@ class ScheduleDetailsSource extends GetxController {
   var private = false.obs;
 
   var guest = [].obs;
+
+  @override
+  void onClose() {
+    title.value = '';
+    name.value = '0.0';
+
+    startdate.value = '';
+    enddate.value = '';
+    starttime.value = '';
+    endtime.value = '';
+
+    desc.value = '';
+    type.value = '';
+    bp.value = '';
+    link.value = '';
+    loc.value = '';
+    remind.value = 0;
+    timezone.value = '';
+
+    online.value = false;
+    allday.value = false;
+    private.value = false;
+
+    guest.value = [];
+    super.onClose();
+  }
 }

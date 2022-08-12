@@ -8,4 +8,16 @@ class MenuDetailsSource extends GetxController {
   var route = ''.obs;
   var color = ''.obs;
   var sequence = ''.obs;
+
+  @override
+  void onClose() {
+    type.value = '';
+    parent.value = '';
+    name.value = '';
+    icon.value = '';
+    route.value = '';
+    color.value = '';
+    sequence.value = '';
+    super.onClose();
+  }
 }

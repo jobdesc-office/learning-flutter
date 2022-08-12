@@ -11,4 +11,19 @@ class UserDetailsSource extends GetxController {
   var bp = ''.obs;
   var active = true.obs;
   var role = [].obs;
+
+  @override
+  void onClose() {
+    id.value = 0;
+    name.value = '';
+    username.value = '';
+    email.value = '';
+    phone.value = '';
+    deviceid.value = '';
+    type.value = '';
+    bp.value = '';
+    active.value = true;
+    role.value = [];
+    super.onClose();
+  }
 }

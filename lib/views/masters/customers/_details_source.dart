@@ -14,4 +14,22 @@ class CustomerDetailsSource extends GetxController {
   var latitude = ''.obs;
   var longitude = ''.obs;
   var referal = ''.obs;
+
+  @override
+  void onClose() {
+    prefix.value = '';
+    name.value = '';
+    phone.value = '';
+    address.value = '';
+    type.value = '';
+    province.value = '';
+    city.value = '';
+    subdistrict.value = '';
+    muv.value = '';
+    postal.value = '';
+    latitude.value = '';
+    longitude.value = '';
+    referal.value = '';
+    super.onClose();
+  }
 }

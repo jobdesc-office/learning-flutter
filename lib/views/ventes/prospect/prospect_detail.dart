@@ -99,6 +99,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
   @override
   void initState() {
     super.initState();
+    Get.delete<ProspectDetailsSource>();
     _tabController = TabController(length: 7, vsync: this);
     // _tabControllerTimeline = TabController(length: 8, vsync: this);
     presenter.prospectTypeViewDetailContract = this;

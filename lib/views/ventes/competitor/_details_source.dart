@@ -9,4 +9,17 @@ class CompetitorDetailsSource extends GetxController {
   var ref = ''.obs;
   var pic = [].obs;
   var title = [].obs;
+
+  @override
+  void onClose() {
+    name.value = '';
+    bp.value = '';
+    type.value = '';
+    desc.value = '';
+    product.value = '';
+    ref.value = '';
+    pic.value = [];
+    title.value = [];
+    super.onClose();
+  }
 }

@@ -9,7 +9,11 @@ import '../../../contracts/base/details_view_contract.dart';
 import '../../../models/masters/competitor_model.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../presenters/ventes/competitor_presenter.dart';
+import '../../../routes/route_list.dart';
 import '../../../styles/color_palattes.dart';
+import '../../../widgets/breadcrumb.dart';
+import '../../../widgets/button/theme_button_back.dart';
+import '../../skins/template.dart';
 import '_details_source.dart';
 import '_text.dart';
 import 'image_picture_competitor.dart';
@@ -21,116 +25,82 @@ class CompetitorDetails extends GetView implements DetailViewContract {
   final CompetitorDetailsSource controller = Get.put(CompetitorDetailsSource());
 
   CompetitorDetails() {
+    Get.delete<CompetitorDetailsSource>();
     presenter.competitorDataDetailsContract = this;
   }
 
   @override
   Widget build(BuildContext context) {
-    return BsModal(
-        context: context,
-        dialog: BsModalDialog(
-          size: BsModalSize.lg,
-          child: BsModalContent(
-              decoration: BoxDecoration(
-                color: _navigation.darkTheme.value
-                    ? ColorPallates.elseDarkColor
-                    : Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              ),
-              children: [
-                BsModalContainer(
-                  title: Text(CompetitorText.title + ' Details',
-                      style: TextStyle(
-                          color: _navigation.darkTheme.value
-                              ? Colors.white
-                              : Colors.black)),
-                  closeButton: true,
-                ),
-                BsModalContainer(
-                  child: Obx(() => BsRow(
-                        children: [
-                          BsCol(
-                            margin: EdgeInsets.only(right: 10),
-                            sizes: ColScreen(sm: Col.col_5),
-                            child: BsRow(
-                              children: [
-                                if (controller.pic.length >= 3)
-                                  BsCol(
-                                      alignment: Alignment.center,
-                                      child: Gallery3D(
-                                          onClickItem: (value) {
-                                            showDialog(
-                                              context: context,
-                                              builder: (context) =>
-                                                  ImagePictureCompetitor(
-                                                title: controller.title[value],
-                                                image: controller.pic[value],
-                                              ),
-                                            );
-                                          },
-                                          delayTime: 1500,
-                                          width: 300,
-                                          itemConfig: GalleryItemConfig(
-                                            width: 300,
-                                            height: 280,
-                                            isShowTransformMask: false,
+    return Scaffold(
+      body: TemplateView(
+        title: 'Competitor Details',
+        breadcrumbs: [
+          BreadcrumbWidget('Venteses'),
+          BreadcrumbWidget('Competitors', back: true),
+          BreadcrumbWidget('Competitor Details', active: true),
+        ],
+        activeRoutes: [
+          RouteList.ventes.index,
+          RouteList.ventesCompetitor.index
+        ],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            ThemeButtonBack(
+              onPressed: () => Navigator.pop(context),
+              margin: EdgeInsets.only(bottom: 5),
+            ),
+            Obx(() => Container(
+                  padding: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: _navigation.darkTheme.value
+                        ? ColorPallates.elseDarkColor
+                        : Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: BsRow(
+                    children: [
+                      BsCol(
+                        margin: EdgeInsets.only(right: 10),
+                        sizes: ColScreen(sm: Col.col_5),
+                        child: BsRow(
+                          children: [
+                            if (controller.pic.length >= 3)
+                              BsCol(
+                                  alignment: Alignment.center,
+                                  child: Gallery3D(
+                                      onClickItem: (value) {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) =>
+                                              ImagePictureCompetitor(
+                                            title: controller.title[value],
+                                            image: controller.pic[value],
                                           ),
-                                          itemCount: controller.pic.length,
-                                          itemBuilder: (context, index) {
-                                            return Tooltip(
-                                              message: BaseText.seePicture,
-                                              child: Image.network(
-                                                controller.pic[index],
-                                                fit: BoxFit.fill,
-                                              ),
-                                            );
-                                          })),
-                                if (controller.pic.length == 2)
-                                  BsCol(
-                                    child: Row(
-                                      children: [
-                                        InkWell(
-                                          onTap: () => showDialog(
-                                            context: context,
-                                            builder: (context) =>
-                                                ImagePictureCompetitor(
-                                              title: controller.title.last,
-                                              image: controller.pic.first,
-                                            ),
+                                        );
+                                      },
+                                      delayTime: 1500,
+                                      width: 300,
+                                      itemConfig: GalleryItemConfig(
+                                        width: 300,
+                                        height: 280,
+                                        isShowTransformMask: false,
+                                      ),
+                                      itemCount: controller.pic.length,
+                                      itemBuilder: (context, index) {
+                                        return Tooltip(
+                                          message: BaseText.seePicture,
+                                          child: Image.network(
+                                            controller.pic[index],
+                                            fit: BoxFit.fill,
                                           ),
-                                          child: Tooltip(
-                                            message: BaseText.seePicture,
-                                            child: Image.network(
-                                              controller.pic.first,
-                                              width: 150,
-                                              height: 130,
-                                            ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () => showDialog(
-                                            context: context,
-                                            builder: (context) =>
-                                                ImagePictureCompetitor(
-                                              title: controller.title.last,
-                                              image: controller.pic.first,
-                                            ),
-                                          ),
-                                          child: Tooltip(
-                                            message: BaseText.seePicture,
-                                            child: Image.network(
-                                              controller.pic.last,
-                                              width: 150,
-                                              height: 130,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                if (controller.pic.length == 1)
-                                  BsCol(
-                                    child: InkWell(
+                                        );
+                                      })),
+                            if (controller.pic.length == 2)
+                              BsCol(
+                                child: Row(
+                                  children: [
+                                    InkWell(
                                       onTap: () => showDialog(
                                         context: context,
                                         builder: (context) =>
@@ -140,116 +110,153 @@ class CompetitorDetails extends GetView implements DetailViewContract {
                                         ),
                                       ),
                                       child: Tooltip(
-                                        message: 'Tap to See Full Image',
+                                        message: BaseText.seePicture,
                                         child: Image.network(
                                           controller.pic.first,
-                                          width: 250,
-                                          height: 120,
+                                          width: 150,
+                                          height: 130,
                                         ),
                                       ),
                                     ),
-                                  )
-                              ],
-                            ),
-                          ),
+                                    InkWell(
+                                      onTap: () => showDialog(
+                                        context: context,
+                                        builder: (context) =>
+                                            ImagePictureCompetitor(
+                                          title: controller.title.last,
+                                          image: controller.pic.first,
+                                        ),
+                                      ),
+                                      child: Tooltip(
+                                        message: BaseText.seePicture,
+                                        child: Image.network(
+                                          controller.pic.last,
+                                          width: 150,
+                                          height: 130,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            if (controller.pic.length == 1)
+                              BsCol(
+                                child: InkWell(
+                                  onTap: () => showDialog(
+                                    context: context,
+                                    builder: (context) =>
+                                        ImagePictureCompetitor(
+                                      title: controller.title.last,
+                                      image: controller.pic.first,
+                                    ),
+                                  ),
+                                  child: Tooltip(
+                                    message: 'Tap to See Full Image',
+                                    child: Image.network(
+                                      controller.pic.first,
+                                      width: 250,
+                                      height: 120,
+                                    ),
+                                  ),
+                                ),
+                              )
+                          ],
+                        ),
+                      ),
+                      BsCol(
+                        sizes: ColScreen(sm: Col.col_7),
+                        child: BsRow(children: [
                           BsCol(
-                            sizes: ColScreen(sm: Col.col_7),
-                            child: BsRow(children: [
-                              BsCol(
-                                  margin: EdgeInsets.only(top: 10),
-                                  sizes: ColScreen(lg: Col.col_12),
-                                  child: BsRow(
-                                    children: [
-                                      BsCol(
-                                          sizes: ColScreen(lg: Col.col_4),
-                                          child: Text('Name')),
-                                      BsCol(
-                                          sizes: ColScreen(lg: Col.col_1),
-                                          child: Text(':')),
-                                      BsCol(
-                                          sizes: ColScreen(lg: Col.col_7),
-                                          child: Text(controller.name.value))
-                                    ],
-                                  )),
-                              BsCol(
-                                  margin: EdgeInsets.only(top: 10),
-                                  sizes: ColScreen(lg: Col.col_12),
-                                  child: BsRow(
-                                    children: [
-                                      BsCol(
-                                          sizes: ColScreen(lg: Col.col_4),
-                                          child: Text('Product Name')),
-                                      BsCol(
-                                          sizes: ColScreen(lg: Col.col_1),
-                                          child: Text(':')),
-                                      BsCol(
-                                          sizes: ColScreen(lg: Col.col_7),
-                                          child: Text(controller.product.value))
-                                    ],
-                                  )),
-                              BsCol(
-                                  margin: EdgeInsets.only(top: 10),
-                                  sizes: ColScreen(lg: Col.col_12),
-                                  child: BsRow(
-                                    children: [
-                                      BsCol(
-                                          sizes: ColScreen(lg: Col.col_4),
-                                          child: Text('Business Partner')),
-                                      BsCol(
-                                          sizes: ColScreen(lg: Col.col_1),
-                                          child: Text(':')),
-                                      BsCol(
-                                          sizes: ColScreen(lg: Col.col_7),
-                                          child: Text(controller.bp.value)),
-                                      BsCol(
-                                          margin: EdgeInsets.only(top: 10),
-                                          sizes: ColScreen(lg: Col.col_12),
-                                          child: BsRow(
-                                            children: [
-                                              BsCol(
-                                                  sizes:
-                                                      ColScreen(lg: Col.col_4),
-                                                  child: Text('Type')),
-                                              BsCol(
-                                                  sizes:
-                                                      ColScreen(lg: Col.col_1),
-                                                  child: Text(':')),
-                                              BsCol(
-                                                  sizes:
-                                                      ColScreen(lg: Col.col_7),
-                                                  child: Text(
-                                                      controller.type.value))
-                                            ],
-                                          )),
-                                      BsCol(
-                                          margin: EdgeInsets.only(top: 10),
-                                          sizes: ColScreen(lg: Col.col_12),
-                                          child: BsRow(
-                                            children: [
-                                              BsCol(
-                                                  sizes:
-                                                      ColScreen(lg: Col.col_4),
-                                                  child: Text('Description')),
-                                              BsCol(
-                                                  sizes:
-                                                      ColScreen(lg: Col.col_1),
-                                                  child: Text(':')),
-                                              BsCol(
-                                                  sizes:
-                                                      ColScreen(lg: Col.col_7),
-                                                  child: Text(
-                                                      controller.desc.value))
-                                            ],
-                                          )),
-                                    ],
-                                  )),
-                            ]),
-                          )
-                        ],
-                      )),
-                )
-              ]),
-        ));
+                              margin: EdgeInsets.only(top: 10),
+                              sizes: ColScreen(lg: Col.col_12),
+                              child: BsRow(
+                                children: [
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_4),
+                                      child: Text('Name')),
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_1),
+                                      child: Text(':')),
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_7),
+                                      child: Text(controller.name.value))
+                                ],
+                              )),
+                          BsCol(
+                              margin: EdgeInsets.only(top: 10),
+                              sizes: ColScreen(lg: Col.col_12),
+                              child: BsRow(
+                                children: [
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_4),
+                                      child: Text('Product Name')),
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_1),
+                                      child: Text(':')),
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_7),
+                                      child: Text(controller.product.value))
+                                ],
+                              )),
+                          BsCol(
+                              margin: EdgeInsets.only(top: 10),
+                              sizes: ColScreen(lg: Col.col_12),
+                              child: BsRow(
+                                children: [
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_4),
+                                      child: Text('Business Partner')),
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_1),
+                                      child: Text(':')),
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_7),
+                                      child: Text(controller.bp.value)),
+                                  BsCol(
+                                      margin: EdgeInsets.only(top: 10),
+                                      sizes: ColScreen(lg: Col.col_12),
+                                      child: BsRow(
+                                        children: [
+                                          BsCol(
+                                              sizes: ColScreen(lg: Col.col_4),
+                                              child: Text('Type')),
+                                          BsCol(
+                                              sizes: ColScreen(lg: Col.col_1),
+                                              child: Text(':')),
+                                          BsCol(
+                                              sizes: ColScreen(lg: Col.col_7),
+                                              child:
+                                                  Text(controller.type.value))
+                                        ],
+                                      )),
+                                  BsCol(
+                                      margin: EdgeInsets.only(top: 10),
+                                      sizes: ColScreen(lg: Col.col_12),
+                                      child: BsRow(
+                                        children: [
+                                          BsCol(
+                                              sizes: ColScreen(lg: Col.col_4),
+                                              child: Text('Description')),
+                                          BsCol(
+                                              sizes: ColScreen(lg: Col.col_1),
+                                              child: Text(':')),
+                                          BsCol(
+                                              sizes: ColScreen(lg: Col.col_7),
+                                              child:
+                                                  Text(controller.desc.value))
+                                        ],
+                                      )),
+                                ],
+                              )),
+                        ]),
+                      )
+                    ],
+                  ),
+                )),
+          ],
+        ),
+      ),
+    );
   }
 
   @override

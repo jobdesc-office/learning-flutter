@@ -6,4 +6,14 @@ class TypeChildrenDetailsSource extends GetxController {
   var parent = ''.obs;
   var desc = ''.obs;
   var seq = ''.obs;
+
+  @override
+  void onClose() {
+    code.value = '';
+    name.value = '';
+    parent.value = '';
+    desc.value = '';
+    seq.value = '';
+    super.onClose();
+  }
 }

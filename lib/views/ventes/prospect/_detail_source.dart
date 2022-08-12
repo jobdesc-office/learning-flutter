@@ -80,4 +80,54 @@ class ProspectDetailsSource extends GetxController {
       'files[]': jsonImages()
     };
   }
+
+  @override
+  void onClose() {
+    prospectid.value = 0;
+    prospectbpid.value = 0;
+    prospectname.value = '';
+    prospectvalue.value = '0.0';
+
+    custid.value = 0;
+    custname.value = '';
+
+    userfullname.value = '';
+    bpname.value = '';
+    prospectstartdate.value = '';
+    endtime.value = '';
+
+    losttype.value = '';
+    lostdesc.value = '';
+
+    desc.value = '';
+    type.value = '';
+    bp.value = '';
+    link.value = '';
+    loc.value = '';
+    remind.value = '';
+    timezone.value = '';
+    status.value = '';
+
+    online.value = false;
+    allday.value = false;
+    private.value = false;
+
+    detailData.value = [];
+    assign.value = [];
+    report.value = [];
+    product.value = [];
+    contact.value = <Cstmcontact>[];
+    files.value = <Prospectfiles>[];
+    customField.value = <ProspectCustomFieldModel>[];
+    rawcustomField.value = <CustomFieldModel>[];
+
+    isAdd.value = false;
+    isUpdate.value = false;
+    cfid.value = 0;
+
+    isAddCF.value = false;
+
+    pickedFile.value = <Uint8List>[];
+    super.onClose();
+  }
 }

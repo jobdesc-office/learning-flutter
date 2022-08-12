@@ -7,9 +7,12 @@ import '../../../contracts/base/details_view_contract.dart';
 import '../../../models/security/menu_model.dart';
 import '../../../presenters/masters/menu_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
+import '../../../routes/route_list.dart';
 import '../../../styles/color_palattes.dart';
+import '../../../widgets/breadcrumb.dart';
+import '../../../widgets/button/theme_button_back.dart';
+import '../../skins/template.dart';
 import '_details_source.dart';
-import '_text.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 
@@ -18,150 +21,156 @@ class MenuDetails extends GetView implements DetailViewContract {
   final MenuDetailsSource controller = Get.put(MenuDetailsSource());
 
   MenuDetails() {
+    Get.delete<MenuDetailsSource>();
     presenter.menuDataDetailsContract = this;
   }
 
   @override
   Widget build(BuildContext context) {
-    return BsModal(
-        context: context,
-        dialog: BsModalDialog(
-          size: BsModalSize.md,
-          child: BsModalContent(
-              decoration: BoxDecoration(
-                color: _navigation.darkTheme.value
-                    ? ColorPallates.elseDarkColor
-                    : Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              ),
-              children: [
-                BsModalContainer(
-                  title: Text(MenuText.title + ' Details',
-                      style: TextStyle(
-                          color: _navigation.darkTheme.value
-                              ? Colors.white
-                              : Colors.black)),
-                  closeButton: true,
-                ),
-                BsModalContainer(
-                  child: Obx(() => BsRow(
-                        children: [
-                          BsCol(
-                              sizes: ColScreen(lg: Col.col_12),
-                              child: BsRow(
-                                children: [
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_3),
-                                      child: Text('Type')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_1),
-                                      child: Text(':')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_8),
-                                      child: Text(controller.type.value))
-                                ],
-                              )),
-                          BsCol(
-                              margin: EdgeInsets.only(top: 5),
-                              sizes: ColScreen(lg: Col.col_12),
-                              child: BsRow(
-                                children: [
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_3),
-                                      child: Text('Parent')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_1),
-                                      child: Text(':')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_8),
-                                      child: Text(controller.parent.value))
-                                ],
-                              )),
-                          BsCol(
-                              margin: EdgeInsets.only(top: 5),
-                              sizes: ColScreen(lg: Col.col_12),
-                              child: BsRow(
-                                children: [
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_3),
-                                      child: Text('Name')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_1),
-                                      child: Text(':')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_8),
-                                      child: Text(controller.name.value))
-                                ],
-                              )),
-                          BsCol(
-                              margin: EdgeInsets.only(top: 5),
-                              sizes: ColScreen(lg: Col.col_12),
-                              child: BsRow(
-                                children: [
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_3),
-                                      child: Text('Icon')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_1),
-                                      child: Text(':')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_8),
-                                      child: Text(controller.icon.value))
-                                ],
-                              )),
-                          BsCol(
-                              margin: EdgeInsets.only(top: 5),
-                              sizes: ColScreen(lg: Col.col_12),
-                              child: BsRow(
-                                children: [
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_3),
-                                      child: Text('Route')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_1),
-                                      child: Text(':')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_8),
-                                      child: Text(controller.route.value))
-                                ],
-                              )),
-                          BsCol(
-                              margin: EdgeInsets.only(top: 5),
-                              sizes: ColScreen(lg: Col.col_12),
-                              child: BsRow(
-                                children: [
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_3),
-                                      child: Text('Color')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_1),
-                                      child: Text(':')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_8),
-                                      child: Text(controller.color.value))
-                                ],
-                              )),
-                          BsCol(
-                              margin: EdgeInsets.only(top: 5),
-                              sizes: ColScreen(lg: Col.col_12),
-                              child: BsRow(
-                                children: [
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_3),
-                                      child: Text('Sequence')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_1),
-                                      child: Text(':')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_8),
-                                      child: Text(controller.sequence.value))
-                                ],
-                              )),
-                        ],
-                      )),
-                )
-              ]),
-        ));
+    return Scaffold(
+      body: TemplateView(
+        title: 'Menu Details',
+        breadcrumbs: [
+          BreadcrumbWidget('Masters'),
+          BreadcrumbWidget('Menus', back: true),
+          BreadcrumbWidget('Menu Details', active: true),
+        ],
+        activeRoutes: [RouteList.master.index, RouteList.masterMenu.index],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            ThemeButtonBack(
+              onPressed: () => Navigator.pop(context),
+              margin: EdgeInsets.only(bottom: 5),
+            ),
+            Obx(() => Container(
+                  padding: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: _navigation.darkTheme.value
+                        ? ColorPallates.elseDarkColor
+                        : Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: BsRow(
+                    children: [
+                      BsCol(
+                          sizes: ColScreen(lg: Col.col_12),
+                          child: BsRow(
+                            children: [
+                              BsCol(
+                                  sizes: ColScreen(lg: Col.col_3),
+                                  child: Text('Type')),
+                              BsCol(
+                                  sizes: ColScreen(lg: Col.col_1),
+                                  child: Text(':')),
+                              BsCol(
+                                  sizes: ColScreen(lg: Col.col_8),
+                                  child: Text(controller.type.value))
+                            ],
+                          )),
+                      BsCol(
+                          margin: EdgeInsets.only(top: 5),
+                          sizes: ColScreen(lg: Col.col_12),
+                          child: BsRow(
+                            children: [
+                              BsCol(
+                                  sizes: ColScreen(lg: Col.col_3),
+                                  child: Text('Parent')),
+                              BsCol(
+                                  sizes: ColScreen(lg: Col.col_1),
+                                  child: Text(':')),
+                              BsCol(
+                                  sizes: ColScreen(lg: Col.col_8),
+                                  child: Text(controller.parent.value))
+                            ],
+                          )),
+                      BsCol(
+                          margin: EdgeInsets.only(top: 5),
+                          sizes: ColScreen(lg: Col.col_12),
+                          child: BsRow(
+                            children: [
+                              BsCol(
+                                  sizes: ColScreen(lg: Col.col_3),
+                                  child: Text('Name')),
+                              BsCol(
+                                  sizes: ColScreen(lg: Col.col_1),
+                                  child: Text(':')),
+                              BsCol(
+                                  sizes: ColScreen(lg: Col.col_8),
+                                  child: Text(controller.name.value))
+                            ],
+                          )),
+                      BsCol(
+                          margin: EdgeInsets.only(top: 5),
+                          sizes: ColScreen(lg: Col.col_12),
+                          child: BsRow(
+                            children: [
+                              BsCol(
+                                  sizes: ColScreen(lg: Col.col_3),
+                                  child: Text('Icon')),
+                              BsCol(
+                                  sizes: ColScreen(lg: Col.col_1),
+                                  child: Text(':')),
+                              BsCol(
+                                  sizes: ColScreen(lg: Col.col_8),
+                                  child: Text(controller.icon.value))
+                            ],
+                          )),
+                      BsCol(
+                          margin: EdgeInsets.only(top: 5),
+                          sizes: ColScreen(lg: Col.col_12),
+                          child: BsRow(
+                            children: [
+                              BsCol(
+                                  sizes: ColScreen(lg: Col.col_3),
+                                  child: Text('Route')),
+                              BsCol(
+                                  sizes: ColScreen(lg: Col.col_1),
+                                  child: Text(':')),
+                              BsCol(
+                                  sizes: ColScreen(lg: Col.col_8),
+                                  child: Text(controller.route.value))
+                            ],
+                          )),
+                      BsCol(
+                          margin: EdgeInsets.only(top: 5),
+                          sizes: ColScreen(lg: Col.col_12),
+                          child: BsRow(
+                            children: [
+                              BsCol(
+                                  sizes: ColScreen(lg: Col.col_3),
+                                  child: Text('Color')),
+                              BsCol(
+                                  sizes: ColScreen(lg: Col.col_1),
+                                  child: Text(':')),
+                              BsCol(
+                                  sizes: ColScreen(lg: Col.col_8),
+                                  child: Text(controller.color.value))
+                            ],
+                          )),
+                      BsCol(
+                          margin: EdgeInsets.only(top: 5),
+                          sizes: ColScreen(lg: Col.col_12),
+                          child: BsRow(
+                            children: [
+                              BsCol(
+                                  sizes: ColScreen(lg: Col.col_3),
+                                  child: Text('Sequence')),
+                              BsCol(
+                                  sizes: ColScreen(lg: Col.col_1),
+                                  child: Text(':')),
+                              BsCol(
+                                  sizes: ColScreen(lg: Col.col_8),
+                                  child: Text(controller.sequence.value))
+                            ],
+                          )),
+                    ],
+                  ),
+                )),
+          ],
+        ),
+      ),
+    );
   }
 
   @override

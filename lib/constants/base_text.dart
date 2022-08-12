@@ -1,6 +1,7 @@
 class BaseText {
   static String buttonSave = 'Save';
   static String buttonCancel = 'Cancel';
+  static String buttonBack = 'Back';
   static String buttonCreate = 'Create';
   static String buttonFilter = 'Filter';
   static String buttonLost = 'Mark as Lost';
