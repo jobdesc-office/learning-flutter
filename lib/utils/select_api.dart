@@ -18,7 +18,6 @@ import '../models/masters/user_model.dart';
 import '../models/ventes/bpcustomer_model.dart';
 import '../models/ventes/customfield_model.dart';
 import '../models/ventes/selectbp_model.dart';
-import '../presenters/auth_presenter.dart';
 import '../services/masters/city_service.dart';
 import '../services/masters/country_service.dart';
 import '../services/masters/customer_service.dart';
@@ -354,7 +353,6 @@ Future<BsSelectBoxResponse> selectApiUser(Map<String, String> params) async {
 Future<BsSelectBoxResponse> selectApiProspectOwner(
     Map<String, String> params) async {
   final userService = Get.find<UserService>();
-  final _auth = Get.find<AuthPresenter>();
   Response response =
       await userService.selectsamebp(params, box.read('mybpid'));
   if (response.isOk) {

@@ -32,18 +32,18 @@ class ProspectContactDataTableSource extends BsDatatableSource {
         orderable: false,
       ),
       CustomBsDataColumn(
-        label: Text('Daily Activity Date'),
+        label: Text('Contact Name'),
         searchable: false,
         orderable: false,
       ),
       CustomBsDataColumn(
-        label: Text('Daily Activity Category'),
+        label: Text('Contact Type'),
         columnName: 'comptproductname',
         searchable: false,
         orderable: false,
       ),
       CustomBsDataColumn(
-        label: Text('Daily Activity Type'),
+        label: Text('Contact Value'),
         columnName: 'comptproductname',
         searchable: false,
         orderable: false,
@@ -136,8 +136,6 @@ class ProspectContactDataTableSource extends BsDatatableSource {
                   ),
                 ],
               ),
-              Text(''),
-              if (_navigation.isCollapse.value) Text(''),
             ],
           ),
           color: _navigation.darkTheme.value

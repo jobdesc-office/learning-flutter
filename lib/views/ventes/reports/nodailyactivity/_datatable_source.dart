@@ -1,5 +1,3 @@
-import 'package:boilerplate/constants/base_text.dart';
-import 'package:boilerplate/helpers/function.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -53,6 +51,7 @@ class ReportNoDailyActivityDataTableSource extends BsDatatableSource {
     ];
   }
 
+  // ignore: invalid_use_of_protected_member
   List<Dayactuser> get users => controllers.employees.value;
 
   @override

@@ -9,7 +9,6 @@ import '../../contracts/ventes/schedule_contract.dart';
 import '../../models/ventes/schedule_model.dart';
 import '../../services/ventes/schedule_service.dart';
 import '../../utils/custom_get_controller.dart';
-import '../../views/ventes/schedules/_schedule_source.dart';
 import '../../views/ventes/schedules/schedule_detail.dart';
 import '../../views/ventes/schedules/schedule_form.dart';
 import '../../widgets/confirm_dialog.dart';

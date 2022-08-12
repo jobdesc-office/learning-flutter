@@ -8,7 +8,6 @@ import 'package:intl/intl.dart';
 import '../../../../constants/base_text.dart';
 import '../../../../helpers/function.dart';
 import '../../../../models/session_model.dart';
-import '../../../../presenters/auth_presenter.dart';
 import '../../../../utils/select_api.dart';
 import '../../../../utils/session_manager.dart';
 import '../../../../utils/validators.dart';
@@ -60,7 +59,6 @@ class ProspectProductSource extends GetxController {
 
 class ProspectProductForm {
   final ProspectProductSource source;
-  final _auth = Get.put(AuthPresenter());
   final currencyFormatter = NumberFormat('#,##0.00', 'ID');
   final box = GetStorage();
 

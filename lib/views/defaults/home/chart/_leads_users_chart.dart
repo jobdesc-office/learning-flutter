@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../styles/color_palattes.dart';
 
+// ignore: must_be_immutable
 class LeadsUsersChart extends StatelessWidget {
   Map<double, String> bottomTitles = {
     0: "Sandra",

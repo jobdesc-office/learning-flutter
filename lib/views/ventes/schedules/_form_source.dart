@@ -10,7 +10,6 @@ import 'package:get_storage/get_storage.dart';
 import '../../../constants/base_text.dart';
 import '../../../models/masters/type_model.dart';
 import '../../../models/session_model.dart';
-import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../styles/color_palattes.dart';
 import '../../../utils/session_manager.dart';
@@ -29,8 +28,6 @@ final _navigation = Get.find<NavigationPresenter>();
 
 class ScheduleSource extends GetxController {
   final map = Get.put(MapSource());
-
-  final _auth = Get.put(AuthPresenter());
 
   var refType = ''.obs;
   var refTypeIsNotChoosed = true.obs;
@@ -115,7 +112,6 @@ class ScheduleSource extends GetxController {
 
 class ScheduleForm {
   final map = Get.put(MapSource());
-  final _auth = Get.put(AuthPresenter());
   final ScheduleSource source;
 
   ScheduleForm(this.source);

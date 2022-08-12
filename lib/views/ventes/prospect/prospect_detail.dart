@@ -235,12 +235,12 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                               )
                                             ],
                                           ),
-                                          _tabNote(),
-                                          _tabAssign(),
-                                          _tabReport(),
-                                          _tabProduct(),
-                                          _tabContact(),
-                                          _tabFile(),
+                                          _TabNote(),
+                                          _TabAssign(),
+                                          _TabReport(),
+                                          _TabProduct(),
+                                          _TabContact(),
+                                          _TabFile(),
                                         ],
                                       ),
                                     )

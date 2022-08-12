@@ -13,7 +13,6 @@ import 'package:intl/intl.dart';
 import '../../../constants/base_text.dart';
 import '../../../helpers/function.dart';
 import '../../../models/session_model.dart';
-import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../styles/color_palattes.dart';
 import '../../../utils/select_api.dart';
@@ -29,7 +28,6 @@ import '_text.dart';
 import 'product/product_form.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
-final _auth = Get.put(AuthPresenter());
 
 class ProspectSource extends GetxController {
   bool isProcessing = false;

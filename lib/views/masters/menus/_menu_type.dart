@@ -64,19 +64,18 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
             ? Colors.white
             : Colors.white;
 
-        int index = widget.controller.options.indexOf(type);
-        BorderRadius? borderRadius;
-        if (index == 0)
-          borderRadius = BorderRadius.only(
-            topLeft: Radius.circular(5),
-            bottomLeft: Radius.circular(5),
-          );
-        else if (index == widget.controller.options.length - 1) {
-          borderRadius = BorderRadius.only(
-            topRight: Radius.circular(5),
-            bottomRight: Radius.circular(5),
-          );
-        }
+        // BorderRadius? borderRadius;
+        // if (index == 0)
+        //   borderRadius = BorderRadius.only(
+        //     topLeft: Radius.circular(5),
+        //     bottomLeft: Radius.circular(5),
+        //   );
+        // else if (index == widget.controller.options.length - 1) {
+        //   borderRadius = BorderRadius.only(
+        //     topRight: Radius.circular(5),
+        //     bottomRight: Radius.circular(5),
+        //   );
+        // }
 
         return Material(
           color: Colors.transparent,

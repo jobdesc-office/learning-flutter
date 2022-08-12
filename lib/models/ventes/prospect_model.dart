@@ -1,4 +1,5 @@
-import '../masters/type_model.dart';
+import 'package:boilerplate/models/masters/type_model.dart';
+
 import 'prospectcustomfield_model.dart';
 
 class ProspectModel {
@@ -18,7 +19,7 @@ class ProspectModel {
   int? prospectrefid;
   int? prospectlostreasonid;
   String? prospectlostdesc;
-  Prospectcustlabel? prospectcustlabel;
+  int? prospectcustlabel;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -27,10 +28,11 @@ class ProspectModel {
   List<Prospectassigns>? prospectassigns;
   List<Prospectproduct>? prospectproduct;
   TypeModel? prospectstage;
-  Prospectcustlabel? prospectlost;
+  Prospectlost? prospectlost;
+  Prospectlost? prospectcustlabeltype;
   Prospectownerusers? prospectownerusers;
-  Prospectcustlabel? prospectstatus;
-  Prospectcustlabel? prospectlostreason;
+  Prospectlost? prospectstatus;
+  Prospectlost? prospectlostreason;
   Prospectreference? prospectreference;
   Prospectby? prospectby;
   Prospectbp? prospectbp;
@@ -65,6 +67,7 @@ class ProspectModel {
       this.prospectproduct,
       this.prospectstage,
       this.prospectlost,
+      this.prospectcustlabeltype,
       this.prospectownerusers,
       this.prospectstatus,
       this.prospectlostreason,
@@ -92,9 +95,7 @@ class ProspectModel {
     prospectrefid = json['prospectrefid'];
     prospectlostreasonid = json['prospectlostreasonid'];
     prospectlostdesc = json['prospectlostdesc'];
-    prospectcustlabel = json['prospectcustlabel'] != null
-        ? new Prospectcustlabel.fromJson(json['prospectcustlabel'])
-        : null;
+    prospectcustlabel = json['prospectcustlabel'];
     createdby = json['createdby'];
     createddate = json['createddate'];
     updatedby = json['updatedby'];
@@ -116,16 +117,19 @@ class ProspectModel {
         ? new TypeModel.fromJson(json['prospectstage'])
         : null;
     prospectlost = json['prospectlost'] != null
-        ? new Prospectcustlabel.fromJson(json['prospectlost'])
+        ? new Prospectlost.fromJson(json['prospectlost'])
+        : null;
+    prospectcustlabeltype = json['prospectcustlabeltype'] != null
+        ? new Prospectlost.fromJson(json['prospectcustlabeltype'])
         : null;
     prospectownerusers = json['prospectownerusers'] != null
         ? new Prospectownerusers.fromJson(json['prospectownerusers'])
         : null;
     prospectstatus = json['prospectstatus'] != null
-        ? new Prospectcustlabel.fromJson(json['prospectstatus'])
+        ? new Prospectlost.fromJson(json['prospectstatus'])
         : null;
     prospectlostreason = json['prospectlostreason'] != null
-        ? new Prospectcustlabel.fromJson(json['prospectlostreason'])
+        ? new Prospectlost.fromJson(json['prospectlostreason'])
         : null;
     prospectreference = json['prospectreference'] != null
         ? new Prospectreference.fromJson(json['prospectreference'])
@@ -171,9 +175,7 @@ class ProspectModel {
     data['prospectrefid'] = this.prospectrefid;
     data['prospectlostreasonid'] = this.prospectlostreasonid;
     data['prospectlostdesc'] = this.prospectlostdesc;
-    if (this.prospectcustlabel != null) {
-      data['prospectcustlabel'] = this.prospectcustlabel!.toJson();
-    }
+    data['prospectcustlabel'] = this.prospectcustlabel;
     data['createdby'] = this.createdby;
     data['createddate'] = this.createddate;
     data['updatedby'] = this.updatedby;
@@ -192,6 +194,9 @@ class ProspectModel {
     }
     if (this.prospectlost != null) {
       data['prospectlost'] = this.prospectlost!.toJson();
+    }
+    if (this.prospectcustlabeltype != null) {
+      data['prospectcustlabeltype'] = this.prospectcustlabeltype!.toJson();
     }
     if (this.prospectownerusers != null) {
       data['prospectownerusers'] = this.prospectownerusers!.toJson();
@@ -222,25 +227,6 @@ class ProspectModel {
       data['prospectfiles'] =
           this.prospectfiles!.map((v) => v.toJson()).toList();
     }
-    return data;
-  }
-}
-
-class Prospectcustlabel {
-  int? typeid;
-  String? typename;
-
-  Prospectcustlabel({this.typeid, this.typename});
-
-  Prospectcustlabel.fromJson(Map<String, dynamic> json) {
-    typeid = json['typeid'];
-    typename = json['typename'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['typeid'] = this.typeid;
-    data['typename'] = this.typename;
     return data;
   }
 }
@@ -588,6 +574,25 @@ class Prospectstage {
     data['typeid'] = this.typeid;
     data['typename'] = this.typename;
     data['typeseq'] = this.typeseq;
+    return data;
+  }
+}
+
+class Prospectlost {
+  int? typeid;
+  String? typename;
+
+  Prospectlost({this.typeid, this.typename});
+
+  Prospectlost.fromJson(Map<String, dynamic> json) {
+    typeid = json['typeid'];
+    typename = json['typename'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['typeid'] = this.typeid;
+    data['typename'] = this.typename;
     return data;
   }
 }

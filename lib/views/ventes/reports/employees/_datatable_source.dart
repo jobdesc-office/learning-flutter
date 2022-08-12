@@ -1,12 +1,9 @@
-import 'package:boilerplate/constants/base_text.dart';
-import 'package:boilerplate/helpers/function.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../models/masters/user_model.dart';
-import '../../../../models/ventes/report_model.dart';
 import '../../../../presenters/navigation_presenter.dart';
 import '../../../../styles/color_palattes.dart';
 import '../../../../widgets/datatables/custom_datatable_tablecell.dart';

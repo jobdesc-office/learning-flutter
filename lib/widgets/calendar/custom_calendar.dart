@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, deprecated_member_use
+
 import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -177,8 +179,6 @@ class _CustomCalendarState extends State<CustomCalendar> {
                     Color txtColor = Colors.black;
                     if (date.weekday == 7) txtColor = Colors.red;
 
-                    EdgeInsets padding = EdgeInsets.all(15);
-
                     return Container(
                       alignment: Alignment.center,
                       child: Text(
@@ -193,7 +193,6 @@ class _CustomCalendarState extends State<CustomCalendar> {
                     List<Widget> children = List<Widget>.empty(growable: true);
                     GlobalKey _key = GlobalKey();
 
-                    double top = 40;
                     if (events.isNotEmpty) {
                       children.add(
                         Container(
@@ -276,10 +275,6 @@ class _CustomCalendarState extends State<CustomCalendar> {
     return LayoutBuilder(
       key: _key,
       builder: (BuildContext context, BoxConstraints constraints) {
-        double top = 40;
-
-        double height = constraints.maxWidth - top - 60;
-
         List<Widget> _children = List<Widget>.empty(growable: true);
 
         double countHeight = 20;

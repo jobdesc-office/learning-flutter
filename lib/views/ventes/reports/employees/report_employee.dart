@@ -2,13 +2,10 @@ import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:boilerplate/widgets/datatables/custom_datatable.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:bs_flutter_modal/bs_flutter_modal.dart';
-import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../../../contracts/base/index_view_contract.dart';
-import '../../../../models/ventes/report_model.dart';
 import '../../../../presenters/navigation_presenter.dart';
 import '../../../../presenters/ventes/report_presenter.dart';
 import '../_report_source.dart';
@@ -61,28 +58,19 @@ class ReportEmployees extends GetView implements IndexViewContract {
   }
 
   @override
-  void onCreateSuccess(Response response, {BuildContext? context}) {
-    // TODO: implement onCreateSuccess
-  }
+  void onCreateSuccess(Response response, {BuildContext? context}) {}
 
   @override
-  void onDeleteSuccess(Response response, {BuildContext? context}) {
-    // TODO: implement onDeleteSuccess
-  }
+  void onDeleteSuccess(Response response, {BuildContext? context}) {}
 
   @override
-  void onEditSuccess(Response response, {BuildContext? context}) {
-    // TODO: implement onEditSuccess
-  }
+  void onEditSuccess(Response response, {BuildContext? context}) {}
 
   @override
-  void onErrorRequest(Response response) {
-    // TODO: implement onErrorRequest
-  }
+  void onErrorRequest(Response response) {}
 
   @override
   void onLoadDatatables(BuildContext context, Response response) {
-    // TODO: implement onLoadDatatables
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.reload();
   }

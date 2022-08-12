@@ -1,7 +1,7 @@
 part of '../../prospect_detail.dart';
 
-class _tabReport extends StatelessWidget {
-  const _tabReport({Key? key}) : super(key: key);
+class _TabReport extends StatelessWidget {
+  const _TabReport({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

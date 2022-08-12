@@ -1,16 +1,12 @@
-import 'package:boilerplate/contracts/default/home_view_contract.dart';
-import 'package:boilerplate/presenters/navigation_presenter.dart';
-import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:timelines/timelines.dart';
 
+import '../../../contracts/default/home_view_contract.dart';
 import '../../../models/default/home_model.dart';
 import '../../../presenters/default/home_presenter.dart';
 import '../../../presenters/ventes/schedule_presenter.dart';
 import '../../../routes/route_list.dart';
-import '../../../styles/custom_shape.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../skins/template.dart';
 import '_source.dart';
@@ -29,15 +25,10 @@ class _HomeViewState extends State<HomeView>
     super.initState();
     presenter.homeContract = this;
     presenter.index();
-    _tabController = TabController(length: 3, vsync: this);
   }
-
-  late TabController _tabController;
 
   final schedulePresenter = Get.find<SchedulePresenter>();
   final presenter = Get.find<HomePresenter>();
-
-  final _navigation = Get.find<NavigationPresenter>();
 
   final source = Get.put(HomeSource());
 
