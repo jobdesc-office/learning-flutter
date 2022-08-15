@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../constants/base_text.dart';
 import '../../../../models/session_model.dart';
+import '../../../../presenters/masters/menu_presenter.dart';
 import '../../../../presenters/navigation_presenter.dart';
 import '../../../../utils/session_manager.dart';
 import '../../../../utils/validators.dart';
@@ -13,6 +16,7 @@ import '_text.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 final source = Get.put(MenuDetailsSource());
+final presenter = Get.find<MenuPresenter>();
 
 class FeatureSource {
   bool isProcessing = false;
@@ -20,6 +24,11 @@ class FeatureSource {
   TextEditingController inputName = TextEditingController();
   TextEditingController inputSlug = TextEditingController();
   TextEditingController inputDesc = TextEditingController();
+
+  Future<List<Map<String, dynamic>>> jsonRole() async {
+    List role = await presenter.role();
+    return List.from(role);
+  }
 
   Future<Map<String, dynamic>> toJson() async {
     SessionModel session = await SessionManager.current();
@@ -31,6 +40,7 @@ class FeatureSource {
       'createdby': session.userid,
       'updatedby': session.userid,
       'isactive': true,
+      'roles': jsonEncode(await jsonRole()),
     };
   }
 }
