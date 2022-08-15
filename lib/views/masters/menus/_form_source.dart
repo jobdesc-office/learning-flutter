@@ -22,10 +22,18 @@ import '_text.dart';
 final _navigation = Get.find<NavigationPresenter>();
 final presenter = Get.find<MenuPresenter>();
 
-class MenuSource {
+class MenuSource extends GetxController {
   bool isProcessing = false;
 
   var iscrud = false.obs;
+  var isAdd = false.obs;
+
+  @override
+  void onClose() {
+    isAdd.value = false;
+    iscrud.value = false;
+    super.onClose();
+  }
 
   MenuTypeOptionsController menuTypeController = MenuTypeOptionsController();
 

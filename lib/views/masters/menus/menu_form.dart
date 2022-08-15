@@ -1,3 +1,4 @@
+import 'package:boilerplate/views/masters/menus/_details_source.dart';
 import 'package:boilerplate/views/skins/template.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +30,7 @@ class MenuFormView extends StatelessWidget
   late MenuForm menuForm;
 
   MenuFormView({required this.onSave}) {
+    Get.delete<MenuSource>();
     presenter.menuFetchDataContract = this;
     presenter.menuTypeViewContract = this;
   }
@@ -66,7 +68,7 @@ class MenuFormView extends StatelessWidget
                   menuForm.inputRoute(),
                   menuForm.inputColor(),
                   menuForm.inputSequence(),
-                  menuForm.checkbox(),
+                  if (source.value.isAdd.value == false) menuForm.checkbox(),
                   Obx(
                     () => Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -122,6 +124,7 @@ class MenuFormView extends StatelessWidget
     presenter.setProcessing(false);
 
     source.update((val) {
+      source.value.isAdd.value = true;
       MenuModel menu = MenuModel.fromJson(response.body);
       source.value.menuTypeController.selected = menu.menutype;
       source.value.inputName.text = menu.menunm;
