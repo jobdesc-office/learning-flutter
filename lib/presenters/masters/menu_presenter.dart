@@ -48,6 +48,11 @@ class MenuPresenter extends CustomGetXController {
       _menuViewContract.onErrorRequest(response);
   }
 
+  Future role() async {
+    Response response = await _typeService.getAllRoles();
+    return response.body;
+  }
+
   Future _loadType() async {
     Response response = await _typeService.byCode(ConfigType.menuType);
     if (response.statusCode == 200)

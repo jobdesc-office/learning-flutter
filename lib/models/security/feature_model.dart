@@ -59,13 +59,13 @@ class FeatureModel {
 
 class Menu {
   int? menuid;
-  Null? masterid;
+  int? masterid;
   int? menutypeid;
   String? menunm;
-  Null? menuicon;
-  Null? menuroute;
-  Null? menucolor;
-  Null? menuseq;
+  String? menuicon;
+  String? menuroute;
+  String? menucolor;
+  int? menuseq;
   int? createdby;
   String? createddate;
   int? updatedby;

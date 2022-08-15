@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 import '../../../constants/base_text.dart';
 import '../../../models/session_model.dart';
+import '../../../presenters/masters/menu_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../utils/select_api.dart';
 import '../../../utils/session_manager.dart';
@@ -19,6 +20,7 @@ import '_menu_type.dart';
 import '_text.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
+final presenter = Get.find<MenuPresenter>();
 
 class MenuSource {
   bool isProcessing = false;
@@ -60,6 +62,11 @@ class MenuSource {
     ];
   }
 
+  Future<List<Map<String, dynamic>>> jsonRole() async {
+    List role = await presenter.role();
+    return List.from(role);
+  }
+
   Future<Map<String, dynamic>> toJson() async {
     SessionModel session = await SessionManager.current();
     return {
@@ -74,6 +81,7 @@ class MenuSource {
       'updatedby': session.userid,
       'isactive': true,
       'crud': iscrud.value ? jsonEncode(jsonCRUD()) : null,
+      'roles': iscrud.value ? jsonEncode(await jsonRole()) : null,
     };
   }
 }

@@ -49,6 +49,8 @@ class RouteList {
       RouteData(prefix: '/settings/previleges');
   static final RouteData settingsCustomField =
       RouteData(prefix: '/settings/customfield');
+  static final RouteData settingsPermission =
+      RouteData(prefix: '/settings/permission');
   static final RouteData settingsFiles = RouteData(prefix: '/settings/files');
   static final RouteData settingsUser = RouteData(prefix: '/settings/users');
 }
