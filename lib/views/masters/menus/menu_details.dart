@@ -24,18 +24,18 @@ import 'feature/_datatable_source.dart';
 part 'menu_detail_component/_desc_part.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
-final source = Get.put(MenuDetailsSource());
 
 class MenuDetails extends GetView
     implements DetailViewContract, IndexViewContract {
   final MenuPresenter presenter = Get.find<MenuPresenter>();
   final FeaturePresenter featurePresenter = Get.find<FeaturePresenter>();
   final datatable = FeatureDataTableSource();
+  final MenuDetailsSource source = Get.put(MenuDetailsSource());
 
   MenuDetails() {
+    Get.delete<MenuDetailsSource>();
     presenter.menuDataDetailsContract = this;
     featurePresenter.featureViewContract = this;
-    Get.delete<MenuDetailsSource>();
   }
 
   @override
@@ -66,29 +66,39 @@ class MenuDetails extends GetView
                 ),
               ],
             ),
-            Obx(() => Container(
-                  padding: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: _navigation.darkTheme.value
-                        ? ColorPallates.elseDarkColor
-                        : Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: BsRow(
-                    children: [
+            Obx(() => BsRow(
+                  children: [
+                    BsCol(
+                        sizes: ColScreen(lg: Col.col_4),
+                        child: Container(
+                            padding: EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              color: _navigation.darkTheme.value
+                                  ? ColorPallates.elseDarkColor
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: _menuDetailsDesc(source))),
+                    if (source.id.value != 0)
                       BsCol(
-                          sizes: ColScreen(lg: Col.col_4),
-                          child: _menuDetailsDesc()),
-                      BsCol(
+                          margin: EdgeInsets.only(left: 5),
                           sizes: ColScreen(lg: Col.col_8),
-                          child: CustomDatabales(
-                            source: datatable,
-                            columns: datatable.columns,
-                            serverSide: (params) => featurePresenter.datatables(
-                                context, params, source.id.value),
+                          child: Container(
+                            padding: EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              color: _navigation.darkTheme.value
+                                  ? ColorPallates.elseDarkColor
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: CustomDatabales(
+                              source: datatable,
+                              columns: datatable.columns,
+                              serverSide: (params) => featurePresenter
+                                  .datatables(context, params, source.id.value),
+                            ),
                           )),
-                    ],
-                  ),
+                  ],
                 )),
           ],
         ),
@@ -100,7 +110,6 @@ class MenuDetails extends GetView
   void onSuccessFetchData(Response response) {
     MenuModel dt = MenuModel.fromJson(response.body);
     source.id.value = dt.menuid;
-    datatable.controller.reload();
     source.type.value = dt.menutype.typename;
     source.parent.value = dt.parent.menunm;
     source.name.value = dt.menunm;

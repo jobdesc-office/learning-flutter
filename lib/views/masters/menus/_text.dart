@@ -10,4 +10,5 @@ class MenuText {
   static String labelRoute = 'Route';
   static String labelColor = 'Color';
   static String labelSequence = 'Sequence';
+  static String iscrud = 'CRUD Feature';
 }

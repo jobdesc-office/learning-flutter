@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,6 +23,8 @@ final _navigation = Get.find<NavigationPresenter>();
 class MenuSource {
   bool isProcessing = false;
 
+  var iscrud = false.obs;
+
   MenuTypeOptionsController menuTypeController = MenuTypeOptionsController();
 
   TextEditingController inputName = TextEditingController();
@@ -30,6 +34,31 @@ class MenuSource {
   TextEditingController inputSequence = TextEditingController();
 
   BsSelectBoxController selectParent = BsSelectBoxController();
+
+  List<Map<String, dynamic>> jsonCRUD() {
+    return [
+      {
+        'feattitle': 'Create',
+        'featslug': 'create',
+        'featuredesc': 'Users can Create Data',
+      },
+      {
+        'feattitle': 'Read',
+        'featslug': 'read',
+        'featuredesc': 'Users can Read Data',
+      },
+      {
+        'feattitle': 'Update',
+        'featslug': 'update',
+        'featuredesc': 'Users can Update Data',
+      },
+      {
+        'feattitle': 'Delete',
+        'featslug': 'delete',
+        'featuredesc': 'Users can Delete Data',
+      },
+    ];
+  }
 
   Future<Map<String, dynamic>> toJson() async {
     SessionModel session = await SessionManager.current();
@@ -44,6 +73,7 @@ class MenuSource {
       'createdby': session.userid,
       'updatedby': session.userid,
       'isactive': true,
+      'crud': iscrud.value ? jsonEncode(jsonCRUD()) : null,
     };
   }
 }
@@ -165,6 +195,21 @@ class MenuForm {
           Validators.maxLength(MenuText.labelSequence, 100),
         ],
       ),
+    );
+  }
+
+  Widget checkbox() {
+    return FormGroup(
+      label: Obx(() => Text(MenuText.iscrud,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      child: Obx(() => Checkbox(
+            value: source.iscrud.value,
+            onChanged: (value) {
+              source.iscrud.toggle();
+            },
+          )),
     );
   }
 }

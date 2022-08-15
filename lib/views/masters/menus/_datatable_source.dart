@@ -33,7 +33,6 @@ class MenuDataTableSource extends BsDatatableSource {
         orderable: false,
       ),
       CustomBsDataColumn(label: Text('Menu Name'), columnName: 'menunm'),
-      CustomBsDataColumn(label: Text('Menu Route'), columnName: 'menuroute'),
       // CustomBsDataColumn(label: Text('Menu Icon'), columnName: 'menuicon'),
       // CustomBsDataColumn(label: Text('Menu Sequence'), columnName: 'menuseq'),
       CustomBsDataColumn(
@@ -73,16 +72,6 @@ class MenuDataTableSource extends BsDatatableSource {
               Text(row.menunm)
             ],
           ),
-          color: _navigation.darkTheme.value
-              ? x % 2 == 0
-                  ? ColorPallates.datatableDarkEvenRowColor
-                  : ColorPallates.datatableDarkOddRowColor
-              : x % 2 == 0
-                  ? ColorPallates.datatableLightEvenRowColor
-                  : ColorPallates.datatableLightOddRowColor,
-        ),
-        CustomBsDataCell(
-          Text(row.route),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor

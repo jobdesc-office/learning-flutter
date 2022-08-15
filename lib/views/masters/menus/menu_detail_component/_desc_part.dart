@@ -1,6 +1,6 @@
 part of '../menu_details.dart';
 
-Widget _menuDetailsDesc() {
+Widget _menuDetailsDesc(MenuDetailsSource source) {
   return Obx(() => BsRow(
         children: [
           BsCol(

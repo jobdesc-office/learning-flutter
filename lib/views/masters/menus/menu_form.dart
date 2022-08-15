@@ -66,6 +66,7 @@ class MenuFormView extends StatelessWidget
                   menuForm.inputRoute(),
                   menuForm.inputColor(),
                   menuForm.inputSequence(),
+                  menuForm.checkbox(),
                   Obx(
                     () => Row(
                       mainAxisAlignment: MainAxisAlignment.end,
