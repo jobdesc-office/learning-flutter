@@ -7,6 +7,7 @@ import '../presenters/masters/city_presenter.dart';
 import '../presenters/masters/contact_presenter.dart';
 import '../presenters/masters/country_presenter.dart';
 import '../presenters/masters/customer_presenter.dart';
+import '../presenters/masters/feature_presenter.dart';
 import '../presenters/masters/menu_presenter.dart';
 import '../presenters/masters/product_presenter.dart';
 import '../presenters/masters/province_presenter.dart';
@@ -39,6 +40,7 @@ import '../services/masters/product_service.dart';
 import '../services/masters/province_service.dart';
 import '../services/masters/subdistrict_service.dart';
 import '../services/masters/village_service.dart';
+import '../services/security/feature_service.dart';
 import '../services/settings/file_service.dart';
 import '../services/ventes/bpcustomer_service.dart';
 import '../services/ventes/competitor_service.dart';
@@ -119,6 +121,8 @@ class AppRoute {
         binding: BindingsBuilder(() {
           Get.lazyPut(() => MenuService());
           Get.lazyPut(() => MenuPresenter());
+          Get.lazyPut(() => FeatureService());
+          Get.lazyPut(() => FeaturePresenter());
         }),
       ),
       CustomGetPage(
