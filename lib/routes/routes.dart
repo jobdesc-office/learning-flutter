@@ -14,6 +14,7 @@ import '../presenters/masters/province_presenter.dart';
 import '../presenters/masters/subdistrict_presenter.dart';
 import '../presenters/masters/village_presenter.dart';
 import '../presenters/settings/file_presenter.dart';
+import '../presenters/settings/permission_presenter.dart';
 import '../presenters/ventes/bpcustomer_presenter.dart';
 import '../presenters/ventes/competitor_presenter.dart';
 import '../presenters/settings/customfield_presenter.dart';
@@ -41,6 +42,7 @@ import '../services/masters/province_service.dart';
 import '../services/masters/subdistrict_service.dart';
 import '../services/masters/village_service.dart';
 import '../services/security/feature_service.dart';
+import '../services/security/permission_service.dart';
 import '../services/settings/file_service.dart';
 import '../services/ventes/bpcustomer_service.dart';
 import '../services/ventes/competitor_service.dart';
@@ -73,6 +75,7 @@ import '../views/masters/subdistricts/subdistrict.dart';
 import '../views/masters/villages/village.dart';
 import '../views/settings/customfield/customfield.dart';
 import '../views/settings/files/file.dart';
+import '../views/settings/permission/role/permission_role.dart';
 import '../views/ventes/bpcustomers/bpcustomer.dart';
 import '../views/ventes/competitor/competitor.dart';
 import '../views/ventes/prospect/prospect.dart';
@@ -327,6 +330,14 @@ class AppRoute {
         binding: BindingsBuilder(() {
           Get.lazyPut(() => FileService());
           Get.lazyPut(() => FilePresenter());
+        }),
+      ),
+      CustomGetPage(
+        name: RouteList.settingsPermission.index,
+        page: () => PermissionView(),
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => PermissionService());
+          Get.lazyPut(() => PermissionPresenter());
         }),
       ),
     ];

@@ -180,6 +180,11 @@ class SidebarSkins extends StatelessWidget {
                           icon: Icons.file_open),
                       MenuData(
                           id: no++,
+                          route: RouteList.settingsPermission.index,
+                          label: 'Permission',
+                          icon: Icons.key),
+                      MenuData(
+                          id: no++,
                           label: 'Regions',
                           route: RouteList.settings.index,
                           icon: FontAwesomeIcons.earthAmericas,
