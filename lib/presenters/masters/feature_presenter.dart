@@ -34,11 +34,12 @@ class FeaturePresenter extends CustomGetXController {
       _featureViewContract.onErrorRequest(response);
   }
 
-  void add(BuildContext context) async {
+  void add(BuildContext context, int id) async {
     showDialog(
       context: context,
       builder: (context) => FeatureFormView(
         onSave: (body) => save(context, body),
+        id: id,
       ),
     );
   }

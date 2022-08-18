@@ -334,7 +334,7 @@ class AppRoute {
       ),
       CustomGetPage(
         name: RouteList.settingsPermission.index,
-        page: () => PermissionView(),
+        page: () => PermissionRoleView(),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => PermissionService());
           Get.lazyPut(() => PermissionPresenter());

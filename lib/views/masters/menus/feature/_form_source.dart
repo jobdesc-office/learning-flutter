@@ -15,11 +15,11 @@ import '../_details_source.dart';
 import '_text.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
-final source = Get.put(MenuDetailsSource());
 final presenter = Get.find<MenuPresenter>();
 
 class FeatureSource {
   bool isProcessing = false;
+  var id = 0.obs;
 
   TextEditingController inputName = TextEditingController();
   TextEditingController inputSlug = TextEditingController();
@@ -33,7 +33,7 @@ class FeatureSource {
   Future<Map<String, dynamic>> toJson() async {
     SessionModel session = await SessionManager.current();
     return {
-      'featmenuid': source.id.value,
+      'featmenuid': id.value,
       'feattitle': inputName.text,
       'featslug': inputSlug.text,
       'featuredesc': inputDesc.text,

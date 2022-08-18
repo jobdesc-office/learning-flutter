@@ -23,8 +23,11 @@ class FeatureFormView extends GetView implements EditViewContract {
 
   late FeatureForm menuForm;
 
-  FeatureFormView({required this.onSave}) {
+  int? id;
+
+  FeatureFormView({required this.onSave, this.id}) {
     presenter.featureFetchDataContract = this;
+    source.value.id.value = id ?? 0;
   }
 
   @override

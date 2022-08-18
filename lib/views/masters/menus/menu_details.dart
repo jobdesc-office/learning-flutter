@@ -56,7 +56,8 @@ class MenuDetails extends GetView
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 ThemeButtonCreate(
-                  onPressed: () => featurePresenter.add(context),
+                  onPressed: () =>
+                      featurePresenter.add(context, source.id.value),
                   margin: EdgeInsets.only(bottom: 5),
                   prefix: 'Feature',
                 ),
@@ -110,6 +111,7 @@ class MenuDetails extends GetView
   void onSuccessFetchData(Response response) {
     MenuModel dt = MenuModel.fromJson(response.body);
     source.id.value = dt.menuid;
+    print(source.id.value);
     source.type.value = dt.menutype.typename;
     source.parent.value = dt.parent.menunm;
     source.name.value = dt.menunm;

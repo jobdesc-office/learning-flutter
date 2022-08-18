@@ -17,12 +17,14 @@ import '_datatable_source.dart';
 import '../_permission_source.dart';
 import '../_text.dart';
 
-class PermissionView extends GetView implements IndexViewContract {
-  final presenter = Get.find<PermissionPresenter>();
-  final source = Get.put(PermissionSource());
-  final datatable = PermissionDataTableSource();
+final source = Get.put(PermissionSource());
 
-  PermissionView() {
+class PermissionRoleView extends GetView implements IndexViewContract {
+  final presenter = Get.find<PermissionPresenter>();
+  final datatable = PermissionRoleDataTableSource();
+
+  PermissionRoleView() {
+    Get.delete<PermissionSource>();
     presenter.PermissionViewContract = this;
   }
 
@@ -92,5 +94,9 @@ class PermissionView extends GetView implements IndexViewContract {
     }
     source.role.value = role;
     datatable.addAll(role);
+    datatable.onDeleteListener = (roleid, rolename) {
+      source.rolename.value = rolename;
+      presenter.menu(context, roleid);
+    };
   }
 }

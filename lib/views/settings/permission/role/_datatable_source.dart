@@ -15,11 +15,11 @@ import '../_permission_source.dart';
 final _navigation = Get.find<NavigationPresenter>();
 final _source = Get.find<PermissionSource>();
 
-class PermissionDataTableSource extends BsDatatableSource {
+class PermissionRoleDataTableSource extends BsDatatableSource {
   ValueChanged<int> onEditListener = (value) {};
   Function onDeleteListener = (value, name) {};
 
-  PermissionDataTableSource({
+  PermissionRoleDataTableSource({
     List data = const [],
   }) : super(data: data);
 
@@ -77,7 +77,7 @@ class PermissionDataTableSource extends BsDatatableSource {
                 message: 'Next',
                 child: ButtonEditDatatables(
                   margin: EdgeInsets.only(right: 5),
-                  onPressed: () {},
+                  onPressed: () => onDeleteListener(row.typeid, row.typename),
                 ),
               ),
             ],

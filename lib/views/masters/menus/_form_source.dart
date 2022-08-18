@@ -48,6 +48,11 @@ class MenuSource extends GetxController {
   List<Map<String, dynamic>> jsonCRUD() {
     return [
       {
+        'feattitle': 'Viewable',
+        'featslug': 'viewable',
+        'featuredesc': 'This Feature is Viewable by Users',
+      },
+      {
         'feattitle': 'Create',
         'featslug': 'create',
         'featuredesc': 'Users can Create Data',
@@ -70,6 +75,16 @@ class MenuSource extends GetxController {
     ];
   }
 
+  List<Map<String, dynamic>> jsonNonCRUD() {
+    return [
+      {
+        'feattitle': 'Viewable',
+        'featslug': 'viewable',
+        'featuredesc': 'This Feature is Viewable by Users',
+      }
+    ];
+  }
+
   Future<List<Map<String, dynamic>>> jsonRole() async {
     List role = await presenter.role();
     return List.from(role);
@@ -88,8 +103,8 @@ class MenuSource extends GetxController {
       'createdby': session.userid,
       'updatedby': session.userid,
       'isactive': true,
-      'crud': iscrud.value ? jsonEncode(jsonCRUD()) : null,
-      'roles': iscrud.value ? jsonEncode(await jsonRole()) : null,
+      'crud': iscrud.value ? jsonEncode(jsonCRUD()) : jsonEncode(jsonNonCRUD()),
+      'roles': jsonEncode(await jsonRole()),
     };
   }
 }

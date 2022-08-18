@@ -1,0 +1,220 @@
+import 'package:boilerplate/models/masters/type_model.dart';
+import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
+import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
+import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../../../contracts/base/index_view_contract.dart';
+import '../../../../models/security/menu_model.dart';
+import '../../../../models/security/permisionmenu_model.dart';
+import '../../../../models/security/permission_model.dart';
+import '../../../../models/session_model.dart';
+import '../../../../presenters/navigation_presenter.dart';
+import '../../../../presenters/settings/permission_presenter.dart';
+import '../../../../routes/route_list.dart';
+import '../../../../styles/color_palattes.dart';
+import '../../../../utils/session_manager.dart';
+import '../../../../widgets/breadcrumb.dart';
+import '../../../../widgets/button/button_controller.dart';
+import '../../../../widgets/button/theme_button_create.dart';
+import '../../../../widgets/datatables/custom_datatable.dart';
+import '../../../../widgets/snackbar.dart';
+import '../../../../widgets/snackbar.dart';
+import '../../../skins/template.dart';
+import '../_permission_source.dart';
+import '../_text.dart';
+
+final _navigation = Get.find<NavigationPresenter>();
+
+class PermissionMenuView extends GetView implements IndexViewContract {
+  final presenter = Get.find<PermissionPresenter>();
+  final source = Get.put(PermissionSource());
+
+  final int roleid;
+
+  PermissionMenuView({required this.roleid}) {
+    presenter.PermissionViewMenuContract = this;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    presenter.datatablesMenu(context, roleid);
+    return Scaffold(
+      body: TemplateView(
+        title: 'Permissions',
+        breadcrumbs: [
+          BreadcrumbWidget('Settings'),
+          BreadcrumbWidget('Permissions', active: true),
+        ],
+        activeRoutes: [
+          RouteList.master.index,
+          RouteList.settingsPermission.index
+        ],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Obx(() => Container(
+                  padding: EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    color: _navigation.darkTheme.value
+                        ? ColorPallates.elseDarkColor
+                        : Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  ),
+                  child: Text('${source.rolename.value}',
+                      style:
+                          TextStyle(fontSize: 27, fontWeight: FontWeight.bold)),
+                )),
+            Obx(() => Column(
+                  children: source.permission.map((element) {
+                    return Container(
+                      margin: EdgeInsets.only(top: 10),
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        color: _navigation.darkTheme.value
+                            ? ColorPallates.elseDarkColor
+                            : Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                      ),
+                      child: BsRow(
+                        children: [
+                          BsCol(
+                            sizes: ColScreen(sm: Col.col_4),
+                            child: Text(
+                              '${element.menunm}',
+                              style: TextStyle(fontSize: 21),
+                            ),
+                          ),
+                          BsCol(
+                            sizes: ColScreen(sm: Col.col_7),
+                            child: BsRow(
+                              children: element.features!
+                                  .map((e) => BsCol(
+                                        sizes: ColScreen(sm: Col.col_2),
+                                        child: Column(
+                                          children: [
+                                            Text(e.feattitle!),
+                                            Checkbox(
+                                                value: e.hasaccess,
+                                                onChanged: (value) async {
+                                                  SessionModel session =
+                                                      await SessionManager
+                                                          .current();
+                                                  Map<String, dynamic> body = {
+                                                    'hasaccess': value,
+                                                    'updatedby': session.userid
+                                                  };
+                                                  presenter.update(context,
+                                                      body, e.permisid!);
+                                                })
+                                          ],
+                                        ),
+                                      ))
+                                  .toList(),
+                            ),
+                          ),
+                          if (element.children != null)
+                            BsCol(
+                              sizes: ColScreen(sm: Col.col_12),
+                              child: Column(
+                                children: element.children!.map((e) {
+                                  return BsRow(
+                                    margin: EdgeInsets.only(top: 5),
+                                    children: [
+                                      BsCol(
+                                        sizes: ColScreen(sm: Col.col_1),
+                                      ),
+                                      BsCol(
+                                          sizes: ColScreen(sm: Col.col_4),
+                                          child: Text(e.menunm ?? '')),
+                                      BsCol(
+                                        sizes: ColScreen(sm: Col.col_7),
+                                        child: BsRow(
+                                          children: e.features!
+                                              .map((el) => BsCol(
+                                                    sizes: ColScreen(
+                                                        sm: Col.col_2),
+                                                    child: Column(
+                                                      children: [
+                                                        Text(el.feattitle!),
+                                                        Checkbox(
+                                                            value: el.hasaccess,
+                                                            onChanged:
+                                                                (value) async {
+                                                              SessionModel
+                                                                  session =
+                                                                  await SessionManager
+                                                                      .current();
+                                                              Map<String,
+                                                                      dynamic>
+                                                                  body = {
+                                                                'hasaccess':
+                                                                    value,
+                                                                'updatedby':
+                                                                    session
+                                                                        .userid
+                                                              };
+                                                              presenter.update(
+                                                                  context,
+                                                                  body,
+                                                                  el.permisid!);
+                                                            })
+                                                      ],
+                                                    ),
+                                                  ))
+                                              .toList(),
+                                        ),
+                                      )
+                                    ],
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                        ],
+                      ),
+                    );
+                  }).toList(),
+                )),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  void onCreateSuccess(Response response, {BuildContext? context}) {
+    presenter.setProcessing(false);
+    if (context != null) Navigator.pop(context);
+    Snackbar().createSuccess();
+  }
+
+  @override
+  void onDeleteSuccess(Response response, {BuildContext? context}) {
+    presenter.setProcessing(false);
+    if (context != null) Navigator.pop(context);
+    Snackbar().deleteSuccess();
+  }
+
+  @override
+  void onEditSuccess(Response response, {BuildContext? context}) {
+    presenter.setProcessing(false);
+    presenter.datatablesMenu(context!, roleid);
+    Snackbar().editSuccess();
+  }
+
+  @override
+  void onErrorRequest(Response response) {
+    presenter.setProcessing(false);
+  }
+
+  @override
+  void onLoadDatatables(BuildContext context, Response response) {
+    presenter.setProcessing(false);
+    List<PermissionModel> menu = [];
+    for (var item in response.body) {
+      menu.add(PermissionModel.fromJson(item));
+    }
+    source.permission.value = menu;
+  }
+}

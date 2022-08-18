@@ -1,4 +1,4 @@
-class PermissionModel {
+class PermissionMenuModel {
   int? menuid;
   int? masterid;
   int? menutypeid;
@@ -14,9 +14,8 @@ class PermissionModel {
   bool? isactive;
   Menutype? menutype;
   List<Children>? children;
-  List<Features>? features;
 
-  PermissionModel(
+  PermissionMenuModel(
       {this.menuid,
       this.masterid,
       this.menutypeid,
@@ -31,10 +30,9 @@ class PermissionModel {
       this.updateddate,
       this.isactive,
       this.menutype,
-      this.children,
-      this.features});
+      this.children});
 
-  PermissionModel.fromJson(Map<String, dynamic> json) {
+  PermissionMenuModel.fromJson(Map<String, dynamic> json) {
     menuid = json['menuid'];
     masterid = json['masterid'];
     menutypeid = json['menutypeid'];
@@ -55,12 +53,6 @@ class PermissionModel {
       children = <Children>[];
       json['children'].forEach((v) {
         children!.add(new Children.fromJson(v));
-      });
-    }
-    if (json['features'] != null) {
-      features = <Features>[];
-      json['features'].forEach((v) {
-        features!.add(new Features.fromJson(v));
       });
     }
   }
@@ -85,9 +77,6 @@ class PermissionModel {
     }
     if (this.children != null) {
       data['children'] = this.children!.map((v) => v.toJson()).toList();
-    }
-    if (this.features != null) {
-      data['features'] = this.features!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -126,7 +115,6 @@ class Children {
   int? updatedby;
   String? updateddate;
   bool? isactive;
-  List<Features>? features;
 
   Children(
       {this.menuid,
@@ -141,8 +129,7 @@ class Children {
       this.createddate,
       this.updatedby,
       this.updateddate,
-      this.isactive,
-      this.features});
+      this.isactive});
 
   Children.fromJson(Map<String, dynamic> json) {
     menuid = json['menuid'];
@@ -158,12 +145,6 @@ class Children {
     updatedby = json['updatedby'];
     updateddate = json['updateddate'];
     isactive = json['isactive'];
-    if (json['features'] != null) {
-      features = <Features>[];
-      json['features'].forEach((v) {
-        features!.add(new Features.fromJson(v));
-      });
-    }
   }
 
   Map<String, dynamic> toJson() {
@@ -181,82 +162,6 @@ class Children {
     data['updatedby'] = this.updatedby;
     data['updateddate'] = this.updateddate;
     data['isactive'] = this.isactive;
-    if (this.features != null) {
-      data['features'] = this.features!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
-}
-
-class Features {
-  int? featid;
-  int? featmenuid;
-  String? feattitle;
-  String? featslug;
-  String? featuredesc;
-  int? createdby;
-  String? createddate;
-  int? updatedby;
-  String? updateddate;
-  bool? isactive;
-  int? permisid;
-  int? roleid;
-  int? permismenuid;
-  int? permisfeatid;
-  bool? hasaccess;
-
-  Features(
-      {this.featid,
-      this.featmenuid,
-      this.feattitle,
-      this.featslug,
-      this.featuredesc,
-      this.createdby,
-      this.createddate,
-      this.updatedby,
-      this.updateddate,
-      this.isactive,
-      this.permisid,
-      this.roleid,
-      this.permismenuid,
-      this.permisfeatid,
-      this.hasaccess});
-
-  Features.fromJson(Map<String, dynamic> json) {
-    featid = json['featid'];
-    featmenuid = json['featmenuid'];
-    feattitle = json['feattitle'];
-    featslug = json['featslug'];
-    featuredesc = json['featuredesc'];
-    createdby = json['createdby'];
-    createddate = json['createddate'];
-    updatedby = json['updatedby'];
-    updateddate = json['updateddate'];
-    isactive = json['isactive'];
-    permisid = json['permisid'];
-    roleid = json['roleid'];
-    permismenuid = json['permismenuid'];
-    permisfeatid = json['permisfeatid'];
-    hasaccess = json['hasaccess'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['featid'] = this.featid;
-    data['featmenuid'] = this.featmenuid;
-    data['feattitle'] = this.feattitle;
-    data['featslug'] = this.featslug;
-    data['featuredesc'] = this.featuredesc;
-    data['createdby'] = this.createdby;
-    data['createddate'] = this.createddate;
-    data['updatedby'] = this.updatedby;
-    data['updateddate'] = this.updateddate;
-    data['isactive'] = this.isactive;
-    data['permisid'] = this.permisid;
-    data['roleid'] = this.roleid;
-    data['permismenuid'] = this.permismenuid;
-    data['permisfeatid'] = this.permisfeatid;
-    data['hasaccess'] = this.hasaccess;
     return data;
   }
 }
