@@ -1,3 +1,4 @@
+import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -74,8 +75,11 @@ class PermissionRoleDataTableSource extends BsDatatableSource {
           Row(
             children: [
               Tooltip(
-                message: 'Next',
-                child: ButtonEditDatatables(
+                message: '${row.typename} Permissions',
+                child: BsButton(
+                  size:
+                      BsButtonSize(iconSize: 14, padding: EdgeInsets.all(1.5)),
+                  prefixIcon: Icons.settings,
                   margin: EdgeInsets.only(right: 5),
                   onPressed: () => onDeleteListener(row.typeid, row.typename),
                 ),

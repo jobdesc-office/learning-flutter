@@ -14,6 +14,9 @@ class ColorPallates {
   static const datatableLightTableHeadTextColor = Colors.white;
   static const datatableLightOddRowColor = Colors.white;
   static const datatableLightEvenRowColor = Color(0xFFbdf2c5);
+
+  static const onLightMode = Colors.blue;
+  static const offLightMode = Colors.red;
   // End Light Mode
 
   // Dark Mode
@@ -27,6 +30,9 @@ class ColorPallates {
   static const datatableDarkTableHeadTextColor = Colors.white;
   static const datatableDarkOddRowColor = Color(0xff343A40);
   static const datatableDarkEvenRowColor = Color(0xff454D55);
+
+  static const onDarkMode = Colors.blue;
+  static const offDarkMode = Colors.red;
   // End Dark Mode
 
   static const sidebarActiveColor = Color(0xFFBB8A52);

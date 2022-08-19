@@ -40,6 +40,7 @@ class PermissionMenuView extends GetView implements IndexViewContract {
   @override
   Widget build(BuildContext context) {
     presenter.datatablesMenu(context, roleid);
+
     return Scaffold(
       body: TemplateView(
         title: 'Permissions',
@@ -68,6 +69,7 @@ class PermissionMenuView extends GetView implements IndexViewContract {
                 )),
             Obx(() => Column(
                   children: source.permission.map((element) {
+                    int x = 1;
                     return Container(
                       margin: EdgeInsets.only(top: 10),
                       padding: EdgeInsets.all(5),
@@ -80,38 +82,83 @@ class PermissionMenuView extends GetView implements IndexViewContract {
                       child: BsRow(
                         children: [
                           BsCol(
+                            margin: EdgeInsets.only(top: 10, left: 10),
                             sizes: ColScreen(sm: Col.col_4),
                             child: Text(
                               '${element.menunm}',
-                              style: TextStyle(fontSize: 21),
+                              style: TextStyle(
+                                  fontSize: 21, fontWeight: FontWeight.bold),
                             ),
                           ),
                           BsCol(
                             sizes: ColScreen(sm: Col.col_7),
                             child: BsRow(
-                              children: element.features!
-                                  .map((e) => BsCol(
-                                        sizes: ColScreen(sm: Col.col_2),
-                                        child: Column(
+                              children: element.features!.map((e) {
+                                return BsCol(
+                                  sizes: ColScreen(sm: Col.col_2),
+                                  child: Column(
+                                    children: [
+                                      if (e.hasaccess!)
+                                        Column(
                                           children: [
-                                            Text(e.feattitle!),
-                                            Checkbox(
-                                                value: e.hasaccess,
-                                                onChanged: (value) async {
+                                            Text(e.feattitle ?? ''),
+                                            InkWell(
+                                              child: Icon(
+                                                Icons.toggle_on,
+                                                size: 35,
+                                                color: _navigation
+                                                        .darkTheme.value
+                                                    ? ColorPallates.onDarkMode
+                                                    : ColorPallates.onLightMode,
+                                              ),
+                                              onTap: () async {
+                                                x = 1;
+                                                SessionModel session =
+                                                    await SessionManager
+                                                        .current();
+                                                Map<String, dynamic> body = {
+                                                  'hasaccess': false,
+                                                  'updatedby': session.userid
+                                                };
+                                                presenter.update(
+                                                    context, body, e.permisid!);
+                                              },
+                                            ),
+                                          ],
+                                        )
+                                      else
+                                        Column(
+                                          children: [
+                                            Text(e.feattitle ?? ''),
+                                            InkWell(
+                                                child: Icon(
+                                                  Icons.toggle_off,
+                                                  size: 35,
+                                                  color: _navigation
+                                                          .darkTheme.value
+                                                      ? ColorPallates
+                                                          .offDarkMode
+                                                      : ColorPallates
+                                                          .offLightMode,
+                                                ),
+                                                onTap: () async {
+                                                  x = 1;
                                                   SessionModel session =
                                                       await SessionManager
                                                           .current();
                                                   Map<String, dynamic> body = {
-                                                    'hasaccess': value,
+                                                    'hasaccess': true,
                                                     'updatedby': session.userid
                                                   };
                                                   presenter.update(context,
                                                       body, e.permisid!);
-                                                })
+                                                }),
                                           ],
                                         ),
-                                      ))
-                                  .toList(),
+                                    ],
+                                  ),
+                                );
+                              }).toList(),
                             ),
                           ),
                           if (element.children != null)
@@ -119,13 +166,29 @@ class PermissionMenuView extends GetView implements IndexViewContract {
                               sizes: ColScreen(sm: Col.col_12),
                               child: Column(
                                 children: element.children!.map((e) {
+                                  x++;
                                   return BsRow(
+                                    decoration: BoxDecoration(
+                                      color: _navigation.darkTheme.value
+                                          ? x % 2 == 0
+                                              ? ColorPallates
+                                                  .datatableDarkEvenRowColor
+                                              : ColorPallates
+                                                  .datatableDarkOddRowColor
+                                          : x % 2 == 0
+                                              ? ColorPallates
+                                                  .datatableLightEvenRowColor
+                                              : ColorPallates
+                                                  .datatableLightOddRowColor,
+                                    ),
                                     margin: EdgeInsets.only(top: 5),
                                     children: [
                                       BsCol(
                                         sizes: ColScreen(sm: Col.col_1),
                                       ),
                                       BsCol(
+                                          margin: EdgeInsets.only(
+                                              top: 10, left: 10),
                                           sizes: ColScreen(sm: Col.col_4),
                                           child: Text(e.menunm ?? '')),
                                       BsCol(
@@ -133,15 +196,28 @@ class PermissionMenuView extends GetView implements IndexViewContract {
                                         child: BsRow(
                                           children: e.features!
                                               .map((el) => BsCol(
+                                                    margin:
+                                                        EdgeInsets.only(top: 5),
                                                     sizes: ColScreen(
                                                         sm: Col.col_2),
                                                     child: Column(
                                                       children: [
                                                         Text(el.feattitle!),
-                                                        Checkbox(
-                                                            value: el.hasaccess,
-                                                            onChanged:
-                                                                (value) async {
+                                                        if (el.hasaccess!)
+                                                          InkWell(
+                                                            child: Icon(
+                                                              Icons.toggle_on,
+                                                              size: 35,
+                                                              color: _navigation
+                                                                      .darkTheme
+                                                                      .value
+                                                                  ? ColorPallates
+                                                                      .onDarkMode
+                                                                  : ColorPallates
+                                                                      .onLightMode,
+                                                            ),
+                                                            onTap: () async {
+                                                              x = 1;
                                                               SessionModel
                                                                   session =
                                                                   await SessionManager
@@ -150,7 +226,7 @@ class PermissionMenuView extends GetView implements IndexViewContract {
                                                                       dynamic>
                                                                   body = {
                                                                 'hasaccess':
-                                                                    value,
+                                                                    false,
                                                                 'updatedby':
                                                                     session
                                                                         .userid
@@ -159,7 +235,42 @@ class PermissionMenuView extends GetView implements IndexViewContract {
                                                                   context,
                                                                   body,
                                                                   el.permisid!);
-                                                            })
+                                                            },
+                                                          )
+                                                        else
+                                                          InkWell(
+                                                              child: Icon(
+                                                                Icons
+                                                                    .toggle_off,
+                                                                size: 35,
+                                                                color: _navigation
+                                                                        .darkTheme
+                                                                        .value
+                                                                    ? ColorPallates
+                                                                        .offDarkMode
+                                                                    : ColorPallates
+                                                                        .offLightMode,
+                                                              ),
+                                                              onTap: () async {
+                                                                x = 1;
+                                                                SessionModel
+                                                                    session =
+                                                                    await SessionManager
+                                                                        .current();
+                                                                Map<String,
+                                                                        dynamic>
+                                                                    body = {
+                                                                  'hasaccess':
+                                                                      true,
+                                                                  'updatedby':
+                                                                      session
+                                                                          .userid
+                                                                };
+                                                                presenter.update(
+                                                                    context,
+                                                                    body,
+                                                                    el.permisid!);
+                                                              }),
                                                       ],
                                                     ),
                                                   ))
