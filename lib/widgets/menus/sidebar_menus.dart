@@ -45,7 +45,7 @@ class SidebarMenus extends StatelessWidget {
                                               data: child,
                                               activeRoute: activeRoute,
                                             )
-                                          : MenuItem(
+                                          : MenuItems(
                                               data: child,
                                               activeRoute: activeRoute,
                                             ),
@@ -97,7 +97,7 @@ class SidebarMenus extends StatelessWidget {
                                                   data: child,
                                                   activeRoute: activeRoute,
                                                 )
-                                              : MenuItem(
+                                              : MenuItems(
                                                   data: child,
                                                   activeRoute: activeRoute,
                                                 ),

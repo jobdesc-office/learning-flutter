@@ -8,8 +8,8 @@ import '../../helpers/function.dart';
 import 'menu_data.dart';
 import 'menu_styles.dart';
 
-class MenuItem extends StatelessWidget {
-  MenuItem({
+class MenuItems extends StatelessWidget {
+  MenuItems({
     Key? key,
     required this.data,
     this.styles,
