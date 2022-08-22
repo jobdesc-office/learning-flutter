@@ -157,18 +157,20 @@ class CustomerFormView extends StatelessWidget
 
     source.update((val) {
       CustomerModel customer = CustomerModel.fromJson(response.body);
-      source.value.inputPrefix.text = customer.cstmprefix;
-      source.value.inputName.text = customer.cstmname;
-      source.value.inputPhone.text = customer.cstmphone;
-      source.value.inputAddress.text = customer.cstmaddress;
+      source.value.inputPrefix.text = customer.cstmprefix ?? '';
+      source.value.inputName.text = customer.cstmname ?? '';
+      source.value.inputPhone.text = customer.cstmphone ?? '';
+      source.value.inputAddress.text = customer.cstmaddress ?? '';
       source.value.selectType.setSelected(BsSelectBoxOption(
-          value: customer.cstmtypeid, text: Text(customer.typename)));
-      source.value.inputReferal.text = customer.referalcode;
-      source.value.inputProvince.text = customer.provname;
-      source.value.inputCity.text = customer.cityname;
-      source.value.inputSubdistrict.text = customer.subdistrictname;
-      source.value.inputVillage.text = customer.villagename;
-      source.value.inputPostal.text = customer.cstmpostalcode;
+          value: customer.cstmtypeid,
+          text: Text(customer.cstmtype?.typename ?? '')));
+      source.value.inputReferal.text = customer.referalcode ?? '';
+      source.value.inputProvince.text = customer.cstmprovince?.provname ?? '';
+      source.value.inputCity.text = customer.cstmcity?.cityname ?? '';
+      source.value.inputSubdistrict.text =
+          customer.cstmsubdistrict?.subdistrictname ?? '';
+      source.value.inputVillage.text = customer.cstmvillage?.villagename ?? '';
+      source.value.inputPostal.text = customer.cstmpostalcode ?? '';
     });
   }
 

@@ -260,19 +260,19 @@ class CustomerDetails extends GetView implements DetailViewContract {
   @override
   void onSuccessFetchData(Response response) {
     CustomerModel dt = CustomerModel.fromJson(response.body);
-    controller.prefix.value = dt.cstmprefix;
-    controller.name.value = dt.cstmname;
-    controller.phone.value = dt.cstmphone;
-    controller.address.value = dt.cstmaddress;
-    controller.type.value = dt.typename;
-    controller.province.value = dt.provname;
-    controller.city.value = dt.cityname;
-    controller.subdistrict.value = dt.subdistrictname;
-    controller.muv.value = dt.villagename.toString();
-    controller.postal.value = dt.cstmpostalcode;
-    controller.latitude.value = dt.cstmlatitude.toString();
-    controller.longitude.value = dt.cstmlongitude.toString();
-    controller.referal.value = dt.referalcode;
+    controller.prefix.value = dt.cstmprefix ?? '';
+    controller.name.value = dt.cstmname ?? '';
+    controller.phone.value = dt.cstmphone ?? '';
+    controller.address.value = dt.cstmaddress ?? '';
+    controller.type.value = dt.cstmtype?.typename ?? '';
+    controller.province.value = dt.cstmprovince?.provname ?? '';
+    controller.city.value = dt.cstmcity?.cityname ?? '';
+    controller.subdistrict.value = dt.cstmsubdistrict?.subdistrictname ?? '';
+    controller.muv.value = dt.cstmvillage?.villagename ?? '';
+    controller.postal.value = dt.cstmpostalcode ?? '';
+    controller.latitude.value = dt.cstmlatitude ?? '';
+    controller.longitude.value = dt.cstmlongitude ?? '';
+    controller.referal.value = dt.referalcode ?? '';
     presenter.setProcessing(false);
   }
 }

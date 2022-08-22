@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../contracts/base/index_view_contract.dart';
+import '../../../../middleware/verifyToken.dart';
 import '../../../../models/security/menu_model.dart';
 import '../../../../models/security/permisionmenu_model.dart';
 import '../../../../models/security/permission_model.dart';
@@ -93,6 +94,7 @@ class PermissionMenuView extends GetView implements IndexViewContract {
                           BsCol(
                             sizes: ColScreen(sm: Col.col_7),
                             child: BsRow(
+                              height: 52,
                               children: element.features!.map((e) {
                                 return BsCol(
                                   sizes: ColScreen(sm: Col.col_2),
@@ -168,6 +170,7 @@ class PermissionMenuView extends GetView implements IndexViewContract {
                                 children: element.children!.map((e) {
                                   x++;
                                   return BsRow(
+                                    height: 57,
                                     decoration: BoxDecoration(
                                       color: _navigation.darkTheme.value
                                           ? x % 2 == 0
@@ -270,6 +273,16 @@ class PermissionMenuView extends GetView implements IndexViewContract {
                                                                     context,
                                                                     body,
                                                                     el.permisid!);
+                                                                presenter.update(
+                                                                    context,
+                                                                    body,
+                                                                    element
+                                                                        .features!
+                                                                        .where((element) =>
+                                                                            element.feattitle ==
+                                                                            'Viewable')
+                                                                        .first
+                                                                        .permisid!);
                                                               }),
                                                       ],
                                                     ),
@@ -311,6 +324,7 @@ class PermissionMenuView extends GetView implements IndexViewContract {
   void onEditSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
     presenter.datatablesMenu(context!, roleid);
+    checkJwtToken();
     Snackbar().editSuccess();
   }
 

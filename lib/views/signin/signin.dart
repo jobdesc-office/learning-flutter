@@ -202,6 +202,7 @@ class _SignInViewState extends State<SignInView>
     box.write('name', userModel.userfullname!);
     box.write('id', userModel.userid!);
     box.write('username', userModel.username!);
+    box.write('role', userModel.userdetails?.first.usertype?.typeid);
     for (var item in userModel.userdetails!) {
       data.add(item);
     }

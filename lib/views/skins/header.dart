@@ -108,8 +108,10 @@ class HeaderSkins extends StatelessWidget implements LogoutViewContract {
                                               onTap: () {
                                                 box.writeInMemory(
                                                     'mybpid',
-                                                    element.businesspartner!
-                                                        .bpid!);
+                                                    element
+                                                        .businesspartner!.bpid);
+                                                box.writeInMemory('role',
+                                                    element.usertype?.typeid);
                                                 Get.defaultDialog(
                                                     title: 'Caution',
                                                     middleText:

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../constants/base_text.dart';
 import '../../../models/masters/customer_model.dart';
+import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../styles/color_palattes.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
@@ -13,6 +14,7 @@ import '../../../widgets/datatables/custom_datatable_tablecell.dart';
 import '../../../widgets/datatables/custom_datatable_tablehead.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
+final authPresenter = Get.find<AuthPresenter>();
 
 class CustomerDataTableSource extends BsDatatableSource {
   ValueChanged<int> onDetailsListener = (value) {};
@@ -36,12 +38,6 @@ class CustomerDataTableSource extends BsDatatableSource {
         label: Text('Customer Phone'),
         columnName: 'cstmphone',
       ),
-      // CustomBsDataColumn(
-      //   label: Text('Customer Type'),
-      //   width: 150,
-      //   searchable: false,
-      //   orderable: false,
-      // ),
       CustomBsDataColumn(
         label: Text('Actions'),
         orderable: false,
@@ -58,6 +54,7 @@ class CustomerDataTableSource extends BsDatatableSource {
   BsDataRow getRow(int index) {
     final row = customers[index];
     int x = controller.start + index + 1;
+    var permis = authPresenter.rolepermis.value;
     return BsDataRow(
       index: index,
       cells: [
@@ -72,7 +69,7 @@ class CustomerDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.cstmname),
+          Text(row.cstmname ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -82,7 +79,7 @@ class CustomerDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.cstmphone),
+          Text(row.cstmphone ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -91,16 +88,6 @@ class CustomerDataTableSource extends BsDatatableSource {
                   ? ColorPallates.datatableLightEvenRowColor
                   : ColorPallates.datatableLightOddRowColor,
         ),
-        // CustomBsDataCell(
-        //   Text(row.typename),
-        //   color: _navigation.darkTheme.value
-        //       ? x % 2 == 0
-        //           ? ColorPallates.datatableDarkEvenRowColor
-        //           : ColorPallates.datatableDarkOddRowColor
-        //       : x % 2 == 0
-        //           ? ColorPallates.datatableLightEvenRowColor
-        //           : ColorPallates.datatableLightOddRowColor,
-        // ),
         CustomBsDataCell(
           Row(
             children: [
@@ -108,22 +95,32 @@ class CustomerDataTableSource extends BsDatatableSource {
                 message: BaseText.detailHintDatatable(field: row.cstmname),
                 child: ButtonDetailsDatatables(
                   margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onDetailsListener(row.cstmid),
+                  onPressed: () => onDetailsListener(row.cstmid!),
                 ),
               ),
-              Tooltip(
-                message: BaseText.editHintDatatable(field: row.cstmname),
-                child: ButtonEditDatatables(
-                  margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onEditListener(row.cstmid),
+              if (permis
+                  .where((element) => element.menu?.menunm == 'Customers')
+                  .where((element) => element.feature?.feattitle == 'Update')
+                  .first
+                  .hasaccess!)
+                Tooltip(
+                  message: BaseText.editHintDatatable(field: row.cstmname),
+                  child: ButtonEditDatatables(
+                    margin: EdgeInsets.only(right: 5),
+                    onPressed: () => onEditListener(row.cstmid!),
+                  ),
                 ),
-              ),
-              Tooltip(
-                message: BaseText.deleteHintDatatable(field: row.cstmname),
-                child: ButtonDeleteDatatables(
-                    onPressed: () =>
-                        onDeleteListener(row.cstmid, row.cstmname)),
-              ),
+              if (permis
+                  .where((element) => element.menu?.menunm == 'Customers')
+                  .where((element) => element.feature?.feattitle == 'Delete')
+                  .first
+                  .hasaccess!)
+                Tooltip(
+                  message: BaseText.deleteHintDatatable(field: row.cstmname),
+                  child: ButtonDeleteDatatables(
+                      onPressed: () =>
+                          onDeleteListener(row.cstmid, row.cstmname)),
+                ),
             ],
           ),
           color: _navigation.darkTheme.value

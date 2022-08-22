@@ -6,6 +6,7 @@ import '../contracts/auth/guard_contract.dart';
 import '../contracts/auth/login_view_contract.dart';
 import '../contracts/auth/logout_view_contract.dart';
 import '../models/auth_model.dart';
+import '../models/rolepermission_model.dart';
 import '../services/auth_service.dart';
 import '../utils/custom_get_controller.dart';
 import '../utils/session_manager.dart';
@@ -14,6 +15,8 @@ import 'navigation_presenter.dart';
 
 class AuthPresenter extends CustomGetXController {
   var detailUser = <Userdetails>[].obs;
+  var rolepermis = <RolePermissionModel>[].obs;
+  var rawrolepermis = [].obs;
 
   final _authService = Get.find<AuthService>();
   final _navService = Get.find<NavigationPresenter>();

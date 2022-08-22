@@ -63,14 +63,6 @@ class PermissionPresenter extends CustomGetXController {
       _PermissionViewMenuContract.onErrorRequest(response);
   }
 
-  Future permission(BuildContext context, int roleid, int menuid) async {
-    Response response = await _PermissionService.permission(roleid, menuid);
-    if (response.statusCode == 200)
-      _PermissionViewFeaturesContract.onLoadDatatables(context, response);
-    else
-      _PermissionViewFeaturesContract.onErrorRequest(response);
-  }
-
   void update(BuildContext context, Map<String, dynamic> body, int id) async {
     setProcessing(true);
     Response response = await _PermissionService.update(id, body);

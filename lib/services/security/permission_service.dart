@@ -8,9 +8,4 @@ class PermissionService extends ApiConnectProvider {
   Future<Response> menu(int roleid) {
     return get('$api/menu', query: {'roleid': roleid.toString()});
   }
-
-  Future<Response> permission(int roleid, int menuid) {
-    return get('$api/permission',
-        query: {'roleid': roleid.toString(), 'menuid': menuid.toString()});
-  }
 }

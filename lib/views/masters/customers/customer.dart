@@ -1,8 +1,10 @@
 import 'package:boilerplate/contracts/base/index_view_contract.dart';
+import 'package:boilerplate/middleware/verifyToken.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/masters/customer_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
@@ -15,16 +17,19 @@ import '_datatable_source.dart';
 import '_text.dart';
 
 class CustomerView extends GetView implements IndexViewContract {
+  final authPresenter = Get.find<AuthPresenter>();
   final presenter = Get.find<CustomerPresenter>();
   final datatable = CustomerDataTableSource();
   final map = Get.put(MapSource());
 
   CustomerView() {
     presenter.customerViewContract = this;
+    if (authPresenter.rolepermis.value == []) checkJwtToken();
   }
 
   @override
   Widget build(BuildContext context) {
+    var permis = authPresenter.rolepermis.value;
     return Scaffold(
       body: TemplateView(
         title: 'Customers',
@@ -36,18 +41,39 @@ class CustomerView extends GetView implements IndexViewContract {
         child: Container(
           child: Column(
             children: [
-              CustomDatabales(
-                source: datatable,
-                columns: datatable.columns,
-                headerActions: [
-                  ThemeButtonCreate(
-                    prefix: CustomerText.title,
-                    onPressed: () => presenter.add(context),
-                  )
-                ],
-                serverSide: (params) => presenter.datatables(context, params),
-                // searchHintText: 'Search by customer name, customer phone ...',
-              )
+              if (permis
+                  .where((element) => element.menu?.menunm == 'Customers')
+                  .where((element) => element.feature?.feattitle == 'Read')
+                  .first
+                  .hasaccess!)
+                CustomDatabales(
+                  source: datatable,
+                  columns: datatable.columns,
+                  headerActions: [
+                    if (permis
+                        .where((element) => element.menu?.menunm == 'Customers')
+                        .where(
+                            (element) => element.feature?.feattitle == 'Create')
+                        .first
+                        .hasaccess!)
+                      ThemeButtonCreate(
+                        prefix: CustomerText.title,
+                        onPressed: () => presenter.add(context),
+                      )
+                  ],
+                  serverSide: (params) => presenter.datatables(context, params),
+                  // searchHintText: 'Search by customer name, customer phone ...',
+                )
+              else
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: Text(
+                          'You Don\'t Have Permission to Read ${CustomerText.title}'),
+                    )
+                  ],
+                )
             ],
           ),
         ),

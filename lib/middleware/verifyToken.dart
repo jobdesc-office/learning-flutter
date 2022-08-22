@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import '../constants/config_types.dart';
 import '../helpers/function.dart';
 import '../models/auth_model.dart';
+import '../models/rolepermission_model.dart';
 import '../presenters/auth_presenter.dart';
 import '../routes/route_list.dart';
 import '../services/app_service.dart';
@@ -43,6 +44,18 @@ checkJwtToken() async {
     Response appResponse = await appService.init();
     if (appResponse.statusCode == 200) {
       ConfigType.types = appResponse.body;
+    }
+
+    Response roleResponse = await appService.role();
+    List<RolePermissionModel> role = [];
+    List rawrole = [];
+    if (roleResponse.statusCode == 200) {
+      for (var item in roleResponse.body) {
+        rawrole.add(item);
+        role.add(RolePermissionModel.fromJson(item));
+      }
+      authPresenter.rolepermis.value = role;
+      authPresenter.rawrolepermis.value = rawrole;
     }
   }
 }

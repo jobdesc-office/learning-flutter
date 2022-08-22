@@ -459,7 +459,7 @@ Future<BsSelectBoxResponse> selectApiCustomer(
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => CustomerModel.fromJson(data).cstmid,
-        renderText: (data) => Text(CustomerModel.fromJson(data).cstmname),
+        renderText: (data) => Text(CustomerModel.fromJson(data).cstmname ?? ''),
       );
     }
   }
