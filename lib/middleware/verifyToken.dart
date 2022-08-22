@@ -18,6 +18,20 @@ checkJwtToken() async {
   final authService = Get.find<AuthService>();
   final authPresenter = Get.find<AuthPresenter>();
   final _nav = Get.find<NavigationPresenter>();
+  final appService = Get.put(AppService());
+
+  Response roleResponse = await appService.role();
+  List<RolePermissionModel> role = [];
+  List rawrole = [];
+  if (roleResponse.statusCode == 200) {
+    for (var item in roleResponse.body) {
+      rawrole.add(item);
+      role.add(RolePermissionModel.fromJson(item));
+    }
+    authPresenter.rolepermis.value = role;
+    authPresenter.rawrolepermis.value = rawrole;
+  }
+
   Response response = await authService.verifyToken();
 
   if (Get.currentRoute != RouteList.sigin.index) {
@@ -40,22 +54,9 @@ checkJwtToken() async {
       authPresenter.detailUser.value = datas;
     }
 
-    final appService = Get.put(AppService());
     Response appResponse = await appService.init();
     if (appResponse.statusCode == 200) {
       ConfigType.types = appResponse.body;
-    }
-
-    Response roleResponse = await appService.role();
-    List<RolePermissionModel> role = [];
-    List rawrole = [];
-    if (roleResponse.statusCode == 200) {
-      for (var item in roleResponse.body) {
-        rawrole.add(item);
-        role.add(RolePermissionModel.fromJson(item));
-      }
-      authPresenter.rolepermis.value = role;
-      authPresenter.rawrolepermis.value = rawrole;
     }
   }
 }

@@ -73,6 +73,7 @@ import '../views/masters/product/product.dart';
 import '../views/masters/provinces/province.dart';
 import '../views/masters/subdistricts/subdistrict.dart';
 import '../views/masters/villages/village.dart';
+import '../views/settings/company/company.dart';
 import '../views/settings/customfield/customfield.dart';
 import '../views/settings/files/file.dart';
 import '../views/settings/permission/role/permission_role.dart';
@@ -339,6 +340,14 @@ class AppRoute {
           Get.lazyPut(() => PermissionService());
           Get.lazyPut(() => PermissionPresenter());
         }),
+      ),
+      CustomGetPage(
+        name: RouteList.settingsCompany.index,
+        page: () => CompanyView(),
+        // binding: BindingsBuilder(() {
+        //   Get.lazyPut(() => FileService());
+        //   Get.lazyPut(() => FilePresenter());
+        // }),
       ),
     ];
   }

@@ -5,12 +5,12 @@ import 'package:get_storage/get_storage.dart';
 
 import '../../presenters/auth_presenter.dart';
 import '../../presenters/navigation_presenter.dart';
+import '../../widgets/menus/sidebar_menus.dart';
+import '../../widgets/menus/sidebar_widget.dart';
 import '../../routes/route_list.dart';
 import '../../styles/color_palattes.dart';
 import '../../widgets/menus/menu_data.dart';
 import '../../widgets/menus/menu_data_group.dart';
-import '../../widgets/menus/sidebar_menus.dart';
-import '../../widgets/menus/sidebar_widget.dart';
 
 class SidebarSkins extends StatelessWidget {
   SidebarSkins({
@@ -22,24 +22,21 @@ class SidebarSkins extends StatelessWidget {
 
   final List<String> activeRoute;
 
-  final NavigationPresenter _navigation = Get.find<NavigationPresenter>();
-
+  final _navigation = Get.find<NavigationPresenter>();
   final authPresenter = Get.find<AuthPresenter>();
 
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () {
-        return Container(
-          color: _navigation.darkTheme.value
-              ? ColorPallates.elseDarkColor
-              : ColorPallates.sidebarLightColor,
-          child: _navigation.dataListOfMenu.value.id != 0 &&
-                  !_navigation.isCollapse.value
-              ? listOfMenu()
-              : sidebar(),
-        );
-      },
+      () => Container(
+        color: _navigation.darkTheme.value
+            ? ColorPallates.elseDarkColor
+            : ColorPallates.sidebarLightColor,
+        child: _navigation.dataListOfMenu.value.id != 0 &&
+                !_navigation.isCollapse.value
+            ? listOfMenu()
+            : sidebar(),
+      ),
     );
   }
 
@@ -62,283 +59,289 @@ class SidebarSkins extends StatelessWidget {
               ? SidebarWidgets.logoCollapse()
               : SidebarWidgets.logo(),
         ),
-        Expanded(
-          child: SingleChildScrollView(
-            child: AnimatedContainer(
-              duration: Duration(milliseconds: 250),
-              width: _navigation.isCollapse.value ? 70 : 250,
-              decoration: BoxDecoration(
-                color: _navigation.darkTheme.value
-                    ? ColorPallates.elseDarkColor
-                    : ColorPallates.sidebarLightColor,
-              ),
-              child: SidebarMenus(
-                isCollapse: _navigation.isCollapse.value,
-                activeRoute: activeRoute,
-                menus: [
-                  // MenuDataGroup(
-                  //   title: 'Insight',
-                  //   children: [
-                  //     MenuData(
-                  //       id: no++,
-                  //       route: RouteList.home.index,
-                  //       label: 'Dashboard',
-                  //       icon: Icons.dashboard,
-                  //     ),
-                  //   ],
-                  // ),
-                  MenuDataGroup(
-                    title: 'Master Datas',
-                    icon: Icons.storage_outlined,
-                    children: [
-                      // MenuData(
-                      //     id: no++,
-                      //     route: RouteList.masterBusinessPartner.index,
-                      //     label: 'Business Partners',
-                      //     icon: Icons.handshake),
-                      if (permis
-                          .where(
-                              (element) => element.menu?.menunm == 'Customers')
-                          .first
-                          .hasaccess!)
+        if (permis != [])
+          Expanded(
+            child: SingleChildScrollView(
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 250),
+                width: _navigation.isCollapse.value ? 70 : 250,
+                decoration: BoxDecoration(
+                  color: _navigation.darkTheme.value
+                      ? ColorPallates.elseDarkColor
+                      : ColorPallates.sidebarLightColor,
+                ),
+                child: SidebarMenus(
+                  isCollapse: _navigation.isCollapse.value,
+                  activeRoute: activeRoute,
+                  menus: [
+                    MenuDataGroup(
+                      title: 'Insight',
+                      children: [
+                        MenuData(
+                          id: no++,
+                          route: RouteList.home.index,
+                          label: 'Dashboard',
+                          icon: Icons.dashboard,
+                        ),
+                      ],
+                    ),
+                    MenuDataGroup(
+                      title: 'Master Datas',
+                      icon: Icons.storage_outlined,
+                      children: [
                         MenuData(
                             id: no++,
-                            route: RouteList.customer.index,
-                            label: 'Customers',
-                            icon: Icons.groups,
+                            route: RouteList.masterBusinessPartner.index,
+                            label: 'Business Partners',
+                            icon: Icons.handshake),
+                        if (permis
+                            .where((element) =>
+                                element.menu?.menunm == 'Customers')
+                            .first
+                            .hasaccess!)
+                          MenuData(
+                              id: no++,
+                              route: RouteList.customer.index,
+                              label: 'Customers',
+                              icon: Icons.groups,
+                              children: [
+                                if (permis
+                                    .where((element) =>
+                                        element.menu?.menunm == 'BpCustomer')
+                                    .first
+                                    .hasaccess!)
+                                  MenuData(
+                                    id: no++,
+                                    route: RouteList.ventesBpCustomer.index,
+                                    label: 'BpCustomers',
+                                    icon: FontAwesomeIcons.userPlus,
+                                  ),
+                                if (permis
+                                    .where((element) =>
+                                        element.menu?.menunm == 'Contacts')
+                                    .first
+                                    .hasaccess!)
+                                  MenuData(
+                                      id: no++,
+                                      route: RouteList.masterContact.index,
+                                      label: 'Contacts',
+                                      icon: Icons.contacts),
+                                MenuData(
+                                  id: no++,
+                                  route: RouteList.masterCustomer.index,
+                                  label: 'Customers',
+                                  icon: Icons.groups,
+                                )
+                              ]),
+                        MenuData(
+                          id: no++,
+                          route: RouteList.masterMenu.index,
+                          label: 'Menus',
+                          icon: Icons.dehaze,
+                        ),
+                        // MenuData(
+                        //     id: no++,
+                        //     route: RouteList.masterProduct.index,
+                        //     label: 'Products',
+                        //     icon: Icons.sell),
+                        if (permis
+                            .where((element) => element.menu?.menunm == 'Users')
+                            .first
+                            .hasaccess!)
+                          MenuData(
+                              id: no++,
+                              route: RouteList.masterUser.index,
+                              label: 'Users',
+                              icon: Icons.group),
+                      ],
+                    ),
+                    MenuDataGroup(
+                        title: 'Ventes Datas',
+                        icon: Icons.analytics,
+                        children: [
+                          MenuData(
+                            id: no++,
+                            route: RouteList.ventesCompetitor.index,
+                            label: 'Competitors',
+                            icon: Icons.sentiment_dissatisfied,
+                          ),
+                          MenuData(
+                            id: no++,
+                            route: RouteList.ventesProspect.index,
+                            label: 'Prospects',
+                            icon: Icons.analytics,
+                          ),
+                          MenuData(
+                            id: no++,
+                            route: RouteList.ventesSchedule.index,
+                            label: 'Schedules',
+                            icon: FontAwesomeIcons.calendarDays,
+                          ),
+                          MenuData(
+                            id: no++,
+                            route: RouteList.ventesReport.index,
+                            label: 'Reports',
+                            icon: FontAwesomeIcons.addressBook,
+                          ),
+                        ]),
+                    MenuDataGroup(
+                      title: 'Settings',
+                      icon: Icons.settings_outlined,
+                      children: [
+                        MenuData(
+                            id: no++,
+                            route: RouteList.settingsCompany.index,
+                            label: 'Company',
+                            icon: Icons.domain),
+                        MenuData(
+                          id: no++,
+                          route: RouteList.settingsCustomField.index,
+                          label: 'Custom Fields',
+                          icon: Icons.add_box,
+                        ),
+                        MenuData(
+                            id: no++,
+                            route: RouteList.settingsFiles.index,
+                            label: 'Files',
+                            icon: Icons.file_open),
+                        MenuData(
+                            id: no++,
+                            route: RouteList.settingsPermission.index,
+                            label: 'Permission',
+                            icon: Icons.key),
+                        MenuData(
+                            id: no++,
+                            label: 'Regions',
+                            route: RouteList.settings.index,
+                            icon: FontAwesomeIcons.earthAmericas,
+                            children: [
+                              MenuData(
+                                id: no++,
+                                route: RouteList.masterCity.index,
+                                label: 'Cities',
+                                icon: FontAwesomeIcons.city,
+                              ),
+                              MenuData(
+                                id: no++,
+                                route: RouteList.masterCountry.index,
+                                label: 'Countries',
+                                icon: FontAwesomeIcons.globe,
+                              ),
+                              MenuData(
+                                id: no++,
+                                route: RouteList.masterProvince.index,
+                                label: 'Provinces',
+                                icon: FontAwesomeIcons.locationDot,
+                              ),
+                              MenuData(
+                                id: no++,
+                                route: RouteList.masterSubdistrict.index,
+                                label: 'Subdistricts',
+                                icon: FontAwesomeIcons.city,
+                              ),
+                              MenuData(
+                                id: no++,
+                                route: RouteList.masterVillage.index,
+                                label: 'Villages',
+                                icon: FontAwesomeIcons.city,
+                              ),
+                            ]),
+                        if (permis
+                            .where((element) => element.menu?.menunm == 'Types')
+                            .first
+                            .hasaccess!)
+                          MenuData(
+                            id: no++,
+                            route: RouteList.type.index,
+                            label: 'Types',
+                            icon: Icons.category,
                             children: [
                               if (permis
                                   .where((element) =>
-                                      element.menu?.menunm == 'BpCustomer')
+                                      element.menu?.menunm == 'Type Datas')
                                   .first
                                   .hasaccess!)
                                 MenuData(
                                   id: no++,
-                                  route: RouteList.ventesBpCustomer.index,
-                                  label: 'BpCustomers',
-                                  icon: FontAwesomeIcons.userPlus,
+                                  route: RouteList.masterTypeChildren.index,
+                                  label: 'Type Datas',
+                                  icon: Icons.square,
                                 ),
                               if (permis
                                   .where((element) =>
-                                      element.menu?.menunm == 'Contacts')
+                                      element.menu?.menunm == 'Type Parents')
                                   .first
                                   .hasaccess!)
                                 MenuData(
-                                    id: no++,
-                                    route: RouteList.masterContact.index,
-                                    label: 'Contacts',
-                                    icon: Icons.contacts),
-                              MenuData(
-                                id: no++,
-                                route: RouteList.masterCustomer.index,
-                                label: 'Customers',
-                                icon: Icons.groups,
-                              )
-                            ]),
-                      MenuData(
-                        id: no++,
-                        route: RouteList.masterMenu.index,
-                        label: 'Menus',
-                        icon: Icons.dehaze,
-                      ),
-                      // MenuData(
-                      //     id: no++,
-                      //     route: RouteList.masterProduct.index,
-                      //     label: 'Products',
-                      //     icon: Icons.sell),
-                      if (permis
-                          .where((element) => element.menu?.menunm == 'Users')
-                          .first
-                          .hasaccess!)
-                        MenuData(
-                            id: no++,
-                            route: RouteList.masterUser.index,
-                            label: 'Users',
-                            icon: Icons.group),
-                    ],
-                  ),
-                  // MenuDataGroup(
-                  //     title: 'Ventes Datas',
-                  //     icon: Icons.analytics,
-                  //     children: [
-                  //       MenuData(
-                  //         id: no++,
-                  //         route: RouteList.ventesCompetitor.index,
-                  //         label: 'Competitors',
-                  //         icon: Icons.sentiment_dissatisfied,
-                  //       ),
-                  //       MenuData(
-                  //         id: no++,
-                  //         route: RouteList.ventesProspect.index,
-                  //         label: 'Prospects',
-                  //         icon: Icons.analytics,
-                  //       ),
-                  //       MenuData(
-                  //         id: no++,
-                  //         route: RouteList.ventesSchedule.index,
-                  //         label: 'Schedules',
-                  //         icon: FontAwesomeIcons.calendarDays,
-                  //       ),
-                  //       MenuData(
-                  //         id: no++,
-                  //         route: RouteList.ventesReport.index,
-                  //         label: 'Reports',
-                  //         icon: FontAwesomeIcons.addressBook,
-                  //       ),
-                  //     ]),
-                  MenuDataGroup(
-                    title: 'Settings',
-                    icon: Icons.settings_outlined,
-                    children: [
-                      // MenuData(
-                      //   id: no++,
-                      //   route: RouteList.settingsCustomField.index,
-                      //   label: 'Custom Fields',
-                      //   icon: Icons.add_box,
-                      // ),
-                      // MenuData(
-                      //     id: no++,
-                      //     route: RouteList.settingsFiles.index,
-                      //     label: 'Files',
-                      //     icon: Icons.file_open),
-                      MenuData(
-                          id: no++,
-                          route: RouteList.settingsPermission.index,
-                          label: 'Permission',
-                          icon: Icons.key),
-                      // MenuData(
-                      //     id: no++,
-                      //     label: 'Regions',
-                      //     route: RouteList.settings.index,
-                      //     icon: FontAwesomeIcons.earthAmericas,
-                      //     children: [
-                      //       MenuData(
-                      //         id: no++,
-                      //         route: RouteList.masterCity.index,
-                      //         label: 'Cities',
-                      //         icon: FontAwesomeIcons.city,
-                      //       ),
-                      //       MenuData(
-                      //         id: no++,
-                      //         route: RouteList.masterCountry.index,
-                      //         label: 'Countries',
-                      //         icon: FontAwesomeIcons.globe,
-                      //       ),
-                      //       MenuData(
-                      //         id: no++,
-                      //         route: RouteList.masterProvince.index,
-                      //         label: 'Provinces',
-                      //         icon: FontAwesomeIcons.locationDot,
-                      //       ),
-                      //       MenuData(
-                      //         id: no++,
-                      //         route: RouteList.masterSubdistrict.index,
-                      //         label: 'Subdistricts',
-                      //         icon: FontAwesomeIcons.city,
-                      //       ),
-                      //       MenuData(
-                      //         id: no++,
-                      //         route: RouteList.masterVillage.index,
-                      //         label: 'Villages',
-                      //         icon: FontAwesomeIcons.city,
-                      //       ),
-                      //     ]),
-                      if (permis
-                          .where((element) => element.menu?.menunm == 'Types')
-                          .first
-                          .hasaccess!)
-                        MenuData(
-                          id: no++,
-                          route: RouteList.type.index,
-                          label: 'Types',
-                          icon: Icons.category,
-                          children: [
-                            if (permis
-                                .where((element) =>
-                                    element.menu?.menunm == 'Type Datas')
-                                .first
-                                .hasaccess!)
-                              MenuData(
-                                id: no++,
-                                route: RouteList.masterTypeChildren.index,
-                                label: 'Type Datas',
-                                icon: Icons.square,
-                              ),
-                            if (permis
-                                .where((element) =>
-                                    element.menu?.menunm == 'Type Parents')
-                                .first
-                                .hasaccess!)
-                              MenuData(
-                                id: no++,
-                                route: RouteList.masterTypeParent.index,
-                                label: 'Type Parents',
-                                icon: Icons.category,
-                              ),
-                          ],
-                        ),
-                      // MenuData(
-                      //   id: no++,
-                      //   route: RouteList.settings.index,
-                      //   label: 'Security',
-                      //   children: [
-                      //     MenuData(
-                      //       id: no++,
-                      //       route: RouteList.settingsPrevileges.index,
-                      //       label: 'Previleges',
-                      //     ),
-                      //     MenuData(
-                      //       id: no++,
-                      //       route: RouteList.settingsUser.index,
-                      //       label: 'Role User',
-                      //     ),
-                      //   ],
-                      // ),
-                      // MenuData(
-                      //     id: no++,
-                      //     route: '/level',
-                      //     label: 'Level Menu 1',
-                      //     children: [
-                      //       MenuData(
-                      //           id: no++,
-                      //           route: '/level-1',
-                      //           label: 'Level Menu 1.1',
-                      //           children: [
-                      //             MenuData(
-                      //               id: no++,
-                      //               route: '/level-1-1',
-                      //               label: 'Level Menu 1.1.1',
-                      //             ),
-                      //             MenuData(
-                      //                 id: no++,
-                      //                 route: '/level-1-2',
-                      //                 label: 'Level Menu 1.1.2',
-                      //                 children: [
-                      //                   MenuData(
-                      //                     id: no++,
-                      //                     route: '/level-1-1-1',
-                      //                     label: 'Level Menu 1.1.1.1',
-                      //                   ),
-                      //                   MenuData(
-                      //                     id: no++,
-                      //                     route: '/level-1-1-1',
-                      //                     label: 'Level Menu 1.1.1.2',
-                      //                   ),
-                      //                 ]),
-                      //           ]),
-                      //       MenuData(
-                      //         id: no++,
-                      //         route: '/level-2',
-                      //         label: 'Level Menu 1.2',
-                      //       ),
-                      //     ]),
-                    ],
-                  ),
-                ],
+                                  id: no++,
+                                  route: RouteList.masterTypeParent.index,
+                                  label: 'Type Parents',
+                                  icon: Icons.category,
+                                ),
+                            ],
+                          ),
+                        // MenuData(
+                        //   id: no++,
+                        //   route: RouteList.settings.index,
+                        //   label: 'Security',
+                        //   children: [
+                        //     MenuData(
+                        //       id: no++,
+                        //       route: RouteList.settingsPrevileges.index,
+                        //       label: 'Previleges',
+                        //     ),
+                        //     MenuData(
+                        //       id: no++,
+                        //       route: RouteList.settingsUser.index,
+                        //       label: 'Role User',
+                        //     ),
+                        //   ],
+                        // ),
+                        // MenuData(
+                        //     id: no++,
+                        //     route: '/level',
+                        //     label: 'Level Menu 1',
+                        //     children: [
+                        //       MenuData(
+                        //           id: no++,
+                        //           route: '/level-1',
+                        //           label: 'Level Menu 1.1',
+                        //           children: [
+                        //             MenuData(
+                        //               id: no++,
+                        //               route: '/level-1-1',
+                        //               label: 'Level Menu 1.1.1',
+                        //             ),
+                        //             MenuData(
+                        //                 id: no++,
+                        //                 route: '/level-1-2',
+                        //                 label: 'Level Menu 1.1.2',
+                        //                 children: [
+                        //                   MenuData(
+                        //                     id: no++,
+                        //                     route: '/level-1-1-1',
+                        //                     label: 'Level Menu 1.1.1.1',
+                        //                   ),
+                        //                   MenuData(
+                        //                     id: no++,
+                        //                     route: '/level-1-1-1',
+                        //                     label: 'Level Menu 1.1.1.2',
+                        //                   ),
+                        //                 ]),
+                        //           ]),
+                        //       MenuData(
+                        //         id: no++,
+                        //         route: '/level-2',
+                        //         label: 'Level Menu 1.2',
+                        //       ),
+                        //     ]),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        )
+          )
       ],
     );
   }

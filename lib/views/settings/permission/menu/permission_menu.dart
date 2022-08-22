@@ -325,7 +325,6 @@ class PermissionMenuView extends GetView implements IndexViewContract {
     presenter.setProcessing(false);
     presenter.datatablesMenu(context!, roleid);
     checkJwtToken();
-    Snackbar().editSuccess();
   }
 
   @override
