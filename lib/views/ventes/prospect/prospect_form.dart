@@ -355,7 +355,6 @@ class ProspectFormView extends StatelessWidget
       source.value.inputDesc.text = prospect.prospectdescription ?? '';
 
       source.value.selectedDateStart.value = prospect.prospectstartdate ?? '';
-      source.value.selectedDateEnd.value = prospect.prospectenddate ?? '';
       source.value.selectedDateExpect.value =
           prospect.prospectexpclosedate ?? '';
 

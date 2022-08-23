@@ -99,7 +99,6 @@ class _ProspectDetailsState extends State<ProspectDetails>
   @override
   void initState() {
     super.initState();
-    Get.delete<ProspectDetailsSource>();
     _tabController = TabController(length: 7, vsync: this);
     // _tabControllerTimeline = TabController(length: 8, vsync: this);
     presenter.prospectTypeViewDetailContract = this;
@@ -274,12 +273,13 @@ class _ProspectDetailsState extends State<ProspectDetails>
 
   @override
   void dispose() {
-    super.dispose();
+    Get.delete<ProspectDetailsSource>();
     source.report.value = [];
     source.assign.value = [];
 
     source.isAdd.value = false;
     source.isAddCF.value = false;
+    super.dispose();
   }
 
   @override
@@ -306,6 +306,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     source.prospectstartdate.value = dt.prospectstartdate ?? '';
     source.prospectStageController.selected = dt.prospectstage;
     source.custname.value = dt.prospectcust!.sbccstmname ?? '';
+    source.custlabel.value = dt.prospectcustlabeltype?.typename ?? '';
     source.custid.value = dt.prospectcust!.sbccstm!.cstmid ?? 0;
 
     if (dt.prospectlostreasonid != null) {

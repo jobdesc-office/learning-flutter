@@ -36,7 +36,6 @@ class ProspectSource extends GetxController {
   var price = 0.0.obs;
 
   var selectedDateStart = ''.obs;
-  var selectedDateEnd = ''.obs;
   var selectedDateExpect = ''.obs;
   var usd = false.obs;
   var totals = [].obs;
@@ -183,7 +182,6 @@ class ProspectSource extends GetxController {
     return {
       'prospectname': inputCompanyName.text,
       'prospectstartdate': selectedDateStart.value,
-      'prospectenddate': selectedDateEnd.value,
       'prospectvalue': inputValue.text.replaceAll(',', ''),
       'prospectowner': selectOwner.getSelectedAsString(),
       'prospectstageid': prospectStageController.getSelectedToString(),
@@ -215,7 +213,6 @@ class ProspectForm {
       child: BsRow(
         children: [
           BsCol(
-            sizes: ColScreen(lg: Col.col_6),
             child: FormGroup(
               label: Obx(() => Text(ProspectText.labelStartDate,
                   style: TextStyle(
@@ -241,32 +238,6 @@ class ProspectForm {
                       : '${source.selectedDateStart}')),
                 ),
               ),
-            ),
-          ),
-          BsCol(
-            margin: EdgeInsets.only(left: 10),
-            sizes: ColScreen(lg: Col.col_6),
-            child: FormGroup(
-              label: Obx(() => Text(ProspectText.labelEndDate,
-                  style: TextStyle(
-                      color: _navigation.darkTheme.value
-                          ? Colors.white
-                          : Colors.black))),
-              child: BsButton(
-                  style: BsButtonStyle(
-                      color: Color.fromARGB(255, 165, 165, 165),
-                      backgroundColor: _navigation.darkTheme.value
-                          ? ColorPallates.elseDarkColor
-                          : Colors.white,
-                      borderColor: Colors.black,
-                      borderRadius: BorderRadius.all(Radius.circular(5))),
-                  width: MediaQuery.of(context).size.width,
-                  onPressed: () {
-                    _selectEndDates(context);
-                  },
-                  label: Obx(() => Text(source.selectedDateEnd.isEmpty
-                      ? "Choose the End Date"
-                      : '${source.selectedDateEnd}'))),
             ),
           ),
         ],
@@ -846,19 +817,6 @@ class ProspectForm {
     if (selectedStart != null) {
       source.selectedDateStart.value =
           '${selectedStart.year}-${selectedStart.month}-${selectedStart.day}';
-    }
-  }
-
-  _selectEndDates(BuildContext context) async {
-    final DateTime? selectedEnd = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(DateTime.now().year),
-      lastDate: DateTime.now().add(const Duration(days: 365)),
-    );
-    if (selectedEnd != null) {
-      source.selectedDateEnd.value =
-          '${selectedEnd.year}-${selectedEnd.month}-${selectedEnd.day}';
     }
   }
 

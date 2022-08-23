@@ -34,6 +34,8 @@ class ProspectLostSource extends GetxController {
     TypeModel stage = await _prospectPresenter.completePipeline();
 
     return {
+      'prospectenddate':
+          '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}',
       'prospectstatusid': data,
       'prospectstageid': stage.typeid,
       'prospectlostreasonid': selectReason.getSelectedAsString(),

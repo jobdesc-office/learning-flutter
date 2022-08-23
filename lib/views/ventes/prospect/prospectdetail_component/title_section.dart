@@ -35,12 +35,12 @@ BsCol prospectDetailTitleSection(context) {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Obx(() {
-                        Widget card = Text('${source.status.value}');
+                        Widget card = Text(' | ${source.status.value}');
                         switch (source.status.value) {
                           case 'Closed Lost':
                             card = Container(
                               child: Text(
-                                '${source.status.value}',
+                                '${source.status.value} | ',
                                 style: TextStyle(color: Colors.white),
                               ),
                               padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
@@ -52,7 +52,7 @@ BsCol prospectDetailTitleSection(context) {
                           case 'Closed Won':
                             card = Container(
                               child: Text(
-                                '${source.status.value}',
+                                '${source.status.value} | ',
                                 style: TextStyle(color: Colors.white),
                               ),
                               padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
@@ -62,18 +62,19 @@ BsCol prospectDetailTitleSection(context) {
                             );
                             break;
                           default:
-                            Text('${source.status.value}',
+                            Text('${source.status.value} | ',
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold));
                         }
                         return Row(
                           children: [
                             Text(
-                              '${source.prospectname.value} | ',
+                              '${source.prospectname.value}',
                               style: TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold),
                             ),
-                            card
+                            card,
+                            Text(' | ${source.custlabel.value}')
                           ],
                         );
                       }),
@@ -122,6 +123,8 @@ BsCol prospectDetailTitleSection(context) {
                                         presenter.update(
                                             context,
                                             {
+                                              'prospectenddate':
+                                                  '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}',
                                               'prospectstatusid': data,
                                               'prospectstageid': stage.typeid,
                                             },
