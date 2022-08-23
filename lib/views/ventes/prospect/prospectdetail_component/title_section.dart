@@ -17,7 +17,6 @@ BsCol prospectDetailTitleSection(context) {
   final _navigation = Get.find<NavigationPresenter>();
   final presenter = Get.find<ProspectPresenter>();
   final source = Get.put(ProspectDetailsSource());
-  final currencyFormatter = NumberFormat('#,##0.00', 'ID');
   return BsCol(
     margin: EdgeInsets.fromLTRB(0, 0, 5, 5),
     sizes: ColScreen(sm: Col.col_12),
@@ -35,12 +34,12 @@ BsCol prospectDetailTitleSection(context) {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Obx(() {
-                        Widget card = Text(' | ${source.status.value}');
+                        Widget card = Text('${source.status.value}');
                         switch (source.status.value) {
                           case 'Closed Lost':
                             card = Container(
                               child: Text(
-                                '${source.status.value} | ',
+                                '${source.status.value}',
                                 style: TextStyle(color: Colors.white),
                               ),
                               padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
@@ -52,7 +51,7 @@ BsCol prospectDetailTitleSection(context) {
                           case 'Closed Won':
                             card = Container(
                               child: Text(
-                                '${source.status.value} | ',
+                                '${source.status.value}',
                                 style: TextStyle(color: Colors.white),
                               ),
                               padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
@@ -62,7 +61,50 @@ BsCol prospectDetailTitleSection(context) {
                             );
                             break;
                           default:
-                            Text('${source.status.value} | ',
+                            Text('${source.status.value}',
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold));
+                        }
+                        Widget cards = Text('${source.status.value}');
+                        switch (source.custlabel.value) {
+                          case 'Cold':
+                            cards = Container(
+                              child: Text(
+                                '${source.custlabel.value}',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
+                              decoration: BoxDecoration(
+                                  color: Colors.blue,
+                                  borderRadius: BorderRadius.circular(5)),
+                            );
+                            break;
+                          case 'Warm':
+                            cards = Container(
+                              child: Text(
+                                '${source.custlabel.value}',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
+                              decoration: BoxDecoration(
+                                  color: Colors.orange,
+                                  borderRadius: BorderRadius.circular(5)),
+                            );
+                            break;
+                          case 'Hot':
+                            cards = Container(
+                              child: Text(
+                                '${source.custlabel.value}',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
+                              decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(5)),
+                            );
+                            break;
+                          default:
+                            Text('${source.custlabel.value}',
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold));
                         }
@@ -73,8 +115,18 @@ BsCol prospectDetailTitleSection(context) {
                               style: TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold),
                             ),
-                            card,
-                            Text(' | ${source.custlabel.value}')
+                            Row(
+                              children: [
+                                Text(' | '),
+                                card,
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text(' | '),
+                                cards,
+                              ],
+                            )
                           ],
                         );
                       }),
@@ -130,7 +182,7 @@ BsCol prospectDetailTitleSection(context) {
                                             },
                                             source.prospectid.value);
                                         source.status.value = 'Closed Won';
-                                        source.prospectStageController
+                                        source.prospectStageController.value
                                             .selected = stage;
                                       } else {
                                         Navigator.pop(context);
@@ -157,48 +209,6 @@ BsCol prospectDetailTitleSection(context) {
               SizedBox(
                 height: 20,
               ),
-              Obx(() => BsRow(
-                    children: [
-                      BsCol(
-                          sizes: ColScreen(sm: Col.col_2),
-                          child: Text('Rp ' +
-                              currencyFormatter
-                                  .format(
-                                      double.parse(source.prospectvalue.value))
-                                  .replaceAll(',00', '')
-                                  .replaceAll('.', ','))),
-                      BsCol(
-                        sizes: ColScreen(sm: Col.col_10),
-                        child: Container(
-                          child: BsRow(
-                            children: [
-                              BsCol(
-                                sizes: ColScreen(sm: Col.col_4),
-                                child: Row(
-                                  children: [
-                                    Icon(Icons.person),
-                                    Text(source.userfullname.value)
-                                  ],
-                                ),
-                              ),
-                              BsCol(
-                                sizes: ColScreen(sm: Col.col_5),
-                                child: Row(
-                                  children: [
-                                    Icon(Icons.domain),
-                                    Text(source.bpname.value)
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  )),
-              SizedBox(
-                height: 10,
-              ),
               Container(
                 child: BsRow(
                   margin: EdgeInsets.only(top: 10),
@@ -208,7 +218,7 @@ BsCol prospectDetailTitleSection(context) {
                       child: Container(
                         padding: EdgeInsets.all(10),
                         child: MenuTypeOptions(
-                          controller: source.prospectStageController,
+                          controller: source.prospectStageController.value,
                         ),
                       ),
                     ),

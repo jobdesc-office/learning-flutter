@@ -13,107 +13,98 @@ import '../_detail_source.dart';
 Widget prospectDetailActivitySection(context) {
   final source = Get.put(ProspectDetailsSource());
   final detailPresenter = Get.find<ProspectActivityPresenter>();
-  return SingleChildScrollView(
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        BsBadge(
-          child: Text('PLANNED'),
-        ),
-        if (source.detailData.length == 0)
-          Column(
-            children: [
-              Center(child: Text('You have no upcoming activities.')),
-            ],
-          )
-        else
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: source.detailData.length,
-                    itemBuilder: (context, index) {
-                      var schedule = source.detailData[index];
-
-                      return Tooltip(
-                        message: BaseText.editDelete,
-                        child: InkWell(
-                          onLongPress: () {
-                            Get.defaultDialog(
-                                middleText: '',
-                                title: 'Setting',
-                                actions: [
-                                  ButtonEditDatatables(onPressed: () {
-                                    detailPresenter.edit(
-                                        context,
-                                        schedule.prospectactivityid,
-                                        source.prospectid.value);
-                                  }),
-                                  ButtonDeleteDatatables(onPressed: () {
-                                    detailPresenter.delete(
-                                        context,
-                                        schedule.prospectactivityid,
-                                        '${schedule.prospectactivitytype!.typename} at ${schedule.prospectactivitydate}');
-                                  }),
-                                ]);
-                          },
-                          onTap: () {
-                            detailPresenter.detail(
-                                context, schedule.prospectactivityid);
-                          },
-                          child: BsRow(
-                            children: [
-                              BsCol(
-                                  sizes: ColScreen(sm: Col.col_1),
-                                  child: Column(
-                                    children: [
-                                      OutlinedDotIndicator(),
-                                      SizedBox(
-                                        height: 50.0,
-                                        child: SolidLineConnector(),
-                                      )
-                                    ],
-                                  )),
-                              BsCol(
-                                  alignment: Alignment.center,
-                                  sizes: ColScreen(sm: Col.col_3),
-                                  child: Text(schedule.prospectactivitydate)),
-                              BsCol(
-                                  sizes: ColScreen(sm: Col.col_8),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        schedule.prospectactivitycat.typename,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.only(top: 5),
-                                        child: Text(schedule
-                                            .prospectactivitytype.typename),
-                                      ),
-                                      Container(
-                                        margin: EdgeInsets.only(top: 5),
-                                        child: Text(
-                                          schedule.prospectactivitydesc ?? '',
-                                          style: TextStyle(fontSize: 12),
-                                        ),
-                                      ),
-                                    ],
-                                  )),
-                            ],
-                          ),
-                        ),
-                      );
-                    }),
-              ],
+  return Obx(() => SingleChildScrollView(
+        child: Column(
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            BsBadge(
+              child: Text('PLANNED'),
             ),
-          )
-      ],
-    ),
-  );
+            if (source.detailData.length == 0)
+              Column(
+                children: [
+                  Center(child: Text('You have no upcoming activities.')),
+                ],
+              )
+            else
+              Column(
+                children: source.detailData
+                    .map((element) => Tooltip(
+                          message: BaseText.editDelete,
+                          child: InkWell(
+                            onLongPress: () {
+                              Get.defaultDialog(
+                                  middleText: '',
+                                  title: 'Setting',
+                                  actions: [
+                                    ButtonEditDatatables(onPressed: () {
+                                      detailPresenter.edit(
+                                          context,
+                                          element.prospectactivityid,
+                                          source.prospectid.value);
+                                    }),
+                                    ButtonDeleteDatatables(onPressed: () {
+                                      detailPresenter.delete(
+                                          context,
+                                          element.prospectactivityid,
+                                          '${element.prospectactivitytype!.typename} at ${element.prospectactivitydate}');
+                                    }),
+                                  ]);
+                            },
+                            onTap: () {
+                              detailPresenter.detail(
+                                  context, element.prospectactivityid);
+                            },
+                            child: BsRow(
+                              children: [
+                                BsCol(
+                                    sizes: ColScreen(sm: Col.col_1),
+                                    child: Column(
+                                      children: [
+                                        OutlinedDotIndicator(),
+                                        SizedBox(
+                                          height: 45.0,
+                                          child: SolidLineConnector(),
+                                        )
+                                      ],
+                                    )),
+                                BsCol(
+                                    alignment: Alignment.center,
+                                    sizes: ColScreen(sm: Col.col_3),
+                                    child: Text(element.prospectactivitydate)),
+                                BsCol(
+                                    sizes: ColScreen(sm: Col.col_8),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          element.prospectactivitycat.typename,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(top: 5),
+                                          child: Text(element
+                                              .prospectactivitytype.typename),
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(top: 5),
+                                          child: Text(
+                                            element.prospectactivitydesc ?? '',
+                                            style: TextStyle(fontSize: 12),
+                                          ),
+                                        ),
+                                      ],
+                                    )),
+                              ],
+                            ),
+                          ),
+                        ))
+                    .toList(),
+              )
+          ],
+        ),
+      ));
 }

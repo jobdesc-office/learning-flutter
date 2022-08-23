@@ -47,6 +47,7 @@ import 'prospectdetail_component/_stagePipeline.dart';
 import 'customfield/_form_source.dart';
 import 'prospectcustomfield/_form_source.dart';
 import 'prospectdetail_component/activity_section.dart';
+import 'prospectdetail_component/organization_section.dart';
 import 'prospectfiles/image_picture.dart';
 
 part 'prospectdetail_component/customizefield_section.dart';
@@ -258,6 +259,10 @@ class _ProspectDetailsState extends State<ProspectDetails>
                   child: BsRow(
                     children: [
                       BsCol(
+                        child: OrganizationSection(),
+                      ),
+                      BsCol(
+                        margin: EdgeInsets.only(top: 5),
                         child: CustomfieldSection(),
                       ),
                     ],
@@ -273,7 +278,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
 
   @override
   void dispose() {
-    Get.delete<ProspectDetailsSource>();
+    // Get.delete<ProspectDetailsSource>();
     source.report.value = [];
     source.assign.value = [];
 
@@ -304,7 +309,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     source.userfullname.value = dt.prospectownerusers!.userfullname ?? '';
     source.bpname.value = dt.prospectbp!.bpname ?? '';
     source.prospectstartdate.value = dt.prospectstartdate ?? '';
-    source.prospectStageController.selected = dt.prospectstage;
+    source.prospectStageController.value.selected = dt.prospectstage;
     source.custname.value = dt.prospectcust!.sbccstmname ?? '';
     source.custlabel.value = dt.prospectcustlabeltype?.typename ?? '';
     source.custid.value = dt.prospectcust!.sbccstm!.cstmid ?? 0;
@@ -354,7 +359,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
 
   @override
   void onLoadSuccess(Response response) {
-    source.prospectStageController.options = List<TypeModel>.from(
+    source.prospectStageController.value.options = List<TypeModel>.from(
       response.body.map((data) {
         return TypeModel.fromJson(data);
       }),

@@ -344,6 +344,9 @@ class ProspectFormView extends StatelessWidget
       source.value.selectStatus.setSelected(BsSelectBoxOption(
           value: prospect.prospectstatus!.typeid,
           text: Text(prospect.prospectstatus!.typename.toString())));
+      source.value.selectCustLab.setSelected(BsSelectBoxOption(
+          value: prospect.prospectcustlabeltype?.typeid,
+          text: Text(prospect.prospectcustlabeltype!.typename.toString())));
 
       if (prospect.prospectvalue != null) {
         source.value.inputValue.text = currencyFormatter

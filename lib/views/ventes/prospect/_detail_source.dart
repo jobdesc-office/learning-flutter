@@ -40,8 +40,7 @@ class ProspectDetailsSource extends GetxController {
   var allday = false.obs;
   var private = false.obs;
 
-  MenuTypeOptionsController prospectStageController =
-      MenuTypeOptionsController();
+  var prospectStageController = MenuTypeOptionsController().obs;
 
   var detailData = [].obs;
   var assign = [].obs;

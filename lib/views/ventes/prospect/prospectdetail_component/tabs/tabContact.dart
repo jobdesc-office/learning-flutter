@@ -1,5 +1,7 @@
 part of '../../prospect_detail.dart';
 
+final source = Get.put(ProspectDetailsSource());
+
 class _TabContact extends StatelessWidget {
   const _TabContact({Key? key}) : super(key: key);
 
