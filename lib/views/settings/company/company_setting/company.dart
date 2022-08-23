@@ -7,12 +7,12 @@ import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../presenters/navigation_presenter.dart';
-import '../../../routes/route_list.dart';
-import '../../../styles/color_palattes.dart';
-import '../../../widgets/breadcrumb.dart';
-import '../../../widgets/button/theme_button_save.dart';
-import '../../skins/template.dart';
+import '../../../../presenters/navigation_presenter.dart';
+import '../../../../routes/route_list.dart';
+import '../../../../styles/color_palattes.dart';
+import '../../../../widgets/breadcrumb.dart';
+import '../../../../widgets/button/theme_button_save.dart';
+import '../../../skins/template.dart';
 import '_datatable_source.dart';
 
 part 'tabs/tabGeneral.dart';
