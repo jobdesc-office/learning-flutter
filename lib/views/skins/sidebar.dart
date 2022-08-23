@@ -190,9 +190,21 @@ class SidebarSkins extends StatelessWidget {
                       children: [
                         MenuData(
                             id: no++,
-                            route: RouteList.settingsCompany.index,
+                            route: RouteList.settings.index,
                             label: 'Company',
-                            icon: Icons.domain),
+                            icon: Icons.domain,
+                            children: [
+                              MenuData(
+                                  id: no++,
+                                  route: RouteList.settingsCompany.index,
+                                  label: 'Company',
+                                  icon: Icons.domain),
+                              MenuData(
+                                  id: no++,
+                                  route: RouteList.settingsDataField.index,
+                                  label: 'Data Field',
+                                  icon: Icons.add_box),
+                            ]),
                         MenuData(
                           id: no++,
                           route: RouteList.settingsCustomField.index,

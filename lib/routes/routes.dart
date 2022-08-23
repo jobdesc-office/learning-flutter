@@ -74,6 +74,7 @@ import '../views/masters/provinces/province.dart';
 import '../views/masters/subdistricts/subdistrict.dart';
 import '../views/masters/villages/village.dart';
 import '../views/settings/company/company_setting/company.dart';
+import '../views/settings/company/data_field/datafield.dart';
 import '../views/settings/customfield/customfield.dart';
 import '../views/settings/files/file.dart';
 import '../views/settings/permission/role/permission_role.dart';
@@ -344,6 +345,14 @@ class AppRoute {
       CustomGetPage(
         name: RouteList.settingsCompany.index,
         page: () => CompanyView(),
+        // binding: BindingsBuilder(() {
+        //   Get.lazyPut(() => FileService());
+        //   Get.lazyPut(() => FilePresenter());
+        // }),
+      ),
+      CustomGetPage(
+        name: RouteList.settingsDataField.index,
+        page: () => DataFieldView(),
         // binding: BindingsBuilder(() {
         //   Get.lazyPut(() => FileService());
         //   Get.lazyPut(() => FilePresenter());
