@@ -1328,6 +1328,7 @@ class Prospectfiles {
   String? filename;
   String? mimetype;
   String? filesize;
+  String? remark;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -1343,6 +1344,7 @@ class Prospectfiles {
       this.filename,
       this.mimetype,
       this.filesize,
+      this.remark,
       this.createdby,
       this.createddate,
       this.updatedby,
@@ -1358,6 +1360,7 @@ class Prospectfiles {
     filename = json['filename'];
     mimetype = json['mimetype'];
     filesize = json['filesize'];
+    remark = json['remark'];
     createdby = json['createdby'];
     createddate = json['createddate'];
     updatedby = json['updatedby'];

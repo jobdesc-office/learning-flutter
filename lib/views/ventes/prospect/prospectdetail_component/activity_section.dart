@@ -13,8 +13,8 @@ import '../_detail_source.dart';
 Widget prospectDetailActivitySection(context) {
   final source = Get.put(ProspectDetailsSource());
   final detailPresenter = Get.find<ProspectActivityPresenter>();
-  return Obx(() => SingleChildScrollView(
-        child: Column(
+  return SingleChildScrollView(
+    child: Obx(() => Column(
           // crossAxisAlignment: CrossAxisAlignment.center,
           // mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -28,83 +28,88 @@ Widget prospectDetailActivitySection(context) {
                 ],
               )
             else
-              Column(
+              BsRow(
                 children: source.detailData
-                    .map((element) => Tooltip(
-                          message: BaseText.editDelete,
-                          child: InkWell(
-                            onLongPress: () {
-                              Get.defaultDialog(
-                                  middleText: '',
-                                  title: 'Setting',
-                                  actions: [
-                                    ButtonEditDatatables(onPressed: () {
-                                      detailPresenter.edit(
-                                          context,
-                                          element.prospectactivityid,
-                                          source.prospectid.value);
-                                    }),
-                                    ButtonDeleteDatatables(onPressed: () {
-                                      detailPresenter.delete(
-                                          context,
-                                          element.prospectactivityid,
-                                          '${element.prospectactivitytype!.typename} at ${element.prospectactivitydate}');
-                                    }),
-                                  ]);
-                            },
-                            onTap: () {
-                              detailPresenter.detail(
-                                  context, element.prospectactivityid);
-                            },
-                            child: BsRow(
-                              children: [
-                                BsCol(
-                                    sizes: ColScreen(sm: Col.col_1),
-                                    child: Column(
-                                      children: [
-                                        OutlinedDotIndicator(),
-                                        SizedBox(
-                                          height: 45.0,
-                                          child: SolidLineConnector(),
-                                        )
-                                      ],
-                                    )),
-                                BsCol(
-                                    alignment: Alignment.center,
-                                    sizes: ColScreen(sm: Col.col_3),
-                                    child: Text(element.prospectactivitydate)),
-                                BsCol(
-                                    sizes: ColScreen(sm: Col.col_8),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          element.prospectactivitycat.typename,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(top: 5),
-                                          child: Text(element
-                                              .prospectactivitytype.typename),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(top: 5),
-                                          child: Text(
-                                            element.prospectactivitydesc ?? '',
-                                            style: TextStyle(fontSize: 12),
+                    .map((element) => BsCol(
+                          child: Tooltip(
+                            message: BaseText.editDelete,
+                            child: InkWell(
+                              onLongPress: () {
+                                Get.defaultDialog(
+                                    middleText: '',
+                                    title: 'Setting',
+                                    actions: [
+                                      ButtonEditDatatables(onPressed: () {
+                                        detailPresenter.edit(
+                                            context,
+                                            element.prospectactivityid,
+                                            source.prospectid.value);
+                                      }),
+                                      ButtonDeleteDatatables(onPressed: () {
+                                        detailPresenter.delete(
+                                            context,
+                                            element.prospectactivityid,
+                                            '${element.prospectactivitytype!.typename} at ${element.prospectactivitydate}');
+                                      }),
+                                    ]);
+                              },
+                              onTap: () {
+                                detailPresenter.detail(
+                                    context, element.prospectactivityid);
+                              },
+                              child: BsRow(
+                                children: [
+                                  BsCol(
+                                      sizes: ColScreen(sm: Col.col_1),
+                                      child: Column(
+                                        children: [
+                                          OutlinedDotIndicator(),
+                                          SizedBox(
+                                            height: 45.0,
+                                            child: SolidLineConnector(),
+                                          )
+                                        ],
+                                      )),
+                                  BsCol(
+                                      alignment: Alignment.center,
+                                      sizes: ColScreen(sm: Col.col_3),
+                                      child:
+                                          Text(element.prospectactivitydate)),
+                                  BsCol(
+                                      sizes: ColScreen(sm: Col.col_8),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            element
+                                                .prospectactivitycat.typename,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
                                           ),
-                                        ),
-                                      ],
-                                    )),
-                              ],
+                                          Container(
+                                            margin: EdgeInsets.only(top: 5),
+                                            child: Text(element
+                                                .prospectactivitytype.typename),
+                                          ),
+                                          Container(
+                                            margin: EdgeInsets.only(top: 5),
+                                            child: Text(
+                                              element.prospectactivitydesc ??
+                                                  '',
+                                              style: TextStyle(fontSize: 12),
+                                            ),
+                                          ),
+                                        ],
+                                      )),
+                                ],
+                              ),
                             ),
                           ),
                         ))
                     .toList(),
               )
           ],
-        ),
-      ));
+        )),
+  );
 }

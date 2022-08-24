@@ -18,7 +18,7 @@ final src = Get.put(ProspectDetailsSource());
 
 class ProspectContactDataTableSource extends BsDatatableSource {
   ValueChanged<int> onDetailsListener = (value) {};
-  ValueChanged<int> onEditListener = (value) {};
+  Function onEditListener = (value, contact) {};
   Function onDeleteListener = (value, name) {};
   final List<Cstmcontact> data;
   ProspectContactDataTableSource(this.data) : super(data: data);
@@ -124,7 +124,8 @@ class ProspectContactDataTableSource extends BsDatatableSource {
                     message: BaseText.editHintDatatable(field: row.contactname),
                     child: ButtonEditDatatables(
                       margin: EdgeInsets.only(right: 5),
-                      onPressed: () => onEditListener(row.contactpersonid!),
+                      onPressed: () => onEditListener(
+                          row.contactpersonid, row.contactcustomerid),
                     ),
                   ),
                   Tooltip(

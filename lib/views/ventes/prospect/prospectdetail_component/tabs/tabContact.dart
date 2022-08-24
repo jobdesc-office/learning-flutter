@@ -12,8 +12,8 @@ class _TabContact extends StatelessWidget {
     final contactPresenter = Get.find<ProspectContactPresenter>();
     datatable.onDetailsListener =
         (userid) => contactPresenter.detail(context, userid);
-    datatable.onEditListener = (menuid) =>
-        contactPresenter.edit(context, menuid, source.prospectid.value);
+    datatable.onEditListener = (contactid, menuid) =>
+        contactPresenter.edit(context, contactid, menuid);
     datatable.onDeleteListener =
         (menuid, name) => contactPresenter.delete(context, menuid, name);
     if (source.contact.length != 0)
