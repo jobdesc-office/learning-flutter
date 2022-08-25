@@ -20,7 +20,6 @@ class _TabFileState extends State<_TabFile> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final filePresenter = Get.find<ProspectFilePresenter>();
     final presenter = Get.find<ProspectPresenter>();
-    final ctrl = Get.put(ButtonController());
     if (source.files.length != 0)
       return Column(
         children: [

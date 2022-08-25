@@ -126,7 +126,7 @@ class ProspectDetailForm {
             _selectExpectDates(context);
           },
           label: Obx(() => Text(source.selectedDateExpect.isEmpty
-              ? "Choose the Expected Date"
+              ? "Choose Date"
               : '${source.selectedDateExpect}')),
         ),
       ),

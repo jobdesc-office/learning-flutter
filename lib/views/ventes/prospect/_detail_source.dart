@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import '../../../models/session_model.dart';
 import '../../../models/ventes/customfield_model.dart';
 import '../../../models/ventes/prospect_model.dart';
+import '../../../models/ventes/prospectactivity_model.dart';
 import '../../../models/ventes/prospectcustomfield_model.dart';
 import '../../../utils/session_manager.dart';
 import 'prospectdetail_component/_stagePipeline.dart';
@@ -44,7 +45,7 @@ class ProspectDetailsSource extends GetxController {
 
   var prospectStageController = MenuTypeOptionsController().obs;
 
-  var detailData = [].obs;
+  var detailData = <ProspectActivityModel>[].obs;
   var assign = [].obs;
   var report = [].obs;
   var product = [].obs;

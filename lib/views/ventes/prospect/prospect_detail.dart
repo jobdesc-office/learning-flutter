@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:timelines/timelines.dart';
 
 import '../../../constants/base_text.dart';
 import '../../../contracts/base/details_view_contract.dart';
@@ -47,12 +48,12 @@ import 'prospectcontact/_datatable_source.dart';
 import 'prospectdetail_component/_stagePipeline.dart';
 import 'customfield/_form_source.dart';
 import 'prospectcustomfield/_form_source.dart';
-import 'prospectdetail_component/activity_section.dart';
 import 'prospectdetail_component/organization_section.dart';
 import 'prospectfiles/image_picture.dart';
 
 part 'prospectdetail_component/customizefield_section.dart';
 
+part 'prospectdetail_component/tabs/tabActivity.dart';
 part 'prospectdetail_component/tabs/tabNote.dart';
 part 'prospectdetail_component/tabs/tabAssign.dart';
 part 'prospectdetail_component/tabs/tabReport.dart';
@@ -190,53 +191,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                       child: TabBarView(
                                         controller: _tabController,
                                         children: [
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Container(
-                                                margin: EdgeInsets.all(5),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Container(
-                                                      alignment:
-                                                          Alignment.topLeft,
-                                                      margin: EdgeInsets.only(
-                                                          top: 10, bottom: 10),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Text(
-                                                            'Activities :',
-                                                            style: TextStyle(
-                                                                fontSize: 18),
-                                                          ),
-                                                          BsButton(
-                                                              style:
-                                                                  BsButtonStyle
-                                                                      .success,
-                                                              onPressed: () =>
-                                                                  detailPresenter.add(
-                                                                      context,
-                                                                      source
-                                                                          .prospectid
-                                                                          .value),
-                                                              label: Text(
-                                                                  'Add Activity')),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    prospectDetailActivitySection(
-                                                        context)
-                                                  ],
-                                                ),
-                                              )
-                                            ],
-                                          ),
+                                          _TabActivity(),
                                           _TabNote(),
                                           _TabAssign(),
                                           _TabReport(),
@@ -425,7 +380,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
 
   @override
   void onLoadDatatables(BuildContext context, Response response) {
-    List x = [];
+    List<ProspectActivityModel> x = [];
     for (var item in response.body) {
       x.add(ProspectActivityModel.fromJson(item));
     }
