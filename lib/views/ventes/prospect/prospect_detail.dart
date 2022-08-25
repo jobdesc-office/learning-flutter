@@ -37,6 +37,7 @@ import '../../../styles/color_palattes.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/button_controller.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
+import '../../../widgets/button/button_info_setting.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
 import '../../../widgets/map/_map_source.dart';
@@ -390,6 +391,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     prospectCustomFieldPresenter.setProcessing(false);
     detailPresenter.setProcessing(false);
     assignPresenter.setProcessing(false);
+    filePresenter.setProcessing(false);
     Get.back();
     Navigator.pop(context!);
     presenter.details(context, source.prospectid.value);
@@ -413,6 +415,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     detailPresenter.setProcessing(false);
     assignPresenter.setProcessing(false);
     contactPresenter.setProcessing(false);
+    filePresenter.setProcessing(false);
   }
 
   @override

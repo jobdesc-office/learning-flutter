@@ -53,7 +53,7 @@ class ButtonCustomField extends StatelessWidget {
                 padding: EdgeInsets.all(5),
                 margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
                 child: Obx(() => Icon(
-                      controller.btnInfoAccountIsTap.value
+                      controller.btnCustomFieldIsTap.value
                           ? Icons.keyboard_arrow_down
                           : Icons.keyboard_arrow_right,
                       size: 16,

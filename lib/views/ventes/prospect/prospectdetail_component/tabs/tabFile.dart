@@ -20,6 +20,7 @@ class _TabFileState extends State<_TabFile> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final filePresenter = Get.find<ProspectFilePresenter>();
     final presenter = Get.find<ProspectPresenter>();
+    final ctrl = Get.put(ButtonController());
     if (source.files.length != 0)
       return Column(
         children: [
@@ -97,12 +98,8 @@ class _TabFileState extends State<_TabFile> with TickerProviderStateMixin {
                                             if (source.pickedFile.isNotEmpty)
                                               Container(
                                                   margin: EdgeInsets.all(3),
-                                                  child: InkWell(
-                                                      onTap: () => presenter
-                                                          .choosedPopup(
-                                                              context),
-                                                      child: Text(
-                                                          'Choosed Files : ${source.pickedFile.length}')))
+                                                  child: Text(
+                                                      'Choosed Files : ${source.pickedFile.length}'))
                                           ],
                                         ),
                                         if (source.pickedFile.isNotEmpty)
@@ -113,11 +110,7 @@ class _TabFileState extends State<_TabFile> with TickerProviderStateMixin {
                                                 .isProcessing.value,
                                             margin: EdgeInsets.only(right: 5),
                                             onPressed: () async {
-                                              filePresenter.setProcessing(true);
-                                              filePresenter.save(
-                                                  context,
-                                                  FormData(
-                                                      await source.toJson()));
+                                              presenter.choosedPopup(context);
                                             },
                                           )
                                       ])
@@ -131,91 +124,111 @@ class _TabFileState extends State<_TabFile> with TickerProviderStateMixin {
                                           margin: EdgeInsets.all(
                                             5,
                                           ),
-                                          child: Tooltip(
-                                            message: 'Long Press to Delete',
-                                            child: InkWell(
-                                              onTap: () {
-                                                if (files.filename!.substring(
-                                                        files.filename!.length -
-                                                            4) ==
-                                                    '.pdf') {
-                                                  Get.snackbar('Sorry',
-                                                      'PDF View Coming Soon');
-                                                } else {
-                                                  showDialog(
-                                                    context: context,
-                                                    builder: (context) =>
-                                                        ImagePictureFiles(
-                                                      title: files.filename,
-                                                      image: files.url,
-                                                    ),
-                                                  );
-                                                }
-                                              },
-                                              onLongPress: (() =>
-                                                  filePresenter.delete(
-                                                      context,
-                                                      files.fileid!,
-                                                      files.filename!)),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                            .size
-                                                            .width,
-                                                    padding: EdgeInsets.all(10),
-                                                    decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                      color: Color.fromARGB(
-                                                          255, 207, 202, 202),
-                                                    )),
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                padding: EdgeInsets.all(10),
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                  color: Color.fromARGB(
+                                                      255, 207, 202, 202),
+                                                )),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.end,
+                                                  children: [
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment.end,
                                                       children: [
-                                                        Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          children: [
-                                                            Text(files
-                                                                    .filename ??
-                                                                ''),
-                                                            Text(files
-                                                                    .createddate ??
-                                                                ''),
-                                                          ],
-                                                        ),
-                                                        Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                              files.mimetype ??
-                                                                  '',
-                                                              style: TextStyle(
-                                                                  fontSize: 13),
-                                                            ),
-                                                            Divider(),
-                                                            Text(
-                                                                files.remark ??
-                                                                    '',
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        11)),
-                                                          ],
-                                                        ),
+                                                        InkWell(
+                                                            onTap: () {
+                                                              if (files
+                                                                      .filename!
+                                                                      .substring(files
+                                                                              .filename!
+                                                                              .length -
+                                                                          4) ==
+                                                                  '.pdf') {
+                                                                Get.snackbar(
+                                                                    'Sorry',
+                                                                    'PDF View Coming Soon');
+                                                              } else {
+                                                                showDialog(
+                                                                  context:
+                                                                      context,
+                                                                  builder:
+                                                                      (context) =>
+                                                                          ImagePictureFiles(
+                                                                    title: files
+                                                                        .filename,
+                                                                    image: files
+                                                                        .url,
+                                                                  ),
+                                                                );
+                                                              }
+                                                            },
+                                                            child: Icon(Icons
+                                                                .remove_red_eye)),
+                                                        InkWell(
+                                                            onTap: () =>
+                                                                filePresenter.edit(
+                                                                    context,
+                                                                    files
+                                                                        .fileid!,
+                                                                    files
+                                                                        .filename!,
+                                                                    files
+                                                                        .remark!),
+                                                            child: Icon(
+                                                                Icons.edit)),
+                                                        InkWell(
+                                                            onTap: () =>
+                                                                filePresenter.delete(
+                                                                    context,
+                                                                    files
+                                                                        .fileid!,
+                                                                    files
+                                                                        .filename!),
+                                                            child: Icon(
+                                                                Icons.delete)),
                                                       ],
                                                     ),
-                                                  ),
-                                                ],
+                                                    ExpansionTile(
+                                                      expandedAlignment:
+                                                          Alignment.centerLeft,
+                                                      leading: files.mimetype!
+                                                              .contains('image')
+                                                          ? Icon(Icons.image)
+                                                          : Icon(Icons
+                                                              .file_present_rounded),
+                                                      title: Text(
+                                                          files.filename ?? ''),
+                                                      subtitle: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Text(files.mimetype ??
+                                                              ''),
+                                                          Text(files
+                                                                  .createddate ??
+                                                              ''),
+                                                        ],
+                                                      ),
+                                                      children: [
+                                                        Text(files.remark ?? '')
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
-                                            ),
+                                            ],
                                           ),
                                         );
                                       }).toList(),
@@ -270,10 +283,8 @@ class _TabFileState extends State<_TabFile> with TickerProviderStateMixin {
                     if (source.pickedFile.isNotEmpty)
                       Container(
                           margin: EdgeInsets.all(3),
-                          child: InkWell(
-                              onTap: () => presenter.choosedPopup(context),
-                              child: Text(
-                                  'Choosed Files : ${source.pickedFile.length}')))
+                          child: Text(
+                              'Choosed Files : ${source.pickedFile.length}'))
                   ],
                 ),
                 if (source.pickedFile.isNotEmpty)
@@ -282,9 +293,7 @@ class _TabFileState extends State<_TabFile> with TickerProviderStateMixin {
                     processing: filePresenter.isProcessing.value,
                     margin: EdgeInsets.only(right: 5),
                     onPressed: () async {
-                      filePresenter.setProcessing(true);
-                      filePresenter.save(
-                          context, FormData(await source.toJson()));
+                      presenter.choosedPopup(context);
                     },
                   )
               ])

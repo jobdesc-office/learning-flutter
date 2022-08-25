@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../../../models/session_model.dart';
@@ -58,6 +60,16 @@ class ProspectDetailsSource extends GetxController {
   var isAddCF = false.obs;
 
   var pickedFile = <Uint8List>[].obs;
+  var markFile = <TextEditingController>[].obs;
+
+  List<Map<String, dynamic>> jsonRoles() {
+    return List<Map<String, dynamic>>.from(markFile.map((controller) {
+      int index = markFile.indexOf(controller);
+      return {
+        'remark': markFile[index].text,
+      };
+    }));
+  }
 
   List<MultipartFile> jsonImages() {
     List<MultipartFile> img = [];
@@ -77,6 +89,7 @@ class ProspectDetailsSource extends GetxController {
       'name': prospectname.value,
       'createdby': session.userid,
       'updatedby': session.userid,
+      'remark': jsonEncode(jsonRoles()),
       'files[]': jsonImages()
     };
   }

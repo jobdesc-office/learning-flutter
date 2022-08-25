@@ -5,6 +5,7 @@ import '../../constants/base_text.dart';
 import '../../contracts/base/index_view_contract.dart';
 import '../../services/settings/file_service.dart';
 import '../../utils/custom_get_controller.dart';
+import '../../views/ventes/prospect/prospectfiles/remark.dart';
 import '../../widgets/confirm_dialog.dart';
 
 class ProspectFilePresenter extends CustomGetXController {
@@ -22,6 +23,27 @@ class ProspectFilePresenter extends CustomGetXController {
     );
     if (response.statusCode == 200)
       _prospectViewContract.onCreateSuccess(response, context: context);
+    else
+      _prospectViewContract.onErrorRequest(response);
+  }
+
+  void edit(
+      BuildContext context, int id, String filename, String remark) async {
+    showDialog(
+      context: context,
+      builder: (context) => Remark(
+        onSave: (body) => update(context, body, id),
+        filename: filename,
+        remark: remark,
+      ),
+    );
+  }
+
+  void update(BuildContext context, Map<String, dynamic> body, int id) async {
+    setProcessing(true);
+    Response response = await _fileService.update(id, body);
+    if (response.statusCode == 200)
+      _prospectViewContract.onEditSuccess(response, context: context);
     else
       _prospectViewContract.onErrorRequest(response);
   }
