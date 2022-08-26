@@ -56,7 +56,6 @@ part 'prospectdetail_component/customizefield_section.dart';
 part 'prospectdetail_component/tabs/tabActivity.dart';
 part 'prospectdetail_component/tabs/tabNote.dart';
 part 'prospectdetail_component/tabs/tabAssign.dart';
-part 'prospectdetail_component/tabs/tabReport.dart';
 part 'prospectdetail_component/tabs/tabProduct.dart';
 part 'prospectdetail_component/tabs/tabContact.dart';
 part 'prospectdetail_component/tabs/tabFile.dart';
@@ -235,6 +234,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
 
     source.isAdd.value = false;
     source.isAddCF.value = false;
+    source.showPipeline.value = false;
     super.dispose();
   }
 
@@ -260,7 +260,6 @@ class _ProspectDetailsState extends State<ProspectDetails>
     source.userfullname.value = dt.prospectownerusers!.userfullname ?? '';
     source.bpname.value = dt.prospectbp!.bpname ?? '';
     source.prospectstartdate.value = dt.prospectstartdate ?? '';
-
     source.prospectStageController.value.selected = dt.prospectstage;
     source.custname.value = dt.prospectcust!.sbccstmname ?? '';
     source.custlabel.value = dt.prospectcustlabeltype?.typename ?? '';
@@ -314,6 +313,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
         return TypeModel.fromJson(data);
       }),
     ).toList();
+    source.showPipeline.value = true;
     // presenter.details(context, source.prospectid.value);
   }
 

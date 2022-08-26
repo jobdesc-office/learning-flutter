@@ -156,8 +156,9 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
                   message: 'Are You Sure Want to Change to This Stage ?',
                   onPressed: (_, value) async {
                     if (value == ConfirmDialogOption.YES_OPTION) {
-                      presenter.update(context, body, source.prospectid.value);
+                      source.showPipeline.value = false;
                       source.prospectStageController.value.selected = type;
+                      presenter.update(context, body, source.prospectid.value);
                     } else {
                       Navigator.pop(context);
                     }

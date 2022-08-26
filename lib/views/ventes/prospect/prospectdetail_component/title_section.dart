@@ -200,15 +200,17 @@ BsCol prospectDetailTitleSection(context) {
                 child: BsRow(
                   margin: EdgeInsets.only(top: 10),
                   children: [
-                    BsCol(
-                      sizes: ColScreen(sm: Col.col_12),
-                      child: Container(
-                        padding: EdgeInsets.all(10),
-                        child: Obx(() => MenuTypeOptions(
-                              controller: source.prospectStageController.value,
-                            )),
+                    if (source.showPipeline.value)
+                      BsCol(
+                        sizes: ColScreen(sm: Col.col_12),
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          child: Obx(() => MenuTypeOptions(
+                                controller:
+                                    source.prospectStageController.value,
+                              )),
+                        ),
                       ),
-                    ),
                   ],
                 ),
               ),

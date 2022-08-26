@@ -44,6 +44,8 @@ class ProspectDetailsSource extends GetxController {
   var allday = false.obs;
   var private = false.obs;
 
+  var showPipeline = false.obs;
+
   var prospectStageController = MenuTypeOptionsController().obs;
 
   var detailData = <ProspectActivityModel>[].obs;

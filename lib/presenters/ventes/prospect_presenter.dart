@@ -119,7 +119,7 @@ class ProspectPresenter extends CustomGetXController {
     return null;
   }
 
-  Future _loadStage() async {
+  Future loadStage() async {
     Response response = await _typeService.bySeq(ConfigType.prospectStage);
     if (response.statusCode == 200) {
       _prospectTypeViewDetailContract.onLoadSuccess(response);
@@ -177,10 +177,13 @@ class ProspectPresenter extends CustomGetXController {
     showDialog(
       context: context,
       builder: (context) => ProspectDetails(),
-    ).then((value) => _loadStage());
+    );
+
     Response response = await _prospectService.show(userid);
     if (response.statusCode == 200) {
       _prospectDetailsViewContract.onSuccessFetchData(response);
+
+      await loadStage();
     } else
       _prospectViewContract.onErrorRequest(response);
   }
@@ -226,9 +229,10 @@ class ProspectPresenter extends CustomGetXController {
       BuildContext context, Map<String, dynamic> body, int prospectid) async {
     setProcessing(true);
     Response response = await _prospectService.update(prospectid, body);
-    if (response.statusCode == 200)
+    if (response.statusCode == 200) {
       _prospectViewContract.onEditSuccess(response, context: context);
-    else
+      source.showPipeline.value = true;
+    } else
       _prospectViewContract.onErrorRequest(response);
   }
 
