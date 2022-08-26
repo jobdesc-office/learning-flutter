@@ -48,7 +48,6 @@ class ProspectDetailsSource extends GetxController {
 
   var detailData = <ProspectActivityModel>[].obs;
   var assign = <Prospectassigns>[].obs;
-  var report = [].obs;
   var product = [].obs;
   var contact = <Cstmcontact>[].obs;
   var files = <Prospectfiles>[].obs;
@@ -129,7 +128,6 @@ class ProspectDetailsSource extends GetxController {
 
     detailData.value = [];
     assign.value = [];
-    report.value = [];
     product.value = [];
     contact.value = <Cstmcontact>[];
     files.value = <Prospectfiles>[];

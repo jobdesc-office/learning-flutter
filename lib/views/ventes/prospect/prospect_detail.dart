@@ -231,7 +231,6 @@ class _ProspectDetailsState extends State<ProspectDetails>
   @override
   void dispose() {
     // Get.delete<ProspectDetailsSource>();
-    source.report.value = [];
     source.assign.value = [];
 
     source.isAdd.value = false;
@@ -277,11 +276,9 @@ class _ProspectDetailsState extends State<ProspectDetails>
         assign.add(element);
         report.add(element);
         source.assign.value = assign;
-        source.report.value = assign;
       });
     } else {
       source.assign.value = [];
-      source.report.value = [];
     }
     if (dt.prospectproduct != null) {
       dt.prospectproduct?.forEach((element) {
