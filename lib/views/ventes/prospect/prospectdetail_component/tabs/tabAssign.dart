@@ -34,6 +34,11 @@ class _TabAssign extends StatelessWidget {
             Obx(() => Column(
                   children: source.assign.map((element) {
                     return Container(
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                        color: Color.fromARGB(255, 207, 202, 202),
+                      )),
                       margin: EdgeInsets.only(top: 5),
                       child: ExpansionTile(
                         expandedAlignment: Alignment.centerLeft,
