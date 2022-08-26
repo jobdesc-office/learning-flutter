@@ -4,6 +4,7 @@ class ProspectActivityDetailsSource extends GetxController {
   var category = ''.obs;
   var date = ''.obs;
   var desc = ''.obs;
+  var info = ''.obs;
   var type = ''.obs;
   var link = ''.obs;
 }

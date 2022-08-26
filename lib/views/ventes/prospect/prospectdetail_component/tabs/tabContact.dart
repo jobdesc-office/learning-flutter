@@ -8,43 +8,84 @@ class _TabContact extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // ignore: invalid_use_of_protected_member
-    final datatable = ProspectContactDataTableSource(source.contact.value);
     final contactPresenter = Get.find<ProspectContactPresenter>();
-    datatable.onDetailsListener =
-        (userid) => contactPresenter.detail(context, userid);
-    datatable.onEditListener = (contactid, menuid) =>
-        contactPresenter.edit(context, contactid, menuid);
-    datatable.onDeleteListener =
-        (menuid, name) => contactPresenter.delete(context, menuid, name);
     if (source.contact.length != 0)
-      return Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Contacts of ' + source.custname.value + ' :',
-                style: TextStyle(fontSize: 18),
-              ),
-              BsButton(
-                style: BsButtonStyle.success,
-                margin: EdgeInsets.only(top: 10),
-                onPressed: () {
-                  contactPresenter.add(context, source.custid.value);
-                },
-                prefixIcon: Icons.phone,
-                label: Text('Add Contact'),
-              )
-            ],
-          ),
-          SingleChildScrollView(
-            child: CustomDatabales(
-              source: datatable,
-              columns: datatable.columns,
-              searchable: false,
+      return SingleChildScrollView(
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Contacts of ' + source.custname.value + ' :',
+                  style: TextStyle(fontSize: 18),
+                ),
+                BsButton(
+                  style: BsButtonStyle.success,
+                  margin: EdgeInsets.only(top: 10),
+                  onPressed: () {
+                    contactPresenter.add(context, source.custid.value);
+                  },
+                  prefixIcon: Icons.phone,
+                  label: Text('Add Contact'),
+                )
+              ],
             ),
-          ),
-        ],
+            Column(
+                children: source.contact
+                    .map((element) => Container(
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                            color: Color.fromARGB(255, 207, 202, 202),
+                          )),
+                          margin: EdgeInsets.only(top: 5),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    element.contactname ?? '',
+                                    style: TextStyle(fontSize: 21),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      InkWell(
+                                          onTap: () => contactPresenter.detail(
+                                              context,
+                                              element.contactpersonid!),
+                                          child: Icon(Icons.remove_red_eye)),
+                                      InkWell(
+                                          onTap: () => contactPresenter.edit(
+                                              context,
+                                              element.contactpersonid!,
+                                              element.contactcustomerid!),
+                                          child: Icon(Icons.edit)),
+                                      InkWell(
+                                          onTap: () => contactPresenter.delete(
+                                              context,
+                                              element.contactpersonid!,
+                                              element.contactname ?? ''),
+                                          child: Icon(Icons.delete))
+                                    ],
+                                  )
+                                ],
+                              ),
+                              ExpansionTile(
+                                title:
+                                    Text(element.contacttype?.typename ?? ''),
+                                children: [Text(element.contactvalueid ?? '')],
+                              ),
+                            ],
+                          ),
+                        ))
+                    .toList())
+          ],
+        ),
       );
     else
       return Column(

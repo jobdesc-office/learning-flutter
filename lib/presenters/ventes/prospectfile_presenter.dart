@@ -17,6 +17,7 @@ class ProspectFilePresenter extends CustomGetXController {
   }
 
   void save(BuildContext context, FormData body) async {
+    setProcessing(true);
     Response response = await _fileService.storeProspect(
       body,
       contentType: "multipart/form-data",

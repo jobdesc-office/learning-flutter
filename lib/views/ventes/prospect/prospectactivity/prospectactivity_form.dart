@@ -76,6 +76,7 @@ class ProspectActivityFormView extends StatelessWidget
                                 prospectForm.selectCategory(),
                                 prospectForm.inputExpected(context),
                                 prospectForm.inputDesc(),
+                                prospectForm.inputInfo(),
                                 prospectForm.selectUser(context),
                               ],
                             ),

@@ -51,21 +51,20 @@ class ProspectCustomFieldForm {
           style: TextStyle(
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
-      child: Obx(() => CustomSelectBox(
-            searchable: true,
-            disabled: source.isProcessing,
-            controller: source.selectCustomfield,
-            hintText: BaseText.hiintSelect(
-                field: ProspectCustomFieldText.labelCustomField),
-            serverSide: (params) => selectApiCustomField(params),
-            validators: [
-              Validators.selectRequired(
-                  ProspectCustomFieldText.labelCustomField),
-            ],
-            onChange: (value) {
-              source.format.value = value.getOtherValue().custftype.typename;
-            },
-          )),
+      child: CustomSelectBox(
+        searchable: true,
+        disabled: source.isProcessing,
+        controller: source.selectCustomfield,
+        hintText: BaseText.hiintSelect(
+            field: ProspectCustomFieldText.labelCustomField),
+        serverSide: (params) => selectApiCustomField(params),
+        validators: [
+          Validators.selectRequired(ProspectCustomFieldText.labelCustomField),
+        ],
+        onChange: (value) {
+          source.format.value = value.getOtherValue().custftype.typename;
+        },
+      ),
     );
   }
 
@@ -75,27 +74,24 @@ class ProspectCustomFieldForm {
           style: TextStyle(
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black)),
-      child: Obx(() => CustomInput(
-            disabled: source.isProcessing,
-            controller: source.inputValue,
-            inputFormatters: [
-              if (source.format.value == 'Number' ||
-                  source.format.value == 'Phone')
-                FilteringTextInputFormatter.digitsOnly,
-              if (source.format.value == 'Price' ||
-                  source.format.value == 'Number')
-                CurrencyTextInputFormatter(
-                  decimalDigits: 0,
-                  symbol: '',
-                )
-            ],
-            hintText:
-                BaseText.hintText(field: ProspectCustomFieldText.labelValue),
-            validators: [
-              Validators.inputRequired(ProspectCustomFieldText.labelValue),
-              if (source.format.value == 'Email') Validators.inputEmail()
-            ],
-          )),
+      child: CustomInput(
+        disabled: source.isProcessing,
+        controller: source.inputValue,
+        inputFormatters: [
+          if (source.format.value == 'Number' || source.format.value == 'Phone')
+            FilteringTextInputFormatter.digitsOnly,
+          if (source.format.value == 'Price' || source.format.value == 'Number')
+            CurrencyTextInputFormatter(
+              decimalDigits: 0,
+              symbol: '',
+            )
+        ],
+        hintText: BaseText.hintText(field: ProspectCustomFieldText.labelValue),
+        validators: [
+          Validators.inputRequired(ProspectCustomFieldText.labelValue),
+          if (source.format.value == 'Email') Validators.inputEmail()
+        ],
+      ),
     );
   }
 }

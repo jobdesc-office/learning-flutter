@@ -6,5 +6,6 @@ class ProspectActivityText {
   static String labelCategory = 'Category';
   static String labelExpected = 'Date';
   static String labelDesc = 'Description';
+  static String labelInfo = 'Additional Information';
   static String labelPlace = 'Place';
 }

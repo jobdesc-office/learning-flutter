@@ -141,6 +141,22 @@ class ProspectActivityDetails extends GetView implements DetailViewContract {
                                       child: Text(controller.desc.value))
                                 ],
                               )),
+                          BsCol(
+                              margin: EdgeInsets.only(top: 10),
+                              sizes: ColScreen(lg: Col.col_12),
+                              child: BsRow(
+                                children: [
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_3),
+                                      child: Text('Additional Info')),
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_1),
+                                      child: Text(':')),
+                                  BsCol(
+                                      sizes: ColScreen(lg: Col.col_8),
+                                      child: Text(controller.info.value))
+                                ],
+                              )),
                         ],
                       )),
                 )
@@ -155,6 +171,7 @@ class ProspectActivityDetails extends GetView implements DetailViewContract {
     controller.category.value = activity.prospectactivitycat!.typename ?? '';
     controller.date.value = activity.prospectactivitydate ?? '';
     controller.desc.value = activity.prospectactivitydesc ?? '';
+    controller.info.value = activity.prospectactivityinfo ?? '';
     controller.type.value = activity.prospectactivitytype!.typename ?? '';
     controller.link.value = activity.prospectactivityloc ?? '';
     presenter.setProcessing(false);

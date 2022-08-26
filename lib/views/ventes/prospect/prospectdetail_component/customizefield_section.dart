@@ -7,7 +7,6 @@ class CustomfieldSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final presenter = Get.find<ProspectPresenter>();
     final source = Get.put(ProspectDetailsSource());
-    final cfForm = ProspectCustomFieldSource().obs;
     final cfieldForm = CustomFieldSource().obs;
     final GlobalKey<FormState> formState = GlobalKey<FormState>();
     final GlobalKey<FormState> formStateCF = GlobalKey<FormState>();
@@ -94,20 +93,20 @@ class CustomfieldSection extends StatelessWidget {
                         //         size: 13,
                         //       )),
                         // ),
-                        Tooltip(
-                          message: 'Write Custom Field',
-                          child: BsButton(
-                              margin: EdgeInsets.only(left: 5),
-                              size: BsButtonSize.btnSm,
-                              onPressed: () {
-                                source.isAdd.toggle();
-                                source.isAddCF.value = false;
-                              },
-                              label: Icon(
-                                Icons.edit,
-                                size: 13,
-                              )),
-                        ),
+                        // Tooltip(
+                        //   message: 'Write Custom Field',
+                        //   child: BsButton(
+                        //       margin: EdgeInsets.only(left: 5),
+                        //       size: BsButtonSize.btnSm,
+                        //       onPressed: () {
+                        //         source.isAdd.toggle();
+                        //         source.isAddCF.value = false;
+                        //       },
+                        //       label: Icon(
+                        //         Icons.edit,
+                        //         size: 13,
+                        //       )),
+                        // ),
                         Tooltip(
                           message: 'Add Custom Field',
                           child: BsButton(

@@ -12,6 +12,7 @@ import '../../services/masters/type_service.dart';
 import '../../services/ventes/prospect_service.dart';
 import '../../utils/custom_get_controller.dart';
 import '../../views/masters/menus/_menu_type.dart';
+import '../../views/ventes/prospect/notespopup.dart';
 import '../../views/ventes/prospect/prospectdetail_component/_stagePipeline.dart';
 import '../../views/ventes/prospect/prospect_detail.dart';
 import '../../views/ventes/prospect/prospect_form.dart';
@@ -72,9 +73,10 @@ class ProspectPresenter extends CustomGetXController {
 
   Future _loadType() async {
     Response response = await _typeService.bySeq(ConfigType.prospectStage);
-    if (response.statusCode == 200)
+    if (response.statusCode == 200) {
       _prospectTypeViewContract.onLoadSuccess(response);
-    else
+      print(response.body);
+    } else
       _prospectViewContract.onErrorRequest(response);
   }
 
@@ -119,9 +121,9 @@ class ProspectPresenter extends CustomGetXController {
 
   Future _loadStage() async {
     Response response = await _typeService.bySeq(ConfigType.prospectStage);
-    if (response.statusCode == 200)
+    if (response.statusCode == 200) {
       _prospectTypeViewDetailContract.onLoadSuccess(response);
-    else
+    } else
       _prospectViewContract.onErrorRequest(response);
   }
 
@@ -175,13 +177,22 @@ class ProspectPresenter extends CustomGetXController {
     showDialog(
       context: context,
       builder: (context) => ProspectDetails(),
-    );
-    _loadStage();
+    ).then((value) => _loadStage());
     Response response = await _prospectService.show(userid);
-    if (response.statusCode == 200)
+    if (response.statusCode == 200) {
       _prospectDetailsViewContract.onSuccessFetchData(response);
-    else
+    } else
       _prospectViewContract.onErrorRequest(response);
+  }
+
+  void notes(BuildContext context, int id, String remark) async {
+    showDialog(
+      context: context,
+      builder: (context) => NotesPopup(
+        onSave: (body) => update(context, body, id),
+        note: remark,
+      ),
+    );
   }
 
   void lose(BuildContext context, int prospectid) async {

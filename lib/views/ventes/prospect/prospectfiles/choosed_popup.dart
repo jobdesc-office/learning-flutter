@@ -84,23 +84,28 @@ class ChoosedPopup extends GetView {
                           }).toList(),
                         ),
                       ),
-                      Container(
-                        margin: EdgeInsets.only(top: 5),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            ThemeButtonSave(onPressed: () async {
-                              source.markFile.value = inputRemark;
-                              filePresenter.setProcessing(true);
-                              filePresenter.save(
-                                  context, FormData(await source.toJson()));
-                            }),
-                            ThemeButtonCancel(
-                                margin: EdgeInsets.only(left: 5),
-                                onPressed: () => Navigator.pop(context))
-                          ],
-                        ),
-                      )
+                      Obx(() => Container(
+                            margin: EdgeInsets.only(top: 5),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                ThemeButtonSave(
+                                    disabled: filePresenter.isProcessing.value,
+                                    processing:
+                                        filePresenter.isProcessing.value,
+                                    onPressed: () async {
+                                      source.markFile.value = inputRemark;
+                                      filePresenter.setProcessing(true);
+                                      filePresenter.save(context,
+                                          FormData(await source.toJson()));
+                                    }),
+                                ThemeButtonCancel(
+                                    disabled: filePresenter.isProcessing.value,
+                                    margin: EdgeInsets.only(left: 5),
+                                    onPressed: () => Navigator.pop(context))
+                              ],
+                            ),
+                          ))
                     ],
                   );
                 }))

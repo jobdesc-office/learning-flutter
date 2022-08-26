@@ -3,8 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:timelines/timelines.dart';
 
+import '../../../../constants/base_text.dart';
 import '../../../../models/masters/type_model.dart';
+import '../../../../models/session_model.dart';
+import '../../../../presenters/ventes/prospect_presenter.dart';
 import '../../../../styles/color_palattes.dart';
+import '../../../../utils/session_manager.dart';
+import '../../../../widgets/confirm_dialog.dart';
+import '../_detail_source.dart';
 
 abstract class MenuTypeViewDetailContract {
   void onLoadSuccess(Response response);
@@ -51,6 +57,8 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
 
   @override
   Widget build(BuildContext context) {
+    final presenter = Get.find<ProspectPresenter>();
+    final source = Get.put(ProspectDetailsSource());
     if (widget.controller.processing) return loadingState();
     return BsRow(
       children: widget.controller.options.map((type) {
@@ -133,7 +141,30 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
         } else if (index == widget.controller.options.length - 1) {}
         return BsCol(
           sizes: ColScreen(sm: Col.col_2),
-          child: Container(
+          child: InkWell(
+            onTap: () async {
+              SessionModel session = await SessionManager.current();
+              Map<String, dynamic> body = {
+                'prospectstageid': type.typeid,
+                'createdby': session.userid,
+                'updatedby': session.userid,
+              };
+              showDialog(
+                context: context,
+                builder: (context) => ConfirmDialog(
+                  title: BaseText.confirmTitle,
+                  message: 'Are You Sure Want to Change to This Stage ?',
+                  onPressed: (_, value) async {
+                    if (value == ConfirmDialogOption.YES_OPTION) {
+                      presenter.update(context, body, source.prospectid.value);
+                      source.prospectStageController.value.selected = type;
+                    } else {
+                      Navigator.pop(context);
+                    }
+                  },
+                ),
+              );
+            },
             child: Column(
               children: [
                 indicator,

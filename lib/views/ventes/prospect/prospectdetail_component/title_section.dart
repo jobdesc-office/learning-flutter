@@ -1,17 +1,4 @@
-import 'package:boilerplate/models/masters/type_model.dart';
-import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
-import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-
-import '../../../../constants/base_text.dart';
-import '../../../../presenters/navigation_presenter.dart';
-import '../../../../presenters/ventes/prospect_presenter.dart';
-import '../../../../styles/color_palattes.dart';
-import '../../../../widgets/confirm_dialog.dart';
-import '../_detail_source.dart';
-import '_stagePipeline.dart';
+part of '../prospect_detail.dart';
 
 BsCol prospectDetailTitleSection(context) {
   final _navigation = Get.find<NavigationPresenter>();
@@ -217,9 +204,9 @@ BsCol prospectDetailTitleSection(context) {
                       sizes: ColScreen(sm: Col.col_12),
                       child: Container(
                         padding: EdgeInsets.all(10),
-                        child: MenuTypeOptions(
-                          controller: source.prospectStageController.value,
-                        ),
+                        child: Obx(() => MenuTypeOptions(
+                              controller: source.prospectStageController.value,
+                            )),
                       ),
                     ),
                   ],

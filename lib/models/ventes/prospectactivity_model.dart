@@ -5,6 +5,7 @@ class ProspectActivityModel {
   int? prospectactivitytypeid;
   String? prospectactivitydate;
   String? prospectactivitydesc;
+  String? prospectactivityinfo;
   String? prospectactivityloc;
   double? prospectactivitylatitude;
   double? prospectactivitylongitude;
@@ -24,6 +25,7 @@ class ProspectActivityModel {
       this.prospectactivitytypeid,
       this.prospectactivitydate,
       this.prospectactivitydesc,
+      this.prospectactivityinfo,
       this.prospectactivityloc,
       this.prospectactivitylatitude,
       this.prospectactivitylongitude,
@@ -43,6 +45,7 @@ class ProspectActivityModel {
     prospectactivitytypeid = json['prospectactivitytypeid'];
     prospectactivitydate = json['prospectactivitydate'];
     prospectactivitydesc = json['prospectactivitydesc'];
+    prospectactivityinfo = json['prospectactivityinfo'];
     prospectactivityloc = json['prospectactivityloc'];
     prospectactivitylatitude = json['prospectactivitylatitude'];
     prospectactivitylongitude = json['prospectactivitylongitude'];
@@ -71,6 +74,7 @@ class ProspectActivityModel {
     data['prospectactivitytypeid'] = this.prospectactivitytypeid;
     data['prospectactivitydate'] = this.prospectactivitydate;
     data['prospectactivitydesc'] = this.prospectactivitydesc;
+    data['prospectactivityinfo'] = this.prospectactivityinfo;
     data['prospectactivityloc'] = this.prospectactivityloc;
     data['prospectactivitylatitude'] = this.prospectactivitylatitude;
     data['prospectactivitylongitude'] = this.prospectactivitylongitude;

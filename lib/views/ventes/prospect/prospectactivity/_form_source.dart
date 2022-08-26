@@ -35,6 +35,7 @@ class ProspectActivitySource extends GetxController {
   BsSelectBoxController selectCat = BsSelectBoxController();
 
   TextEditingController inputDesc = TextEditingController();
+  TextEditingController inputInfo = TextEditingController();
 
   Future<Map<String, dynamic>> toJson() async {
     SessionModel session = await SessionManager.current();
@@ -44,6 +45,7 @@ class ProspectActivitySource extends GetxController {
       'prospectactivitytypeid': selectType.getSelectedAsString(),
       'prospectactivitydate': selectedDateExpect.value,
       'prospectactivitydesc': inputDesc.text,
+      'prospectactivityinfo': inputInfo.text,
       'prospectactivityloc': map.linkCoordinate.value,
       'prospectactivitylatitude': map.latitude.value,
       'prospectactivitylongitude': map.longitude.value,
@@ -140,6 +142,19 @@ class ProspectDetailForm {
         disabled: source.isProcessing,
         controller: source.inputDesc,
         hintText: BaseText.hintText(field: ProspectActivityText.labelDesc),
+        maxLines: 5,
+        minLines: 3,
+      ),
+    );
+  }
+
+  Widget inputInfo() {
+    return FormGroup(
+      label: Text(ProspectActivityText.labelInfo),
+      child: CustomInput(
+        disabled: source.isProcessing,
+        controller: source.inputInfo,
+        hintText: BaseText.hintText(field: ProspectActivityText.labelInfo),
         maxLines: 5,
         minLines: 3,
       ),

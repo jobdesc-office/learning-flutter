@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 
 import 'package:boilerplate/models/ventes/customfield_model.dart';
+import 'package:boilerplate/views/masters/menus/feature/_form_source.dart';
 import 'package:boilerplate/views/skins/template.dart';
-import 'package:boilerplate/views/ventes/prospect/prospectdetail_component/title_section.dart';
 import 'package:boilerplate/widgets/button/button_edit_datatable.dart';
 import 'package:boilerplate/widgets/datatables/custom_datatable.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
@@ -41,10 +41,10 @@ import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_info_setting.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
+import '../../../widgets/confirm_dialog.dart';
 import '../../../widgets/map/_map_source.dart';
 import '../../../widgets/snackbar.dart';
 import '_detail_source.dart';
-import 'prospectcontact/_datatable_source.dart';
 import 'prospectdetail_component/_stagePipeline.dart';
 import 'customfield/_form_source.dart';
 import 'prospectcustomfield/_form_source.dart';
@@ -60,6 +60,9 @@ part 'prospectdetail_component/tabs/tabReport.dart';
 part 'prospectdetail_component/tabs/tabProduct.dart';
 part 'prospectdetail_component/tabs/tabContact.dart';
 part 'prospectdetail_component/tabs/tabFile.dart';
+part 'prospectdetail_component/title_section.dart';
+
+final cfForm = ProspectCustomFieldSource().obs;
 
 class ProspectDetails extends StatefulWidget {
   const ProspectDetails({Key? key}) : super(key: key);
@@ -89,7 +92,6 @@ class _ProspectDetailsState extends State<ProspectDetails>
   final source = Get.put(ProspectDetailsSource());
   final controller = Get.put(ButtonController());
   final map = Get.put(MapSource());
-  final cfForm = ProspectCustomFieldSource().obs;
   final cfieldForm = CustomFieldSource().obs;
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final GlobalKey<FormState> formStateCF = GlobalKey<FormState>();
@@ -102,7 +104,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 7, vsync: this);
+    _tabController = TabController(length: 6, vsync: this);
     // _tabControllerTimeline = TabController(length: 8, vsync: this);
     presenter.prospectTypeViewDetailContract = this;
     presenter.prospectDetailsViewContract = this;
@@ -115,7 +117,6 @@ class _ProspectDetailsState extends State<ProspectDetails>
     customFieldPresenter.customFieldViewContract = this;
     prospectCustomFieldPresenter.prospectViewContract = this;
     prospectCustomFieldPresenter.setcustomFieldContract = this;
-
     customFieldPresenter.allBp(context);
   }
 
@@ -170,10 +171,6 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                               text: 'Assign',
                                               icon: Icon(Icons.group)),
                                           Tab(
-                                              text: 'Report',
-                                              icon: Icon(
-                                                  Icons.description_outlined)),
-                                          Tab(
                                               text: 'Product',
                                               icon: Icon(Icons.sell)),
                                           Tab(
@@ -187,14 +184,13 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                     ),
                                     Container(
                                       width: double.infinity,
-                                      height: 330,
+                                      height: 325,
                                       child: TabBarView(
                                         controller: _tabController,
                                         children: [
                                           _TabActivity(),
                                           _TabNote(),
                                           _TabAssign(),
-                                          _TabReport(),
                                           _TabProduct(),
                                           _TabContact(),
                                           _TabFile(),
@@ -244,7 +240,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
   }
 
   @override
-  void onSuccessFetchData(Response response) {
+  void onSuccessFetchData(Response response) async {
     List products = [];
     List assign = [];
     List report = [];
@@ -265,6 +261,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     source.userfullname.value = dt.prospectownerusers!.userfullname ?? '';
     source.bpname.value = dt.prospectbp!.bpname ?? '';
     source.prospectstartdate.value = dt.prospectstartdate ?? '';
+
     source.prospectStageController.value.selected = dt.prospectstage;
     source.custname.value = dt.prospectcust!.sbccstmname ?? '';
     source.custlabel.value = dt.prospectcustlabeltype?.typename ?? '';
@@ -320,6 +317,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
         return TypeModel.fromJson(data);
       }),
     ).toList();
+    // presenter.details(context, source.prospectid.value);
   }
 
   @override
@@ -362,10 +360,11 @@ class _ProspectDetailsState extends State<ProspectDetails>
     Navigator.pop(context!);
     Navigator.pop(context);
     presenter.details(context, source.prospectid.value);
-    Snackbar().editSuccess();
     detailPresenter
         .details(context, {'id': source.prospectid.value.toString()});
     customFieldPresenter.allBp(context);
+
+    Snackbar().editSuccess();
     prospectCustomFieldPresenter.setProcessing(false);
     detailPresenter.setProcessing(false);
     assignPresenter.setProcessing(false);
@@ -397,11 +396,13 @@ class _ProspectDetailsState extends State<ProspectDetails>
     source.isAdd.value = true;
     ProspectCustomFieldModel prospect =
         ProspectCustomFieldModel.fromJson(response.body);
-    cfForm.value.format.value = prospect.customfield!.custftype!.typename!;
-    cfForm.value.inputValue.text = prospect.prospectcfvalue!;
-    cfForm.value.selectCustomfield.setSelected(BsSelectBoxOption(
-        value: prospect.prospectcustfid,
-        text: Text(prospect.customfield!.custfname!)));
+    cfForm.update((val) {
+      val?.format.value = prospect.customfield!.custftype!.typename!;
+      val?.inputValue.text = prospect.prospectcfvalue!;
+      val?.selectCustomfield.setSelected(BsSelectBoxOption(
+          value: prospect.prospectcustfid,
+          text: Text(prospect.customfield!.custfname!)));
+    });
     source.isUpdate.value = true;
   }
 
