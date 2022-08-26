@@ -242,8 +242,8 @@ class _ProspectDetailsState extends State<ProspectDetails>
   @override
   void onSuccessFetchData(Response response) async {
     List products = [];
-    List assign = [];
-    List report = [];
+    List<Prospectassigns> assign = [];
+    List<Prospectassigns> report = [];
     List<Cstmcontact> contact = [];
     List<ProspectCustomFieldModel> customField = [];
     List<Prospectfiles> files = [];

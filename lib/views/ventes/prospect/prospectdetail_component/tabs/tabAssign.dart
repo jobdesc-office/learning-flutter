@@ -31,105 +31,20 @@ class _TabAssign extends StatelessWidget {
                 ),
               ],
             ),
-            Obx(() => Container(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: source.assign.length,
-                    itemBuilder: (context, index) {
-                      var assigns = source.assign[index];
-                      return Tooltip(
-                        message: BaseText.editDelete,
-                        child: InkWell(
-                          onLongPress: (() {
-                            Get.defaultDialog(
-                                middleText: '',
-                                title: 'Setting',
-                                actions: [
-                                  ButtonEditDatatables(onPressed: () {
-                                    assignPresenter.edit(
-                                        context,
-                                        assigns.prospectassignid,
-                                        source.prospectid.value);
-                                  }),
-                                  ButtonDeleteDatatables(onPressed: () {
-                                    assignPresenter.delete(
-                                        context,
-                                        assigns.prospectassignid,
-                                        'Assignment for ${assigns.prospectassignss.userfullname}');
-                                  }),
-                                ]);
-                          }),
-                          onTap: () {
-                            assignPresenter.detail(
-                                context, assigns.prospectassignid);
-                          },
-                          child: BsRow(
-                            margin: source.assign[index] == 0
-                                ? EdgeInsets.zero
-                                : EdgeInsets.only(top: 20),
-                            children: [
-                              BsCol(
-                                sizes: ColScreen(sm: Col.col_1),
-                                child: Text('${index + 1} )'),
-                              ),
-                              BsCol(
-                                sizes: ColScreen(sm: Col.col_11),
-                                child: BsRow(
-                                  children: [
-                                    BsCol(
-                                      sizes: ColScreen(sm: Col.col_2),
-                                      child: Text("Name"),
-                                    ),
-                                    BsCol(
-                                      sizes: ColScreen(sm: Col.col_1),
-                                      child: Text(':'),
-                                    ),
-                                    BsCol(
-                                      sizes: ColScreen(sm: Col.col_9),
-                                      child: Text(assigns
-                                          .prospectassignss.userfullname),
-                                    ),
-                                    BsCol(
-                                      margin: EdgeInsets.only(top: 5),
-                                      sizes: ColScreen(sm: Col.col_2),
-                                      child: Text("Email"),
-                                    ),
-                                    BsCol(
-                                      margin: EdgeInsets.only(top: 5),
-                                      sizes: ColScreen(sm: Col.col_1),
-                                      child: Text(':'),
-                                    ),
-                                    BsCol(
-                                      margin: EdgeInsets.only(top: 5),
-                                      sizes: ColScreen(sm: Col.col_9),
-                                      child: Text(
-                                          assigns.prospectassignss.useremail),
-                                    ),
-                                    BsCol(
-                                      margin: EdgeInsets.only(top: 5),
-                                      sizes: ColScreen(sm: Col.col_2),
-                                      child: Text("Phone"),
-                                    ),
-                                    BsCol(
-                                      margin: EdgeInsets.only(top: 5),
-                                      sizes: ColScreen(sm: Col.col_1),
-                                      child: Text(':'),
-                                    ),
-                                    BsCol(
-                                      margin: EdgeInsets.only(top: 5),
-                                      sizes: ColScreen(sm: Col.col_9),
-                                      child: Text(
-                                          assigns.prospectassignss.userphone),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  ),
+            Obx(() => Column(
+                  children: source.assign.map((element) {
+                    return Container(
+                      margin: EdgeInsets.only(top: 5),
+                      child: ExpansionTile(
+                        expandedAlignment: Alignment.centerLeft,
+                        title:
+                            Text(element.prospectreportss?.userfullname ?? ''),
+                        children: [
+                          Text(element.prospectassignss?.userfullname ?? '')
+                        ],
+                      ),
+                    );
+                  }).toList(),
                 ))
           ],
         ),
