@@ -75,10 +75,18 @@ class _TabContact extends StatelessWidget {
                                   )
                                 ],
                               ),
-                              ExpansionTile(
-                                title:
-                                    Text(element.contacttype?.typename ?? ''),
-                                children: [Text(element.contactvalueid ?? '')],
+                              BsRow(
+                                margin: EdgeInsets.only(top: 5),
+                                children: [
+                                  BsCol(
+                                    sizes: ColScreen(sm: Col.col_4),
+                                    child: Text(
+                                        '${element.contacttype?.typename ?? ''} :'),
+                                  ),
+                                  BsCol(
+                                      sizes: ColScreen(sm: Col.col_8),
+                                      child: Text(element.contactvalueid ?? ''))
+                                ],
                               ),
                             ],
                           ),

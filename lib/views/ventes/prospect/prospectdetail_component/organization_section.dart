@@ -16,7 +16,7 @@ class OrganizationSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() => Container(
-          height: 100,
+          height: 130,
           decoration: BoxDecoration(
             color: _navigation.darkTheme.value
                 ? ColorPallates.elseDarkColor
@@ -25,40 +25,35 @@ class OrganizationSection extends StatelessWidget {
           ),
           child: Container(
               padding: EdgeInsets.all(10),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('Rp ' +
-                          currencyFormatter
-                              .format(double.parse(source.prospectvalue.value))
-                              .replaceAll(',00', '')
-                              .replaceAll('.', ',')),
-                      Row(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Company and Owner Info'),
+                    Container(
+                      margin: EdgeInsets.only(top: 20),
+                      child: Row(
                         children: [
                           Icon(Icons.person),
-                          Text(source.userfullname.value)
+                          Container(
+                              margin: EdgeInsets.only(top: 5),
+                              child: Text(source.userfullname.value))
                         ],
                       ),
-                    ],
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 25),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(Icons.domain),
-                            Text(source.bpname.value)
-                          ],
-                        ),
-                        Text(source.custname.value),
-                      ],
                     ),
-                  ),
-                ],
+                    Container(
+                      margin: EdgeInsets.only(top: 10),
+                      child: Row(
+                        children: [
+                          Icon(Icons.domain),
+                          Container(
+                              margin: EdgeInsets.only(top: 5),
+                              child: Text(source.bpname.value))
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               )),
         ));
   }

@@ -73,7 +73,7 @@ class _TabActivity extends StatelessWidget {
                                               children: [
                                                 OutlinedDotIndicator(),
                                                 SizedBox(
-                                                  height: 60.0,
+                                                  height: 70.0,
                                                   child: SolidLineConnector(),
                                                 )
                                               ],
@@ -90,13 +90,25 @@ class _TabActivity extends StatelessWidget {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                Text(
-                                                  element.prospectactivitycat
-                                                          ?.typename ??
-                                                      '',
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Text(
+                                                        element.prospectactivitycat
+                                                                ?.typename ??
+                                                            '',
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                        'Created at : ${element.createddate ?? ''}')
+                                                  ],
                                                 ),
                                                 Container(
                                                   margin:

@@ -183,7 +183,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                     ),
                                     Container(
                                       width: double.infinity,
-                                      height: 325,
+                                      height: 500,
                                       child: TabBarView(
                                         controller: _tabController,
                                         children: [
@@ -353,6 +353,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
 
   @override
   void onEditSuccess(Response response, {BuildContext? context}) {
+    cfForm.value.reset();
     map.reset();
     Navigator.pop(context!);
     Navigator.pop(context);

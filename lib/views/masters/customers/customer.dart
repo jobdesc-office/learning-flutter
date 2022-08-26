@@ -41,39 +41,39 @@ class CustomerView extends GetView implements IndexViewContract {
         child: Container(
           child: Column(
             children: [
-              if (permis
-                  .where((element) => element.menu?.menunm == 'Customers')
-                  .where((element) => element.feature?.feattitle == 'Read')
-                  .first
-                  .hasaccess!)
-                CustomDatabales(
-                  source: datatable,
-                  columns: datatable.columns,
-                  headerActions: [
-                    if (permis
-                        .where((element) => element.menu?.menunm == 'Customers')
-                        .where(
-                            (element) => element.feature?.feattitle == 'Create')
-                        .first
-                        .hasaccess!)
-                      ThemeButtonCreate(
-                        prefix: CustomerText.title,
-                        onPressed: () => presenter.add(context),
-                      )
-                  ],
-                  serverSide: (params) => presenter.datatables(context, params),
-                  // searchHintText: 'Search by customer name, customer phone ...',
-                )
-              else
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Center(
-                      child: Text(
-                          'You Don\'t Have Permission to Read ${CustomerText.title}'),
-                    )
-                  ],
-                )
+              // if (permis
+              //     .where((element) => element.menu?.menunm == 'Customers')
+              //     .where((element) => element.feature?.feattitle == 'Read')
+              //     .first
+              //     .hasaccess!)
+              CustomDatabales(
+                source: datatable,
+                columns: datatable.columns,
+                headerActions: [
+                  // if (permis
+                  //     .where((element) => element.menu?.menunm == 'Customers')
+                  //     .where(
+                  //         (element) => element.feature?.feattitle == 'Create')
+                  //     .first
+                  //     .hasaccess!)
+                  ThemeButtonCreate(
+                    prefix: CustomerText.title,
+                    onPressed: () => presenter.add(context),
+                  )
+                ],
+                serverSide: (params) => presenter.datatables(context, params),
+                // searchHintText: 'Search by customer name, customer phone ...',
+              )
+              // else
+              // Column(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     Center(
+              //       child: Text(
+              //           'You Don\'t Have Permission to Read ${CustomerText.title}'),
+              //     )
+              //   ],
+              // )
             ],
           ),
         ),

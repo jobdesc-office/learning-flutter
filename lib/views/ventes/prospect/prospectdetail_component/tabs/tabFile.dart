@@ -12,7 +12,7 @@ class _TabFileState extends State<_TabFile> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 1, vsync: this);
     super.initState();
   }
 
@@ -34,9 +34,9 @@ class _TabFileState extends State<_TabFile> with TickerProviderStateMixin {
                       Tab(
                         text: 'Documents',
                       ),
-                      Tab(
-                        text: 'Templates',
-                      )
+                      // Tab(
+                      //   text: 'Templates',
+                      // )
                     ]),
               ),
               BsCol(
@@ -235,7 +235,7 @@ class _TabFileState extends State<_TabFile> with TickerProviderStateMixin {
                               ],
                             ),
                           )),
-                      Container()
+                      // Container()
                     ],
                   ),
                 ),

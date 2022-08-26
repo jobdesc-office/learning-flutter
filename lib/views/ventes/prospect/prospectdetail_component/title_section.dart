@@ -20,174 +20,272 @@ BsCol prospectDetailTitleSection(context) {
               Obx(() => Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Obx(() {
-                        Widget card = Text('${source.status.value}');
-                        switch (source.status.value) {
-                          case 'Closed Lost':
-                            card = Container(
-                              child: Text(
-                                '${source.status.value}',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
-                              decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.circular(5)),
-                            );
-                            break;
-                          case 'Closed Won':
-                            card = Container(
-                              child: Text(
-                                '${source.status.value}',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
-                              decoration: BoxDecoration(
-                                  color: Colors.green,
-                                  borderRadius: BorderRadius.circular(5)),
-                            );
-                            break;
-                          default:
-                            Text('${source.status.value}',
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold));
-                        }
-                        Widget cards = Text('${source.status.value}');
-                        switch (source.custlabel.value) {
-                          case 'Cold':
-                            cards = Container(
-                              child: Text(
-                                '${source.custlabel.value}',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
-                              decoration: BoxDecoration(
-                                  color: Colors.blue,
-                                  borderRadius: BorderRadius.circular(5)),
-                            );
-                            break;
-                          case 'Warm':
-                            cards = Container(
-                              child: Text(
-                                '${source.custlabel.value}',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
-                              decoration: BoxDecoration(
-                                  color: Colors.orange,
-                                  borderRadius: BorderRadius.circular(5)),
-                            );
-                            break;
-                          case 'Hot':
-                            cards = Container(
-                              child: Text(
-                                '${source.custlabel.value}',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
-                              decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.circular(5)),
-                            );
-                            break;
-                          default:
-                            Text('${source.custlabel.value}',
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold));
-                        }
-                        return Row(
-                          children: [
-                            Text(
-                              '${source.prospectname.value}',
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
-                            ),
-                            Row(
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Obx(() {
+                            Widget cards = Text('${source.status.value}');
+                            switch (source.custlabel.value) {
+                              case 'Cold':
+                                cards = Container(
+                                  child: Text(
+                                    '${source.custlabel.value}',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
+                                  decoration: BoxDecoration(
+                                      color: Colors.blue,
+                                      borderRadius: BorderRadius.circular(5)),
+                                );
+                                break;
+                              case 'Warm':
+                                cards = Container(
+                                  child: Text(
+                                    '${source.custlabel.value}',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
+                                  decoration: BoxDecoration(
+                                      color: Colors.orange,
+                                      borderRadius: BorderRadius.circular(5)),
+                                );
+                                break;
+                              case 'Hot':
+                                cards = Container(
+                                  child: Text(
+                                    '${source.custlabel.value}',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
+                                  decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(5)),
+                                );
+                                break;
+                              default:
+                                Text('${source.custlabel.value}',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold));
+                            }
+                            return Row(
                               children: [
-                                Text(' | '),
-                                card,
+                                Text(
+                                  '${source.custname.value}',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    // fontWeight: FontWeight.bold
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    Text(' | '),
+                                    cards,
+                                  ],
+                                )
                               ],
-                            ),
-                            Row(
+                            );
+                          }),
+                          Obx(() {
+                            Widget card = Text('${source.status.value}');
+                            switch (source.status.value) {
+                              case 'Closed Lost':
+                                card = Container(
+                                  child: Text(
+                                    '${source.status.value}',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
+                                  decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(5)),
+                                );
+                                break;
+                              case 'Closed Won':
+                                card = Container(
+                                  child: Text(
+                                    '${source.status.value}',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
+                                  decoration: BoxDecoration(
+                                      color: Colors.green,
+                                      borderRadius: BorderRadius.circular(5)),
+                                );
+                                break;
+                              default:
+                                Text('${source.status.value}',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold));
+                            }
+
+                            return Row(
                               children: [
-                                Text(' | '),
-                                cards,
+                                Text(
+                                  '${source.prospectname.value}',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Row(
+                                  children: [
+                                    Text(' | '),
+                                    card,
+                                  ],
+                                ),
                               ],
-                            )
-                          ],
-                        );
-                      }),
+                            );
+                          }),
+                        ],
+                      ),
                       if (source.status.value == 'Closed Lost')
                         Row(
                           children: [
-                            Column(
-                              children: [
-                                Text(
-                                  'This Prospect Lost !',
+                            Container(
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                    color: Color.fromARGB(255, 207, 202, 202),
+                                  )),
+                              child: Text(
+                                  'Rp ' +
+                                      currencyFormatter
+                                          .format(double.parse(
+                                              source.prospectvalue.value))
+                                          .replaceAll(',00', '')
+                                          .replaceAll('.', ','),
                                   style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(source.losttype.value,
-                                    style: TextStyle(fontSize: 14)),
-                                Text(source.lostdesc.value,
-                                    style: TextStyle(fontSize: 12))
-                              ],
+                                    fontSize: 21,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(left: 10),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    'This Prospect Lost !',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(source.losttype.value,
+                                      style: TextStyle(fontSize: 14)),
+                                  Text(source.lostdesc.value,
+                                      style: TextStyle(fontSize: 12))
+                                ],
+                              ),
                             )
                           ],
                         )
                       else if (source.status.value == 'Closed Won')
                         Row(
-                          children: [Text('This Prospect Won !')],
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                    color: Color.fromARGB(255, 207, 202, 202),
+                                  )),
+                              child: Text(
+                                  'Rp ' +
+                                      currencyFormatter
+                                          .format(double.parse(
+                                              source.prospectvalue.value))
+                                          .replaceAll(',00', '')
+                                          .replaceAll('.', ','),
+                                  style: TextStyle(
+                                    fontSize: 21,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                            ),
+                            Container(
+                                margin: EdgeInsets.only(left: 10),
+                                child: Text('This Prospect Won !'))
+                          ],
                         )
                       else
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            BsButton(
-                              style: BsButtonStyle.success,
-                              onPressed: () async {
-                                int data = await presenter.wonStatus();
-                                TypeModel stage =
-                                    await presenter.completePipeline();
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => ConfirmDialog(
-                                    title: BaseText.confirmTitle,
-                                    message:
-                                        'are you sure winning this prospect ?',
-                                    onPressed: (_, value) async {
-                                      if (value ==
-                                          ConfirmDialogOption.YES_OPTION) {
-                                        presenter.update(
-                                            context,
-                                            {
-                                              'prospectenddate':
-                                                  '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}',
-                                              'prospectstatusid': data,
-                                              'prospectstageid': stage.typeid,
-                                            },
-                                            source.prospectid.value);
-                                        source.status.value = 'Closed Won';
-                                        source.prospectStageController.value
-                                            .selected = stage;
-                                      } else {
-                                        Navigator.pop(context);
-                                      }
-                                    },
-                                  ),
-                                );
-                              },
-                              label: Text('Won'),
+                            Container(
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                    color: Color.fromARGB(255, 207, 202, 202),
+                                  )),
+                              child: Text(
+                                  'Rp ' +
+                                      currencyFormatter
+                                          .format(double.parse(
+                                              source.prospectvalue.value))
+                                          .replaceAll(',00', '')
+                                          .replaceAll('.', ','),
+                                  style: TextStyle(
+                                    fontSize: 21,
+                                    fontWeight: FontWeight.bold,
+                                  )),
                             ),
-                            BsButton(
+                            Container(
                               margin: EdgeInsets.only(left: 10),
-                              style: BsButtonStyle.danger,
-                              onPressed: () {
-                                presenter.lose(
-                                    context, source.prospectid.value);
-                              },
-                              label: Text('Lost'),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  BsButton(
+                                    style: BsButtonStyle.success,
+                                    onPressed: () async {
+                                      int data = await presenter.wonStatus();
+                                      TypeModel stage =
+                                          await presenter.completePipeline();
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) => ConfirmDialog(
+                                          title: BaseText.confirmTitle,
+                                          message:
+                                              'are you sure winning this prospect ?',
+                                          onPressed: (_, value) async {
+                                            if (value ==
+                                                ConfirmDialogOption
+                                                    .YES_OPTION) {
+                                              presenter.update(
+                                                  context,
+                                                  {
+                                                    'prospectenddate':
+                                                        '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}',
+                                                    'prospectstatusid': data,
+                                                    'prospectstageid':
+                                                        stage.typeid,
+                                                  },
+                                                  source.prospectid.value);
+                                              source.status.value =
+                                                  'Closed Won';
+                                              source.prospectStageController
+                                                  .value.selected = stage;
+                                            } else {
+                                              Navigator.pop(context);
+                                            }
+                                          },
+                                        ),
+                                      );
+                                    },
+                                    label: Text('Won'),
+                                  ),
+                                  BsButton(
+                                    margin: EdgeInsets.only(left: 10),
+                                    style: BsButtonStyle.danger,
+                                    onPressed: () {
+                                      presenter.lose(
+                                          context, source.prospectid.value);
+                                    },
+                                    label: Text('Lost'),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         )

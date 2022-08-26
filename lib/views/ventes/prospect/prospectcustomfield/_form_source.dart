@@ -20,6 +20,12 @@ final _navigation = Get.find<NavigationPresenter>();
 final source = Get.put(ProspectDetailsSource());
 
 class ProspectCustomFieldSource extends GetxController {
+  reset() {
+    format.value = '';
+    inputValue.text = '';
+    selectCustomfield.clear();
+  }
+
   bool isProcessing = false;
 
   var format = ''.obs;

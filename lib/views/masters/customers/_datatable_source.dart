@@ -98,29 +98,29 @@ class CustomerDataTableSource extends BsDatatableSource {
                   onPressed: () => onDetailsListener(row.cstmid!),
                 ),
               ),
-              if (permis
-                  .where((element) => element.menu?.menunm == 'Customers')
-                  .where((element) => element.feature?.feattitle == 'Update')
-                  .first
-                  .hasaccess!)
-                Tooltip(
-                  message: BaseText.editHintDatatable(field: row.cstmname),
-                  child: ButtonEditDatatables(
-                    margin: EdgeInsets.only(right: 5),
-                    onPressed: () => onEditListener(row.cstmid!),
-                  ),
+              // if (permis
+              //     .where((element) => element.menu?.menunm == 'Customers')
+              //     .where((element) => element.feature?.feattitle == 'Update')
+              //     .first
+              //     .hasaccess!)
+              Tooltip(
+                message: BaseText.editHintDatatable(field: row.cstmname),
+                child: ButtonEditDatatables(
+                  margin: EdgeInsets.only(right: 5),
+                  onPressed: () => onEditListener(row.cstmid!),
                 ),
-              if (permis
-                  .where((element) => element.menu?.menunm == 'Customers')
-                  .where((element) => element.feature?.feattitle == 'Delete')
-                  .first
-                  .hasaccess!)
-                Tooltip(
-                  message: BaseText.deleteHintDatatable(field: row.cstmname),
-                  child: ButtonDeleteDatatables(
-                      onPressed: () =>
-                          onDeleteListener(row.cstmid, row.cstmname)),
-                ),
+              ),
+              // if (permis
+              //     .where((element) => element.menu?.menunm == 'Customers')
+              //     .where((element) => element.feature?.feattitle == 'Delete')
+              //     .first
+              //     .hasaccess!)
+              Tooltip(
+                message: BaseText.deleteHintDatatable(field: row.cstmname),
+                child: ButtonDeleteDatatables(
+                    onPressed: () =>
+                        onDeleteListener(row.cstmid, row.cstmname)),
+              ),
             ],
           ),
           color: _navigation.darkTheme.value
