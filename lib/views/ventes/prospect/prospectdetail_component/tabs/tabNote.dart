@@ -5,7 +5,13 @@ class _TabNote extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _navigation = Get.find<NavigationPresenter>();
     final presenter = Get.find<ProspectPresenter>();
+    final GlobalKey<FormState> formState = GlobalKey<FormState>();
+    TextEditingController inputNotesPopup = TextEditingController();
+    ZefyrController inputDescription =
+        ZefyrController(NotusDocument.fromJson(jsonDecode(source.desc.value)));
+    if (source.desc.value != '') source.isdesc.value = true;
     return Column(
       mainAxisAlignment: source.desc.value != ''
           ? MainAxisAlignment.start
@@ -32,17 +38,8 @@ class _TabNote extends StatelessWidget {
                               style: TextStyle(fontSize: 18),
                             ),
                           ),
-                          BsButton(
-                              size: BsButtonSize.btnIconMd,
-                              prefixIcon: Icons.edit,
-                              onPressed: () => presenter.notes(context,
-                                  source.prospectid.value, source.desc.value))
                         ],
                       ),
-                      Obx(() => Container(
-                          alignment: Alignment.topLeft,
-                          margin: EdgeInsets.only(top: 20),
-                          child: Text(source.desc.value)))
                     ],
                   ),
                 )
@@ -53,17 +50,66 @@ class _TabNote extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Center(
-                        child: Text('Notes is Empty'),
+                        child: Column(
+                          children: [
+                            Text('Notes is Empty'),
+                            BsButton(
+                                size: BsButtonSize.btnIconMd,
+                                prefixIcon: Icons.edit,
+                                onPressed: () => source.isdesc.value = true)
+                          ],
+                        ),
                       ),
-                      BsButton(
-                          size: BsButtonSize.btnIconMd,
-                          prefixIcon: Icons.edit,
-                          margin: EdgeInsets.only(top: 5),
-                          onPressed: () => presenter.notes(context,
-                              source.prospectid.value, source.desc.value))
                     ],
                   ),
                 ),
+              if (source.isdesc.value)
+                Obx(() => Container(
+                    alignment: Alignment.topLeft,
+                    margin: EdgeInsets.only(top: 20),
+                    child: Form(
+                      key: formState,
+                      child: BsRow(
+                        children: [
+                          BsCol(
+                              child: FormGroup(
+                                  label: Obx(() => Text('Notes',
+                                      style: TextStyle(
+                                          color: _navigation.darkTheme.value
+                                              ? Colors.white
+                                              : Colors.black))),
+                                  child: ZefyrEditorComponent(
+                                    controller: inputDescription,
+                                    // validators: [
+                                    //   Validators.editorRequired('Description'),
+                                    // ],
+                                  ))),
+                          BsCol(
+                              margin: EdgeInsets.only(top: 5),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  ThemeButtonSave(onPressed: () async {
+                                    if (formState.currentState!.validate()) {
+                                      SessionModel session =
+                                          await SessionManager.current();
+                                      presenter.changeNote(
+                                          context,
+                                          {
+                                            'prospectdescription': jsonEncode(
+                                                inputDescription.document),
+                                            'createdby': session.userid,
+                                            'updatedby': session.userid
+                                          },
+                                          source.prospectid.value);
+                                      source.desc.value = inputNotesPopup.text;
+                                    }
+                                  })
+                                ],
+                              )),
+                        ],
+                      ),
+                    )))
             ],
           ),
         )

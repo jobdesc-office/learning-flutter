@@ -12,7 +12,6 @@ import '../../services/masters/type_service.dart';
 import '../../services/ventes/prospect_service.dart';
 import '../../utils/custom_get_controller.dart';
 import '../../views/masters/menus/_menu_type.dart';
-import '../../views/ventes/prospect/notespopup.dart';
 import '../../views/ventes/prospect/prospectdetail_component/_stagePipeline.dart';
 import '../../views/ventes/prospect/prospect_detail.dart';
 import '../../views/ventes/prospect/prospect_form.dart';
@@ -53,6 +52,11 @@ class ProspectPresenter extends CustomGetXController {
   late IndexViewContract _addCustomerViewContract;
   set addCustomerViewContract(IndexViewContract addCustomerViewContract) {
     _addCustomerViewContract = addCustomerViewContract;
+  }
+
+  late IndexViewContract _prospectdtViewContract;
+  set prospectdtViewContract(IndexViewContract prospectdtViewContract) {
+    _prospectdtViewContract = prospectdtViewContract;
   }
 
   Future datatables(BuildContext context, Map<String, String> params) async {
@@ -188,16 +192,6 @@ class ProspectPresenter extends CustomGetXController {
       _prospectViewContract.onErrorRequest(response);
   }
 
-  void notes(BuildContext context, int id, String remark) async {
-    showDialog(
-      context: context,
-      builder: (context) => NotesPopup(
-        onSave: (body) => update(context, body, id),
-        note: remark,
-      ),
-    );
-  }
-
   void lose(BuildContext context, int prospectid) async {
     setProcessing(true);
     showDialog(
@@ -223,6 +217,18 @@ class ProspectPresenter extends CustomGetXController {
       _prospectFetchDataContract.onSuccessFetchData(response);
     else
       _prospectViewContract.onErrorRequest(response);
+  }
+
+  void changeNote(
+      BuildContext context, Map<String, dynamic> body, int prospectid) async {
+    setProcessing(true);
+    Response response = await _prospectService.update(prospectid, body);
+    if (response.statusCode == 200) {
+      _prospectdtViewContract.onEditSuccess(response, context: context);
+      source.showPipeline.value = true;
+      source.changenote.value = true;
+    } else
+      _prospectdtViewContract.onErrorRequest(response);
   }
 
   void update(

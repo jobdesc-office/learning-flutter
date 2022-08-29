@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:bs_flutter_inputtext/bs_flutter_inputtext.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
+
+import '../widgets/input/custom_input_descriptions.dart';
 
 class Validators {
   static BsInputValidator inputRequired(String field) {
@@ -51,5 +55,22 @@ class Validators {
 
       return null;
     });
+  }
+
+  static ZefyrEditorValidator editorRequired(String field) {
+    return ZefyrEditorValidator(
+      validator: (value) {
+        if (value == null) return "$field is required";
+
+        if (value != null) {
+          List documents = jsonDecode(value);
+          if (value != null &&
+              documents.first['insert'].toString().trim() == '')
+            return "$field is required";
+        }
+
+        return null;
+      },
+    );
   }
 }

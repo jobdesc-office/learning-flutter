@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:boilerplate/models/ventes/customfield_model.dart';
@@ -14,6 +15,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:timelines/timelines.dart';
+import 'package:zefyrka/zefyrka.dart';
 
 import '../../../constants/base_text.dart';
 import '../../../contracts/base/details_view_contract.dart';
@@ -21,6 +23,7 @@ import '../../../contracts/base/index_view_contract.dart';
 import '../../../contracts/ventes/customfield_contract.dart';
 import '../../../contracts/ventes/prospectcustomfield_contract.dart';
 import '../../../models/masters/type_model.dart';
+import '../../../models/session_model.dart';
 import '../../../models/ventes/prospect_model.dart';
 import '../../../models/ventes/prospectactivity_model.dart';
 import '../../../models/ventes/prospectcustomfield_model.dart';
@@ -35,6 +38,8 @@ import '../../../presenters/ventes/prospectfile_presenter.dart';
 import '../../../presenters/ventes/prospectproduct_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../styles/color_palattes.dart';
+import '../../../utils/session_manager.dart';
+import '../../../utils/validators.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/button_controller.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
@@ -42,6 +47,8 @@ import '../../../widgets/button/button_info_setting.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
 import '../../../widgets/confirm_dialog.dart';
+import '../../../widgets/form_group.dart';
+import '../../../widgets/input/custom_input_descriptions.dart';
 import '../../../widgets/map/_map_source.dart';
 import '../../../widgets/snackbar.dart';
 import '_detail_source.dart';
@@ -107,6 +114,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     // _tabControllerTimeline = TabController(length: 8, vsync: this);
     presenter.prospectTypeViewDetailContract = this;
     presenter.prospectDetailsViewContract = this;
+    presenter.prospectdtViewContract = this;
     detailPresenter.prospectViewContract = this;
     assignPresenter.prospectViewContract = this;
     productPresenter.prospectViewContract = this;
@@ -355,9 +363,12 @@ class _ProspectDetailsState extends State<ProspectDetails>
   void onEditSuccess(Response response, {BuildContext? context}) {
     cfForm.value.reset();
     map.reset();
-    Navigator.pop(context!);
-    Navigator.pop(context);
-    presenter.details(context, source.prospectid.value);
+    if (!source.changenote.value) {
+      Navigator.pop(context!);
+      Navigator.pop(context);
+      source.changenote.value = false;
+    }
+    presenter.details(context!, source.prospectid.value);
     detailPresenter
         .details(context, {'id': source.prospectid.value.toString()});
     customFieldPresenter.allBp(context);

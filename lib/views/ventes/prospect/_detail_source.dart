@@ -45,6 +45,7 @@ class ProspectDetailsSource extends GetxController {
   var private = false.obs;
 
   var showPipeline = false.obs;
+  var changenote = false.obs;
 
   var prospectStageController = MenuTypeOptionsController().obs;
 
@@ -59,6 +60,7 @@ class ProspectDetailsSource extends GetxController {
   var isAdd = false.obs;
   var isUpdate = false.obs;
   var cfid = 0.obs;
+  var isdesc = false.obs;
 
   var isAddCF = false.obs;
 
