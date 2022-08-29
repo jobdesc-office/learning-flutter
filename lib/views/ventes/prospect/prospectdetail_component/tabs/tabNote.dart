@@ -73,17 +73,17 @@ class _TabNote extends StatelessWidget {
                         children: [
                           BsCol(
                               child: FormGroup(
-                                  label: Obx(() => Text('Notes',
-                                      style: TextStyle(
-                                          color: _navigation.darkTheme.value
-                                              ? Colors.white
-                                              : Colors.black))),
+                                  // label: Obx(() => Text('Notes',
+                                  //     style: TextStyle(
+                                  //         color: _navigation.darkTheme.value
+                                  //             ? Colors.white
+                                  //             : Colors.black))),
                                   child: ZefyrEditorComponent(
-                                    controller: inputDescription,
-                                    // validators: [
-                                    //   Validators.editorRequired('Description'),
-                                    // ],
-                                  ))),
+                            controller: inputDescription,
+                            // validators: [
+                            //   Validators.editorRequired('Description'),
+                            // ],
+                          ))),
                           BsCol(
                               margin: EdgeInsets.only(top: 5),
                               child: Row(
