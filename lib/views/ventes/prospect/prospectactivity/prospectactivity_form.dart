@@ -138,6 +138,7 @@ class ProspectActivityFormView extends StatelessWidget
           value: prospect.prospectactivitycat!.typeid,
           text: Text(prospect.prospectactivitycat!.typename.toString())));
       source.value.inputDesc.text = prospect.prospectactivitydesc ?? '';
+      source.value.inputInfo.text = prospect.prospectactivityinfo ?? '';
       source.value.selectedDateExpect.value =
           prospect.prospectactivitydate ?? '';
       map.linkCoordinate.value = prospect.prospectactivityloc ?? '';

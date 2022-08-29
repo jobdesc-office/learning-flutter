@@ -250,7 +250,6 @@ class _ProspectDetailsState extends State<ProspectDetails>
   void onSuccessFetchData(Response response) async {
     List products = [];
     List<Prospectassigns> assign = [];
-    List<Prospectassigns> report = [];
     List<Cstmcontact> contact = [];
     List<ProspectCustomFieldModel> customField = [];
     List<Prospectfiles> files = [];
@@ -281,12 +280,12 @@ class _ProspectDetailsState extends State<ProspectDetails>
     if (dt.prospectassigns != null) {
       dt.prospectassigns?.forEach((element) {
         assign.add(element);
-        report.add(element);
         source.assign.value = assign;
       });
     } else {
       source.assign.value = [];
     }
+
     if (dt.prospectproduct != null) {
       dt.prospectproduct?.forEach((element) {
         products.add(element);

@@ -62,6 +62,8 @@ class ProspectDetailsSource extends GetxController {
   var cfid = 0.obs;
   var isdesc = false.obs;
 
+  var report = ''.obs;
+
   var isAddCF = false.obs;
 
   var pickedFile = <Uint8List>[].obs;

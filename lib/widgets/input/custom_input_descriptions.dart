@@ -105,7 +105,7 @@ class _ZefyrEditorComponentState extends State<ZefyrEditorComponent> {
                   ZefyrToolbar.basic(
                     controller: widget.controller,
                     hideCodeBlock: true,
-                    hideHeadingStyle: true,
+                    // hideHeadingStyle: true,
                     hideHorizontalRule: true,
                   ),
                   Expanded(

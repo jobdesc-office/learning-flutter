@@ -7,4 +7,15 @@ class ProspectActivityDetailsSource extends GetxController {
   var info = ''.obs;
   var type = ''.obs;
   var link = ''.obs;
+
+  @override
+  void onClose() {
+    category.value = '';
+    date.value = '';
+    desc.value = '';
+    info.value = '';
+    type.value = '';
+    link.value = '';
+    super.onClose();
+  }
 }

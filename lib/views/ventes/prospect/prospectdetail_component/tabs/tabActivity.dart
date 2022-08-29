@@ -107,7 +107,10 @@ class _TabActivity extends StatelessWidget {
                                                       ),
                                                     ),
                                                     Text(
-                                                        'Created at : ${element.createddate ?? ''}')
+                                                      'Created at : ${element.createddate ?? ''}',
+                                                      style: TextStyle(
+                                                          fontSize: 12),
+                                                    )
                                                   ],
                                                 ),
                                                 Container(

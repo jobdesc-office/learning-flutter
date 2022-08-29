@@ -16,10 +16,10 @@ class _TabAssign extends StatelessWidget {
                 Container(
                   alignment: Alignment.topLeft,
                   margin: EdgeInsets.only(top: 15, bottom: 10),
-                  child: Text(
-                    'This Prospect is Assigned to : ',
-                    style: TextStyle(fontSize: 18),
-                  ),
+                  // child: Text(
+                  //   'This Prospect is Assigned to : ',
+                  //   style: TextStyle(fontSize: 18),
+                  // ),
                 ),
                 BsButton(
                   style: BsButtonStyle.success,
@@ -33,22 +33,51 @@ class _TabAssign extends StatelessWidget {
             ),
             Obx(() => Column(
                   children: source.assign.map((element) {
-                    return Container(
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                        color: Color.fromARGB(255, 207, 202, 202),
-                      )),
-                      margin: EdgeInsets.only(top: 5),
-                      child: ExpansionTile(
-                        expandedAlignment: Alignment.centerLeft,
-                        title:
-                            Text(element.prospectreportss?.userfullname ?? ''),
-                        children: [
-                          Text(element.prospectassignss?.userfullname ?? '')
-                        ],
-                      ),
-                    );
+                    if (element.prospectreportss?.userfullname ==
+                        source.report.value) {
+                      return Container();
+                    } else {
+                      source.report.value =
+                          element.prospectreportss?.userfullname ?? '';
+                      return Container(
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                          color: Color.fromARGB(255, 207, 202, 202),
+                        )),
+                        margin: EdgeInsets.only(top: 5),
+                        child: ExpansionTile(
+                            expandedAlignment: Alignment.centerLeft,
+                            title: Row(
+                              children: [
+                                Text(element.prospectreportss?.userfullname ??
+                                    ''),
+                                Card(
+                                  color: Colors.green,
+                                  margin: EdgeInsets.only(left: 20),
+                                  child: Text('Report to'),
+                                )
+                              ],
+                            ),
+                            children: source.assign
+                                .where((p0) =>
+                                    p0.prospectreportto ==
+                                    element.prospectreportto)
+                                .toList()
+                                .map((e) => Row(
+                                      children: [
+                                        Text(e.prospectassignss?.userfullname ??
+                                            ''),
+                                        Card(
+                                          color: Colors.green,
+                                          margin: EdgeInsets.only(left: 20),
+                                          child: Text('Assign to'),
+                                        )
+                                      ],
+                                    ))
+                                .toList()),
+                      );
+                    }
                   }).toList(),
                 ))
           ],

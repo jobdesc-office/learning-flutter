@@ -21,11 +21,15 @@ class ProspectActivityDetails extends GetView implements DetailViewContract {
       Get.put(ProspectActivityDetailsSource());
 
   ProspectActivityDetails() {
+    Get.delete<ProspectActivityDetailsSource>();
     presenter.prospectDetailViewContract = this;
   }
 
   @override
   Widget build(BuildContext context) {
+    var regex = new RegExp(
+        "^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_\+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?");
+
     return BsModal(
         context: context,
         dialog: BsModalDialog(
@@ -154,7 +158,23 @@ class ProspectActivityDetails extends GetView implements DetailViewContract {
                                       child: Text(':')),
                                   BsCol(
                                       sizes: ColScreen(lg: Col.col_8),
-                                      child: Text(controller.info.value))
+                                      child: regex
+                                              .hasMatch(controller.info.value)
+                                          ? Tooltip(
+                                              message: 'Tap to Copy',
+                                              child: InkWell(
+                                                  onTap: () {
+                                                    Clipboard.setData(
+                                                      ClipboardData(
+                                                          text: controller
+                                                              .info.value),
+                                                    );
+                                                    Snackbar().copySuccess();
+                                                  },
+                                                  child: Text(
+                                                      controller.info.value)),
+                                            )
+                                          : Text(controller.info.value))
                                 ],
                               )),
                         ],

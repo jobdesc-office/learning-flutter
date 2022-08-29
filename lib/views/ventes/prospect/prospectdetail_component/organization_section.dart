@@ -29,7 +29,11 @@ class OrganizationSection extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Company and Owner Info'),
+                    Text(
+                      'Company and Owner Info',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
                     Container(
                       margin: EdgeInsets.only(top: 20),
                       child: Row(
