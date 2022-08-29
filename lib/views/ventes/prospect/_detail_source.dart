@@ -60,9 +60,9 @@ class ProspectDetailsSource extends GetxController {
   var isAdd = false.obs;
   var isUpdate = false.obs;
   var cfid = 0.obs;
-  var isdesc = false.obs;
 
   var report = ''.obs;
+  var contactname = ''.obs;
 
   var isAddCF = false.obs;
 
@@ -118,6 +118,9 @@ class ProspectDetailsSource extends GetxController {
 
     losttype.value = '';
     lostdesc.value = '';
+
+    report.value = '';
+    contactname.value = '';
 
     desc.value = '';
     type.value = '';

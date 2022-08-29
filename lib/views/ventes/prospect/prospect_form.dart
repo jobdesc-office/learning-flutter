@@ -163,9 +163,9 @@ class ProspectFormView extends StatelessWidget
                                         BsCol(
                                             sizes: ColScreen(sm: Col.col_7),
                                             child: prospectForm.inputValue()),
-                                        BsCol(
-                                            sizes: ColScreen(sm: Col.col_7),
-                                            child: prospectForm.inputDesc()),
+                                        // BsCol(
+                                        //     sizes: ColScreen(sm: Col.col_7),
+                                        //     child: prospectForm.inputDesc()),
                                       ],
                                     ),
                                   ],

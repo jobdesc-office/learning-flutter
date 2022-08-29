@@ -4,6 +4,7 @@ BsCol prospectDetailTitleSection(context) {
   final _navigation = Get.find<NavigationPresenter>();
   final presenter = Get.find<ProspectPresenter>();
   final source = Get.put(ProspectDetailsSource());
+
   return BsCol(
     margin: EdgeInsets.fromLTRB(0, 0, 5, 5),
     sizes: ColScreen(sm: Col.col_12),
@@ -71,11 +72,10 @@ BsCol prospectDetailTitleSection(context) {
                             return Row(
                               children: [
                                 Text(
-                                  '${source.custname.value}',
+                                  '${source.prospectname.value}',
                                   style: TextStyle(
-                                    fontSize: 18,
-                                    // fontWeight: FontWeight.bold
-                                  ),
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
                                 ),
                                 Row(
                                   children: [
@@ -87,54 +87,13 @@ BsCol prospectDetailTitleSection(context) {
                             );
                           }),
                           Obx(() {
-                            Widget card = Text('${source.status.value}');
-                            switch (source.status.value) {
-                              case 'Closed Lost':
-                                card = Container(
-                                  child: Text(
-                                    '${source.status.value}',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                  padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
-                                  decoration: BoxDecoration(
-                                      color: Colors.red,
-                                      borderRadius: BorderRadius.circular(5)),
-                                );
-                                break;
-                              case 'Closed Won':
-                                card = Container(
-                                  child: Text(
-                                    '${source.status.value}',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                  padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
-                                  decoration: BoxDecoration(
-                                      color: Colors.green,
-                                      borderRadius: BorderRadius.circular(5)),
-                                );
-                                break;
-                              default:
-                                Text('${source.status.value}',
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold));
-                            }
-
-                            return Row(
-                              children: [
-                                Text(
-                                  '${source.prospectname.value}',
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Row(
-                                  children: [
-                                    Text(' | '),
-                                    card,
-                                  ],
-                                ),
-                              ],
+                            return Container(
+                              margin: EdgeInsets.only(top: 5),
+                              child: Text(
+                                '${source.custname.value}',
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
+                              ),
                             );
                           }),
                         ],
@@ -202,9 +161,43 @@ BsCol prospectDetailTitleSection(context) {
                                     fontWeight: FontWeight.bold,
                                   )),
                             ),
-                            Container(
-                                margin: EdgeInsets.only(left: 10),
-                                child: Text('This Prospect Won !'))
+                            Obx(() {
+                              Widget card = Text('${source.status.value}');
+                              switch (source.status.value) {
+                                case 'Closed Lost':
+                                  card = Container(
+                                    child: Text(
+                                      '${source.status.value}',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
+                                    decoration: BoxDecoration(
+                                        color: Colors.red,
+                                        borderRadius: BorderRadius.circular(5)),
+                                  );
+                                  break;
+                                case 'Closed Won':
+                                  card = Container(
+                                    child: Text(
+                                      '${source.status.value}',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
+                                    decoration: BoxDecoration(
+                                        color: Colors.green,
+                                        borderRadius: BorderRadius.circular(5)),
+                                  );
+                                  break;
+                                default:
+                                  Text('${source.status.value}',
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold));
+                              }
+                              return Container(
+                                  margin: EdgeInsets.only(left: 10),
+                                  child: card);
+                            })
                           ],
                         )
                       else

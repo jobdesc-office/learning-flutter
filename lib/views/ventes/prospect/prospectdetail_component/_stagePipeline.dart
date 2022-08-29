@@ -153,7 +153,8 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
                 context: context,
                 builder: (context) => ConfirmDialog(
                   title: BaseText.confirmTitle,
-                  message: 'Are You Sure Want to Change to This Stage ?',
+                  message:
+                      'Are You Sure Want to Change to ${type.typename} Stage ?',
                   onPressed: (_, value) async {
                     if (value == ConfirmDialogOption.YES_OPTION) {
                       source.showPipeline.value = false;

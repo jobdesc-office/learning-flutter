@@ -107,6 +107,8 @@ class _ZefyrEditorComponentState extends State<ZefyrEditorComponent> {
                     hideCodeBlock: true,
                     // hideHeadingStyle: true,
                     hideHorizontalRule: true,
+                    hideLink: true,
+                    hideQuote: true,
                   ),
                   Expanded(
                     child: ZefyrEditor(

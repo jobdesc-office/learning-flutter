@@ -5,6 +5,7 @@ class _TabAssign extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    source.report.value = '';
     final assignPresenter = Get.find<ProspectAssignPresenter>();
     if (source.assign.length != 0)
       return SingleChildScrollView(
@@ -65,6 +66,8 @@ class _TabAssign extends StatelessWidget {
                                     element.prospectreportto)
                                 .toList()
                                 .map((e) => Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(e.prospectassignss?.userfullname ??
                                             ''),
@@ -72,6 +75,49 @@ class _TabAssign extends StatelessWidget {
                                           color: Colors.green,
                                           margin: EdgeInsets.only(left: 20),
                                           child: Text('Assign to'),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Tooltip(
+                                              message: BaseText.detailHintDatatable(
+                                                  field:
+                                                      'Assignment for ${e.prospectassignss?.userfullname}'),
+                                              child: InkWell(
+                                                  onTap: () =>
+                                                      assignPresenter.detail(
+                                                          context,
+                                                          e.prospectassignid!),
+                                                  child: Icon(
+                                                      Icons.remove_red_eye)),
+                                            ),
+                                            Tooltip(
+                                              message: BaseText.editHintDatatable(
+                                                  field:
+                                                      'Assignment for ${e.prospectassignss?.userfullname}'),
+                                              child: InkWell(
+                                                  onTap: () =>
+                                                      assignPresenter.edit(
+                                                          context,
+                                                          e.prospectassignid!,
+                                                          source.prospectid
+                                                              .value),
+                                                  child: Icon(Icons.edit)),
+                                            ),
+                                            Tooltip(
+                                              message: BaseText.deleteHintDatatable(
+                                                  field:
+                                                      'Assignment for ${e.prospectassignss?.userfullname}'),
+                                              child: InkWell(
+                                                  onTap: () =>
+                                                      assignPresenter.delete(
+                                                          context,
+                                                          e.prospectassignid!,
+                                                          'Assignment for ${e.prospectassignss?.userfullname}'),
+                                                  child: Icon(Icons.delete)),
+                                            )
+                                          ],
                                         )
                                       ],
                                     ))
