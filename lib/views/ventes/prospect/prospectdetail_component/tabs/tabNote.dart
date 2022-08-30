@@ -45,7 +45,7 @@ class _TabNote extends StatelessWidget {
                   ],
                 ),
               ),
-              Obx(() => Container(
+              Container(
                   alignment: Alignment.topLeft,
                   margin: EdgeInsets.only(top: 20),
                   child: Form(
@@ -70,27 +70,28 @@ class _TabNote extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                ThemeButtonSave(onPressed: () async {
-                                  if (formState.currentState!.validate()) {
-                                    SessionModel session =
-                                        await SessionManager.current();
-                                    presenter.changeNote(
-                                        context,
-                                        {
-                                          'prospectdescription': jsonEncode(
-                                              inputDescription.document),
-                                          'createdby': session.userid,
-                                          'updatedby': session.userid
-                                        },
-                                        source.prospectid.value);
-                                    source.desc.value = inputNotesPopup.text;
-                                  }
-                                })
+                                Obx(() => ThemeButtonSave(onPressed: () async {
+                                      if (formState.currentState!.validate()) {
+                                        SessionModel session =
+                                            await SessionManager.current();
+                                        presenter.changeNote(
+                                            context,
+                                            {
+                                              'prospectdescription': jsonEncode(
+                                                  inputDescription.document),
+                                              'createdby': session.userid,
+                                              'updatedby': session.userid
+                                            },
+                                            source.prospectid.value);
+                                        source.desc.value = jsonEncode(
+                                            inputDescription.document);
+                                      }
+                                    }))
                               ],
                             )),
                       ],
                     ),
-                  )))
+                  ))
             ],
           ),
         )

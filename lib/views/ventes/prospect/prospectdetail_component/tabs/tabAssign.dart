@@ -32,100 +32,95 @@ class _TabAssign extends StatelessWidget {
                 ),
               ],
             ),
-            Obx(() => Column(
-                  children: source.assign.map((element) {
-                    if (element.prospectreportss?.userfullname ==
-                        source.report.value) {
-                      return Container();
-                    } else {
-                      source.report.value =
-                          element.prospectreportss?.userfullname ?? '';
-                      return Container(
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                          color: Color.fromARGB(255, 207, 202, 202),
-                        )),
-                        margin: EdgeInsets.only(top: 5),
-                        child: ExpansionTile(
-                            expandedAlignment: Alignment.centerLeft,
-                            title: Row(
-                              children: [
-                                Text(element.prospectreportss?.userfullname ??
-                                    ''),
-                                Card(
-                                  color: Colors.green,
-                                  margin: EdgeInsets.only(left: 20),
-                                  child: Text('Report to'),
-                                )
-                              ],
-                            ),
-                            children: source.assign
-                                .where((p0) =>
-                                    p0.prospectreportto ==
-                                    element.prospectreportto)
-                                .toList()
-                                .map((e) => Row(
+            Column(
+              children: source.assign.map((element) {
+                if (element.prospectreportss?.userfullname ==
+                    source.report.value) {
+                  return Container();
+                } else {
+                  source.report.value =
+                      element.prospectreportss?.userfullname ?? '';
+                  return Container(
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                      color: Color.fromARGB(255, 207, 202, 202),
+                    )),
+                    margin: EdgeInsets.only(top: 5),
+                    child: ExpansionTile(
+                        expandedAlignment: Alignment.centerLeft,
+                        title: Row(
+                          children: [
+                            Text(element.prospectreportss?.userfullname ?? ''),
+                            Card(
+                              color: Colors.green,
+                              margin: EdgeInsets.only(left: 20),
+                              child: Text('Report to'),
+                            )
+                          ],
+                        ),
+                        children: source.assign
+                            .where((p0) =>
+                                p0.prospectreportto == element.prospectreportto)
+                            .toList()
+                            .map((e) => Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                        e.prospectassignss?.userfullname ?? ''),
+                                    Card(
+                                      color: Colors.green,
+                                      margin: EdgeInsets.only(left: 20),
+                                      child: Text('Assign to'),
+                                    ),
+                                    Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceAround,
                                       children: [
-                                        Text(e.prospectassignss?.userfullname ??
-                                            ''),
-                                        Card(
-                                          color: Colors.green,
-                                          margin: EdgeInsets.only(left: 20),
-                                          child: Text('Assign to'),
+                                        Tooltip(
+                                          message: BaseText.detailHintDatatable(
+                                              field:
+                                                  'Assignment for ${e.prospectassignss?.userfullname}'),
+                                          child: InkWell(
+                                              onTap: () =>
+                                                  assignPresenter.detail(
+                                                      context,
+                                                      e.prospectassignid!),
+                                              child:
+                                                  Icon(Icons.remove_red_eye)),
                                         ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Tooltip(
-                                              message: BaseText.detailHintDatatable(
-                                                  field:
-                                                      'Assignment for ${e.prospectassignss?.userfullname}'),
-                                              child: InkWell(
-                                                  onTap: () =>
-                                                      assignPresenter.detail(
-                                                          context,
-                                                          e.prospectassignid!),
-                                                  child: Icon(
-                                                      Icons.remove_red_eye)),
-                                            ),
-                                            Tooltip(
-                                              message: BaseText.editHintDatatable(
-                                                  field:
-                                                      'Assignment for ${e.prospectassignss?.userfullname}'),
-                                              child: InkWell(
-                                                  onTap: () =>
-                                                      assignPresenter.edit(
-                                                          context,
-                                                          e.prospectassignid!,
-                                                          source.prospectid
-                                                              .value),
-                                                  child: Icon(Icons.edit)),
-                                            ),
-                                            Tooltip(
-                                              message: BaseText.deleteHintDatatable(
-                                                  field:
-                                                      'Assignment for ${e.prospectassignss?.userfullname}'),
-                                              child: InkWell(
-                                                  onTap: () =>
-                                                      assignPresenter.delete(
-                                                          context,
-                                                          e.prospectassignid!,
-                                                          'Assignment for ${e.prospectassignss?.userfullname}'),
-                                                  child: Icon(Icons.delete)),
-                                            )
-                                          ],
+                                        Tooltip(
+                                          message: BaseText.editHintDatatable(
+                                              field:
+                                                  'Assignment for ${e.prospectassignss?.userfullname}'),
+                                          child: InkWell(
+                                              onTap: () => assignPresenter.edit(
+                                                  context,
+                                                  e.prospectassignid!,
+                                                  source.prospectid.value),
+                                              child: Icon(Icons.edit)),
+                                        ),
+                                        Tooltip(
+                                          message: BaseText.deleteHintDatatable(
+                                              field:
+                                                  'Assignment for ${e.prospectassignss?.userfullname}'),
+                                          child: InkWell(
+                                              onTap: () => assignPresenter.delete(
+                                                  context,
+                                                  e.prospectassignid!,
+                                                  'Assignment for ${e.prospectassignss?.userfullname}'),
+                                              child: Icon(Icons.delete)),
                                         )
                                       ],
-                                    ))
-                                .toList()),
-                      );
-                    }
-                  }).toList(),
-                ))
+                                    )
+                                  ],
+                                ))
+                            .toList()),
+                  );
+                }
+              }).toList(),
+            )
           ],
         ),
       );

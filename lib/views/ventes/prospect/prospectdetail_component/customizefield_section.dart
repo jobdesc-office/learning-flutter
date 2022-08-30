@@ -27,15 +27,19 @@ class CustomfieldSection extends StatelessWidget {
               context, await cfForm.toJson(), source.cfid.value);
           source.isUpdate.value = false;
           source.cfid.value = 0;
+          cfForm.value.reset();
         } else {
           prospectCustomFieldPresenter.setProcessing(false);
           source.isUpdate.value = false;
+          cfForm.value.reset();
         }
       } else {
-        if (formState.currentState!.validate())
+        if (formState.currentState!.validate()){
           prospectCustomFieldPresenter.save(context, await cfForm.toJson());
-        else
+          cfForm.value.reset();}
+        else{
           prospectCustomFieldPresenter.setProcessing(false);
+          cfForm.value.reset();}
       }
     }
 

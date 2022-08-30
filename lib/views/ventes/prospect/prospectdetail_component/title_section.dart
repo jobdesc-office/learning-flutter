@@ -194,9 +194,18 @@ BsCol prospectDetailTitleSection(context) {
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold));
                               }
-                              return Container(
-                                  margin: EdgeInsets.only(left: 10),
-                                  child: card);
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                      margin:
+                                          EdgeInsets.only(left: 10, bottom: 7),
+                                      child: card),
+                                  Container(
+                                    child: Text(''),
+                                  )
+                                ],
+                              );
                             })
                           ],
                         )

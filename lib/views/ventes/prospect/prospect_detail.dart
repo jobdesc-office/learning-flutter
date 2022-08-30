@@ -326,6 +326,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
 
   @override
   void onCreateSuccess(Response response, {BuildContext? context}) {
+    cfForm.value.reset();
     map.reset();
     prospectCustomFieldPresenter.setProcessing(false);
     customFieldPresenter.setProcessing(false);
