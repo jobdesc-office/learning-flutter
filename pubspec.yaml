@@ -46,6 +46,7 @@ dependencies:
   date_time_format: ^2.0.1
   file_picker: ^4.6.1
   zefyrka: ^1.3.0
+  fl_chart: ^0.55.1
 
   bs_flutter_buttons: 
     path: ./modules/bs_flutter_buttons
@@ -59,7 +60,6 @@ dependencies:
     path: ./modules/bs_flutter_inputtext
   bs_flutter_responsive:
     path: ./modules/bs_flutter_responsive
-  fl_chart: ^0.55.1
 
 dev_dependencies:
   flutter_test:

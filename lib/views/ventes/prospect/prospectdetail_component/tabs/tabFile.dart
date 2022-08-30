@@ -8,11 +8,11 @@ class _TabFile extends StatefulWidget {
 }
 
 class _TabFileState extends State<_TabFile> with TickerProviderStateMixin {
-  late TabController _tabController;
+  // late TabController _tabController;
 
   @override
   void initState() {
-    _tabController = TabController(length: 1, vsync: this);
+    // _tabController = TabController(length: 1, vsync: this);
     super.initState();
   }
 
@@ -25,27 +25,28 @@ class _TabFileState extends State<_TabFile> with TickerProviderStateMixin {
         children: [
           BsRow(
             children: [
-              BsCol(
-                sizes: ColScreen(sm: Col.col_4),
-                child: TabBar(
-                    controller: _tabController,
-                    labelColor: Colors.black,
-                    tabs: [
-                      Tab(
-                        text: 'Documents',
-                      ),
-                      // Tab(
-                      //   text: 'Templates',
-                      // )
-                    ]),
-              ),
+              // BsCol(
+              //   sizes: ColScreen(sm: Col.col_4),
+              //   child: TabBar(
+              //       controller: _tabController,
+              //       labelColor: Colors.black,
+              //       tabs: [
+              //         Tab(
+              //           text: 'Documents',
+              //         ),
+              //         // Tab(
+              //         //   text: 'Templates',
+              //         // )
+              //       ]),
+              // ),
               BsCol(
                 child: Container(
                   width: double.infinity,
-                  height: 270,
-                  child: TabBarView(
-                    controller: _tabController,
-                    children: [
+                  height: 495,
+                  child:
+                      // TabBarView(
+                      //   controller: _tabController,
+                      //   children: [
                       Obx(() => SingleChildScrollView(
                             child: Column(
                               children: [
@@ -145,6 +146,21 @@ class _TabFileState extends State<_TabFile> with TickerProviderStateMixin {
                                                       mainAxisAlignment:
                                                           MainAxisAlignment.end,
                                                       children: [
+                                                        if (files.filename!
+                                                                .substring(files
+                                                                        .filename!
+                                                                        .length -
+                                                                    4) ==
+                                                            '.pdf')
+                                                          InkWell(
+                                                            onTap: () =>
+                                                                filePresenter
+                                                                    .downloadFile(
+                                                                        files
+                                                                            .url!),
+                                                            child: Icon(
+                                                                Icons.download),
+                                                          ),
                                                         InkWell(
                                                             onTap: () {
                                                               if (files
@@ -154,9 +170,9 @@ class _TabFileState extends State<_TabFile> with TickerProviderStateMixin {
                                                                               .length -
                                                                           4) ==
                                                                   '.pdf') {
-                                                                Get.snackbar(
-                                                                    'Sorry',
-                                                                    'PDF View Coming Soon');
+                                                                filePresenter
+                                                                    .viewFile(files
+                                                                        .url!);
                                                               } else {
                                                                 showDialog(
                                                                   context:
@@ -172,8 +188,13 @@ class _TabFileState extends State<_TabFile> with TickerProviderStateMixin {
                                                                 );
                                                               }
                                                             },
-                                                            child: Icon(Icons
-                                                                .remove_red_eye)),
+                                                            child: Container(
+                                                              margin: EdgeInsets
+                                                                  .only(
+                                                                      left: 5),
+                                                              child: Icon(Icons
+                                                                  .remove_red_eye),
+                                                            )),
                                                         InkWell(
                                                             onTap: () =>
                                                                 filePresenter.edit(
@@ -184,8 +205,13 @@ class _TabFileState extends State<_TabFile> with TickerProviderStateMixin {
                                                                         .filename!,
                                                                     files
                                                                         .remark!),
-                                                            child: Icon(
-                                                                Icons.edit)),
+                                                            child: Container(
+                                                              margin: EdgeInsets
+                                                                  .only(
+                                                                      left: 5),
+                                                              child: Icon(
+                                                                  Icons.edit),
+                                                            )),
                                                         InkWell(
                                                             onTap: () =>
                                                                 filePresenter.delete(
@@ -194,8 +220,13 @@ class _TabFileState extends State<_TabFile> with TickerProviderStateMixin {
                                                                         .fileid!,
                                                                     files
                                                                         .filename!),
-                                                            child: Icon(
-                                                                Icons.delete)),
+                                                            child: Container(
+                                                              margin: EdgeInsets
+                                                                  .only(
+                                                                      left: 5),
+                                                              child: Icon(
+                                                                  Icons.delete),
+                                                            )),
                                                       ],
                                                     ),
                                                     ExpansionTile(
@@ -235,9 +266,9 @@ class _TabFileState extends State<_TabFile> with TickerProviderStateMixin {
                               ],
                             ),
                           )),
-                      // Container()
-                    ],
-                  ),
+                  // Container()
+                  //   ],
+                  // ),
                 ),
               )
             ],

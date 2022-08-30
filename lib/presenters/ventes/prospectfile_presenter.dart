@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:html' as html;
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,6 +17,18 @@ class ProspectFilePresenter extends CustomGetXController {
   late IndexViewContract _prospectViewContract;
   set prospectViewContract(IndexViewContract prospectViewContract) {
     _prospectViewContract = prospectViewContract;
+  }
+
+  void downloadFile(String url) {
+    html.AnchorElement anchorElement = new html.AnchorElement(href: url);
+    anchorElement.download = url;
+    anchorElement.click();
+    Get.snackbar('Success', 'Download in Progress');
+  }
+
+  void viewFile(String url) {
+    html.window.open(url, "_blank");
+    html.Url.revokeObjectUrl(url);
   }
 
   void save(BuildContext context, FormData body) async {
