@@ -2,10 +2,15 @@ import 'dart:convert';
 
 import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:zefyrka/zefyrka.dart';
+
+import '../../presenters/navigation_presenter.dart';
 
 /// Type definition for custom bs form validator
 typedef ZefyrEditorValidatorValue<T> = String? Function(T? value);
+
+final _navigation = Get.find<NavigationPresenter>();
 
 class ZefyrEditorValidator {
   const ZefyrEditorValidator({
@@ -90,42 +95,44 @@ class _ZefyrEditorComponentState extends State<ZefyrEditorComponent> {
     return Container(
       child: Column(
         children: [
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: _border,
-              borderRadius: BorderRadius.circular(5),
-              boxShadow: _boxShadow,
-            ),
-            child: SizedBox(
-              height: 300,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ZefyrToolbar.basic(
-                    controller: widget.controller,
-                    hideCodeBlock: true,
-                    // hideHeadingStyle: true,
-                    hideHorizontalRule: true,
-                    hideLink: true,
-                    hideQuote: true,
+          Obx(() => Container(
+                decoration: BoxDecoration(
+                  color: _navigation.darkTheme.value
+                      ? ColorPallates.contentDarkColor
+                      : Colors.white,
+                  border: _border,
+                  borderRadius: BorderRadius.circular(5),
+                  boxShadow: _boxShadow,
+                ),
+                child: SizedBox(
+                  height: 300,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ZefyrToolbar.basic(
+                        controller: widget.controller,
+                        hideCodeBlock: true,
+                        // hideHeadingStyle: true,
+                        hideHorizontalRule: true,
+                        hideLink: true,
+                        hideQuote: true,
+                      ),
+                      Expanded(
+                        child: ZefyrEditor(
+                          controller: widget.controller,
+                          autofocus: false,
+                          scrollable: true,
+                          maxHeight: 300,
+                          minHeight: 300,
+                          padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                          textCapitalization: TextCapitalization.sentences,
+                          focusNode: _focusNode,
+                        ),
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child: ZefyrEditor(
-                      controller: widget.controller,
-                      autofocus: false,
-                      scrollable: true,
-                      maxHeight: 300,
-                      minHeight: 300,
-                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                      textCapitalization: TextCapitalization.sentences,
-                      focusNode: _focusNode,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+                ),
+              )),
           FormField(
             initialValue: '',
             autovalidateMode: AutovalidateMode.onUserInteraction,

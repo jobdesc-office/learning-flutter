@@ -5,10 +5,8 @@ class _TabNote extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _navigation = Get.find<NavigationPresenter>();
     final presenter = Get.find<ProspectPresenter>();
     final GlobalKey<FormState> formState = GlobalKey<FormState>();
-    TextEditingController inputNotesPopup = TextEditingController();
     ZefyrController inputDescription;
     if (source.desc.value == '')
       inputDescription = ZefyrController(NotusDocument());
