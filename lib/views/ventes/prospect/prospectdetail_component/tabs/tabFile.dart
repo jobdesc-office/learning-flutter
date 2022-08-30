@@ -229,8 +229,9 @@ class _TabFileState extends State<_TabFile> with TickerProviderStateMixin {
                                                       leading: files.mimetype!
                                                               .contains('image')
                                                           ? Icon(Icons.image)
-                                                          : Icon(Icons
-                                                              .file_present_rounded),
+                                                          : Icon(
+                                                              FontAwesomeIcons
+                                                                  .filePdf),
                                                       title: Text(
                                                           files.filename ?? ''),
                                                       subtitle: Row(

@@ -72,7 +72,7 @@ BsCol prospectDetailTitleSection(context) {
                             return Row(
                               children: [
                                 Text(
-                                  '${source.prospectname.value}',
+                                  '${source.custname.value}',
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold),
@@ -90,7 +90,7 @@ BsCol prospectDetailTitleSection(context) {
                             return Container(
                               margin: EdgeInsets.only(top: 5),
                               child: Text(
-                                '${source.custname.value}',
+                                '${source.prospectname.value}',
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold),
                               ),
