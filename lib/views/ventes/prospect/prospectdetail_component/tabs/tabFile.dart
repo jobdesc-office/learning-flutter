@@ -146,21 +146,15 @@ class _TabFileState extends State<_TabFile> with TickerProviderStateMixin {
                                                       mainAxisAlignment:
                                                           MainAxisAlignment.end,
                                                       children: [
-                                                        if (files.filename!
-                                                                .substring(files
-                                                                        .filename!
-                                                                        .length -
-                                                                    4) ==
-                                                            '.pdf')
-                                                          InkWell(
-                                                            onTap: () =>
-                                                                filePresenter
-                                                                    .downloadFile(
-                                                                        files
-                                                                            .url!),
-                                                            child: Icon(
-                                                                Icons.download),
-                                                          ),
+                                                        InkWell(
+                                                          onTap: () =>
+                                                              filePresenter
+                                                                  .downloadFile(
+                                                                      files
+                                                                          .url!),
+                                                          child: Icon(
+                                                              Icons.download),
+                                                        ),
                                                         InkWell(
                                                             onTap: () {
                                                               if (files
