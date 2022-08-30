@@ -1,5 +1,6 @@
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../../../constants/base_text.dart';
@@ -18,6 +19,8 @@ final _navigation = Get.find<NavigationPresenter>();
 class ProspectContactSource {
   bool isProcessing = false;
   var id = 0.obs;
+
+  var format = ''.obs;
 
   TextEditingController inputName = TextEditingController();
   TextEditingController inputValue = TextEditingController();
@@ -66,16 +69,20 @@ class ProspectContactForm {
           style: TextStyle(
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
-      child: CustomSelectBox(
-        searchable: false,
-        disabled: source.isProcessing,
-        controller: source.selectType,
-        hintText: BaseText.hiintSelect(field: ProspectContactText.labelType),
-        serverSide: (params) => selectApiContactTypes(params),
-        validators: [
-          Validators.selectRequired(ProspectContactText.labelType),
-        ],
-      ),
+      child: Obx(() => CustomSelectBox(
+            searchable: false,
+            disabled: source.isProcessing,
+            controller: source.selectType,
+            hintText:
+                BaseText.hiintSelect(field: ProspectContactText.labelType),
+            serverSide: (params) => selectApiContactTypes(params),
+            validators: [
+              Validators.selectRequired(ProspectContactText.labelType),
+            ],
+            onChange: (value) {
+              source.format.value = value.getOtherValue()['typename'];
+            },
+          )),
     );
   }
 
@@ -85,13 +92,20 @@ class ProspectContactForm {
           style: TextStyle(
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
-      child: CustomInput(
-        minLines: 3,
-        maxLines: 5,
-        disabled: source.isProcessing,
-        controller: source.inputValue,
-        hintText: BaseText.hintText(field: ProspectContactText.labelValue),
-      ),
+      child: Obx(() => CustomInput(
+            minLines: 3,
+            maxLines: 5,
+            disabled: source.isProcessing,
+            controller: source.inputValue,
+            hintText: BaseText.hintText(field: ProspectContactText.labelValue),
+            inputFormatters: [
+              if (source.format.value == 'Phone')
+                FilteringTextInputFormatter.digitsOnly,
+            ],
+            validators: [
+              if (source.format.value == 'Email') Validators.inputEmail()
+            ],
+          )),
     );
   }
 }

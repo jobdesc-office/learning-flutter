@@ -66,6 +66,7 @@ class MassProspectContactFormView extends StatelessWidget
                         source.update((val) {
                           source.value.selectsItem.add(BsSelectBoxController());
                           source.value.inputPrices.add(TextEditingController());
+                          source.value.formats.add('');
                         });
                       },
                     ),
@@ -103,6 +104,7 @@ class MassProspectContactFormView extends StatelessWidget
     source.update((val) {
       source.value.selectsItem.removeAt(index);
       source.value.inputPrices.removeAt(index);
+      source.value.formats.removeAt(index);
     });
   }
 
