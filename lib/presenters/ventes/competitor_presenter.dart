@@ -39,6 +39,14 @@ class CompetitorPresenter extends CustomGetXController {
       _competitorViewContract.onErrorRequest(response);
   }
 
+  Future datatablesbp(BuildContext context, Map<String, String> params) async {
+    Response response = await _competitorService.datatablesbp(params);
+    if (response.statusCode == 200)
+      _competitorViewContract.onLoadDatatables(context, response);
+    else
+      _competitorViewContract.onErrorRequest(response);
+  }
+
   Future cstm(int id) async {
     Response response = await _competitorService.show(id);
     return response.body['cstmname'];

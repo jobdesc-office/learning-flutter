@@ -38,6 +38,14 @@ class BpCustomerPresenter extends CustomGetXController {
       _bpCustomerViewContract.onErrorRequest(response);
   }
 
+  Future datatablesbp(BuildContext context, Map<String, String> params) async {
+    Response response = await _bpCustomerService.datatablesbp(params);
+    if (response.statusCode == 200)
+      _bpCustomerViewContract.onLoadDatatables(context, response);
+    else
+      _bpCustomerViewContract.onErrorRequest(response);
+  }
+
   void add(BuildContext context) async {
     showDialog(
       context: context,

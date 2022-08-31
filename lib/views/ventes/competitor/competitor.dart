@@ -48,7 +48,7 @@ class CompetitorView extends GetView implements IndexViewContract {
                     onPressed: () => presenter.add(context),
                   )
                 ],
-                serverSide: (params) => presenter.datatables(context, params),
+                serverSide: (params) => presenter.datatablesbp(context, params),
                 // searchHintText: 'Search by Competitor name, Competitor phone ...',
               )
             ],

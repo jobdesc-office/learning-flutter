@@ -48,6 +48,15 @@ class UserPresenter extends CustomGetXController {
       _userViewContract.onErrorRequest(response);
   }
 
+  Future datatablesbp(BuildContext context, Map<String, String> params) async {
+    Response response =
+        await _userService.datatablesbp(params, box.read('mybpid'));
+    if (response.statusCode == 200)
+      _userViewContract.onLoadDatatables(context, response);
+    else
+      _userViewContract.onErrorRequest(response);
+  }
+
   Future reset(BuildContext context, int id) async {
     Response response = await _userService.reset(id);
     if (response.statusCode == 200)

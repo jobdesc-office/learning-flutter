@@ -49,7 +49,7 @@ class UserView extends GetView
                     onPressed: () => presenter.add(context),
                   )
                 ],
-                serverSide: (params) => presenter.datatables(context, params),
+                serverSide: (params) => presenter.datatablesbp(context, params),
               )
             ],
           ),

@@ -46,7 +46,7 @@ class BpCustomerView extends GetView implements IndexViewContract {
                     onPressed: () => presenter.add(context),
                   )
                 ],
-                serverSide: (params) => presenter.datatables(context, params),
+                serverSide: (params) => presenter.datatablesbp(context, params),
               )
             ],
           ),
