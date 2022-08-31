@@ -34,12 +34,13 @@ class CustomfieldSection extends StatelessWidget {
           cfForm.value.reset();
         }
       } else {
-        if (formState.currentState!.validate()){
+        if (formState.currentState!.validate()) {
           prospectCustomFieldPresenter.save(context, await cfForm.toJson());
-          cfForm.value.reset();}
-        else{
+          cfForm.value.reset();
+        } else {
           prospectCustomFieldPresenter.setProcessing(false);
-          cfForm.value.reset();}
+          cfForm.value.reset();
+        }
       }
     }
 
@@ -53,9 +54,15 @@ class CustomfieldSection extends StatelessWidget {
     void onClickSave(BuildContext context) async {
       source.isAddCF.value = false;
       customFieldPresenter.setProcessing(true);
-      if (formStateCF.currentState!.validate())
-        customFieldPresenter.save(context, await cfieldForm.toJson());
-      else
+      if (formStateCF.currentState!.validate()) {
+        if (!cfieldForm.value.onlythisprospect.value &&
+            !cfieldForm.value.allprospect.value) {
+          Get.defaultDialog(
+              title: 'Attention', middleText: 'Checkbox Required !');
+          source.isAddCF.value = true;
+        } else
+          customFieldPresenter.save(context, await cfieldForm.toJson());
+      } else
         customFieldPresenter.setProcessing(false);
     }
 
