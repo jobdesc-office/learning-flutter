@@ -52,7 +52,8 @@ class ReportPresenter extends CustomGetXController {
   }
 
   Future datatables(BuildContext context, Map<String, String> params) async {
-    Response response = await _userService.datatables(params);
+    Response response =
+        await _userService.datatablesbp(params, box.read('mybpid'));
     if (response.statusCode == 200)
       _reportViewContract.onLoadDatatables(context, response);
     else

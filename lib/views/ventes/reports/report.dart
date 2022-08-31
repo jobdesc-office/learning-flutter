@@ -140,13 +140,21 @@ class _ReportViewState extends State<ReportView>
                                   defaultBuilder: (context, date, _) =>
                                       source.dayContainer(context, date),
                                   markerBuilder: (_, date, reports) {
-                                    List<Dayactuser> employee =
-                                        source.employees.value;
+                                    late List<Dayactuser> employee;
+                                    for (var el in reports) {
+                                      employee = source.employees.value
+                                          .where((element) =>
+                                              element.userfullname !=
+                                                  el.dayactuser?.userfullname &&
+                                              parseDate(el.dayactdate) != date)
+                                          .toList();
+                                    }
 
-                                    for (var item in reports)
-                                      employee.removeWhere((element) =>
-                                          element.userfullname ==
-                                          item.dayactuser!.userfullname);
+                                    // for (var item in reports)
+                                    // employee.removeWhere((element) =>
+                                    //     element.userfullname ==
+                                    //     item.dayactuser!.userfullname)
+                                    // ;
 
                                     return reports.isNotEmpty
                                         ? InkWell(
