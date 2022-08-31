@@ -1,4 +1,3 @@
-import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -6,9 +5,7 @@ import '../../constants/base_text.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
 import '../../services/security/feature_service.dart';
-import '../../styles/color_palattes.dart';
 import '../../utils/custom_get_controller.dart';
-import '../../views/masters/menus/_details_source.dart';
 import '../../views/masters/menus/feature/feature_form.dart';
 import '../../widgets/confirm_dialog.dart';
 

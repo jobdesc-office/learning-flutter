@@ -1,4 +1,3 @@
-import 'package:boilerplate/contracts/base/index_view_contract.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,6 +13,7 @@ import '../../../../widgets/button/theme_button_save.dart';
 import '../../../skins/template.dart';
 import '_form_source.dart';
 
+// ignore: must_be_immutable
 class FeatureFormView extends GetView implements EditViewContract {
   final Function(Map<String, dynamic> body) onSave;
   final source = FeatureSource().obs;

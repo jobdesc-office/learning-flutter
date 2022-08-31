@@ -377,7 +377,7 @@ class _BarDialog extends StatefulWidget {
     required this.size,
     required this.offset,
     required this.onClose,
-    this.onSearch,
+    // this.onSearch,
     required this.events,
   }) : super(key: key);
 
@@ -392,7 +392,7 @@ class _BarDialog extends StatefulWidget {
 
   final VoidCallback onClose;
 
-  final VoidCallback? onSearch;
+  // final VoidCallback? onSearch;
 
   final List events;
 

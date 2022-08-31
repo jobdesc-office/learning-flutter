@@ -42,7 +42,7 @@ class SidebarSkins extends StatelessWidget {
 
   Widget sidebar() {
     int no = 1;
-    var permis = authPresenter.rolepermis.value;
+    // var permis = authPresenter.rolepermis.value;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

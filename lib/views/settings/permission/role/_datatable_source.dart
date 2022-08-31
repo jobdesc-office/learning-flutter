@@ -4,11 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../models/masters/type_model.dart';
-import '../../../../models/security/permission_model.dart';
 import '../../../../presenters/navigation_presenter.dart';
 import '../../../../styles/color_palattes.dart';
-import '../../../../styles/color_palattes.dart';
-import '../../../../widgets/button/button_edit_datatable.dart';
 import '../../../../widgets/datatables/custom_datatable_tablecell.dart';
 import '../../../../widgets/datatables/custom_datatable_tablehead.dart';
 import '../_permission_source.dart';
@@ -42,6 +39,7 @@ class PermissionRoleDataTableSource extends BsDatatableSource {
     ];
   }
 
+  // ignore: invalid_use_of_protected_member
   List<TypeModel> get permissions => _source.role.value;
 
   @override

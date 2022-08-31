@@ -24,12 +24,13 @@ class CustomerView extends GetView implements IndexViewContract {
 
   CustomerView() {
     presenter.customerViewContract = this;
+    // ignore: invalid_use_of_protected_member
     if (authPresenter.rolepermis.value == []) checkJwtToken();
   }
 
   @override
   Widget build(BuildContext context) {
-    var permis = authPresenter.rolepermis.value;
+    // var permis = authPresenter.rolepermis.value;
     return Scaffold(
       body: TemplateView(
         title: 'Customers',

@@ -8,7 +8,6 @@ import '../../../models/session_model.dart';
 import '../../../models/ventes/customfield_model.dart';
 import '../../../models/ventes/prospect_model.dart';
 import '../../../models/ventes/prospectactivity_model.dart';
-import '../../../models/ventes/prospectassign_model.dart';
 import '../../../models/ventes/prospectcustomfield_model.dart';
 import '../../../utils/session_manager.dart';
 import 'prospectdetail_component/_stagePipeline.dart';

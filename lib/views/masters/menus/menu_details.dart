@@ -1,7 +1,6 @@
 import 'package:boilerplate/contracts/base/index_view_contract.dart';
 import 'package:boilerplate/widgets/button/theme_button_create.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
-import 'package:bs_flutter_modal/bs_flutter_modal.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -159,7 +158,5 @@ class MenuDetails extends GetView
   }
 
   @override
-  void onErrorRequest(Response response) {
-    // TODO: implement onErrorRequest
-  }
+  void onErrorRequest(Response response) {}
 }

@@ -11,7 +11,6 @@ import '../../../../utils/session_manager.dart';
 import '../../../../utils/validators.dart';
 import '../../../../widgets/form_group.dart';
 import '../../../../widgets/input/custom_input.dart';
-import '../_details_source.dart';
 import '_text.dart';
 
 final _navigation = Get.find<NavigationPresenter>();

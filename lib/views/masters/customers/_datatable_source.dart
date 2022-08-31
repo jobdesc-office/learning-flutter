@@ -54,7 +54,7 @@ class CustomerDataTableSource extends BsDatatableSource {
   BsDataRow getRow(int index) {
     final row = customers[index];
     int x = controller.start + index + 1;
-    var permis = authPresenter.rolepermis.value;
+    // var permis = authPresenter.rolepermis.value;
     return BsDataRow(
       index: index,
       cells: [

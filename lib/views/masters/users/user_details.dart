@@ -1,5 +1,4 @@
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
-import 'package:bs_flutter_modal/bs_flutter_modal.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,7 +13,6 @@ import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_back.dart';
 import '../../skins/template.dart';
 import '_details_source.dart';
-import '_text.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 

@@ -6,13 +6,11 @@ import 'package:get/get.dart';
 import '../../../presenters/settings/customfield_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
-import '../../../widgets/button/theme_button_create.dart';
 import '../../../widgets/datatables/custom_datatable.dart';
 import '../../../widgets/map/_map_source.dart';
 import '../../../widgets/snackbar.dart';
 import '../../skins/template.dart';
 import '_datatable_source.dart';
-import '_text.dart';
 
 class CustomFieldView extends GetView implements IndexViewContract {
   final presenter = Get.find<CustomFieldPresenter>();

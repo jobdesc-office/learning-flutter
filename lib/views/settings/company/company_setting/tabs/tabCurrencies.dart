@@ -5,7 +5,6 @@ class _TabCurrencies extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List data = ['data', 'data', 'data'];
     final datatable = CompanyCurrencyDataTableSource();
     return Container(
       margin: EdgeInsets.all(20),

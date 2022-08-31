@@ -1,4 +1,3 @@
-import 'package:boilerplate/views/masters/menus/_details_source.dart';
 import 'package:boilerplate/views/skins/template.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';

@@ -1,5 +1,4 @@
 import 'package:boilerplate/models/masters/type_model.dart';
-import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -7,15 +6,11 @@ import '../../../../contracts/base/index_view_contract.dart';
 import '../../../../presenters/settings/permission_presenter.dart';
 import '../../../../routes/route_list.dart';
 import '../../../../widgets/breadcrumb.dart';
-import '../../../../widgets/button/button_controller.dart';
-import '../../../../widgets/button/theme_button_create.dart';
 import '../../../../widgets/datatables/custom_datatable.dart';
-import '../../../../widgets/snackbar.dart';
 import '../../../../widgets/snackbar.dart';
 import '../../../skins/template.dart';
 import '_datatable_source.dart';
 import '../_permission_source.dart';
-import '../_text.dart';
 
 final source = Get.put(PermissionSource());
 
@@ -25,7 +20,7 @@ class PermissionRoleView extends GetView implements IndexViewContract {
 
   PermissionRoleView() {
     Get.delete<PermissionSource>();
-    presenter.PermissionViewContract = this;
+    presenter.permissionViewContract = this;
   }
 
   @override

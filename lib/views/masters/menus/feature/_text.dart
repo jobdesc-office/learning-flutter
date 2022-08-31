@@ -1,5 +1,3 @@
-import '../../../../constants/base_text.dart';
-
 class FeatureText {
   static String title = 'Feature';
 

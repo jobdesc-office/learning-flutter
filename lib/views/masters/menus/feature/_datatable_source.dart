@@ -1,4 +1,3 @@
-import 'package:boilerplate/widgets/theme_badge.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

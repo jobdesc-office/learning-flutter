@@ -1,4 +1,3 @@
-import 'package:bs_flutter_modal/bs_flutter_modal.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,7 +12,6 @@ import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_back.dart';
 import '../../skins/template.dart';
 import '_details_source.dart';
-import '_text.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 
@@ -60,11 +58,13 @@ class BpCustomerDetails extends GetView implements DetailViewContract {
                       BsCol(
                         sizes: ColScreen(lg: Col.col_4),
                         child: Container(
-                          child: Image.network(controller.pic.value,
-                                      errorBuilder:
-                                          (context, error, stackTrace) {
-                                        return Image.network('http://10.21.1.63/learning-api/public/storage/images/default_image.png');
-                                      },),
+                          child: Image.network(
+                            controller.pic.value,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Image.network(
+                                  'http://10.21.1.63/learning-api/public/storage/images/default_image.png');
+                            },
+                          ),
                         ),
                       ),
                       BsCol(

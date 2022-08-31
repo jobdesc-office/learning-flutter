@@ -2,13 +2,8 @@ import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../constants/base_text.dart';
-import '../../../../models/ventes/customfield_model.dart';
 import '../../../../presenters/navigation_presenter.dart';
 import '../../../../styles/color_palattes.dart';
-import '../../../../widgets/button/button_delete_datatable.dart';
-import '../../../../widgets/button/button_details_datatable.dart';
-import '../../../../widgets/button/button_edit_datatable.dart';
 import '../../../../widgets/datatables/custom_datatable_tablecell.dart';
 import '../../../../widgets/datatables/custom_datatable_tablehead.dart';
 

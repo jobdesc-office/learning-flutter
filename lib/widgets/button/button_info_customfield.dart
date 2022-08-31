@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import '../../presenters/navigation_presenter.dart';
 import '../../styles/color_palattes.dart';
 import 'button_controller.dart';
-
-final _navigation = Get.find<NavigationPresenter>();
 
 final box = GetStorage();
 

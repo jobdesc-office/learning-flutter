@@ -1,14 +1,9 @@
-import 'package:boilerplate/models/masters/type_model.dart';
-import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
-import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../contracts/base/index_view_contract.dart';
 import '../../../../middleware/verifyToken.dart';
-import '../../../../models/security/menu_model.dart';
-import '../../../../models/security/permisionmenu_model.dart';
 import '../../../../models/security/permission_model.dart';
 import '../../../../models/session_model.dart';
 import '../../../../presenters/navigation_presenter.dart';
@@ -17,14 +12,9 @@ import '../../../../routes/route_list.dart';
 import '../../../../styles/color_palattes.dart';
 import '../../../../utils/session_manager.dart';
 import '../../../../widgets/breadcrumb.dart';
-import '../../../../widgets/button/button_controller.dart';
-import '../../../../widgets/button/theme_button_create.dart';
-import '../../../../widgets/datatables/custom_datatable.dart';
-import '../../../../widgets/snackbar.dart';
 import '../../../../widgets/snackbar.dart';
 import '../../../skins/template.dart';
 import '../_permission_source.dart';
-import '../_text.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 
@@ -35,7 +25,7 @@ class PermissionMenuView extends GetView implements IndexViewContract {
   final int roleid;
 
   PermissionMenuView({required this.roleid}) {
-    presenter.PermissionViewMenuContract = this;
+    presenter.permissionViewMenuContract = this;
   }
 
   @override
