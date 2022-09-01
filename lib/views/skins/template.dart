@@ -15,6 +15,9 @@ class TemplateView extends StatelessWidget {
     this.title,
     this.breadcrumbs = const [],
     this.activeRoutes = const [],
+    this.back = false,
+    this.titlebg = true,
+    this.background = false,
   }) : super(key: key);
 
   final Widget? child;
@@ -24,6 +27,12 @@ class TemplateView extends StatelessWidget {
   final List<BreadcrumbWidget> breadcrumbs;
 
   final List<String> activeRoutes;
+
+  final bool back;
+
+  final bool titlebg;
+
+  final bool background;
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +58,9 @@ class TemplateView extends StatelessWidget {
                             title: this.title,
                             child: this.child,
                             breadcrumbs: this.breadcrumbs,
+                            back: this.back,
+                            titlebg: this.titlebg,
+                            background: this.background,
                           ),
                         ),
                       ],

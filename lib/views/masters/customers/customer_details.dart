@@ -39,7 +39,6 @@ class CustomerDetails extends GetView implements DetailViewContract {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             ThemeButtonBack(
-              onPressed: () => Navigator.pop(context),
               margin: EdgeInsets.only(bottom: 5),
             ),
             Container(

@@ -47,6 +47,7 @@ class ScheduleView extends GetView
           BreadcrumbWidget('Schedule', active: true),
         ],
         activeRoutes: [RouteList.master.index, RouteList.ventesSchedule.index],
+        background: true,
         child: Obx(() => Column(
               children: [
                 Row(

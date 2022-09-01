@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BaseIcon {
   static IconData buttonSave = Icons.save_outlined;
   static IconData buttonCancel = Icons.close_outlined;
-  static IconData buttonBack = Icons.arrow_back_ios_new;
+  static IconData buttonBack = FontAwesomeIcons.arrowLeft;
   static IconData buttonFilter = Icons.filter_alt_outlined;
   static IconData buttonCreate = Icons.add_circle_rounded;
   static IconData buttonDetail = Icons.visibility;

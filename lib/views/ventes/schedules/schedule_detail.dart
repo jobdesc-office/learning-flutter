@@ -1,4 +1,5 @@
 import 'package:boilerplate/styles/color_palattes.dart';
+import 'package:boilerplate/widgets/form_group.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,7 +11,6 @@ import '../../../presenters/navigation_presenter.dart';
 import '../../../presenters/ventes/schedule_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
-import '../../../widgets/button/theme_button_back.dart';
 import '../../../widgets/snackbar.dart';
 import '../../skins/template.dart';
 import '_details_source.dart';
@@ -31,316 +31,360 @@ class ScheduleDetails extends GetView implements DetailViewContract {
   Widget build(BuildContext context) {
     return Scaffold(
       body: TemplateView(
-        title: ScheduleText.title + ' Form',
+        title: ScheduleText.title + ' Details',
         breadcrumbs: [
           BreadcrumbWidget('Venteses'),
           BreadcrumbWidget('Schedules', back: true),
-          BreadcrumbWidget('Schedule Form', active: true),
+          BreadcrumbWidget('Schedule Details', active: true),
         ],
         activeRoutes: [RouteList.master.index, RouteList.ventesSchedule.index],
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            ThemeButtonBack(
-              onPressed: () => Navigator.pop(context),
-              margin: EdgeInsets.only(bottom: 5),
-            ),
-            Obx(() => Container(
-                  padding: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: _navigation.darkTheme.value
-                        ? ColorPallates.elseDarkColor
-                        : Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: BsRow(
-                    children: [
-                      BsCol(
-                          sizes: ColScreen(lg: Col.col_12),
-                          child: BsRow(
-                            children: [
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_3),
-                                  child: Text('Title')),
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_1),
-                                  child: Text(':')),
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_8),
-                                  child: Text(controller.title.value))
-                            ],
-                          )),
-                      BsCol(
-                          margin: EdgeInsets.only(top: 10),
-                          sizes: ColScreen(lg: Col.col_12),
-                          child: BsRow(
-                            children: [
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_3),
-                                  child: Text('Name')),
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_1),
-                                  child: Text(':')),
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_8),
-                                  child: Text(controller.name.value))
-                            ],
-                          )),
-                      BsCol(
-                          margin: EdgeInsets.only(top: 10),
-                          sizes: ColScreen(lg: Col.col_12),
-                          child: BsRow(
-                            children: [
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_3),
-                                  child: Text('Start Date')),
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_1),
-                                  child: Text(':')),
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_8),
-                                  child: Text(controller.startdate.value))
-                            ],
-                          )),
-                      BsCol(
-                          margin: EdgeInsets.only(top: 10),
-                          sizes: ColScreen(lg: Col.col_12),
-                          child: BsRow(
-                            children: [
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_3),
-                                  child: Text('Start Time')),
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_1),
-                                  child: Text(':')),
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_8),
-                                  child: Text(controller.starttime.value))
-                            ],
-                          )),
-                      BsCol(
-                          margin: EdgeInsets.only(top: 10),
-                          sizes: ColScreen(lg: Col.col_12),
-                          child: BsRow(
-                            children: [
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_3),
-                                  child: Text('End Date')),
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_1),
-                                  child: Text(':')),
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_8),
-                                  child: Text(controller.enddate.value))
-                            ],
-                          )),
-                      BsCol(
-                          margin: EdgeInsets.only(top: 10),
-                          sizes: ColScreen(lg: Col.col_12),
-                          child: BsRow(
-                            children: [
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_3),
-                                  child: Text('End Time')),
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_1),
-                                  child: Text(':')),
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_8),
-                                  child: Text(controller.endtime.value))
-                            ],
-                          )),
-                      BsCol(
-                          margin: EdgeInsets.only(top: 10),
-                          sizes: ColScreen(lg: Col.col_12),
-                          child: BsRow(
-                            children: [
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_3),
-                                  child: Text('Type')),
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_1),
-                                  child: Text(':')),
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_8),
-                                  child: Text(controller.type.value))
-                            ],
-                          )),
-                      BsCol(
-                          margin: EdgeInsets.only(top: 10),
-                          sizes: ColScreen(lg: Col.col_12),
-                          child: BsRow(
-                            children: [
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_3),
-                                  child: Text('Business Partner')),
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_1),
-                                  child: Text(':')),
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_8),
-                                  child: Text(controller.bp.value))
-                            ],
-                          )),
-                      BsCol(
-                          margin: EdgeInsets.only(top: 10),
-                          sizes: ColScreen(lg: Col.col_12),
-                          child: BsRow(
-                            children: [
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_3),
-                                  child: Text('Remind')),
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_1),
-                                  child: Text(':')),
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_8),
-                                  child:
-                                      Text(controller.remind.value.toString()))
-                            ],
-                          )),
-                      BsCol(
-                          margin: EdgeInsets.only(top: 10),
-                          sizes: ColScreen(lg: Col.col_12),
-                          child: BsRow(
-                            children: [
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_3),
-                                  child: Text('Time Zone')),
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_1),
-                                  child: Text(':')),
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_8),
-                                  child: Text(controller.timezone.value))
-                            ],
-                          )),
-                      if (controller.loc.value != '')
+        back: true,
+        titlebg: true,
+        child: Obx(() => BsRow(
+              children: [
+                BsCol(
+                  sizes: ColScreen(lg: Col.col_6),
+                  child: Container(
+                    padding: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: _navigation.darkTheme.value
+                          ? ColorPallates.elseDarkColor
+                          : Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: BsRow(
+                      children: [
+                        BsCol(
+                            sizes: ColScreen(lg: Col.col_12),
+                            child: FormGroup(
+                                label: Text('Title'),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(controller.title.value),
+                                    Divider()
+                                  ],
+                                ))),
                         BsCol(
                             margin: EdgeInsets.only(top: 10),
                             sizes: ColScreen(lg: Col.col_12),
-                            child: BsRow(
-                              children: [
-                                BsCol(
-                                    sizes: ColScreen(lg: Col.col_3),
-                                    child: Text('Location')),
-                                BsCol(
-                                    sizes: ColScreen(lg: Col.col_1),
-                                    child: Text(':')),
-                                BsCol(
-                                    sizes: ColScreen(lg: Col.col_8),
-                                    child: Tooltip(
-                                      message: 'Tap to Copy',
-                                      child: InkWell(
-                                          onTap: () {
-                                            Clipboard.setData(
-                                              ClipboardData(
-                                                  text: controller.loc.value),
-                                            );
-                                            Snackbar().copySuccess();
-                                          },
-                                          child: Text(controller.loc.value)),
-                                    ))
-                              ],
-                            )),
-                      if (controller.link.value != '')
+                            child: FormGroup(
+                                label: Text('Name'),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(controller.name.value),
+                                    Divider()
+                                  ],
+                                ))),
                         BsCol(
                             margin: EdgeInsets.only(top: 10),
                             sizes: ColScreen(lg: Col.col_12),
-                            child: BsRow(
-                              children: [
-                                BsCol(
-                                    sizes: ColScreen(lg: Col.col_3),
-                                    child: Text('Link')),
-                                BsCol(
-                                    sizes: ColScreen(lg: Col.col_1),
-                                    child: Text(':')),
-                                BsCol(
-                                    sizes: ColScreen(lg: Col.col_8),
-                                    child: Tooltip(
-                                      message: 'Tap to Copy',
-                                      child: InkWell(
-                                          onTap: () {
-                                            Clipboard.setData(
-                                              ClipboardData(
-                                                  text: controller.link.value),
-                                            );
-                                            Snackbar().copySuccess();
-                                          },
-                                          child: Text(controller.link.value)),
-                                    ))
-                              ],
-                            )),
-                      BsCol(
-                          margin: EdgeInsets.only(top: 10),
-                          sizes: ColScreen(lg: Col.col_12),
-                          child: BsRow(
-                            children: [
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_3),
-                                  child: Text('Description')),
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_1),
-                                  child: Text(':')),
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_8),
-                                  child: Text(controller.desc.value))
-                            ],
-                          )),
-                      if (controller.guest.length != 0)
+                            child: FormGroup(
+                                label: Text('Start Date'),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(controller.startdate.value),
+                                    Divider()
+                                  ],
+                                ))),
                         BsCol(
                             margin: EdgeInsets.only(top: 10),
                             sizes: ColScreen(lg: Col.col_12),
-                            child: BsRow(
-                              children: [
-                                BsCol(
-                                    sizes: ColScreen(lg: Col.col_3),
-                                    child: Text('Guest')),
-                                BsCol(
-                                    sizes: ColScreen(lg: Col.col_1),
-                                    child: Text(':')),
-                                BsCol(
-                                    sizes: ColScreen(lg: Col.col_8),
-                                    child: ListView.builder(
-                                        shrinkWrap: true,
-                                        itemCount: controller.guest.length,
-                                        itemBuilder: (context, index) {
-                                          var guest = controller.guest[index];
-                                          int x = index + 1;
-                                          String permis;
+                            child: FormGroup(
+                                label: Text('Start Time'),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(controller.starttime.value),
+                                    Divider()
+                                  ],
+                                ))),
+                        BsCol(
+                            margin: EdgeInsets.only(top: 10),
+                            sizes: ColScreen(lg: Col.col_12),
+                            child: FormGroup(
+                                label: Text('End Date'),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(controller.enddate.value),
+                                    Divider()
+                                  ],
+                                ))),
+                        BsCol(
+                            margin: EdgeInsets.only(top: 10),
+                            sizes: ColScreen(lg: Col.col_12),
+                            child: FormGroup(
+                                label: Text('End Time'),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(controller.endtime.value),
+                                    Divider()
+                                  ],
+                                ))),
+                        BsCol(
+                            margin: EdgeInsets.only(top: 10),
+                            sizes: ColScreen(lg: Col.col_12),
+                            child: FormGroup(
+                                label: Text('Type'),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(controller.type.value),
+                                    Divider()
+                                  ],
+                                ))),
+                        BsCol(
+                            margin: EdgeInsets.only(top: 10),
+                            sizes: ColScreen(lg: Col.col_12),
+                            child: FormGroup(
+                                label: Text('Business Partner'),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(controller.type.value),
+                                    Divider()
+                                  ],
+                                ))),
+                        BsCol(
+                            margin: EdgeInsets.only(top: 10),
+                            sizes: ColScreen(lg: Col.col_12),
+                            child: FormGroup(
+                                label: Text('Remind'),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(controller.remind.value.toString()),
+                                    Divider()
+                                  ],
+                                ))),
+                        BsCol(
+                            margin: EdgeInsets.only(top: 10),
+                            sizes: ColScreen(lg: Col.col_12),
+                            child: FormGroup(
+                                label: Text('Time Zone'),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(controller.timezone.value),
+                                    Divider()
+                                  ],
+                                ))),
+                        if (controller.loc.value != '')
+                          BsCol(
+                              margin: EdgeInsets.only(top: 10),
+                              sizes: ColScreen(lg: Col.col_12),
+                              child: FormGroup(
+                                  label: Text('Location'),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Tooltip(
+                                        message: 'Tap to Copy',
+                                        child: InkWell(
+                                            onTap: () {
+                                              Clipboard.setData(
+                                                ClipboardData(
+                                                    text: controller.loc.value),
+                                              );
+                                              Snackbar().copySuccess();
+                                            },
+                                            child: Text(controller.loc.value)),
+                                      ),
+                                      Divider()
+                                    ],
+                                  ))),
+                        if (controller.link.value != '')
+                          BsCol(
+                              margin: EdgeInsets.only(top: 10),
+                              sizes: ColScreen(lg: Col.col_12),
+                              child: FormGroup(
+                                  label: Text('Link'),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Tooltip(
+                                        message: 'Tap to Copy',
+                                        child: InkWell(
+                                            onTap: () {
+                                              Clipboard.setData(
+                                                ClipboardData(
+                                                    text:
+                                                        controller.link.value),
+                                              );
+                                              Snackbar().copySuccess();
+                                            },
+                                            child: Text(controller.link.value)),
+                                      ),
+                                      Divider()
+                                    ],
+                                  ))),
+                        BsCol(
+                            margin: EdgeInsets.only(top: 10),
+                            sizes: ColScreen(lg: Col.col_12),
+                            child: FormGroup(
+                                label: Text('Description'),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(controller.desc.value),
+                                    Divider()
+                                  ],
+                                ))),
+                        if (controller.guest.length != 0)
+                          BsCol(
+                              margin: EdgeInsets.only(top: 10),
+                              sizes: ColScreen(lg: Col.col_12),
+                              child: FormGroup(
+                                  label: Text('Guest'),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      ListView.builder(
+                                          shrinkWrap: true,
+                                          itemCount: controller.guest.length,
+                                          itemBuilder: (context, index) {
+                                            var guest = controller.guest[index];
+                                            int x = index + 1;
+                                            String permis;
 
-                                          switch (guest.schepermisid) {
-                                            case '{1}':
-                                              permis = 'Read Only';
-                                              break;
-                                            case '{2}':
-                                              permis = 'Add Member';
-                                              break;
-                                            case '{3}':
-                                              permis = 'Share Link';
-                                              break;
-                                            default:
-                                              permis =
-                                                  'Add Member & Share Link';
-                                              break;
-                                          }
+                                            switch (guest.schepermisid) {
+                                              case '{1}':
+                                                permis = 'Read Only';
+                                                break;
+                                              case '{2}':
+                                                permis = 'Add Member';
+                                                break;
+                                              case '{3}':
+                                                permis = 'Share Link';
+                                                break;
+                                              default:
+                                                permis =
+                                                    'Add Member & Share Link';
+                                                break;
+                                            }
 
-                                          return Container(
-                                              margin: EdgeInsets.only(top: 5),
-                                              child: Text(x.toString() +
-                                                  ' )  ' +
-                                                  guest.scheuser.userfullname +
-                                                  ' ( ' +
-                                                  permis +
-                                                  ' )'));
-                                        }))
-                              ],
-                            )),
-                    ],
+                                            return Container(
+                                                margin: EdgeInsets.only(top: 5),
+                                                child: Text(x.toString() +
+                                                    ' )  ' +
+                                                    guest
+                                                        .scheuser.userfullname +
+                                                    ' ( ' +
+                                                    permis +
+                                                    ' )'));
+                                          }),
+                                      Divider()
+                                    ],
+                                  ))),
+                      ],
+                    ),
                   ),
-                )),
-          ],
-        ),
+                ),
+                BsCol(
+                  margin: EdgeInsets.only(left: 10),
+                  sizes: ColScreen(lg: Col.col_6),
+                  child: Container(
+                    padding: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: _navigation.darkTheme.value
+                          ? ColorPallates.elseDarkColor
+                          : Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: BsRow(
+                      children: [
+                        BsCol(
+                          child: BsRow(
+                            children: [
+                              BsCol(
+                                child: FormGroup(
+                                    label: Text('Created By'),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(controller.createdby.value),
+                                        Divider()
+                                      ],
+                                    )),
+                              ),
+                              BsCol(
+                                margin: EdgeInsets.only(top: 10),
+                                child: FormGroup(
+                                    label: Text('Created At'),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(controller.createdat.value),
+                                        Divider()
+                                      ],
+                                    )),
+                              ),
+                              BsCol(
+                                margin: EdgeInsets.only(top: 10),
+                                child: FormGroup(
+                                    label: Text('Last Updated By'),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(controller.updatedby.value),
+                                        Divider()
+                                      ],
+                                    )),
+                              ),
+                              BsCol(
+                                margin: EdgeInsets.only(top: 10),
+                                child: FormGroup(
+                                    label: Text('Last Updated At'),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(controller.updatedat.value),
+                                        Divider()
+                                      ],
+                                    )),
+                              ),
+                              BsCol(
+                                margin: EdgeInsets.only(top: 10),
+                                child: FormGroup(
+                                    label: Text('Activation'),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        if (controller.isactive.value)
+                                          Card(
+                                            color: Colors.green,
+                                            child: Text('Active'),
+                                          )
+                                        else
+                                          Card(
+                                            color: Colors.red,
+                                            child: Text('Not Active'),
+                                          ),
+                                        Divider()
+                                      ],
+                                    )),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            )),
       ),
     );
   }
@@ -359,6 +403,12 @@ class ScheduleDetails extends GetView implements DetailViewContract {
     controller.loc.value = dt.scheloc ?? '';
     controller.remind.value = dt.scheremind ?? 0;
     controller.timezone.value = dt.schetz ?? '';
+
+    controller.createdby.value = dt.schecreatedby?.userfullname ?? '';
+    controller.createdat.value = dt.createddate ?? '';
+    controller.updatedby.value = dt.scheupdatedby?.userfullname ?? '';
+    controller.updatedat.value = dt.updateddate ?? '';
+    controller.isactive.value = dt.isactive ?? false;
 
     controller.desc.value = dt.schedesc ?? '';
     controller.type.value = dt.schetype!.typename ?? '';

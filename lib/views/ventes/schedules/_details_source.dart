@@ -23,6 +23,12 @@ class ScheduleDetailsSource extends GetxController {
 
   var guest = [].obs;
 
+  var createdby = ''.obs;
+  var createdat = ''.obs;
+  var updatedby = ''.obs;
+  var updatedat = ''.obs;
+  var isactive = false.obs;
+
   @override
   void onClose() {
     title.value = '';

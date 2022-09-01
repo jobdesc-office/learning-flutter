@@ -61,7 +61,6 @@ class MenuDetails extends GetView
                   prefix: 'Feature',
                 ),
                 ThemeButtonBack(
-                  onPressed: () => Navigator.pop(context),
                   margin: EdgeInsets.only(bottom: 5, left: 5),
                 ),
               ],

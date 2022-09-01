@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class ScheduleModel {
   int? scheid;
   String? schenm;
@@ -26,12 +24,13 @@ class ScheduleModel {
   int? updatedby;
   String? updateddate;
   bool? isactive;
+  Schecreatedby? schecreatedby;
+  Schecreatedby? scheupdatedby;
   Schetype? schetype;
-  Schetype? schereftype;
   List<Scheguest>? scheguest;
   Schebp? schebp;
   Schetoward? schetoward;
-  Color? bg;
+  Schetype? schereftype;
 
   ScheduleModel(
       {this.scheid,
@@ -59,12 +58,13 @@ class ScheduleModel {
       this.updatedby,
       this.updateddate,
       this.isactive,
+      this.schecreatedby,
+      this.scheupdatedby,
       this.schetype,
-      this.schereftype,
       this.scheguest,
       this.schebp,
       this.schetoward,
-      this.bg});
+      this.schereftype});
 
   ScheduleModel.fromJson(Map<String, dynamic> json) {
     scheid = json['scheid'];
@@ -92,11 +92,14 @@ class ScheduleModel {
     updatedby = json['updatedby'];
     updateddate = json['updateddate'];
     isactive = json['isactive'];
+    schecreatedby = json['schecreatedby'] != null
+        ? new Schecreatedby.fromJson(json['schecreatedby'])
+        : null;
+    scheupdatedby = json['scheupdatedby'] != null
+        ? new Schecreatedby.fromJson(json['scheupdatedby'])
+        : null;
     schetype = json['schetype'] != null
         ? new Schetype.fromJson(json['schetype'])
-        : null;
-    schereftype = json['schereftype'] != null
-        ? new Schetype.fromJson(json['schereftype'])
         : null;
     if (json['scheguest'] != null) {
       scheguest = <Scheguest>[];
@@ -108,6 +111,9 @@ class ScheduleModel {
         json['schebp'] != null ? new Schebp.fromJson(json['schebp']) : null;
     schetoward = json['schetoward'] != null
         ? new Schetoward.fromJson(json['schetoward'])
+        : null;
+    schereftype = json['schereftype'] != null
+        ? new Schetype.fromJson(json['schereftype'])
         : null;
   }
 
@@ -138,11 +144,14 @@ class ScheduleModel {
     data['updatedby'] = this.updatedby;
     data['updateddate'] = this.updateddate;
     data['isactive'] = this.isactive;
+    if (this.schecreatedby != null) {
+      data['schecreatedby'] = this.schecreatedby!.toJson();
+    }
+    if (this.scheupdatedby != null) {
+      data['scheupdatedby'] = this.scheupdatedby!.toJson();
+    }
     if (this.schetype != null) {
       data['schetype'] = this.schetype!.toJson();
-    }
-    if (this.schereftype != null) {
-      data['schetype'] = this.schereftype!.toJson();
     }
     if (this.scheguest != null) {
       data['scheguest'] = this.scheguest!.map((v) => v.toJson()).toList();
@@ -153,6 +162,78 @@ class ScheduleModel {
     if (this.schetoward != null) {
       data['schetoward'] = this.schetoward!.toJson();
     }
+    if (this.schereftype != null) {
+      data['schereftype'] = this.schereftype!.toJson();
+    }
+    return data;
+  }
+}
+
+class Schecreatedby {
+  int? userid;
+  String? username;
+  String? userpassword;
+  String? userfullname;
+  String? useremail;
+  String? userphone;
+  String? userdeviceid;
+  String? userfcmtoken;
+  String? usersocketid;
+  int? createdby;
+  String? createddate;
+  int? updatedby;
+  String? updateddate;
+  bool? isactive;
+
+  Schecreatedby(
+      {this.userid,
+      this.username,
+      this.userpassword,
+      this.userfullname,
+      this.useremail,
+      this.userphone,
+      this.userdeviceid,
+      this.userfcmtoken,
+      this.usersocketid,
+      this.createdby,
+      this.createddate,
+      this.updatedby,
+      this.updateddate,
+      this.isactive});
+
+  Schecreatedby.fromJson(Map<String, dynamic> json) {
+    userid = json['userid'];
+    username = json['username'];
+    userpassword = json['userpassword'];
+    userfullname = json['userfullname'];
+    useremail = json['useremail'];
+    userphone = json['userphone'];
+    userdeviceid = json['userdeviceid'];
+    userfcmtoken = json['userfcmtoken'];
+    usersocketid = json['usersocketid'];
+    createdby = json['createdby'];
+    createddate = json['createddate'];
+    updatedby = json['updatedby'];
+    updateddate = json['updateddate'];
+    isactive = json['isactive'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['userid'] = this.userid;
+    data['username'] = this.username;
+    data['userpassword'] = this.userpassword;
+    data['userfullname'] = this.userfullname;
+    data['useremail'] = this.useremail;
+    data['userphone'] = this.userphone;
+    data['userdeviceid'] = this.userdeviceid;
+    data['userfcmtoken'] = this.userfcmtoken;
+    data['usersocketid'] = this.usersocketid;
+    data['createdby'] = this.createdby;
+    data['createddate'] = this.createddate;
+    data['updatedby'] = this.updatedby;
+    data['updateddate'] = this.updateddate;
+    data['isactive'] = this.isactive;
     return data;
   }
 }
@@ -187,8 +268,8 @@ class Scheguest {
   String? updateddate;
   bool? isactive;
   String? schepermisid;
-  Scheuser? scheuser;
-  Schebp? schebp;
+  Schecreatedby? scheuser;
+  Scheguestbp? scheguestbp;
 
   Scheguest(
       {this.scheguestid,
@@ -202,7 +283,7 @@ class Scheguest {
       this.isactive,
       this.schepermisid,
       this.scheuser,
-      this.schebp});
+      this.scheguestbp});
 
   Scheguest.fromJson(Map<String, dynamic> json) {
     scheguestid = json['scheguestid'];
@@ -216,10 +297,11 @@ class Scheguest {
     isactive = json['isactive'];
     schepermisid = json['schepermisid'];
     scheuser = json['scheuser'] != null
-        ? new Scheuser.fromJson(json['scheuser'])
+        ? new Schecreatedby.fromJson(json['scheuser'])
         : null;
-    schebp =
-        json['schebp'] != null ? new Schebp.fromJson(json['schebp']) : null;
+    scheguestbp = json['scheguestbp'] != null
+        ? new Scheguestbp.fromJson(json['scheguestbp'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -237,79 +319,14 @@ class Scheguest {
     if (this.scheuser != null) {
       data['scheuser'] = this.scheuser!.toJson();
     }
-    if (this.schebp != null) {
-      data['schebp'] = this.schebp!.toJson();
+    if (this.scheguestbp != null) {
+      data['scheguestbp'] = this.scheguestbp!.toJson();
     }
     return data;
   }
 }
 
-class Scheuser {
-  int? userid;
-  String? username;
-  String? userpassword;
-  String? userfullname;
-  String? useremail;
-  String? userphone;
-  String? userdeviceid;
-  String? userfcmtoken;
-  int? createdby;
-  String? createddate;
-  int? updatedby;
-  String? updateddate;
-  bool? isactive;
-
-  Scheuser(
-      {this.userid,
-      this.username,
-      this.userpassword,
-      this.userfullname,
-      this.useremail,
-      this.userphone,
-      this.userdeviceid,
-      this.userfcmtoken,
-      this.createdby,
-      this.createddate,
-      this.updatedby,
-      this.updateddate,
-      this.isactive});
-
-  Scheuser.fromJson(Map<String, dynamic> json) {
-    userid = json['userid'];
-    username = json['username'];
-    userpassword = json['userpassword'];
-    userfullname = json['userfullname'];
-    useremail = json['useremail'];
-    userphone = json['userphone'];
-    userdeviceid = json['userdeviceid'];
-    userfcmtoken = json['userfcmtoken'];
-    createdby = json['createdby'];
-    createddate = json['createddate'];
-    updatedby = json['updatedby'];
-    updateddate = json['updateddate'];
-    isactive = json['isactive'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['userid'] = this.userid;
-    data['username'] = this.username;
-    data['userpassword'] = this.userpassword;
-    data['userfullname'] = this.userfullname;
-    data['useremail'] = this.useremail;
-    data['userphone'] = this.userphone;
-    data['userdeviceid'] = this.userdeviceid;
-    data['userfcmtoken'] = this.userfcmtoken;
-    data['createdby'] = this.createdby;
-    data['createddate'] = this.createddate;
-    data['updatedby'] = this.updatedby;
-    data['updateddate'] = this.updateddate;
-    data['isactive'] = this.isactive;
-    return data;
-  }
-}
-
-class Schebp {
+class Scheguestbp {
   int? bpid;
   String? bpname;
   int? bptypeid;
@@ -322,7 +339,7 @@ class Schebp {
   String? updateddate;
   bool? isactive;
 
-  Schebp(
+  Scheguestbp(
       {this.bpid,
       this.bpname,
       this.bptypeid,
@@ -335,7 +352,7 @@ class Schebp {
       this.updateddate,
       this.isactive});
 
-  Schebp.fromJson(Map<String, dynamic> json) {
+  Scheguestbp.fromJson(Map<String, dynamic> json) {
     bpid = json['bpid'];
     bpname = json['bpname'];
     bptypeid = json['bptypeid'];
@@ -366,13 +383,13 @@ class Schebp {
   }
 }
 
-class Schebpartner {
+class Schebp {
   int? bpid;
   String? bpname;
 
-  Schebpartner({this.bpid, this.bpname});
+  Schebp({this.bpid, this.bpname});
 
-  Schebpartner.fromJson(Map<String, dynamic> json) {
+  Schebp.fromJson(Map<String, dynamic> json) {
     bpid = json['bpid'];
     bpname = json['bpname'];
   }

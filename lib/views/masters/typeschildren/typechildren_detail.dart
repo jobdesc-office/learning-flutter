@@ -48,7 +48,6 @@ class TypeChildrenDetails extends GetView
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             ThemeButtonBack(
-              onPressed: () => Navigator.pop(context),
               margin: EdgeInsets.only(bottom: 5),
             ),
             Obx(() => Container(
