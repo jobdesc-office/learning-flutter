@@ -60,7 +60,7 @@ class CustomDatabales extends BsDatatable {
                                           decoration: BoxDecoration(
                                             color: _navigation.darkTheme.value
                                                 ? ColorPallates.elseDarkColor
-                                                : ColorPallates.elseLightColor,
+                                                : Color(0xfff1f1f1),
                                             borderRadius:
                                                 BorderRadius.circular(5),
                                           ),

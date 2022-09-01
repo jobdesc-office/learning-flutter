@@ -36,6 +36,7 @@ class BusinessPartnerView extends GetView
           RouteList.master.index,
           RouteList.masterBusinessPartner.index
         ],
+        background: true,
         child: Container(
           child: Column(
             children: [
