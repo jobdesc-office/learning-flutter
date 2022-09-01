@@ -91,67 +91,61 @@ class CustomfieldSection extends StatelessWidget {
                     Text('Additional Information',
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold)),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        // Tooltip(
-                        //   message: 'View Available Custom Field',
-                        //   child: BsButton(
-                        //       size: BsButtonSize.btnSm,
-                        //       onPressed: () => customFieldPresenter.popup(
-                        //             context,
-                        //           ),
-                        //       label: Icon(
-                        //         Icons.info,
-                        //         size: 13,
-                        //       )),
-                        // ),
-                        // Tooltip(
-                        //   message: 'Write Custom Field',
-                        //   child: BsButton(
-                        //       margin: EdgeInsets.only(left: 5),
-                        //       size: BsButtonSize.btnSm,
-                        //       onPressed: () {
-                        //         source.isAdd.toggle();
-                        //         source.isAddCF.value = false;
-                        //       },
-                        //       label: Icon(
-                        //         Icons.edit,
-                        //         size: 13,
-                        //       )),
-                        // ),
-                        if (source.stage.value != ProspectText.closedWon ||
-                            source.stage.value != ProspectText.closedLost ||
-                            source.stage.value != ProspectText.forceClosed)
-                          Tooltip(
-                            message:
-                                source.status.value != ProspectText.closedWon &&
+                    Obx(() => Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            // Tooltip(
+                            //   message: 'View Available Custom Field',
+                            //   child: BsButton(
+                            //       size: BsButtonSize.btnSm,
+                            //       onPressed: () => customFieldPresenter.popup(
+                            //             context,
+                            //           ),
+                            //       label: Icon(
+                            //         Icons.info,
+                            //         size: 13,
+                            //       )),
+                            // ),
+                            // Tooltip(
+                            //   message: 'Write Custom Field',
+                            //   child: BsButton(
+                            //       margin: EdgeInsets.only(left: 5),
+                            //       size: BsButtonSize.btnSm,
+                            //       onPressed: () {
+                            //         source.isAdd.toggle();
+                            //         source.isAddCF.value = false;
+                            //       },
+                            //       label: Icon(
+                            //         Icons.edit,
+                            //         size: 13,
+                            //       )),
+                            // ),
+                            if (source.status.value != ProspectText.closedWon &&
+                                source.status.value !=
+                                    ProspectText.closedLost &&
+                                source.status.value != ProspectText.forceClosed)
+                              Tooltip(
+                                message: source.status.value !=
+                                            ProspectText.closedWon &&
                                         source.status.value !=
                                             ProspectText.closedLost &&
                                         source.status.value !=
                                             ProspectText.forceClosed
                                     ? 'Add Custom Field'
                                     : '',
-                            child: BsButton(
-                              margin: EdgeInsets.only(left: 5),
-                              size: BsButtonSize.btnSm,
-                              onPressed: () {
-                                if (source.status.value !=
-                                        ProspectText.closedWon &&
-                                    source.status.value !=
-                                        ProspectText.closedLost &&
-                                    source.status.value !=
-                                        ProspectText.forceClosed) {
-                                  source.isAddCF.toggle();
-                                  source.isAdd.value = false;
-                                }
-                              },
-                              prefixIcon: Icons.add,
-                              label: Text('Customize Fields'),
-                            ),
-                          )
-                      ],
-                    ),
+                                child: BsButton(
+                                  margin: EdgeInsets.only(left: 5),
+                                  size: BsButtonSize.btnSm,
+                                  onPressed: () {
+                                    source.isAddCF.toggle();
+                                    source.isAdd.value = false;
+                                  },
+                                  prefixIcon: Icons.add,
+                                  label: Text('Customize Fields'),
+                                ),
+                              )
+                          ],
+                        )),
                   ],
                 ),
                 if (source.isAddCF.value)
