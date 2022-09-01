@@ -127,13 +127,13 @@ class BusinessPartnerFormView extends StatelessWidget
 
     source.update((val) {
       BusinessPartnerModel bp = BusinessPartnerModel.fromJson(response.body);
-      source.value.selectType.setSelected(
-          BsSelectBoxOption(value: bp.bptypeid, text: Text(bp.typename)));
+      source.value.selectType.setSelected(BsSelectBoxOption(
+          value: bp.bptypeid, text: Text(bp.bptype?.typename ?? '')));
       source.value.businessPartnerTypeController.selected = bp.bptype;
-      source.value.inputCompanyName.text = bp.bpname;
-      source.value.inputName.text = bp.bppicname;
-      source.value.inputEmail.text = bp.bpemail;
-      source.value.inputPhone.text = bp.bpphone;
+      source.value.inputCompanyName.text = bp.bpname ?? '';
+      source.value.inputName.text = bp.bppicname ?? '';
+      source.value.inputEmail.text = bp.bpemail ?? '';
+      source.value.inputPhone.text = bp.bpphone ?? '';
     });
   }
 }

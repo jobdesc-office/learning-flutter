@@ -61,7 +61,7 @@ class BpCustomerDetails extends GetView implements DetailViewContract {
                             controller.pic.value,
                             errorBuilder: (context, error, stackTrace) {
                               return Image.network(
-                                  'http://10.21.1.63/learning-api/public/storage/images/default_image.png');
+                                  'http://10.21.1.63/learning-api/public/storage/images/default_image.jpeg');
                             },
                           ),
                         ),
@@ -181,7 +181,7 @@ class BpCustomerDetails extends GetView implements DetailViewContract {
       controller.pic.value = dt.sbccstmpics!.first.url!;
     } else {
       controller.pic.value =
-          'http://10.21.1.63/learning-api/public/storage/images/default_image.png';
+          'http://10.21.1.63/learning-api/public/storage/images/default_image.jpeg';
     }
     presenter.setProcessing(false);
   }

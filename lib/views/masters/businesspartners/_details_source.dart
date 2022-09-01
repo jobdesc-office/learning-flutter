@@ -7,6 +7,12 @@ class BusinessPartnerDetailsSource extends GetxController {
   var phone = ''.obs;
   var email = ''.obs;
 
+  var createdby = ''.obs;
+  var createddate = ''.obs;
+  var updatedby = ''.obs;
+  var updateddate = ''.obs;
+  var isactive = false.obs;
+
   @override
   void onClose() {
     name.value = '';
@@ -14,6 +20,11 @@ class BusinessPartnerDetailsSource extends GetxController {
     pic.value = '';
     phone.value = '';
     email.value = '';
+    createdby.value = '';
+    createddate.value = '';
+    updatedby.value = '';
+    updateddate.value = '';
+    isactive.value = false;
     super.onClose();
   }
 }

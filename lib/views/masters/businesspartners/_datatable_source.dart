@@ -64,7 +64,7 @@ class BusinessPartnerDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.bpname),
+          Text(row.bpname ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -84,7 +84,7 @@ class BusinessPartnerDataTableSource extends BsDatatableSource {
         //           : ColorPallates.datatableLightOddRowColor,
         // ),
         CustomBsDataCell(
-          Text(row.bpphone),
+          Text(row.bpphone ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -101,14 +101,14 @@ class BusinessPartnerDataTableSource extends BsDatatableSource {
                 message: BaseText.detailHintDatatable(field: row.bpname),
                 child: ButtonDetailsDatatables(
                   margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onDetailsListener(row.bpid),
+                  onPressed: () => onDetailsListener(row.bpid!),
                 ),
               ),
               Tooltip(
                 message: BaseText.editHintDatatable(field: row.bpname),
                 child: ButtonEditDatatables(
                   margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onEditListener(row.bpid),
+                  onPressed: () => onEditListener(row.bpid!),
                 ),
               ),
               Tooltip(

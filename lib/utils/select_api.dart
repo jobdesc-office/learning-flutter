@@ -508,7 +508,8 @@ Future<BsSelectBoxResponse> selectApiPartner(Map<String, String> params) async {
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => BusinessPartnerModel.fromJson(data).bpid,
-        renderText: (data) => Text(BusinessPartnerModel.fromJson(data).bpname),
+        renderText: (data) =>
+            Text(BusinessPartnerModel.fromJson(data).bpname ?? ''),
       );
     }
   }
