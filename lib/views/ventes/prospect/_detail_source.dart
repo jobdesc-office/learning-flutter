@@ -38,6 +38,7 @@ class ProspectDetailsSource extends GetxController {
   var remind = ''.obs;
   var timezone = ''.obs;
   var status = ''.obs;
+  var stage = ''.obs;
 
   var online = false.obs;
   var allday = false.obs;

@@ -58,35 +58,49 @@ class _TabNote extends StatelessWidget {
                                 //             ? Colors.white
                                 //             : Colors.black))),
                                 child: ZefyrEditorComponent(
+                          readonly:
+                              source.status.value != ProspectText.closedWon &&
+                                      source.status.value !=
+                                          ProspectText.closedLost &&
+                                      source.status.value !=
+                                          ProspectText.forceClosed
+                                  ? false
+                                  : true,
                           controller: inputDescription,
                           // validators: [
                           //   Validators.editorRequired('Description'),
                           // ],
                         ))),
-                        BsCol(
-                            margin: EdgeInsets.only(top: 5),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Obx(() => ThemeButtonSave(onPressed: () async {
-                                      if (formState.currentState!.validate()) {
-                                        SessionModel session =
-                                            await SessionManager.current();
-                                        presenter.changeNote(
-                                            context,
-                                            {
-                                              'prospectdescription': jsonEncode(
-                                                  inputDescription.document),
-                                              'createdby': session.userid,
-                                              'updatedby': session.userid
-                                            },
-                                            source.prospectid.value);
-                                        source.desc.value = jsonEncode(
-                                            inputDescription.document);
-                                      }
-                                    }))
-                              ],
-                            )),
+                        if (source.status.value != ProspectText.closedWon &&
+                            source.status.value != ProspectText.closedLost &&
+                            source.status.value != ProspectText.forceClosed)
+                          BsCol(
+                              margin: EdgeInsets.only(top: 5),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Obx(() =>
+                                      ThemeButtonSave(onPressed: () async {
+                                        if (formState.currentState!
+                                            .validate()) {
+                                          SessionModel session =
+                                              await SessionManager.current();
+                                          presenter.changeNote(
+                                              context,
+                                              {
+                                                'prospectdescription':
+                                                    jsonEncode(inputDescription
+                                                        .document),
+                                                'createdby': session.userid,
+                                                'updatedby': session.userid
+                                              },
+                                              source.prospectid.value);
+                                          source.desc.value = jsonEncode(
+                                              inputDescription.document);
+                                        }
+                                      }))
+                                ],
+                              )),
                       ],
                     ),
                   ))

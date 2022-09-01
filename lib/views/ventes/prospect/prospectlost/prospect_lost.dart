@@ -119,7 +119,7 @@ class ProspectLose extends GetView {
             if (value == ConfirmDialogOption.YES_OPTION) {
               onSave(await source.toJson());
               sources.status.value = 'Closed Lost';
-              sources.prospectStageController.value.selected = stage;
+              // sources.prospectStageController.value.selected = stage;
               sources.losttype.value = source.value.selectReason
                   .getSelected()!
                   .getOtherValue()['typename']

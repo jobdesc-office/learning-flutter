@@ -37,7 +37,7 @@ class ProspectLostSource extends GetxController {
       'prospectenddate':
           '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}',
       'prospectstatusid': data,
-      'prospectstageid': stage.typeid,
+      // 'prospectstageid': stage.typeid,
       'prospectlostreasonid': selectReason.getSelectedAsString(),
       'prospectlostdesc': inputDesc.text,
       'createdby': session.userid,

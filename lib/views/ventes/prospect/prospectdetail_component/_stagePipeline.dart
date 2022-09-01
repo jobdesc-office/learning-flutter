@@ -1,3 +1,4 @@
+import 'package:boilerplate/views/ventes/prospect/prospectactivity/_text.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,7 @@ import '../../../../styles/color_palattes.dart';
 import '../../../../utils/session_manager.dart';
 import '../../../../widgets/confirm_dialog.dart';
 import '../_detail_source.dart';
+import '../_text.dart';
 
 abstract class MenuTypeViewDetailContract {
   void onLoadSuccess(Response response);
@@ -143,29 +145,35 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
           sizes: ColScreen(sm: Col.col_2),
           child: InkWell(
             onTap: () async {
-              SessionModel session = await SessionManager.current();
-              Map<String, dynamic> body = {
-                'prospectstageid': type.typeid,
-                'createdby': session.userid,
-                'updatedby': session.userid,
-              };
-              showDialog(
-                context: context,
-                builder: (context) => ConfirmDialog(
-                  title: BaseText.confirmTitle,
-                  message:
-                      'Are You Sure Want to Change to ${type.typename} Stage ?',
-                  onPressed: (_, value) async {
-                    if (value == ConfirmDialogOption.YES_OPTION) {
-                      source.showPipeline.value = false;
-                      source.prospectStageController.value.selected = type;
-                      presenter.update(context, body, source.prospectid.value);
-                    } else {
-                      Navigator.pop(context);
-                    }
-                  },
-                ),
-              );
+              print(source.status.value);
+              if (source.status.value != ProspectText.closedWon &&
+                  source.status.value != ProspectText.closedLost &&
+                  source.status.value != ProspectText.forceClosed) {
+                SessionModel session = await SessionManager.current();
+                Map<String, dynamic> body = {
+                  'prospectstageid': type.typeid,
+                  'createdby': session.userid,
+                  'updatedby': session.userid,
+                };
+                showDialog(
+                  context: context,
+                  builder: (context) => ConfirmDialog(
+                    title: BaseText.confirmTitle,
+                    message:
+                        'Are You Sure Want to Change to ${type.typename} Stage ?',
+                    onPressed: (_, value) async {
+                      if (value == ConfirmDialogOption.YES_OPTION) {
+                        source.showPipeline.value = false;
+                        source.prospectStageController.value.selected = type;
+                        presenter.update(
+                            context, body, source.prospectid.value);
+                      } else {
+                        Navigator.pop(context);
+                      }
+                    },
+                  ),
+                );
+              }
             },
             child: Column(
               children: [

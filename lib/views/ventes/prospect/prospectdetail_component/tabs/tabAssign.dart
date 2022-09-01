@@ -22,14 +22,17 @@ class _TabAssign extends StatelessWidget {
                   //   style: TextStyle(fontSize: 18),
                   // ),
                 ),
-                BsButton(
-                  style: BsButtonStyle.success,
-                  onPressed: () {
-                    assignPresenter.add(context, source.prospectid.value);
-                  },
-                  prefixIcon: Icons.assignment,
-                  label: Text('Add Assignation'),
-                ),
+                if (source.status.value != ProspectText.closedWon &&
+                    source.status.value != ProspectText.closedLost &&
+                    source.status.value != ProspectText.forceClosed)
+                  BsButton(
+                    style: BsButtonStyle.success,
+                    onPressed: () {
+                      assignPresenter.add(context, source.prospectid.value);
+                    },
+                    prefixIcon: Icons.assignment,
+                    label: Text('Add Assignation'),
+                  ),
               ],
             ),
             Column(
@@ -90,28 +93,42 @@ class _TabAssign extends StatelessWidget {
                                               child:
                                                   Icon(Icons.remove_red_eye)),
                                         ),
-                                        Tooltip(
-                                          message: BaseText.editHintDatatable(
-                                              field:
-                                                  'Assignment for ${e.prospectassignss?.userfullname}'),
-                                          child: InkWell(
-                                              onTap: () => assignPresenter.edit(
-                                                  context,
-                                                  e.prospectassignid!,
-                                                  source.prospectid.value),
-                                              child: Icon(Icons.edit)),
-                                        ),
-                                        Tooltip(
-                                          message: BaseText.deleteHintDatatable(
-                                              field:
-                                                  'Assignment for ${e.prospectassignss?.userfullname}'),
-                                          child: InkWell(
-                                              onTap: () => assignPresenter.delete(
-                                                  context,
-                                                  e.prospectassignid!,
-                                                  'Assignment for ${e.prospectassignss?.userfullname}'),
-                                              child: Icon(Icons.delete)),
-                                        )
+                                        if (source.status.value !=
+                                                ProspectText.closedWon &&
+                                            source.status.value !=
+                                                ProspectText.closedLost &&
+                                            source.status.value !=
+                                                ProspectText.forceClosed)
+                                          Tooltip(
+                                            message: BaseText.editHintDatatable(
+                                                field:
+                                                    'Assignment for ${e.prospectassignss?.userfullname}'),
+                                            child: InkWell(
+                                                onTap: () =>
+                                                    assignPresenter.edit(
+                                                        context,
+                                                        e.prospectassignid!,
+                                                        source
+                                                            .prospectid.value),
+                                                child: Icon(Icons.edit)),
+                                          ),
+                                        if (source.status.value !=
+                                                ProspectText.closedWon &&
+                                            source.status.value !=
+                                                ProspectText.closedLost &&
+                                            source.status.value !=
+                                                ProspectText.forceClosed)
+                                          Tooltip(
+                                            message: BaseText.deleteHintDatatable(
+                                                field:
+                                                    'Assignment for ${e.prospectassignss?.userfullname}'),
+                                            child: InkWell(
+                                                onTap: () => assignPresenter.delete(
+                                                    context,
+                                                    e.prospectassignid!,
+                                                    'Assignment for ${e.prospectassignss?.userfullname}'),
+                                                child: Icon(Icons.delete)),
+                                          )
                                       ],
                                     )
                                   ],
@@ -129,15 +146,18 @@ class _TabAssign extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text('This Prospect is not Assigned'),
-          BsButton(
-            margin: EdgeInsets.only(top: 10),
-            style: BsButtonStyle.success,
-            onPressed: () {
-              assignPresenter.add(context, source.prospectid.value);
-            },
-            prefixIcon: Icons.assignment,
-            label: Text('Add Assignation'),
-          ),
+          if (source.status.value != ProspectText.closedWon &&
+              source.status.value != ProspectText.closedLost &&
+              source.status.value != ProspectText.forceClosed)
+            BsButton(
+              margin: EdgeInsets.only(top: 10),
+              style: BsButtonStyle.success,
+              onPressed: () {
+                assignPresenter.add(context, source.prospectid.value);
+              },
+              prefixIcon: Icons.assignment,
+              label: Text('Add Assignation'),
+            ),
         ],
       );
   }

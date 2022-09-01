@@ -261,14 +261,14 @@ BsCol prospectDetailTitleSection(context) {
                                                     'prospectenddate':
                                                         '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}',
                                                     'prospectstatusid': data,
-                                                    'prospectstageid':
-                                                        stage.typeid,
+                                                    // 'prospectstageid':
+                                                    //     stage.typeid,
                                                   },
                                                   source.prospectid.value);
                                               source.status.value =
                                                   'Closed Won';
-                                              source.prospectStageController
-                                                  .value.selected = stage;
+                                              // source.prospectStageController
+                                              //     .value.selected = stage;
                                             } else {
                                               Navigator.pop(context);
                                             }

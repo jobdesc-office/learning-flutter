@@ -44,6 +44,7 @@ class ZefyrEditorComponent extends StatefulWidget {
     Key? key,
     required this.controller,
     this.validators = const [],
+    this.readonly = false,
   }) : super(key: key);
 
   @override
@@ -52,6 +53,8 @@ class ZefyrEditorComponent extends StatefulWidget {
   final ZefyrController controller;
 
   final List<ZefyrEditorValidator> validators;
+
+  final bool readonly;
 }
 
 class _ZefyrEditorComponentState extends State<ZefyrEditorComponent> {
@@ -112,13 +115,20 @@ class _ZefyrEditorComponentState extends State<ZefyrEditorComponent> {
                       ZefyrToolbar.basic(
                         controller: widget.controller,
                         hideCodeBlock: true,
-                        // hideHeadingStyle: true,
                         hideHorizontalRule: true,
                         hideLink: true,
                         hideQuote: true,
+                        hideStrikeThrough: widget.readonly,
+                        hideHeadingStyle: widget.readonly,
+                        hideListBullets: widget.readonly,
+                        hideBoldButton: widget.readonly,
+                        hideItalicButton: widget.readonly,
+                        hideListNumbers: widget.readonly,
+                        hideUnderLineButton: widget.readonly,
                       ),
                       Expanded(
                         child: ZefyrEditor(
+                          readOnly: widget.readonly,
                           controller: widget.controller,
                           autofocus: false,
                           scrollable: true,

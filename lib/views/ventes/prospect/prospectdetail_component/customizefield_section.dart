@@ -120,19 +120,36 @@ class CustomfieldSection extends StatelessWidget {
                         //         size: 13,
                         //       )),
                         // ),
-                        Tooltip(
-                          message: 'Add Custom Field',
-                          child: BsButton(
-                            margin: EdgeInsets.only(left: 5),
-                            size: BsButtonSize.btnSm,
-                            onPressed: () {
-                              source.isAddCF.toggle();
-                              source.isAdd.value = false;
-                            },
-                            prefixIcon: Icons.add,
-                            label: Text('Customize Fields'),
-                          ),
-                        )
+                        if (source.stage.value != ProspectText.closedWon ||
+                            source.stage.value != ProspectText.closedLost ||
+                            source.stage.value != ProspectText.forceClosed)
+                          Tooltip(
+                            message:
+                                source.status.value != ProspectText.closedWon &&
+                                        source.status.value !=
+                                            ProspectText.closedLost &&
+                                        source.status.value !=
+                                            ProspectText.forceClosed
+                                    ? 'Add Custom Field'
+                                    : '',
+                            child: BsButton(
+                              margin: EdgeInsets.only(left: 5),
+                              size: BsButtonSize.btnSm,
+                              onPressed: () {
+                                if (source.status.value !=
+                                        ProspectText.closedWon &&
+                                    source.status.value !=
+                                        ProspectText.closedLost &&
+                                    source.status.value !=
+                                        ProspectText.forceClosed) {
+                                  source.isAddCF.toggle();
+                                  source.isAdd.value = false;
+                                }
+                              },
+                              prefixIcon: Icons.add,
+                              label: Text('Customize Fields'),
+                            ),
+                          )
                       ],
                     ),
                   ],
@@ -287,27 +304,41 @@ class CustomfieldSection extends StatelessWidget {
                               var customField = source.customField[index];
 
                               return Tooltip(
-                                message: BaseText.editDelete,
+                                message: source.status.value !=
+                                            ProspectText.closedWon &&
+                                        source.status.value !=
+                                            ProspectText.closedLost &&
+                                        source.status.value !=
+                                            ProspectText.forceClosed
+                                    ? BaseText.editDelete
+                                    : '',
                                 child: InkWell(
                                   onLongPress: () {
-                                    Get.defaultDialog(
-                                        middleText: '',
-                                        title: 'Setting',
-                                        actions: [
-                                          ButtonEditDatatables(onPressed: () {
-                                            prospectCustomFieldPresenter.edit(
-                                                context,
-                                                customField.prospectcfid!);
-                                            source.cfid.value =
-                                                customField.prospectcfid!;
-                                          }),
-                                          ButtonDeleteDatatables(onPressed: () {
-                                            prospectCustomFieldPresenter.delete(
-                                                context,
-                                                customField.prospectcfid!,
-                                                '${customField.prospectcfvalue}');
-                                          }),
-                                        ]);
+                                    if (source.status.value !=
+                                            ProspectText.closedWon &&
+                                        source.status.value !=
+                                            ProspectText.closedLost &&
+                                        source.status.value !=
+                                            ProspectText.forceClosed)
+                                      Get.defaultDialog(
+                                          middleText: '',
+                                          title: 'Setting',
+                                          actions: [
+                                            ButtonEditDatatables(onPressed: () {
+                                              prospectCustomFieldPresenter.edit(
+                                                  context,
+                                                  customField.prospectcfid!);
+                                              source.cfid.value =
+                                                  customField.prospectcfid!;
+                                            }),
+                                            ButtonDeleteDatatables(
+                                                onPressed: () {
+                                              prospectCustomFieldPresenter.delete(
+                                                  context,
+                                                  customField.prospectcfid!,
+                                                  '${customField.prospectcfvalue}');
+                                            }),
+                                          ]);
                                   },
                                   child: BsRow(
                                     margin: EdgeInsets.all(3),
@@ -352,14 +383,21 @@ class CustomfieldSection extends StatelessWidget {
 
                               return InkWell(
                                 onTap: () {
-                                  source.isAdd.value = true;
-                                  cfForm.value.format.value =
-                                      rawcustomField.custftype!.typename!;
-                                  cfForm.value.selectCustomfield.setSelected(
-                                      BsSelectBoxOption(
-                                          value: rawcustomField.custfid,
-                                          text:
-                                              Text(rawcustomField.custfname!)));
+                                  if (source.status.value !=
+                                          ProspectText.closedWon &&
+                                      source.status.value !=
+                                          ProspectText.closedLost &&
+                                      source.status.value !=
+                                          ProspectText.forceClosed) {
+                                    source.isAdd.value = true;
+                                    cfForm.value.format.value =
+                                        rawcustomField.custftype!.typename!;
+                                    cfForm.value.selectCustomfield.setSelected(
+                                        BsSelectBoxOption(
+                                            value: rawcustomField.custfid,
+                                            text: Text(
+                                                rawcustomField.custfname!)));
+                                  }
                                 },
                                 child: BsRow(
                                   margin: EdgeInsets.all(3),

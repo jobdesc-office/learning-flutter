@@ -22,14 +22,17 @@ class _TabProduct extends StatelessWidget {
                     style: TextStyle(fontSize: 18),
                   ),
                 ),
-                BsButton(
-                  style: BsButtonStyle.success,
-                  onPressed: () {
-                    productPresenter.add(context, source.prospectid.value);
-                  },
-                  prefixIcon: Icons.shopping_bag,
-                  label: Text('Add Product'),
-                )
+                if (source.status.value != ProspectText.closedWon &&
+                    source.status.value != ProspectText.closedLost &&
+                    source.status.value != ProspectText.forceClosed)
+                  BsButton(
+                    style: BsButtonStyle.success,
+                    onPressed: () {
+                      productPresenter.add(context, source.prospectid.value);
+                    },
+                    prefixIcon: Icons.shopping_bag,
+                    label: Text('Add Product'),
+                  )
               ],
             ),
             Obx(() => Container(
@@ -39,26 +42,36 @@ class _TabProduct extends StatelessWidget {
                     itemBuilder: (context, index) {
                       var products = source.product[index];
                       return Tooltip(
-                        message: BaseText.editDelete,
+                        message: source.status.value !=
+                                    ProspectText.closedWon &&
+                                source.status.value !=
+                                    ProspectText.closedLost &&
+                                source.status.value != ProspectText.forceClosed
+                            ? BaseText.editDelete
+                            : '',
                         child: InkWell(
                           onLongPress: () {
-                            Get.defaultDialog(
-                                middleText: '',
-                                title: 'Setting',
-                                actions: [
-                                  ButtonEditDatatables(onPressed: () {
-                                    productPresenter.edit(
-                                        context,
-                                        products.prosproductid,
-                                        source.prospectid.value);
-                                  }),
-                                  ButtonDeleteDatatables(onPressed: () {
-                                    productPresenter.delete(
-                                        context,
-                                        products.prosproductid,
-                                        '${products.prosproductproduct?.productname}');
-                                  }),
-                                ]);
+                            if (source.status.value != ProspectText.closedWon &&
+                                source.status.value !=
+                                    ProspectText.closedLost &&
+                                source.status.value != ProspectText.forceClosed)
+                              Get.defaultDialog(
+                                  middleText: '',
+                                  title: 'Setting',
+                                  actions: [
+                                    ButtonEditDatatables(onPressed: () {
+                                      productPresenter.edit(
+                                          context,
+                                          products.prosproductid,
+                                          source.prospectid.value);
+                                    }),
+                                    ButtonDeleteDatatables(onPressed: () {
+                                      productPresenter.delete(
+                                          context,
+                                          products.prosproductid,
+                                          '${products.prosproductproduct?.productname}');
+                                    }),
+                                  ]);
                           },
                           onTap: () {
                             productPresenter.detail(
@@ -128,15 +141,18 @@ class _TabProduct extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text('This Prospect Don\'t Have Product'),
-          BsButton(
-            style: BsButtonStyle.success,
-            margin: EdgeInsets.only(top: 10),
-            onPressed: () {
-              productPresenter.add(context, source.prospectid.value);
-            },
-            prefixIcon: Icons.shopping_bag,
-            label: Text('Add Product'),
-          )
+          if (source.status.value != ProspectText.closedWon &&
+              source.status.value != ProspectText.closedLost &&
+              source.status.value != ProspectText.forceClosed)
+            BsButton(
+              style: BsButtonStyle.success,
+              margin: EdgeInsets.only(top: 10),
+              onPressed: () {
+                productPresenter.add(context, source.prospectid.value);
+              },
+              prefixIcon: Icons.shopping_bag,
+              label: Text('Add Product'),
+            )
         ],
       );
   }

@@ -26,11 +26,14 @@ class _TabActivity extends StatelessWidget {
                           'Activities :',
                           style: TextStyle(fontSize: 18),
                         ),
-                        BsButton(
-                            style: BsButtonStyle.success,
-                            onPressed: () => detailPresenter.add(
-                                context, source.prospectid.value),
-                            label: Text('Add Activity')),
+                        if (source.status.value != ProspectText.closedWon &&
+                            source.status.value != ProspectText.closedLost &&
+                            source.status.value != ProspectText.forceClosed)
+                          BsButton(
+                              style: BsButtonStyle.success,
+                              onPressed: () => detailPresenter.add(
+                                  context, source.prospectid.value),
+                              label: Text('Add Activity')),
                       ],
                     ),
                   ),
@@ -39,27 +42,41 @@ class _TabActivity extends StatelessWidget {
                         // mainAxisAlignment: MainAxisAlignment.center,
                         children: source.detailData
                             .map((element) => Tooltip(
-                                  message: BaseText.editDelete,
+                                  message: source.status.value !=
+                                              ProspectText.closedWon &&
+                                          source.status.value !=
+                                              ProspectText.closedLost &&
+                                          source.status.value !=
+                                              ProspectText.forceClosed
+                                      ? BaseText.editDelete
+                                      : '',
                                   child: InkWell(
                                     onLongPress: () {
-                                      Get.defaultDialog(
-                                          middleText: '',
-                                          title: 'Setting',
-                                          actions: [
-                                            ButtonEditDatatables(onPressed: () {
-                                              detailPresenter.edit(
-                                                  context,
-                                                  element.prospectactivityid!,
-                                                  source.prospectid.value);
-                                            }),
-                                            ButtonDeleteDatatables(
-                                                onPressed: () {
-                                              detailPresenter.delete(
-                                                  context,
-                                                  element.prospectactivityid!,
-                                                  '${element.prospectactivitytype!.typename} at ${element.prospectactivitydate}');
-                                            }),
-                                          ]);
+                                      if (source.status.value !=
+                                              ProspectText.closedWon &&
+                                          source.status.value !=
+                                              ProspectText.closedLost &&
+                                          source.status.value !=
+                                              ProspectText.forceClosed)
+                                        Get.defaultDialog(
+                                            middleText: '',
+                                            title: 'Setting',
+                                            actions: [
+                                              ButtonEditDatatables(
+                                                  onPressed: () {
+                                                detailPresenter.edit(
+                                                    context,
+                                                    element.prospectactivityid!,
+                                                    source.prospectid.value);
+                                              }),
+                                              ButtonDeleteDatatables(
+                                                  onPressed: () {
+                                                detailPresenter.delete(
+                                                    context,
+                                                    element.prospectactivityid!,
+                                                    '${element.prospectactivitytype!.typename} at ${element.prospectactivitydate}');
+                                              }),
+                                            ]);
                                     },
                                     onTap: () {
                                       detailPresenter.detail(
@@ -150,12 +167,15 @@ class _TabActivity extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text('There\'s no Activity'),
-          BsButton(
-              margin: EdgeInsets.only(top: 5),
-              style: BsButtonStyle.success,
-              onPressed: () =>
-                  detailPresenter.add(context, source.prospectid.value),
-              label: Text('Add Activity')),
+          if (source.status.value != ProspectText.closedWon &&
+              source.status.value != ProspectText.closedLost &&
+              source.status.value != ProspectText.forceClosed)
+            BsButton(
+                margin: EdgeInsets.only(top: 5),
+                style: BsButtonStyle.success,
+                onPressed: () =>
+                    detailPresenter.add(context, source.prospectid.value),
+                label: Text('Add Activity')),
         ],
       );
   }

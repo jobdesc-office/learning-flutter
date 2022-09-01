@@ -21,15 +21,18 @@ class _TabContact extends StatelessWidget {
                   'Contacts of ' + source.custname.value + ' :',
                   style: TextStyle(fontSize: 18),
                 ),
-                BsButton(
-                  style: BsButtonStyle.success,
-                  margin: EdgeInsets.only(top: 10),
-                  onPressed: () {
-                    contactPresenter.add(context, source.custid.value);
-                  },
-                  prefixIcon: Icons.phone,
-                  label: Text('Add Contact'),
-                )
+                if (source.status.value != ProspectText.closedWon &&
+                    source.status.value != ProspectText.closedLost &&
+                    source.status.value != ProspectText.forceClosed)
+                  BsButton(
+                    style: BsButtonStyle.success,
+                    margin: EdgeInsets.only(top: 10),
+                    onPressed: () {
+                      contactPresenter.add(context, source.custid.value);
+                    },
+                    prefixIcon: Icons.phone,
+                    label: Text('Add Contact'),
+                  )
               ],
             ),
             Column(
@@ -87,30 +90,43 @@ class _TabContact extends StatelessWidget {
                                                   child: Icon(
                                                       Icons.remove_red_eye)),
                                             ),
-                                            Tooltip(
-                                              message: BaseText.editHintDatatable(
-                                                  field:
-                                                      '${e.contactname}\'s ${e.contacttype?.typename}'),
-                                              child: InkWell(
-                                                  onTap: () =>
-                                                      contactPresenter.edit(
-                                                          context,
-                                                          e.contactpersonid!,
-                                                          e.contactcustomerid!),
-                                                  child: Icon(Icons.edit)),
-                                            ),
-                                            Tooltip(
-                                              message: BaseText.deleteHintDatatable(
-                                                  field:
-                                                      '${e.contactname}\'s ${e.contacttype?.typename}'),
-                                              child: InkWell(
-                                                  onTap: () =>
-                                                      contactPresenter.delete(
-                                                          context,
-                                                          e.contactpersonid!,
-                                                          '${e.contactname}\'s ${e.contacttype?.typename}'),
-                                                  child: Icon(Icons.delete)),
-                                            )
+                                            if (source.status.value !=
+                                                    ProspectText.closedWon &&
+                                                source.status.value !=
+                                                    ProspectText.closedLost &&
+                                                source.status.value !=
+                                                    ProspectText.forceClosed)
+                                              Tooltip(
+                                                message: BaseText.editHintDatatable(
+                                                    field:
+                                                        '${e.contactname}\'s ${e.contacttype?.typename}'),
+                                                child: InkWell(
+                                                    onTap: () =>
+                                                        contactPresenter.edit(
+                                                            context,
+                                                            e.contactpersonid!,
+                                                            e.contactcustomerid!),
+                                                    child: Icon(Icons.edit)),
+                                              ),
+                                            if (source.status.value !=
+                                                    ProspectText.closedWon &&
+                                                source.status.value !=
+                                                    ProspectText.closedLost &&
+                                                source.status.value !=
+                                                    ProspectText.forceClosed)
+                                              Tooltip(
+                                                message: BaseText
+                                                    .deleteHintDatatable(
+                                                        field:
+                                                            '${e.contactname}\'s ${e.contacttype?.typename}'),
+                                                child: InkWell(
+                                                    onTap: () =>
+                                                        contactPresenter.delete(
+                                                            context,
+                                                            e.contactpersonid!,
+                                                            '${e.contactname}\'s ${e.contacttype?.typename}'),
+                                                    child: Icon(Icons.delete)),
+                                              )
                                           ],
                                         ))
                                   ],
@@ -130,15 +146,18 @@ class _TabContact extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text('Contacts isn\'t Defined'),
-          BsButton(
-            style: BsButtonStyle.success,
-            margin: EdgeInsets.only(top: 10),
-            onPressed: () {
-              contactPresenter.add(context, source.custid.value);
-            },
-            prefixIcon: Icons.phone,
-            label: Text('Add Contact'),
-          )
+          if (source.status.value != ProspectText.closedWon &&
+              source.status.value != ProspectText.closedLost &&
+              source.status.value != ProspectText.forceClosed)
+            BsButton(
+              style: BsButtonStyle.success,
+              margin: EdgeInsets.only(top: 10),
+              onPressed: () {
+                contactPresenter.add(context, source.custid.value);
+              },
+              prefixIcon: Icons.phone,
+              label: Text('Add Contact'),
+            )
         ],
       );
   }

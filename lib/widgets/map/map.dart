@@ -3,8 +3,10 @@ import 'dart:async';
 import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_webservice/places.dart';
 import 'package:map_picker/map_picker.dart';
 
 import '../../contracts/master/customerAddress_contract.dart';
@@ -94,6 +96,41 @@ class _GoogleMapsPageState extends State<GoogleMapsPage>
               controller: textController,
             ),
           ),
+          // Positioned(
+          //   top: 24,
+          //   left: 24,
+          //   right: 24,
+          //   child: SizedBox(
+          //     height: 50,
+          //     child: BsButton(
+          //       style: BsButtonStyle(
+          //           borderRadius: BorderRadius.all(Radius.circular(5)),
+          //           color: ColorPallates.primary,
+          //           backgroundColor: ColorPallates.secondary),
+          //       label: const Text(
+          //         "Submit",
+          //         style: TextStyle(
+          //           fontWeight: FontWeight.w400,
+          //           fontStyle: FontStyle.normal,
+          //           color: Color(0xFFFFFFFF),
+          //           fontSize: 19,
+          //           // height: 19/19,
+          //         ),
+          //       ),
+          //       onPressed: () async {
+          //         const kGoogleApiKey =
+          //             "AIzaSyDUYfxm7qJq8dcMMhvhaoUukhQqMxBO6oc";
+
+          //         Prediction? p = await PlacesAutocomplete.show(
+          //             context: context,
+          //             apiKey: kGoogleApiKey,
+          //             mode: Mode.overlay, // Mode.fullscreen
+          //             language: "id",
+          //             components: [new Component(Component.country, "id")]);
+          //       },
+          //     ),
+          //   ),
+          // ),
           Positioned(
             bottom: 24,
             left: 24,

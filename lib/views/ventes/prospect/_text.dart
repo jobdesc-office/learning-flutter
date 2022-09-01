@@ -27,4 +27,8 @@ class ProspectText {
   static String labelPhone = 'Phone';
   static String labelDesc = 'Description';
   static String labelStatus = 'Status';
+
+  static String closedWon = 'Closed Won';
+  static String closedLost = 'Closed Lost';
+  static String forceClosed = 'Force Closed';
 }

@@ -48,6 +48,7 @@ import '../../../widgets/input/custom_input_descriptions.dart';
 import '../../../widgets/map/_map_source.dart';
 import '../../../widgets/snackbar.dart';
 import '_detail_source.dart';
+import '_text.dart';
 import 'prospectdetail_component/_stagePipeline.dart';
 import 'customfield/_form_source.dart';
 import 'prospectcustomfield/_form_source.dart';
@@ -254,6 +255,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     source.prospectbpid.value = dt.prospectbp!.bpid!;
     source.desc.value = dt.prospectdescription ?? '';
     source.status.value = dt.prospectstatus!.typename!;
+    source.stage.value = dt.prospectstage!.typename;
     customFieldPresenter.allBp(context);
 
     detailPresenter.details(context, {'id': dt.prospectid.toString()});
