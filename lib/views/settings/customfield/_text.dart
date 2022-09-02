@@ -1,7 +1,7 @@
 import '../../../constants/base_text.dart';
 
 class CustomFieldText {
-  static String title = 'Business Partner Customer';
+  static String title = 'Custom Field';
   static String labelName = BaseText.defaultLabelName;
   static String isVisible = 'Sidebar Visibility';
   static String labelNewPropect = 'New Propect Only';

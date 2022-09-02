@@ -7,7 +7,11 @@ import '../../../contracts/base/details_view_contract.dart';
 import '../../../models/ventes/customfield_model.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../presenters/settings/customfield_presenter.dart';
+import '../../../routes/route_list.dart';
 import '../../../styles/color_palattes.dart';
+import '../../../widgets/breadcrumb.dart';
+import '../../../widgets/form_group.dart';
+import '../../skins/template.dart';
 import '_details_source.dart';
 import '_text.dart';
 
@@ -19,122 +23,183 @@ class CustomFieldDetails extends GetView implements DetailViewContract {
       Get.put(CustomFieldDetailsSource());
 
   CustomFieldDetails() {
+    Get.delete<CustomFieldDetailsSource>();
     presenter.customFieldDataDetailsContract = this;
   }
 
   @override
   Widget build(BuildContext context) {
-    return BsModal(
-        context: context,
-        dialog: BsModalDialog(
-          size: BsModalSize.md,
-          child: BsModalContent(
-              decoration: BoxDecoration(
-                color: _navigation.darkTheme.value
-                    ? ColorPallates.elseDarkColor
-                    : Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              ),
+    return Scaffold(
+      body: TemplateView(
+        title: CustomFieldText.title + ' Details',
+        breadcrumbs: [
+          BreadcrumbWidget('Settings'),
+          BreadcrumbWidget('Custom Fields', active: true),
+          BreadcrumbWidget('Custom Field Details', active: true),
+        ],
+        activeRoutes: [
+          RouteList.settings.index,
+          RouteList.settingsCustomField.index
+        ],
+        back: true,
+        child: Obx(() => BsRow(
               children: [
-                BsModalContainer(
-                  title: Text(CustomFieldText.title + ' Details',
-                      style: TextStyle(
-                          color: _navigation.darkTheme.value
-                              ? Colors.white
-                              : Colors.black)),
-                  closeButton: true,
-                ),
-                BsModalContainer(
-                  child: Obx(() => BsRow(
+                BsCol(
+                    sizes: ColScreen(lg: Col.col_6),
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: _navigation.darkTheme.value
+                            ? ColorPallates.elseDarkColor
+                            : Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: BsRow(
                         children: [
                           BsCol(
                               sizes: ColScreen(lg: Col.col_12),
-                              child: BsRow(
-                                children: [
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_5),
-                                      child: Text('Name')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_1),
-                                      child: Text(':')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_6),
-                                      child: Text(controller.name.value))
-                                ],
-                              )),
+                              child: FormGroup(
+                                  label: Text('Name'),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(controller.name.value),
+                                      Divider()
+                                    ],
+                                  ))),
                           BsCol(
                               margin: EdgeInsets.only(top: 10),
                               sizes: ColScreen(lg: Col.col_12),
-                              child: BsRow(
-                                children: [
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_5),
-                                      child: Text('Type')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_1),
-                                      child: Text(':')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_6),
-                                      child: Text(controller.type.value))
-                                ],
-                              )),
+                              child: FormGroup(
+                                  label: Text('Type'),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(controller.type.value),
+                                      Divider()
+                                    ],
+                                  ))),
                           BsCol(
                               margin: EdgeInsets.only(top: 10),
                               sizes: ColScreen(lg: Col.col_12),
-                              child: BsRow(
-                                children: [
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_5),
-                                      child: Text('Business Partner')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_1),
-                                      child: Text(':')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_6),
-                                      child: Text(controller.bp.value))
-                                ],
-                              )),
+                              child: FormGroup(
+                                  label: Text('Business Partner'),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(controller.bp.value),
+                                      Divider()
+                                    ],
+                                  ))),
                           BsCol(
                               margin: EdgeInsets.only(top: 10),
                               sizes: ColScreen(lg: Col.col_12),
-                              child: BsRow(
-                                children: [
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_5),
-                                      child: Text('Visible on Sidebar')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_1),
-                                      child: Text(':')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_6),
-                                      child: Text(controller.isvisible.value
+                              child: FormGroup(
+                                  label: Text('Available at All Prospect'),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(controller.newprospect.value
                                           ? 'Yes'
-                                          : 'No'))
-                                ],
-                              )),
-                          BsCol(
-                              margin: EdgeInsets.only(top: 10),
-                              sizes: ColScreen(lg: Col.col_12),
-                              child: BsRow(
-                                children: [
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_5),
-                                      child: Text('Only on New Prospect')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_1),
-                                      child: Text(':')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_6),
-                                      child: Text(controller.newprospect.value
-                                          ? 'Yes'
-                                          : 'No'))
-                                ],
-                              )),
+                                          : 'No'),
+                                      Divider()
+                                    ],
+                                  ))),
                         ],
-                      )),
-                )
-              ]),
-        ));
+                      ),
+                    )),
+                BsCol(
+                    margin: EdgeInsets.only(left: 10),
+                    sizes: ColScreen(lg: Col.col_6),
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: _navigation.darkTheme.value
+                            ? ColorPallates.elseDarkColor
+                            : Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: BsRow(
+                        children: [
+                          BsCol(
+                            child: FormGroup(
+                                label: Text('Created By'),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(controller.createdby.value),
+                                    Divider()
+                                  ],
+                                )),
+                          ),
+                          BsCol(
+                            margin: EdgeInsets.only(top: 10),
+                            child: FormGroup(
+                                label: Text('Created At'),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(controller.createddate.value),
+                                    Divider()
+                                  ],
+                                )),
+                          ),
+                          BsCol(
+                            margin: EdgeInsets.only(top: 10),
+                            child: FormGroup(
+                                label: Text('Last Updated By'),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(controller.updatedby.value),
+                                    Divider()
+                                  ],
+                                )),
+                          ),
+                          BsCol(
+                            margin: EdgeInsets.only(top: 10),
+                            child: FormGroup(
+                                label: Text('Last Updated At'),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(controller.updateddate.value),
+                                    Divider()
+                                  ],
+                                )),
+                          ),
+                          BsCol(
+                            margin: EdgeInsets.only(top: 10),
+                            child: FormGroup(
+                                label: Text('Activation'),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    if (controller.isactive.value)
+                                      Card(
+                                        color: Colors.green,
+                                        child: Text('Active'),
+                                      )
+                                    else
+                                      Card(
+                                        color: Colors.red,
+                                        child: Text('Not Active'),
+                                      ),
+                                    Divider()
+                                  ],
+                                )),
+                          ),
+                        ],
+                      ),
+                    )),
+              ],
+            )),
+      ),
+    );
   }
 
   @override
@@ -145,6 +210,12 @@ class CustomFieldDetails extends GetView implements DetailViewContract {
     controller.bp.value = dt.businesspartner!.bpname ?? '-';
     controller.isvisible.value = dt.allprospect!;
     controller.newprospect.value = dt.onlythisprospect!;
+
+    controller.createdby.value = dt.custfcreatedby?.userfullname ?? '-';
+    controller.createddate.value = dt.createddate ?? '';
+    controller.updatedby.value = dt.custfupdatedby?.userfullname ?? '-';
+    controller.updateddate.value = dt.updateddate ?? '';
+    controller.isactive.value = dt.onlythisprospect!;
     presenter.setProcessing(false);
   }
 }

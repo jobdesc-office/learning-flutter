@@ -33,6 +33,7 @@ class CustomFieldView extends GetView implements IndexViewContract {
           RouteList.master.index,
           RouteList.settingsCustomField.index
         ],
+        background: true,
         child: Container(
           child: Column(
             children: [
