@@ -36,6 +36,7 @@ class CompetitorView extends GetView implements IndexViewContract {
           RouteList.ventes.index,
           RouteList.ventesCompetitor.index
         ],
+        background: true,
         child: Container(
           child: Column(
             children: [

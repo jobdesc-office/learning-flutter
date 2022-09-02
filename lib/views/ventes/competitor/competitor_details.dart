@@ -12,6 +12,7 @@ import '../../../routes/route_list.dart';
 import '../../../styles/color_palattes.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_back.dart';
+import '../../../widgets/form_group.dart';
 import '../../skins/template.dart';
 import '_details_source.dart';
 import 'image_picture_competitor.dart';
@@ -41,63 +42,121 @@ class CompetitorDetails extends GetView implements DetailViewContract {
           RouteList.ventes.index,
           RouteList.ventesCompetitor.index
         ],
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            ThemeButtonBack(
-              margin: EdgeInsets.only(bottom: 5),
-            ),
-            Obx(() => Container(
-                  padding: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: _navigation.darkTheme.value
-                        ? ColorPallates.elseDarkColor
-                        : Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: BsRow(
-                    children: [
-                      BsCol(
-                        margin: EdgeInsets.only(right: 10),
-                        sizes: ColScreen(sm: Col.col_5),
-                        child: BsRow(
-                          children: [
-                            if (controller.pic.length >= 3)
-                              BsCol(
-                                  alignment: Alignment.center,
-                                  child: Gallery3D(
-                                      onClickItem: (value) {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) =>
-                                              ImagePictureCompetitor(
-                                            title: controller.title[value],
-                                            image: controller.pic[value],
-                                          ),
-                                        );
-                                      },
-                                      delayTime: 1500,
-                                      width: 300,
-                                      itemConfig: GalleryItemConfig(
-                                        width: 300,
-                                        height: 280,
-                                        isShowTransformMask: false,
+        back: true,
+        child: Obx(() => BsRow(
+              children: [
+                BsCol(
+                    margin: EdgeInsets.only(right: 10),
+                    sizes: ColScreen(lg: Col.col_9),
+                    child: BsRow(
+                      children: [
+                        BsCol(
+                          sizes: ColScreen(sm: Col.col_5),
+                          child: BsRow(
+                            children: [
+                              if (controller.pic.length >= 3)
+                                BsCol(
+                                    alignment: Alignment.center,
+                                    child: Container(
+                                      padding: EdgeInsets.all(20),
+                                      decoration: BoxDecoration(
+                                        color: _navigation.darkTheme.value
+                                            ? ColorPallates.elseDarkColor
+                                            : Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
                                       ),
-                                      itemCount: controller.pic.length,
-                                      itemBuilder: (context, index) {
-                                        return Tooltip(
-                                          message: BaseText.seePicture,
-                                          child: Image.network(
-                                            controller.pic[index],
-                                            fit: BoxFit.fill,
+                                      child: Gallery3D(
+                                          onClickItem: (value) {
+                                            showDialog(
+                                              context: context,
+                                              builder: (context) =>
+                                                  ImagePictureCompetitor(
+                                                title: controller.title[value],
+                                                image: controller.pic[value],
+                                              ),
+                                            );
+                                          },
+                                          delayTime: 1500,
+                                          width: 300,
+                                          itemConfig: GalleryItemConfig(
+                                            width: 300,
+                                            height: 280,
+                                            isShowTransformMask: false,
                                           ),
-                                        );
-                                      })),
-                            if (controller.pic.length == 2)
-                              BsCol(
-                                child: Row(
-                                  children: [
-                                    InkWell(
+                                          itemCount: controller.pic.length,
+                                          itemBuilder: (context, index) {
+                                            return Tooltip(
+                                              message: BaseText.seePicture,
+                                              child: Image.network(
+                                                controller.pic[index],
+                                                fit: BoxFit.fill,
+                                              ),
+                                            );
+                                          }),
+                                    )),
+                              if (controller.pic.length == 2)
+                                BsCol(
+                                  child: Container(
+                                    padding: EdgeInsets.all(20),
+                                    decoration: BoxDecoration(
+                                      color: _navigation.darkTheme.value
+                                          ? ColorPallates.elseDarkColor
+                                          : Colors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        InkWell(
+                                          onTap: () => showDialog(
+                                            context: context,
+                                            builder: (context) =>
+                                                ImagePictureCompetitor(
+                                              title: controller.title.last,
+                                              image: controller.pic.first,
+                                            ),
+                                          ),
+                                          child: Tooltip(
+                                            message: BaseText.seePicture,
+                                            child: Image.network(
+                                              controller.pic.first,
+                                              width: 168,
+                                              height: 100,
+                                            ),
+                                          ),
+                                        ),
+                                        InkWell(
+                                          onTap: () => showDialog(
+                                            context: context,
+                                            builder: (context) =>
+                                                ImagePictureCompetitor(
+                                              title: controller.title.last,
+                                              image: controller.pic.first,
+                                            ),
+                                          ),
+                                          child: Tooltip(
+                                            message: BaseText.seePicture,
+                                            child: Image.network(
+                                              controller.pic.last,
+                                              width: 168,
+                                              height: 100,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              if (controller.pic.length == 1)
+                                BsCol(
+                                  child: Container(
+                                    padding: EdgeInsets.all(20),
+                                    decoration: BoxDecoration(
+                                      color: _navigation.darkTheme.value
+                                          ? ColorPallates.elseDarkColor
+                                          : Colors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: InkWell(
                                       onTap: () => showDialog(
                                         context: context,
                                         builder: (context) =>
@@ -107,151 +166,187 @@ class CompetitorDetails extends GetView implements DetailViewContract {
                                         ),
                                       ),
                                       child: Tooltip(
-                                        message: BaseText.seePicture,
+                                        message: 'Tap to See Full Image',
                                         child: Image.network(
                                           controller.pic.first,
-                                          width: 150,
-                                          height: 130,
+                                          width: 300,
+                                          height: 200,
                                         ),
                                       ),
-                                    ),
-                                    InkWell(
-                                      onTap: () => showDialog(
-                                        context: context,
-                                        builder: (context) =>
-                                            ImagePictureCompetitor(
-                                          title: controller.title.last,
-                                          image: controller.pic.first,
-                                        ),
-                                      ),
-                                      child: Tooltip(
-                                        message: BaseText.seePicture,
-                                        child: Image.network(
-                                          controller.pic.last,
-                                          width: 150,
-                                          height: 130,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            if (controller.pic.length == 1)
-                              BsCol(
-                                child: InkWell(
-                                  onTap: () => showDialog(
-                                    context: context,
-                                    builder: (context) =>
-                                        ImagePictureCompetitor(
-                                      title: controller.title.last,
-                                      image: controller.pic.first,
                                     ),
                                   ),
-                                  child: Tooltip(
-                                    message: 'Tap to See Full Image',
-                                    child: Image.network(
-                                      controller.pic.first,
-                                      width: 250,
-                                      height: 120,
-                                    ),
-                                  ),
-                                ),
-                              )
-                          ],
+                                )
+                            ],
+                          ),
                         ),
+                        BsCol(
+                          margin: EdgeInsets.only(left: 10),
+                          sizes: ColScreen(sm: Col.col_7),
+                          child: Container(
+                            padding: EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              color: _navigation.darkTheme.value
+                                  ? ColorPallates.elseDarkColor
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: BsRow(children: [
+                              BsCol(
+                                  margin: EdgeInsets.only(top: 10),
+                                  sizes: ColScreen(lg: Col.col_12),
+                                  child: FormGroup(
+                                      label: Text('Name'),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(controller.name.value),
+                                          Divider()
+                                        ],
+                                      ))),
+                              BsCol(
+                                  margin: EdgeInsets.only(top: 10),
+                                  sizes: ColScreen(lg: Col.col_12),
+                                  child: FormGroup(
+                                      label: Text('Product Name'),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(controller.product.value),
+                                          Divider()
+                                        ],
+                                      ))),
+                              BsCol(
+                                  margin: EdgeInsets.only(top: 10),
+                                  sizes: ColScreen(lg: Col.col_12),
+                                  child: FormGroup(
+                                      label: Text('Business Partner'),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(controller.bp.value),
+                                          Divider()
+                                        ],
+                                      ))),
+                              BsCol(
+                                  margin: EdgeInsets.only(top: 10),
+                                  sizes: ColScreen(lg: Col.col_12),
+                                  child: FormGroup(
+                                      label: Text('Type'),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(controller.type.value),
+                                          Divider()
+                                        ],
+                                      ))),
+                              BsCol(
+                                  margin: EdgeInsets.only(top: 10),
+                                  sizes: ColScreen(lg: Col.col_12),
+                                  child: FormGroup(
+                                      label: Text('Description'),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(controller.desc.value),
+                                          Divider()
+                                        ],
+                                      ))),
+                            ]),
+                          ),
+                        )
+                      ],
+                    )),
+                BsCol(
+                    margin: EdgeInsets.only(left: 10),
+                    sizes: ColScreen(lg: Col.col_3),
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: _navigation.darkTheme.value
+                            ? ColorPallates.elseDarkColor
+                            : Colors.white,
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      BsCol(
-                        sizes: ColScreen(sm: Col.col_7),
-                        child: BsRow(children: [
+                      child: BsRow(
+                        children: [
                           BsCol(
-                              margin: EdgeInsets.only(top: 10),
-                              sizes: ColScreen(lg: Col.col_12),
-                              child: BsRow(
-                                children: [
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_4),
-                                      child: Text('Name')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_1),
-                                      child: Text(':')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_7),
-                                      child: Text(controller.name.value))
-                                ],
-                              )),
+                            child: FormGroup(
+                                label: Text('Created By'),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(controller.createdby.value),
+                                    Divider()
+                                  ],
+                                )),
+                          ),
                           BsCol(
-                              margin: EdgeInsets.only(top: 10),
-                              sizes: ColScreen(lg: Col.col_12),
-                              child: BsRow(
-                                children: [
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_4),
-                                      child: Text('Product Name')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_1),
-                                      child: Text(':')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_7),
-                                      child: Text(controller.product.value))
-                                ],
-                              )),
+                            margin: EdgeInsets.only(top: 10),
+                            child: FormGroup(
+                                label: Text('Created At'),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(controller.createddate.value),
+                                    Divider()
+                                  ],
+                                )),
+                          ),
                           BsCol(
-                              margin: EdgeInsets.only(top: 10),
-                              sizes: ColScreen(lg: Col.col_12),
-                              child: BsRow(
-                                children: [
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_4),
-                                      child: Text('Business Partner')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_1),
-                                      child: Text(':')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_7),
-                                      child: Text(controller.bp.value)),
-                                  BsCol(
-                                      margin: EdgeInsets.only(top: 10),
-                                      sizes: ColScreen(lg: Col.col_12),
-                                      child: BsRow(
-                                        children: [
-                                          BsCol(
-                                              sizes: ColScreen(lg: Col.col_4),
-                                              child: Text('Type')),
-                                          BsCol(
-                                              sizes: ColScreen(lg: Col.col_1),
-                                              child: Text(':')),
-                                          BsCol(
-                                              sizes: ColScreen(lg: Col.col_7),
-                                              child:
-                                                  Text(controller.type.value))
-                                        ],
-                                      )),
-                                  BsCol(
-                                      margin: EdgeInsets.only(top: 10),
-                                      sizes: ColScreen(lg: Col.col_12),
-                                      child: BsRow(
-                                        children: [
-                                          BsCol(
-                                              sizes: ColScreen(lg: Col.col_4),
-                                              child: Text('Description')),
-                                          BsCol(
-                                              sizes: ColScreen(lg: Col.col_1),
-                                              child: Text(':')),
-                                          BsCol(
-                                              sizes: ColScreen(lg: Col.col_7),
-                                              child:
-                                                  Text(controller.desc.value))
-                                        ],
-                                      )),
-                                ],
-                              )),
-                        ]),
-                      )
-                    ],
-                  ),
-                )),
-          ],
-        ),
+                            margin: EdgeInsets.only(top: 10),
+                            child: FormGroup(
+                                label: Text('Last Updated By'),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(controller.updatedby.value),
+                                    Divider()
+                                  ],
+                                )),
+                          ),
+                          BsCol(
+                            margin: EdgeInsets.only(top: 10),
+                            child: FormGroup(
+                                label: Text('Last Updated At'),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(controller.updateddate.value),
+                                    Divider()
+                                  ],
+                                )),
+                          ),
+                          BsCol(
+                            margin: EdgeInsets.only(top: 10),
+                            child: FormGroup(
+                                label: Text('Activation'),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    if (controller.isactive.value)
+                                      Card(
+                                        color: Colors.green,
+                                        child: Text('Active'),
+                                      )
+                                    else
+                                      Card(
+                                        color: Colors.red,
+                                        child: Text('Not Active'),
+                                      ),
+                                    Divider()
+                                  ],
+                                )),
+                          ),
+                        ],
+                      ),
+                    )),
+              ],
+            )),
       ),
     );
   }
@@ -262,6 +357,13 @@ class CompetitorDetails extends GetView implements DetailViewContract {
     controller.name.value = dt.comptname ?? '';
     controller.product.value = dt.comptproductname ?? '';
     controller.desc.value = dt.description ?? '';
+
+    controller.createdby.value = dt.comptcreatedby?.userfullname ?? '';
+    controller.createddate.value = dt.createddate ?? '';
+    controller.updatedby.value = dt.comptupdatedby?.userfullname ?? '';
+    controller.updateddate.value = dt.updateddate ?? '';
+    controller.isactive.value = dt.isactive ?? false;
+
     if (dt.comptreftype != null) {
       controller.type.value = dt.comptreftype!.typename!;
     }

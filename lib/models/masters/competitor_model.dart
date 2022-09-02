@@ -11,6 +11,8 @@ class CompetitorModel {
   int? updatedby;
   String? updateddate;
   bool? isactive;
+  Comptcreatedby? comptcreatedby;
+  Comptcreatedby? comptupdatedby;
   Comptreftype? comptreftype;
   Comptbp? comptbp;
   List<Comptpics>? comptpics;
@@ -28,6 +30,8 @@ class CompetitorModel {
       this.updatedby,
       this.updateddate,
       this.isactive,
+      this.comptcreatedby,
+      this.comptupdatedby,
       this.comptreftype,
       this.comptbp,
       this.comptpics});
@@ -45,6 +49,10 @@ class CompetitorModel {
     updatedby = json['updatedby'];
     updateddate = json['updateddate'];
     isactive = json['isactive'];
+    comptcreatedby = json['comptcreatedby'] != null
+        ? new Comptcreatedby.fromJson(json['comptcreatedby'])
+        : null;
+    comptupdatedby = json['comptupdatedby'];
     comptreftype = json['comptreftype'] != null
         ? new Comptreftype.fromJson(json['comptreftype'])
         : null;
@@ -72,6 +80,10 @@ class CompetitorModel {
     data['updatedby'] = this.updatedby;
     data['updateddate'] = this.updateddate;
     data['isactive'] = this.isactive;
+    if (this.comptcreatedby != null) {
+      data['comptcreatedby'] = this.comptcreatedby!.toJson();
+    }
+    data['comptupdatedby'] = this.comptupdatedby;
     if (this.comptreftype != null) {
       data['comptreftype'] = this.comptreftype!.toJson();
     }
@@ -81,6 +93,75 @@ class CompetitorModel {
     if (this.comptpics != null) {
       data['comptpics'] = this.comptpics!.map((v) => v.toJson()).toList();
     }
+    return data;
+  }
+}
+
+class Comptcreatedby {
+  int? userid;
+  String? username;
+  String? userpassword;
+  String? userfullname;
+  String? useremail;
+  String? userphone;
+  String? userdeviceid;
+  String? userfcmtoken;
+  String? usersocketid;
+  int? createdby;
+  String? createddate;
+  int? updatedby;
+  String? updateddate;
+  bool? isactive;
+
+  Comptcreatedby(
+      {this.userid,
+      this.username,
+      this.userpassword,
+      this.userfullname,
+      this.useremail,
+      this.userphone,
+      this.userdeviceid,
+      this.userfcmtoken,
+      this.usersocketid,
+      this.createdby,
+      this.createddate,
+      this.updatedby,
+      this.updateddate,
+      this.isactive});
+
+  Comptcreatedby.fromJson(Map<String, dynamic> json) {
+    userid = json['userid'];
+    username = json['username'];
+    userpassword = json['userpassword'];
+    userfullname = json['userfullname'];
+    useremail = json['useremail'];
+    userphone = json['userphone'];
+    userdeviceid = json['userdeviceid'];
+    userfcmtoken = json['userfcmtoken'];
+    usersocketid = json['usersocketid'];
+    createdby = json['createdby'];
+    createddate = json['createddate'];
+    updatedby = json['updatedby'];
+    updateddate = json['updateddate'];
+    isactive = json['isactive'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['userid'] = this.userid;
+    data['username'] = this.username;
+    data['userpassword'] = this.userpassword;
+    data['userfullname'] = this.userfullname;
+    data['useremail'] = this.useremail;
+    data['userphone'] = this.userphone;
+    data['userdeviceid'] = this.userdeviceid;
+    data['userfcmtoken'] = this.userfcmtoken;
+    data['usersocketid'] = this.usersocketid;
+    data['createdby'] = this.createdby;
+    data['createddate'] = this.createddate;
+    data['updatedby'] = this.updatedby;
+    data['updateddate'] = this.updateddate;
+    data['isactive'] = this.isactive;
     return data;
   }
 }
@@ -169,6 +250,7 @@ class Comptpics {
   String? filename;
   String? mimetype;
   String? filesize;
+  String? remark;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -184,6 +266,7 @@ class Comptpics {
       this.filename,
       this.mimetype,
       this.filesize,
+      this.remark,
       this.createdby,
       this.createddate,
       this.updatedby,
@@ -199,6 +282,7 @@ class Comptpics {
     filename = json['filename'];
     mimetype = json['mimetype'];
     filesize = json['filesize'];
+    remark = json['remark'];
     createdby = json['createdby'];
     createddate = json['createddate'];
     updatedby = json['updatedby'];
@@ -216,6 +300,7 @@ class Comptpics {
     data['filename'] = this.filename;
     data['mimetype'] = this.mimetype;
     data['filesize'] = this.filesize;
+    data['remark'] = this.remark;
     data['createdby'] = this.createdby;
     data['createddate'] = this.createddate;
     data['updatedby'] = this.updatedby;
