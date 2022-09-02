@@ -11,6 +11,8 @@ class BusinessPartnerCustomerModel {
   int? updatedby;
   String? updateddate;
   bool? isactive;
+  Bpcustcreatedby? bpcustcreatedby;
+  Bpcustcreatedby? bpcustupdatedby;
   Sbccstmstatus? sbccstmstatus;
   Sbcbp? sbcbp;
   Sbccstm? sbccstm;
@@ -29,6 +31,8 @@ class BusinessPartnerCustomerModel {
       this.updatedby,
       this.updateddate,
       this.isactive,
+      this.bpcustcreatedby,
+      this.bpcustupdatedby,
       this.sbccstmstatus,
       this.sbcbp,
       this.sbccstm,
@@ -47,6 +51,12 @@ class BusinessPartnerCustomerModel {
     updatedby = json['updatedby'];
     updateddate = json['updateddate'];
     isactive = json['isactive'];
+    bpcustcreatedby = json['bpcustcreatedby'] != null
+        ? new Bpcustcreatedby.fromJson(json['bpcustcreatedby'])
+        : null;
+    bpcustupdatedby = json['bpcustupdatedby'] != null
+        ? new Bpcustcreatedby.fromJson(json['bpcustupdatedby'])
+        : null;
     sbccstmstatus = json['sbccstmstatus'] != null
         ? new Sbccstmstatus.fromJson(json['sbccstmstatus'])
         : null;
@@ -75,6 +85,12 @@ class BusinessPartnerCustomerModel {
     data['updatedby'] = this.updatedby;
     data['updateddate'] = this.updateddate;
     data['isactive'] = this.isactive;
+    if (this.bpcustcreatedby != null) {
+      data['bpcustcreatedby'] = this.bpcustcreatedby!.toJson();
+    }
+    if (this.bpcustupdatedby != null) {
+      data['bpcustupdatedby'] = this.bpcustupdatedby!.toJson();
+    }
     if (this.sbccstmstatus != null) {
       data['sbccstmstatus'] = this.sbccstmstatus!.toJson();
     }
@@ -87,6 +103,75 @@ class BusinessPartnerCustomerModel {
     if (this.sbccstmpics != null) {
       data['sbccstmpics'] = this.sbccstmpics!.map((v) => v.toJson()).toList();
     }
+    return data;
+  }
+}
+
+class Bpcustcreatedby {
+  int? userid;
+  String? username;
+  String? userpassword;
+  String? userfullname;
+  String? useremail;
+  String? userphone;
+  String? userdeviceid;
+  String? userfcmtoken;
+  String? usersocketid;
+  int? createdby;
+  String? createddate;
+  int? updatedby;
+  String? updateddate;
+  bool? isactive;
+
+  Bpcustcreatedby(
+      {this.userid,
+      this.username,
+      this.userpassword,
+      this.userfullname,
+      this.useremail,
+      this.userphone,
+      this.userdeviceid,
+      this.userfcmtoken,
+      this.usersocketid,
+      this.createdby,
+      this.createddate,
+      this.updatedby,
+      this.updateddate,
+      this.isactive});
+
+  Bpcustcreatedby.fromJson(Map<String, dynamic> json) {
+    userid = json['userid'];
+    username = json['username'];
+    userpassword = json['userpassword'];
+    userfullname = json['userfullname'];
+    useremail = json['useremail'];
+    userphone = json['userphone'];
+    userdeviceid = json['userdeviceid'];
+    userfcmtoken = json['userfcmtoken'];
+    usersocketid = json['usersocketid'];
+    createdby = json['createdby'];
+    createddate = json['createddate'];
+    updatedby = json['updatedby'];
+    updateddate = json['updateddate'];
+    isactive = json['isactive'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['userid'] = this.userid;
+    data['username'] = this.username;
+    data['userpassword'] = this.userpassword;
+    data['userfullname'] = this.userfullname;
+    data['useremail'] = this.useremail;
+    data['userphone'] = this.userphone;
+    data['userdeviceid'] = this.userdeviceid;
+    data['userfcmtoken'] = this.userfcmtoken;
+    data['usersocketid'] = this.usersocketid;
+    data['createdby'] = this.createdby;
+    data['createddate'] = this.createddate;
+    data['updatedby'] = this.updatedby;
+    data['updateddate'] = this.updateddate;
+    data['isactive'] = this.isactive;
     return data;
   }
 }
@@ -234,6 +319,7 @@ class Sbccstmpics {
   String? filename;
   String? mimetype;
   String? filesize;
+  String? remark;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -249,6 +335,7 @@ class Sbccstmpics {
       this.filename,
       this.mimetype,
       this.filesize,
+      this.remark,
       this.createdby,
       this.createddate,
       this.updatedby,
@@ -264,6 +351,7 @@ class Sbccstmpics {
     filename = json['filename'];
     mimetype = json['mimetype'];
     filesize = json['filesize'];
+    remark = json['remark'];
     createdby = json['createdby'];
     createddate = json['createddate'];
     updatedby = json['updatedby'];
@@ -281,6 +369,7 @@ class Sbccstmpics {
     data['filename'] = this.filename;
     data['mimetype'] = this.mimetype;
     data['filesize'] = this.filesize;
+    data['remark'] = this.remark;
     data['createdby'] = this.createdby;
     data['createddate'] = this.createddate;
     data['updatedby'] = this.updatedby;

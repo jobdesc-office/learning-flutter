@@ -34,6 +34,7 @@ class BpCustomerView extends GetView implements IndexViewContract {
           RouteList.master.index,
           RouteList.ventesBpCustomer.index
         ],
+        background: true,
         child: Container(
           child: Column(
             children: [

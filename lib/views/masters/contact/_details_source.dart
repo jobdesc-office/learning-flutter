@@ -6,6 +6,12 @@ class ContactDetailsSource extends GetxController {
   var name = ''.obs;
   var value = ''.obs;
 
+  var createdby = ''.obs;
+  var createddate = ''.obs;
+  var updatedby = ''.obs;
+  var updateddate = ''.obs;
+  var isactive = false.obs;
+
   @override
   void onClose() {
     customer.value = '';

@@ -32,6 +32,7 @@ class CityView extends GetView implements IndexViewContract {
           BreadcrumbWidget('Cities', active: true),
         ],
         activeRoutes: [RouteList.master.index, RouteList.masterCity.index],
+        background: true,
         child: Container(
           child: Column(
             children: [

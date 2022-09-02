@@ -17,6 +17,12 @@ class CustomButtonStyle {
       );
 
   static BsButtonStyle get roundedSecondary => BsButtonStyle(
+        backgroundColor: ColorPallates.cancel,
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(5),
+      );
+
+  static BsButtonStyle get back => BsButtonStyle(
         backgroundColor: Colors.green.shade300,
         color: Colors.white,
         borderRadius: BorderRadius.circular(5),

@@ -16,7 +16,7 @@ class ThemeButtonBack extends BsButton {
             margin: margin,
             label: Text(BaseText.buttonBack),
             prefixIcon: BaseIcon.buttonBack,
-            style: CustomButtonStyle.roundedSecondary,
+            style: CustomButtonStyle.back,
             size: CustomButonSize.medium,
             onPressed: () => Get.back());
 }

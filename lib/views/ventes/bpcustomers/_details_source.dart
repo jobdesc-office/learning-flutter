@@ -7,6 +7,12 @@ class BpCustomerDetailsSource extends GetxController {
   var type = ''.obs;
   var pic = ''.obs;
 
+  var createdby = ''.obs;
+  var createddate = ''.obs;
+  var updatedby = ''.obs;
+  var updateddate = ''.obs;
+  var isactive = false.obs;
+
   @override
   void onClose() {
     name.value = '';
@@ -14,6 +20,12 @@ class BpCustomerDetailsSource extends GetxController {
     address.value = '';
     type.value = '';
     pic.value = '';
+
+    createdby.value = '';
+    createddate.value = '';
+    updatedby.value = '';
+    updateddate.value = '';
+    isactive.value = false;
     super.onClose();
   }
 }

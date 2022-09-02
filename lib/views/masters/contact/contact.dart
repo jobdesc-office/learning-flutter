@@ -30,6 +30,7 @@ class ContactView extends GetView implements IndexViewContract {
           BreadcrumbWidget('Masters'),
           BreadcrumbWidget('Contact', active: true),
         ],
+        background: true,
         activeRoutes: [RouteList.master.index, RouteList.masterContact.index],
         child: Container(
           child: Column(
