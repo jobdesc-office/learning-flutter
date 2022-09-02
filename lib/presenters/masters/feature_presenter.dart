@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../constants/base_text.dart';
+import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
 import '../../services/security/feature_service.dart';
 import '../../utils/custom_get_controller.dart';
+import '../../views/masters/menus/feature/feature_details.dart';
 import '../../views/masters/menus/feature/feature_form.dart';
 import '../../widgets/confirm_dialog.dart';
 
@@ -20,6 +22,12 @@ class FeaturePresenter extends CustomGetXController {
   late EditViewContract _featureFetchDataContract;
   set featureFetchDataContract(EditViewContract featureFetchDataContract) {
     _featureFetchDataContract = featureFetchDataContract;
+  }
+
+  late DetailViewContract _featureDataDetailsContract;
+  set featureDataDetailsContract(
+      DetailViewContract featureDataDetailsContract) {
+    _featureDataDetailsContract = featureDataDetailsContract;
   }
 
   Future datatables(
@@ -39,6 +47,20 @@ class FeaturePresenter extends CustomGetXController {
         id: id,
       ),
     );
+  }
+
+  void details(BuildContext context, int userid) async {
+    setProcessing(true);
+    showDialog(
+      context: context,
+      builder: (context) => FeatureDetails(),
+    );
+
+    Response response = await _featureService.show(userid);
+    if (response.statusCode == 200)
+      _featureDataDetailsContract.onSuccessFetchData(response);
+    else
+      _featureViewContract.onErrorRequest(response);
   }
 
   void save(BuildContext context, Map<String, dynamic> body) async {

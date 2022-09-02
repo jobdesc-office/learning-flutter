@@ -235,8 +235,8 @@ class MenuDetails extends GetView
   void onLoadDatatables(BuildContext context, Response response) {
     featurePresenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
-    // datatable.onDetailsListener =
-    //     (userid) => featurePresenter.details(context, userid);
+    datatable.onDetailsListener =
+        (userid) => featurePresenter.details(context, userid);
     datatable.onEditListener =
         (menuid) => featurePresenter.edit(context, menuid);
     datatable.onDeleteListener =
