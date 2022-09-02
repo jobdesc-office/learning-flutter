@@ -6,7 +6,11 @@ Widget _menuDetailsDesc(MenuDetailsSource source) {
           BsCol(
               sizes: ColScreen(lg: Col.col_12),
               child: FormGroup(
-                  label: Text('Name'),
+                  label: Text('Name',
+                      style: TextStyle(
+                          color: _navigation.darkTheme.value
+                              ? Colors.white
+                              : Colors.black)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [Text(source.type.value), Divider()],
@@ -15,7 +19,11 @@ Widget _menuDetailsDesc(MenuDetailsSource source) {
               margin: EdgeInsets.only(top: 5),
               sizes: ColScreen(lg: Col.col_12),
               child: FormGroup(
-                  label: Text('Parent'),
+                  label: Text('Parent',
+                      style: TextStyle(
+                          color: _navigation.darkTheme.value
+                              ? Colors.white
+                              : Colors.black)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [Text(source.parent.value), Divider()],
@@ -24,7 +32,11 @@ Widget _menuDetailsDesc(MenuDetailsSource source) {
               margin: EdgeInsets.only(top: 5),
               sizes: ColScreen(lg: Col.col_12),
               child: FormGroup(
-                  label: Text('Name'),
+                  label: Text('Name',
+                      style: TextStyle(
+                          color: _navigation.darkTheme.value
+                              ? Colors.white
+                              : Colors.black)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [Text(source.name.value), Divider()],
@@ -33,7 +45,11 @@ Widget _menuDetailsDesc(MenuDetailsSource source) {
               margin: EdgeInsets.only(top: 5),
               sizes: ColScreen(lg: Col.col_12),
               child: FormGroup(
-                  label: Text('Icon'),
+                  label: Text('Icon',
+                      style: TextStyle(
+                          color: _navigation.darkTheme.value
+                              ? Colors.white
+                              : Colors.black)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [Text(source.icon.value), Divider()],
@@ -42,7 +58,11 @@ Widget _menuDetailsDesc(MenuDetailsSource source) {
               margin: EdgeInsets.only(top: 5),
               sizes: ColScreen(lg: Col.col_12),
               child: FormGroup(
-                  label: Text('Route'),
+                  label: Text('Route',
+                      style: TextStyle(
+                          color: _navigation.darkTheme.value
+                              ? Colors.white
+                              : Colors.black)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [Text(source.route.value), Divider()],
@@ -51,7 +71,11 @@ Widget _menuDetailsDesc(MenuDetailsSource source) {
               margin: EdgeInsets.only(top: 5),
               sizes: ColScreen(lg: Col.col_12),
               child: FormGroup(
-                  label: Text('Color'),
+                  label: Text('Color',
+                      style: TextStyle(
+                          color: _navigation.darkTheme.value
+                              ? Colors.white
+                              : Colors.black)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [Text(source.color.value), Divider()],
@@ -60,7 +84,11 @@ Widget _menuDetailsDesc(MenuDetailsSource source) {
               margin: EdgeInsets.only(top: 5),
               sizes: ColScreen(lg: Col.col_12),
               child: FormGroup(
-                  label: Text('Sequence'),
+                  label: Text('Sequence',
+                      style: TextStyle(
+                          color: _navigation.darkTheme.value
+                              ? Colors.white
+                              : Colors.black)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [Text(source.sequence.value), Divider()],

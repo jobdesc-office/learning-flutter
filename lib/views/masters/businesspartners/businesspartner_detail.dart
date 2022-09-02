@@ -62,7 +62,11 @@ class BusinessPartnerDetails extends GetView implements DetailViewContract {
                         BsCol(
                             sizes: ColScreen(lg: Col.col_12),
                             child: FormGroup(
-                                label: Text('Name'),
+                                label: Text('Name',
+                                    style: TextStyle(
+                                        color: _navigation.darkTheme.value
+                                            ? Colors.white
+                                            : Colors.black)),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -74,7 +78,11 @@ class BusinessPartnerDetails extends GetView implements DetailViewContract {
                             margin: EdgeInsets.only(top: 10),
                             sizes: ColScreen(lg: Col.col_12),
                             child: FormGroup(
-                                label: Text('PIC'),
+                                label: Text('PIC',
+                                    style: TextStyle(
+                                        color: _navigation.darkTheme.value
+                                            ? Colors.white
+                                            : Colors.black)),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -86,7 +94,11 @@ class BusinessPartnerDetails extends GetView implements DetailViewContract {
                             margin: EdgeInsets.only(top: 10),
                             sizes: ColScreen(lg: Col.col_12),
                             child: FormGroup(
-                                label: Text('Phone'),
+                                label: Text('Phone',
+                                    style: TextStyle(
+                                        color: _navigation.darkTheme.value
+                                            ? Colors.white
+                                            : Colors.black)),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -98,7 +110,11 @@ class BusinessPartnerDetails extends GetView implements DetailViewContract {
                             margin: EdgeInsets.only(top: 10),
                             sizes: ColScreen(lg: Col.col_12),
                             child: FormGroup(
-                                label: Text('Email'),
+                                label: Text('Email',
+                                    style: TextStyle(
+                                        color: _navigation.darkTheme.value
+                                            ? Colors.white
+                                            : Colors.black)),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -110,7 +126,11 @@ class BusinessPartnerDetails extends GetView implements DetailViewContract {
                             margin: EdgeInsets.only(top: 10),
                             sizes: ColScreen(lg: Col.col_12),
                             child: FormGroup(
-                                label: Text('Type'),
+                                label: Text('Type',
+                                    style: TextStyle(
+                                        color: _navigation.darkTheme.value
+                                            ? Colors.white
+                                            : Colors.black)),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -140,7 +160,11 @@ class BusinessPartnerDetails extends GetView implements DetailViewContract {
                             children: [
                               BsCol(
                                 child: FormGroup(
-                                    label: Text('Created By'),
+                                    label: Text('Created By',
+                                        style: TextStyle(
+                                            color: _navigation.darkTheme.value
+                                                ? Colors.white
+                                                : Colors.black)),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -153,7 +177,11 @@ class BusinessPartnerDetails extends GetView implements DetailViewContract {
                               BsCol(
                                 margin: EdgeInsets.only(top: 10),
                                 child: FormGroup(
-                                    label: Text('Created At'),
+                                    label: Text('Created At',
+                                        style: TextStyle(
+                                            color: _navigation.darkTheme.value
+                                                ? Colors.white
+                                                : Colors.black)),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -166,7 +194,11 @@ class BusinessPartnerDetails extends GetView implements DetailViewContract {
                               BsCol(
                                 margin: EdgeInsets.only(top: 10),
                                 child: FormGroup(
-                                    label: Text('Last Updated By'),
+                                    label: Text('Last Updated By',
+                                        style: TextStyle(
+                                            color: _navigation.darkTheme.value
+                                                ? Colors.white
+                                                : Colors.black)),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -179,7 +211,11 @@ class BusinessPartnerDetails extends GetView implements DetailViewContract {
                               BsCol(
                                 margin: EdgeInsets.only(top: 10),
                                 child: FormGroup(
-                                    label: Text('Last Updated At'),
+                                    label: Text('Last Updated At',
+                                        style: TextStyle(
+                                            color: _navigation.darkTheme.value
+                                                ? Colors.white
+                                                : Colors.black)),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -192,7 +228,11 @@ class BusinessPartnerDetails extends GetView implements DetailViewContract {
                               BsCol(
                                 margin: EdgeInsets.only(top: 10),
                                 child: FormGroup(
-                                    label: Text('Activation'),
+                                    label: Text('Activation',
+                                        style: TextStyle(
+                                            color: _navigation.darkTheme.value
+                                                ? Colors.white
+                                                : Colors.black)),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -200,12 +240,22 @@ class BusinessPartnerDetails extends GetView implements DetailViewContract {
                                         if (controller.isactive.value)
                                           Card(
                                             color: Colors.green,
-                                            child: Text('Active'),
+                                            child: Text('Active',
+                                                style: TextStyle(
+                                                    color: _navigation
+                                                            .darkTheme.value
+                                                        ? Colors.white
+                                                        : Colors.black)),
                                           )
                                         else
                                           Card(
                                             color: Colors.red,
-                                            child: Text('Not Active'),
+                                            child: Text('Not Active',
+                                                style: TextStyle(
+                                                    color: _navigation
+                                                            .darkTheme.value
+                                                        ? Colors.white
+                                                        : Colors.black)),
                                           ),
                                         Divider()
                                       ],

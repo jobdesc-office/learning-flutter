@@ -78,7 +78,11 @@ class MenuDetails extends GetView
                               children: [
                                 BsCol(
                                   child: FormGroup(
-                                      label: Text('Created By'),
+                                      label: Text('Created By',
+                                          style: TextStyle(
+                                              color: _navigation.darkTheme.value
+                                                  ? Colors.white
+                                                  : Colors.black)),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -91,7 +95,11 @@ class MenuDetails extends GetView
                                 BsCol(
                                   margin: EdgeInsets.only(top: 10),
                                   child: FormGroup(
-                                      label: Text('Created At'),
+                                      label: Text('Created At',
+                                          style: TextStyle(
+                                              color: _navigation.darkTheme.value
+                                                  ? Colors.white
+                                                  : Colors.black)),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -104,7 +112,11 @@ class MenuDetails extends GetView
                                 BsCol(
                                   margin: EdgeInsets.only(top: 10),
                                   child: FormGroup(
-                                      label: Text('Last Updated By'),
+                                      label: Text('Last Updated By',
+                                          style: TextStyle(
+                                              color: _navigation.darkTheme.value
+                                                  ? Colors.white
+                                                  : Colors.black)),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -117,7 +129,11 @@ class MenuDetails extends GetView
                                 BsCol(
                                   margin: EdgeInsets.only(top: 10),
                                   child: FormGroup(
-                                      label: Text('Last Updated At'),
+                                      label: Text('Last Updated At',
+                                          style: TextStyle(
+                                              color: _navigation.darkTheme.value
+                                                  ? Colors.white
+                                                  : Colors.black)),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -130,7 +146,11 @@ class MenuDetails extends GetView
                                 BsCol(
                                   margin: EdgeInsets.only(top: 10),
                                   child: FormGroup(
-                                      label: Text('Activation'),
+                                      label: Text('Activation',
+                                          style: TextStyle(
+                                              color: _navigation.darkTheme.value
+                                                  ? Colors.white
+                                                  : Colors.black)),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -138,12 +158,22 @@ class MenuDetails extends GetView
                                           if (source.isactive.value)
                                             Card(
                                               color: Colors.green,
-                                              child: Text('Active'),
+                                              child: Text('Active',
+                                                  style: TextStyle(
+                                                      color: _navigation
+                                                              .darkTheme.value
+                                                          ? Colors.white
+                                                          : Colors.black)),
                                             )
                                           else
                                             Card(
                                               color: Colors.red,
-                                              child: Text('Not Active'),
+                                              child: Text('Not Active',
+                                                  style: TextStyle(
+                                                      color: _navigation
+                                                              .darkTheme.value
+                                                          ? Colors.white
+                                                          : Colors.black)),
                                             ),
                                           Divider()
                                         ],
