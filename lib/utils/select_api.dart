@@ -326,7 +326,7 @@ Future<BsSelectBoxResponse> selectApiMenu(Map<String, String> params) async {
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => MenuModel.fromJson(data).menuid,
-        renderText: (data) => Text(MenuModel.fromJson(data).menunm),
+        renderText: (data) => Text(MenuModel.fromJson(data).menunm ?? ''),
       );
     }
   }

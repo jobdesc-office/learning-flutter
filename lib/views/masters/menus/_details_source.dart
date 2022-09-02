@@ -10,6 +10,12 @@ class MenuDetailsSource extends GetxController {
   var color = ''.obs;
   var sequence = ''.obs;
 
+  var createdby = ''.obs;
+  var createddate = ''.obs;
+  var updatedby = ''.obs;
+  var updateddate = ''.obs;
+  var isactive = false.obs;
+
   @override
   void onClose() {
     id.value = 0;
@@ -20,6 +26,12 @@ class MenuDetailsSource extends GetxController {
     route.value = '';
     color.value = '';
     sequence.value = '';
+
+    createdby.value = '';
+    createddate.value = '';
+    updatedby.value = '';
+    updateddate.value = '';
+    isactive.value = false;
     super.onClose();
   }
 }

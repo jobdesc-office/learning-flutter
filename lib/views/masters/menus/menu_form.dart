@@ -126,13 +126,13 @@ class MenuFormView extends StatelessWidget
       source.value.isAdd.value = true;
       MenuModel menu = MenuModel.fromJson(response.body);
       source.value.menuTypeController.selected = menu.menutype;
-      source.value.inputName.text = menu.menunm;
+      source.value.inputName.text = menu.menunm ?? '';
       source.value.selectParent.setSelected(BsSelectBoxOption(
-          value: menu.parent.menuid, text: Text(menu.parent.menunm)));
-      source.value.inputColor.text = menu.color;
-      source.value.inputIcon.text = menu.icon;
-      source.value.inputRoute.text = menu.route;
-      source.value.inputSequence.text = menu.seq.toString();
+          value: menu.parent?.menuid!, text: Text(menu.parent?.menunm ?? '')));
+      source.value.inputColor.text = menu.menucolor ?? '';
+      source.value.inputIcon.text = menu.menuicon ?? '';
+      source.value.inputRoute.text = menu.menuroute ?? '';
+      source.value.inputSequence.text = menu.menuseq.toString();
     });
   }
 }

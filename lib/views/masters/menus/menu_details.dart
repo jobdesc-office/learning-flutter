@@ -15,6 +15,7 @@ import '../../../styles/color_palattes.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_back.dart';
 import '../../../widgets/datatables/custom_datatable.dart';
+import '../../../widgets/form_group.dart';
 import '../../../widgets/snackbar.dart';
 import '../../skins/template.dart';
 import '_details_source.dart';
@@ -29,7 +30,7 @@ class MenuDetails extends GetView
   final MenuPresenter presenter = Get.find<MenuPresenter>();
   final FeaturePresenter featurePresenter = Get.find<FeaturePresenter>();
   final datatable = FeatureDataTableSource();
-  final MenuDetailsSource source = Get.put(MenuDetailsSource());
+  final source = Get.put(MenuDetailsSource());
 
   MenuDetails() {
     Get.delete<MenuDetailsSource>();
@@ -48,59 +49,138 @@ class MenuDetails extends GetView
           BreadcrumbWidget('Menu Details', active: true),
         ],
         activeRoutes: [RouteList.master.index, RouteList.masterMenu.index],
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+        child: Obx(() => BsRow(
               children: [
-                ThemeButtonCreate(
-                  onPressed: () =>
-                      featurePresenter.add(context, source.id.value),
-                  margin: EdgeInsets.only(bottom: 5),
-                  prefix: 'Feature',
-                ),
-                ThemeButtonBack(
-                  margin: EdgeInsets.only(bottom: 5, left: 5),
-                ),
+                BsCol(
+                    sizes: ColScreen(lg: Col.col_4),
+                    child: Column(
+                      children: [
+                        Container(
+                            padding: EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              color: _navigation.darkTheme.value
+                                  ? ColorPallates.elseDarkColor
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: _menuDetailsDesc(source)),
+                        Container(
+                            margin: EdgeInsets.only(top: 5),
+                            padding: EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              color: _navigation.darkTheme.value
+                                  ? ColorPallates.elseDarkColor
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: BsRow(
+                              children: [
+                                BsCol(
+                                  child: FormGroup(
+                                      label: Text('Created By'),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(source.createdby.value),
+                                          Divider()
+                                        ],
+                                      )),
+                                ),
+                                BsCol(
+                                  margin: EdgeInsets.only(top: 10),
+                                  child: FormGroup(
+                                      label: Text('Created At'),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(source.createddate.value),
+                                          Divider()
+                                        ],
+                                      )),
+                                ),
+                                BsCol(
+                                  margin: EdgeInsets.only(top: 10),
+                                  child: FormGroup(
+                                      label: Text('Last Updated By'),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(source.updatedby.value),
+                                          Divider()
+                                        ],
+                                      )),
+                                ),
+                                BsCol(
+                                  margin: EdgeInsets.only(top: 10),
+                                  child: FormGroup(
+                                      label: Text('Last Updated At'),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(source.updateddate.value),
+                                          Divider()
+                                        ],
+                                      )),
+                                ),
+                                BsCol(
+                                  margin: EdgeInsets.only(top: 10),
+                                  child: FormGroup(
+                                      label: Text('Activation'),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          if (source.isactive.value)
+                                            Card(
+                                              color: Colors.green,
+                                              child: Text('Active'),
+                                            )
+                                          else
+                                            Card(
+                                              color: Colors.red,
+                                              child: Text('Not Active'),
+                                            ),
+                                          Divider()
+                                        ],
+                                      )),
+                                ),
+                              ],
+                            )),
+                      ],
+                    )),
+                if (source.id.value != 0)
+                  BsCol(
+                      margin: EdgeInsets.only(left: 5),
+                      sizes: ColScreen(lg: Col.col_8),
+                      child: Container(
+                        padding: EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: _navigation.darkTheme.value
+                              ? ColorPallates.elseDarkColor
+                              : Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: CustomDatabales(
+                          source: datatable,
+                          columns: datatable.columns,
+                          headerActions: [
+                            ThemeButtonCreate(
+                              onPressed: () => featurePresenter.add(
+                                  context, source.id.value),
+                              margin: EdgeInsets.only(bottom: 5),
+                              prefix: 'Feature',
+                            ),
+                          ],
+                          serverSide: (params) => featurePresenter.datatables(
+                              context, params, source.id.value),
+                        ),
+                      )),
               ],
-            ),
-            Obx(() => BsRow(
-                  children: [
-                    BsCol(
-                        sizes: ColScreen(lg: Col.col_4),
-                        child: Container(
-                            padding: EdgeInsets.all(20),
-                            decoration: BoxDecoration(
-                              color: _navigation.darkTheme.value
-                                  ? ColorPallates.elseDarkColor
-                                  : Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: _menuDetailsDesc(source))),
-                    if (source.id.value != 0)
-                      BsCol(
-                          margin: EdgeInsets.only(left: 5),
-                          sizes: ColScreen(lg: Col.col_8),
-                          child: Container(
-                            padding: EdgeInsets.all(20),
-                            decoration: BoxDecoration(
-                              color: _navigation.darkTheme.value
-                                  ? ColorPallates.elseDarkColor
-                                  : Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: CustomDatabales(
-                              source: datatable,
-                              columns: datatable.columns,
-                              serverSide: (params) => featurePresenter
-                                  .datatables(context, params, source.id.value),
-                            ),
-                          )),
-                  ],
-                )),
-          ],
-        ),
+            )),
       ),
     );
   }
@@ -108,15 +188,21 @@ class MenuDetails extends GetView
   @override
   void onSuccessFetchData(Response response) {
     MenuModel dt = MenuModel.fromJson(response.body);
-    source.id.value = dt.menuid;
+    source.id.value = dt.menuid!;
     print(source.id.value);
-    source.type.value = dt.menutype.typename;
-    source.parent.value = dt.parent.menunm;
-    source.name.value = dt.menunm;
-    source.icon.value = dt.icon;
-    source.route.value = dt.route;
-    source.color.value = dt.color;
-    source.sequence.value = dt.seq.toString();
+    source.type.value = dt.menutype?.typename ?? '';
+    source.parent.value = dt.parent?.menunm ?? '';
+    source.name.value = dt.menunm ?? '';
+    source.icon.value = dt.menuicon ?? '';
+    source.route.value = dt.menuroute ?? '';
+    source.color.value = dt.menucolor ?? '';
+    source.sequence.value = dt.menuseq.toString();
+
+    source.createdby.value = dt.menucreatedby?.userfullname ?? '';
+    source.createddate.value = dt.createddate ?? '';
+    source.updatedby.value = dt.menucreatedby?.userfullname ?? '';
+    source.updateddate.value = dt.updateddate ?? '';
+    source.isactive.value = dt.isactive ?? false;
     presenter.setProcessing(false);
   }
 

@@ -68,8 +68,8 @@ class MenuDataTableSource extends BsDatatableSource {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              ThemeBadge(child: Text(row.menutype.typename)),
-              Text(row.menunm)
+              ThemeBadge(child: Text(row.menutype?.typename ?? '')),
+              Text(row.menunm ?? '')
             ],
           ),
           color: _navigation.darkTheme.value
@@ -107,14 +107,14 @@ class MenuDataTableSource extends BsDatatableSource {
                 message: BaseText.detailHintDatatable(field: row.menunm),
                 child: ButtonDetailsDatatables(
                   margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onDetailsListener(row.menuid),
+                  onPressed: () => onDetailsListener(row.menuid!),
                 ),
               ),
               Tooltip(
                 message: BaseText.editHintDatatable(field: row.menunm),
                 child: ButtonEditDatatables(
                   margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onEditListener(row.menuid),
+                  onPressed: () => onEditListener(row.menuid!),
                 ),
               ),
               Tooltip(

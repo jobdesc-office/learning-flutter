@@ -5,88 +5,66 @@ Widget _menuDetailsDesc(MenuDetailsSource source) {
         children: [
           BsCol(
               sizes: ColScreen(lg: Col.col_12),
-              child: BsRow(
-                children: [
-                  BsCol(sizes: ColScreen(lg: Col.col_3), child: Text('Type')),
-                  BsCol(sizes: ColScreen(lg: Col.col_1), child: Text(':')),
-                  BsCol(
-                      sizes: ColScreen(lg: Col.col_8),
-                      child: Text(source.type.value))
-                ],
-              )),
+              child: FormGroup(
+                  label: Text('Name'),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [Text(source.type.value), Divider()],
+                  ))),
           BsCol(
               margin: EdgeInsets.only(top: 5),
               sizes: ColScreen(lg: Col.col_12),
-              child: BsRow(
-                children: [
-                  BsCol(sizes: ColScreen(lg: Col.col_3), child: Text('Parent')),
-                  BsCol(sizes: ColScreen(lg: Col.col_1), child: Text(':')),
-                  BsCol(
-                      sizes: ColScreen(lg: Col.col_8),
-                      child: Text(source.parent.value))
-                ],
-              )),
+              child: FormGroup(
+                  label: Text('Parent'),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [Text(source.parent.value), Divider()],
+                  ))),
           BsCol(
               margin: EdgeInsets.only(top: 5),
               sizes: ColScreen(lg: Col.col_12),
-              child: BsRow(
-                children: [
-                  BsCol(sizes: ColScreen(lg: Col.col_3), child: Text('Name')),
-                  BsCol(sizes: ColScreen(lg: Col.col_1), child: Text(':')),
-                  BsCol(
-                      sizes: ColScreen(lg: Col.col_8),
-                      child: Text(source.name.value))
-                ],
-              )),
+              child: FormGroup(
+                  label: Text('Name'),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [Text(source.name.value), Divider()],
+                  ))),
           BsCol(
               margin: EdgeInsets.only(top: 5),
               sizes: ColScreen(lg: Col.col_12),
-              child: BsRow(
-                children: [
-                  BsCol(sizes: ColScreen(lg: Col.col_3), child: Text('Icon')),
-                  BsCol(sizes: ColScreen(lg: Col.col_1), child: Text(':')),
-                  BsCol(
-                      sizes: ColScreen(lg: Col.col_8),
-                      child: Text(source.icon.value))
-                ],
-              )),
+              child: FormGroup(
+                  label: Text('Icon'),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [Text(source.icon.value), Divider()],
+                  ))),
           BsCol(
               margin: EdgeInsets.only(top: 5),
               sizes: ColScreen(lg: Col.col_12),
-              child: BsRow(
-                children: [
-                  BsCol(sizes: ColScreen(lg: Col.col_3), child: Text('Route')),
-                  BsCol(sizes: ColScreen(lg: Col.col_1), child: Text(':')),
-                  BsCol(
-                      sizes: ColScreen(lg: Col.col_8),
-                      child: Text(source.route.value))
-                ],
-              )),
+              child: FormGroup(
+                  label: Text('Route'),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [Text(source.route.value), Divider()],
+                  ))),
           BsCol(
               margin: EdgeInsets.only(top: 5),
               sizes: ColScreen(lg: Col.col_12),
-              child: BsRow(
-                children: [
-                  BsCol(sizes: ColScreen(lg: Col.col_3), child: Text('Color')),
-                  BsCol(sizes: ColScreen(lg: Col.col_1), child: Text(':')),
-                  BsCol(
-                      sizes: ColScreen(lg: Col.col_8),
-                      child: Text(source.color.value))
-                ],
-              )),
+              child: FormGroup(
+                  label: Text('Color'),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [Text(source.color.value), Divider()],
+                  ))),
           BsCol(
               margin: EdgeInsets.only(top: 5),
               sizes: ColScreen(lg: Col.col_12),
-              child: BsRow(
-                children: [
-                  BsCol(
-                      sizes: ColScreen(lg: Col.col_3), child: Text('Sequence')),
-                  BsCol(sizes: ColScreen(lg: Col.col_1), child: Text(':')),
-                  BsCol(
-                      sizes: ColScreen(lg: Col.col_8),
-                      child: Text(source.sequence.value))
-                ],
-              )),
+              child: FormGroup(
+                  label: Text('Sequence'),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [Text(source.sequence.value), Divider()],
+                  ))),
         ],
       ));
 }

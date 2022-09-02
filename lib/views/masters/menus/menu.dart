@@ -34,6 +34,7 @@ class MenuView extends StatelessWidget
           BreadcrumbWidget('Menus', active: true),
         ],
         activeRoutes: [RouteList.master.index, RouteList.masterMenu.index],
+        background: true,
         child: Container(
           child: Column(
             children: [
