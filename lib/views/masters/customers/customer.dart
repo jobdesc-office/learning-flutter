@@ -39,6 +39,7 @@ class CustomerView extends GetView implements IndexViewContract {
           BreadcrumbWidget('Customers', active: true),
         ],
         activeRoutes: [RouteList.master.index, RouteList.masterCustomer.index],
+        background: true,
         child: Container(
           child: Column(
             children: [

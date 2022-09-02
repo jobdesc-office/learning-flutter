@@ -15,6 +15,12 @@ class CustomerDetailsSource extends GetxController {
   var longitude = ''.obs;
   var referal = ''.obs;
 
+  var createdby = ''.obs;
+  var createddate = ''.obs;
+  var updatedby = ''.obs;
+  var updateddate = ''.obs;
+  var isactive = false.obs;
+
   @override
   void onClose() {
     prefix.value = '';
@@ -30,6 +36,12 @@ class CustomerDetailsSource extends GetxController {
     latitude.value = '';
     longitude.value = '';
     referal.value = '';
+
+    createdby.value = '';
+    createddate.value = '';
+    updatedby.value = '';
+    updateddate.value = '';
+    isactive.value = false;
     super.onClose();
   }
 }
