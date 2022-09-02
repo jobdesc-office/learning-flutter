@@ -426,7 +426,7 @@ class ScheduleForm {
                   serverSide: (params) => selectApiScheduleRefTypes(params),
                   onChange: (value) {
                     var text = TypeModel.fromJson(value.getOtherValue());
-                    source.refType.value = text.typename;
+                    source.refType.value = text.typename ?? '';
                     source.refTypeIsNotChoosed.value = false;
                   },
                 )),

@@ -48,6 +48,7 @@ class MenuDetails extends GetView
           BreadcrumbWidget('Menus', back: true),
           BreadcrumbWidget('Menu Details', active: true),
         ],
+        back: true,
         activeRoutes: [RouteList.master.index, RouteList.masterMenu.index],
         child: Obx(() => BsRow(
               children: [

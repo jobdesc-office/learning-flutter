@@ -34,6 +34,7 @@ class TypesParentView extends StatelessWidget
           BreadcrumbWidget('Type'),
           BreadcrumbWidget('Type Parent', active: true),
         ],
+        background: true,
         activeRoutes: [
           RouteList.masterTypeParent.index,
           RouteList.masterTypeParent.index

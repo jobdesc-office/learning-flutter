@@ -113,10 +113,10 @@ class TypeChildrenFormView extends StatelessWidget
 
     source.update((val) {
       TypeModel menu = TypeModel.fromJson(response.body);
-      source.value.inputName.text = menu.typename;
-      source.value.inputCode.text = menu.typecd;
+      source.value.inputName.text = menu.typename ?? '';
+      source.value.inputCode.text = menu.typecd ?? '';
       source.value.inputSeq.text = menu.typeseq.toString();
-      source.value.inputDesc.text = menu.description;
+      source.value.inputDesc.text = menu.typedesc ?? '';
     });
   }
 
@@ -124,6 +124,6 @@ class TypeChildrenFormView extends StatelessWidget
   void onLoadParentSuccess(Response response) {
     TypeModel menu = TypeModel.fromJson(response.body);
     source.value.selectParent.setSelected(
-        BsSelectBoxOption(value: menu.typeid, text: Text(menu.typename)));
+        BsSelectBoxOption(value: menu.typeid, text: Text(menu.typename ?? '')));
   }
 }

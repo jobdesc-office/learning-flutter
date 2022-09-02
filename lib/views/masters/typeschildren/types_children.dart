@@ -47,6 +47,7 @@ class TypesChildrenView extends StatelessWidget
           RouteList.masterTypeChildren.index,
           RouteList.masterTypeChildren.index
         ],
+        background: true,
         child: Container(
           child: Column(
             children: [

@@ -7,6 +7,12 @@ class TypeChildrenDetailsSource extends GetxController {
   var desc = ''.obs;
   var seq = ''.obs;
 
+  var createdby = ''.obs;
+  var createddate = ''.obs;
+  var updatedby = ''.obs;
+  var updateddate = ''.obs;
+  var isactive = false.obs;
+
   @override
   void onClose() {
     code.value = '';
@@ -14,6 +20,12 @@ class TypeChildrenDetailsSource extends GetxController {
     parent.value = '';
     desc.value = '';
     seq.value = '';
+
+    createdby.value = '';
+    createddate.value = '';
+    updatedby.value = '';
+    updateddate.value = '';
+    isactive.value = false;
     super.onClose();
   }
 }

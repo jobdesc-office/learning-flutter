@@ -88,7 +88,7 @@ class _BusinessPartnerTypeOptions extends State<BusinessPartnerTypeOptions> {
                 borderRadius: borderRadius,
               ),
               child: Text(
-                type.typename,
+                type.typename ?? '',
                 style: TextStyle(
                   color: textColor,
                   fontSize: 12,

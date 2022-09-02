@@ -255,7 +255,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     source.prospectbpid.value = dt.prospectbp!.bpid!;
     source.desc.value = dt.prospectdescription ?? '';
     source.status.value = dt.prospectstatus!.typename!;
-    source.stage.value = dt.prospectstage!.typename;
+    source.stage.value = dt.prospectstage!.typename ?? '';
     customFieldPresenter.allBp(context);
 
     detailPresenter.details(context, {'id': dt.prospectid.toString()});

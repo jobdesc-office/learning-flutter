@@ -90,7 +90,7 @@ class _ParentOptions extends State<ParentOptions> {
                 borderRadius: borderRadius,
               ),
               child: Text(
-                type.typename,
+                type.typename ?? '',
                 style: TextStyle(
                   color: textColor,
                   fontSize: 12,
@@ -100,7 +100,7 @@ class _ParentOptions extends State<ParentOptions> {
             onTap: () {
               widget.controller.selected = type;
               setState(() {
-                controller.chosed.value = widget.controller.selected!.typeid;
+                controller.chosed.value = widget.controller.selected!.typeid!;
                 controller.isProcessing.value = true;
               });
             },

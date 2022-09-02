@@ -42,7 +42,7 @@ Future<BsSelectBoxResponse> selectApiRole(Map<String, String> params) async {
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => TypeModel.fromJson(data).typeid,
-        renderText: (data) => Text(TypeModel.fromJson(data).typename),
+        renderText: (data) => Text(TypeModel.fromJson(data).typename ?? ''),
       );
     }
   }
@@ -59,7 +59,7 @@ Future<BsSelectBoxResponse> selectApiCustomerType(
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => TypeModel.fromJson(data).typeid,
-        renderText: (data) => Text(TypeModel.fromJson(data).typename),
+        renderText: (data) => Text(TypeModel.fromJson(data).typename ?? ''),
       );
     }
   }
@@ -75,7 +75,7 @@ Future<BsSelectBoxResponse> selectApiBpType(Map<String, String> params) async {
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => TypeModel.fromJson(data).typeid,
-        renderText: (data) => Text(TypeModel.fromJson(data).typename),
+        renderText: (data) => Text(TypeModel.fromJson(data).typename ?? ''),
       );
     }
   }
@@ -115,7 +115,7 @@ Future<BsSelectBoxResponse> selectApiProspectCategory(
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => TypeModel.fromJson(data).typeid,
-        renderText: (data) => Text(TypeModel.fromJson(data).typename),
+        renderText: (data) => Text(TypeModel.fromJson(data).typename ?? ''),
       );
     }
   }
@@ -132,7 +132,7 @@ Future<BsSelectBoxResponse> selectApiProspectType(
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => TypeModel.fromJson(data).typeid,
-        renderText: (data) => Text(TypeModel.fromJson(data).typename),
+        renderText: (data) => Text(TypeModel.fromJson(data).typename ?? ''),
       );
     }
   }
@@ -149,7 +149,7 @@ Future<BsSelectBoxResponse> selectApiProspectCustLab(
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => TypeModel.fromJson(data).typeid,
-        renderText: (data) => Text(TypeModel.fromJson(data).typename),
+        renderText: (data) => Text(TypeModel.fromJson(data).typename ?? ''),
       );
     }
   }
@@ -166,7 +166,7 @@ Future<BsSelectBoxResponse> selectApiProspectLostType(
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => TypeModel.fromJson(data).typeid,
-        renderText: (data) => Text(TypeModel.fromJson(data).typename),
+        renderText: (data) => Text(TypeModel.fromJson(data).typename ?? ''),
       );
     }
   }
@@ -183,7 +183,7 @@ Future<BsSelectBoxResponse> selectApiBpCustomerStatus(
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => TypeModel.fromJson(data).typeid,
-        renderText: (data) => Text(TypeModel.fromJson(data).typename),
+        renderText: (data) => Text(TypeModel.fromJson(data).typename ?? ''),
       );
     }
   }
@@ -200,7 +200,7 @@ Future<BsSelectBoxResponse> selectApiTypeSchedule(
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => TypeModel.fromJson(data).typeid,
-        renderText: (data) => Text(TypeModel.fromJson(data).typename),
+        renderText: (data) => Text(TypeModel.fromJson(data).typename ?? ''),
       );
     }
   }
@@ -218,7 +218,7 @@ Future<BsSelectBoxResponse> selectApiTaxTypes(
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => TypeModel.fromJson(data).typeid,
-        renderText: (data) => Text(TypeModel.fromJson(data).typename),
+        renderText: (data) => Text(TypeModel.fromJson(data).typename ?? ''),
       );
     }
   }
@@ -236,7 +236,7 @@ Future<BsSelectBoxResponse> selectApiContactTypes(
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => TypeModel.fromJson(data).typeid,
-        renderText: (data) => Text(TypeModel.fromJson(data).typename),
+        renderText: (data) => Text(TypeModel.fromJson(data).typename ?? ''),
       );
     }
   }
@@ -254,7 +254,7 @@ Future<BsSelectBoxResponse> selectApiProspectTypes(
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => TypeModel.fromJson(data).typeid,
-        renderText: (data) => Text(TypeModel.fromJson(data).typename),
+        renderText: (data) => Text(TypeModel.fromJson(data).typename ?? ''),
       );
     }
   }
@@ -273,7 +273,7 @@ Future<BsSelectBoxResponse> selectApiCustomFieldTypes(
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => TypeModel.fromJson(data).typeid,
-        renderText: (data) => Text(TypeModel.fromJson(data).typename),
+        renderText: (data) => Text(TypeModel.fromJson(data).typename ?? ''),
       );
     }
   }
@@ -291,7 +291,7 @@ Future<BsSelectBoxResponse> selectApiScheduleRefTypes(
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => TypeModel.fromJson(data).typeid,
-        renderText: (data) => Text(TypeModel.fromJson(data).typename),
+        renderText: (data) => Text(TypeModel.fromJson(data).typename ?? ''),
       );
     }
   }
@@ -309,7 +309,7 @@ Future<BsSelectBoxResponse> selectApiCompetitorRefType(
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => TypeModel.fromJson(data).typeid,
-        renderText: (data) => Text(TypeModel.fromJson(data).typename),
+        renderText: (data) => Text(TypeModel.fromJson(data).typename ?? ''),
       );
     }
   }
@@ -526,7 +526,7 @@ Future<BsSelectBoxResponse> selectApiTypeParents(
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => TypeModel.fromJson(data).typeid,
-        renderText: (data) => Text(TypeModel.fromJson(data).typename),
+        renderText: (data) => Text(TypeModel.fromJson(data).typename ?? ''),
       );
     }
   }

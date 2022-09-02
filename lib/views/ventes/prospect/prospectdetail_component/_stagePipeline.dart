@@ -104,7 +104,7 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
               endConnector: DashedLineConnector(color: ColorPallates.primary),
             ),
           );
-        } else if (widget.controller.selected!.typeseq > type.typeseq) {
+        } else if (widget.controller.selected!.typeseq! > type.typeseq!) {
           // col = Col.col_4;
           indicator = SizedBox(
             width: 500,
@@ -178,7 +178,7 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
             child: Column(
               children: [
                 indicator,
-                Text(type.typename),
+                Text(type.typename ?? ''),
               ],
             ),
           ),

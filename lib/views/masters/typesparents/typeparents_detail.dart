@@ -10,6 +10,7 @@ import '../../../routes/route_list.dart';
 import '../../../styles/color_palattes.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_back.dart';
+import '../../../widgets/form_group.dart';
 import '../../skins/template.dart';
 import '_detail_source.dart';
 import '_text.dart';
@@ -40,94 +41,161 @@ class TypeParentDetails extends GetView implements DetailViewContract {
           RouteList.masterTypeParent.index,
           RouteList.masterTypeParent.index
         ],
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            ThemeButtonBack(
-              margin: EdgeInsets.only(bottom: 5),
-            ),
-            Obx(() => Container(
-                  padding: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: _navigation.darkTheme.value
-                        ? ColorPallates.elseDarkColor
-                        : Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: BsRow(
-                    children: [
-                      BsCol(
-                          sizes: ColScreen(lg: Col.col_12),
-                          child: BsRow(
-                            children: [
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_3),
-                                  child: Text('Name')),
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_1),
-                                  child: Text(':')),
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_8),
-                                  child: Text(controller.name.value))
-                            ],
-                          )),
-                      BsCol(
-                          margin: EdgeInsets.only(top: 10),
-                          sizes: ColScreen(lg: Col.col_12),
-                          child: BsRow(
-                            children: [
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_3),
-                                  child: Text('Code')),
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_1),
-                                  child: Text(':')),
-                              BsCol(
-                                  sizes: ColScreen(lg: Col.col_8),
-                                  child: Text(controller.cd.value)),
-                              BsCol(
-                                  margin: EdgeInsets.only(top: 10),
-                                  sizes: ColScreen(lg: Col.col_12),
-                                  child: BsRow(
+        back: true,
+        child: Obx(() => BsRow(
+              children: [
+                BsCol(
+                    sizes: ColScreen(lg: Col.col_6),
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: _navigation.darkTheme.value
+                            ? ColorPallates.elseDarkColor
+                            : Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: BsRow(
+                        children: [
+                          BsCol(
+                              sizes: ColScreen(lg: Col.col_12),
+                              child: FormGroup(
+                                  label: Text('Name'),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      BsCol(
-                                          sizes: ColScreen(lg: Col.col_3),
-                                          child: Text('Sequel')),
-                                      BsCol(
-                                          sizes: ColScreen(lg: Col.col_1),
-                                          child: Text(':')),
-                                      BsCol(
-                                          sizes: ColScreen(lg: Col.col_8),
-                                          child: Text(controller.seq.value)),
-                                      BsCol(
-                                          margin: EdgeInsets.only(top: 10),
-                                          sizes: ColScreen(lg: Col.col_12),
-                                          child: BsRow(
-                                            children: [
-                                              BsCol(
-                                                  sizes:
-                                                      ColScreen(lg: Col.col_3),
-                                                  child: Text('Description')),
-                                              BsCol(
-                                                  sizes:
-                                                      ColScreen(lg: Col.col_1),
-                                                  child: Text(':')),
-                                              BsCol(
-                                                  sizes:
-                                                      ColScreen(lg: Col.col_8),
-                                                  child: Text(
-                                                      controller.desc.value))
-                                            ],
-                                          ))
+                                      Text(controller.name.value),
+                                      Divider()
                                     ],
-                                  )),
-                            ],
-                          )),
-                    ],
-                  ),
-                )),
-          ],
-        ),
+                                  ))),
+                          BsCol(
+                              margin: EdgeInsets.only(top: 10),
+                              sizes: ColScreen(lg: Col.col_12),
+                              child: FormGroup(
+                                  label: Text('Code'),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(controller.cd.value),
+                                      Divider()
+                                    ],
+                                  ))),
+                          BsCol(
+                              margin: EdgeInsets.only(top: 10),
+                              sizes: ColScreen(lg: Col.col_12),
+                              child: FormGroup(
+                                  label: Text('Sequel'),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(controller.seq.value),
+                                      Divider()
+                                    ],
+                                  ))),
+                          BsCol(
+                              margin: EdgeInsets.only(top: 10),
+                              sizes: ColScreen(lg: Col.col_12),
+                              child: FormGroup(
+                                  label: Text('Description'),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(controller.desc.value),
+                                      Divider()
+                                    ],
+                                  )))
+                        ],
+                      ),
+                    )),
+                BsCol(
+                    margin: EdgeInsets.only(left: 10),
+                    sizes: ColScreen(lg: Col.col_6),
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: _navigation.darkTheme.value
+                            ? ColorPallates.elseDarkColor
+                            : Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: BsRow(
+                        children: [
+                          BsCol(
+                            child: FormGroup(
+                                label: Text('Created By'),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(controller.createdby.value),
+                                    Divider()
+                                  ],
+                                )),
+                          ),
+                          BsCol(
+                            margin: EdgeInsets.only(top: 10),
+                            child: FormGroup(
+                                label: Text('Created At'),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(controller.createddate.value),
+                                    Divider()
+                                  ],
+                                )),
+                          ),
+                          BsCol(
+                            margin: EdgeInsets.only(top: 10),
+                            child: FormGroup(
+                                label: Text('Last Updated By'),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(controller.updatedby.value),
+                                    Divider()
+                                  ],
+                                )),
+                          ),
+                          BsCol(
+                            margin: EdgeInsets.only(top: 10),
+                            child: FormGroup(
+                                label: Text('Last Updated At'),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(controller.updateddate.value),
+                                    Divider()
+                                  ],
+                                )),
+                          ),
+                          BsCol(
+                            margin: EdgeInsets.only(top: 10),
+                            child: FormGroup(
+                                label: Text('Activation'),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    if (controller.isactive.value)
+                                      Card(
+                                        color: Colors.green,
+                                        child: Text('Active'),
+                                      )
+                                    else
+                                      Card(
+                                        color: Colors.red,
+                                        child: Text('Not Active'),
+                                      ),
+                                    Divider()
+                                  ],
+                                )),
+                          ),
+                        ],
+                      ),
+                    )),
+              ],
+            )),
       ),
     );
   }
@@ -135,10 +203,16 @@ class TypeParentDetails extends GetView implements DetailViewContract {
   @override
   void onSuccessFetchData(Response response) {
     TypeModel dt = TypeModel.fromJson(response.body);
-    controller.cd.value = dt.typecd;
-    controller.name.value = dt.typename;
-    controller.desc.value = dt.description;
+    controller.cd.value = dt.typecd ?? '';
+    controller.name.value = dt.typename ?? '';
+    controller.desc.value = dt.typedesc ?? '';
     controller.seq.value = dt.typeseq.toString();
+
+    controller.createdby.value = dt.typecreatedby?.userfullname ?? '';
+    controller.createddate.value = dt.createddate ?? '';
+    controller.updatedby.value = dt.typeupdatedby?.userfullname ?? '';
+    controller.updateddate.value = dt.updateddate ?? '';
+    controller.isactive.value = dt.isactive ?? false;
     presenter.setProcessing(false);
   }
 }

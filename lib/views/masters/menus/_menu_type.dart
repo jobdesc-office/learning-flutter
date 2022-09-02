@@ -97,7 +97,7 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
                 ),
                 child: Center(
                   child: Text(
-                    type.typename,
+                    type.typename ?? '',
                     style: TextStyle(
                         color: textColor,
                         fontSize: 10,

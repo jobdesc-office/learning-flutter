@@ -62,7 +62,7 @@ class TypeParentDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.typecd),
+          Text(row.typecd ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -72,7 +72,7 @@ class TypeParentDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.typename),
+          Text(row.typename ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -88,14 +88,14 @@ class TypeParentDataTableSource extends BsDatatableSource {
                 message: BaseText.detailHintDatatable(field: row.typename),
                 child: ButtonDetailsDatatables(
                   margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onDetailsListener(row.typeid),
+                  onPressed: () => onDetailsListener(row.typeid!),
                 ),
               ),
               Tooltip(
                 message: BaseText.editHintDatatable(field: row.typename),
                 child: ButtonEditDatatables(
                   margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onEditListener(row.typeid),
+                  onPressed: () => onEditListener(row.typeid!),
                 ),
               ),
               Tooltip(
