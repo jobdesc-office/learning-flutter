@@ -31,6 +31,7 @@ class ProspectView extends GetView implements IndexViewContract {
           BreadcrumbWidget('Prospect', active: true),
         ],
         activeRoutes: [RouteList.ventes.index, RouteList.ventesProspect.index],
+        background: true,
         child: Container(
           child: Column(
             children: [

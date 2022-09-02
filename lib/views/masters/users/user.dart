@@ -37,6 +37,7 @@ class UserView extends GetView
           BreadcrumbWidget('Users', active: true),
         ],
         activeRoutes: [RouteList.master.index, RouteList.masterUser.index],
+        background: true,
         child: Container(
           child: Column(
             children: [

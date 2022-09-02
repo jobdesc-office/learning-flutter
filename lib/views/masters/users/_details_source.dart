@@ -12,6 +12,12 @@ class UserDetailsSource extends GetxController {
   var active = true.obs;
   var role = [].obs;
 
+  var createdby = ''.obs;
+  var createddate = ''.obs;
+  var updatedby = ''.obs;
+  var updateddate = ''.obs;
+  var isactive = false.obs;
+
   @override
   void onClose() {
     id.value = 0;
@@ -24,6 +30,12 @@ class UserDetailsSource extends GetxController {
     bp.value = '';
     active.value = true;
     role.value = [];
+
+    createdby.value = '';
+    createddate.value = '';
+    updatedby.value = '';
+    updateddate.value = '';
+    isactive.value = false;
     super.onClose();
   }
 }
