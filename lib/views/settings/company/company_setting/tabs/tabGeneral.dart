@@ -2,8 +2,20 @@ part of '../company.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 
-class _TabGeneral extends StatelessWidget {
-  final source = GeneralSource().obs;
+class _TabGeneral extends StatelessWidget implements EditViewContract {
+  final _source = GeneralSource().obs;
+  GeneralSource get source => _source.value;
+  GeneralPresenter get presenter => Get.find<GeneralPresenter>();
+
+  _TabGeneral() {
+    presenter.businessPartnerFetchDataContract = this;
+    fetchData();
+  }
+
+  void fetchData() async {
+    int? bpid = GetStorage().read('mybpid');
+    presenter.edit(bpid!);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +31,7 @@ class _TabGeneral extends StatelessWidget {
               ),
               BsCol(
                 sizes: ColScreen(sm: Col.col_7),
-                child: CustomInput(controller: source.value.inputName),
+                child: CustomInput(controller: source.inputName),
               ),
             ],
           ),
@@ -34,7 +46,7 @@ class _TabGeneral extends StatelessWidget {
               ),
               BsCol(
                 sizes: ColScreen(sm: Col.col_7),
-                child: CustomInput(controller: source.value.inputPIC),
+                child: CustomInput(controller: source.inputPIC),
               ),
             ],
           ),
@@ -49,7 +61,7 @@ class _TabGeneral extends StatelessWidget {
               ),
               BsCol(
                 sizes: ColScreen(sm: Col.col_7),
-                child: CustomInput(controller: source.value.inputPhone),
+                child: CustomInput(controller: source.inputPhone),
               ),
             ],
           ),
@@ -64,7 +76,7 @@ class _TabGeneral extends StatelessWidget {
               ),
               BsCol(
                 sizes: ColScreen(sm: Col.col_7),
-                child: CustomInput(controller: source.value.inputEmail),
+                child: CustomInput(controller: source.inputEmail),
               ),
             ],
           ),
@@ -107,8 +119,8 @@ class _TabGeneral extends StatelessWidget {
     return FormGroup(
       child: CustomSelectBox(
         searchable: true,
-        disabled: source.value.isProcessing,
-        controller: source.value.choosedSubdistrict,
+        disabled: source.isProcessing,
+        controller: source.choosedType,
         hintText: BaseText.hiintSelect(field: "Type"),
         serverSide: (params) => selectApiBpType(params),
         validators: [
@@ -116,5 +128,17 @@ class _TabGeneral extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  @override
+  void onSuccessFetchData(Response response) {
+    _source.update((val) {
+      BusinessPartnerModel businessPartner = BusinessPartnerModel.fromJson(response.body);
+      source.inputName.text = businessPartner.bpname ?? "";
+      source.inputPIC.text = businessPartner.bppicname ?? "";
+      source.inputEmail.text = businessPartner.bpemail ?? "";
+      source.inputPhone.text = businessPartner.bpphone ?? "";
+      source.choosedType.setSelected(BsSelectBoxOption(value: businessPartner.bptype?.typeid, text: Text(businessPartner.bptype!.typename!)));
+    });
   }
 }

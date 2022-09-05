@@ -18,13 +18,16 @@ class GeneralSource {
   TextEditingController inputPhone = TextEditingController();
   TextEditingController inputEmail = TextEditingController();
 
-  BsSelectBoxController choosedSubdistrict = BsSelectBoxController();
+  BsSelectBoxController choosedType = BsSelectBoxController();
 
   Future<Map<String, dynamic>> toJson() async {
     SessionModel session = await SessionManager.current();
     return {
-      'villagesubdistrictid': choosedSubdistrict.getSelectedAsString(),
-      'villagename': inputName.text,
+      'bptypeid': choosedType.getSelectedAsString(),
+      'bpname': inputName.text,
+      'bppicname': inputPIC.text,
+      'bpemail': inputEmail.text,
+      'bpphone': inputPhone.text,
       'createdby': session.userid,
       'updatedby': session.userid,
       'isactive': isactive.value,

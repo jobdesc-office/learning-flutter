@@ -1,3 +1,4 @@
+import 'package:boilerplate/views/settings/company/company_setting/general_presenter.dart';
 import 'package:get/get.dart';
 
 import '../presenters/default/home_presenter.dart';
@@ -345,10 +346,10 @@ class AppRoute {
       CustomGetPage(
         name: RouteList.settingsCompany.index,
         page: () => CompanyView(),
-        // binding: BindingsBuilder(() {
-        //   Get.lazyPut(() => FileService());
-        //   Get.lazyPut(() => FilePresenter());
-        // }),
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => GeneralPresenter());
+          Get.lazyPut(() => BusinessPartnerService());
+        }),
       ),
       CustomGetPage(
         name: RouteList.settingsDataField.index,
