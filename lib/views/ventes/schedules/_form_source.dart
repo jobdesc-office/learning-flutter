@@ -45,6 +45,12 @@ class ScheduleSource extends GetxController {
   var allDay = false.obs;
   var private = false.obs;
 
+  var createdby = ''.obs;
+  var createddate = ''.obs;
+  var updatedby = ''.obs;
+  var updateddate = ''.obs;
+  var isactive = true.obs;
+
   TextEditingController inputName = TextEditingController();
   TextEditingController inputOnLink = TextEditingController();
   TextEditingController inputDesc = TextEditingController();
@@ -104,7 +110,7 @@ class ScheduleSource extends GetxController {
       'scheonlink': inputOnLink.text,
       'createdby': session.userid,
       'updatedby': session.userid,
-      'isactive': true,
+      'isactive': isactive.value,
       'members': jsonEncode(jsonMember())
     };
   }

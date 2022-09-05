@@ -66,7 +66,7 @@ class ProductDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.productname),
+          Text(row.productname ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -76,7 +76,7 @@ class ProductDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.bpname),
+          Text(row.businesspartner?.bpname ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -92,7 +92,7 @@ class ProductDataTableSource extends BsDatatableSource {
                 message: BaseText.editHintDatatable(field: row.productname),
                 child: ButtonEditDatatables(
                   margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onEditListener(row.productid),
+                  onPressed: () => onEditListener(row.productid!),
                 ),
               ),
               Tooltip(

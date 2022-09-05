@@ -27,6 +27,12 @@ class CustomFieldSource extends GetxController {
   var visible = false.obs;
   var newprospect = false.obs;
 
+  var createdby = ''.obs;
+  var createddate = ''.obs;
+  var updatedby = ''.obs;
+  var updateddate = ''.obs;
+  var isactive = true.obs;
+
   BsSelectBoxController selectType = BsSelectBoxController();
   BsSelectBoxController selectBp = BsSelectBoxController();
 
@@ -45,6 +51,7 @@ class CustomFieldSource extends GetxController {
       'thisprospectid': lastid,
       'createdby': session.userid,
       'updatedby': session.userid,
+      'isactive': isactive.value,
     };
   }
 }

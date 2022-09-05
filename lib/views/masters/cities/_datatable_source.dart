@@ -69,7 +69,7 @@ class CityDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.cityname),
+          Text(row.cityname ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -79,7 +79,7 @@ class CityDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.provname),
+          Text(row.cityprov?.provname ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -95,7 +95,7 @@ class CityDataTableSource extends BsDatatableSource {
                 message: BaseText.editHintDatatable(field: row.cityname),
                 child: ButtonEditDatatables(
                   margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onEditListener(row.cityid),
+                  onPressed: () => onEditListener(row.cityid!),
                 ),
               ),
               Tooltip(

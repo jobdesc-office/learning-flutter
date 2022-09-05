@@ -475,7 +475,8 @@ Future<BsSelectBoxResponse> selectApiProduct(Map<String, String> params) async {
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => ProductModel.fromJson(data).productid,
-        renderText: (data) => Text(ProductModel.fromJson(data).productname),
+        renderText: (data) =>
+            Text(ProductModel.fromJson(data).productname ?? ''),
       );
     }
   }
@@ -492,7 +493,8 @@ Future<BsSelectBoxResponse> selectApiProductWithBp(
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => ProductModel.fromJson(data).productid,
-        renderText: (data) => Text(ProductModel.fromJson(data).productname),
+        renderText: (data) =>
+            Text(ProductModel.fromJson(data).productname ?? ''),
       );
     }
   }
@@ -558,7 +560,8 @@ Future<BsSelectBoxResponse> selectCountries(Map<String, String> params) async {
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => CountryModel.fromJson(data).countryid,
-        renderText: (data) => Text(CountryModel.fromJson(data).countryname),
+        renderText: (data) =>
+            Text(CountryModel.fromJson(data).countryname ?? ''),
       );
     }
   }
@@ -575,7 +578,7 @@ Future<BsSelectBoxResponse> selectProvinces(Map<String, String> params) async {
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => ProvinceModel.fromJson(data).provid,
-        renderText: (data) => Text(ProvinceModel.fromJson(data).provname),
+        renderText: (data) => Text(ProvinceModel.fromJson(data).provname ?? ''),
       );
     }
   }
@@ -592,9 +595,9 @@ Future<BsSelectBoxResponse> selectCities(Map<String, String> params) async {
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => CityModel.fromJson(data).cityid,
-        renderText: (data) => Text(CityModel.fromJson(data).cityname +
+        renderText: (data) => Text(CityModel.fromJson(data).cityname! +
             ' - ' +
-            CityModel.fromJson(data).provname),
+            CityModel.fromJson(data).cityprov!.provname!),
       );
     }
   }
@@ -613,9 +616,9 @@ Future<BsSelectBoxResponse> selectSubdistricts(
         response.body,
         value: (data) => SubdistrictModel.fromJson(data).subdistrictid,
         renderText: (data) => Text(
-            SubdistrictModel.fromJson(data).subdistrictname +
+            SubdistrictModel.fromJson(data).subdistrictname! +
                 ' - ' +
-                SubdistrictModel.fromJson(data).cityname),
+                SubdistrictModel.fromJson(data).subdistrictcity!.cityname!),
       );
     }
   }

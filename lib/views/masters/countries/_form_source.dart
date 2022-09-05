@@ -16,6 +16,12 @@ final _navigation = Get.find<NavigationPresenter>();
 class CountrySource {
   bool isProcessing = false;
 
+  var createdby = ''.obs;
+  var createddate = ''.obs;
+  var updatedby = ''.obs;
+  var updateddate = ''.obs;
+  var isactive = true.obs;
+
   TextEditingController inputName = TextEditingController();
 
   Future<Map<String, dynamic>> toJson() async {
@@ -24,6 +30,7 @@ class CountrySource {
       'countryname': inputName.text,
       'createdby': session.userid,
       'updatedby': session.userid,
+      'isactive': isactive.value,
     };
   }
 }

@@ -19,6 +19,12 @@ final _navigation = Get.find<NavigationPresenter>();
 class ProductSource {
   bool isProcessing = false;
 
+  var createdby = ''.obs;
+  var createddate = ''.obs;
+  var updatedby = ''.obs;
+  var updateddate = ''.obs;
+  var isactive = true.obs;
+
   TextEditingController inputName = TextEditingController();
 
   BsSelectBoxController selectBp = BsSelectBoxController();
@@ -30,6 +36,7 @@ class ProductSource {
       'productbpid': selectBp.getSelectedAsString(),
       'createdby': session.userid,
       'updatedby': session.userid,
+      'isactive': isactive.value,
     };
   }
 }

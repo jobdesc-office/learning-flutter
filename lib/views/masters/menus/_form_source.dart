@@ -28,6 +28,12 @@ class MenuSource extends GetxController {
   var iscrud = false.obs;
   var isAdd = false.obs;
 
+  var createdby = ''.obs;
+  var createddate = ''.obs;
+  var updatedby = ''.obs;
+  var updateddate = ''.obs;
+  var isactive = true.obs;
+
   @override
   void onClose() {
     isAdd.value = false;
@@ -102,7 +108,7 @@ class MenuSource extends GetxController {
       'menuseq': inputSequence.text,
       'createdby': session.userid,
       'updatedby': session.userid,
-      'isactive': true,
+      'isactive': isactive.value,
       'crud': iscrud.value ? jsonEncode(jsonCRUD()) : jsonEncode(jsonNonCRUD()),
       'roles': jsonEncode(await jsonRole()),
     };

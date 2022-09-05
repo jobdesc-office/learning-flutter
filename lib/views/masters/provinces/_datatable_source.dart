@@ -65,7 +65,7 @@ class ProvinceDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.provname),
+          Text(row.provname ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -75,7 +75,7 @@ class ProvinceDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.countryname),
+          Text(row.provcountry?.countryname ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -91,7 +91,7 @@ class ProvinceDataTableSource extends BsDatatableSource {
                 message: BaseText.editHintDatatable(field: row.provname),
                 child: ButtonEditDatatables(
                   margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onEditListener(row.provid),
+                  onPressed: () => onEditListener(row.provid!),
                 ),
               ),
               Tooltip(

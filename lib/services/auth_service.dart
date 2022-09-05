@@ -10,7 +10,8 @@ class AuthService extends ApiConnectProvider {
   }
 
   Future<Response> signIn(String username, String password) {
-    return post('$api/signin', {'username': username, 'password': password});
+    return post('$api/signin',
+        {'username': username, 'password': password, 'source': 'web'});
   }
 
   Future<Response> signOut() {
