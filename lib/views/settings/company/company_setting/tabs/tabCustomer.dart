@@ -1,7 +1,7 @@
 part of '../company.dart';
 
-class _TabCurrencies extends StatelessWidget {
-  const _TabCurrencies({Key? key}) : super(key: key);
+class _TabCustomer extends StatelessWidget {
+  const _TabCustomer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,8 +11,7 @@ class _TabCurrencies extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-              'Here You Add Custom Currency to Your Company. Custom Currency Will Get Excluded from Currency-Converted totals.'),
+          Text('Here You Add Custom Currency to Your Company. Custom Currency Will Get Excluded from Currency-Converted totals.'),
           Container(
               margin: EdgeInsets.only(top: 10),
               child: Row(
