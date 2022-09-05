@@ -44,6 +44,7 @@ class UserDetails extends GetView implements DetailViewContract {
                   BsCol(
                       sizes: ColScreen(lg: Col.col_6),
                       child: Container(
+                        height: MediaQuery.of(context).size.height,
                         padding: EdgeInsets.all(20),
                         decoration: BoxDecoration(
                           color: _navigation.darkTheme.value
@@ -327,7 +328,12 @@ class UserDetails extends GetView implements DetailViewContract {
     controller.email.value = dt.useremail ?? '-';
     controller.phone.value = dt.userphone ?? '-';
     controller.deviceid.value = dt.userdeviceid ?? '';
-    controller.active.value = dt.isactive!;
+
+    controller.createdby.value = dt.usercreatedby?.userfullname ?? '';
+    controller.createddate.value = dt.createddate ?? '';
+    controller.updatedby.value = dt.userupdatedby?.userfullname ?? '';
+    controller.updateddate.value = dt.updateddate ?? '';
+    controller.isactive.value = dt.isactive ?? false;
     if (dt.userdetails != null) {
       for (var item in dt.userdetails!) {
         role.add(item);

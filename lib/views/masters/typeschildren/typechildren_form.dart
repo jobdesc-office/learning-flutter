@@ -1,3 +1,4 @@
+import 'package:boilerplate/helpers/function.dart';
 import 'package:boilerplate/views/skins/template.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
@@ -61,6 +62,7 @@ class TypeChildrenFormView extends StatelessWidget
                   sm: Col.col_6,
                 ),
                 child: Container(
+                  height: MediaQuery.of(context).size.height,
                   padding: EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     color: _navigation.darkTheme.value
@@ -260,7 +262,7 @@ class TypeChildrenFormView extends StatelessWidget
       TypeModel menu = TypeModel.fromJson(response.body);
       source.value.inputName.text = menu.typename ?? '';
       source.value.inputCode.text = menu.typecd ?? '';
-      source.value.inputSeq.text = menu.typeseq.toString();
+      source.value.inputSeq.text = parseString(menu.typeseq ?? '');
       source.value.inputDesc.text = menu.typedesc ?? '';
 
       source.value.createdby.value = menu.typecreatedby?.userfullname ?? '';

@@ -31,6 +31,7 @@ class CountryView extends GetView implements IndexViewContract {
           BreadcrumbWidget('Masters'),
           BreadcrumbWidget('Countries', active: true),
         ],
+        background: true,
         activeRoutes: [RouteList.master.index, RouteList.masterCountry.index],
         child: Container(
           child: Column(

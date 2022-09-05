@@ -56,6 +56,7 @@ class BpCustomerFormView extends StatelessWidget implements EditViewContract {
                   sm: Col.col_6,
                 ),
                 child: Container(
+                  height: MediaQuery.of(context).size.height,
                   padding: EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     color: _navigation.darkTheme.value

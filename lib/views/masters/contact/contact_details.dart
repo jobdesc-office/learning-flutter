@@ -42,6 +42,7 @@ class ContactDetails extends GetView implements DetailViewContract {
                 BsCol(
                     sizes: ColScreen(lg: Col.col_6),
                     child: Container(
+                      height: MediaQuery.of(context).size.height,
                       padding: EdgeInsets.all(20),
                       decoration: BoxDecoration(
                         color: _navigation.darkTheme.value

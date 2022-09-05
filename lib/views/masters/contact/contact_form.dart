@@ -46,11 +46,12 @@ class ContactFormView extends StatelessWidget implements EditViewContract {
         activeRoutes: [RouteList.master.index, RouteList.masterContact.index],
         child: Obx(() {
           contactForm = ContactForm(source.value);
-          return Row(
+          return BsRow(
             children: [
               BsCol(
                 sizes: ColScreen(sm: Col.col_6),
                 child: Container(
+                  height: MediaQuery.of(context).size.height,
                   padding: EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     color: _navigation.darkTheme.value

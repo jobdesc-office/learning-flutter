@@ -198,12 +198,12 @@ class SidebarSkins extends StatelessWidget {
                           route: RouteList.settingsFiles.index,
                           label: 'Files',
                           icon: Icons.file_open),
-                      MenuData(
-                        id: no++,
-                        route: RouteList.masterMenu.index,
-                        label: 'Menus',
-                        icon: Icons.dehaze,
-                      ),
+                      // MenuData(
+                      //   id: no++,
+                      //   route: RouteList.masterMenu.index,
+                      //   label: 'Menus',
+                      //   icon: Icons.dehaze,
+                      // ),
                       MenuData(
                           id: no++,
                           route: RouteList.settingsPermission.index,
