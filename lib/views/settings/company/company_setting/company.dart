@@ -32,7 +32,8 @@ class CompanyView extends StatefulWidget {
   State<CompanyView> createState() => _CompanyViewState();
 }
 
-class _CompanyViewState extends State<CompanyView> with TickerProviderStateMixin {
+class _CompanyViewState extends State<CompanyView>
+    with TickerProviderStateMixin {
   final _navigation = Get.find<NavigationPresenter>();
   late TabController _tabController;
   @override
@@ -50,11 +51,16 @@ class _CompanyViewState extends State<CompanyView> with TickerProviderStateMixin
           BreadcrumbWidget('Settings'),
           BreadcrumbWidget('Company Setting', active: true),
         ],
-        activeRoutes: [RouteList.settings.index, RouteList.settingsCompany.index],
+        activeRoutes: [
+          RouteList.settings.index,
+          RouteList.settingsCompany.index
+        ],
         child: Container(
           padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : Colors.white,
+            color: _navigation.darkTheme.value
+                ? ColorPallates.elseDarkColor
+                : Colors.white,
             borderRadius: BorderRadius.circular(10),
           ),
           child: BsRow(
