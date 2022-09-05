@@ -57,6 +57,7 @@ class MenuDetails extends GetView
                     child: Column(
                       children: [
                         Container(
+                            height: MediaQuery.of(context).size.height,
                             padding: EdgeInsets.all(20),
                             decoration: BoxDecoration(
                               color: _navigation.darkTheme.value

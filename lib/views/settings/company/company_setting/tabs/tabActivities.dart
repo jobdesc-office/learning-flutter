@@ -39,7 +39,7 @@ class _TabActivitiesState extends State<_TabActivities>
             sizes: ColScreen(sm: Col.col_12),
             child: Container(
               width: double.infinity,
-              height: MediaQuery.of(context).size.height * 0.76,
+              height: MediaQuery.of(context).size.height,
               child: TabBarView(
                 controller: _tabController,
                 children: [

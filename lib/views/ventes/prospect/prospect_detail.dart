@@ -188,7 +188,8 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                     ),
                                     Container(
                                       width: double.infinity,
-                                      height: 500,
+                                      height:
+                                          MediaQuery.of(context).size.height,
                                       child: TabBarView(
                                         controller: _tabController,
                                         children: [

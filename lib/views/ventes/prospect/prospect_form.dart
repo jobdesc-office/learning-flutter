@@ -52,6 +52,7 @@ class ProspectFormView extends StatelessWidget
         child: Obx(() {
           prospectForm = ProspectForm(source.value);
           return Container(
+            height: MediaQuery.of(context).size.height,
             padding: EdgeInsets.all(20),
             decoration: BoxDecoration(
               color: _navigation.darkTheme.value
