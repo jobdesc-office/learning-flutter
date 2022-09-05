@@ -31,6 +31,8 @@ class ScheduleFormView extends StatelessWidget
   final Function(Map<String, dynamic> body) onSave;
   final _navigation = Get.find<NavigationPresenter>();
 
+  var isEdit = false.obs;
+
   late ScheduleForm menuForm;
 
   ScheduleFormView({required this.onSave}) {
@@ -127,136 +129,137 @@ class ScheduleFormView extends StatelessWidget
                   ),
                 ),
               ),
-              BsCol(
-                margin: EdgeInsets.only(left: 5),
-                sizes: ColScreen(lg: Col.col_6),
-                child: Container(
-                  padding: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: _navigation.darkTheme.value
-                        ? ColorPallates.elseDarkColor
-                        : Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: BsRow(
-                    children: [
-                      BsCol(
-                        child: BsRow(
-                          children: [
-                            BsCol(
-                              child: FormGroup(
-                                  label: Text('Created By',
-                                      style: TextStyle(
-                                          color: _navigation.darkTheme.value
-                                              ? Colors.white
-                                              : Colors.black)),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(source.value.createdby.value),
-                                      Divider()
-                                    ],
-                                  )),
-                            ),
-                            BsCol(
-                              margin: EdgeInsets.only(top: 10),
-                              child: FormGroup(
-                                  label: Text('Created At',
-                                      style: TextStyle(
-                                          color: _navigation.darkTheme.value
-                                              ? Colors.white
-                                              : Colors.black)),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(source.value.createddate.value),
-                                      Divider()
-                                    ],
-                                  )),
-                            ),
-                            BsCol(
-                              margin: EdgeInsets.only(top: 10),
-                              child: FormGroup(
-                                  label: Text('Last Updated By',
-                                      style: TextStyle(
-                                          color: _navigation.darkTheme.value
-                                              ? Colors.white
-                                              : Colors.black)),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(source.value.updatedby.value),
-                                      Divider()
-                                    ],
-                                  )),
-                            ),
-                            BsCol(
-                              margin: EdgeInsets.only(top: 10),
-                              child: FormGroup(
-                                  label: Text('Last Updated At',
-                                      style: TextStyle(
-                                          color: _navigation.darkTheme.value
-                                              ? Colors.white
-                                              : Colors.black)),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(source.value.updateddate.value),
-                                      Divider()
-                                    ],
-                                  )),
-                            ),
-                            BsCol(
-                              margin: EdgeInsets.only(top: 10),
-                              child: FormGroup(
-                                  label: Text('Activation',
-                                      style: TextStyle(
-                                          color: _navigation.darkTheme.value
-                                              ? Colors.white
-                                              : Colors.black)),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      if (source.value.isactive.value)
-                                        InkWell(
-                                          child: Icon(
-                                            Icons.toggle_on,
-                                            size: 35,
+              if (isEdit.value)
+                BsCol(
+                  margin: EdgeInsets.only(left: 5),
+                  sizes: ColScreen(lg: Col.col_6),
+                  child: Container(
+                    padding: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: _navigation.darkTheme.value
+                          ? ColorPallates.elseDarkColor
+                          : Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: BsRow(
+                      children: [
+                        BsCol(
+                          child: BsRow(
+                            children: [
+                              BsCol(
+                                child: FormGroup(
+                                    label: Text('Created By',
+                                        style: TextStyle(
                                             color: _navigation.darkTheme.value
-                                                ? ColorPallates.onDarkMode
-                                                : ColorPallates.onLightMode,
-                                          ),
-                                          onTap: () =>
-                                              source.value.isactive.toggle(),
-                                        )
-                                      else
-                                        InkWell(
-                                          child: Icon(
-                                            Icons.toggle_off,
-                                            size: 35,
+                                                ? Colors.white
+                                                : Colors.black)),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(source.value.createdby.value),
+                                        Divider()
+                                      ],
+                                    )),
+                              ),
+                              BsCol(
+                                margin: EdgeInsets.only(top: 10),
+                                child: FormGroup(
+                                    label: Text('Created At',
+                                        style: TextStyle(
                                             color: _navigation.darkTheme.value
-                                                ? ColorPallates.offDarkMode
-                                                : ColorPallates.offLightMode,
+                                                ? Colors.white
+                                                : Colors.black)),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(source.value.createddate.value),
+                                        Divider()
+                                      ],
+                                    )),
+                              ),
+                              BsCol(
+                                margin: EdgeInsets.only(top: 10),
+                                child: FormGroup(
+                                    label: Text('Last Updated By',
+                                        style: TextStyle(
+                                            color: _navigation.darkTheme.value
+                                                ? Colors.white
+                                                : Colors.black)),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(source.value.updatedby.value),
+                                        Divider()
+                                      ],
+                                    )),
+                              ),
+                              BsCol(
+                                margin: EdgeInsets.only(top: 10),
+                                child: FormGroup(
+                                    label: Text('Last Updated At',
+                                        style: TextStyle(
+                                            color: _navigation.darkTheme.value
+                                                ? Colors.white
+                                                : Colors.black)),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(source.value.updateddate.value),
+                                        Divider()
+                                      ],
+                                    )),
+                              ),
+                              BsCol(
+                                margin: EdgeInsets.only(top: 10),
+                                child: FormGroup(
+                                    label: Text('Activation',
+                                        style: TextStyle(
+                                            color: _navigation.darkTheme.value
+                                                ? Colors.white
+                                                : Colors.black)),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        if (source.value.isactive.value)
+                                          InkWell(
+                                            child: Icon(
+                                              Icons.toggle_on,
+                                              size: 35,
+                                              color: _navigation.darkTheme.value
+                                                  ? ColorPallates.onDarkMode
+                                                  : ColorPallates.onLightMode,
+                                            ),
+                                            onTap: () =>
+                                                source.value.isactive.toggle(),
+                                          )
+                                        else
+                                          InkWell(
+                                            child: Icon(
+                                              Icons.toggle_off,
+                                              size: 35,
+                                              color: _navigation.darkTheme.value
+                                                  ? ColorPallates.offDarkMode
+                                                  : ColorPallates.offLightMode,
+                                            ),
+                                            onTap: () =>
+                                                source.value.isactive.toggle(),
                                           ),
-                                          onTap: () =>
-                                              source.value.isactive.toggle(),
-                                        ),
-                                      Divider()
-                                    ],
-                                  )),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
+                                        Divider()
+                                      ],
+                                    )),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              )
+                )
             ],
           );
         }),
@@ -304,6 +307,7 @@ class ScheduleFormView extends StatelessWidget
   @override
   void onSuccessFetchData(Response response) {
     presenter.setProcessing(false);
+    isEdit.value = true;
 
     source.update((val) {
       ScheduleModel menu = ScheduleModel.fromJson(response.body);
