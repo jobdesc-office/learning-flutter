@@ -15,8 +15,9 @@ import '_datatable_source.dart';
 
 part 'tabs/tabGeneral.dart';
 part 'tabs/tabActivities.dart';
-part 'tabs/tabCurrencies.dart';
+part 'tabs/tabCustomer.dart';
 part 'tabs/tabLostReasons.dart';
+part 'tabs/tabProspect.dart';
 
 class CompanyView extends StatefulWidget {
   const CompanyView({Key? key}) : super(key: key);
@@ -25,8 +26,7 @@ class CompanyView extends StatefulWidget {
   State<CompanyView> createState() => _CompanyViewState();
 }
 
-class _CompanyViewState extends State<CompanyView>
-    with TickerProviderStateMixin {
+class _CompanyViewState extends State<CompanyView> with TickerProviderStateMixin {
   final _navigation = Get.find<NavigationPresenter>();
   late TabController _tabController;
   @override
@@ -44,16 +44,11 @@ class _CompanyViewState extends State<CompanyView>
           BreadcrumbWidget('Settings'),
           BreadcrumbWidget('Company Setting', active: true),
         ],
-        activeRoutes: [
-          RouteList.settings.index,
-          RouteList.settingsCompany.index
-        ],
+        activeRoutes: [RouteList.settings.index, RouteList.settingsCompany.index],
         child: Container(
           padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: _navigation.darkTheme.value
-                ? ColorPallates.elseDarkColor
-                : Colors.white,
+            color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : Colors.white,
             borderRadius: BorderRadius.circular(10),
           ),
           child: BsRow(
@@ -68,8 +63,8 @@ class _CompanyViewState extends State<CompanyView>
                     tabs: [
                       Tab(text: 'General'),
                       Tab(text: 'Activities'),
-                      Tab(text: 'Currencies'),
-                      Tab(text: 'Lost Reasons'),
+                      Tab(text: 'Prospect'),
+                      Tab(text: 'Customer'),
                     ],
                   ),
                 ),
@@ -84,8 +79,8 @@ class _CompanyViewState extends State<CompanyView>
                     children: [
                       _TabGeneral(),
                       _TabActivities(),
-                      _TabCurrencies(),
-                      _TabLostReasons(),
+                      _TabCustomer(),
+                      _TabProspect(),
                     ],
                   ),
                 ),
