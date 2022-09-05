@@ -1,16 +1,20 @@
 import 'package:boilerplate/views/skins/template.dart';
+import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/edit_view_contract.dart';
 import '../../../models/ventes/customfield_model.dart';
+import '../../../presenters/navigation_presenter.dart';
 import '../../../presenters/settings/customfield_presenter.dart';
 import '../../../routes/route_list.dart';
+import '../../../styles/color_palattes.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
 
+import '../../../widgets/form_group.dart';
 import '_form_source.dart';
 
 // ignore: must_be_immutable
@@ -19,6 +23,7 @@ class CustomFieldFormView extends StatelessWidget implements EditViewContract {
   final CustomFieldPresenter presenter = Get.find<CustomFieldPresenter>();
   final source = CustomFieldSource().obs;
   final Function(dynamic body) onSave;
+  final _navigation = Get.find<NavigationPresenter>();
 
   late CustomFieldForm customFieldForm;
 
@@ -43,39 +48,178 @@ class CustomFieldFormView extends StatelessWidget implements EditViewContract {
         ],
         child: Obx(() {
           customFieldForm = CustomFieldForm(source.value);
-          return Form(
-            key: formState,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  children: [
-                    customFieldForm.inputName(),
-                    customFieldForm.selectBp(),
-                    customFieldForm.selectTypes(),
-                    customFieldForm.checkBoxForm()
-                  ],
+          return BsRow(
+            children: [
+              BsCol(
+                sizes: ColScreen(
+                  sm: Col.col_6,
                 ),
-                Obx(
-                  () => Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                child: Form(
+                  key: formState,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ThemeButtonSave(
-                        disabled: presenter.isProcessing.value,
-                        processing: presenter.isProcessing.value,
-                        margin: EdgeInsets.only(right: 5),
-                        onPressed: () => onClickSaveModal(context),
+                      Column(
+                        children: [
+                          customFieldForm.inputName(),
+                          customFieldForm.selectBp(),
+                          customFieldForm.selectTypes(),
+                          customFieldForm.checkBoxForm()
+                        ],
                       ),
-                      ThemeButtonCancel(
-                        disabled: presenter.isProcessing.value,
-                        margin: EdgeInsets.only(right: 5),
-                        onPressed: () => onClickCancelModal(context),
+                      Obx(
+                        () => Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            ThemeButtonSave(
+                              disabled: presenter.isProcessing.value,
+                              processing: presenter.isProcessing.value,
+                              margin: EdgeInsets.only(right: 5),
+                              onPressed: () => onClickSaveModal(context),
+                            ),
+                            ThemeButtonCancel(
+                              disabled: presenter.isProcessing.value,
+                              margin: EdgeInsets.only(right: 5),
+                              onPressed: () => onClickCancelModal(context),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
                 ),
-              ],
-            ),
+              ),
+              BsCol(
+                margin: EdgeInsets.only(left: 5),
+                sizes: ColScreen(lg: Col.col_6),
+                child: Container(
+                  padding: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: _navigation.darkTheme.value
+                        ? ColorPallates.elseDarkColor
+                        : Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: BsRow(
+                    children: [
+                      BsCol(
+                        child: BsRow(
+                          children: [
+                            BsCol(
+                              child: FormGroup(
+                                  label: Text('Created By',
+                                      style: TextStyle(
+                                          color: _navigation.darkTheme.value
+                                              ? Colors.white
+                                              : Colors.black)),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(source.value.createdby.value),
+                                      Divider()
+                                    ],
+                                  )),
+                            ),
+                            BsCol(
+                              margin: EdgeInsets.only(top: 10),
+                              child: FormGroup(
+                                  label: Text('Created At',
+                                      style: TextStyle(
+                                          color: _navigation.darkTheme.value
+                                              ? Colors.white
+                                              : Colors.black)),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(source.value.createddate.value),
+                                      Divider()
+                                    ],
+                                  )),
+                            ),
+                            BsCol(
+                              margin: EdgeInsets.only(top: 10),
+                              child: FormGroup(
+                                  label: Text('Last Updated By',
+                                      style: TextStyle(
+                                          color: _navigation.darkTheme.value
+                                              ? Colors.white
+                                              : Colors.black)),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(source.value.updatedby.value),
+                                      Divider()
+                                    ],
+                                  )),
+                            ),
+                            BsCol(
+                              margin: EdgeInsets.only(top: 10),
+                              child: FormGroup(
+                                  label: Text('Last Updated At',
+                                      style: TextStyle(
+                                          color: _navigation.darkTheme.value
+                                              ? Colors.white
+                                              : Colors.black)),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(source.value.updateddate.value),
+                                      Divider()
+                                    ],
+                                  )),
+                            ),
+                            BsCol(
+                              margin: EdgeInsets.only(top: 10),
+                              child: FormGroup(
+                                  label: Text('Activation',
+                                      style: TextStyle(
+                                          color: _navigation.darkTheme.value
+                                              ? Colors.white
+                                              : Colors.black)),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      if (source.value.isactive.value)
+                                        InkWell(
+                                          child: Icon(
+                                            Icons.toggle_on,
+                                            size: 35,
+                                            color: _navigation.darkTheme.value
+                                                ? ColorPallates.onDarkMode
+                                                : ColorPallates.onLightMode,
+                                          ),
+                                          onTap: () =>
+                                              source.value.isactive.toggle(),
+                                        )
+                                      else
+                                        InkWell(
+                                          child: Icon(
+                                            Icons.toggle_off,
+                                            size: 35,
+                                            color: _navigation.darkTheme.value
+                                                ? ColorPallates.offDarkMode
+                                                : ColorPallates.offLightMode,
+                                          ),
+                                          onTap: () =>
+                                              source.value.isactive.toggle(),
+                                        ),
+                                      Divider()
+                                    ],
+                                  )),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
           );
         }),
       ),
@@ -109,6 +253,14 @@ class CustomFieldFormView extends StatelessWidget implements EditViewContract {
       source.value.newprospect.value = customField.onlythisprospect ?? false;
       source.value.visible.value = customField.allprospect ?? false;
       source.value.inputName.text = customField.custfname ?? '';
+
+      source.value.createdby.value =
+          customField.custfcreatedby?.userfullname ?? '';
+      source.value.createddate.value = customField.createddate ?? '';
+      source.value.updatedby.value =
+          customField.custfupdatedby?.userfullname ?? '';
+      source.value.updateddate.value = customField.updateddate ?? '';
+      source.value.isactive.value = customField.isactive ?? true;
     });
   }
 }

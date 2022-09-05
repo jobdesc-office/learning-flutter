@@ -66,7 +66,7 @@ class SubdistrictDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.subdistrictname),
+          Text(row.subdistrictname ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -76,7 +76,7 @@ class SubdistrictDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.cityname),
+          Text(row.subdistrictcity?.cityname ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -92,7 +92,7 @@ class SubdistrictDataTableSource extends BsDatatableSource {
                 message: BaseText.editHintDatatable(field: row.subdistrictname),
                 child: ButtonEditDatatables(
                   margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onEditListener(row.subdistrictid),
+                  onPressed: () => onEditListener(row.subdistrictid!),
                 ),
               ),
               Tooltip(

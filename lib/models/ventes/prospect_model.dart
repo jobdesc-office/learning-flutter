@@ -1,6 +1,5 @@
 import 'package:boilerplate/models/masters/type_model.dart';
-
-import 'prospectcustomfield_model.dart';
+import 'package:boilerplate/models/ventes/prospectcustomfield_model.dart';
 
 class ProspectModel {
   int? prospectid;
@@ -25,6 +24,7 @@ class ProspectModel {
   int? updatedby;
   String? updateddate;
   bool? isactive;
+  Prospectupdatedby? prospectupdatedby;
   List<Prospectassigns>? prospectassigns;
   List<Prospectproduct>? prospectproduct;
   TypeModel? prospectstage;
@@ -34,7 +34,7 @@ class ProspectModel {
   Prospectlost? prospectstatus;
   Prospectlost? prospectlostreason;
   Prospectreference? prospectreference;
-  Prospectby? prospectby;
+  Prospectupdatedby? prospectby;
   Prospectbp? prospectbp;
   List<ProspectCustomFieldModel>? prospectcustomfield;
   Prospectcust? prospectcust;
@@ -63,6 +63,7 @@ class ProspectModel {
       this.updatedby,
       this.updateddate,
       this.isactive,
+      this.prospectupdatedby,
       this.prospectassigns,
       this.prospectproduct,
       this.prospectstage,
@@ -101,6 +102,9 @@ class ProspectModel {
     updatedby = json['updatedby'];
     updateddate = json['updateddate'];
     isactive = json['isactive'];
+    prospectupdatedby = json['prospectupdatedby'] != null
+        ? new Prospectupdatedby.fromJson(json['prospectupdatedby'])
+        : null;
     if (json['prospectassigns'] != null) {
       prospectassigns = <Prospectassigns>[];
       json['prospectassigns'].forEach((v) {
@@ -135,7 +139,7 @@ class ProspectModel {
         ? new Prospectreference.fromJson(json['prospectreference'])
         : null;
     prospectby = json['prospectby'] != null
-        ? new Prospectby.fromJson(json['prospectby'])
+        ? new Prospectupdatedby.fromJson(json['prospectby'])
         : null;
     prospectbp = json['prospectbp'] != null
         ? new Prospectbp.fromJson(json['prospectbp'])
@@ -181,6 +185,9 @@ class ProspectModel {
     data['updatedby'] = this.updatedby;
     data['updateddate'] = this.updateddate;
     data['isactive'] = this.isactive;
+    if (this.prospectupdatedby != null) {
+      data['prospectupdatedby'] = this.prospectupdatedby!.toJson();
+    }
     if (this.prospectassigns != null) {
       data['prospectassigns'] =
           this.prospectassigns!.map((v) => v.toJson()).toList();
@@ -231,6 +238,75 @@ class ProspectModel {
   }
 }
 
+class Prospectupdatedby {
+  int? userid;
+  String? username;
+  String? userpassword;
+  String? userfullname;
+  String? useremail;
+  String? userphone;
+  String? userdeviceid;
+  String? userfcmtoken;
+  String? usersocketid;
+  int? createdby;
+  String? createddate;
+  int? updatedby;
+  String? updateddate;
+  bool? isactive;
+
+  Prospectupdatedby(
+      {this.userid,
+      this.username,
+      this.userpassword,
+      this.userfullname,
+      this.useremail,
+      this.userphone,
+      this.userdeviceid,
+      this.userfcmtoken,
+      this.usersocketid,
+      this.createdby,
+      this.createddate,
+      this.updatedby,
+      this.updateddate,
+      this.isactive});
+
+  Prospectupdatedby.fromJson(Map<String, dynamic> json) {
+    userid = json['userid'];
+    username = json['username'];
+    userpassword = json['userpassword'];
+    userfullname = json['userfullname'];
+    useremail = json['useremail'];
+    userphone = json['userphone'];
+    userdeviceid = json['userdeviceid'];
+    userfcmtoken = json['userfcmtoken'];
+    usersocketid = json['usersocketid'];
+    createdby = json['createdby'];
+    createddate = json['createddate'];
+    updatedby = json['updatedby'];
+    updateddate = json['updateddate'];
+    isactive = json['isactive'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['userid'] = this.userid;
+    data['username'] = this.username;
+    data['userpassword'] = this.userpassword;
+    data['userfullname'] = this.userfullname;
+    data['useremail'] = this.useremail;
+    data['userphone'] = this.userphone;
+    data['userdeviceid'] = this.userdeviceid;
+    data['userfcmtoken'] = this.userfcmtoken;
+    data['usersocketid'] = this.usersocketid;
+    data['createdby'] = this.createdby;
+    data['createddate'] = this.createddate;
+    data['updatedby'] = this.updatedby;
+    data['updateddate'] = this.updateddate;
+    data['isactive'] = this.isactive;
+    return data;
+  }
+}
+
 class Prospectassigns {
   int? prospectassignid;
   int? prospectid;
@@ -243,7 +319,7 @@ class Prospectassigns {
   String? updateddate;
   bool? isactive;
   Prospectassignss? prospectassignss;
-  Prospectassignss? prospectreportss;
+  Prospectupdatedby? prospectreportss;
 
   Prospectassigns(
       {this.prospectassignid,
@@ -274,7 +350,7 @@ class Prospectassigns {
         ? new Prospectassignss.fromJson(json['prospectassignss'])
         : null;
     prospectreportss = json['prospectreportss'] != null
-        ? new Prospectassignss.fromJson(json['prospectreportss'])
+        ? new Prospectupdatedby.fromJson(json['prospectreportss'])
         : null;
   }
 
@@ -839,75 +915,6 @@ class Prospectreference {
   }
 }
 
-class Prospectby {
-  int? userid;
-  String? username;
-  String? userpassword;
-  String? userfullname;
-  String? useremail;
-  String? userphone;
-  String? userdeviceid;
-  String? userfcmtoken;
-  String? usersocketid;
-  int? createdby;
-  String? createddate;
-  int? updatedby;
-  String? updateddate;
-  bool? isactive;
-
-  Prospectby(
-      {this.userid,
-      this.username,
-      this.userpassword,
-      this.userfullname,
-      this.useremail,
-      this.userphone,
-      this.userdeviceid,
-      this.userfcmtoken,
-      this.usersocketid,
-      this.createdby,
-      this.createddate,
-      this.updatedby,
-      this.updateddate,
-      this.isactive});
-
-  Prospectby.fromJson(Map<String, dynamic> json) {
-    userid = json['userid'];
-    username = json['username'];
-    userpassword = json['userpassword'];
-    userfullname = json['userfullname'];
-    useremail = json['useremail'];
-    userphone = json['userphone'];
-    userdeviceid = json['userdeviceid'];
-    userfcmtoken = json['userfcmtoken'];
-    usersocketid = json['usersocketid'];
-    createdby = json['createdby'];
-    createddate = json['createddate'];
-    updatedby = json['updatedby'];
-    updateddate = json['updateddate'];
-    isactive = json['isactive'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['userid'] = this.userid;
-    data['username'] = this.username;
-    data['userpassword'] = this.userpassword;
-    data['userfullname'] = this.userfullname;
-    data['useremail'] = this.useremail;
-    data['userphone'] = this.userphone;
-    data['userdeviceid'] = this.userdeviceid;
-    data['userfcmtoken'] = this.userfcmtoken;
-    data['usersocketid'] = this.usersocketid;
-    data['createdby'] = this.createdby;
-    data['createddate'] = this.createddate;
-    data['updatedby'] = this.updatedby;
-    data['updateddate'] = this.updateddate;
-    data['isactive'] = this.isactive;
-    return data;
-  }
-}
-
 class Prospectbp {
   int? bpid;
   String? bpname;
@@ -976,7 +983,7 @@ class Prospectcustomfield {
   String? updateddate;
   bool? isactive;
   Customfield? customfield;
-  Prospectreference? prospect;
+  Prospect? prospect;
 
   Prospectcustomfield(
       {this.prospectcfid,
@@ -1005,7 +1012,7 @@ class Prospectcustomfield {
         ? new Customfield.fromJson(json['customfield'])
         : null;
     prospect = json['prospect'] != null
-        ? new Prospectreference.fromJson(json['prospect'])
+        ? new Prospect.fromJson(json['prospect'])
         : null;
   }
 
@@ -1082,6 +1089,107 @@ class Customfield {
     data['allprospect'] = this.allprospect;
     data['onlythisprospect'] = this.onlythisprospect;
     data['thisprospectid'] = this.thisprospectid;
+    data['createdby'] = this.createdby;
+    data['createddate'] = this.createddate;
+    data['updatedby'] = this.updatedby;
+    data['updateddate'] = this.updateddate;
+    data['isactive'] = this.isactive;
+    return data;
+  }
+}
+
+class Prospect {
+  int? prospectid;
+  String? prospectname;
+  String? prospectcode;
+  String? prospectstartdate;
+  String? prospectenddate;
+  String? prospectvalue;
+  int? prospectowner;
+  int? prospectstageid;
+  int? prospectstatusid;
+  String? prospectexpclosedate;
+  int? prospectbpid;
+  String? prospectdescription;
+  int? prospectcustid;
+  int? prospectrefid;
+  int? prospectlostreasonid;
+  String? prospectlostdesc;
+  int? prospectcustlabel;
+  int? createdby;
+  String? createddate;
+  int? updatedby;
+  String? updateddate;
+  bool? isactive;
+
+  Prospect(
+      {this.prospectid,
+      this.prospectname,
+      this.prospectcode,
+      this.prospectstartdate,
+      this.prospectenddate,
+      this.prospectvalue,
+      this.prospectowner,
+      this.prospectstageid,
+      this.prospectstatusid,
+      this.prospectexpclosedate,
+      this.prospectbpid,
+      this.prospectdescription,
+      this.prospectcustid,
+      this.prospectrefid,
+      this.prospectlostreasonid,
+      this.prospectlostdesc,
+      this.prospectcustlabel,
+      this.createdby,
+      this.createddate,
+      this.updatedby,
+      this.updateddate,
+      this.isactive});
+
+  Prospect.fromJson(Map<String, dynamic> json) {
+    prospectid = json['prospectid'];
+    prospectname = json['prospectname'];
+    prospectcode = json['prospectcode'];
+    prospectstartdate = json['prospectstartdate'];
+    prospectenddate = json['prospectenddate'];
+    prospectvalue = json['prospectvalue'];
+    prospectowner = json['prospectowner'];
+    prospectstageid = json['prospectstageid'];
+    prospectstatusid = json['prospectstatusid'];
+    prospectexpclosedate = json['prospectexpclosedate'];
+    prospectbpid = json['prospectbpid'];
+    prospectdescription = json['prospectdescription'];
+    prospectcustid = json['prospectcustid'];
+    prospectrefid = json['prospectrefid'];
+    prospectlostreasonid = json['prospectlostreasonid'];
+    prospectlostdesc = json['prospectlostdesc'];
+    prospectcustlabel = json['prospectcustlabel'];
+    createdby = json['createdby'];
+    createddate = json['createddate'];
+    updatedby = json['updatedby'];
+    updateddate = json['updateddate'];
+    isactive = json['isactive'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['prospectid'] = this.prospectid;
+    data['prospectname'] = this.prospectname;
+    data['prospectcode'] = this.prospectcode;
+    data['prospectstartdate'] = this.prospectstartdate;
+    data['prospectenddate'] = this.prospectenddate;
+    data['prospectvalue'] = this.prospectvalue;
+    data['prospectowner'] = this.prospectowner;
+    data['prospectstageid'] = this.prospectstageid;
+    data['prospectstatusid'] = this.prospectstatusid;
+    data['prospectexpclosedate'] = this.prospectexpclosedate;
+    data['prospectbpid'] = this.prospectbpid;
+    data['prospectdescription'] = this.prospectdescription;
+    data['prospectcustid'] = this.prospectcustid;
+    data['prospectrefid'] = this.prospectrefid;
+    data['prospectlostreasonid'] = this.prospectlostreasonid;
+    data['prospectlostdesc'] = this.prospectlostdesc;
+    data['prospectcustlabel'] = this.prospectcustlabel;
     data['createdby'] = this.createdby;
     data['createddate'] = this.createddate;
     data['updatedby'] = this.updatedby;
@@ -1378,6 +1486,7 @@ class Prospectfiles {
     data['filename'] = this.filename;
     data['mimetype'] = this.mimetype;
     data['filesize'] = this.filesize;
+    data['remark'] = this.remark;
     data['createdby'] = this.createdby;
     data['createddate'] = this.createddate;
     data['updatedby'] = this.updatedby;
