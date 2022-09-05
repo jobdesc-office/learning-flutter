@@ -28,6 +28,12 @@ class BpCustomerSource {
   bool isProcessing = false;
   var isnGetLatLong = true.obs;
 
+  var createdby = ''.obs;
+  var createddate = ''.obs;
+  var updatedby = ''.obs;
+  var updateddate = ''.obs;
+  var isactive = true.obs;
+
   var imgname = ''.obs;
   var image = Uint8List(1).obs;
   var imageupdate =
@@ -53,6 +59,7 @@ class BpCustomerSource {
       'sbccstmpic': MultipartFile(image.value, filename: imgname.value),
       'createdby': session.userid,
       'updatedby': session.userid,
+      'isactive': isactive.value,
       '_method': isUpdate.value ? 'put' : null
     };
   }

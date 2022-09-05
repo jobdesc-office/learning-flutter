@@ -26,6 +26,12 @@ class UserSource extends GetxController {
   var isAdd = true;
   var isChange = false.obs;
 
+  var createdby = ''.obs;
+  var createddate = ''.obs;
+  var updatedby = ''.obs;
+  var updateddate = ''.obs;
+  var isactive = true.obs;
+
   increase() {
     selectsRole.add(BsSelectBoxController());
     selectsBp.add(BsSelectBoxController());
@@ -65,7 +71,7 @@ class UserSource extends GetxController {
       'userphone': inputPhone.text,
       'createdby': session.userid,
       'updatedby': session.userid,
-      'isactive': true,
+      'isactive': isactive.value,
       'roles': jsonEncode(jsonRoles())
     };
   }

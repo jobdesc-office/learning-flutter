@@ -27,6 +27,12 @@ class CustomerSource extends GetxController {
   bool isProcessing = false;
   var isnGetLatLong = true.obs;
 
+  var createdby = ''.obs;
+  var createddate = ''.obs;
+  var updatedby = ''.obs;
+  var updateddate = ''.obs;
+  var isactive = true.obs;
+
   TextEditingController inputPrefix = TextEditingController();
   TextEditingController inputName = TextEditingController();
   TextEditingController inputPhone = TextEditingController();
@@ -68,6 +74,7 @@ class CustomerSource extends GetxController {
       'referalcode': inputReferal.text,
       'createdby': session.userid,
       'updatedby': session.userid,
+      'isactive': isactive.value,
     };
   }
 }

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../config.dart';
 import '../models/session_model.dart';
@@ -7,6 +8,7 @@ import 'session_manager.dart';
 
 class ApiConnectProvider extends GetConnect {
   String get api => '';
+  final box = GetStorage();
 
   @override
   void onInit() {
@@ -17,6 +19,7 @@ class ApiConnectProvider extends GetConnect {
         request.headers['Authorization'] = "Bearer ${session.jwtToken}";
 
       request.headers['api-key'] = "123456";
+      request.headers['bpid'] = "${box.read('mybpid')}";
       return request;
     });
     httpClient.timeout = Duration(seconds: 30);

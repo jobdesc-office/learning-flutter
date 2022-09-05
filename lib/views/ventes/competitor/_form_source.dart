@@ -34,6 +34,12 @@ class CompetitorSource extends GetxController {
   var isImage = false.obs;
   var isUpdate = false.obs;
 
+  var createdby = ''.obs;
+  var createddate = ''.obs;
+  var updatedby = ''.obs;
+  var updateddate = ''.obs;
+  var isactive = true.obs;
+
   TextEditingController inputName = TextEditingController();
   TextEditingController inputProductName = TextEditingController();
   TextEditingController inputDesc = TextEditingController();
@@ -63,6 +69,7 @@ class CompetitorSource extends GetxController {
       'description': inputDesc.text,
       'createdby': session.userid,
       'updatedby': session.userid,
+      'isactive': isactive.value,
       'comptpics[]': jsonImages()
     };
   }

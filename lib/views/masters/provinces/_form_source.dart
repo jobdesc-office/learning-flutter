@@ -19,6 +19,12 @@ final _navigation = Get.find<NavigationPresenter>();
 class ProvinceSource {
   bool isProcessing = false;
 
+  var createdby = ''.obs;
+  var createddate = ''.obs;
+  var updatedby = ''.obs;
+  var updateddate = ''.obs;
+  var isactive = true.obs;
+
   TextEditingController inputName = TextEditingController();
 
   BsSelectBoxController selectCountry = BsSelectBoxController();
@@ -30,6 +36,7 @@ class ProvinceSource {
       'provname': inputName.text,
       'createdby': session.userid,
       'updatedby': session.userid,
+      'isactive': isactive.value,
     };
   }
 }

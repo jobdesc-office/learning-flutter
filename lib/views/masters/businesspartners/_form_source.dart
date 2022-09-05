@@ -19,6 +19,12 @@ final _navigation = Get.find<NavigationPresenter>();
 class BusinessPartnerSource {
   bool isProcessing = false;
 
+  var createdby = ''.obs;
+  var createddate = ''.obs;
+  var updatedby = ''.obs;
+  var updateddate = ''.obs;
+  var isactive = true.obs;
+
   BusinessPartnerTypeOptionsController businessPartnerTypeController =
       BusinessPartnerTypeOptionsController();
 
@@ -39,7 +45,7 @@ class BusinessPartnerSource {
       'bpphone': inputPhone.text,
       'createdby': session.userid,
       'updatedby': session.userid,
-      'isactive': true,
+      'isactive': isactive.value,
     };
   }
 }

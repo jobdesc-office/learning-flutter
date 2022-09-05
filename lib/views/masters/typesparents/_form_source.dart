@@ -16,6 +16,12 @@ final _navigation = Get.find<NavigationPresenter>();
 class TypeParentSource {
   bool isProcessing = false;
 
+  var createdby = ''.obs;
+  var createddate = ''.obs;
+  var updatedby = ''.obs;
+  var updateddate = ''.obs;
+  var isactive = true.obs;
+
   TextEditingController inputName = TextEditingController();
   TextEditingController inputCode = TextEditingController();
   TextEditingController inputSeq = TextEditingController();
@@ -29,7 +35,7 @@ class TypeParentSource {
       'typedesc': inputDesc.text,
       'createdby': session.userid,
       'updatedby': session.userid,
-      'isactive': true,
+      'isactive': isactive.value,
     };
   }
 }

@@ -19,6 +19,12 @@ final _navigation = Get.find<NavigationPresenter>();
 class ContactSource {
   bool isProcessing = false;
 
+  var createdby = ''.obs;
+  var createddate = ''.obs;
+  var updatedby = ''.obs;
+  var updateddate = ''.obs;
+  var isactive = true.obs;
+
   TextEditingController inputName = TextEditingController();
   TextEditingController inputValue = TextEditingController();
 
@@ -34,6 +40,7 @@ class ContactSource {
       'contactvalueid': inputValue.text,
       'createdby': session.userid,
       'updatedby': session.userid,
+      'isactive': isactive.value,
     };
   }
 }

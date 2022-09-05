@@ -46,6 +46,12 @@ class ProspectSource extends GetxController {
 
   var isProduct = false.obs;
 
+  var createdby = ''.obs;
+  var createddate = ''.obs;
+  var updatedby = ''.obs;
+  var updateddate = ''.obs;
+  var isactive = true.obs;
+
   reset() {
     selectsTax.clear();
     selectsItem.clear();
@@ -194,7 +200,7 @@ class ProspectSource extends GetxController {
       'prospectrefid': selectReference.getSelectedAsString(),
       'createdby': session.userid,
       'updatedby': session.userid,
-      'isactive': true,
+      'isactive': isactive.value,
       'products': jsonEncode(jsonProducts()),
     };
   }
