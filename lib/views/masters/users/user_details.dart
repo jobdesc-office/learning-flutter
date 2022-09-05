@@ -327,7 +327,12 @@ class UserDetails extends GetView implements DetailViewContract {
     controller.email.value = dt.useremail ?? '-';
     controller.phone.value = dt.userphone ?? '-';
     controller.deviceid.value = dt.userdeviceid ?? '';
-    controller.active.value = dt.isactive!;
+
+    controller.createdby.value = dt.usercreatedby?.userfullname ?? '';
+    controller.createddate.value = dt.createddate ?? '';
+    controller.updatedby.value = dt.userupdatedby?.userfullname ?? '';
+    controller.updateddate.value = dt.updateddate ?? '';
+    controller.isactive.value = dt.isactive ?? false;
     if (dt.userdetails != null) {
       for (var item in dt.userdetails!) {
         role.add(item);
