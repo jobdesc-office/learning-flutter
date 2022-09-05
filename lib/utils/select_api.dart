@@ -592,9 +592,9 @@ Future<BsSelectBoxResponse> selectCities(Map<String, String> params) async {
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => CityModel.fromJson(data).cityid,
-        renderText: (data) => Text(CityModel.fromJson(data).cityname +
+        renderText: (data) => Text(CityModel.fromJson(data).cityname! +
             ' - ' +
-            CityModel.fromJson(data).provname),
+            CityModel.fromJson(data).cityprov!.provname!),
       );
     }
   }

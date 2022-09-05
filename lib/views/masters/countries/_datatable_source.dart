@@ -60,7 +60,7 @@ class CountryDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.countryname),
+          Text(row.countryname ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -76,7 +76,7 @@ class CountryDataTableSource extends BsDatatableSource {
                 message: BaseText.editHintDatatable(field: row.countryname),
                 child: ButtonEditDatatables(
                   margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onEditListener(row.countryid),
+                  onPressed: () => onEditListener(row.countryid!),
                 ),
               ),
               Tooltip(
