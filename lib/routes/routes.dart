@@ -16,7 +16,7 @@ import '../presenters/masters/subdistrict_presenter.dart';
 import '../presenters/masters/village_presenter.dart';
 import '../presenters/settings/file_presenter.dart';
 import '../presenters/settings/permission_presenter.dart';
-import '../presenters/settings/stbptype_presenter.dart';
+import '../presenters/settings/stbptype/stbptypeactivitycategory_presenter.dart';
 import '../presenters/ventes/bpcustomer_presenter.dart';
 import '../presenters/ventes/competitor_presenter.dart';
 import '../presenters/settings/customfield_presenter.dart';
@@ -76,6 +76,7 @@ import '../views/masters/product/product.dart';
 import '../views/masters/provinces/province.dart';
 import '../views/masters/subdistricts/subdistrict.dart';
 import '../views/masters/villages/village.dart';
+import '../views/settings/company/company_setting/_source.dart';
 import '../views/settings/company/company_setting/company.dart';
 import '../views/settings/company/data_field/datafield.dart';
 import '../views/settings/customfield/customfield.dart';
@@ -349,10 +350,11 @@ class AppRoute {
         name: RouteList.settingsCompany.index,
         page: () => CompanyView(),
         binding: BindingsBuilder(() {
+          Get.lazyPut(() => CompanySources());
           Get.lazyPut(() => CompanyPresenter());
           Get.lazyPut(() => BusinessPartnerService());
           Get.lazyPut(() => StBpTypeService());
-          Get.lazyPut(() => StBpTypePresenter());
+          Get.lazyPut(() => StBpTypeActivityCategoryPresenter());
         }),
       ),
       CustomGetPage(
