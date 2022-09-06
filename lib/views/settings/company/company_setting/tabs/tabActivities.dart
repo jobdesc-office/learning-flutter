@@ -55,19 +55,59 @@ class _TabActivitiesState extends State<_TabActivities>
   }
 }
 
-class _TabCategory extends StatelessWidget {
-  const _TabCategory({Key? key}) : super(key: key);
+class _TabCategory extends StatelessWidget implements IndexViewContract {
+  final presenter = Get.find<StBpTypePresenter>();
+  final datatable = ActivityCatDataTableSource();
+  _TabCategory() {
+    presenter.StBpTypeViewContract = this;
+  }
 
   @override
   Widget build(BuildContext context) {
-    // final datatable = ActivityCatDataTableSource();
-    // final presenter = Get.find<TypesChildrenPresenter>();
     return SingleChildScrollView(
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        // CustomDatabales(source: datatable, columns: datatable.columns,
-        //           serverSide: (params) => presenter),
+        CustomDatabales(
+            source: datatable,
+            columns: datatable.columns,
+            serverSide: (params) => presenter.datatables(
+                context, params, ConfigType.activitycategory)),
       ]),
     );
+  }
+
+  @override
+  void onCreateSuccess(Response response, {BuildContext? context}) {
+    // TODO: implement onCreateSuccess
+  }
+
+  @override
+  void onDeleteSuccess(Response response, {BuildContext? context}) {
+    // TODO: implement onDeleteSuccess
+  }
+
+  @override
+  void onEditSuccess(Response response, {BuildContext? context}) {
+    // TODO: implement onEditSuccess
+  }
+
+  @override
+  void onErrorRequest(Response response) {
+    // TODO: implement onErrorRequest
+  }
+
+  @override
+  void onLoadDatatables(BuildContext context, Response response) {
+    presenter.setProcessing(false);
+    datatable.response = BsDatatableResponse.createFromJson(response.body);
+    // datatable.onDetailsListener =
+    //     (typeid) => presenter.details(context, typeid);
+    // datatable.onEditListener = (typeid) => presenter.edit(context, typeid);
+    // if (btn.btnDeleteDisabled.value)
+    //   datatable.onDeleteListener =
+    //       (typeid, name) => presenter.delete(context, typeid, name);
+    // else
+    //   datatable.onDeleteListener =
+    //       (typeid, name) => Snackbar().regionDeletePermission();
   }
 }
 

@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../../../models/masters/type_model.dart';
+import '../../../../../../models/settings/stbptype_model.dart';
 import '../../../../../../presenters/navigation_presenter.dart';
 import '../../../../../../styles/color_palattes.dart';
 import '../../../../../../widgets/button/button_delete_datatable.dart';
@@ -35,14 +36,9 @@ class ActivityCatDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
+      CustomBsDataColumn(label: Text('Category Title'), columnName: 'sbtname'),
       CustomBsDataColumn(
-          label: Text('Category Title'), columnName: 'ActivityCatname'),
-      CustomBsDataColumn(
-        label: Text('Category Type Name'),
-        searchable: false,
-        orderable: false,
-        width: 180,
-      ),
+          label: Text('Category Type Name'), columnName: 'sbttypename'),
       CustomBsDataColumn(
           label: Text('Actions'),
           width: 100,
@@ -51,8 +47,8 @@ class ActivityCatDataTableSource extends BsDatatableSource {
     ];
   }
 
-  List<TypeModel> get users =>
-      response.data.map((data) => TypeModel.fromJson(data)).toList();
+  List<StbptypeModel> get users =>
+      response.data.map((data) => StbptypeModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
@@ -72,7 +68,7 @@ class ActivityCatDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.typename ?? ''),
+          Text(row.sbtname ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -82,7 +78,7 @@ class ActivityCatDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.typename ?? ''),
+          Text(row.sbttypename ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -95,24 +91,23 @@ class ActivityCatDataTableSource extends BsDatatableSource {
           Row(
             children: [
               Tooltip(
-                message: BaseText.detailHintDatatable(field: row.typename),
+                message: BaseText.detailHintDatatable(field: row.sbtname),
                 child: ButtonDetailsDatatables(
                   margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onDetailsListener(row.typeid!),
+                  onPressed: () => onDetailsListener(row.sbtid!),
                 ),
               ),
               Tooltip(
-                message: BaseText.editHintDatatable(field: row.typename),
+                message: BaseText.editHintDatatable(field: row.sbtname),
                 child: ButtonEditDatatables(
                   margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onEditListener(row.typeid!),
+                  onPressed: () => onEditListener(row.sbtid!),
                 ),
               ),
               Tooltip(
-                message: BaseText.deleteHintDatatable(field: row.typename),
+                message: BaseText.deleteHintDatatable(field: row.sbtname),
                 child: ButtonDeleteDatatables(
-                    onPressed: () =>
-                        onDeleteListener(row.typeid, row.typename)),
+                    onPressed: () => onDeleteListener(row.sbtid, row.sbtname)),
               ),
             ],
           ),

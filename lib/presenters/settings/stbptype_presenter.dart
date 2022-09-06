@@ -1,3 +1,4 @@
+import 'package:boilerplate/models/masters/type_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -6,11 +7,15 @@ import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
 import '../../services/masters/stbptype_service.dart';
+import '../../services/masters/type_service.dart';
 import '../../utils/custom_get_controller.dart';
+import '../../views/settings/company/company_setting/_source.dart';
 import '../../widgets/confirm_dialog.dart';
 
 class StBpTypePresenter extends CustomGetXController {
   final _StBpTypeService = Get.find<StBpTypeService>();
+  final _TypeService = Get.put(TypeService());
+  final _sources = Get.put(CompanySources());
 
   late IndexViewContract _StBpTypeViewContract;
   set StBpTypeViewContract(IndexViewContract StBpTypeViewContract) {
@@ -29,7 +34,16 @@ class StBpTypePresenter extends CustomGetXController {
   }
 
   Future datatables(
-      BuildContext context, Map<String, String> params, int typeid) async {
+      BuildContext context, Map<String, String> params, String typecd) async {
+    late TypeModel types;
+    Response type = await _TypeService.byCode(typecd);
+    for (var element in type.body) {
+      types = TypeModel.fromJson(element);
+    }
+
+    int typeid = types.typemasterid!;
+    _sources.id.value = typeid;
+
     Response response = await _StBpTypeService.datatable(params, typeid);
     if (response.statusCode == 200)
       _StBpTypeViewContract.onLoadDatatables(context, response);

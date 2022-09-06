@@ -9,7 +9,8 @@ class StBpTypeService extends ApiConnectProvider {
   String get api => 'stbptype';
 
   Future<Response> datatable(Map<String, dynamic> params, int typeid) {
+    int bpid = box.read('mybpid');
     return post('$api/datatables', params,
-        query: {'typeid': typeid, 'bpid': box.read('mybpid')});
+        query: {'typeid': '$typeid', 'bpid': '$bpid'});
   }
 }
