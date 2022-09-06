@@ -5,7 +5,7 @@ import 'package:boilerplate/utils/custom_get_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class GeneralPresenter extends CustomGetXController {
+class CompanyPresenter extends CustomGetXController {
   final _businessPartnerService = Get.find<BusinessPartnerService>();
 
   late IndexViewContract _businessPartnerViewContract;
