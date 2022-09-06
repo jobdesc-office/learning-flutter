@@ -98,7 +98,8 @@ class _TabCategory extends StatelessWidget
                 children: [
                   BsCol(
                     sizes: ColScreen(sm: Col.col_6),
-                    child: Container(
+                    child: AnimatedContainer(
+                      duration: Duration(seconds: 3),
                       margin: EdgeInsets.only(top: 5),
                       padding: EdgeInsets.all(3),
                       child: Column(
