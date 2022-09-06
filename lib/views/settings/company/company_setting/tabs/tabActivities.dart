@@ -273,7 +273,7 @@ class _TabCategory extends StatelessWidget
                                   BsCol(
                                     margin: EdgeInsets.only(top: 10),
                                     child: FormGroup(
-                                        label: Text('Activation',
+                                        label: Text('Is Active',
                                             style: TextStyle(
                                                 color:
                                                     _navigation.darkTheme.value
@@ -329,7 +329,16 @@ class _TabCategory extends StatelessWidget
                 headerActions: [
                   ThemeButtonCreate(
                       prefix: 'Category',
-                      onPressed: () => isformactcat.toggle())
+                      onPressed: () {
+                        if (isupdate.value) {
+                          isupdate.value = false;
+                          reset();
+                        } else {
+                          isformactcat.toggle();
+                          isupdate.value = false;
+                          reset();
+                        }
+                      })
                 ],
                 serverSide: (params) => presenter.datatables(
                     context, params, ConfigType.activitycategory)),

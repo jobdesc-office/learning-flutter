@@ -175,7 +175,7 @@ class ProvinceFormView extends StatelessWidget implements EditViewContract {
                             BsCol(
                               margin: EdgeInsets.only(top: 10),
                               child: FormGroup(
-                                  label: Text('Activation',
+                                  label: Text('Is Active',
                                       style: TextStyle(
                                           color: _navigation.darkTheme.value
                                               ? Colors.white
