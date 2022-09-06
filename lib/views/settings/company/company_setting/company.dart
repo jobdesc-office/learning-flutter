@@ -1,14 +1,17 @@
 import 'package:boilerplate/constants/base_text.dart';
 import 'package:boilerplate/contracts/base/edit_view_contract.dart';
+import 'package:boilerplate/contracts/base/index_view_contract.dart';
 import 'package:boilerplate/models/masters/businesspartner_model.dart';
 import 'package:boilerplate/utils/select_api.dart';
 import 'package:boilerplate/utils/validators.dart';
 import 'package:boilerplate/views/settings/company/company_setting/_general_form_source.dart';
-import 'package:boilerplate/views/settings/company/company_setting/general_presenter.dart';
+import 'package:boilerplate/views/settings/company/company_setting/company_presenter.dart';
+import 'package:boilerplate/widgets/button/theme_button_save.dart';
 import 'package:boilerplate/widgets/datatables/custom_datatable.dart';
 import 'package:boilerplate/widgets/form_group.dart';
 import 'package:boilerplate/widgets/input/custom_input.dart';
 import 'package:boilerplate/widgets/selectbox/custom_selectbox.dart';
+import 'package:boilerplate/widgets/snackbar.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
@@ -36,8 +39,7 @@ class CompanyView extends StatefulWidget {
   State<CompanyView> createState() => _CompanyViewState();
 }
 
-class _CompanyViewState extends State<CompanyView>
-    with TickerProviderStateMixin {
+class _CompanyViewState extends State<CompanyView> with TickerProviderStateMixin {
   final _navigation = Get.find<NavigationPresenter>();
   late TabController _tabController;
   @override
@@ -55,16 +57,11 @@ class _CompanyViewState extends State<CompanyView>
           BreadcrumbWidget('Settings'),
           BreadcrumbWidget('Company Setting', active: true),
         ],
-        activeRoutes: [
-          RouteList.settings.index,
-          RouteList.settingsCompany.index
-        ],
+        activeRoutes: [RouteList.settings.index, RouteList.settingsCompany.index],
         child: Container(
           padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: _navigation.darkTheme.value
-                ? ColorPallates.elseDarkColor
-                : Colors.white,
+            color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : Colors.white,
             borderRadius: BorderRadius.circular(10),
           ),
           child: BsRow(

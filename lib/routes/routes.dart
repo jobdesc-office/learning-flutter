@@ -1,4 +1,4 @@
-import 'package:boilerplate/views/settings/company/company_setting/general_presenter.dart';
+import 'package:boilerplate/views/settings/company/company_setting/company_presenter.dart';
 import 'package:get/get.dart';
 
 import '../presenters/default/home_presenter.dart';
@@ -347,7 +347,7 @@ class AppRoute {
         name: RouteList.settingsCompany.index,
         page: () => CompanyView(),
         binding: BindingsBuilder(() {
-          Get.lazyPut(() => GeneralPresenter());
+          Get.lazyPut(() => CompanyPresenter());
           Get.lazyPut(() => BusinessPartnerService());
         }),
       ),

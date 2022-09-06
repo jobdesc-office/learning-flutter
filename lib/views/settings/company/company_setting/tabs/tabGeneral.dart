@@ -1,18 +1,17 @@
 part of '../company.dart';
 
-final _navigation = Get.find<NavigationPresenter>();
-
-class _TabGeneral extends StatelessWidget implements EditViewContract {
+class _TabGeneral extends StatelessWidget implements EditViewContract, IndexViewContract {
   final _source = GeneralSource().obs;
   GeneralSource get source => _source.value;
-  GeneralPresenter get presenter => Get.find<GeneralPresenter>();
+  CompanyPresenter get presenter => Get.find<CompanyPresenter>();
 
   _TabGeneral() {
     presenter.businessPartnerFetchDataContract = this;
+    presenter.businessPartnerViewContract = this;
     fetchData();
   }
 
-  void fetchData() async {
+  void fetchData() {
     int? bpid = GetStorage().read('mybpid');
     presenter.edit(bpid!);
   }
@@ -95,16 +94,17 @@ class _TabGeneral extends StatelessWidget implements EditViewContract {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     selectSubdistrict(),
-                    BsCol(
-                      margin: EdgeInsets.only(top: 10),
-                      sizes: ColScreen(sm: Col.col_1),
-                      child: BsButton(
-                        label: Text("Save Change"),
-                        onPressed: () {},
-                        prefixIcon: Icons.edit,
-                        size: BsButtonSize.btnIconSm,
-                      ),
-                    ),
+                    Obx(() {
+                      return BsCol(
+                        margin: EdgeInsets.only(top: 10),
+                        sizes: ColScreen(sm: Col.col_1),
+                        child: ThemeButtonSave(
+                          onPressed: () => onSave(context),
+                          processing: presenter.isProcessing.value,
+                          disabled: presenter.isProcessing.value,
+                        ),
+                      );
+                    }),
                   ],
                 ),
               ),
@@ -113,6 +113,13 @@ class _TabGeneral extends StatelessWidget implements EditViewContract {
         ),
       ],
     );
+  }
+
+  void onSave(BuildContext context) async {
+    presenter.setProcessing(true);
+    Map<String, dynamic> data = await source.toJson();
+    int? bpid = GetStorage().read('mybpid');
+    presenter.update(context, data, bpid!);
   }
 
   Widget selectSubdistrict() {
@@ -132,13 +139,41 @@ class _TabGeneral extends StatelessWidget implements EditViewContract {
 
   @override
   void onSuccessFetchData(Response response) {
+    presenter.setProcessing(false);
+    BusinessPartnerModel businessPartner = BusinessPartnerModel.fromJson(response.body);
     _source.update((val) {
-      BusinessPartnerModel businessPartner = BusinessPartnerModel.fromJson(response.body);
       source.inputName.text = businessPartner.bpname ?? "";
       source.inputPIC.text = businessPartner.bppicname ?? "";
       source.inputEmail.text = businessPartner.bpemail ?? "";
       source.inputPhone.text = businessPartner.bpphone ?? "";
-      source.choosedType.setSelected(BsSelectBoxOption(value: businessPartner.bptype?.typeid, text: Text(businessPartner.bptype!.typename!)));
     });
+    source.choosedType.setSelected(BsSelectBoxOption(value: businessPartner.bptype?.typeid, text: Text(businessPartner.bptype!.typename!)));
+  }
+
+  @override
+  void onCreateSuccess(Response response, {BuildContext? context}) {
+    // TODO: implement onCreateSuccess
+  }
+
+  @override
+  void onDeleteSuccess(Response response, {BuildContext? context}) {
+    // TODO: implement onDeleteSuccess
+  }
+
+  @override
+  void onEditSuccess(Response response, {BuildContext? context}) async {
+    presenter.setProcessing(false);
+    fetchData();
+    Snackbar().editSuccess();
+  }
+
+  @override
+  void onErrorRequest(Response response) {
+    // TODO: implement onErrorRequest
+  }
+
+  @override
+  void onLoadDatatables(BuildContext context, Response response) {
+    // TODO: implement onLoadDatatables
   }
 }
