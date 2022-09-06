@@ -24,14 +24,14 @@ class _TabActivitiesState extends State<_TabActivities>
       child: BsRow(
         children: [
           BsCol(
-            sizes: ColScreen(sm: Col.col_4),
+            sizes: ColScreen(sm: Col.col_2),
             child: TabBar(
               controller: _tabController,
               labelColor: Colors.green,
               unselectedLabelColor: Colors.black,
               tabs: [
-                Tab(text: 'Activity'),
-                Tab(text: 'Prospect'),
+                Tab(text: 'Category'),
+                Tab(text: 'Type'),
               ],
             ),
           ),
@@ -43,30 +43,45 @@ class _TabActivitiesState extends State<_TabActivities>
               child: TabBarView(
                 controller: _tabController,
                 children: [
-                  SingleChildScrollView(
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Center(
-                            child: Text('data'),
-                          )
-                        ]),
-                  ),
-                  SingleChildScrollView(
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Center(
-                            child: Text('data'),
-                          )
-                        ]),
-                  ),
+                  _TabCategory(),
+                  _TabType(),
                 ],
               ),
             ),
           )
         ],
       ),
+    );
+  }
+}
+
+class _TabCategory extends StatelessWidget {
+  const _TabCategory({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // final datatable = ActivityCatDataTableSource();
+    // final presenter = Get.find<TypesChildrenPresenter>();
+    return SingleChildScrollView(
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        // CustomDatabales(source: datatable, columns: datatable.columns,
+        //           serverSide: (params) => presenter),
+      ]),
+    );
+  }
+}
+
+class _TabType extends StatelessWidget {
+  const _TabType({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        Center(
+          child: Text('data'),
+        )
+      ]),
     );
   }
 }
