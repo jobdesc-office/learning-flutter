@@ -325,7 +325,7 @@ class CompetitorDetails extends GetView implements DetailViewContract {
                           BsCol(
                             margin: EdgeInsets.only(top: 10),
                             child: FormGroup(
-                                label: Text('Activation'),
+                                label: Text('Is Active'),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [

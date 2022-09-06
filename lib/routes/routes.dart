@@ -17,6 +17,7 @@ import '../presenters/masters/subdistrict_presenter.dart';
 import '../presenters/masters/village_presenter.dart';
 import '../presenters/settings/file_presenter.dart';
 import '../presenters/settings/permission_presenter.dart';
+import '../presenters/settings/stbptype/stbptypeactivitycategory_presenter.dart';
 import '../presenters/ventes/bpcustomer_presenter.dart';
 import '../presenters/ventes/competitor_presenter.dart';
 import '../presenters/settings/customfield_presenter.dart';
@@ -41,6 +42,7 @@ import '../services/masters/country_service.dart';
 import '../services/masters/customer_service.dart';
 import '../services/masters/product_service.dart';
 import '../services/masters/province_service.dart';
+import '../services/masters/stbptype_service.dart';
 import '../services/masters/subdistrict_service.dart';
 import '../services/masters/village_service.dart';
 import '../services/security/feature_service.dart';
@@ -75,6 +77,7 @@ import '../views/masters/product/product.dart';
 import '../views/masters/provinces/province.dart';
 import '../views/masters/subdistricts/subdistrict.dart';
 import '../views/masters/villages/village.dart';
+import '../views/settings/company/company_setting/_source.dart';
 import '../views/settings/company/company_setting/company.dart';
 import '../views/settings/company/data_field/datafield.dart';
 import '../views/settings/customfield/customfield.dart';
@@ -348,10 +351,13 @@ class AppRoute {
         name: RouteList.settingsCompany.index,
         page: () => CompanyView(),
         binding: BindingsBuilder(() {
+          Get.lazyPut(() => CompanySources());
           Get.lazyPut(() => CPGeneralPresenter());
           Get.lazyPut(() => CPCustomerPresenter());
           Get.lazyPut(() => BusinessPartnerService());
           Get.lazyPut(() => BpCustomerService());
+          Get.lazyPut(() => StBpTypeService());
+          Get.lazyPut(() => StBpTypeActivityCategoryPresenter());
         }),
       ),
       CustomGetPage(

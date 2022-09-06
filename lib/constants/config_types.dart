@@ -39,4 +39,8 @@ class ConfigType {
   static String cstmtype = notNull(types['cstmtype']);
 
   static String cstmstatus = notNull(types['cstmstatus']);
+
+  static String activitytype = notNull(types['activitytype']);
+
+  static String activitycategory = notNull(types['activitycategory']);
 }
