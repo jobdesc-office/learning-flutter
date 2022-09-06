@@ -1,4 +1,5 @@
-import 'package:boilerplate/views/settings/company/company_setting/company_presenter.dart';
+import 'package:boilerplate/views/settings/company/company_setting/cp_customer_presenter.dart';
+import 'package:boilerplate/views/settings/company/company_setting/cp_general_presenter.dart';
 import 'package:get/get.dart';
 
 import '../presenters/default/home_presenter.dart';
@@ -347,8 +348,10 @@ class AppRoute {
         name: RouteList.settingsCompany.index,
         page: () => CompanyView(),
         binding: BindingsBuilder(() {
-          Get.lazyPut(() => CompanyPresenter());
+          Get.lazyPut(() => CPGeneralPresenter());
+          Get.lazyPut(() => CPCustomerPresenter());
           Get.lazyPut(() => BusinessPartnerService());
+          Get.lazyPut(() => BpCustomerService());
         }),
       ),
       CustomGetPage(

@@ -3,7 +3,7 @@ part of '../company.dart';
 class _TabGeneral extends StatelessWidget implements EditViewContract, IndexViewContract {
   final _source = GeneralSource().obs;
   GeneralSource get source => _source.value;
-  CompanyPresenter get presenter => Get.find<CompanyPresenter>();
+  CPGeneralPresenter get presenter => Get.find<CPGeneralPresenter>();
 
   _TabGeneral() {
     presenter.businessPartnerFetchDataContract = this;
