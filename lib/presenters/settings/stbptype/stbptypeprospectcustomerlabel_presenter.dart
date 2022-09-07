@@ -14,38 +14,39 @@ import '../../../utils/session_manager.dart';
 import '../../../views/settings/company/company_setting/_source.dart';
 import '../../../widgets/confirm_dialog.dart';
 
-class StBpTypeActivityCategoryPresenter extends CustomGetXController {
+class StBpTypeProspectCustomerLabelPresenter extends CustomGetXController {
   final _stBpTypeService = Get.find<StBpTypeService>();
   final _typeService = Get.put(TypeService());
   final _sources = Get.find<CompanySources>();
 
-  late IndexViewContract _stBpTypeActivityCategoryViewContract;
-  set stBpTypeActivityCategoryViewContract(
+  late IndexViewContract _stBpTypeProspectCustomerLabelViewContract;
+  set stBpTypeProspectCustomerLabelViewContract(
       IndexViewContract stBpTypeViewContract) {
-    _stBpTypeActivityCategoryViewContract = stBpTypeViewContract;
+    _stBpTypeProspectCustomerLabelViewContract = stBpTypeViewContract;
   }
 
-  late EditViewContract _stBpTypeActivityCategoryFetchDataContract;
-  set stBpTypeActivityCategoryFetchDataContract(
+  late EditViewContract _stBpTypeProspectCustomerLabelFetchDataContract;
+  set stBpTypeProspectCustomerLabelFetchDataContract(
       EditViewContract stBpTypeFetchDataContract) {
-    _stBpTypeActivityCategoryFetchDataContract = stBpTypeFetchDataContract;
+    _stBpTypeProspectCustomerLabelFetchDataContract = stBpTypeFetchDataContract;
   }
 
   Future datatables(BuildContext context) async {
     Response type =
-        await _typeService.byCodeMaster(ConfigType.activitycategory);
+        await _typeService.byCodeMaster(ConfigType.prospectCustLabel);
     for (var element in type.body) {
       _sources.type.value = TypeModel.fromJson(element);
     }
 
     int typeid = _sources.type.value.typeid!;
-    _sources.activitycategorytypeid.value = typeid;
+    _sources.prospectCustomerLabeltypeid.value = typeid;
 
     Response response = await _stBpTypeService.datatable(typeid);
     if (response.statusCode == 200)
-      _stBpTypeActivityCategoryViewContract.onLoadDatatables(context, response);
+      _stBpTypeProspectCustomerLabelViewContract.onLoadDatatables(
+          context, response);
     else
-      _stBpTypeActivityCategoryViewContract.onErrorRequest(response);
+      _stBpTypeProspectCustomerLabelViewContract.onErrorRequest(response);
   }
 
   void changeStatus(BuildContext context, int id, bool status) async {
@@ -60,38 +61,39 @@ class StBpTypeActivityCategoryPresenter extends CustomGetXController {
     };
     Response response = await _stBpTypeService.update(id, body);
     if (response.statusCode == 200)
-      _stBpTypeActivityCategoryViewContract.onEditSuccess(response,
+      _stBpTypeProspectCustomerLabelViewContract.onEditSuccess(response,
           context: context);
     else
-      _stBpTypeActivityCategoryViewContract.onErrorRequest(response);
+      _stBpTypeProspectCustomerLabelViewContract.onErrorRequest(response);
   }
 
   void save(BuildContext context, Map<String, dynamic> body) async {
     setProcessing(true);
     Response response = await _stBpTypeService.store(body);
     if (response.statusCode == 200)
-      _stBpTypeActivityCategoryViewContract.onCreateSuccess(response,
+      _stBpTypeProspectCustomerLabelViewContract.onCreateSuccess(response,
           context: context);
     else
-      _stBpTypeActivityCategoryViewContract.onErrorRequest(response);
+      _stBpTypeProspectCustomerLabelViewContract.onErrorRequest(response);
   }
 
   void edit(BuildContext context, int id) async {
     Response response = await _stBpTypeService.show(id);
     if (response.statusCode == 200)
-      _stBpTypeActivityCategoryFetchDataContract.onSuccessFetchData(response);
+      _stBpTypeProspectCustomerLabelFetchDataContract
+          .onSuccessFetchData(response);
     else
-      _stBpTypeActivityCategoryViewContract.onErrorRequest(response);
+      _stBpTypeProspectCustomerLabelViewContract.onErrorRequest(response);
   }
 
   void update(BuildContext context, Map<String, dynamic> body, int id) async {
     setProcessing(true);
     Response response = await _stBpTypeService.update(id, body);
     if (response.statusCode == 200)
-      _stBpTypeActivityCategoryViewContract.onEditSuccess(response,
+      _stBpTypeProspectCustomerLabelViewContract.onEditSuccess(response,
           context: context);
     else
-      _stBpTypeActivityCategoryViewContract.onErrorRequest(response);
+      _stBpTypeProspectCustomerLabelViewContract.onErrorRequest(response);
   }
 
   void delete(BuildContext context, int typeid, String name) {
@@ -104,10 +106,11 @@ class StBpTypeActivityCategoryPresenter extends CustomGetXController {
           if (value == ConfirmDialogOption.YES_OPTION) {
             Response response = await _stBpTypeService.destroy(typeid);
             if (response.statusCode == 200)
-              _stBpTypeActivityCategoryViewContract.onDeleteSuccess(response,
-                  context: context);
+              _stBpTypeProspectCustomerLabelViewContract
+                  .onDeleteSuccess(response, context: context);
             else
-              _stBpTypeActivityCategoryViewContract.onErrorRequest(response);
+              _stBpTypeProspectCustomerLabelViewContract
+                  .onErrorRequest(response);
           } else {
             Navigator.pop(context);
           }

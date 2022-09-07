@@ -9,6 +9,8 @@ import '../../../../../../models/masters/type_model.dart';
 import '../../../../../../models/settings/stbptype_model.dart';
 import '../../../../../../presenters/navigation_presenter.dart';
 import '../../../../../../styles/color_palattes.dart';
+import '../../../../../../widgets/button/button_X_datatable.dart';
+import '../../../../../../widgets/button/button_check_datatable.dart';
 import '../../../../../../widgets/button/button_delete_datatable.dart';
 import '../../../../../../widgets/button/button_details_datatable.dart';
 import '../../../../../../widgets/button/button_edit_datatable.dart';
@@ -20,7 +22,7 @@ final _navigation = Get.find<NavigationPresenter>();
 class ActivityCatDataTableSource extends BsDatatableSource {
   final currencyFormatter = NumberFormat('#,##0.00', 'ID');
 
-  ValueChanged<int> onDetailsListener = (value) {};
+  Function onDetailsListener = (value, bool status) {};
   ValueChanged<int> onEditListener = (value) {};
   Function onDeleteListener = (value, name) {};
 
@@ -36,9 +38,8 @@ class ActivityCatDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      CustomBsDataColumn(label: Text('Category Title'), columnName: 'sbtname'),
-      CustomBsDataColumn(
-          label: Text('Category Type Name'), columnName: 'sbttypename'),
+      CustomBsDataColumn(label: Text('Name'), columnName: 'sbtname'),
+      CustomBsDataColumn(label: Text('Type Name'), columnName: 'sbttypename'),
       CustomBsDataColumn(
           label: Text('Actions'),
           width: 100,
@@ -91,19 +92,30 @@ class ActivityCatDataTableSource extends BsDatatableSource {
           Row(
             children: [
               Tooltip(
-                message: BaseText.detailHintDatatable(field: row.sbtname),
-                child: ButtonDetailsDatatables(
-                  margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onDetailsListener(row.sbtid!),
-                ),
-              ),
-              Tooltip(
                 message: BaseText.editHintDatatable(field: row.sbtname),
                 child: ButtonEditDatatables(
                   margin: EdgeInsets.only(right: 5),
                   onPressed: () => onEditListener(row.sbtid!),
                 ),
               ),
+              if (row.isactive!)
+                Tooltip(
+                  message: BaseText.activeHintDatatable(field: row.sbtname),
+                  child: ButtonCheckDatatables(
+                    margin: EdgeInsets.only(right: 5),
+                    onPressed: () =>
+                        onDetailsListener(row.sbtid!, row.isactive),
+                  ),
+                )
+              else
+                Tooltip(
+                  message: BaseText.nonactiveHintDatatable(field: row.sbtname),
+                  child: ButtonXDatatables(
+                    margin: EdgeInsets.only(right: 5),
+                    onPressed: () =>
+                        onDetailsListener(row.sbtid!, row.isactive),
+                  ),
+                ),
               Tooltip(
                 message: BaseText.deleteHintDatatable(field: row.sbtname),
                 child: ButtonDeleteDatatables(

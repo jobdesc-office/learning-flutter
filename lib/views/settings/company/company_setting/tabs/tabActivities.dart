@@ -42,8 +42,12 @@ class _TabActivitiesState extends State<_TabActivities> with TickerProviderState
               child: TabBarView(
                 controller: _tabController,
                 children: [
-                  _TabCategory(),
-                  _TabType(),
+                  _TabActivityCategory(
+                    context,
+                  ),
+                  _TabActivityType(
+                    context,
+                  ),
                 ],
               ),
             ),
@@ -53,6 +57,7 @@ class _TabActivitiesState extends State<_TabActivities> with TickerProviderState
     );
   }
 }
+<<<<<<< HEAD
 
 class _TabCategory extends StatelessWidget implements IndexViewContract, EditViewContract {
   final presenter = Get.find<StBpTypeActivityCategoryPresenter>();
@@ -350,3 +355,5 @@ class _TabType extends StatelessWidget {
     );
   }
 }
+=======
+>>>>>>> 8d0e415ab906b2383c0d85c54726fcedeec373cc

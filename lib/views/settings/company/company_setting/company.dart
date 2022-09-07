@@ -9,6 +9,7 @@ import 'package:boilerplate/models/masters/businesspartner_model.dart';
 import 'package:boilerplate/models/ventes/bpcustomer_model.dart';
 import 'package:boilerplate/utils/select_api.dart';
 import 'package:boilerplate/utils/validators.dart';
+import 'package:boilerplate/views/settings/company/company_setting/tabs/sources/_datatable_source.dart';
 import 'package:boilerplate/views/settings/company/company_setting/tabs/tabCustomers/_customers_form_source.dart';
 import 'package:boilerplate/views/settings/company/company_setting/tabs/tabGeneral/_general_form_source.dart';
 import 'package:boilerplate/views/settings/company/company_setting/tabs/tabCustomers/cp_customer_presenter.dart';
@@ -28,6 +29,13 @@ import '../../../../models/session_model.dart';
 import '../../../../models/settings/stbptype_model.dart';
 import '../../../../presenters/navigation_presenter.dart';
 import '../../../../presenters/settings/stbptype/stbptypeactivitycategory_presenter.dart';
+import '../../../../presenters/settings/stbptype/stbptypeactivitytype_presenter.dart';
+import '../../../../presenters/settings/stbptype/stbptypeprospectcategory_presenter.dart';
+import '../../../../presenters/settings/stbptype/stbptypeprospectcustomerlabel_presenter.dart';
+import '../../../../presenters/settings/stbptype/stbptypeprospectlostreason_presenter.dart';
+import '../../../../presenters/settings/stbptype/stbptypeprospectstage_presenter.dart';
+import '../../../../presenters/settings/stbptype/stbptypeprospectstatus_presenter.dart';
+import '../../../../presenters/settings/stbptype/stbptypeprospecttype_presenter.dart';
 import '../../../../routes/route_list.dart';
 import '../../../../styles/color_palattes.dart';
 import '../../../../utils/session_manager.dart';
@@ -43,7 +51,6 @@ import '../../../../widgets/snackbar.dart';
 import '../../../skins/template.dart';
 import '_datatable_source.dart';
 import '_source.dart';
-import 'tabs/tabActivities_source/_category_source.dart';
 
 part 'tabs/tabActivities.dart';
 part 'tabs/tabCustomer.dart';
@@ -53,8 +60,23 @@ part 'tabs/tabGeneral/tabGeneral.dart';
 part 'tabs/tabLostReasons.dart';
 part 'tabs/tabProspect.dart';
 
+part 'tabs/tabActivities_source/_tabCategory.dart';
+part 'tabs/tabActivities_source/_tabType.dart';
+
+part 'tabs/tabProspect_source/_tabCategory.dart';
+part 'tabs/tabProspect_source/_tabCustomerLabel.dart';
+part 'tabs/tabProspect_source/_tabLostReason.dart';
+part 'tabs/tabProspect_source/_tabType.dart';
+part 'tabs/tabProspect_source/_tabStage.dart';
+part 'tabs/tabProspect_source/_tabStatus.dart';
+
+part 'tabs/sources/_form_source.dart';
+part 'tabs/sources/default_notypes.dart';
+
 final _navigation = Get.find<NavigationPresenter>();
+final _sources = Get.find<CompanySources>();
 final box = GetStorage();
+final source = _CompanyTabFormSource().obs;
 
 class CompanyView extends StatefulWidget {
   @override

@@ -14,38 +14,37 @@ import '../../../utils/session_manager.dart';
 import '../../../views/settings/company/company_setting/_source.dart';
 import '../../../widgets/confirm_dialog.dart';
 
-class StBpTypeActivityCategoryPresenter extends CustomGetXController {
+class StBpTypeProspectStagePresenter extends CustomGetXController {
   final _stBpTypeService = Get.find<StBpTypeService>();
   final _typeService = Get.put(TypeService());
   final _sources = Get.find<CompanySources>();
 
-  late IndexViewContract _stBpTypeActivityCategoryViewContract;
-  set stBpTypeActivityCategoryViewContract(
+  late IndexViewContract _stBpTypeProspectStageViewContract;
+  set stBpTypeProspectStageViewContract(
       IndexViewContract stBpTypeViewContract) {
-    _stBpTypeActivityCategoryViewContract = stBpTypeViewContract;
+    _stBpTypeProspectStageViewContract = stBpTypeViewContract;
   }
 
-  late EditViewContract _stBpTypeActivityCategoryFetchDataContract;
-  set stBpTypeActivityCategoryFetchDataContract(
+  late EditViewContract _stBpTypeProspectStageFetchDataContract;
+  set stBpTypeProspectStageFetchDataContract(
       EditViewContract stBpTypeFetchDataContract) {
-    _stBpTypeActivityCategoryFetchDataContract = stBpTypeFetchDataContract;
+    _stBpTypeProspectStageFetchDataContract = stBpTypeFetchDataContract;
   }
 
   Future datatables(BuildContext context) async {
-    Response type =
-        await _typeService.byCodeMaster(ConfigType.activitycategory);
+    Response type = await _typeService.byCodeMaster(ConfigType.prospectStage);
     for (var element in type.body) {
       _sources.type.value = TypeModel.fromJson(element);
     }
 
     int typeid = _sources.type.value.typeid!;
-    _sources.activitycategorytypeid.value = typeid;
+    _sources.prospectStagetypeid.value = typeid;
 
     Response response = await _stBpTypeService.datatable(typeid);
     if (response.statusCode == 200)
-      _stBpTypeActivityCategoryViewContract.onLoadDatatables(context, response);
+      _stBpTypeProspectStageViewContract.onLoadDatatables(context, response);
     else
-      _stBpTypeActivityCategoryViewContract.onErrorRequest(response);
+      _stBpTypeProspectStageViewContract.onErrorRequest(response);
   }
 
   void changeStatus(BuildContext context, int id, bool status) async {
@@ -60,38 +59,38 @@ class StBpTypeActivityCategoryPresenter extends CustomGetXController {
     };
     Response response = await _stBpTypeService.update(id, body);
     if (response.statusCode == 200)
-      _stBpTypeActivityCategoryViewContract.onEditSuccess(response,
+      _stBpTypeProspectStageViewContract.onEditSuccess(response,
           context: context);
     else
-      _stBpTypeActivityCategoryViewContract.onErrorRequest(response);
+      _stBpTypeProspectStageViewContract.onErrorRequest(response);
   }
 
   void save(BuildContext context, Map<String, dynamic> body) async {
     setProcessing(true);
     Response response = await _stBpTypeService.store(body);
     if (response.statusCode == 200)
-      _stBpTypeActivityCategoryViewContract.onCreateSuccess(response,
+      _stBpTypeProspectStageViewContract.onCreateSuccess(response,
           context: context);
     else
-      _stBpTypeActivityCategoryViewContract.onErrorRequest(response);
+      _stBpTypeProspectStageViewContract.onErrorRequest(response);
   }
 
   void edit(BuildContext context, int id) async {
     Response response = await _stBpTypeService.show(id);
     if (response.statusCode == 200)
-      _stBpTypeActivityCategoryFetchDataContract.onSuccessFetchData(response);
+      _stBpTypeProspectStageFetchDataContract.onSuccessFetchData(response);
     else
-      _stBpTypeActivityCategoryViewContract.onErrorRequest(response);
+      _stBpTypeProspectStageViewContract.onErrorRequest(response);
   }
 
   void update(BuildContext context, Map<String, dynamic> body, int id) async {
     setProcessing(true);
     Response response = await _stBpTypeService.update(id, body);
     if (response.statusCode == 200)
-      _stBpTypeActivityCategoryViewContract.onEditSuccess(response,
+      _stBpTypeProspectStageViewContract.onEditSuccess(response,
           context: context);
     else
-      _stBpTypeActivityCategoryViewContract.onErrorRequest(response);
+      _stBpTypeProspectStageViewContract.onErrorRequest(response);
   }
 
   void delete(BuildContext context, int typeid, String name) {
@@ -104,10 +103,10 @@ class StBpTypeActivityCategoryPresenter extends CustomGetXController {
           if (value == ConfirmDialogOption.YES_OPTION) {
             Response response = await _stBpTypeService.destroy(typeid);
             if (response.statusCode == 200)
-              _stBpTypeActivityCategoryViewContract.onDeleteSuccess(response,
+              _stBpTypeProspectStageViewContract.onDeleteSuccess(response,
                   context: context);
             else
-              _stBpTypeActivityCategoryViewContract.onErrorRequest(response);
+              _stBpTypeProspectStageViewContract.onErrorRequest(response);
           } else {
             Navigator.pop(context);
           }

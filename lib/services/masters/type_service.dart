@@ -6,6 +6,10 @@ class TypeService extends ApiConnectProvider {
   @override
   String get api => 'types';
 
+  Future<Response> byCodeMaster(String typecd) {
+    return get('$api/by-codemaster', query: {'typecd': typecd});
+  }
+
   Future<Response> byCode(String typecd) {
     return get('$api/by-code', query: {'typecd': typecd});
   }

@@ -18,6 +18,13 @@ import '../presenters/masters/village_presenter.dart';
 import '../presenters/settings/file_presenter.dart';
 import '../presenters/settings/permission_presenter.dart';
 import '../presenters/settings/stbptype/stbptypeactivitycategory_presenter.dart';
+import '../presenters/settings/stbptype/stbptypeactivitytype_presenter.dart';
+import '../presenters/settings/stbptype/stbptypeprospectcategory_presenter.dart';
+import '../presenters/settings/stbptype/stbptypeprospectcustomerlabel_presenter.dart';
+import '../presenters/settings/stbptype/stbptypeprospectlostreason_presenter.dart';
+import '../presenters/settings/stbptype/stbptypeprospectstage_presenter.dart';
+import '../presenters/settings/stbptype/stbptypeprospectstatus_presenter.dart';
+import '../presenters/settings/stbptype/stbptypeprospecttype_presenter.dart';
 import '../presenters/ventes/bpcustomer_presenter.dart';
 import '../presenters/ventes/competitor_presenter.dart';
 import '../presenters/settings/customfield_presenter.dart';
@@ -359,6 +366,13 @@ class AppRoute {
           Get.lazyPut(() => CustomerService());
           Get.lazyPut(() => StBpTypeService());
           Get.lazyPut(() => StBpTypeActivityCategoryPresenter());
+          Get.lazyPut(() => StBpTypeActivityTypePresenter());
+          Get.lazyPut(() => StBpTypeProspectCategoryPresenter());
+          Get.lazyPut(() => StBpTypeProspectCustomerLabelPresenter());
+          Get.lazyPut(() => StBpTypeProspectLostReasonPresenter());
+          Get.lazyPut(() => StBpTypeProspectTypePresenter());
+          Get.lazyPut(() => StBpTypeProspectStagePresenter());
+          Get.lazyPut(() => StBpTypeProspectStatusPresenter());
           Get.lazyPut(() => TypeService());
         }),
       ),
