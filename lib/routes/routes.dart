@@ -17,6 +17,7 @@ import '../presenters/masters/village_presenter.dart';
 import '../presenters/settings/file_presenter.dart';
 import '../presenters/settings/permission_presenter.dart';
 import '../presenters/settings/stbptype/stbptypeactivitycategory_presenter.dart';
+import '../presenters/settings/stbptype/stbptypeactivitytype_presenter.dart';
 import '../presenters/ventes/bpcustomer_presenter.dart';
 import '../presenters/ventes/competitor_presenter.dart';
 import '../presenters/settings/customfield_presenter.dart';
@@ -355,6 +356,7 @@ class AppRoute {
           Get.lazyPut(() => BusinessPartnerService());
           Get.lazyPut(() => StBpTypeService());
           Get.lazyPut(() => StBpTypeActivityCategoryPresenter());
+          Get.lazyPut(() => StBpTypeActivityTypePresenter());
         }),
       ),
       CustomGetPage(

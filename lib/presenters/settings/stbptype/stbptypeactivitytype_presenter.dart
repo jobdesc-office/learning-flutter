@@ -7,40 +7,37 @@ import '../../../constants/config_types.dart';
 import '../../../contracts/base/details_view_contract.dart';
 import '../../../contracts/base/edit_view_contract.dart';
 import '../../../contracts/base/index_view_contract.dart';
-import '../../../models/session_model.dart';
 import '../../../services/masters/stbptype_service.dart';
 import '../../../services/masters/type_service.dart';
 import '../../../utils/custom_get_controller.dart';
-import '../../../utils/session_manager.dart';
 import '../../../views/settings/company/company_setting/_source.dart';
 import '../../../widgets/confirm_dialog.dart';
 
-class StBpTypeActivityCategoryPresenter extends CustomGetXController {
+class StBpTypeActivityTypePresenter extends CustomGetXController {
   final _StBpTypeService = Get.find<StBpTypeService>();
   final _TypeService = Get.put(TypeService());
   final _sources = Get.find<CompanySources>();
 
-  late IndexViewContract _StBpTypeActivityCategoryViewContract;
-  set StBpTypeActivityCategoryViewContract(
-      IndexViewContract StBpTypeViewContract) {
-    _StBpTypeActivityCategoryViewContract = StBpTypeViewContract;
+  late IndexViewContract _StBpTypeActivityTypeViewContract;
+  set StBpTypeActivityTypeViewContract(IndexViewContract StBpTypeViewContract) {
+    _StBpTypeActivityTypeViewContract = StBpTypeViewContract;
   }
 
-  late EditViewContract _StBpTypeActivityCategoryFetchDataContract;
-  set StBpTypeActivityCategoryFetchDataContract(
+  late EditViewContract _StBpTypeActivityTypeFetchDataContract;
+  set StBpTypeActivityTypeFetchDataContract(
       EditViewContract StBpTypeFetchDataContract) {
-    _StBpTypeActivityCategoryFetchDataContract = StBpTypeFetchDataContract;
+    _StBpTypeActivityTypeFetchDataContract = StBpTypeFetchDataContract;
   }
 
-  late DetailViewContract _StBpTypeActivityCategoryDataDetailsContract;
-  set StBpTypeActivityCategoryDataDetailsContract(
+  late DetailViewContract _StBpTypeActivityTypeDataDetailsContract;
+  set StBpTypeActivityTypeDataDetailsContract(
       DetailViewContract StBpTypeDataDetailsContract) {
-    _StBpTypeActivityCategoryDataDetailsContract = StBpTypeDataDetailsContract;
+    _StBpTypeActivityTypeDataDetailsContract = StBpTypeDataDetailsContract;
   }
 
   Future datatables(BuildContext context, Map<String, String> params) async {
     late TypeModel types;
-    Response type = await _TypeService.byCode(ConfigType.activitycategory);
+    Response type = await _TypeService.byCode(ConfigType.activitytype);
     for (var element in type.body) {
       types = TypeModel.fromJson(element);
     }
@@ -50,9 +47,9 @@ class StBpTypeActivityCategoryPresenter extends CustomGetXController {
 
     Response response = await _StBpTypeService.datatable(params, typeid);
     if (response.statusCode == 200)
-      _StBpTypeActivityCategoryViewContract.onLoadDatatables(context, response);
+      _StBpTypeActivityTypeViewContract.onLoadDatatables(context, response);
     else
-      _StBpTypeActivityCategoryViewContract.onErrorRequest(response);
+      _StBpTypeActivityTypeViewContract.onErrorRequest(response);
   }
 
   // void details(BuildContext context, int userid) async {
@@ -78,50 +75,32 @@ class StBpTypeActivityCategoryPresenter extends CustomGetXController {
   //   );
   // }
 
-  void changeStatus(BuildContext context, int id, bool status) async {
-    setProcessing(true);
-    Map<String, dynamic> body;
-
-    SessionModel session = await SessionManager.current();
-    body = {
-      'createdby': session.userid,
-      'updatedby': session.userid,
-      'isactive': !status,
-    };
-    Response response = await _StBpTypeService.update(id, body);
-    if (response.statusCode == 200)
-      _StBpTypeActivityCategoryViewContract.onEditSuccess(response,
-          context: context);
-    else
-      _StBpTypeActivityCategoryViewContract.onErrorRequest(response);
-  }
-
   void save(BuildContext context, Map<String, dynamic> body) async {
     setProcessing(true);
     Response response = await _StBpTypeService.store(body);
     if (response.statusCode == 200)
-      _StBpTypeActivityCategoryViewContract.onCreateSuccess(response,
+      _StBpTypeActivityTypeViewContract.onCreateSuccess(response,
           context: context);
     else
-      _StBpTypeActivityCategoryViewContract.onErrorRequest(response);
+      _StBpTypeActivityTypeViewContract.onErrorRequest(response);
   }
 
   void edit(BuildContext context, int id) async {
     Response response = await _StBpTypeService.show(id);
     if (response.statusCode == 200)
-      _StBpTypeActivityCategoryFetchDataContract.onSuccessFetchData(response);
+      _StBpTypeActivityTypeFetchDataContract.onSuccessFetchData(response);
     else
-      _StBpTypeActivityCategoryViewContract.onErrorRequest(response);
+      _StBpTypeActivityTypeViewContract.onErrorRequest(response);
   }
 
   void update(BuildContext context, Map<String, dynamic> body, int id) async {
     setProcessing(true);
     Response response = await _StBpTypeService.update(id, body);
     if (response.statusCode == 200)
-      _StBpTypeActivityCategoryViewContract.onEditSuccess(response,
+      _StBpTypeActivityTypeViewContract.onEditSuccess(response,
           context: context);
     else
-      _StBpTypeActivityCategoryViewContract.onErrorRequest(response);
+      _StBpTypeActivityTypeViewContract.onErrorRequest(response);
   }
 
   void delete(BuildContext context, int typeid, String name) {
@@ -134,10 +113,10 @@ class StBpTypeActivityCategoryPresenter extends CustomGetXController {
           if (value == ConfirmDialogOption.YES_OPTION) {
             Response response = await _StBpTypeService.destroy(typeid);
             if (response.statusCode == 200)
-              _StBpTypeActivityCategoryViewContract.onDeleteSuccess(response,
+              _StBpTypeActivityTypeViewContract.onDeleteSuccess(response,
                   context: context);
             else
-              _StBpTypeActivityCategoryViewContract.onErrorRequest(response);
+              _StBpTypeActivityTypeViewContract.onErrorRequest(response);
           } else {
             Navigator.pop(context);
           }

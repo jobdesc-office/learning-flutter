@@ -45,6 +45,9 @@ part 'tabs/tabGeneral.dart';
 part 'tabs/tabLostReasons.dart';
 part 'tabs/tabProspect.dart';
 
+part 'tabs/tabActivities_source/_tabCategory.dart';
+part 'tabs/tabActivities_source/_tabType.dart';
+
 final _navigation = Get.find<NavigationPresenter>();
 final box = GetStorage();
 

@@ -42,6 +42,14 @@ class BaseText {
     return 'Delete $field';
   }
 
+  static String activeHintDatatable({String? field}) {
+    return '$field is Active';
+  }
+
+  static String nonactiveHintDatatable({String? field}) {
+    return '$field is Not Active';
+  }
+
   static String deleteConfirmDatatable({String? field}) {
     return 'Are you sure you want to delete $field ?';
   }
