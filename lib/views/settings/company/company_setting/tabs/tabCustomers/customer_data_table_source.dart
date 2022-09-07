@@ -1,5 +1,4 @@
 import 'package:boilerplate/constants/base_text.dart';
-import 'package:boilerplate/models/masters/customer_model.dart';
 import 'package:boilerplate/models/ventes/bpcustomer_model.dart';
 import 'package:boilerplate/presenters/navigation_presenter.dart';
 import 'package:boilerplate/styles/color_palattes.dart';

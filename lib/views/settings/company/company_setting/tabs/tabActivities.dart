@@ -7,8 +7,7 @@ class _TabActivities extends StatefulWidget {
   State<_TabActivities> createState() => _TabActivitiesState();
 }
 
-class _TabActivitiesState extends State<_TabActivities>
-    with TickerProviderStateMixin {
+class _TabActivitiesState extends State<_TabActivities> with TickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -55,8 +54,7 @@ class _TabActivitiesState extends State<_TabActivities>
   }
 }
 
-class _TabCategory extends StatelessWidget
-    implements IndexViewContract, EditViewContract {
+class _TabCategory extends StatelessWidget implements IndexViewContract, EditViewContract {
   final presenter = Get.find<StBpTypeActivityCategoryPresenter>();
   final datatable = ActivityCatDataTableSource();
   final _sources = Get.find<CompanySources>();
@@ -91,8 +89,7 @@ class _TabCategory extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Obx(() =>
-          Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      child: Obx(() => Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             if (isformactcat.value)
               BsRow(
                 children: [
@@ -105,53 +102,37 @@ class _TabCategory extends StatelessWidget
                       child: Column(
                         children: [
                           FormGroup(
-                            label: Obx(() => Text('Category Name',
-                                style: TextStyle(
-                                    color: _navigation.darkTheme.value
-                                        ? Colors.white
-                                        : Colors.black))),
+                            label: Obx(() => Text('Category Name', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
                             child: CustomInput(
                               disabled: presenter.isProcessing.value,
                               controller: inputName,
-                              hintText:
-                                  BaseText.hintText(field: 'Category Name'),
+                              hintText: BaseText.hintText(field: 'Category Name'),
                               validators: [
                                 Validators.inputRequired('Category Name'),
                               ],
                             ),
                           ),
                           FormGroup(
-                            label: Obx(() => Text('Category Type Name',
-                                style: TextStyle(
-                                    color: _navigation.darkTheme.value
-                                        ? Colors.white
-                                        : Colors.black))),
+                            label: Obx(() => Text('Category Type Name', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
                             child: CustomInput(
                               disabled: presenter.isProcessing.value,
                               controller: inputTypeName,
-                              hintText: BaseText.hintText(
-                                  field: 'Category Type Name'),
+                              hintText: BaseText.hintText(field: 'Category Type Name'),
                             ),
                           ),
                           FormGroup(
-                            label: Obx(() => Text('Category Sequel',
-                                style: TextStyle(
-                                    color: _navigation.darkTheme.value
-                                        ? Colors.white
-                                        : Colors.black))),
+                            label: Obx(() => Text('Category Sequel', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
                             child: CustomInputNumber(
                               disabled: presenter.isProcessing.value,
                               controller: inputSeq,
-                              hintText:
-                                  BaseText.hintText(field: 'Category Sequel'),
+                              hintText: BaseText.hintText(field: 'Category Sequel'),
                             ),
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               ThemeButtonSave(onPressed: () async {
-                                SessionModel session =
-                                    await SessionManager.current();
+                                SessionModel session = await SessionManager.current();
                                 Map<String, dynamic> body = {
                                   'sbtbpid': box.read('mybpid'),
                                   'sbtname': inputName.text,
@@ -189,9 +170,7 @@ class _TabCategory extends StatelessWidget
                       child: Container(
                         padding: EdgeInsets.all(20),
                         decoration: BoxDecoration(
-                          color: _navigation.darkTheme.value
-                              ? ColorPallates.elseDarkColor
-                              : Colors.white,
+                          color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : Colors.white,
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: BsRow(
@@ -201,98 +180,52 @@ class _TabCategory extends StatelessWidget
                                 children: [
                                   BsCol(
                                     child: FormGroup(
-                                        label: Text('Created By',
-                                            style: TextStyle(
-                                                color:
-                                                    _navigation.darkTheme.value
-                                                        ? Colors.white
-                                                        : Colors.black)),
+                                        label: Text('Created By', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                         child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(createdby.value),
-                                            Divider()
-                                          ],
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [Text(createdby.value), Divider()],
                                         )),
                                   ),
                                   BsCol(
                                     margin: EdgeInsets.only(top: 10),
                                     child: FormGroup(
-                                        label: Text('Created At',
-                                            style: TextStyle(
-                                                color:
-                                                    _navigation.darkTheme.value
-                                                        ? Colors.white
-                                                        : Colors.black)),
+                                        label: Text('Created At', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                         child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(createddate.value),
-                                            Divider()
-                                          ],
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [Text(createddate.value), Divider()],
                                         )),
                                   ),
                                   BsCol(
                                     margin: EdgeInsets.only(top: 10),
                                     child: FormGroup(
-                                        label: Text('Last Updated By',
-                                            style: TextStyle(
-                                                color:
-                                                    _navigation.darkTheme.value
-                                                        ? Colors.white
-                                                        : Colors.black)),
+                                        label: Text('Last Updated By', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                         child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(updatedby.value),
-                                            Divider()
-                                          ],
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [Text(updatedby.value), Divider()],
                                         )),
                                   ),
                                   BsCol(
                                     margin: EdgeInsets.only(top: 10),
                                     child: FormGroup(
-                                        label: Text('Last Updated At',
-                                            style: TextStyle(
-                                                color:
-                                                    _navigation.darkTheme.value
-                                                        ? Colors.white
-                                                        : Colors.black)),
+                                        label: Text('Last Updated At', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                         child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(updateddate.value),
-                                            Divider()
-                                          ],
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [Text(updateddate.value), Divider()],
                                         )),
                                   ),
                                   BsCol(
                                     margin: EdgeInsets.only(top: 10),
                                     child: FormGroup(
-                                        label: Text('Is Active',
-                                            style: TextStyle(
-                                                color:
-                                                    _navigation.darkTheme.value
-                                                        ? Colors.white
-                                                        : Colors.black)),
+                                        label: Text('Is Active', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                         child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             if (isactive.value)
                                               InkWell(
                                                 child: Icon(
                                                   Icons.toggle_on,
                                                   size: 35,
-                                                  color: _navigation
-                                                          .darkTheme.value
-                                                      ? ColorPallates.onDarkMode
-                                                      : ColorPallates
-                                                          .onLightMode,
+                                                  color: _navigation.darkTheme.value ? ColorPallates.onDarkMode : ColorPallates.onLightMode,
                                                 ),
                                                 onTap: () => isactive.toggle(),
                                               )
@@ -301,12 +234,7 @@ class _TabCategory extends StatelessWidget
                                                 child: Icon(
                                                   Icons.toggle_off,
                                                   size: 35,
-                                                  color: _navigation
-                                                          .darkTheme.value
-                                                      ? ColorPallates
-                                                          .offDarkMode
-                                                      : ColorPallates
-                                                          .offLightMode,
+                                                  color: _navigation.darkTheme.value ? ColorPallates.offDarkMode : ColorPallates.offLightMode,
                                                 ),
                                                 onTap: () => isactive.toggle(),
                                               ),
@@ -340,8 +268,7 @@ class _TabCategory extends StatelessWidget
                         }
                       })
                 ],
-                serverSide: (params) => presenter.datatables(
-                    context, params, ConfigType.activitycategory)),
+                serverSide: (params) => presenter.datatables(context, params, ConfigType.activitycategory)),
           ])),
     );
   }
@@ -386,8 +313,7 @@ class _TabCategory extends StatelessWidget
     // datatable.onDetailsListener =
     //     (typeid) => presenter.details(context, typeid);
     datatable.onEditListener = (typeid) => presenter.edit(context, typeid);
-    datatable.onDeleteListener =
-        (typeid, name) => presenter.delete(context, typeid, name);
+    datatable.onDeleteListener = (typeid, name) => presenter.delete(context, typeid, name);
     // else
     //   datatable.onDeleteListener =
     //       (typeid, name) => Snackbar().regionDeletePermission();

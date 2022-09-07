@@ -1,5 +1,5 @@
-import 'package:boilerplate/views/settings/company/company_setting/cp_customer_presenter.dart';
-import 'package:boilerplate/views/settings/company/company_setting/cp_general_presenter.dart';
+import 'package:boilerplate/views/settings/company/company_setting/tabs/tabCustomers/cp_customer_presenter.dart';
+import 'package:boilerplate/views/settings/company/company_setting/tabs/tabGeneral/cp_general_presenter.dart';
 import 'package:get/get.dart';
 
 import '../presenters/default/home_presenter.dart';
@@ -356,8 +356,10 @@ class AppRoute {
           Get.lazyPut(() => CPCustomerPresenter());
           Get.lazyPut(() => BusinessPartnerService());
           Get.lazyPut(() => BpCustomerService());
+          Get.lazyPut(() => CustomerService());
           Get.lazyPut(() => StBpTypeService());
           Get.lazyPut(() => StBpTypeActivityCategoryPresenter());
+          Get.lazyPut(() => TypeService());
         }),
       ),
       CustomGetPage(

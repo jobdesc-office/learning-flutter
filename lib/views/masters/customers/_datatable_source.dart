@@ -47,8 +47,7 @@ class CustomerDataTableSource extends BsDatatableSource {
     ];
   }
 
-  List<CustomerModel> get customers =>
-      response.data.map((data) => CustomerModel.fromJson(data)).toList();
+  List<CustomerModel> get customers => response.data.map((data) => CustomerModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
@@ -117,9 +116,7 @@ class CustomerDataTableSource extends BsDatatableSource {
               //     .hasaccess!)
               Tooltip(
                 message: BaseText.deleteHintDatatable(field: row.cstmname),
-                child: ButtonDeleteDatatables(
-                    onPressed: () =>
-                        onDeleteListener(row.cstmid, row.cstmname)),
+                child: ButtonDeleteDatatables(onPressed: () => onDeleteListener(row.cstmid, row.cstmname)),
               ),
             ],
           ),

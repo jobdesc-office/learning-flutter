@@ -1,4 +1,4 @@
-part of '../company.dart';
+part of '../../company.dart';
 
 class _TabGeneral extends StatelessWidget implements EditViewContract, IndexViewContract {
   final _source = GeneralSource().obs;
@@ -36,7 +36,7 @@ class _TabGeneral extends StatelessWidget implements EditViewContract, IndexView
           ),
         ),
         BsCol(
-          margin: EdgeInsets.only(top: 20),
+          margin: EdgeInsets.only(top: 10),
           child: BsRow(
             children: [
               BsCol(
@@ -51,7 +51,7 @@ class _TabGeneral extends StatelessWidget implements EditViewContract, IndexView
           ),
         ),
         BsCol(
-          margin: EdgeInsets.only(top: 20),
+          margin: EdgeInsets.only(top: 10),
           child: BsRow(
             children: [
               BsCol(
@@ -66,7 +66,7 @@ class _TabGeneral extends StatelessWidget implements EditViewContract, IndexView
           ),
         ),
         BsCol(
-          margin: EdgeInsets.only(top: 20),
+          margin: EdgeInsets.only(top: 10),
           child: BsRow(
             children: [
               BsCol(
@@ -81,7 +81,7 @@ class _TabGeneral extends StatelessWidget implements EditViewContract, IndexView
           ),
         ),
         BsCol(
-          margin: EdgeInsets.only(top: 20),
+          margin: EdgeInsets.only(top: 10),
           child: BsRow(
             children: [
               BsCol(
@@ -91,7 +91,7 @@ class _TabGeneral extends StatelessWidget implements EditViewContract, IndexView
               BsCol(
                 sizes: ColScreen(sm: Col.col_7),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     selectSubdistrict(),
                     Obx(() {
