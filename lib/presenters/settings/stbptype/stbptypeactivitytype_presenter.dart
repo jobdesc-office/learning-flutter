@@ -7,9 +7,11 @@ import '../../../constants/config_types.dart';
 import '../../../contracts/base/details_view_contract.dart';
 import '../../../contracts/base/edit_view_contract.dart';
 import '../../../contracts/base/index_view_contract.dart';
+import '../../../models/session_model.dart';
 import '../../../services/masters/stbptype_service.dart';
 import '../../../services/masters/type_service.dart';
 import '../../../utils/custom_get_controller.dart';
+import '../../../utils/session_manager.dart';
 import '../../../views/settings/company/company_setting/_source.dart';
 import '../../../widgets/confirm_dialog.dart';
 
@@ -29,14 +31,33 @@ class StBpTypeActivityTypePresenter extends CustomGetXController {
     _stBpTypeActivityTypeFetchDataContract = stBpTypeFetchDataContract;
   }
 
-  Future datatables(BuildContext context, Map<String, String> params) async {
-    late TypeModel types;
+  void changeStatus(BuildContext context, int id, bool status) async {
+    setProcessing(true);
+    Map<String, dynamic> body;
+
+    SessionModel session = await SessionManager.current();
+    body = {
+      'createdby': session.userid,
+      'updatedby': session.userid,
+      'isactive': !status,
+    };
+    Response response = await _stBpTypeService.update(id, body);
+    if (response.statusCode == 200)
+      _stBpTypeActivityTypeViewContract.onEditSuccess(response,
+          context: context);
+    else
+      _stBpTypeActivityTypeViewContract.onErrorRequest(response);
+  }
+
+  Future datatables(BuildContext context) async {
     Response type = await _typeService.byCodeMaster(ConfigType.activitytype);
 
-    types = TypeModel.fromJson(type.body);
+    for (var element in type.body) {
+      _sources.type.value = TypeModel.fromJson(element);
+    }
 
-    int typeid = types.typemasterid!;
-    _sources.typeid.value = typeid;
+    int typeid = _sources.type.value.typeid!;
+    _sources.activitytypetypeid.value = typeid;
 
     Response response = await _stBpTypeService.datatable(typeid);
     if (response.statusCode == 200)

@@ -24,7 +24,7 @@ class _CompanyTabFormSource extends GetxController {
     inputSeq.text = '';
   }
 
-  Widget form(BuildContext context) {
+  Widget form(BuildContext context, presenter, int typeid) {
     return BsRow(
       children: [
         BsCol(
@@ -83,7 +83,7 @@ class _CompanyTabFormSource extends GetxController {
                         'sbtbpid': box.read('mybpid'),
                         'sbtname': inputName.text,
                         'sbtseq': inputSeq.text,
-                        'sbttypemasterid': _sources.typeid.value,
+                        'sbttypemasterid': typeid,
                         'sbttypename': inputTypeName.text,
                         'createdby': session.userid,
                         'updatedby': session.userid,

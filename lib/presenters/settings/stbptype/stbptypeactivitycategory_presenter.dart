@@ -39,7 +39,7 @@ class StBpTypeActivityCategoryPresenter extends CustomGetXController {
     }
 
     int typeid = _sources.type.value.typeid!;
-    _sources.typeid.value = typeid;
+    _sources.activitycategorytypeid.value = typeid;
 
     Response response = await _stBpTypeService.datatable(typeid);
     if (response.statusCode == 200)

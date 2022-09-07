@@ -21,6 +21,7 @@ import '../../../../models/session_model.dart';
 import '../../../../models/settings/stbptype_model.dart';
 import '../../../../presenters/navigation_presenter.dart';
 import '../../../../presenters/settings/stbptype/stbptypeactivitycategory_presenter.dart';
+import '../../../../presenters/settings/stbptype/stbptypeactivitytype_presenter.dart';
 import '../../../../routes/route_list.dart';
 import '../../../../styles/color_palattes.dart';
 import '../../../../utils/session_manager.dart';
@@ -56,7 +57,7 @@ part 'tabs/sources/_form_source.dart';
 final _navigation = Get.find<NavigationPresenter>();
 final _sources = Get.find<CompanySources>();
 final box = GetStorage();
-final presenter = Get.find<StBpTypeActivityCategoryPresenter>();
+final source = _CompanyTabFormSource().obs;
 
 class CompanyView extends StatefulWidget {
   const CompanyView({Key? key}) : super(key: key);

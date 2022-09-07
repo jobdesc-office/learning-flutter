@@ -44,9 +44,11 @@ class _TabActivitiesState extends State<_TabActivities>
                 controller: _tabController,
                 children: [
                   _TabActivityCategory(
-                    context: context,
+                    context,
                   ),
-                  _TabActivityType(),
+                  _TabActivityType(
+                    context,
+                  ),
                 ],
               ),
             ),

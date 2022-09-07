@@ -2,10 +2,10 @@ part of '../../company.dart';
 
 class _TabActivityCategory extends StatelessWidget
     implements IndexViewContract, EditViewContract {
-  final source = _CompanyTabFormSource().obs;
   final BuildContext context;
+  final presenter = Get.find<StBpTypeActivityCategoryPresenter>();
 
-  _TabActivityCategory({required this.context}) {
+  _TabActivityCategory(this.context) {
     presenter.datatables(context);
 
     presenter.stBpTypeActivityCategoryViewContract = this;
@@ -19,7 +19,9 @@ class _TabActivityCategory extends StatelessWidget
             padding: EdgeInsets.all(10),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-              if (source.value.isformactcat.value) source.value.form(context),
+              if (source.value.isformactcat.value)
+                source.value.form(
+                    context, presenter, _sources.activitycategorytypeid.value),
               ThemeButtonCreate(
                   prefix: 'Category',
                   onPressed: () {
@@ -35,8 +37,8 @@ class _TabActivityCategory extends StatelessWidget
               Container(
                 margin: EdgeInsets.only(top: 10),
                 child: Column(
-                  children: _sources.stbp.map((e) {
-                    int index = _sources.stbp.indexOf(e);
+                  children: _sources.stbpactivitycategory.map((e) {
+                    int index = _sources.stbpactivitycategory.indexOf(e);
                     return BsRow(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -166,7 +168,7 @@ class _TabActivityCategory extends StatelessWidget
       stbpraw.add(StbptypeModel.fromJson(element));
     }
 
-    _sources.stbp.value = stbpraw;
+    _sources.stbpactivitycategory.value = stbpraw;
   }
 
   @override
