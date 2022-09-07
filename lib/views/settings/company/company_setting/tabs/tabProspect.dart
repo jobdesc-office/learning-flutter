@@ -1,73 +1,60 @@
 part of '../company.dart';
 
-class _TabProspect extends StatelessWidget {
+class _TabProspect extends StatefulWidget {
   const _TabProspect({Key? key}) : super(key: key);
 
   @override
+  State<_TabProspect> createState() => _TabProspectState();
+}
+
+class _TabProspectState extends State<_TabProspect>
+    with TickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 6, vsync: this);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    List data = ['data', 'data', 'data'];
     return Container(
-      margin: EdgeInsets.all(20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      margin: EdgeInsets.all(5),
+      child: BsRow(
         children: [
-          Text('Prospect Types',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-          Container(
-            margin: EdgeInsets.only(top: 10),
-            child: Row(
-              children: [
-                Text(
-                    'Here You can Customize Which Type of Prospect can Used in Your Company.'),
-                Text(
-                  ' You can Rearrange Them By Dragging and Dropping',
-                  style: TextStyle(color: Colors.red),
-                )
+          BsCol(
+            sizes: ColScreen(sm: Col.col_8),
+            child: TabBar(
+              controller: _tabController,
+              labelColor: Colors.green,
+              unselectedLabelColor: Colors.black,
+              tabs: [
+                Tab(text: 'Category'),
+                Tab(text: 'Customer Label'),
+                Tab(text: 'Lost Reason'),
+                Tab(text: 'Stage'),
+                Tab(text: 'Status'),
+                Tab(text: 'Type'),
               ],
             ),
           ),
-          Container(
-              margin: EdgeInsets.only(top: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          BsCol(
+            sizes: ColScreen(sm: Col.col_12),
+            child: Container(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height * 0.9,
+              child: TabBarView(
+                controller: _tabController,
                 children: [
-                  Icon(Icons.toggle_off),
-                  BsButton(
-                    size: BsButtonSize.btnSm,
-                    onPressed: () {},
-                    style: BsButtonStyle.success,
-                    label: Text('Add Activity Type'),
-                  )
+                  _TabProspectCategory(context),
+                  _TabProspectCustomerLabel(context),
+                  _TabProspectLostReason(context),
+                  _TabProspectStage(context),
+                  _TabProspectStatus(context),
+                  _TabProspectType(context),
                 ],
-              )),
-          Container(
-            margin: EdgeInsets.only(top: 10),
-            child: Column(
-              children: data
-                  .map((e) => Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Text(e,
-                                  style: TextStyle(
-                                      color: Colors.blue,
-                                      fontWeight: FontWeight.bold)),
-                              Container(
-                                margin: EdgeInsets.only(left: 200),
-                                child: Row(
-                                  children: [Icon(Icons.abc), Text('Example')],
-                                ),
-                              )
-                            ],
-                          ),
-                          Text(
-                            'Edit | Deactive',
-                            style: TextStyle(color: Colors.blue),
-                          )
-                        ],
-                      ))
-                  .toList(),
+              ),
             ),
           )
         ],

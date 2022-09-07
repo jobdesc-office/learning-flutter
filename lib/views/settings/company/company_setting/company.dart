@@ -22,14 +22,16 @@ import '../../../../models/settings/stbptype_model.dart';
 import '../../../../presenters/navigation_presenter.dart';
 import '../../../../presenters/settings/stbptype/stbptypeactivitycategory_presenter.dart';
 import '../../../../presenters/settings/stbptype/stbptypeactivitytype_presenter.dart';
+import '../../../../presenters/settings/stbptype/stbptypeprospectcategory_presenter.dart';
+import '../../../../presenters/settings/stbptype/stbptypeprospectcustomerlabel_presenter.dart';
+import '../../../../presenters/settings/stbptype/stbptypeprospectlostreason_presenter.dart';
+import '../../../../presenters/settings/stbptype/stbptypeprospectstage_presenter.dart';
+import '../../../../presenters/settings/stbptype/stbptypeprospectstatus_presenter.dart';
+import '../../../../presenters/settings/stbptype/stbptypeprospecttype_presenter.dart';
 import '../../../../routes/route_list.dart';
 import '../../../../styles/color_palattes.dart';
 import '../../../../utils/session_manager.dart';
 import '../../../../widgets/breadcrumb.dart';
-import '../../../../widgets/button/button_X_datatable.dart';
-import '../../../../widgets/button/button_check_datatable.dart';
-import '../../../../widgets/button/button_delete_datatable.dart';
-import '../../../../widgets/button/button_edit_datatable.dart';
 import '../../../../widgets/button/theme_button_create.dart';
 import '../../../../widgets/button/theme_button_save.dart';
 import '../../../../widgets/datatables/custom_datatable.dart';
@@ -52,7 +54,15 @@ part 'tabs/tabProspect.dart';
 part 'tabs/tabActivities_source/_tabCategory.dart';
 part 'tabs/tabActivities_source/_tabType.dart';
 
+part 'tabs/tabProspect_source/_tabCategory.dart';
+part 'tabs/tabProspect_source/_tabCustomerLabel.dart';
+part 'tabs/tabProspect_source/_tabLostReason.dart';
+part 'tabs/tabProspect_source/_tabType.dart';
+part 'tabs/tabProspect_source/_tabStage.dart';
+part 'tabs/tabProspect_source/_tabStatus.dart';
+
 part 'tabs/sources/_form_source.dart';
+part 'tabs/sources/default_notypes.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 final _sources = Get.find<CompanySources>();
@@ -125,8 +135,8 @@ class _CompanyViewState extends State<CompanyView>
                         children: [
                           _TabGeneral(),
                           _TabActivities(),
-                          _TabCustomer(),
                           _TabProspect(),
+                          _TabCustomer(),
                         ],
                       ),
                     ),

@@ -1,13 +1,15 @@
 part of '../../company.dart';
 
-class _TabActivityType extends StatelessWidget
+class _TabProspectStage extends StatelessWidget
     implements IndexViewContract, EditViewContract {
   final BuildContext context;
-  final presenter = Get.find<StBpTypeActivityTypePresenter>();
-  _TabActivityType(this.context) {
+  final presenter = Get.find<StBpTypeProspectStagePresenter>();
+
+  _TabProspectStage(this.context) {
     presenter.datatables(context);
-    presenter.stBpTypeActivityTypeViewContract = this;
-    presenter.stBpTypeActivityTypeFetchDataContract = this;
+
+    presenter.stBpTypeProspectStageViewContract = this;
+    presenter.stBpTypeProspectStageFetchDataContract = this;
   }
 
   @override
@@ -19,7 +21,7 @@ class _TabActivityType extends StatelessWidget
                 Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
               if (source.value.isformactcat.value)
                 source.value.form(
-                    context, presenter, _sources.activitytypetypeid.value),
+                    context, presenter, _sources.prospectStagetypeid.value),
               ThemeButtonCreate(
                   prefix: 'Type',
                   onPressed: () {
@@ -32,12 +34,12 @@ class _TabActivityType extends StatelessWidget
                       source.value.reset();
                     }
                   }),
-              if (_sources.stbpactivitytype.isNotEmpty)
+              if (_sources.stbpprospectstage.isNotEmpty)
                 Container(
                   margin: EdgeInsets.only(top: 10),
                   child: Column(
-                    children: _sources.stbpactivitytype.map((e) {
-                      int index = _sources.stbpactivitytype.indexOf(e);
+                    children: _sources.stbpprospectstage.map((e) {
+                      int index = _sources.stbpprospectstage.indexOf(e);
                       return BsRow(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -169,7 +171,7 @@ class _TabActivityType extends StatelessWidget
       stbpraw.add(StbptypeModel.fromJson(element));
     }
 
-    _sources.stbpactivitytype.value = stbpraw;
+    _sources.stbpprospectstage.value = stbpraw;
   }
 
   @override

@@ -1,13 +1,15 @@
 part of '../../company.dart';
 
-class _TabActivityType extends StatelessWidget
+class _TabProspectCustomerLabel extends StatelessWidget
     implements IndexViewContract, EditViewContract {
   final BuildContext context;
-  final presenter = Get.find<StBpTypeActivityTypePresenter>();
-  _TabActivityType(this.context) {
+  final presenter = Get.find<StBpTypeProspectCustomerLabelPresenter>();
+
+  _TabProspectCustomerLabel(this.context) {
     presenter.datatables(context);
-    presenter.stBpTypeActivityTypeViewContract = this;
-    presenter.stBpTypeActivityTypeFetchDataContract = this;
+
+    presenter.stBpTypeProspectCustomerLabelViewContract = this;
+    presenter.stBpTypeProspectCustomerLabelFetchDataContract = this;
   }
 
   @override
@@ -18,10 +20,10 @@ class _TabActivityType extends StatelessWidget
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
               if (source.value.isformactcat.value)
-                source.value.form(
-                    context, presenter, _sources.activitytypetypeid.value),
+                source.value.form(context, presenter,
+                    _sources.prospectCustomerLabeltypeid.value),
               ThemeButtonCreate(
-                  prefix: 'Type',
+                  prefix: 'Customer Label',
                   onPressed: () {
                     if (source.value.isupdate.value) {
                       source.value.isupdate.value = false;
@@ -32,12 +34,12 @@ class _TabActivityType extends StatelessWidget
                       source.value.reset();
                     }
                   }),
-              if (_sources.stbpactivitytype.isNotEmpty)
+              if (_sources.stbpprospectcustomerlabel.isNotEmpty)
                 Container(
                   margin: EdgeInsets.only(top: 10),
                   child: Column(
-                    children: _sources.stbpactivitytype.map((e) {
-                      int index = _sources.stbpactivitytype.indexOf(e);
+                    children: _sources.stbpprospectcustomerlabel.map((e) {
+                      int index = _sources.stbpprospectcustomerlabel.indexOf(e);
                       return BsRow(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -169,7 +171,7 @@ class _TabActivityType extends StatelessWidget
       stbpraw.add(StbptypeModel.fromJson(element));
     }
 
-    _sources.stbpactivitytype.value = stbpraw;
+    _sources.stbpprospectcustomerlabel.value = stbpraw;
   }
 
   @override

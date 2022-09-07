@@ -34,94 +34,97 @@ class _TabActivityCategory extends StatelessWidget
                       source.value.reset();
                     }
                   }),
-              Container(
-                margin: EdgeInsets.only(top: 10),
-                child: Column(
-                  children: _sources.stbpactivitycategory.map((e) {
-                    int index = _sources.stbpactivitycategory.indexOf(e);
-                    return BsRow(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(5)),
-                        color: _navigation.darkTheme.value
-                            ? index % 2 == 0
-                                ? ColorPallates.datatableDarkEvenRowColor
-                                : ColorPallates.datatableDarkOddRowColor
-                            : index % 2 == 0
-                                ? ColorPallates.datatableLightEvenRowColor
-                                : ColorPallates.datatableLightOddRowColor,
-                      ),
-                      padding: EdgeInsets.all(5),
-                      margin: EdgeInsets.only(top: 5),
-                      children: [
-                        BsCol(
-                            sizes: ColScreen(sm: Col.col_4),
-                            child: Text(
-                              e.sbtname ?? '',
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
-                            )),
-                        BsCol(
-                            sizes: ColScreen(sm: Col.col_4),
-                            child: Text(e.sbttypename ?? '',
-                                style: TextStyle(fontSize: 18))),
-                        BsCol(
-                          sizes: ColScreen(sm: Col.col_3),
-                          child: BsRow(
-                            children: [
-                              BsCol(
-                                sizes: ColScreen(sm: Col.col_2),
-                                child: InkWell(
-                                  onTap: () =>
-                                      presenter.edit(context, e.sbtid!),
-                                  child: Text('Edit',
-                                      style: TextStyle(fontSize: 18)),
-                                ),
-                              ),
-                              BsCol(
-                                  sizes: ColScreen(sm: Col.col_1),
-                                  child: Text('|',
-                                      style: TextStyle(fontSize: 18))),
-                              if (e.isactive!)
+              if (_sources.stbpactivitycategory.isNotEmpty)
+                Container(
+                  margin: EdgeInsets.only(top: 10),
+                  child: Column(
+                    children: _sources.stbpactivitycategory.map((e) {
+                      int index = _sources.stbpactivitycategory.indexOf(e);
+                      return BsRow(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                          color: _navigation.darkTheme.value
+                              ? index % 2 == 0
+                                  ? ColorPallates.datatableDarkEvenRowColor
+                                  : ColorPallates.datatableDarkOddRowColor
+                              : index % 2 == 0
+                                  ? ColorPallates.datatableLightEvenRowColor
+                                  : ColorPallates.datatableLightOddRowColor,
+                        ),
+                        padding: EdgeInsets.all(5),
+                        margin: EdgeInsets.only(top: 5),
+                        children: [
+                          BsCol(
+                              sizes: ColScreen(sm: Col.col_4),
+                              child: Text(
+                                e.sbtname ?? '',
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
+                              )),
+                          BsCol(
+                              sizes: ColScreen(sm: Col.col_4),
+                              child: Text(e.sbttypename ?? '',
+                                  style: TextStyle(fontSize: 18))),
+                          BsCol(
+                            sizes: ColScreen(sm: Col.col_3),
+                            child: BsRow(
+                              children: [
                                 BsCol(
-                                  sizes: ColScreen(sm: Col.col_5),
+                                  sizes: ColScreen(sm: Col.col_2),
                                   child: InkWell(
-                                    onTap: () => presenter.changeStatus(
-                                        context, e.sbtid!, e.isactive!),
-                                    child: Text('Active',
-                                        style: TextStyle(fontSize: 18)),
-                                  ),
-                                )
-                              else
-                                BsCol(
-                                  sizes: ColScreen(sm: Col.col_5),
-                                  child: InkWell(
-                                    onTap: () => presenter.changeStatus(
-                                        context, e.sbtid!, e.isactive!),
-                                    child: Text('Not Active',
+                                    onTap: () =>
+                                        presenter.edit(context, e.sbtid!),
+                                    child: Text('Edit',
                                         style: TextStyle(fontSize: 18)),
                                   ),
                                 ),
-                              BsCol(
-                                  sizes: ColScreen(sm: Col.col_1),
-                                  child: Text('|',
-                                      style: TextStyle(fontSize: 18))),
-                              BsCol(
-                                sizes: ColScreen(sm: Col.col_3),
-                                child: InkWell(
-                                  onTap: () => presenter.delete(
-                                      context, e.sbtid!, e.sbtname ?? ''),
-                                  child: Text('Delete',
-                                      style: TextStyle(fontSize: 18)),
+                                BsCol(
+                                    sizes: ColScreen(sm: Col.col_1),
+                                    child: Text('|',
+                                        style: TextStyle(fontSize: 18))),
+                                if (e.isactive!)
+                                  BsCol(
+                                    sizes: ColScreen(sm: Col.col_5),
+                                    child: InkWell(
+                                      onTap: () => presenter.changeStatus(
+                                          context, e.sbtid!, e.isactive!),
+                                      child: Text('Active',
+                                          style: TextStyle(fontSize: 18)),
+                                    ),
+                                  )
+                                else
+                                  BsCol(
+                                    sizes: ColScreen(sm: Col.col_5),
+                                    child: InkWell(
+                                      onTap: () => presenter.changeStatus(
+                                          context, e.sbtid!, e.isactive!),
+                                      child: Text('Not Active',
+                                          style: TextStyle(fontSize: 18)),
+                                    ),
+                                  ),
+                                BsCol(
+                                    sizes: ColScreen(sm: Col.col_1),
+                                    child: Text('|',
+                                        style: TextStyle(fontSize: 18))),
+                                BsCol(
+                                  sizes: ColScreen(sm: Col.col_3),
+                                  child: InkWell(
+                                    onTap: () => presenter.delete(
+                                        context, e.sbtid!, e.sbtname ?? ''),
+                                    child: Text('Delete',
+                                        style: TextStyle(fontSize: 18)),
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    );
-                  }).toList(),
-                ),
-              ),
+                              ],
+                            ),
+                          )
+                        ],
+                      );
+                    }).toList(),
+                  ),
+                )
+              else
+                _DefautlNoTypes(),
             ]),
           )),
     );
