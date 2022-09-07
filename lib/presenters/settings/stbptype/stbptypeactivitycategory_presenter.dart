@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 import '../../../constants/base_text.dart';
 import '../../../constants/config_types.dart';
-import '../../../contracts/base/details_view_contract.dart';
 import '../../../contracts/base/edit_view_contract.dart';
 import '../../../contracts/base/index_view_contract.dart';
 import '../../../models/session_model.dart';
@@ -16,67 +15,38 @@ import '../../../views/settings/company/company_setting/_source.dart';
 import '../../../widgets/confirm_dialog.dart';
 
 class StBpTypeActivityCategoryPresenter extends CustomGetXController {
-  final _StBpTypeService = Get.find<StBpTypeService>();
-  final _TypeService = Get.put(TypeService());
+  final _stBpTypeService = Get.find<StBpTypeService>();
+  final _typeService = Get.put(TypeService());
   final _sources = Get.find<CompanySources>();
 
-  late IndexViewContract _StBpTypeActivityCategoryViewContract;
-  set StBpTypeActivityCategoryViewContract(
-      IndexViewContract StBpTypeViewContract) {
-    _StBpTypeActivityCategoryViewContract = StBpTypeViewContract;
+  late IndexViewContract _stBpTypeActivityCategoryViewContract;
+  set stBpTypeActivityCategoryViewContract(
+      IndexViewContract stBpTypeViewContract) {
+    _stBpTypeActivityCategoryViewContract = stBpTypeViewContract;
   }
 
-  late EditViewContract _StBpTypeActivityCategoryFetchDataContract;
-  set StBpTypeActivityCategoryFetchDataContract(
-      EditViewContract StBpTypeFetchDataContract) {
-    _StBpTypeActivityCategoryFetchDataContract = StBpTypeFetchDataContract;
+  late EditViewContract _stBpTypeActivityCategoryFetchDataContract;
+  set stBpTypeActivityCategoryFetchDataContract(
+      EditViewContract stBpTypeFetchDataContract) {
+    _stBpTypeActivityCategoryFetchDataContract = stBpTypeFetchDataContract;
   }
 
-  late DetailViewContract _StBpTypeActivityCategoryDataDetailsContract;
-  set StBpTypeActivityCategoryDataDetailsContract(
-      DetailViewContract StBpTypeDataDetailsContract) {
-    _StBpTypeActivityCategoryDataDetailsContract = StBpTypeDataDetailsContract;
-  }
-
-  Future datatables(BuildContext context, Map<String, String> params) async {
-    late TypeModel types;
-    Response type = await _TypeService.byCode(ConfigType.activitycategory);
+  Future datatables(BuildContext context) async {
+    Response type =
+        await _typeService.byCodeMaster(ConfigType.activitycategory);
     for (var element in type.body) {
-      types = TypeModel.fromJson(element);
+      _sources.type.value = TypeModel.fromJson(element);
     }
 
-    int typeid = types.typemasterid!;
+    int typeid = _sources.type.value.typeid!;
     _sources.typeid.value = typeid;
 
-    Response response = await _StBpTypeService.datatable(params, typeid);
+    Response response = await _stBpTypeService.datatable(typeid);
     if (response.statusCode == 200)
-      _StBpTypeActivityCategoryViewContract.onLoadDatatables(context, response);
+      _stBpTypeActivityCategoryViewContract.onLoadDatatables(context, response);
     else
-      _StBpTypeActivityCategoryViewContract.onErrorRequest(response);
+      _stBpTypeActivityCategoryViewContract.onErrorRequest(response);
   }
-
-  // void details(BuildContext context, int userid) async {
-  //   setProcessing(true);
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) => StBpTypeDetails(),
-  //   );
-
-  //   Response response = await _StBpTypeService.show(userid);
-  //   if (response.statusCode == 200)
-  //     _StBpTypeDataDetailsContract.onSuccessFetchData(response);
-  //   else
-  //     _StBpTypeViewContract.onErrorRequest(response);
-  // }
-
-  // void add(BuildContext context) async {
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) => StBpTypeFormView(
-  //       onSave: (body) => save(context, body),
-  //     ),
-  //   );
-  // }
 
   void changeStatus(BuildContext context, int id, bool status) async {
     setProcessing(true);
@@ -88,40 +58,40 @@ class StBpTypeActivityCategoryPresenter extends CustomGetXController {
       'updatedby': session.userid,
       'isactive': !status,
     };
-    Response response = await _StBpTypeService.update(id, body);
+    Response response = await _stBpTypeService.update(id, body);
     if (response.statusCode == 200)
-      _StBpTypeActivityCategoryViewContract.onEditSuccess(response,
+      _stBpTypeActivityCategoryViewContract.onEditSuccess(response,
           context: context);
     else
-      _StBpTypeActivityCategoryViewContract.onErrorRequest(response);
+      _stBpTypeActivityCategoryViewContract.onErrorRequest(response);
   }
 
   void save(BuildContext context, Map<String, dynamic> body) async {
     setProcessing(true);
-    Response response = await _StBpTypeService.store(body);
+    Response response = await _stBpTypeService.store(body);
     if (response.statusCode == 200)
-      _StBpTypeActivityCategoryViewContract.onCreateSuccess(response,
+      _stBpTypeActivityCategoryViewContract.onCreateSuccess(response,
           context: context);
     else
-      _StBpTypeActivityCategoryViewContract.onErrorRequest(response);
+      _stBpTypeActivityCategoryViewContract.onErrorRequest(response);
   }
 
   void edit(BuildContext context, int id) async {
-    Response response = await _StBpTypeService.show(id);
+    Response response = await _stBpTypeService.show(id);
     if (response.statusCode == 200)
-      _StBpTypeActivityCategoryFetchDataContract.onSuccessFetchData(response);
+      _stBpTypeActivityCategoryFetchDataContract.onSuccessFetchData(response);
     else
-      _StBpTypeActivityCategoryViewContract.onErrorRequest(response);
+      _stBpTypeActivityCategoryViewContract.onErrorRequest(response);
   }
 
   void update(BuildContext context, Map<String, dynamic> body, int id) async {
     setProcessing(true);
-    Response response = await _StBpTypeService.update(id, body);
+    Response response = await _stBpTypeService.update(id, body);
     if (response.statusCode == 200)
-      _StBpTypeActivityCategoryViewContract.onEditSuccess(response,
+      _stBpTypeActivityCategoryViewContract.onEditSuccess(response,
           context: context);
     else
-      _StBpTypeActivityCategoryViewContract.onErrorRequest(response);
+      _stBpTypeActivityCategoryViewContract.onErrorRequest(response);
   }
 
   void delete(BuildContext context, int typeid, String name) {
@@ -132,12 +102,12 @@ class StBpTypeActivityCategoryPresenter extends CustomGetXController {
         message: BaseText.deleteConfirmDatatable(field: name),
         onPressed: (_, value) async {
           if (value == ConfirmDialogOption.YES_OPTION) {
-            Response response = await _StBpTypeService.destroy(typeid);
+            Response response = await _stBpTypeService.destroy(typeid);
             if (response.statusCode == 200)
-              _StBpTypeActivityCategoryViewContract.onDeleteSuccess(response,
+              _stBpTypeActivityCategoryViewContract.onDeleteSuccess(response,
                   context: context);
             else
-              _StBpTypeActivityCategoryViewContract.onErrorRequest(response);
+              _stBpTypeActivityCategoryViewContract.onErrorRequest(response);
           } else {
             Navigator.pop(context);
           }

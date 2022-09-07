@@ -43,7 +43,9 @@ class _TabActivitiesState extends State<_TabActivities>
               child: TabBarView(
                 controller: _tabController,
                 children: [
-                  _TabActivityCategory(),
+                  _TabActivityCategory(
+                    context: context,
+                  ),
                   _TabActivityType(),
                 ],
               ),
