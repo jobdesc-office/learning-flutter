@@ -1,9 +1,11 @@
+import 'package:boilerplate/constants/base_text.dart';
 import 'package:boilerplate/constants/config_types.dart';
 import 'package:boilerplate/contracts/base/edit_view_contract.dart';
 import 'package:boilerplate/contracts/base/index_view_contract.dart';
 import 'package:boilerplate/services/masters/type_service.dart';
 import 'package:boilerplate/services/ventes/bpcustomer_service.dart';
 import 'package:boilerplate/utils/custom_get_controller.dart';
+import 'package:boilerplate/widgets/confirm_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -62,9 +64,30 @@ class CPCustomerPresenter extends CustomGetXController {
       _customerContract.onErrorRequest(response);
   }
 
-  Future<int?> fetchCustomerStatus() async {
+  void delete(BuildContext context, int bpCustomerid, String name) {
+    showDialog(
+      context: context,
+      builder: (context) => ConfirmDialog(
+        title: BaseText.confirmTitle,
+        message: BaseText.deleteConfirmDatatable(field: name),
+        onPressed: (_, value) async {
+          if (value == ConfirmDialogOption.YES_OPTION) {
+            Navigator.pop(context);
+            Response response = await _bpCustomerService.destroy(bpCustomerid);
+            if (response.statusCode == 200)
+              _customerContract.onDeleteSuccess(response, context: context);
+            else
+              _customerContract.onErrorRequest(response);
+          } else
+            Navigator.pop(context);
+        },
+      ),
+    );
+  }
+
+  Future<int?> fetchCustomerStatus(String typename) async {
     Response response = await _typeService.byCode(ConfigType.cstmstatus);
-    if (response.isOk) return response.body.firstWhere((e) => e['typename'] == "Customer")['typeid'];
+    if (response.isOk) return response.body.firstWhere((e) => e['typename'] == typename)['typeid'];
     return null;
   }
 }

@@ -1,14 +1,13 @@
 part of '../../company.dart';
 
-class _TabCustomers extends StatelessWidget implements IndexViewContract, EditViewContract {
-  CPCustomerPresenter get presenter => Get.find<CPCustomerPresenter>();
-  final datatable = CustomerDataTableSource();
-  late CustomerFormSource source;
+class _TabContact extends StatelessWidget implements IndexViewContract, EditViewContract {
+  CPContactPresenter presenter = Get.find();
+  ContactDataTableSource datatable = ContactDataTableSource();
+  ContactFormSource source = ContactFormSource();
 
-  _TabCustomers(String typename) {
-    presenter.customerContract = this;
-    presenter.customerEditContract = this;
-    source = CustomerFormSource(typename);
+  _TabContact() {
+    presenter.contactContract = this;
+    presenter.contactEditContract = this;
   }
 
   @override
@@ -22,15 +21,14 @@ class _TabCustomers extends StatelessWidget implements IndexViewContract, EditVi
             child: Obx(() {
               return Column(
                 children: [
-                  if (source.isFormActive) _CustomersForm(source),
+                  if (source.isFormActive.value) _ContactForm(source),
                   CustomDatabales(
                     source: datatable,
                     columns: datatable.columns,
                     headerActions: [
                       ThemeButtonCreate(
                         prefix: "Add Customer",
-                        // onPressed: () => presenter.add(context),
-                        onPressed: () => source.isFormActive = true,
+                        onPressed: () => source.isFormActive.value = true,
                       )
                     ],
                     serverSide: (params) => presenter.datatables(context, params),
@@ -49,47 +47,46 @@ class _TabCustomers extends StatelessWidget implements IndexViewContract, EditVi
     datatable.controller.reload();
     presenter.setProcessing(false);
     source.clear();
-    source.isProcessing = false;
+    source.isProcessing.value = false;
     Snackbar().createSuccess();
   }
 
   @override
   void onDeleteSuccess(Response response, {BuildContext? context}) {
-    presenter.setProcessing(false);
     datatable.controller.reload();
+    presenter.setProcessing(false);
+    source.clear();
+    source.isProcessing.value = false;
     Snackbar().deleteSuccess();
   }
 
   @override
   void onEditSuccess(Response response, {BuildContext? context}) {
     datatable.controller.reload();
-    source.clear();
     presenter.setProcessing(false);
-    source.isProcessing = false;
+    source.clear();
+    source.isProcessing.value = false;
     Snackbar().editSuccess();
   }
 
   @override
   void onErrorRequest(Response response) {
     presenter.setProcessing(false);
-    source.isProcessing = false;
   }
 
   @override
   void onLoadDatatables(BuildContext context, Response response) {
     presenter.setProcessing(false);
-    List data = response.body['data'].where((e) => e['sbccstmstatus']['typename'] == source.typename).toList();
-    response.body['data'] = data;
     datatable.response = BsDatatableResponse.createFromJson(response.body);
-    datatable.onDetailsListener = (userid) {};
-    datatable.onEditListener = presenter.show;
-    datatable.onDeleteListener = (cstmid, cstmname) => presenter.delete(context, cstmid, cstmname);
+    datatable.onDetailsListener = (contactid) {};
+    datatable.onEditListener = (contactid) => presenter.edit(context, contactid);
+    datatable.onDeleteListener = (contactid, name) => presenter.delete(context, contactid, name);
   }
 
   @override
   void onSuccessFetchData(Response response) {
     presenter.setProcessing(false);
-    BusinessPartnerCustomerModel model = BusinessPartnerCustomerModel.fromJson(response.body);
+    ContactModel model = ContactModel.fromJson(response.body);
     source.fromModel(model);
   }
 }

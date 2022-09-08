@@ -1,3 +1,4 @@
+import 'package:boilerplate/views/settings/company/company_setting/tabs/tabContacts/cp_contact_presenter.dart';
 import 'package:boilerplate/views/settings/company/company_setting/tabs/tabCustomers/cp_customer_presenter.dart';
 import 'package:boilerplate/views/settings/company/company_setting/tabs/tabGeneral/cp_general_presenter.dart';
 import 'package:get/get.dart';
@@ -361,6 +362,7 @@ class AppRoute {
           Get.lazyPut(() => CompanySources());
           Get.lazyPut(() => CPGeneralPresenter());
           Get.lazyPut(() => CPCustomerPresenter());
+          Get.lazyPut(() => CPContactPresenter());
           Get.lazyPut(() => BusinessPartnerService());
           Get.lazyPut(() => BpCustomerService());
           Get.lazyPut(() => CustomerService());
@@ -374,6 +376,7 @@ class AppRoute {
           Get.lazyPut(() => StBpTypeProspectStagePresenter());
           Get.lazyPut(() => StBpTypeProspectStatusPresenter());
           Get.lazyPut(() => TypeService());
+          Get.lazyPut(() => ContactService());
         }),
       ),
       CustomGetPage(
