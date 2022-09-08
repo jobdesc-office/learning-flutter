@@ -58,6 +58,7 @@ class StBpTypeScheduleTypePresenter extends CustomGetXController {
 
     int typeid = _sources.type.value.typeid!;
     _sources.scheduletypetypeid.value = typeid;
+    _sources.scheduletypetype.value = _sources.type.value.typename!;
 
     Response response = await _stBpTypeService.datatable(typeid);
     if (response.statusCode == 200)

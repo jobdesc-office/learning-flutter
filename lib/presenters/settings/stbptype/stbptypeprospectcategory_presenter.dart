@@ -40,6 +40,7 @@ class StBpTypeProspectCategoryPresenter extends CustomGetXController {
 
     int typeid = _sources.type.value.typeid!;
     _sources.prospectcategorytypeid.value = typeid;
+    _sources.prospectcategorytype.value = _sources.type.value.typename!;
 
     Response response = await _stBpTypeService.datatable(typeid);
     if (response.statusCode == 200)

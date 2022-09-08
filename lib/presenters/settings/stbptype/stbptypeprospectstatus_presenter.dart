@@ -39,6 +39,7 @@ class StBpTypeProspectStatusPresenter extends CustomGetXController {
 
     int typeid = _sources.type.value.typeid!;
     _sources.prospectStatustypeid.value = typeid;
+    _sources.prospectStatustype.value = _sources.type.value.typename!;
 
     Response response = await _stBpTypeService.datatable(typeid);
     if (response.statusCode == 200)
