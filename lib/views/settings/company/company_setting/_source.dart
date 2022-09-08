@@ -6,6 +6,7 @@ import '../../../../models/masters/type_model.dart';
 class CompanySources extends GetxController {
   var activitycategorytypeid = 0.obs;
   var activitytypetypeid = 0.obs;
+  var scheduletypetypeid = 0.obs;
 
   var prospectcategorytypeid = 0.obs;
   var prospectCustomerLabeltypeid = 0.obs;
@@ -23,6 +24,8 @@ class CompanySources extends GetxController {
   var stbpprospecttype = <StbptypeModel>[].obs;
   var stbpprospectstage = <StbptypeModel>[].obs;
   var stbpprospectstatus = <StbptypeModel>[].obs;
+
+  var stbpscheduletype = <StbptypeModel>[].obs;
 
   var type = TypeModel().obs;
 }
