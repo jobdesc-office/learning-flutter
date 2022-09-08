@@ -45,9 +45,9 @@ class _TabCustomerState extends State<_TabCustomer> with TickerProviderStateMixi
                 child: TabBarView(
                   controller: _tabController,
                   children: [
-                    _TabCustomers(),
-                    Container(),
-                    Container(),
+                    _TabCustomers("Customer"),
+                    _TabCustomers("Prospective Customer"),
+                    _TabContact(),
                   ],
                 ),
               ),

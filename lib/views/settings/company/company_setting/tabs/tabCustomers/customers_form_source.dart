@@ -12,6 +12,10 @@ import 'package:get_storage/get_storage.dart';
 class CustomerFormSource {
   CPCustomerPresenter get presenter => Get.find<CPCustomerPresenter>();
 
+  CustomerFormSource(this.typename);
+
+  String typename;
+
   final _isProcessing = Rx<bool>(false);
   final _isEdit = Rx<bool>(false);
   final _isFormActive = Rx<bool>(false);
@@ -63,7 +67,7 @@ class CustomerFormSource {
     isEdit = true;
     isFormActive = true;
     bpcstmid = customer.sbcid;
-    // imageupdate.value = customer.sbccstmpics!.first.url!;
+    imageupdate.value = customer.sbccstmpics!.first.url!;
     createdby.value = customer.createdby?.toString() ?? "";
     createddate.value = customer.createddate?.toString() ?? "";
     updatedby.value = customer.updatedby?.toString() ?? "";
@@ -74,7 +78,9 @@ class CustomerFormSource {
 
   Future<Map<String, dynamic>> toJson() async {
     SessionModel session = await SessionManager.current();
-    int? statusid = await presenter.fetchCustomerStatus();
+    int? statusid = await presenter.fetchCustomerStatus(typename);
+    imgname.value = (selectCustomer.getSelected()!.getText() as Text).data!;
+
     return {
       'sbcbpid': GetStorage().read('mybpid'),
       'cstmid': selectCustomer.getSelectedAsString(),
@@ -83,7 +89,7 @@ class CustomerFormSource {
       'createdby': session.userid,
       'updatedby': session.userid,
       'isactive': isactive.value,
-      '_method': isEdit ? 'put' : null
+      '_method': isEdit ? 'PUT' : null
     };
   }
 }
