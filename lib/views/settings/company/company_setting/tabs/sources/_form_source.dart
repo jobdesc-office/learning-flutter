@@ -2,6 +2,7 @@ part of '../../company.dart';
 
 class _CompanyTabFormSource extends GetxController {
   _CompanyTabFormSource();
+
   var id = 0.obs;
 
   var isupdate = false.obs;
@@ -14,6 +15,9 @@ class _CompanyTabFormSource extends GetxController {
   var updateddate = ''.obs;
   var isactive = true.obs;
 
+  var pickerColor = Color(0xff443a49).obs;
+  var pickedColor = ''.obs;
+
   TextEditingController inputName = TextEditingController();
   TextEditingController inputSeq = TextEditingController();
 
@@ -22,7 +26,8 @@ class _CompanyTabFormSource extends GetxController {
     inputSeq.text = '';
   }
 
-  Widget form(BuildContext context, presenter, int typeid, String typename) {
+  Widget form(BuildContext context, presenter, int typeid, String typename,
+      {bool color = false}) {
     return BsRow(
       children: [
         BsCol(
@@ -57,6 +62,33 @@ class _CompanyTabFormSource extends GetxController {
                     hintText: BaseText.hintText(field: 'Category Sequel'),
                   ),
                 ),
+                if (color)
+                  FormGroup(
+                      child: Column(
+                    children: [
+                      BsButton(
+                          onPressed: () => showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                    title: const Text('Pick a color!'),
+                                    content: SingleChildScrollView(
+                                      child: Obx(() => ColorPicker(
+                                          pickerColor: pickerColor.value,
+                                          onColorChanged: ((value) {
+                                            pickerColor.value = value;
+                                            pickedColor.value = value
+                                                .toString()
+                                                .replaceAll('Color(', '')
+                                                .replaceAll(')', '');
+                                          }))),
+                                    ),
+                                  ))),
+                      Obx(() => Card(
+                            color: pickerColor.value,
+                            child: Text('Picked Color'),
+                          ))
+                    ],
+                  )),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -65,9 +97,10 @@ class _CompanyTabFormSource extends GetxController {
                       Map<String, dynamic> body = {
                         'sbtbpid': box.read('mybpid'),
                         'sbtname': typename,
-                        'sbtseq': inputSeq.text,
+                        'sbtseq': inputSeq.text == '' ? null : inputSeq.text,
                         'sbttypemasterid': typeid,
                         'sbttypename': inputName.text,
+                        'sbtremark': color ? pickedColor.value : null,
                         'createdby': session.userid,
                         'updatedby': session.userid,
                         'isactive': isactive.value,

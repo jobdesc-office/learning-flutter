@@ -22,7 +22,8 @@ class _TabScheduleType extends StatelessWidget
                     context,
                     presenter,
                     _sources.scheduletypetypeid.value,
-                    _sources.scheduletypetype.value),
+                    _sources.scheduletypetype.value,
+                    color: true),
               ThemeButtonCreate(
                   prefix: 'Type',
                   onPressed: () {
@@ -63,7 +64,12 @@ class _TabScheduleType extends StatelessWidget
                                     fontSize: 18, fontWeight: FontWeight.bold),
                               )),
                           BsCol(
-                              sizes: ColScreen(sm: Col.col_4),
+                              sizes: ColScreen(sm: Col.col_1),
+                              child: Text(
+                                  e.sbtseq != null ? e.sbtseq.toString() : '',
+                                  style: TextStyle(fontSize: 18))),
+                          BsCol(
+                              sizes: ColScreen(sm: Col.col_3),
                               child: Text(e.sbtname ?? '',
                                   style: TextStyle(fontSize: 18))),
                           BsCol(
@@ -184,7 +190,8 @@ class _TabScheduleType extends StatelessWidget
       source.value.id.value = val.sbtid ?? 0;
       source.value.inputName.text = val.sbttypename ?? '';
 
-      source.value.inputSeq.text = parseString(val.sbtseq ?? 0);
+      source.value.inputSeq.text =
+          val.sbtseq != null ? val.sbtseq.toString() : '';
       source.value.createdby.value = val.stbptypecreatedby?.userfullname ?? '';
       source.value.createddate.value = val.createddate ?? '';
       source.value.updatedby.value = val.stbptypeupdatedby?.userfullname ?? '';
