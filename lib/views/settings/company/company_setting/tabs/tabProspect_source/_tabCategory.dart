@@ -21,7 +21,10 @@ class _TabProspectCategory extends StatelessWidget
                 Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
               if (source.value.isformactcat.value)
                 source.value.form(
-                    context, presenter, _sources.prospectcategorytypeid.value),
+                    context,
+                    presenter,
+                    _sources.prospectcategorytypeid.value,
+                    _sources.prospectcategorytype.value),
               ThemeButtonCreate(
                   prefix: 'Category',
                   onPressed: () {
@@ -57,13 +60,13 @@ class _TabProspectCategory extends StatelessWidget
                           BsCol(
                               sizes: ColScreen(sm: Col.col_4),
                               child: Text(
-                                e.sbtname ?? '',
+                                e.sbttypename ?? '',
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold),
                               )),
                           BsCol(
                               sizes: ColScreen(sm: Col.col_4),
-                              child: Text(e.sbttypename ?? '',
+                              child: Text(e.sbtname ?? '',
                                   style: TextStyle(fontSize: 18))),
                           BsCol(
                             sizes: ColScreen(sm: Col.col_3),
@@ -181,8 +184,8 @@ class _TabProspectCategory extends StatelessWidget
       source.value.isformactcat.value = true;
       StbptypeModel val = StbptypeModel.fromJson(response.body);
       source.value.id.value = val.sbtid ?? 0;
-      source.value.inputName.text = val.sbtname ?? '';
-      source.value.inputTypeName.text = val.sbttypename ?? '';
+      source.value.inputName.text = val.sbttypename ?? '';
+
       source.value.inputSeq.text = parseString(val.sbtseq ?? 0);
       source.value.createdby.value = val.stbptypecreatedby?.userfullname ?? '';
       source.value.createddate.value = val.createddate ?? '';

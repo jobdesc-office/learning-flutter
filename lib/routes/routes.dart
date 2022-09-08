@@ -26,6 +26,7 @@ import '../presenters/settings/stbptype/stbptypeprospectlostreason_presenter.dar
 import '../presenters/settings/stbptype/stbptypeprospectstage_presenter.dart';
 import '../presenters/settings/stbptype/stbptypeprospectstatus_presenter.dart';
 import '../presenters/settings/stbptype/stbptypeprospecttype_presenter.dart';
+import '../presenters/settings/stbptype/stbptypescheduletype_presenter.dart';
 import '../presenters/ventes/bpcustomer_presenter.dart';
 import '../presenters/ventes/competitor_presenter.dart';
 import '../presenters/settings/customfield_presenter.dart';
@@ -375,6 +376,7 @@ class AppRoute {
           Get.lazyPut(() => StBpTypeProspectTypePresenter());
           Get.lazyPut(() => StBpTypeProspectStagePresenter());
           Get.lazyPut(() => StBpTypeProspectStatusPresenter());
+          Get.lazyPut(() => StBpTypeScheduleTypePresenter());
           Get.lazyPut(() => TypeService());
           Get.lazyPut(() => ContactService());
         }),

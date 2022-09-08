@@ -39,6 +39,7 @@ import '../../../../presenters/settings/stbptype/stbptypeprospectlostreason_pres
 import '../../../../presenters/settings/stbptype/stbptypeprospectstage_presenter.dart';
 import '../../../../presenters/settings/stbptype/stbptypeprospectstatus_presenter.dart';
 import '../../../../presenters/settings/stbptype/stbptypeprospecttype_presenter.dart';
+import '../../../../presenters/settings/stbptype/stbptypescheduletype_presenter.dart';
 import '../../../../routes/route_list.dart';
 import '../../../../styles/color_palattes.dart';
 import '../../../../utils/session_manager.dart';
@@ -62,8 +63,8 @@ part 'tabs/tabContacts/tabContacts.dart';
 part 'tabs/tabCustomers/_customers_form.dart';
 part 'tabs/tabContacts/_contact_form.dart';
 part 'tabs/tabGeneral/tabGeneral.dart';
-part 'tabs/tabLostReasons.dart';
 part 'tabs/tabProspect.dart';
+part 'tabs/tabSchedule.dart';
 
 part 'tabs/tabActivities_source/_tabCategory.dart';
 part 'tabs/tabActivities_source/_tabType.dart';
@@ -74,6 +75,8 @@ part 'tabs/tabProspect_source/_tabLostReason.dart';
 part 'tabs/tabProspect_source/_tabType.dart';
 part 'tabs/tabProspect_source/_tabStage.dart';
 part 'tabs/tabProspect_source/_tabStatus.dart';
+
+part 'tabs/tabSchedules_source/_tabType.dart';
 
 part 'tabs/sources/_form_source.dart';
 part 'tabs/sources/default_notypes.dart';
@@ -88,13 +91,14 @@ class CompanyView extends StatefulWidget {
   State<CompanyView> createState() => _CompanyViewState();
 }
 
-class _CompanyViewState extends State<CompanyView> with TickerProviderStateMixin {
+class _CompanyViewState extends State<CompanyView>
+    with TickerProviderStateMixin {
   final _navigation = Get.find<NavigationPresenter>();
   late TabController _tabController;
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 4, vsync: this);
+    _tabController = TabController(length: 5, vsync: this);
   }
 
   @override
@@ -106,11 +110,16 @@ class _CompanyViewState extends State<CompanyView> with TickerProviderStateMixin
           BreadcrumbWidget('Settings'),
           BreadcrumbWidget('Company Setting', active: true),
         ],
-        activeRoutes: [RouteList.settings.index, RouteList.settingsCompany.index],
+        activeRoutes: [
+          RouteList.settings.index,
+          RouteList.settingsCompany.index
+        ],
         child: Container(
           padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : Colors.white,
+            color: _navigation.darkTheme.value
+                ? ColorPallates.elseDarkColor
+                : Colors.white,
             borderRadius: BorderRadius.circular(10),
           ),
           child: BsRow(
@@ -127,6 +136,7 @@ class _CompanyViewState extends State<CompanyView> with TickerProviderStateMixin
                       Tab(text: 'Activities'),
                       Tab(text: 'Customer'),
                       Tab(text: 'Prospect'),
+                      Tab(text: 'Schedule'),
                     ],
                   ),
                 ),
@@ -143,6 +153,7 @@ class _CompanyViewState extends State<CompanyView> with TickerProviderStateMixin
                       _TabActivities(),
                       _TabCustomer(),
                       _TabProspect(),
+                      _TabSchedules(),
                     ],
                   ),
                 ),

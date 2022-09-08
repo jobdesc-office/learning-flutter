@@ -15,16 +15,14 @@ class _CompanyTabFormSource extends GetxController {
   var isactive = true.obs;
 
   TextEditingController inputName = TextEditingController();
-  TextEditingController inputTypeName = TextEditingController();
   TextEditingController inputSeq = TextEditingController();
 
   reset() {
     inputName.text = '';
-    inputTypeName.text = '';
     inputSeq.text = '';
   }
 
-  Widget form(BuildContext context, presenter, int typeid) {
+  Widget form(BuildContext context, presenter, int typeid, String typename) {
     return BsRow(
       children: [
         BsCol(
@@ -36,21 +34,6 @@ class _CompanyTabFormSource extends GetxController {
             child: Column(
               children: [
                 FormGroup(
-                  label: Obx(() => Text('Category Name',
-                      style: TextStyle(
-                          color: _navigation.darkTheme.value
-                              ? Colors.white
-                              : Colors.black))),
-                  child: CustomInput(
-                    disabled: presenter.isProcessing.value,
-                    controller: inputName,
-                    hintText: BaseText.hintText(field: 'Category Name'),
-                    validators: [
-                      Validators.inputRequired('Category Name'),
-                    ],
-                  ),
-                ),
-                FormGroup(
                   label: Obx(() => Text('Category Type Name',
                       style: TextStyle(
                           color: _navigation.darkTheme.value
@@ -58,7 +41,7 @@ class _CompanyTabFormSource extends GetxController {
                               : Colors.black))),
                   child: CustomInput(
                     disabled: presenter.isProcessing.value,
-                    controller: inputTypeName,
+                    controller: inputName,
                     hintText: BaseText.hintText(field: 'Category Type Name'),
                   ),
                 ),
@@ -81,10 +64,10 @@ class _CompanyTabFormSource extends GetxController {
                       SessionModel session = await SessionManager.current();
                       Map<String, dynamic> body = {
                         'sbtbpid': box.read('mybpid'),
-                        'sbtname': inputName.text,
+                        'sbtname': typename,
                         'sbtseq': inputSeq.text,
                         'sbttypemasterid': typeid,
-                        'sbttypename': inputTypeName.text,
+                        'sbttypename': inputName.text,
                         'createdby': session.userid,
                         'updatedby': session.userid,
                         'isactive': isactive.value,

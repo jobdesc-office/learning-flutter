@@ -1,15 +1,13 @@
 part of '../../company.dart';
 
-class _TabActivityCategory extends StatelessWidget
+class _TabScheduleType extends StatelessWidget
     implements IndexViewContract, EditViewContract {
   final BuildContext context;
-  final presenter = Get.find<StBpTypeActivityCategoryPresenter>();
-
-  _TabActivityCategory(this.context) {
+  final presenter = Get.find<StBpTypeScheduleTypePresenter>();
+  _TabScheduleType(this.context) {
     presenter.datatables(context);
-
-    presenter.stBpTypeActivityCategoryViewContract = this;
-    presenter.stBpTypeActivityCategoryFetchDataContract = this;
+    presenter.stBpTypeScheduleTypeViewContract = this;
+    presenter.stBpTypeScheduleTypeFetchDataContract = this;
   }
 
   @override
@@ -23,10 +21,10 @@ class _TabActivityCategory extends StatelessWidget
                 source.value.form(
                     context,
                     presenter,
-                    _sources.activitycategorytypeid.value,
-                    _sources.activitycategorytype.value),
+                    _sources.scheduletypetypeid.value,
+                    _sources.scheduletypetype.value),
               ThemeButtonCreate(
-                  prefix: 'Category',
+                  prefix: 'Type',
                   onPressed: () {
                     if (source.value.isupdate.value) {
                       source.value.isupdate.value = false;
@@ -37,12 +35,12 @@ class _TabActivityCategory extends StatelessWidget
                       source.value.reset();
                     }
                   }),
-              if (_sources.stbpactivitycategory.isNotEmpty)
+              if (_sources.stbpscheduletype.isNotEmpty)
                 Container(
                   margin: EdgeInsets.only(top: 10),
                   child: Column(
-                    children: _sources.stbpactivitycategory.map((e) {
-                      int index = _sources.stbpactivitycategory.indexOf(e);
+                    children: _sources.stbpscheduletype.map((e) {
+                      int index = _sources.stbpscheduletype.indexOf(e);
                       return BsRow(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -174,7 +172,7 @@ class _TabActivityCategory extends StatelessWidget
       stbpraw.add(StbptypeModel.fromJson(element));
     }
 
-    _sources.stbpactivitycategory.value = stbpraw;
+    _sources.stbpscheduletype.value = stbpraw;
   }
 
   @override
@@ -185,6 +183,7 @@ class _TabActivityCategory extends StatelessWidget
       StbptypeModel val = StbptypeModel.fromJson(response.body);
       source.value.id.value = val.sbtid ?? 0;
       source.value.inputName.text = val.sbttypename ?? '';
+
       source.value.inputSeq.text = parseString(val.sbtseq ?? 0);
       source.value.createdby.value = val.stbptypecreatedby?.userfullname ?? '';
       source.value.createddate.value = val.createddate ?? '';
