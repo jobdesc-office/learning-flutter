@@ -130,7 +130,7 @@ class _TabProspectLostReason extends StatelessWidget
                   ),
                 )
               else
-                _DefautlNoTypes(),
+                _DefautlNoTypes('Lost Reason'),
             ]),
           )),
     );

@@ -25,7 +25,7 @@ class _TabProspectStage extends StatelessWidget
                     presenter,
                     _sources.prospectStagetypeid.value,
                     _sources.prospectStagetype.value,
-                    'Stage'),
+                    ''),
               ThemeButtonCreate(
                   prefix: 'Type',
                   onPressed: () {
@@ -130,7 +130,7 @@ class _TabProspectStage extends StatelessWidget
                   ),
                 )
               else
-                _DefautlNoTypes(),
+                _DefautlNoTypes('Stage'),
             ]),
           )),
     );

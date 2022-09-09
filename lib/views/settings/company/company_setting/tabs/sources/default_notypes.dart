@@ -1,7 +1,8 @@
 part of '../../company.dart';
 
 class _DefautlNoTypes extends StatelessWidget {
-  const _DefautlNoTypes({Key? key}) : super(key: key);
+  final String tabname;
+  _DefautlNoTypes(this.tabname);
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +12,7 @@ class _DefautlNoTypes extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('There\'s no Types'),
+            Text('There\'s no $tabname'),
           ],
         ),
       ),

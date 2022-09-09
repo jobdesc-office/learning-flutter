@@ -130,7 +130,7 @@ class _TabProspectCategory extends StatelessWidget
                   ),
                 )
               else
-                _DefautlNoTypes(),
+                _DefautlNoTypes('Category'),
             ]),
           )),
     );

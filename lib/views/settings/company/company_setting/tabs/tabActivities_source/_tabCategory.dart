@@ -130,7 +130,7 @@ class _TabActivityCategory extends StatelessWidget
                   ),
                 )
               else
-                _DefautlNoTypes(),
+                _DefautlNoTypes('Category'),
             ]),
           )),
     );

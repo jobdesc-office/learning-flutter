@@ -130,7 +130,7 @@ class _TabProspectCustomerLabel extends StatelessWidget
                   ),
                 )
               else
-                _DefautlNoTypes(),
+                _DefautlNoTypes('Customer Label'),
             ]),
           )),
     );

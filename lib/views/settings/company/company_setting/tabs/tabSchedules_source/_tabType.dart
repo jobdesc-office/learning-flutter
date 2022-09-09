@@ -145,7 +145,7 @@ class _TabScheduleType extends StatelessWidget
                   ),
                 )
               else
-                _DefautlNoTypes(),
+                _DefautlNoTypes('Type'),
             ]),
           )),
     );

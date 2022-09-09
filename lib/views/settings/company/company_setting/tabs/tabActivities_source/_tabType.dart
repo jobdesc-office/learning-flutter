@@ -128,7 +128,7 @@ class _TabActivityType extends StatelessWidget
                   ),
                 )
               else
-                _DefautlNoTypes(),
+                _DefautlNoTypes('Type'),
             ]),
           )),
     );

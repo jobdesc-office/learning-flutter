@@ -130,7 +130,7 @@ class _TabProspectStatus extends StatelessWidget
                   ),
                 )
               else
-                _DefautlNoTypes(),
+                _DefautlNoTypes('Status'),
             ]),
           )),
     );
