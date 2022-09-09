@@ -27,7 +27,7 @@ class _TabProspectStage extends StatelessWidget
                     _sources.prospectStagetype.value,
                     ''),
               ThemeButtonCreate(
-                  prefix: 'Type',
+                  prefix: 'Stage',
                   onPressed: () {
                     if (source.value.isupdate.value) {
                       source.value.isupdate.value = false;
