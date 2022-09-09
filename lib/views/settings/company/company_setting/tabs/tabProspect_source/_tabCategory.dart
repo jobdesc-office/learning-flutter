@@ -24,7 +24,8 @@ class _TabProspectCategory extends StatelessWidget
                     context,
                     presenter,
                     _sources.prospectcategorytypeid.value,
-                    _sources.prospectcategorytype.value),
+                    _sources.prospectcategorytype.value,
+                    'Category'),
               ThemeButtonCreate(
                   prefix: 'Category',
                   onPressed: () {

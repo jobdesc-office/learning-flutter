@@ -33,6 +33,7 @@ class _CompanyTabFormSource extends GetxController {
   }
 
   Widget form(BuildContext context, presenter, int typeid, String typename,
+      String tabname,
       {bool color = false}) {
     if (color) withcolor.value = color;
     return BsRow(
@@ -47,7 +48,7 @@ class _CompanyTabFormSource extends GetxController {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 FormGroup(
-                  label: Obx(() => Text('Category Type Name',
+                  label: Obx(() => Text('$tabname Name',
                       style: TextStyle(
                           color: _navigation.darkTheme.value
                               ? Colors.white
@@ -55,7 +56,7 @@ class _CompanyTabFormSource extends GetxController {
                   child: CustomInput(
                     disabled: presenter.isProcessing.value,
                     controller: inputName,
-                    hintText: BaseText.hintText(field: 'Category Type Name'),
+                    hintText: BaseText.hintText(field: '$tabname Name'),
                   ),
                 ),
                 Row(
@@ -71,7 +72,7 @@ class _CompanyTabFormSource extends GetxController {
                 ),
                 if (seq.value)
                   FormGroup(
-                    label: Obx(() => Text('Category Sequence',
+                    label: Obx(() => Text('$tabname Sequence',
                         style: TextStyle(
                             color: _navigation.darkTheme.value
                                 ? Colors.white
@@ -79,7 +80,7 @@ class _CompanyTabFormSource extends GetxController {
                     child: CustomInputNumber(
                       disabled: presenter.isProcessing.value,
                       controller: inputSeq,
-                      hintText: BaseText.hintText(field: 'Category Sequel'),
+                      hintText: BaseText.hintText(field: '$tabname Sequel'),
                     ),
                   ),
                 if (color)

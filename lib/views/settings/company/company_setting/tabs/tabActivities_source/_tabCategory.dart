@@ -24,7 +24,8 @@ class _TabActivityCategory extends StatelessWidget
                     context,
                     presenter,
                     _sources.activitycategorytypeid.value,
-                    _sources.activitycategorytype.value),
+                    _sources.activitycategorytype.value,
+                    'Category'),
               ThemeButtonCreate(
                   prefix: 'Category',
                   onPressed: () {

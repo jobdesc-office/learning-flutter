@@ -24,7 +24,8 @@ class _TabProspectLostReason extends StatelessWidget
                     context,
                     presenter,
                     _sources.prospectLostReasontypeid.value,
-                    _sources.prospectLostReasontype.value),
+                    _sources.prospectLostReasontype.value,
+                    'Lost Reason'),
               ThemeButtonCreate(
                   prefix: 'Lost Reason',
                   onPressed: () {

@@ -24,7 +24,8 @@ class _TabProspectType extends StatelessWidget
                     context,
                     presenter,
                     _sources.prospectTypetypeid.value,
-                    _sources.prospectTypetype.value),
+                    _sources.prospectTypetype.value,
+                    'Type'),
               ThemeButtonCreate(
                   prefix: 'Type',
                   onPressed: () {

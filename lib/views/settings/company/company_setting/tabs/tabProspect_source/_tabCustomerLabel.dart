@@ -24,7 +24,8 @@ class _TabProspectCustomerLabel extends StatelessWidget
                     context,
                     presenter,
                     _sources.prospectCustomerLabeltypeid.value,
-                    _sources.prospectCustomerLabeltype.value),
+                    _sources.prospectCustomerLabeltype.value,
+                    'Customer Label'),
               ThemeButtonCreate(
                   prefix: 'Customer Label',
                   onPressed: () {

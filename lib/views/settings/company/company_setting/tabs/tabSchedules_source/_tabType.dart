@@ -23,6 +23,7 @@ class _TabScheduleType extends StatelessWidget
                     presenter,
                     _sources.scheduletypetypeid.value,
                     _sources.scheduletypetype.value,
+                    'Type',
                     color: true),
               ThemeButtonCreate(
                   prefix: 'Type',

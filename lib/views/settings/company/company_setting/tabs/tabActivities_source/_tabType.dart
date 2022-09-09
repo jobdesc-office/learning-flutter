@@ -22,7 +22,8 @@ class _TabActivityType extends StatelessWidget
                     context,
                     presenter,
                     _sources.activitytypetypeid.value,
-                    _sources.activitytypetype.value),
+                    _sources.activitytypetype.value,
+                    'Type'),
               ThemeButtonCreate(
                   prefix: 'Type',
                   onPressed: () {

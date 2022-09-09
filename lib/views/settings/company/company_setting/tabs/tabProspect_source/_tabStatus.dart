@@ -24,7 +24,8 @@ class _TabProspectStatus extends StatelessWidget
                     context,
                     presenter,
                     _sources.prospectStatustypeid.value,
-                    _sources.prospectStatustype.value),
+                    _sources.prospectStatustype.value,
+                    'Status'),
               ThemeButtonCreate(
                   prefix: 'Type',
                   onPressed: () {
