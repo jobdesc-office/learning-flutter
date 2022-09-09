@@ -14,9 +14,7 @@ class _TabNote extends StatelessWidget {
       inputDescription = ZefyrController(
           NotusDocument.fromJson(jsonDecode(source.desc.value)));
     return Column(
-      mainAxisAlignment: source.desc.value != ''
-          ? MainAxisAlignment.start
-          : MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
