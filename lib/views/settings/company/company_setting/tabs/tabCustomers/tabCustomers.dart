@@ -33,7 +33,11 @@ class _TabCustomers extends StatelessWidget implements IndexViewContract, EditVi
                         onPressed: () => source.isFormActive = true,
                       )
                     ],
-                    serverSide: (params) => presenter.datatables(context, params),
+                    serverSide: (params) async {
+                      int? statusid = await presenter.fetchCustomerStatus(source.typename);
+                      params['statusid'] = statusid!.toString();
+                      return presenter.datatables(context, params);
+                    },
                   ),
                 ],
               );
@@ -78,8 +82,6 @@ class _TabCustomers extends StatelessWidget implements IndexViewContract, EditVi
   @override
   void onLoadDatatables(BuildContext context, Response response) {
     presenter.setProcessing(false);
-    List data = response.body['data'].where((e) => e['sbccstmstatus']['typename'] == source.typename).toList();
-    response.body['data'] = data;
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onDetailsListener = (userid) {};
     datatable.onEditListener = presenter.show;

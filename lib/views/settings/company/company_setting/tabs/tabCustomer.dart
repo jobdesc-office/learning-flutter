@@ -16,7 +16,6 @@ class _TabCustomerState extends State<_TabCustomer> with TickerProviderStateMixi
 
   @override
   Widget build(BuildContext context) {
-    final datatable = CompanyCurrencyDataTableSource();
     return SingleChildScrollView(
       child: Container(
         margin: EdgeInsets.all(20),
