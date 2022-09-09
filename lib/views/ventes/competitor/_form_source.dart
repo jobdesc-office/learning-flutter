@@ -5,6 +5,7 @@ import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_picker_web/image_picker_web.dart';
 
 import '../../../constants/base_text.dart';
@@ -33,6 +34,7 @@ class CompetitorSource extends GetxController {
   var imageupdate = [].obs;
   var isImage = false.obs;
   var isUpdate = false.obs;
+  var isUpdateImage = false.obs;
 
   var createdby = ''.obs;
   var createddate = ''.obs;
@@ -59,18 +61,22 @@ class CompetitorSource extends GetxController {
   }
 
   Future<Map<String, dynamic>> toJson() async {
+    final box = GetStorage();
     SessionModel session = await SessionManager.current();
     return {
-      'comptbpid': selectBp.getSelectedAsString(),
+      'comptbpid': box.read('mybpid').toString(),
       'comptreftypeid': selectType.getSelectedAsString(),
-      'comptrefid': selectRef.getSelectedAsString(),
+      'comptrefid': selectRef.getSelectedAsString() != ''
+          ? selectRef.getSelectedAsString()
+          : null,
       'comptname': inputName.text,
       'comptproductname': inputProductName.text,
       'description': inputDesc.text,
       'createdby': session.userid,
       'updatedby': session.userid,
       'isactive': isactive.value,
-      'comptpics[]': jsonImages()
+      'comptpics[]': jsonImages(),
+      '_method': isUpdateImage.value ? 'put' : null
     };
   }
 }

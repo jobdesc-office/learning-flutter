@@ -141,12 +141,12 @@ class SidebarSkins extends StatelessWidget {
                       title: 'Ventes Datas',
                       icon: Icons.analytics,
                       children: [
-                        MenuData(
-                          id: no++,
-                          route: RouteList.ventesCompetitor.index,
-                          label: 'Competitors',
-                          icon: Icons.sentiment_dissatisfied,
-                        ),
+                        // MenuData(
+                        //   id: no++,
+                        //   route: RouteList.ventesCompetitor.index,
+                        //   label: 'Competitors',
+                        //   icon: Icons.sentiment_dissatisfied,
+                        // ),
                         MenuData(
                           id: no++,
                           route: RouteList.ventesProspect.index,

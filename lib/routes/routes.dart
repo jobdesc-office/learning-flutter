@@ -379,6 +379,8 @@ class AppRoute {
           Get.lazyPut(() => StBpTypeScheduleTypePresenter());
           Get.lazyPut(() => TypeService());
           Get.lazyPut(() => ContactService());
+          Get.lazyPut(() => CompetitorPresenter());
+          Get.lazyPut(() => CompetitorService());
         }),
       ),
       CustomGetPage(

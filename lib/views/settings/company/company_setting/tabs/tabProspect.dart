@@ -14,7 +14,7 @@ class _TabProspectState extends State<_TabProspect>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 6, vsync: this);
+    _tabController = TabController(length: 7, vsync: this);
   }
 
   @override
@@ -36,6 +36,7 @@ class _TabProspectState extends State<_TabProspect>
                 Tab(text: 'Stage'),
                 Tab(text: 'Status'),
                 Tab(text: 'Type'),
+                Tab(text: 'Competitor'),
               ],
             ),
           ),
@@ -53,6 +54,7 @@ class _TabProspectState extends State<_TabProspect>
                   _TabProspectStage(context),
                   _TabProspectStatus(context),
                   _TabProspectType(context),
+                  _TabCompetitor(),
                 ],
               ),
             ),

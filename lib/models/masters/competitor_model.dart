@@ -52,7 +52,9 @@ class CompetitorModel {
     comptcreatedby = json['comptcreatedby'] != null
         ? new Comptcreatedby.fromJson(json['comptcreatedby'])
         : null;
-    comptupdatedby = json['comptupdatedby'];
+    comptupdatedby = json['comptcreatedby'] != null
+        ? new Comptcreatedby.fromJson(json['comptcreatedby'])
+        : null;
     comptreftype = json['comptreftype'] != null
         ? new Comptreftype.fromJson(json['comptreftype'])
         : null;
@@ -83,7 +85,10 @@ class CompetitorModel {
     if (this.comptcreatedby != null) {
       data['comptcreatedby'] = this.comptcreatedby!.toJson();
     }
-    data['comptupdatedby'] = this.comptupdatedby;
+
+    if (this.comptupdatedby != null) {
+      data['comptupdatedby'] = this.comptupdatedby!.toJson();
+    }
     if (this.comptreftype != null) {
       data['comptreftype'] = this.comptreftype!.toJson();
     }

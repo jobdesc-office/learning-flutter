@@ -21,6 +21,7 @@ import 'package:boilerplate/views/settings/company/company_setting/tabs/tabCusto
 import 'package:boilerplate/widgets/button/theme_button_cancel.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
+import 'package:bs_flutter_modal/bs_flutter_modal.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +42,7 @@ import '../../../../presenters/settings/stbptype/stbptypeprospectstage_presenter
 import '../../../../presenters/settings/stbptype/stbptypeprospectstatus_presenter.dart';
 import '../../../../presenters/settings/stbptype/stbptypeprospecttype_presenter.dart';
 import '../../../../presenters/settings/stbptype/stbptypescheduletype_presenter.dart';
+import '../../../../presenters/ventes/competitor_presenter.dart';
 import '../../../../routes/route_list.dart';
 import '../../../../styles/color_palattes.dart';
 import '../../../../utils/session_manager.dart';
@@ -51,9 +53,11 @@ import '../../../../widgets/datatables/custom_datatable.dart';
 import '../../../../widgets/form_group.dart';
 import '../../../../widgets/input/custom_input.dart';
 import '../../../../widgets/input/custom_input_number.dart';
+import '../../../../widgets/map/_map_source.dart';
 import '../../../../widgets/selectbox/custom_selectbox.dart';
 import '../../../../widgets/snackbar.dart';
 import '../../../skins/template.dart';
+import '../../../ventes/competitor/_datatable_source.dart';
 import '_datatable_source.dart';
 import '_source.dart';
 
@@ -76,11 +80,13 @@ part 'tabs/tabProspect_source/_tabLostReason.dart';
 part 'tabs/tabProspect_source/_tabType.dart';
 part 'tabs/tabProspect_source/_tabStage.dart';
 part 'tabs/tabProspect_source/_tabStatus.dart';
+part 'tabs/tabProspect_source/_tabCompetitor.dart';
 
 part 'tabs/tabSchedules_source/_tabType.dart';
 
 part 'tabs/sources/_form_source.dart';
 part 'tabs/sources/default_notypes.dart';
+part 'tabs/sources/show_color.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 final _sources = Get.find<CompanySources>();

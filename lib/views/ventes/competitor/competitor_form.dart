@@ -79,7 +79,6 @@ class CompetitorFormView extends StatelessWidget implements EditViewContract {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              competitorForm.selectBp(),
                               competitorForm.inputName(),
                               competitorForm.inputProductName(),
                               competitorForm.selectTypes(),
@@ -277,10 +276,6 @@ class CompetitorFormView extends StatelessWidget implements EditViewContract {
 
     source.update((val) {
       CompetitorModel competitor = CompetitorModel.fromJson(response.body);
-      if (competitor.comptbp != null)
-        source.value.selectBp.setSelected(BsSelectBoxOption(
-            value: competitor.comptbpid,
-            text: Text(competitor.comptbp!.bpname!)));
 
       if (competitor.comptreftypeid != null)
         source.value.selectType.setSelected(BsSelectBoxOption(
@@ -297,9 +292,12 @@ class CompetitorFormView extends StatelessWidget implements EditViewContract {
         source.value.imageupdate.value = image;
       }
 
+      source.value.isUpdateImage.value = true;
+
       source.value.inputName.text = competitor.comptname ?? '';
       source.value.inputProductName.text = competitor.comptproductname ?? '';
       source.value.inputDesc.text = competitor.description ?? '';
+
       if (competitor.comptpics != []) {
         source.value.transtypeid.value =
             competitor.comptpics!.first.transtypeid!;

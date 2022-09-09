@@ -3,6 +3,10 @@ part of '../../company.dart';
 class _CompanyTabFormSource extends GetxController {
   _CompanyTabFormSource();
 
+  var seq = false.obs;
+
+  var withcolor = false.obs;
+
   var id = 0.obs;
 
   var isupdate = false.obs;
@@ -15,19 +19,22 @@ class _CompanyTabFormSource extends GetxController {
   var updateddate = ''.obs;
   var isactive = true.obs;
 
-  var pickerColor = Color(0xff443a49).obs;
-  var pickedColor = ''.obs;
+  var pickerColor = ColorPallates.primary.obs;
+  var pickedColor = '0xFF6D9773'.obs;
 
   TextEditingController inputName = TextEditingController();
   TextEditingController inputSeq = TextEditingController();
 
   reset() {
+    source.value.seq.value = false;
     inputName.text = '';
     inputSeq.text = '';
+    withcolor.value = false;
   }
 
   Widget form(BuildContext context, presenter, int typeid, String typename,
       {bool color = false}) {
+    if (color) withcolor.value = color;
     return BsRow(
       children: [
         BsCol(
@@ -37,6 +44,7 @@ class _CompanyTabFormSource extends GetxController {
             margin: EdgeInsets.only(top: 5),
             padding: EdgeInsets.all(3),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 FormGroup(
                   label: Obx(() => Text('Category Type Name',
@@ -50,42 +58,65 @@ class _CompanyTabFormSource extends GetxController {
                     hintText: BaseText.hintText(field: 'Category Type Name'),
                   ),
                 ),
-                FormGroup(
-                  label: Obx(() => Text('Category Sequence',
-                      style: TextStyle(
-                          color: _navigation.darkTheme.value
-                              ? Colors.white
-                              : Colors.black))),
-                  child: CustomInputNumber(
-                    disabled: presenter.isProcessing.value,
-                    controller: inputSeq,
-                    hintText: BaseText.hintText(field: 'Category Sequel'),
-                  ),
+                Row(
+                  children: [
+                    Text('Set Custom Sequence'),
+                    Container(
+                      margin: EdgeInsets.only(left: 5),
+                      child: Obx(() => Checkbox(
+                          value: seq.value,
+                          onChanged: (value) => seq.toggle())),
+                    ),
+                  ],
                 ),
+                if (seq.value)
+                  FormGroup(
+                    label: Obx(() => Text('Category Sequence',
+                        style: TextStyle(
+                            color: _navigation.darkTheme.value
+                                ? Colors.white
+                                : Colors.black))),
+                    child: CustomInputNumber(
+                      disabled: presenter.isProcessing.value,
+                      controller: inputSeq,
+                      hintText: BaseText.hintText(field: 'Category Sequel'),
+                    ),
+                  ),
                 if (color)
                   FormGroup(
-                      child: Column(
+                      child: Row(
                     children: [
                       BsButton(
+                          style: BsButtonStyle.success,
+                          label: Text('Pick Color'),
                           onPressed: () => showDialog(
                               context: context,
                               builder: (context) => AlertDialog(
-                                    title: const Text('Pick a color!'),
+                                    title: const Text('Pick a color !'),
                                     content: SingleChildScrollView(
                                       child: Obx(() => ColorPicker(
                                           pickerColor: pickerColor.value,
                                           onColorChanged: ((value) {
                                             pickerColor.value = value;
-                                            pickedColor.value = value
+                                            pickedColor.value = pickerColor
+                                                .value
                                                 .toString()
                                                 .replaceAll('Color(', '')
                                                 .replaceAll(')', '');
                                           }))),
                                     ),
                                   ))),
-                      Obx(() => Card(
-                            color: pickerColor.value,
-                            child: Text('Picked Color'),
+                      Obx(() => BsButton(
+                            margin: EdgeInsets.only(left: 20),
+                            onPressed: () => showDialog(
+                                context: context,
+                                builder: (context) => _ShowColor(
+                                      color: pickerColor.value,
+                                    )),
+                            style: BsButtonStyle(
+                                borderColor: Colors.black,
+                                color: Colors.black,
+                                backgroundColor: pickerColor.value),
                           ))
                     ],
                   )),
@@ -100,7 +131,7 @@ class _CompanyTabFormSource extends GetxController {
                         'sbtseq': inputSeq.text == '' ? null : inputSeq.text,
                         'sbttypemasterid': typeid,
                         'sbttypename': inputName.text,
-                        'sbtremark': color ? pickedColor.value : null,
+                        'sbtremark': withcolor.value ? pickedColor.value : null,
                         'createdby': session.userid,
                         'updatedby': session.userid,
                         'isactive': isactive.value,
