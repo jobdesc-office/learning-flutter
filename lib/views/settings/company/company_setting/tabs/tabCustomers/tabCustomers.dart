@@ -30,7 +30,7 @@ class _TabCustomers extends StatelessWidget
                     columns: datatable.columns,
                     headerActions: [
                       ThemeButtonCreate(
-                        prefix: "Add $typename",
+                        prefix: "$typename",
                         // onPressed: () => presenter.add(context),
                         onPressed: () => source.isFormActive = true,
                       )

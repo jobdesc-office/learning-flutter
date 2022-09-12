@@ -2,9 +2,11 @@ import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../constants/base_text.dart';
 import '../../../models/ventes/report_model.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../styles/color_palattes.dart';
+import '../../../widgets/button/button_details_datatable.dart';
 import '../../../widgets/datatables/custom_datatable_tablecell.dart';
 import '../../../widgets/datatables/custom_datatable_tablehead.dart';
 
@@ -31,6 +33,7 @@ class ReportDataTableSource extends BsDatatableSource {
         label: Text('Daily Activity Date'),
         searchable: false,
         orderable: false,
+        width: 160,
       ),
       CustomBsDataColumn(
         label: Text('Daily Activity Category'),
@@ -56,6 +59,12 @@ class ReportDataTableSource extends BsDatatableSource {
       //   searchable: false,
       //   orderable: false,
       // ),
+      CustomBsDataColumn(
+        label: Text('Actions'),
+        orderable: false,
+        searchable: false,
+        width: 100,
+      ),
     ];
   }
 
@@ -118,6 +127,28 @@ class ReportDataTableSource extends BsDatatableSource {
               : x % 2 == 0
                   ? ColorPallates.datatableLightEvenRowColor
                   : ColorPallates.datatableLightOddRowColor,
+        ),
+        CustomBsDataCell(
+          Row(
+            children: [
+              Tooltip(
+                message: BaseText.detailHintDatatable(
+                    field: row.dayactcat?.typename),
+                child: ButtonDetailsDatatables(
+                  margin: EdgeInsets.only(right: 5),
+                  onPressed: () => onDetailsListener(row.dayactid!),
+                ),
+              ),
+            ],
+          ),
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
+          padding: EdgeInsets.all(9),
         ),
       ],
     );

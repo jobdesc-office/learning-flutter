@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
 import '../../contracts/ventes/report_contract.dart';
 import '../../models/ventes/report_model.dart';
@@ -11,6 +12,7 @@ import '../../services/ventes/report_service.dart';
 import '../../utils/custom_get_controller.dart';
 import '../../views/ventes/reports/employees/report_employee.dart';
 import '../../views/ventes/reports/nodailyactivity/report_nodailyactivity.dart';
+import '../../views/ventes/reports/report_detail.dart';
 import '../../widgets/map/_map_source.dart';
 import '../auth_presenter.dart';
 
@@ -37,6 +39,12 @@ class ReportPresenter extends CustomGetXController {
     _reportContract = reportContract;
   }
 
+  late DetailViewContract _reportFetchDataDetailsContract;
+  set reportsFetchDataDetailsContract(
+      DetailViewContract reportFetchDataDetailsContract) {
+    _reportFetchDataDetailsContract = reportFetchDataDetailsContract;
+  }
+
   getDataFromAPI() async {
     Response response = await _reportService.bpid(box.read('mybpid'));
 
@@ -60,7 +68,21 @@ class ReportPresenter extends CustomGetXController {
       _reportViewContract.onErrorRequest(response);
   }
 
-  void details(BuildContext context, List<Activities> act) async {
+  void details(BuildContext context, int scheid) async {
+    setProcessing(true);
+    showDialog(
+      context: context,
+      builder: (context) => ReportDetail(),
+    );
+
+    Response response = await _reportService.show(scheid);
+    if (response.statusCode == 200)
+      _reportFetchDataDetailsContract.onSuccessFetchData(response);
+    else
+      _reportViewContract.onErrorRequest(response);
+  }
+
+  void detailsDayAct(BuildContext context, List<Activities> act) async {
     setProcessing(true);
     showDialog(
       context: context,

@@ -49,6 +49,7 @@ class Activities {
   String? updateddate;
   bool? isactive;
   Dayactuser? dayactuser;
+  Dayactuser? dayactupdatedby;
   Dayactcust? dayactcust;
   Dayactcat? dayactcat;
   Dayactcat? dayacttype;
@@ -97,6 +98,9 @@ class Activities {
     dayactuser = json['dayactuser'] != null
         ? new Dayactuser.fromJson(json['dayactuser'])
         : null;
+    dayactupdatedby = json['dayactupdatedby'] != null
+        ? new Dayactuser.fromJson(json['dayactupdatedby'])
+        : null;
     dayactcust = json['dayactcust'] != null
         ? new Dayactcust.fromJson(json['dayactcust'])
         : null;
@@ -131,6 +135,9 @@ class Activities {
     data['isactive'] = this.isactive;
     if (this.dayactuser != null) {
       data['dayactuser'] = this.dayactuser!.toJson();
+    }
+    if (this.dayactupdatedby != null) {
+      data['dayactupdatedby'] = this.dayactupdatedby!.toJson();
     }
     if (this.dayactcust != null) {
       data['dayactcust'] = this.dayactcust!.toJson();

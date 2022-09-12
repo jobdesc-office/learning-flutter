@@ -17,9 +17,9 @@ final _navigation = Get.find<NavigationPresenter>();
 class ReportDailyActivities extends GetView {
   final ReportPresenter presenter = Get.find<ReportPresenter>();
   final controllers = Get.put(ReportHelper());
-  final datatable = ReportDailyActivityDataTableSource();
 
   List<Activities> act = [];
+  final datatable = ReportDailyActivityDataTableSource();
 
   ReportDailyActivities({required this.act}) {
     controllers.act.value = act;

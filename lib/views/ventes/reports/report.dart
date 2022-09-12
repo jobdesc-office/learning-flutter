@@ -77,7 +77,7 @@ class _ReportViewState extends State<ReportView>
             ),
             Container(
               width: double.infinity,
-              height: 500,
+              height: MediaQuery.of(context).size.height,
               child: TabBarView(controller: _tabController, children: [
                 Container(
                   child: Obx(() => SingleChildScrollView(
@@ -169,7 +169,7 @@ class _ReportViewState extends State<ReportView>
                                                 children: [
                                                   InkWell(
                                                     onTap: () =>
-                                                        presenter.details(
+                                                        presenter.detailsDayAct(
                                                             context, reports),
                                                     child: Container(
                                                       width: 150,
@@ -378,6 +378,8 @@ class _ReportViewState extends State<ReportView>
     map.reset();
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
+    datatable.onDetailsListener =
+        (userid) => presenter.details(context, userid);
   }
 
   @override

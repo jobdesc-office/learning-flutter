@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../constants/base_text.dart';
 import '../../../../models/ventes/report_model.dart';
 import '../../../../presenters/navigation_presenter.dart';
+import '../../../../presenters/ventes/report_presenter.dart';
 import '../../../../styles/color_palattes.dart';
+import '../../../../widgets/button/button_details_datatable.dart';
 import '../../../../widgets/datatables/custom_datatable_tablecell.dart';
 import '../../../../widgets/datatables/custom_datatable_tablehead.dart';
 import '../_report_source.dart';
@@ -39,7 +42,7 @@ class ReportDailyActivityDataTableSource extends BsDatatableSource {
         orderable: false,
       ),
       CustomBsDataColumn(
-        label: Text('Daily Task Type'),
+        label: Text('Daily Task Category'),
         searchable: false,
         orderable: false,
       ),
@@ -56,6 +59,7 @@ class ReportDailyActivityDataTableSource extends BsDatatableSource {
 
   @override
   BsDataRow getRow(int index) {
+    final presenter = Get.find<ReportPresenter>();
     final row = users[index];
     int x = controller.start + index + 1;
     return BsDataRow(

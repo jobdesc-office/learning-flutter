@@ -28,7 +28,7 @@ class _TabContact extends StatelessWidget
                     columns: datatable.columns,
                     headerActions: [
                       ThemeButtonCreate(
-                        prefix: "Add Contact",
+                        prefix: "Contact",
                         onPressed: () => source.isFormActive.value = true,
                       )
                     ],
