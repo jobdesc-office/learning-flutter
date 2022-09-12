@@ -49,6 +49,24 @@ class StBpTypeActivityCategoryPresenter extends CustomGetXController {
       _stBpTypeActivityCategoryViewContract.onErrorRequest(response);
   }
 
+  Future datatablesseq(BuildContext context) async {
+    Response type =
+        await _typeService.byCodeMaster(ConfigType.activitycategory);
+    for (var element in type.body) {
+      _sources.type.value = TypeModel.fromJson(element);
+    }
+
+    int typeid = _sources.type.value.typeid!;
+    _sources.activitycategorytypeid.value = typeid;
+    _sources.activitycategorytype.value = _sources.type.value.typename!;
+
+    Response response = await _stBpTypeService.datatableseq(typeid);
+    if (response.statusCode == 200)
+      _stBpTypeActivityCategoryViewContract.onLoadDatatables(context, response);
+    else
+      _stBpTypeActivityCategoryViewContract.onErrorRequest(response);
+  }
+
   void changeStatus(BuildContext context, int id, bool status) async {
     setProcessing(true);
     Map<String, dynamic> body;
