@@ -1,11 +1,13 @@
 part of '../../company.dart';
 
-class _TabCustomers extends StatelessWidget implements IndexViewContract, EditViewContract {
+class _TabCustomers extends StatelessWidget
+    implements IndexViewContract, EditViewContract {
   CPCustomerPresenter get presenter => Get.find<CPCustomerPresenter>();
   final datatable = CustomerDataTableSource();
   late CustomerFormSource source;
+  final String typename;
 
-  _TabCustomers(String typename) {
+  _TabCustomers(this.typename) {
     presenter.customerContract = this;
     presenter.customerEditContract = this;
     source = CustomerFormSource(typename);
@@ -28,12 +30,13 @@ class _TabCustomers extends StatelessWidget implements IndexViewContract, EditVi
                     columns: datatable.columns,
                     headerActions: [
                       ThemeButtonCreate(
-                        prefix: "Add Customer",
+                        prefix: "Add $typename",
                         // onPressed: () => presenter.add(context),
                         onPressed: () => source.isFormActive = true,
                       )
                     ],
-                    serverSide: (params) => presenter.datatables(context, params),
+                    serverSide: (params) =>
+                        presenter.datatables(context, params),
                   ),
                 ],
               );
@@ -78,18 +81,22 @@ class _TabCustomers extends StatelessWidget implements IndexViewContract, EditVi
   @override
   void onLoadDatatables(BuildContext context, Response response) {
     presenter.setProcessing(false);
-    List data = response.body['data'].where((e) => e['sbccstmstatus']['typename'] == source.typename).toList();
+    List data = response.body['data']
+        .where((e) => e['sbccstmstatus']['typename'] == source.typename)
+        .toList();
     response.body['data'] = data;
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onDetailsListener = (userid) {};
     datatable.onEditListener = presenter.show;
-    datatable.onDeleteListener = (cstmid, cstmname) => presenter.delete(context, cstmid, cstmname);
+    datatable.onDeleteListener =
+        (cstmid, cstmname) => presenter.delete(context, cstmid, cstmname);
   }
 
   @override
   void onSuccessFetchData(Response response) {
     presenter.setProcessing(false);
-    BusinessPartnerCustomerModel model = BusinessPartnerCustomerModel.fromJson(response.body);
+    BusinessPartnerCustomerModel model =
+        BusinessPartnerCustomerModel.fromJson(response.body);
     source.fromModel(model);
   }
 }

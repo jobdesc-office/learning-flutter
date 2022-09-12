@@ -1,6 +1,7 @@
 part of '../../company.dart';
 
-class _TabContact extends StatelessWidget implements IndexViewContract, EditViewContract {
+class _TabContact extends StatelessWidget
+    implements IndexViewContract, EditViewContract {
   CPContactPresenter presenter = Get.find();
   ContactDataTableSource datatable = ContactDataTableSource();
   ContactFormSource source = ContactFormSource();
@@ -27,11 +28,12 @@ class _TabContact extends StatelessWidget implements IndexViewContract, EditView
                     columns: datatable.columns,
                     headerActions: [
                       ThemeButtonCreate(
-                        prefix: "Add Customer",
+                        prefix: "Add Contact",
                         onPressed: () => source.isFormActive.value = true,
                       )
                     ],
-                    serverSide: (params) => presenter.datatables(context, params),
+                    serverSide: (params) =>
+                        presenter.datatables(context, params),
                   ),
                 ],
               );
@@ -79,8 +81,10 @@ class _TabContact extends StatelessWidget implements IndexViewContract, EditView
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onDetailsListener = (contactid) {};
-    datatable.onEditListener = (contactid) => presenter.edit(context, contactid);
-    datatable.onDeleteListener = (contactid, name) => presenter.delete(context, contactid, name);
+    datatable.onEditListener =
+        (contactid) => presenter.edit(context, contactid);
+    datatable.onDeleteListener =
+        (contactid, name) => presenter.delete(context, contactid, name);
   }
 
   @override

@@ -197,7 +197,9 @@ class ProspectSource extends GetxController {
       'prospectdescription': inputDesc.text,
       'prospectcustid': selectCustomer.getSelectedAsString(),
       'prospectcustlabel': selectCustLab.getSelectedAsString(),
-      'prospectrefid': selectReference.getSelectedAsString(),
+      'prospectrefid': selectReference.getSelectedAsString() != ''
+          ? selectReference.getSelectedAsString()
+          : null,
       'createdby': session.userid,
       'updatedby': session.userid,
       'isactive': isactive.value,

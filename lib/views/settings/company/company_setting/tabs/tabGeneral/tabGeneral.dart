@@ -26,6 +26,8 @@ class _TabGeneral extends StatelessWidget
           child: BsRow(
             children: [
               BsCol(
+                margin: EdgeInsets.only(top: 15),
+                alignment: Alignment.bottomCenter,
                 sizes: ColScreen(sm: Col.col_1),
                 child: Text('Name'),
               ),
@@ -41,6 +43,8 @@ class _TabGeneral extends StatelessWidget
           child: BsRow(
             children: [
               BsCol(
+                margin: EdgeInsets.only(top: 15),
+                alignment: Alignment.bottomCenter,
                 sizes: ColScreen(sm: Col.col_1),
                 child: Text('PIC'),
               ),
@@ -56,6 +60,8 @@ class _TabGeneral extends StatelessWidget
           child: BsRow(
             children: [
               BsCol(
+                margin: EdgeInsets.only(top: 15),
+                alignment: Alignment.bottomCenter,
                 sizes: ColScreen(sm: Col.col_1),
                 child: Text('Phone'),
               ),
@@ -71,6 +77,8 @@ class _TabGeneral extends StatelessWidget
           child: BsRow(
             children: [
               BsCol(
+                margin: EdgeInsets.only(top: 15),
+                alignment: Alignment.bottomCenter,
                 sizes: ColScreen(sm: Col.col_1),
                 child: Text('Email'),
               ),
@@ -86,8 +94,10 @@ class _TabGeneral extends StatelessWidget
           child: BsRow(
             children: [
               BsCol(
+                margin: EdgeInsets.only(top: 15),
+                alignment: Alignment.bottomCenter,
                 sizes: ColScreen(sm: Col.col_1),
-                child: Text('Type'),
+                child: Text('Company Type'),
               ),
               BsCol(
                 sizes: ColScreen(sm: Col.col_11),
