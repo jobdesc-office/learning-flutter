@@ -26,6 +26,35 @@ class CompetitorSource extends GetxController {
   bool isProcessing = false;
   var isnGetLatLong = true.obs;
 
+  reset() {
+    id.value = 0;
+    transtypeid.value = 0;
+    refid.value = 0;
+
+    imgname.value = '';
+    image.clear();
+    imageupdate.clear();
+    isImage.value = false;
+    isUpdate.value = false;
+    isUpdateImage.value = false;
+
+    createdby.value = '';
+    createddate.value = '';
+    updatedby.value = '';
+    updateddate.value = '';
+    isactive.value = false;
+
+    inputName.text = '';
+    inputProductName.text = '';
+    inputDesc.text = '';
+
+    selectType.clear();
+    selectBp.clear();
+    selectRef.clear();
+  }
+
+  var id = 0.obs;
+
   var transtypeid = 0.obs;
   var refid = 0.obs;
 

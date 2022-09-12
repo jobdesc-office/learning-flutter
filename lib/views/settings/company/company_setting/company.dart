@@ -30,6 +30,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker_web/image_picker_web.dart';
 
+import '../../../../models/masters/competitor_model.dart';
 import '../../../../models/session_model.dart';
 import '../../../../models/settings/stbptype_model.dart';
 import '../../../../presenters/navigation_presenter.dart';
@@ -58,6 +59,7 @@ import '../../../../widgets/selectbox/custom_selectbox.dart';
 import '../../../../widgets/snackbar.dart';
 import '../../../skins/template.dart';
 import '../../../ventes/competitor/_datatable_source.dart';
+import '../../../ventes/competitor/_form_source.dart';
 import '_datatable_source.dart';
 import '_source.dart';
 
@@ -92,6 +94,7 @@ final _navigation = Get.find<NavigationPresenter>();
 final _sources = Get.find<CompanySources>();
 final box = GetStorage();
 final source = _CompanyTabFormSource().obs;
+final sources = CompetitorSource().obs;
 
 class CompanyView extends StatefulWidget {
   @override
