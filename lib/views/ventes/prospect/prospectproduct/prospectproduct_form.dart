@@ -191,7 +191,7 @@ class ProspectProductFormView extends StatelessWidget
   void onCreateSuccess(Response response, {BuildContext? context}) {
     prospectPresenter.setProcessing(false);
     Navigator.pop(context!);
-    Snackbar().createSuccess();
+    Snackbar().createSuccess(context!);
   }
 
   @override

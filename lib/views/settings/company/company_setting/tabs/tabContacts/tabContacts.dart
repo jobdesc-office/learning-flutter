@@ -50,7 +50,7 @@ class _TabContact extends StatelessWidget
     presenter.setProcessing(false);
     source.clear();
     source.isProcessing.value = false;
-    Snackbar().createSuccess();
+    Snackbar().createSuccess(context!);
   }
 
   @override
@@ -59,7 +59,7 @@ class _TabContact extends StatelessWidget
     presenter.setProcessing(false);
     source.clear();
     source.isProcessing.value = false;
-    Snackbar().deleteSuccess();
+    Snackbar().deleteSuccess(context!);
   }
 
   @override
@@ -68,7 +68,7 @@ class _TabContact extends StatelessWidget
     presenter.setProcessing(false);
     source.clear();
     source.isProcessing.value = false;
-    Snackbar().editSuccess();
+    Snackbar().editSuccess(context!);
   }
 
   @override

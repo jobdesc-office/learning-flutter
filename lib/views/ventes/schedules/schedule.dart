@@ -214,7 +214,7 @@ class ScheduleView extends GetView
   void onCreateSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
     map.reset();
-    Snackbar().createSuccess();
+    Snackbar().createSuccess(context!);
     Navigator.pop(context!);
   }
 
@@ -223,7 +223,7 @@ class ScheduleView extends GetView
     source.done.value = true;
     presenter.setProcessing(false);
     map.reset();
-    Snackbar().deleteSuccess();
+    Snackbar().deleteSuccess(context!);
     Navigator.pop(context!);
   }
 
@@ -231,7 +231,7 @@ class ScheduleView extends GetView
   void onEditSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
     map.reset();
-    Snackbar().editSuccess();
+    Snackbar().editSuccess(context!);
     Navigator.pop(context!);
   }
 

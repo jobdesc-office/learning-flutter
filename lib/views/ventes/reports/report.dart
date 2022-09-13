@@ -346,7 +346,7 @@ class _ReportViewState extends State<ReportView>
   void onCreateSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
     map.reset();
-    Snackbar().createSuccess();
+    Snackbar().createSuccess(context!);
     Navigator.pop(context!);
   }
 
@@ -355,7 +355,7 @@ class _ReportViewState extends State<ReportView>
     source.done.value = true;
     presenter.setProcessing(false);
     map.reset();
-    Snackbar().deleteSuccess();
+    Snackbar().deleteSuccess(context!);
     Navigator.pop(context!);
   }
 
@@ -363,7 +363,7 @@ class _ReportViewState extends State<ReportView>
   void onEditSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
     map.reset();
-    Snackbar().editSuccess();
+    Snackbar().editSuccess(context!);
     Navigator.pop(context!);
   }
 

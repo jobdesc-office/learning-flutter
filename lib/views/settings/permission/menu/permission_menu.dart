@@ -300,14 +300,14 @@ class PermissionMenuView extends GetView implements IndexViewContract {
   void onCreateSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
     if (context != null) Navigator.pop(context);
-    Snackbar().createSuccess();
+    Snackbar().createSuccess(context!);
   }
 
   @override
   void onDeleteSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
     if (context != null) Navigator.pop(context);
-    Snackbar().deleteSuccess();
+    Snackbar().deleteSuccess(context!);
   }
 
   @override

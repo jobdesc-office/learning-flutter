@@ -158,7 +158,7 @@ class _TabScheduleType extends StatelessWidget
     source.value.reset();
     source.value.isformactcat.value = false;
     source.value.isupdate.value = false;
-    Snackbar().createSuccess();
+    Snackbar().createSuccess(context);
   }
 
   @override
@@ -166,7 +166,7 @@ class _TabScheduleType extends StatelessWidget
     presenter.setProcessing(false);
     presenter.datatables(context!);
     Navigator.pop(context);
-    Snackbar().deleteSuccess();
+    Snackbar().deleteSuccess(context);
   }
 
   @override
@@ -176,7 +176,7 @@ class _TabScheduleType extends StatelessWidget
     source.value.reset();
     source.value.isformactcat.value = false;
     source.value.isupdate.value = false;
-    Snackbar().editSuccess();
+    Snackbar().editSuccess(context);
   }
 
   @override

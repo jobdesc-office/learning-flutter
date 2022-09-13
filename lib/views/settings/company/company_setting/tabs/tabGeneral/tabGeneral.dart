@@ -178,7 +178,7 @@ class _TabGeneral extends StatelessWidget
   void onEditSuccess(Response response, {BuildContext? context}) async {
     presenter.setProcessing(false);
     fetchData();
-    Snackbar().editSuccess();
+    Snackbar().editSuccess(context!);
   }
 
   @override

@@ -53,14 +53,14 @@ class _TabCustomers extends StatelessWidget
     presenter.setProcessing(false);
     source.clear();
     source.isProcessing = false;
-    Snackbar().createSuccess();
+    Snackbar().createSuccess(context!);
   }
 
   @override
   void onDeleteSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
     datatable.controller.reload();
-    Snackbar().deleteSuccess();
+    Snackbar().deleteSuccess(context!);
   }
 
   @override
@@ -69,7 +69,7 @@ class _TabCustomers extends StatelessWidget
     source.clear();
     presenter.setProcessing(false);
     source.isProcessing = false;
-    Snackbar().editSuccess();
+    Snackbar().editSuccess(context!);
   }
 
   @override

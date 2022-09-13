@@ -304,7 +304,7 @@ class _TabCompetitor extends GetView
     datatable.controller.reload();
     isForm.value = false;
     isEdit.value = false;
-    Snackbar().createSuccess();
+    Snackbar().createSuccess(context!);
     sources.value.reset();
   }
 
@@ -316,7 +316,7 @@ class _TabCompetitor extends GetView
     datatable.controller.reload();
     isForm.value = false;
     isEdit.value = false;
-    Snackbar().deleteSuccess();
+    Snackbar().deleteSuccess(context!);
     sources.value.reset();
   }
 
@@ -328,7 +328,7 @@ class _TabCompetitor extends GetView
     datatable.controller.reload();
     isForm.value = false;
     isEdit.value = false;
-    Snackbar().editSuccess();
+    Snackbar().editSuccess(context!);
     sources.value.reset();
   }
 
