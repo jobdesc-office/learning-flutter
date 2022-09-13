@@ -245,9 +245,9 @@ class Prospectupdatedby {
   String? userfullname;
   String? useremail;
   String? userphone;
-  Null? userdeviceid;
-  Null? userfcmtoken;
-  Null? usersocketid;
+  String? userdeviceid;
+  String? userfcmtoken;
+  String? usersocketid;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -315,7 +315,7 @@ class Prospectassigns {
   String? prospectassigndesc;
   int? createdby;
   String? createddate;
-  Null? updatedby;
+  int? updatedby;
   String? updateddate;
   bool? isactive;
   Prospectupdatedby? prospectassignss;
@@ -388,7 +388,7 @@ class Prospectproduct {
   int? prosproducttaxtypeid;
   int? createdby;
   String? createddate;
-  Null? updatedby;
+  int? updatedby;
   String? updateddate;
   bool? isactive;
   Prosproductproduct? prosproductproduct;
@@ -465,9 +465,9 @@ class Prosproductproduct {
   int? productid;
   String? productname;
   int? productbpid;
-  Null? createdby;
+  int? createdby;
   String? createddate;
-  Null? updatedby;
+  int? updatedby;
   String? updateddate;
   bool? isactive;
 
@@ -508,11 +508,11 @@ class Prosproductproduct {
 
 class Prosproducttaxtype {
   int? typeid;
-  Null? typecd;
+  String? typecd;
   String? typename;
-  Null? typeseq;
+  int? typeseq;
   int? typemasterid;
-  Null? typedesc;
+  String? typedesc;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -611,9 +611,9 @@ class Prospectownerusers {
   String? userfullname;
   String? useremail;
   String? userphone;
-  Null? userdeviceid;
-  Null? userfcmtoken;
-  Null? usersocketid;
+  String? userdeviceid;
+  String? userfcmtoken;
+  String? usersocketid;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -689,9 +689,9 @@ class Userdetails {
   int? userid;
   int? userdttypeid;
   int? userdtbpid;
-  Null? userdtbranchnm;
-  Null? userdtreferalcode;
-  Null? userdtrelationid;
+  String? userdtbranchnm;
+  String? userdtreferalcode;
+  int? userdtrelationid;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -757,15 +757,15 @@ class Prospectreference {
   int? prospectstatusid;
   String? prospectexpclosedate;
   int? prospectbpid;
-  Null? prospectdescription;
+  String? prospectdescription;
   int? prospectcustid;
-  Null? prospectrefid;
-  Null? prospectlostreasonid;
-  Null? prospectlostdesc;
+  int? prospectrefid;
+  int? prospectlostreasonid;
+  String? prospectlostdesc;
   int? prospectcustlabel;
   int? createdby;
   String? createddate;
-  Null? updatedby;
+  int? updatedby;
   String? updateddate;
   bool? isactive;
 
@@ -910,7 +910,7 @@ class Prospectcustomfield {
   String? prospectcfvalue;
   int? createdby;
   String? createddate;
-  Null? updatedby;
+  int? updatedby;
   String? updateddate;
   bool? isactive;
   Customfield? customfield;
@@ -978,7 +978,7 @@ class Customfield {
   int? thisprospectid;
   int? createdby;
   String? createddate;
-  Null? updatedby;
+  int? updatedby;
   String? updateddate;
   bool? isactive;
 
@@ -1138,9 +1138,9 @@ class Prospectcust {
   String? sbccstmname;
   String? sbccstmphone;
   String? sbccstmaddress;
-  Null? createdby;
+  int? createdby;
   String? createddate;
-  Null? updatedby;
+  int? updatedby;
   String? updateddate;
   bool? isactive;
   Sbccstm? sbccstm;
@@ -1223,10 +1223,10 @@ class Sbccstm {
   String? cstmpostalcode;
   String? cstmlatitude;
   String? cstmlongitude;
-  Null? referalcode;
-  Null? createdby;
+  String? referalcode;
+  int? createdby;
   String? createddate;
-  Null? updatedby;
+  int? updatedby;
   String? updateddate;
   bool? isactive;
 
@@ -1370,7 +1370,7 @@ class Prospectfiles {
   String? remark;
   int? createdby;
   String? createddate;
-  Null? updatedby;
+  int? updatedby;
   String? updateddate;
   bool? isactive;
   String? url;
