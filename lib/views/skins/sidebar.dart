@@ -130,11 +130,11 @@ class SidebarSkins extends StatelessWidget {
                       //     .where((element) => element.menu?.menunm == 'Users')
                       //     .first
                       //     .hasaccess!)
-                      MenuData(
-                          id: no++,
-                          route: RouteList.masterUser.index,
-                          label: 'Users',
-                          icon: Icons.group),
+                      // MenuData(
+                      //     id: no++,
+                      //     route: RouteList.masterUser.index,
+                      //     label: 'Users',
+                      //     icon: Icons.group),
                     ],
                   ),
                   MenuDataGroup(
