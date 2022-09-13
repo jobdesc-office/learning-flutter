@@ -381,6 +381,8 @@ class AppRoute {
           Get.lazyPut(() => ContactService());
           Get.lazyPut(() => CompetitorPresenter());
           Get.lazyPut(() => CompetitorService());
+          Get.lazyPut(() => UserPresenter());
+          Get.lazyPut(() => UserService());
         }),
       ),
       CustomGetPage(

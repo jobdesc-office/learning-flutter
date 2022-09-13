@@ -640,16 +640,16 @@ class Prospectstage {
   Prospectstage({this.typeid, this.typename, this.typeseq});
 
   Prospectstage.fromJson(Map<String, dynamic> json) {
-    typeid = json['typeid'];
-    typename = json['typename'];
-    typeseq = json['typeseq'];
+    typeid = json['sbtid'];
+    typename = json['sbttypename'];
+    typeseq = json['sbtseq'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['typeid'] = this.typeid;
-    data['typename'] = this.typename;
-    data['typeseq'] = this.typeseq;
+    data['sbtid'] = this.typeid;
+    data['sbttypename'] = this.typename;
+    data['sbtseq'] = this.typeseq;
     return data;
   }
 }
@@ -661,14 +661,14 @@ class Prospectlost {
   Prospectlost({this.typeid, this.typename});
 
   Prospectlost.fromJson(Map<String, dynamic> json) {
-    typeid = json['typeid'];
-    typename = json['typename'];
+    typeid = json['sbtid'];
+    typename = json['sbttypename'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['typeid'] = this.typeid;
-    data['typename'] = this.typename;
+    data['sbtid'] = this.typeid;
+    data['sbttypename'] = this.typename;
     return data;
   }
 }

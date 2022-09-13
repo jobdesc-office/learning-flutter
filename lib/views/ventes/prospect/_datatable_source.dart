@@ -150,7 +150,7 @@ class ProspectDataTableSource extends BsDatatableSource {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(row.prospectstage!.typename.toString()),
+              Text(row.prospectstage?.typename ?? ''),
               Text(''),
               if (_navigation.isCollapse.value) Text(''),
             ],
@@ -167,7 +167,7 @@ class ProspectDataTableSource extends BsDatatableSource {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (row.prospectstatus!.typename == 'Closed Won')
+              if (row.prospectstatus?.typename == 'Closed Won')
                 Container(
                   child: Text(
                     row.prospectstatus!.typename.toString(),
@@ -178,7 +178,7 @@ class ProspectDataTableSource extends BsDatatableSource {
                       color: Colors.green,
                       borderRadius: BorderRadius.circular(5)),
                 )
-              else if (row.prospectstatus!.typename == 'Closed Lost')
+              else if (row.prospectstatus?.typename == 'Closed Lost')
                 Container(
                   child: Text(
                     row.prospectstatus!.typename.toString(),
@@ -190,7 +190,7 @@ class ProspectDataTableSource extends BsDatatableSource {
                       borderRadius: BorderRadius.circular(5)),
                 )
               else
-                Text(row.prospectstatus!.typename.toString()),
+                Text(row.prospectstatus?.typename ?? ''),
               Text(''),
               if (_navigation.isCollapse.value) Text(''),
             ],
