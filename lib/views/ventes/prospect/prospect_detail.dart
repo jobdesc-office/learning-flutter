@@ -336,7 +336,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     source.pickedFile.clear();
     Navigator.pop(context!);
     presenter.details(context, source.prospectid.value);
-    Snackbar().createSuccess(context!);
+    Snackbar().createSuccess(context);
     detailPresenter
         .details(context, {'id': source.prospectid.value.toString()});
     customFieldPresenter.allBp(context);
@@ -352,7 +352,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     Get.back();
     Navigator.pop(context!);
     presenter.details(context, source.prospectid.value);
-    Snackbar().deleteSuccess(context!);
+    Snackbar().deleteSuccess(context);
     detailPresenter
         .details(context, {'id': source.prospectid.value.toString()});
     customFieldPresenter.allBp(context);
@@ -372,7 +372,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
         .details(context, {'id': source.prospectid.value.toString()});
     customFieldPresenter.allBp(context);
 
-    Snackbar().editSuccess(context!);
+    Snackbar().editSuccess(context);
     prospectCustomFieldPresenter.setProcessing(false);
     detailPresenter.setProcessing(false);
     assignPresenter.setProcessing(false);

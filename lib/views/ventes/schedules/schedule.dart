@@ -215,7 +215,7 @@ class ScheduleView extends GetView
     presenter.setProcessing(false);
     map.reset();
     Snackbar().createSuccess(context!);
-    Navigator.pop(context!);
+    Navigator.pop(context);
   }
 
   @override
@@ -224,7 +224,7 @@ class ScheduleView extends GetView
     presenter.setProcessing(false);
     map.reset();
     Snackbar().deleteSuccess(context!);
-    Navigator.pop(context!);
+    Navigator.pop(context);
   }
 
   @override
@@ -232,7 +232,7 @@ class ScheduleView extends GetView
     presenter.setProcessing(false);
     map.reset();
     Snackbar().editSuccess(context!);
-    Navigator.pop(context!);
+    Navigator.pop(context);
   }
 
   @override

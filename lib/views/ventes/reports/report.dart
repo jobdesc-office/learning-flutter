@@ -347,7 +347,7 @@ class _ReportViewState extends State<ReportView>
     presenter.setProcessing(false);
     map.reset();
     Snackbar().createSuccess(context!);
-    Navigator.pop(context!);
+    Navigator.pop(context);
   }
 
   @override
@@ -356,7 +356,7 @@ class _ReportViewState extends State<ReportView>
     presenter.setProcessing(false);
     map.reset();
     Snackbar().deleteSuccess(context!);
-    Navigator.pop(context!);
+    Navigator.pop(context);
   }
 
   @override
@@ -364,7 +364,7 @@ class _ReportViewState extends State<ReportView>
     presenter.setProcessing(false);
     map.reset();
     Snackbar().editSuccess(context!);
-    Navigator.pop(context!);
+    Navigator.pop(context);
   }
 
   @override

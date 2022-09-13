@@ -57,7 +57,7 @@ class ProspectView extends GetView implements IndexViewContract {
     presenter.setProcessing(false);
     datatable.controller.reload();
     Navigator.pop(context!);
-    Snackbar().createSuccess(context!);
+    Snackbar().createSuccess(context);
   }
 
   @override
@@ -65,7 +65,7 @@ class ProspectView extends GetView implements IndexViewContract {
     presenter.setProcessing(false);
     datatable.controller.reload();
     Navigator.pop(context!);
-    Snackbar().deleteSuccess(context!);
+    Snackbar().deleteSuccess(context);
   }
 
   @override
@@ -73,7 +73,7 @@ class ProspectView extends GetView implements IndexViewContract {
     presenter.setProcessing(false);
     datatable.controller.reload();
     Navigator.pop(context!);
-    Snackbar().editSuccess(context!);
+    Snackbar().editSuccess(context);
   }
 
   @override

@@ -401,7 +401,7 @@ class ScheduleFormView extends StatelessWidget
   void onCreateSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
     Snackbar().createSuccess(context!);
-    Navigator.pop(context!);
+    Navigator.pop(context);
     Navigator.pop(context);
   }
 
@@ -409,7 +409,7 @@ class ScheduleFormView extends StatelessWidget
   void onDeleteSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
     Snackbar().deleteSuccess(context!);
-    Navigator.pop(context!);
+    Navigator.pop(context);
     Navigator.pop(context);
   }
 
@@ -417,7 +417,7 @@ class ScheduleFormView extends StatelessWidget
   void onEditSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
     Snackbar().editSuccess(context!);
-    Navigator.pop(context!);
+    Navigator.pop(context);
     Navigator.pop(context);
   }
 
