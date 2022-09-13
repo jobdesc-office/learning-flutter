@@ -6,6 +6,7 @@ import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../../constants/base_text.dart';
 import '../../../models/session_model.dart';
@@ -21,6 +22,8 @@ import '../../../widgets/selectbox/custom_selectbox.dart';
 final _navigation = Get.find<NavigationPresenter>();
 
 class UserSource extends GetxController {
+  var id = 0.obs;
+
   var role = 1.obs;
   var partner = 1.obs;
   var isAdd = true;
@@ -35,6 +38,30 @@ class UserSource extends GetxController {
   increase() {
     selectsRole.add(BsSelectBoxController());
     selectsBp.add(BsSelectBoxController());
+  }
+
+  reset() {
+    id.value = 0;
+
+    role.value = 0;
+    partner.value = 0;
+    isChange.value = false;
+
+    createdby.value = '';
+    createddate.value = '';
+    updatedby.value = '';
+    updateddate.value = '';
+    isactive.value = false;
+
+    inputName.text = '';
+    inputPassword.text = '';
+    inputConfirmPassword.text = '';
+    inputFullName.text = '';
+    inputEmail.text = '';
+    inputPhone.text = '';
+
+    selectsRole.clear();
+    selectsBp.clear();
   }
 
   bool isProcessing = false;
@@ -54,9 +81,10 @@ class UserSource extends GetxController {
   List<Map<String, dynamic>> jsonRoles() {
     return List<Map<String, dynamic>>.from(selectsRole.map((controller) {
       int index = selectsRole.indexOf(controller);
+      final box = GetStorage();
       return {
         'roleid': selectsRole[index].getSelectedAsString(),
-        'bpid': selectsBp[index].getSelectedAsString(),
+        'bpid': box.read('mybpid').toString(),
       };
     }));
   }
@@ -94,7 +122,7 @@ class UserForm {
             children: [
               BsCol(
                 margin: EdgeInsets.only(right: 5),
-                sizes: ColScreen(lg: Col.col_5),
+                sizes: ColScreen(lg: Col.col_10),
                 child: FormGroup(
                   child: CustomSelectBox(
                     searchable: false,
@@ -106,24 +134,6 @@ class UserForm {
                     validators: [
                       Validators.selectRequired(
                           UserText.labelRole + ' ${index + 1}')
-                    ],
-                  ),
-                ),
-              ),
-              BsCol(
-                margin: EdgeInsets.only(left: 5),
-                sizes: ColScreen(lg: Col.col_5),
-                child: FormGroup(
-                  child: CustomSelectBox(
-                    searchable: true,
-                    disabled: source.isProcessing,
-                    controller: selectBp,
-                    hintText: BaseText.hiintSelect(
-                        field: UserText.labelBp + ' ${index + 1}'),
-                    serverSide: (params) => selectApiPartner(params),
-                    validators: [
-                      Validators.selectRequired(
-                          UserText.labelBp + ' ${index + 1}')
                     ],
                   ),
                 ),

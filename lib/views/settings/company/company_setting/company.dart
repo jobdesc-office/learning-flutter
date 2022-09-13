@@ -30,9 +30,12 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker_web/image_picker_web.dart';
 
+import '../../../../contracts/master/userReset_contract.dart';
 import '../../../../models/masters/competitor_model.dart';
+import '../../../../models/masters/user_model.dart';
 import '../../../../models/session_model.dart';
 import '../../../../models/settings/stbptype_model.dart';
+import '../../../../presenters/masters/user_presenter.dart';
 import '../../../../presenters/navigation_presenter.dart';
 import '../../../../presenters/settings/stbptype/stbptypeactivitycategory_presenter.dart';
 import '../../../../presenters/settings/stbptype/stbptypeactivitytype_presenter.dart';
@@ -48,6 +51,7 @@ import '../../../../routes/route_list.dart';
 import '../../../../styles/color_palattes.dart';
 import '../../../../utils/session_manager.dart';
 import '../../../../widgets/breadcrumb.dart';
+import '../../../../widgets/button/button_role_user.dart';
 import '../../../../widgets/button/theme_button_create.dart';
 import '../../../../widgets/button/theme_button_save.dart';
 import '../../../../widgets/datatables/custom_datatable.dart';
@@ -57,6 +61,8 @@ import '../../../../widgets/input/custom_input_number.dart';
 import '../../../../widgets/map/_map_source.dart';
 import '../../../../widgets/selectbox/custom_selectbox.dart';
 import '../../../../widgets/snackbar.dart';
+import '../../../masters/users/_datatable_source.dart';
+import '../../../masters/users/_form_source.dart';
 import '../../../skins/template.dart';
 import '../../../ventes/competitor/_datatable_source.dart';
 import '../../../ventes/competitor/_form_source.dart';
@@ -72,6 +78,7 @@ part 'tabs/tabContacts/_contact_form.dart';
 part 'tabs/tabGeneral/tabGeneral.dart';
 part 'tabs/tabProspect.dart';
 part 'tabs/tabSchedule.dart';
+part 'tabs/tabUsers.dart';
 
 part 'tabs/tabActivities_source/_tabCategory.dart';
 part 'tabs/tabActivities_source/_tabType.dart';
@@ -108,7 +115,7 @@ class _CompanyViewState extends State<CompanyView>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 4, vsync: this);
+    _tabController = TabController(length: 5, vsync: this);
   }
 
   @override
@@ -147,6 +154,7 @@ class _CompanyViewState extends State<CompanyView>
                       Tab(text: 'Customer'),
                       Tab(text: 'Prospect'),
                       // Tab(text: 'Schedule'),
+                      Tab(text: 'Users'),
                     ],
                   ),
                 ),
@@ -164,6 +172,7 @@ class _CompanyViewState extends State<CompanyView>
                       _TabCustomer(),
                       _TabProspect(),
                       // _TabSchedules(),
+                      _TabUsers(),
                     ],
                   ),
                 ),
