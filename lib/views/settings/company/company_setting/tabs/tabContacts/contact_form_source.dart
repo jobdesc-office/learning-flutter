@@ -52,8 +52,12 @@ class ContactFormSource {
     isactive.value = contact.isactive!;
     inputName.text = contact.contactname ?? "";
     inputValue.text = contact.contactvalueid ?? "";
-    selectCustomer.setSelected(BsSelectBoxOption(value: contact.contactcustomerid, text: Text(contact.contactcustomer!.cstmname!)));
-    selectType.setSelected(BsSelectBoxOption(value: contact.contacttypeid, text: Text(contact.contacttype!.typename!)));
+    selectCustomer.setSelected(BsSelectBoxOption(
+        value: contact.contactbpcustomerid,
+        text: Text(contact.contactcustomer!.cstmname!)));
+    selectType.setSelected(BsSelectBoxOption(
+        value: contact.contacttypeid,
+        text: Text(contact.contacttype!.typename!)));
     contactid = contact.contactpersonid;
   }
 
@@ -61,7 +65,7 @@ class ContactFormSource {
     SessionModel session = await SessionManager.current();
     return {
       'contactname': inputName.text,
-      'contactcustomerid': selectCustomer.getSelectedAsString(),
+      'contactbpcustomerid': selectCustomer.getSelectedAsString(),
       'contacttypeid': selectType.getSelectedAsString(),
       'contactvalueid': inputValue.text,
       'createdby': session.userid,

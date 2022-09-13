@@ -71,7 +71,7 @@ class PCustomerSource extends GetxController {
       imgname.value = name;
       json = {
         'isregistered': isRegistered.value,
-        'contactcustomerid': selectCustomer.getSelectedAsString(),
+        'contactbpcustomerid': selectCustomer.getSelectedAsString(),
         'contactname': inputContactName.text,
         'contacttypeid': selectContactType.getSelectedAsString(),
         'contactvalueid': inputValue.text,

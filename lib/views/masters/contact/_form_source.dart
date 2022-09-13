@@ -35,7 +35,7 @@ class ContactSource {
     SessionModel session = await SessionManager.current();
     return {
       'contactname': inputName.text,
-      'contactcustomerid': selectCustomer.getSelectedAsString(),
+      'contactbpcustomerid': selectCustomer.getSelectedAsString(),
       'contacttypeid': selectType.getSelectedAsString(),
       'contactvalueid': inputValue.text,
       'createdby': session.userid,

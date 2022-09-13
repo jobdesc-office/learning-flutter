@@ -53,7 +53,7 @@ class MassProspectContactSource {
     SessionModel session = await SessionManager.current();
     return {
       'contactname': inputName.text,
-      'contactcustomerid': id.value,
+      'contactbpcustomerid': id.value,
       'contact': jsonEncode(jsonProducts()),
       'createdby': session.userid,
       'updatedby': session.userid,

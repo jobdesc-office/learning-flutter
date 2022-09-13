@@ -245,9 +245,9 @@ class Prospectupdatedby {
   String? userfullname;
   String? useremail;
   String? userphone;
-  String? userdeviceid;
-  String? userfcmtoken;
-  String? usersocketid;
+  Null? userdeviceid;
+  Null? userfcmtoken;
+  Null? usersocketid;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -315,10 +315,10 @@ class Prospectassigns {
   String? prospectassigndesc;
   int? createdby;
   String? createddate;
-  int? updatedby;
+  Null? updatedby;
   String? updateddate;
   bool? isactive;
-  Prospectassignss? prospectassignss;
+  Prospectupdatedby? prospectassignss;
   Prospectupdatedby? prospectreportss;
 
   Prospectassigns(
@@ -347,7 +347,7 @@ class Prospectassigns {
     updateddate = json['updateddate'];
     isactive = json['isactive'];
     prospectassignss = json['prospectassignss'] != null
-        ? new Prospectassignss.fromJson(json['prospectassignss'])
+        ? new Prospectupdatedby.fromJson(json['prospectassignss'])
         : null;
     prospectreportss = json['prospectreportss'] != null
         ? new Prospectupdatedby.fromJson(json['prospectreportss'])
@@ -376,75 +376,6 @@ class Prospectassigns {
   }
 }
 
-class Prospectassignss {
-  int? userid;
-  String? username;
-  String? userpassword;
-  String? userfullname;
-  String? useremail;
-  String? userphone;
-  String? userdeviceid;
-  String? userfcmtoken;
-  String? usersocketid;
-  int? createdby;
-  String? createddate;
-  int? updatedby;
-  String? updateddate;
-  bool? isactive;
-
-  Prospectassignss(
-      {this.userid,
-      this.username,
-      this.userpassword,
-      this.userfullname,
-      this.useremail,
-      this.userphone,
-      this.userdeviceid,
-      this.userfcmtoken,
-      this.usersocketid,
-      this.createdby,
-      this.createddate,
-      this.updatedby,
-      this.updateddate,
-      this.isactive});
-
-  Prospectassignss.fromJson(Map<String, dynamic> json) {
-    userid = json['userid'];
-    username = json['username'];
-    userpassword = json['userpassword'];
-    userfullname = json['userfullname'];
-    useremail = json['useremail'];
-    userphone = json['userphone'];
-    userdeviceid = json['userdeviceid'];
-    userfcmtoken = json['userfcmtoken'];
-    usersocketid = json['usersocketid'];
-    createdby = json['createdby'];
-    createddate = json['createddate'];
-    updatedby = json['updatedby'];
-    updateddate = json['updateddate'];
-    isactive = json['isactive'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['userid'] = this.userid;
-    data['username'] = this.username;
-    data['userpassword'] = this.userpassword;
-    data['userfullname'] = this.userfullname;
-    data['useremail'] = this.useremail;
-    data['userphone'] = this.userphone;
-    data['userdeviceid'] = this.userdeviceid;
-    data['userfcmtoken'] = this.userfcmtoken;
-    data['usersocketid'] = this.usersocketid;
-    data['createdby'] = this.createdby;
-    data['createddate'] = this.createddate;
-    data['updatedby'] = this.updatedby;
-    data['updateddate'] = this.updateddate;
-    data['isactive'] = this.isactive;
-    return data;
-  }
-}
-
 class Prospectproduct {
   int? prosproductid;
   int? prosproductprospectid;
@@ -457,7 +388,7 @@ class Prospectproduct {
   int? prosproducttaxtypeid;
   int? createdby;
   String? createddate;
-  int? updatedby;
+  Null? updatedby;
   String? updateddate;
   bool? isactive;
   Prosproductproduct? prosproductproduct;
@@ -534,9 +465,9 @@ class Prosproductproduct {
   int? productid;
   String? productname;
   int? productbpid;
-  int? createdby;
+  Null? createdby;
   String? createddate;
-  int? updatedby;
+  Null? updatedby;
   String? updateddate;
   bool? isactive;
 
@@ -577,11 +508,11 @@ class Prosproductproduct {
 
 class Prosproducttaxtype {
   int? typeid;
-  String? typecd;
+  Null? typecd;
   String? typename;
-  int? typeseq;
+  Null? typeseq;
   int? typemasterid;
-  String? typedesc;
+  Null? typedesc;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -640,35 +571,35 @@ class Prospectstage {
   Prospectstage({this.typeid, this.typename, this.typeseq});
 
   Prospectstage.fromJson(Map<String, dynamic> json) {
-    typeid = json['sbtid'];
-    typename = json['sbttypename'];
-    typeseq = json['sbtseq'];
+    typeid = json['typeid'];
+    typename = json['typename'];
+    typeseq = json['typeseq'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['sbtid'] = this.typeid;
-    data['sbttypename'] = this.typename;
-    data['sbtseq'] = this.typeseq;
+    data['typeid'] = this.typeid;
+    data['typename'] = this.typename;
+    data['typeseq'] = this.typeseq;
     return data;
   }
 }
 
 class Prospectlost {
-  int? typeid;
-  String? typename;
+  int? sbtid;
+  String? sbttypename;
 
-  Prospectlost({this.typeid, this.typename});
+  Prospectlost({this.sbtid, this.sbttypename});
 
   Prospectlost.fromJson(Map<String, dynamic> json) {
-    typeid = json['sbtid'];
-    typename = json['sbttypename'];
+    sbtid = json['sbtid'];
+    sbttypename = json['sbttypename'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['sbtid'] = this.typeid;
-    data['sbttypename'] = this.typename;
+    data['sbtid'] = this.sbtid;
+    data['sbttypename'] = this.sbttypename;
     return data;
   }
 }
@@ -680,9 +611,9 @@ class Prospectownerusers {
   String? userfullname;
   String? useremail;
   String? userphone;
-  String? userdeviceid;
-  String? userfcmtoken;
-  String? usersocketid;
+  Null? userdeviceid;
+  Null? userfcmtoken;
+  Null? usersocketid;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -758,9 +689,9 @@ class Userdetails {
   int? userid;
   int? userdttypeid;
   int? userdtbpid;
-  String? userdtbranchnm;
-  String? userdtreferalcode;
-  int? userdtrelationid;
+  Null? userdtbranchnm;
+  Null? userdtreferalcode;
+  Null? userdtrelationid;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -826,15 +757,15 @@ class Prospectreference {
   int? prospectstatusid;
   String? prospectexpclosedate;
   int? prospectbpid;
-  String? prospectdescription;
+  Null? prospectdescription;
   int? prospectcustid;
-  int? prospectrefid;
-  int? prospectlostreasonid;
-  String? prospectlostdesc;
+  Null? prospectrefid;
+  Null? prospectlostreasonid;
+  Null? prospectlostdesc;
   int? prospectcustlabel;
   int? createdby;
   String? createddate;
-  int? updatedby;
+  Null? updatedby;
   String? updateddate;
   bool? isactive;
 
@@ -979,7 +910,7 @@ class Prospectcustomfield {
   String? prospectcfvalue;
   int? createdby;
   String? createddate;
-  int? updatedby;
+  Null? updatedby;
   String? updateddate;
   bool? isactive;
   Customfield? customfield;
@@ -1047,7 +978,7 @@ class Customfield {
   int? thisprospectid;
   int? createdby;
   String? createddate;
-  int? updatedby;
+  Null? updatedby;
   String? updateddate;
   bool? isactive;
 
@@ -1207,12 +1138,13 @@ class Prospectcust {
   String? sbccstmname;
   String? sbccstmphone;
   String? sbccstmaddress;
-  int? createdby;
+  Null? createdby;
   String? createddate;
-  int? updatedby;
+  Null? updatedby;
   String? updateddate;
   bool? isactive;
   Sbccstm? sbccstm;
+  List<Sbccontact>? sbccontact;
 
   Prospectcust(
       {this.sbcid,
@@ -1227,7 +1159,8 @@ class Prospectcust {
       this.updatedby,
       this.updateddate,
       this.isactive,
-      this.sbccstm});
+      this.sbccstm,
+      this.sbccontact});
 
   Prospectcust.fromJson(Map<String, dynamic> json) {
     sbcid = json['sbcid'];
@@ -1244,6 +1177,12 @@ class Prospectcust {
     isactive = json['isactive'];
     sbccstm =
         json['sbccstm'] != null ? new Sbccstm.fromJson(json['sbccstm']) : null;
+    if (json['sbccontact'] != null) {
+      sbccontact = <Sbccontact>[];
+      json['sbccontact'].forEach((v) {
+        sbccontact!.add(new Sbccontact.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -1263,13 +1202,16 @@ class Prospectcust {
     if (this.sbccstm != null) {
       data['sbccstm'] = this.sbccstm!.toJson();
     }
+    if (this.sbccontact != null) {
+      data['sbccontact'] = this.sbccontact!.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 }
 
 class Sbccstm {
   int? cstmid;
-  String? cstmprefix;
+  Null? cstmprefix;
   String? cstmname;
   String? cstmphone;
   String? cstmaddress;
@@ -1281,13 +1223,12 @@ class Sbccstm {
   String? cstmpostalcode;
   String? cstmlatitude;
   String? cstmlongitude;
-  String? referalcode;
-  int? createdby;
+  Null? referalcode;
+  Null? createdby;
   String? createddate;
-  int? updatedby;
+  Null? updatedby;
   String? updateddate;
   bool? isactive;
-  List<Cstmcontact>? cstmcontact;
 
   Sbccstm(
       {this.cstmid,
@@ -1308,8 +1249,7 @@ class Sbccstm {
       this.createddate,
       this.updatedby,
       this.updateddate,
-      this.isactive,
-      this.cstmcontact});
+      this.isactive});
 
   Sbccstm.fromJson(Map<String, dynamic> json) {
     cstmid = json['cstmid'];
@@ -1331,12 +1271,6 @@ class Sbccstm {
     updatedby = json['updatedby'];
     updateddate = json['updateddate'];
     isactive = json['isactive'];
-    if (json['cstmcontact'] != null) {
-      cstmcontact = <Cstmcontact>[];
-      json['cstmcontact'].forEach((v) {
-        cstmcontact!.add(new Cstmcontact.fromJson(v));
-      });
-    }
   }
 
   Map<String, dynamic> toJson() {
@@ -1360,16 +1294,13 @@ class Sbccstm {
     data['updatedby'] = this.updatedby;
     data['updateddate'] = this.updateddate;
     data['isactive'] = this.isactive;
-    if (this.cstmcontact != null) {
-      data['cstmcontact'] = this.cstmcontact!.map((v) => v.toJson()).toList();
-    }
     return data;
   }
 }
 
-class Cstmcontact {
+class Sbccontact {
   int? contactpersonid;
-  int? contactcustomerid;
+  int? contactbpcustomerid;
   int? contacttypeid;
   String? contactname;
   String? contactvalueid;
@@ -1380,9 +1311,9 @@ class Cstmcontact {
   bool? isactive;
   Prosproducttaxtype? contacttype;
 
-  Cstmcontact(
+  Sbccontact(
       {this.contactpersonid,
-      this.contactcustomerid,
+      this.contactbpcustomerid,
       this.contacttypeid,
       this.contactname,
       this.contactvalueid,
@@ -1393,9 +1324,9 @@ class Cstmcontact {
       this.isactive,
       this.contacttype});
 
-  Cstmcontact.fromJson(Map<String, dynamic> json) {
+  Sbccontact.fromJson(Map<String, dynamic> json) {
     contactpersonid = json['contactpersonid'];
-    contactcustomerid = json['contactcustomerid'];
+    contactbpcustomerid = json['contactbpcustomerid'];
     contacttypeid = json['contacttypeid'];
     contactname = json['contactname'];
     contactvalueid = json['contactvalueid'];
@@ -1412,7 +1343,7 @@ class Cstmcontact {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['contactpersonid'] = this.contactpersonid;
-    data['contactcustomerid'] = this.contactcustomerid;
+    data['contactbpcustomerid'] = this.contactbpcustomerid;
     data['contacttypeid'] = this.contacttypeid;
     data['contactname'] = this.contactname;
     data['contactvalueid'] = this.contactvalueid;
@@ -1439,7 +1370,7 @@ class Prospectfiles {
   String? remark;
   int? createdby;
   String? createddate;
-  int? updatedby;
+  Null? updatedby;
   String? updateddate;
   bool? isactive;
   String? url;

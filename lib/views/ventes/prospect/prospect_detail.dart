@@ -248,14 +248,14 @@ class _ProspectDetailsState extends State<ProspectDetails>
   void onSuccessFetchData(Response response) async {
     List products = [];
     List<Prospectassigns> assign = [];
-    List<Cstmcontact> contact = [];
+    List<Sbccontact> contact = [];
     List<ProspectCustomFieldModel> customField = [];
     List<Prospectfiles> files = [];
     ProspectModel dt = ProspectModel.fromJson(response.body);
     source.prospectid.value = dt.prospectid!;
     source.prospectbpid.value = dt.prospectbp!.bpid!;
     source.desc.value = dt.prospectdescription ?? '';
-    source.status.value = dt.prospectstatus?.typename ?? '';
+    source.status.value = dt.prospectstatus?.sbttypename ?? '';
     source.stage.value = dt.prospectstage!.typename ?? '';
     customFieldPresenter.allBp(context);
 
@@ -268,11 +268,11 @@ class _ProspectDetailsState extends State<ProspectDetails>
     source.prospectstartdate.value = dt.prospectstartdate ?? '';
     source.prospectStageController.value.selected = dt.prospectstage;
     source.custname.value = dt.prospectcust!.sbccstmname ?? '';
-    source.custlabel.value = dt.prospectcustlabeltype?.typename ?? '';
+    source.custlabel.value = dt.prospectcustlabeltype?.sbttypename ?? '';
     source.custid.value = dt.prospectcust!.sbccstm!.cstmid ?? 0;
 
     if (dt.prospectlostreasonid != null) {
-      source.losttype.value = dt.prospectlost!.typename!;
+      source.losttype.value = dt.prospectlost!.sbttypename!;
       source.lostdesc.value = dt.prospectlostdesc!;
     }
 
@@ -297,8 +297,8 @@ class _ProspectDetailsState extends State<ProspectDetails>
       });
       source.customField.value = customField;
     }
-    if (dt.prospectcust!.sbccstm!.cstmcontact != null) {
-      dt.prospectcust!.sbccstm!.cstmcontact?.forEach((element) {
+    if (dt.prospectcust!.sbccontact != null) {
+      dt.prospectcust!.sbccontact!.forEach((element) {
         contact.add(element);
       });
       source.contact.value = contact;

@@ -52,7 +52,7 @@ class ProspectDetailsSource extends GetxController {
   var detailData = <ProspectActivityModel>[].obs;
   var assign = <Prospectassigns>[].obs;
   var product = [].obs;
-  var contact = <Cstmcontact>[].obs;
+  var contact = <Sbccontact>[].obs;
   var files = <Prospectfiles>[].obs;
   var customField = <ProspectCustomFieldModel>[].obs;
   var rawcustomField = <CustomFieldModel>[].obs;
@@ -138,7 +138,7 @@ class ProspectDetailsSource extends GetxController {
     detailData.value = [];
     assign.value = [];
     product.value = [];
-    contact.value = <Cstmcontact>[];
+    contact.value = <Sbccontact>[];
     files.value = <Prospectfiles>[];
     customField.value = <ProspectCustomFieldModel>[];
     rawcustomField.value = <CustomFieldModel>[];

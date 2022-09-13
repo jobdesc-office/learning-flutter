@@ -105,7 +105,7 @@ class _TabContact extends StatelessWidget {
                                                         contactPresenter.edit(
                                                             context,
                                                             e.contactpersonid!,
-                                                            e.contactcustomerid!),
+                                                            e.contactbpcustomerid!),
                                                     child: Icon(Icons.edit)),
                                               ),
                                             if (source.status.value !=

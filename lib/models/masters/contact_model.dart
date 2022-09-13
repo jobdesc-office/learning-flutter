@@ -1,6 +1,6 @@
 class ContactModel {
   int? contactpersonid;
-  int? contactcustomerid;
+  int? contactbpcustomerid;
   int? contacttypeid;
   String? contactname;
   String? contactvalueid;
@@ -16,7 +16,7 @@ class ContactModel {
 
   ContactModel(
       {this.contactpersonid,
-      this.contactcustomerid,
+      this.contactbpcustomerid,
       this.contacttypeid,
       this.contactname,
       this.contactvalueid,
@@ -32,7 +32,7 @@ class ContactModel {
 
   ContactModel.fromJson(Map<String, dynamic> json) {
     contactpersonid = json['contactpersonid'];
-    contactcustomerid = json['contactcustomerid'];
+    contactbpcustomerid = json['contactbpcustomerid'];
     contacttypeid = json['contacttypeid'];
     contactname = json['contactname'];
     contactvalueid = json['contactvalueid'];
@@ -58,7 +58,7 @@ class ContactModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['contactpersonid'] = this.contactpersonid;
-    data['contactcustomerid'] = this.contactcustomerid;
+    data['contactbpcustomerid'] = this.contactbpcustomerid;
     data['contacttypeid'] = this.contacttypeid;
     data['contactname'] = this.contactname;
     data['contactvalueid'] = this.contactvalueid;

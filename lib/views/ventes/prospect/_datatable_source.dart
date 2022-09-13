@@ -77,22 +77,22 @@ class ProspectDataTableSource extends BsDatatableSource {
   BsDataRow getRow(int index) {
     final row = users[index];
     int x = controller.start + index + 1;
-    var contact;
-    if (row.prospectcust!.sbccstm!.cstmcontact!.isNotEmpty) {
-      if (_navigation.isCollapse.value) {
-        contact = Row(
-          children: [
-            Text(' | '),
-            Text(row.prospectcust!.sbccstm!.cstmcontact!.first.contactvalueid ??
-                '-'),
-          ],
-        );
-      } else {
-        contact = Text('');
-      }
-    } else {
-      contact = Text('');
-    }
+    // var contact;
+    // if (row.prospectcust!.sbccstm!.cstmcontact!.isNotEmpty) {
+    //   if (_navigation.isCollapse.value) {
+    //     contact = Row(
+    //       children: [
+    //         Text(' | '),
+    //         Text(row.prospectcust!.sbccstm!.cstmcontact!.first.contactvalueid ??
+    //             '-'),
+    //       ],
+    //     );
+    //   } else {
+    //     contact = Text('');
+    //   }
+    // } else {
+    //   contact = Text('');
+    // }
     return BsDataRow(
       index: index,
       cells: [
@@ -167,10 +167,10 @@ class ProspectDataTableSource extends BsDatatableSource {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (row.prospectstatus?.typename == 'Closed Won')
+              if (row.prospectstatus?.sbttypename == 'Closed Won')
                 Container(
                   child: Text(
-                    row.prospectstatus!.typename.toString(),
+                    row.prospectstatus!.sbttypename.toString(),
                     style: TextStyle(color: Colors.white),
                   ),
                   padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
@@ -178,10 +178,10 @@ class ProspectDataTableSource extends BsDatatableSource {
                       color: Colors.green,
                       borderRadius: BorderRadius.circular(5)),
                 )
-              else if (row.prospectstatus?.typename == 'Closed Lost')
+              else if (row.prospectstatus?.sbttypename == 'Closed Lost')
                 Container(
                   child: Text(
-                    row.prospectstatus!.typename.toString(),
+                    row.prospectstatus!.sbttypename.toString(),
                     style: TextStyle(color: Colors.white),
                   ),
                   padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
@@ -190,7 +190,7 @@ class ProspectDataTableSource extends BsDatatableSource {
                       borderRadius: BorderRadius.circular(5)),
                 )
               else
-                Text(row.prospectstatus?.typename ?? ''),
+                Text(row.prospectstatus?.sbttypename ?? ''),
               Text(''),
               if (_navigation.isCollapse.value) Text(''),
             ],
@@ -235,7 +235,7 @@ class ProspectDataTableSource extends BsDatatableSource {
                     row.prospectcust!.sbccstmphone ?? '-',
                     style: TextStyle(fontSize: 13),
                   ),
-                  contact
+                  // contact
                   // Text(row.prospectcust!.sbccstmphone ?? '-',
                   //     style: TextStyle(fontSize: 13))
                 ],
