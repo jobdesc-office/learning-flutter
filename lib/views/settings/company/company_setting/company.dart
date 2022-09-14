@@ -72,6 +72,7 @@ import '../../../ventes/competitor/_datatable_source.dart';
 import '../../../ventes/competitor/_form_source.dart';
 import '_datatable_source.dart';
 import '_source.dart';
+import 'tabs/tabCustomers/_datatable_source.dart';
 import 'tabs/tabCustomers/_form_source.dart';
 
 part 'tabs/tabActivities.dart';
@@ -85,6 +86,7 @@ part 'tabs/tabSchedule.dart';
 part 'tabs/tabUsers.dart';
 
 part 'tabs/tabCustomers/customers_form_source.dart';
+part 'tabs/tabCustomers/tabCustomerspr.dart';
 
 part 'tabs/tabActivities_source/_tabCategory.dart';
 part 'tabs/tabActivities_source/_tabType.dart';

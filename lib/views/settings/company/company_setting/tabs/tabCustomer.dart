@@ -5,7 +5,8 @@ class _TabCustomer extends StatefulWidget {
   State<_TabCustomer> createState() => _TabCustomerState();
 }
 
-class _TabCustomerState extends State<_TabCustomer> with TickerProviderStateMixin {
+class _TabCustomerState extends State<_TabCustomer>
+    with TickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -46,7 +47,7 @@ class _TabCustomerState extends State<_TabCustomer> with TickerProviderStateMixi
                   controller: _tabController,
                   children: [
                     _TabCustomers("Customer"),
-                    _TabCustomers("Prospective Customer"),
+                    _TabCustomerspr("Prospective Customer"),
                     _TabContact(),
                   ],
                 ),

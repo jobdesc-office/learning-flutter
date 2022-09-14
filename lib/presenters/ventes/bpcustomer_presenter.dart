@@ -19,6 +19,11 @@ class BpCustomerPresenter extends CustomGetXController {
     _bpCustomerViewContract = bpCustomerViewContract;
   }
 
+  late IndexViewContract _bpCustomerproViewContract;
+  set bpCustomerproViewContract(IndexViewContract bpCustomerViewContract) {
+    _bpCustomerproViewContract = bpCustomerViewContract;
+  }
+
   late EditViewContract _bpCustomerFetchDataContract;
   set bpCustomerFetchDataContract(
       EditViewContract bpCustomerFetchDataContract) {
@@ -40,6 +45,24 @@ class BpCustomerPresenter extends CustomGetXController {
 
   Future datatablesbp(BuildContext context, Map<String, String> params) async {
     Response response = await _bpCustomerService.datatablesbp(params);
+    if (response.statusCode == 200)
+      _bpCustomerViewContract.onLoadDatatables(context, response);
+    else
+      _bpCustomerViewContract.onErrorRequest(response);
+  }
+
+  Future datatablesbppro(
+      BuildContext context, Map<String, String> params) async {
+    Response response = await _bpCustomerService.datatablesbppro(params);
+    if (response.statusCode == 200)
+      _bpCustomerproViewContract.onLoadDatatables(context, response);
+    else
+      _bpCustomerproViewContract.onErrorRequest(response);
+  }
+
+  Future datatablesbpcus(
+      BuildContext context, Map<String, String> params) async {
+    Response response = await _bpCustomerService.datatablesbpcus(params);
     if (response.statusCode == 200)
       _bpCustomerViewContract.onLoadDatatables(context, response);
     else

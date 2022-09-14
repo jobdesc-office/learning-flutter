@@ -1,8 +1,8 @@
 part of '../../company.dart';
 
-class _TabCustomers extends StatelessWidget
+class _TabCustomerspr extends StatelessWidget
     implements IndexViewContract, EditViewContract {
-  final datatable = CustomersDataTableSource();
+  final datatable = CustomerDataTableSource();
   final String typename;
 
   late PCustomersForm pCustomerForm;
@@ -13,9 +13,9 @@ class _TabCustomers extends StatelessWidget
   final source = PCustomersSource().obs;
   final custsource = _CustomerFormSource().obs;
 
-  _TabCustomers(this.typename) {
+  _TabCustomerspr(this.typename) {
     presenter.addCustomerViewContract = this;
-    bppresenter.bpCustomerViewContract = this;
+    bppresenter.bpCustomerproViewContract = this;
     custpresenter.customerViewContract = this;
   }
 
@@ -44,7 +44,7 @@ class _TabCustomers extends StatelessWidget
                       )
                     ],
                     serverSide: (params) =>
-                        bppresenter.datatablesbpcus(context, params),
+                        bppresenter.datatablesbppro(context, params),
                   ),
                 ],
               );
