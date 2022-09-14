@@ -33,6 +33,8 @@ class PCustomersSource extends GetxController {
   var isnGetLatLong = true.obs;
   var isRegistered = false.obs;
 
+  var pro = false.obs;
+
   var format = ''.obs;
 
   var imgname = ''.obs;
@@ -75,7 +77,7 @@ class PCustomersSource extends GetxController {
 
     selectCustomer.clear();
     selectType.clear();
-    selectStatus.clear();
+    // selectStatus.clear();
   }
 
   TextEditingController inputPrefix = TextEditingController();
@@ -92,7 +94,7 @@ class PCustomersSource extends GetxController {
   BsSelectBoxController selectCustomer = BsSelectBoxController();
   BsSelectBoxController selectType = BsSelectBoxController();
 
-  BsSelectBoxController selectStatus = BsSelectBoxController();
+  // BsSelectBoxController selectStatus = BsSelectBoxController();
 
   Future<Map<String, dynamic>> toJson() async {
     var json;
@@ -106,7 +108,7 @@ class PCustomersSource extends GetxController {
         'isregistered': isRegistered.value,
         'sbcbpid': box.read('mybpid'),
         'cstmid': selectCustomer.getSelectedAsString(),
-        'sbccstmstatusid': selectStatus.getSelectedAsString(),
+        'sbccstmstatusid': pro.value ? 'Pro' : 'Cust',
         'sbccstmpic': isImage.value
             ? MultipartFile(image.value, filename: imgname.value)
             : null,
@@ -141,7 +143,7 @@ class PCustomersSource extends GetxController {
             ? MultipartFile(image.value, filename: inputName.text)
             : null,
         'sbcbpid': box.read('mybpid'),
-        'sbccstmstatusid': selectStatus.getSelectedAsString(),
+        'sbccstmstatusid': pro.value ? 'Pro' : 'Cust',
         'createdby': session.userid,
         'updatedby': session.userid,
       };
@@ -157,25 +159,25 @@ class PCustomersForm {
 
   PCustomersForm(this.source);
 
-  Widget selectBpCustomerTypes() {
-    return FormGroup(
-      label: Obx(() => Text(PCustomerText.labelBpCustomerType,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
-      child: CustomSelectBox(
-        searchable: false,
-        disabled: source.isProcessing,
-        controller: source.selectStatus,
-        hintText:
-            BaseText.hiintSelect(field: PCustomerText.labelBpCustomerType),
-        serverSide: (params) => selectApiBpCustomerStatus(params),
-        validators: [
-          Validators.selectRequired(PCustomerText.labelBpCustomerType),
-        ],
-      ),
-    );
-  }
+  // Widget selectBpCustomerTypes() {
+  //   return FormGroup(
+  //     label: Obx(() => Text(PCustomerText.labelBpCustomerType,
+  //         style: TextStyle(
+  //             color:
+  //                 _navigation.darkTheme.value ? Colors.white : Colors.black))),
+  //     child: CustomSelectBox(
+  //       searchable: false,
+  //       disabled: source.isProcessing,
+  //       controller: source.selectStatus,
+  //       hintText:
+  //           BaseText.hiintSelect(field: PCustomerText.labelBpCustomerType),
+  //       serverSide: (params) => selectApiBpCustomerStatus(params),
+  //       validators: [
+  //         Validators.selectRequired(PCustomerText.labelBpCustomerType),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget inputPrefix() {
     return FormGroup(

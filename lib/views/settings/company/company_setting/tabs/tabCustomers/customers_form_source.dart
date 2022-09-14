@@ -50,25 +50,6 @@ class _CustomerFormSource extends GetxController
                                 child: BsRow(
                                   children: [
                                     BsCol(
-                                      margin: EdgeInsets.only(bottom: 10),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                            border: Border.all(
-                                                color: Colors.grey.shade300)),
-                                        child: Container(
-                                          margin: EdgeInsets.all(10),
-                                          child: Column(
-                                            children: [
-                                              pCustomerForm
-                                                  .selectBpCustomerTypes(),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    BsCol(
                                       child: Container(
                                         decoration: BoxDecoration(
                                             borderRadius:
@@ -191,8 +172,6 @@ class _CustomerFormSource extends GetxController
                                         child: Column(
                                           children: [
                                             pCustomerForm.selectCustomer(),
-                                            pCustomerForm
-                                                .selectBpCustomerTypes(),
                                           ],
                                         ),
                                       ),

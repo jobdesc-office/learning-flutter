@@ -123,7 +123,7 @@ class _CompanyViewState extends State<CompanyView>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 5, vsync: this);
+    _tabController = TabController(length: 6, vsync: this);
   }
 
   @override
@@ -163,6 +163,7 @@ class _CompanyViewState extends State<CompanyView>
                       Tab(text: 'Prospect'),
                       // Tab(text: 'Schedule'),
                       Tab(text: 'Users'),
+                      Tab(text: 'Product'),
                     ],
                   ),
                 ),
@@ -180,6 +181,7 @@ class _CompanyViewState extends State<CompanyView>
                       _TabCustomer(),
                       _TabProspect(),
                       // _TabSchedules(),
+                      _TabUsers(),
                       _TabUsers(),
                     ],
                   ),

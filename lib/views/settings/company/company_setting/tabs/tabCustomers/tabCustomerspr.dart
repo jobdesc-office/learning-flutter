@@ -40,7 +40,10 @@ class _TabCustomerspr extends StatelessWidget
                       ThemeButtonCreate(
                         prefix: "$typename",
                         // onPressed: () => presenter.add(context),
-                        onPressed: () => custsource.value.isForm.toggle(),
+                        onPressed: () {
+                          custsource.value.isForm.toggle();
+                          source.value.pro.value = true;
+                        },
                       )
                     ],
                     serverSide: (params) =>
