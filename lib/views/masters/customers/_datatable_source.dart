@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../constants/base_text.dart';
 import '../../../models/masters/customer_model.dart';
+import '../../../models/ventes/bpcustomer_model.dart';
 import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../styles/color_palattes.dart';
@@ -33,10 +34,13 @@ class CustomerDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      CustomBsDataColumn(label: Text('Customer Name'), columnName: 'cstmname'),
+      CustomBsDataColumn(
+          label: Text('Customer Name'), columnName: 'sbccstmname'),
       CustomBsDataColumn(
         label: Text('Customer Phone'),
         columnName: 'cstmphone',
+        orderable: false,
+        searchable: false,
       ),
       CustomBsDataColumn(
         label: Text('Actions'),
@@ -47,7 +51,9 @@ class CustomerDataTableSource extends BsDatatableSource {
     ];
   }
 
-  List<CustomerModel> get customers => response.data.map((data) => CustomerModel.fromJson(data)).toList();
+  List<BusinessPartnerCustomerModel> get customers => response.data
+      .map((data) => BusinessPartnerCustomerModel.fromJson(data))
+      .toList();
 
   @override
   BsDataRow getRow(int index) {
@@ -68,7 +74,7 @@ class CustomerDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.cstmname ?? ''),
+          Text(row.sbccstmname ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -78,7 +84,7 @@ class CustomerDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.cstmphone ?? ''),
+          Text(row.sbccstm?.cstmphone ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -91,10 +97,10 @@ class CustomerDataTableSource extends BsDatatableSource {
           Row(
             children: [
               Tooltip(
-                message: BaseText.detailHintDatatable(field: row.cstmname),
+                message: BaseText.detailHintDatatable(field: row.sbccstmname),
                 child: ButtonDetailsDatatables(
                   margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onDetailsListener(row.cstmid!),
+                  onPressed: () => onDetailsListener(row.sbcid!),
                 ),
               ),
               // if (permis
@@ -103,10 +109,10 @@ class CustomerDataTableSource extends BsDatatableSource {
               //     .first
               //     .hasaccess!)
               Tooltip(
-                message: BaseText.editHintDatatable(field: row.cstmname),
+                message: BaseText.editHintDatatable(field: row.sbccstmname),
                 child: ButtonEditDatatables(
                   margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onEditListener(row.cstmid!),
+                  onPressed: () => onEditListener(row.sbcid!),
                 ),
               ),
               // if (permis
@@ -115,8 +121,10 @@ class CustomerDataTableSource extends BsDatatableSource {
               //     .first
               //     .hasaccess!)
               Tooltip(
-                message: BaseText.deleteHintDatatable(field: row.cstmname),
-                child: ButtonDeleteDatatables(onPressed: () => onDeleteListener(row.cstmid, row.cstmname)),
+                message: BaseText.deleteHintDatatable(field: row.sbccstmname),
+                child: ButtonDeleteDatatables(
+                    onPressed: () =>
+                        onDeleteListener(row.sbcid, row.sbccstmname)),
               ),
             ],
           ),

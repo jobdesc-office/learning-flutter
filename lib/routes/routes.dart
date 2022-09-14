@@ -383,6 +383,16 @@ class AppRoute {
           Get.lazyPut(() => CompetitorService());
           Get.lazyPut(() => UserPresenter());
           Get.lazyPut(() => UserService());
+          Get.lazyPut(() => BpCustomerPresenter());
+          Get.lazyPut(() => BpCustomerService());
+          Get.lazyPut(() => CustomerPresenter());
+          Get.lazyPut(() => CustomerService());
+          Get.lazyPut(() => VillageService());
+          Get.lazyPut(() => SubdistrictService());
+          Get.lazyPut(() => CityService());
+          Get.lazyPut(() => ProvinceService());
+          Get.lazyPut(() => ProspectPresenter());
+          Get.lazyPut(() => ProspectService());
         }),
       ),
       CustomGetPage(

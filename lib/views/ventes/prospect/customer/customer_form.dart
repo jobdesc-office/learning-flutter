@@ -28,6 +28,9 @@ class PCustomerFormFormView extends StatelessWidget
 
   late PCustomerForm pCustomerForm;
 
+  var isEdit = false.obs;
+  var isForm = false.obs;
+
   PCustomerFormFormView() {
     cpresenter.customerAddresContract = this;
   }

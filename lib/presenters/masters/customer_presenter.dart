@@ -39,6 +39,17 @@ class CustomerPresenter extends CustomGetXController {
     _loadAddressContract = loadAddressContract;
   }
 
+  void saveCustomer(BuildContext context, FormData body) async {
+    Response response = await _customerService.storeCustomer(
+      body,
+      contentType: "multipart/form-data",
+    );
+    if (response.statusCode == 200)
+      _customerViewContract.onCreateSuccess(response, context: context);
+    else
+      _customerViewContract.onErrorRequest(response);
+  }
+
   void address(String latitudelongitude) async {
     Response response = await ConnectInternetAPI().address(latitudelongitude);
     if (response.statusCode == 200)

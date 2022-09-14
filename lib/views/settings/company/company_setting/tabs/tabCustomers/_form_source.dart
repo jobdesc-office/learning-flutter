@@ -5,31 +5,30 @@ import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker_web/image_picker_web.dart';
 
-import '../../../../constants/base_text.dart';
-import '../../../../helpers/function.dart';
-import '../../../../models/address_model.dart';
-import '../../../../models/session_model.dart';
-import '../../../../presenters/masters/customer_presenter.dart';
-import '../../../../presenters/navigation_presenter.dart';
-import '../../../../styles/color_palattes.dart';
-import '../../../../utils/select_api.dart';
-import '../../../../utils/session_manager.dart';
-import '../../../../utils/validators.dart';
-import '../../../../widgets/form_group.dart';
-import '../../../../widgets/input/custom_input.dart';
-import '../../../../widgets/map/_map_source.dart';
-import '../../../../widgets/map/map.dart';
-import '../../../../widgets/selectbox/custom_selectbox.dart';
-import '_text.dart';
+import '../../../../../../constants/base_text.dart';
+import '../../../../../../helpers/function.dart';
+import '../../../../../../models/address_model.dart';
+import '../../../../../../models/session_model.dart';
+import '../../../../../../presenters/masters/customer_presenter.dart';
+import '../../../../../../presenters/navigation_presenter.dart';
+import '../../../../../../styles/color_palattes.dart';
+import '../../../../../../utils/select_api.dart';
+import '../../../../../../utils/session_manager.dart';
+import '../../../../../../utils/validators.dart';
+import '../../../../../../widgets/form_group.dart';
+import '../../../../../../widgets/input/custom_input.dart';
+import '../../../../../../widgets/map/_map_source.dart';
+import '../../../../../../widgets/map/map.dart';
+import '../../../../../../widgets/selectbox/custom_selectbox.dart';
+import '../../../../../ventes/prospect/customer/_text.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 final _cpresenter = Get.find<CustomerPresenter>();
 
-class PCustomerSource extends GetxController {
+class PCustomersSource extends GetxController {
   bool isProcessing = false;
   var isnGetLatLong = true.obs;
   var isRegistered = false.obs;
@@ -46,6 +45,39 @@ class PCustomerSource extends GetxController {
   final updateddate = Rx<String>('');
   final isactive = Rx<bool>(true);
 
+  reset() {
+    isProcessing = false;
+    isnGetLatLong.value = false;
+    isRegistered.value = false;
+
+    format.value = '';
+
+    imgname.value = '';
+    image.value = Uint8List(1);
+    isImage.value = false;
+
+    createdby.value = '';
+    createddate.value = '';
+    updatedby.value = '';
+    updateddate.value = '';
+    isactive.value = false;
+
+    inputPrefix.text = '';
+    inputName.text = '';
+    inputPhone.text = '';
+    inputAddress.text = '';
+    inputReferal.text = '';
+    inputProvince.text = '';
+    inputCity.text = '';
+    inputSubdistrict.text = '';
+    inputVillage.text = '';
+    inputPostal.text = '';
+
+    selectCustomer.clear();
+    selectType.clear();
+    selectStatus.clear();
+  }
+
   TextEditingController inputPrefix = TextEditingController();
   TextEditingController inputName = TextEditingController();
   TextEditingController inputPhone = TextEditingController();
@@ -57,13 +89,8 @@ class PCustomerSource extends GetxController {
   TextEditingController inputVillage = TextEditingController();
   TextEditingController inputPostal = TextEditingController();
 
-  TextEditingController inputContactName = TextEditingController();
-  TextEditingController inputValue = TextEditingController();
-
   BsSelectBoxController selectCustomer = BsSelectBoxController();
   BsSelectBoxController selectType = BsSelectBoxController();
-
-  BsSelectBoxController selectContactType = BsSelectBoxController();
 
   BsSelectBoxController selectStatus = BsSelectBoxController();
 
@@ -77,10 +104,6 @@ class PCustomerSource extends GetxController {
       imgname.value = name;
       json = {
         'isregistered': isRegistered.value,
-        'contactbpcustomerid': selectCustomer.getSelectedAsString(),
-        'contactname': inputContactName.text,
-        'contacttypeid': selectContactType.getSelectedAsString(),
-        'contactvalueid': inputValue.text,
         'sbcbpid': box.read('mybpid'),
         'cstmid': selectCustomer.getSelectedAsString(),
         'sbccstmstatusid': selectStatus.getSelectedAsString(),
@@ -114,9 +137,6 @@ class PCustomerSource extends GetxController {
         'cstmlatitude': map.latitude.value,
         'cstmlongitude': map.longitude.value,
         'referalcode': inputReferal.text,
-        'contactname': inputContactName.text,
-        'contacttypeid': selectContactType.getSelectedAsString(),
-        'contactvalueid': inputValue.text,
         'sbccstmpic': isImage.value
             ? MultipartFile(image.value, filename: inputName.text)
             : null,
@@ -130,12 +150,32 @@ class PCustomerSource extends GetxController {
   }
 }
 
-class PCustomerForm {
-  final PCustomerSource source;
+class PCustomersForm {
+  final PCustomersSource source;
   final map = Get.put(MapSource());
   final CustomerPresenter presenter = Get.find<CustomerPresenter>();
 
-  PCustomerForm(this.source);
+  PCustomersForm(this.source);
+
+  Widget selectBpCustomerTypes() {
+    return FormGroup(
+      label: Obx(() => Text(PCustomerText.labelBpCustomerType,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      child: CustomSelectBox(
+        searchable: false,
+        disabled: source.isProcessing,
+        controller: source.selectStatus,
+        hintText:
+            BaseText.hiintSelect(field: PCustomerText.labelBpCustomerType),
+        serverSide: (params) => selectApiBpCustomerStatus(params),
+        validators: [
+          Validators.selectRequired(PCustomerText.labelBpCustomerType),
+        ],
+      ),
+    );
+  }
 
   Widget inputPrefix() {
     return FormGroup(
@@ -370,24 +410,6 @@ class PCustomerForm {
     );
   }
 
-  Widget inputContactName() {
-    return FormGroup(
-      label: Obx(() => Text(PCustomerText.labelContactName,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
-      child: CustomInput(
-        disabled: source.isProcessing,
-        controller: source.inputContactName,
-        hintText: BaseText.hintText(field: PCustomerText.labelContactName),
-        validators: [
-          Validators.inputRequired(PCustomerText.labelContactName),
-          Validators.maxLength(PCustomerText.labelContactName, 255)
-        ],
-      ),
-    );
-  }
-
   Widget selectCustomer() {
     return FormGroup(
       label: Obx(() => Text(PCustomerText.labelCustomer,
@@ -404,50 +426,6 @@ class PCustomerForm {
           Validators.selectRequired(PCustomerText.labelCustomer),
         ],
       ),
-    );
-  }
-
-  Widget selectContactType() {
-    return FormGroup(
-      label: Obx(() => Text(PCustomerText.labelContactType,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
-      child: Obx(() => CustomSelectBox(
-            searchable: false,
-            disabled: source.isProcessing,
-            controller: source.selectContactType,
-            hintText:
-                BaseText.hiintSelect(field: PCustomerText.labelContactType),
-            serverSide: (params) => selectApiContactTypes(params),
-            validators: [
-              Validators.selectRequired(PCustomerText.labelContactType),
-            ],
-            onChange: (value) {
-              source.format.value = value.getOtherValue()['typename'];
-            },
-          )),
-    );
-  }
-
-  Widget inputValue() {
-    return FormGroup(
-      label: Obx(() => Text(PCustomerText.labelValue,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
-      child: Obx(() => CustomInput(
-            disabled: source.isProcessing,
-            controller: source.inputValue,
-            hintText: BaseText.hintText(field: PCustomerText.labelValue),
-            inputFormatters: [
-              if (source.format.value == 'Phone')
-                FilteringTextInputFormatter.digitsOnly,
-            ],
-            validators: [
-              if (source.format.value == 'Email') Validators.inputEmail()
-            ],
-          )),
     );
   }
 
@@ -472,26 +450,6 @@ class PCustomerForm {
               )),
         ),
       ],
-    );
-  }
-
-  Widget selectBpCustomerTypes() {
-    return FormGroup(
-      label: Obx(() => Text(PCustomerText.labelBpCustomerType,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
-      child: CustomSelectBox(
-        searchable: false,
-        disabled: source.isProcessing,
-        controller: source.selectStatus,
-        hintText:
-            BaseText.hiintSelect(field: PCustomerText.labelBpCustomerType),
-        serverSide: (params) => selectApiBpCustomerStatus(params),
-        validators: [
-          Validators.selectRequired(PCustomerText.labelBpCustomerType),
-        ],
-      ),
     );
   }
 }
