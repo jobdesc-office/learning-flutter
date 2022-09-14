@@ -33,6 +33,8 @@ class PCustomersSource extends GetxController {
   var isnGetLatLong = true.obs;
   var isRegistered = false.obs;
 
+  var id = 0.obs;
+
   var pro = false.obs;
 
   var format = ''.obs;
@@ -328,7 +330,11 @@ class PCustomersForm {
         onPressed: () => Get.to(GoogleMapsPage()),
         label: Obx(() {
           if (map.latitudelongitude.isNotEmpty) {
-            presenter.address(map.latitudelongitude.value);
+            if (source.pro.value) {
+              presenter.address(map.latitudelongitude.value);
+            } else {
+              presenter.addresss(map.latitudelongitude.value);
+            }
             return Text(map.latitudelongitude.isEmpty
                 ? "Choose the Place"
                 : map.latitudelongitude.value);

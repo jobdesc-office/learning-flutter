@@ -112,7 +112,7 @@ class CustomerDataTableSource extends BsDatatableSource {
                 message: BaseText.editHintDatatable(field: row.sbccstmname),
                 child: ButtonEditDatatables(
                   margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onEditListener(row.sbcid!),
+                  onPressed: () => onEditListener(row.sbccstm!.cstmid!),
                 ),
               ),
               // if (permis

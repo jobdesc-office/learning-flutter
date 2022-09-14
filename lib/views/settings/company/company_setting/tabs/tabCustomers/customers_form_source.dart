@@ -1,13 +1,16 @@
 part of '../../company.dart';
 
 class _CustomerFormSource extends GetxController
-    implements CustomerAddressContract {
+    implements CustomerAddressContract, EditViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final source = PCustomersSource().obs;
   CustomerPresenter presenter = Get.find<CustomerPresenter>();
+  BpCustomerPresenter get bppresenter => Get.find<BpCustomerPresenter>();
 
   _CustomerFormSource() {
     presenter.customerAddresContract = this;
+    presenter.customerAddressContract = this;
+    presenter.customerFetchDataContract = this;
   }
 
   var isEdit = false.obs;
@@ -371,10 +374,15 @@ class _CustomerFormSource extends GetxController
 
   void onClickSaveModal(BuildContext context) async {
     presenter.setProcessing(true);
-    if (formState.currentState!.validate()) {
-      presenter.saveCustomer(context, FormData(await source.value.toJson()));
-    } else
-      presenter.setProcessing(false);
+    if (isEdit.value) {
+      presenter.update(
+          context, await source.value.toJson(), source.value.id.value);
+    } else {
+      if (formState.currentState!.validate()) {
+        presenter.saveCustomer(context, FormData(await source.value.toJson()));
+      } else
+        presenter.setProcessing(false);
+    }
   }
 
   void onClickCancelModal(BuildContext context) {
@@ -466,5 +474,37 @@ class _CustomerFormSource extends GetxController
     } catch (e) {
       Snackbar().unknowLocation();
     }
+  }
+
+  @override
+  void onSuccessFetchData(Response response) {
+    presenter.setProcessing(false);
+    isEdit.value = true;
+    isForm.value = true;
+
+    source.update((val) {
+      CustomerModel customer = CustomerModel.fromJson(response.body);
+      source.value.id.value = customer.cstmid ?? 0;
+      source.value.inputPrefix.text = customer.cstmprefix ?? '';
+      source.value.inputName.text = customer.cstmname ?? '';
+      source.value.inputPhone.text = customer.cstmphone ?? '';
+      source.value.inputAddress.text = customer.cstmaddress ?? '';
+      source.value.selectType.setSelected(BsSelectBoxOption(
+          value: customer.cstmtypeid,
+          text: Text(customer.cstmtype?.typename ?? '')));
+      source.value.inputReferal.text = customer.referalcode ?? '';
+      source.value.inputProvince.text = customer.cstmprovince?.provname ?? '';
+      source.value.inputCity.text = customer.cstmcity?.cityname ?? '';
+      source.value.inputSubdistrict.text =
+          customer.cstmsubdistrict?.subdistrictname ?? '';
+      source.value.inputVillage.text = customer.cstmvillage?.villagename ?? '';
+      source.value.inputPostal.text = customer.cstmpostalcode ?? '';
+
+      source.value.createdby.value = customer.custcreatedby?.userfullname ?? '';
+      source.value.createddate.value = customer.createddate ?? '';
+      source.value.updatedby.value = customer.custupdatedby?.userfullname ?? '';
+      source.value.updateddate.value = customer.updateddate ?? '';
+      source.value.isactive.value = customer.isactive ?? true;
+    });
   }
 }

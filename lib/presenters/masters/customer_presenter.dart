@@ -39,6 +39,11 @@ class CustomerPresenter extends CustomGetXController {
     _loadAddressContract = loadAddressContract;
   }
 
+  late CustomerAddressContract _loadAddresssContract;
+  set customerAddressContract(CustomerAddressContract loadAddressContract) {
+    _loadAddresssContract = loadAddressContract;
+  }
+
   void saveCustomer(BuildContext context, FormData body) async {
     Response response = await _customerService.storeCustomer(
       body,
@@ -54,6 +59,14 @@ class CustomerPresenter extends CustomGetXController {
     Response response = await ConnectInternetAPI().address(latitudelongitude);
     if (response.statusCode == 200)
       _loadAddressContract.onLoadAddressSuccess(response);
+    else
+      _customerViewContract.onErrorRequest(response);
+  }
+
+  void addresss(String latitudelongitude) async {
+    Response response = await ConnectInternetAPI().address(latitudelongitude);
+    if (response.statusCode == 200)
+      _loadAddresssContract.onLoadAddressSuccess(response);
     else
       _customerViewContract.onErrorRequest(response);
   }
@@ -106,6 +119,16 @@ class CustomerPresenter extends CustomGetXController {
     Response response = await _customerService.store(body);
     if (response.statusCode == 200)
       _customerViewContract.onCreateSuccess(response, context: context);
+    else
+      _customerViewContract.onErrorRequest(response);
+  }
+
+  Future show(int bpCustomerid) async {
+    setProcessing(true);
+
+    Response response = await _customerService.show(bpCustomerid);
+    if (response.statusCode == 200)
+      _customerFetchDataContract.onSuccessFetchData(response);
     else
       _customerViewContract.onErrorRequest(response);
   }

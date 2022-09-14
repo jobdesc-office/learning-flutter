@@ -31,6 +31,7 @@ import 'package:image_picker_web/image_picker_web.dart';
 import '../../../../contracts/master/customerAddress_contract.dart';
 import '../../../../contracts/master/userReset_contract.dart';
 import '../../../../models/masters/competitor_model.dart';
+import '../../../../models/masters/customer_model.dart';
 import '../../../../models/masters/maps_model.dart';
 import '../../../../models/masters/user_model.dart';
 import '../../../../models/session_model.dart';

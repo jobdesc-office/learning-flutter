@@ -1,7 +1,7 @@
 part of '../../company.dart';
 
 class _TabCustomerspr extends StatelessWidget
-    implements IndexViewContract, EditViewContract {
+    implements IndexViewContract {
   final datatable = CustomerDataTableSource();
   final String typename;
 
@@ -98,16 +98,8 @@ class _TabCustomerspr extends StatelessWidget
     bppresenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onDetailsListener = (userid) {};
-    // datatable.onEditListener = presenter.show;
+    datatable.onEditListener = (value) => custpresenter.show(value);
     datatable.onDeleteListener =
         (cstmid, cstmname) => bppresenter.delete(context, cstmid, cstmname);
-  }
-
-  @override
-  void onSuccessFetchData(Response response) {
-    bppresenter.setProcessing(false);
-    BusinessPartnerCustomerModel model =
-        BusinessPartnerCustomerModel.fromJson(response.body);
-    // source.fromModel(model);
   }
 }
