@@ -30,6 +30,14 @@ class ProductPresenter extends CustomGetXController {
       _productViewContract.onErrorRequest(response);
   }
 
+  Future datatablesbp(BuildContext context, Map<String, String> params) async {
+    Response response = await _productService.datatablesbp(params);
+    if (response.statusCode == 200)
+      _productViewContract.onLoadDatatables(context, response);
+    else
+      _productViewContract.onErrorRequest(response);
+  }
+
   // void details(BuildContext context, int userid) async {
   //   setProcessing(true);
   //   showDialog(
@@ -57,6 +65,16 @@ class ProductPresenter extends CustomGetXController {
     Response response = await _productService.store(body);
     if (response.statusCode == 200)
       _productViewContract.onCreateSuccess(response, context: context);
+    else
+      _productViewContract.onErrorRequest(response);
+  }
+
+  Future show(int id) async {
+    setProcessing(true);
+
+    Response response = await _productService.show(id);
+    if (response.statusCode == 200)
+      _productFetchDataContract.onSuccessFetchData(response);
     else
       _productViewContract.onErrorRequest(response);
   }

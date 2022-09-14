@@ -33,10 +33,12 @@ import '../../../../contracts/master/userReset_contract.dart';
 import '../../../../models/masters/competitor_model.dart';
 import '../../../../models/masters/customer_model.dart';
 import '../../../../models/masters/maps_model.dart';
+import '../../../../models/masters/product_model.dart';
 import '../../../../models/masters/user_model.dart';
 import '../../../../models/session_model.dart';
 import '../../../../models/settings/stbptype_model.dart';
 import '../../../../presenters/masters/customer_presenter.dart';
+import '../../../../presenters/masters/product_presenter.dart';
 import '../../../../presenters/masters/user_presenter.dart';
 import '../../../../presenters/navigation_presenter.dart';
 import '../../../../presenters/settings/stbptype/stbptypeactivitycategory_presenter.dart';
@@ -66,6 +68,8 @@ import '../../../../widgets/map/_map_source.dart';
 import '../../../../widgets/selectbox/custom_selectbox.dart';
 import '../../../../widgets/snackbar.dart';
 import '../../../masters/customers/_datatable_source.dart';
+import '../../../masters/product/_datatable_source.dart';
+import '../../../masters/product/_form_source.dart';
 import '../../../masters/users/_datatable_source.dart';
 import '../../../masters/users/_form_source.dart';
 import '../../../skins/template.dart';
@@ -85,6 +89,7 @@ part 'tabs/tabGeneral/tabGeneral.dart';
 part 'tabs/tabProspect.dart';
 part 'tabs/tabSchedule.dart';
 part 'tabs/tabUsers.dart';
+part 'tabs/tabProduct.dart';
 
 part 'tabs/tabCustomers/customers_form_source.dart';
 part 'tabs/tabCustomers/tabCustomerspr.dart';
@@ -183,7 +188,7 @@ class _CompanyViewState extends State<CompanyView>
                       _TabProspect(),
                       // _TabSchedules(),
                       _TabUsers(),
-                      _TabUsers(),
+                      _TabProduct(),
                     ],
                   ),
                 ),

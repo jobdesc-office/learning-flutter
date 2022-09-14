@@ -2,6 +2,7 @@ import 'package:boilerplate/utils/select_api.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../../constants/base_text.dart';
 import '../../../models/session_model.dart';
@@ -18,12 +19,25 @@ final _navigation = Get.find<NavigationPresenter>();
 
 class ProductSource {
   bool isProcessing = false;
+  var box = GetStorage();
+
+  var id = 0.obs;
 
   var createdby = ''.obs;
   var createddate = ''.obs;
   var updatedby = ''.obs;
   var updateddate = ''.obs;
   var isactive = true.obs;
+
+  reset() {
+    inputName.text = '';
+
+    createdby.value = '';
+    createddate.value = '';
+    updatedby.value = '';
+    updateddate.value = '';
+    isactive.value = false;
+  }
 
   TextEditingController inputName = TextEditingController();
 
@@ -33,7 +47,7 @@ class ProductSource {
     SessionModel session = await SessionManager.current();
     return {
       'productname': inputName.text,
-      'productbpid': selectBp.getSelectedAsString(),
+      'productbpid': box.read('mybpid'),
       'createdby': session.userid,
       'updatedby': session.userid,
       'isactive': isactive.value,

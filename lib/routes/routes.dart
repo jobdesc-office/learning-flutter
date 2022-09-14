@@ -393,6 +393,8 @@ class AppRoute {
           Get.lazyPut(() => ProvinceService());
           Get.lazyPut(() => ProspectPresenter());
           Get.lazyPut(() => ProspectService());
+          Get.lazyPut(() => ProductPresenter());
+          Get.lazyPut(() => ProductService());
         }),
       ),
       CustomGetPage(

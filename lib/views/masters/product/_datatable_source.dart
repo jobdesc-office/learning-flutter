@@ -29,18 +29,18 @@ class ProductDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      CustomBsDataColumn(label: Text('Product Name'), columnName: 'productname'),
       CustomBsDataColumn(
-        label: Text('Product Partner'),
-        columnName: 'Productnm',
-        searchable: false,
-        orderable: false,
-      ),
-      CustomBsDataColumn(label: Text('Actions'), width: 100, orderable: false, searchable: false),
+          label: Text('Product Name'), columnName: 'productname'),
+      CustomBsDataColumn(
+          label: Text('Actions'),
+          width: 100,
+          orderable: false,
+          searchable: false),
     ];
   }
 
-  List<ProductModel> get products => response.data.map((data) => ProductModel.fromJson(data)).toList();
+  List<ProductModel> get products =>
+      response.data.map((data) => ProductModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
@@ -70,16 +70,6 @@ class ProductDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.businesspartner?.bpname ?? ''),
-          color: _navigation.darkTheme.value
-              ? x % 2 == 0
-                  ? ColorPallates.datatableDarkEvenRowColor
-                  : ColorPallates.datatableDarkOddRowColor
-              : x % 2 == 0
-                  ? ColorPallates.datatableLightEvenRowColor
-                  : ColorPallates.datatableLightOddRowColor,
-        ),
-        CustomBsDataCell(
           Row(
             children: [
               Tooltip(
@@ -91,7 +81,9 @@ class ProductDataTableSource extends BsDatatableSource {
               ),
               Tooltip(
                 message: BaseText.deleteHintDatatable(field: row.productname),
-                child: ButtonDeleteDatatables(onPressed: () => onDeleteListener(row.productid, row.productname)),
+                child: ButtonDeleteDatatables(
+                    onPressed: () =>
+                        onDeleteListener(row.productid, row.productname)),
               ),
             ],
           ),
