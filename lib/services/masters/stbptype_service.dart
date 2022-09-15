@@ -23,10 +23,12 @@ class StBpTypeService extends ApiConnectProvider {
   }
 
   Future<Response> byCode(String typecd) {
-    return get('$api/by-code', query: {'typecd': typecd});
+    int bpid = box.read('mybpid');
+    return get('$api/by-code', query: {'typecd': typecd, 'bpid': '$bpid'});
   }
 
   Future<Response> bySeq(String typecd) {
-    return get('$api/bySeq', query: {'typecd': typecd});
+    int bpid = box.read('mybpid');
+    return get('$api/bySeq', query: {'typecd': typecd, 'bpid': '$bpid'});
   }
 }
