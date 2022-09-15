@@ -150,7 +150,7 @@ class ProspectDataTableSource extends BsDatatableSource {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(row.prospectstage?.typename ?? ''),
+              Text(row.prospectstage?.sbttypename ?? ''),
               Text(''),
               if (_navigation.isCollapse.value) Text(''),
             ],

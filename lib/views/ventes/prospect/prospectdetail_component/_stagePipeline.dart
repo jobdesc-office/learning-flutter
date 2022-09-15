@@ -7,6 +7,7 @@ import 'package:timelines/timelines.dart';
 import '../../../../constants/base_text.dart';
 import '../../../../models/masters/type_model.dart';
 import '../../../../models/session_model.dart';
+import '../../../../models/settings/stbptype_model.dart';
 import '../../../../presenters/ventes/prospect_presenter.dart';
 import '../../../../styles/color_palattes.dart';
 import '../../../../utils/session_manager.dart';
@@ -25,16 +26,16 @@ class MenuTypeOptionsController {
     this.processing = false,
   });
 
-  List<TypeModel> options;
+  List<StbptypeModel> options;
 
-  TypeModel? selected;
+  StbptypeModel? selected;
 
   bool processing;
 
-  TypeModel? getSelected() => selected;
+  StbptypeModel? getSelected() => selected;
 
   String? getSelectedToString() =>
-      selected != null ? selected!.typeid.toString() : null;
+      selected != null ? selected!.sbtid.toString() : null;
 }
 
 class MenuTypeOptions extends StatefulWidget {
@@ -64,9 +65,8 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
     if (widget.controller.processing) return loadingState();
     return BsRow(
       children: widget.controller.options.map((type) {
-        Widget indicator;
-
-        if (widget.controller.selected!.typeseq ==
+        Widget indicator = Container();
+        if (widget.controller.selected!.sbtseq ==
             widget.controller.options.length) {
           // col = Col.col_4;
           indicator = SizedBox(
@@ -86,7 +86,7 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
             ),
           );
         } else if (widget.controller.selected != null &&
-            widget.controller.selected!.typeid == type.typeid) {
+            widget.controller.selected!.sbtid == type.sbtid) {
           // col = Col.col_4;
           indicator = SizedBox(
             width: 500,
@@ -104,7 +104,7 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
               endConnector: DashedLineConnector(color: ColorPallates.primary),
             ),
           );
-        } else if (widget.controller.selected!.typeseq! > type.typeseq!) {
+        } else if (widget.controller.selected!.sbtseq! > type.sbtseq!) {
           // col = Col.col_4;
           indicator = SizedBox(
             width: 500,
@@ -138,20 +138,21 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
           );
         }
 
-        int index = widget.controller.options.indexOf(type);
-        if (index == 0) {
-        } else if (index == widget.controller.options.length - 1) {}
+        // int index = widget.controller.options.indexOf(type);
+        // if (index == 0) {
+        // } else if (index == widget.controller.options.length - 1) {}
         return BsCol(
+          margin: EdgeInsets.only(top: 10),
           sizes: ColScreen(sm: Col.col_2),
           child: InkWell(
             onTap: () async {
-              print(source.status.value);
+              // print(source.status.value);
               if (source.status.value != ProspectText.closedWon &&
                   source.status.value != ProspectText.closedLost &&
                   source.status.value != ProspectText.forceClosed) {
                 SessionModel session = await SessionManager.current();
                 Map<String, dynamic> body = {
-                  'prospectstageid': type.typeid,
+                  'prospectstageid': type.sbtid,
                   'createdby': session.userid,
                   'updatedby': session.userid,
                 };
@@ -160,7 +161,7 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
                   builder: (context) => ConfirmDialog(
                     title: BaseText.confirmTitle,
                     message:
-                        'Are You Sure Want to Change to ${type.typename} Stage ?',
+                        'Are You Sure Want to Change to ${type.sbttypename} Stage ?',
                     onPressed: (_, value) async {
                       if (value == ConfirmDialogOption.YES_OPTION) {
                         source.showPipeline.value = false;
@@ -178,7 +179,7 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
             child: Column(
               children: [
                 indicator,
-                Text(type.typename ?? ''),
+                Text(type.sbttypename ?? ''),
               ],
             ),
           ),

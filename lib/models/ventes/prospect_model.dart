@@ -1,5 +1,5 @@
-import 'package:boilerplate/models/masters/type_model.dart';
 import 'package:boilerplate/models/ventes/prospectcustomfield_model.dart';
+import 'package:boilerplate/models/settings/stbptype_model.dart';
 
 class ProspectModel {
   int? prospectid;
@@ -27,7 +27,7 @@ class ProspectModel {
   Prospectupdatedby? prospectupdatedby;
   List<Prospectassigns>? prospectassigns;
   List<Prospectproduct>? prospectproduct;
-  TypeModel? prospectstage;
+  StbptypeModel? prospectstage;
   Prospectlost? prospectlost;
   Prospectlost? prospectcustlabeltype;
   Prospectownerusers? prospectownerusers;
@@ -118,7 +118,7 @@ class ProspectModel {
       });
     }
     prospectstage = json['prospectstage'] != null
-        ? new TypeModel.fromJson(json['prospectstage'])
+        ? new StbptypeModel.fromJson(json['prospectstage'])
         : null;
     prospectlost = json['prospectlost'] != null
         ? new Prospectlost.fromJson(json['prospectlost'])

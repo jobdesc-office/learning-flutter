@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import '../../../contracts/base/edit_view_contract.dart';
 import '../../../contracts/base/index_view_contract.dart';
 import '../../../models/masters/type_model.dart';
+import '../../../models/settings/stbptype_model.dart';
 import '../../../models/ventes/prospect_model.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../presenters/ventes/prospect_presenter.dart';
@@ -398,9 +399,9 @@ class ProspectFormView extends StatelessWidget
   @override
   void onLoadSuccess(Response response) {
     source.update((val) {
-      source.value.prospectStageController.options = List<TypeModel>.from(
+      source.value.prospectStageController.options = List<StbptypeModel>.from(
         response.body.map((data) {
-          return TypeModel.fromJson(data);
+          return StbptypeModel.fromJson(data);
         }),
       );
     });

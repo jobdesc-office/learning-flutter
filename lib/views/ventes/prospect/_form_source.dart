@@ -23,7 +23,7 @@ import '../../../widgets/form_group.dart';
 import '../../../widgets/input/custom_input.dart';
 import '../../../widgets/input/custom_input_currency.dart';
 import '../../../widgets/selectbox/custom_selectbox.dart';
-import '../../masters/menus/_menu_type.dart';
+import '../../masters/menus/_menu_sbttype.dart';
 import '_text.dart';
 import 'product/product_form.dart';
 
@@ -69,8 +69,8 @@ class ProspectSource extends GetxController {
     }));
   }
 
-  MenuTypeOptionsController prospectStageController =
-      MenuTypeOptionsController();
+  MenuSbttypeOptionsController prospectStageController =
+      MenuSbttypeOptionsController();
 
   BsSelectBoxController selectCurrency = BsSelectBoxController(options: [
     BsSelectBoxOption(value: '1', text: Text('ID Rupiah')),
@@ -338,7 +338,7 @@ class ProspectForm {
           style: TextStyle(
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
-      child: MenuTypeOptions(
+      child: MenuSbttypeOptions(
         controller: source.prospectStageController,
       ),
     );

@@ -8,7 +8,7 @@ import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
 import '../../models/masters/type_model.dart';
-import '../../services/masters/type_service.dart';
+import '../../services/masters/stbptype_service.dart';
 import '../../services/ventes/prospect_service.dart';
 import '../../utils/custom_get_controller.dart';
 import '../../views/masters/menus/_menu_type.dart';
@@ -21,7 +21,7 @@ import '../../widgets/confirm_dialog.dart';
 
 class ProspectPresenter extends CustomGetXController {
   final _prospectService = Get.find<ProspectService>();
-  final _typeService = Get.put(TypeService());
+  final _typeService = Get.put(StBpTypeService());
 
   late IndexViewContract _prospectViewContract;
   set prospectViewContract(IndexViewContract prospectViewContract) {

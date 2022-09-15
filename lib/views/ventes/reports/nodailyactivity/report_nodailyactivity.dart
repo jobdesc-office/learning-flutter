@@ -24,6 +24,9 @@ class ReportNoDailyActivities extends GetView {
   ReportNoDailyActivities({required this.act}) {
     controllers.employees.value = act;
     datatable.addAll(act);
+    datatable.addAll(act);
+    datatable.addAll(act);
+    datatable.reload();
   }
 
   @override

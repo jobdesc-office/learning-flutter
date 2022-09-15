@@ -21,4 +21,12 @@ class StBpTypeService extends ApiConnectProvider {
     return post('$api/datatables', params,
         query: {'typeid': '$typeid', 'bpid': '$bpid'});
   }
+
+  Future<Response> byCode(String typecd) {
+    return get('$api/by-code', query: {'typecd': typecd});
+  }
+
+  Future<Response> bySeq(String typecd) {
+    return get('$api/bySeq', query: {'typecd': typecd});
+  }
 }

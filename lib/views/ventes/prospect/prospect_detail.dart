@@ -22,6 +22,7 @@ import '../../../contracts/ventes/customfield_contract.dart';
 import '../../../contracts/ventes/prospectcustomfield_contract.dart';
 import '../../../models/masters/type_model.dart';
 import '../../../models/session_model.dart';
+import '../../../models/settings/stbptype_model.dart';
 import '../../../models/ventes/prospect_model.dart';
 import '../../../models/ventes/prospectactivity_model.dart';
 import '../../../models/ventes/prospectcustomfield_model.dart';
@@ -256,7 +257,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     source.prospectbpid.value = dt.prospectbp!.bpid!;
     source.desc.value = dt.prospectdescription ?? '';
     source.status.value = dt.prospectstatus?.sbttypename ?? '';
-    source.stage.value = dt.prospectstage!.typename ?? '';
+    source.stage.value = dt.prospectstage!.sbttypename ?? '';
     customFieldPresenter.allBp(context);
 
     detailPresenter.details(context, {'id': dt.prospectid.toString()});
@@ -314,12 +315,13 @@ class _ProspectDetailsState extends State<ProspectDetails>
 
   @override
   void onLoadSuccess(Response response) {
-    source.prospectStageController.value.options = List<TypeModel>.from(
+    source.prospectStageController.value.options = List<StbptypeModel>.from(
       response.body.map((data) {
-        return TypeModel.fromJson(data);
+        return StbptypeModel.fromJson(data);
       }),
     ).toList();
     source.showPipeline.value = true;
+
     // presenter.details(context, source.prospectid.value);
   }
 

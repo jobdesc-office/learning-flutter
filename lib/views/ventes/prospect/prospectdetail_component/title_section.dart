@@ -299,7 +299,6 @@ BsCol prospectDetailTitleSection(context) {
               ),
               Container(
                 child: BsRow(
-                  margin: EdgeInsets.only(top: 10),
                   children: [
                     if (source.showPipeline.value)
                       BsCol(
