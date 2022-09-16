@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../constants/base_text.dart';
 import '../../../../models/masters/type_model.dart';
+import '../../../../models/settings/stbptype_model.dart';
 import '../../../../presenters/navigation_presenter.dart';
 import '../../../../presenters/ventes/prospect_presenter.dart';
 import '../../../../widgets/button/theme_button_cancel.dart';
@@ -108,7 +109,7 @@ class ProspectLose extends GetView {
 
   void onClickSaveModal(BuildContext context) async {
     presenter.setProcessing(true);
-    TypeModel stage = await presenter.completePipeline();
+    // StbptypeModel stage = await presenter.completePipeline();
     if (formState.currentState!.validate()) {
       showDialog(
         context: context,
@@ -122,7 +123,7 @@ class ProspectLose extends GetView {
               // sources.prospectStageController.value.selected = stage;
               sources.losttype.value = source.value.selectReason
                   .getSelected()!
-                  .getOtherValue()['typename']
+                  .getOtherValue()['sbttypename']
                   .toString();
               sources.lostdesc.value = source.value.inputDesc.text;
               Navigator.pop(context);

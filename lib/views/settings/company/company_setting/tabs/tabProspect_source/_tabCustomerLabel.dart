@@ -25,7 +25,9 @@ class _TabProspectCustomerLabel extends StatelessWidget
                     presenter,
                     _sources.prospectCustomerLabeltypeid.value,
                     _sources.prospectCustomerLabeltype.value,
-                    'Customer Label'),
+                    'Customer Label',
+                    color: true,
+                    textcolor: true),
               ThemeButtonCreate(
                   prefix: 'Customer Label',
                   onPressed: () {
@@ -43,6 +45,9 @@ class _TabProspectCustomerLabel extends StatelessWidget
                   margin: EdgeInsets.only(top: 10),
                   child: Column(
                     children: _sources.stbpprospectcustomerlabel.map((e) {
+                      Map<String, dynamic> colors = {};
+                      if (e.sbtremark != null)
+                        colors = jsonDecode(e.sbtremark ?? '');
                       int index = _sources.stbpprospectcustomerlabel.indexOf(e);
                       return BsRow(
                         decoration: BoxDecoration(
@@ -68,8 +73,62 @@ class _TabProspectCustomerLabel extends StatelessWidget
                               sizes: ColScreen(sm: Col.col_1),
                               child: Text(
                                   e.sbtseq != null ? e.sbtseq.toString() : '')),
+                          if (colors.isNotEmpty)
+                            BsCol(
+                                sizes: ColScreen(sm: Col.col_1),
+                                child: InkWell(
+                                  onTap: () => showDialog(
+                                      context: context,
+                                      builder: (context) => _ShowColor(
+                                            color: Color(
+                                              parseInt(colors['color']),
+                                            ),
+                                            textcolor: Color(
+                                              parseInt(colors['textcolor']),
+                                            ),
+                                            text: e.sbttypename!,
+                                          )),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        color: Color(parseInt(colors['color'])),
+                                        borderRadius: BorderRadius.circular(5)),
+                                    padding: EdgeInsets.all(2),
+                                    width: MediaQuery.of(context).size.width,
+                                    child: Center(
+                                      child: Text('${e.sbttypename}',
+                                          style: TextStyle(
+                                              color: Color(parseInt(
+                                                  colors['textcolor'])))),
+                                    ),
+                                  ),
+                                ))
+                          else
+                            BsCol(
+                                sizes: ColScreen(sm: Col.col_1),
+                                child: InkWell(
+                                  onTap: () => showDialog(
+                                      context: context,
+                                      builder: (context) => _ShowColor(
+                                            color: Colors.transparent,
+                                            textcolor: Colors.black,
+                                            text: e.sbttypename!,
+                                          )),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.transparent,
+                                        borderRadius: BorderRadius.circular(5)),
+                                    padding: EdgeInsets.all(2),
+                                    width: MediaQuery.of(context).size.width,
+                                    child: Center(
+                                      child: Text('${e.sbttypename}',
+                                          style:
+                                              TextStyle(color: Colors.black)),
+                                    ),
+                                  ),
+                                )),
                           BsCol(
-                              sizes: ColScreen(sm: Col.col_3),
+                              alignment: Alignment.center,
+                              sizes: ColScreen(sm: Col.col_2),
                               child: Text(e.sbtname ?? '')),
                           BsCol(
                             sizes: ColScreen(sm: Col.col_4),
@@ -193,6 +252,14 @@ class _TabProspectCustomerLabel extends StatelessWidget
         source.value.seq.value = true;
         source.value.inputSeq.text =
             val.sbtseq != null ? val.sbtseq.toString() : '';
+      }
+
+      if (val.sbtremark != null) {
+        Map<String, dynamic> colors = {};
+        colors = jsonDecode(val.sbtremark ?? '');
+        source.value.pickerColor.value = Color(parseInt(colors['color']));
+        source.value.pickerTextColor.value =
+            Color(parseInt(colors['textcolor']));
       }
       source.value.createdby.value = val.stbptypecreatedby?.userfullname ?? '';
       source.value.createddate.value = val.createddate ?? '';

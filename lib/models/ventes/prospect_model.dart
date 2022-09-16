@@ -588,18 +588,21 @@ class Prospectstage {
 class Prospectlost {
   int? sbtid;
   String? sbttypename;
+  String? sbtremark;
 
   Prospectlost({this.sbtid, this.sbttypename});
 
   Prospectlost.fromJson(Map<String, dynamic> json) {
     sbtid = json['sbtid'];
     sbttypename = json['sbttypename'];
+    sbtremark = json['sbtremark'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['sbtid'] = this.sbtid;
     data['sbttypename'] = this.sbttypename;
+    data['sbtremark'] = this.sbtremark;
     return data;
   }
 }
@@ -1211,7 +1214,7 @@ class Prospectcust {
 
 class Sbccstm {
   int? cstmid;
-  Null? cstmprefix;
+  String? cstmprefix;
   String? cstmname;
   String? cstmphone;
   String? cstmaddress;

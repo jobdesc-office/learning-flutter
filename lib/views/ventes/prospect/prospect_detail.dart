@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:boilerplate/helpers/function.dart';
 import 'package:boilerplate/models/ventes/customfield_model.dart';
 import 'package:boilerplate/views/skins/template.dart';
 import 'package:boilerplate/widgets/button/button_edit_datatable.dart';
@@ -310,6 +311,14 @@ class _ProspectDetailsState extends State<ProspectDetails>
       });
       source.files.value = files;
     }
+
+    if (dt.prospectcustlabeltype?.sbtremark != null) {
+      Map<String, dynamic> color =
+          jsonDecode(dt.prospectcustlabeltype?.sbtremark ?? '');
+      source.custlabelcolor.value = Color(parseInt(color['color']));
+      source.custlabeltextcolor.value = Color(parseInt(color['textcolor']));
+    }
+
     presenter.setProcessing(false);
   }
 

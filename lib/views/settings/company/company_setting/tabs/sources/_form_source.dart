@@ -5,8 +5,6 @@ class _CompanyTabFormSource extends GetxController {
 
   var seq = false.obs;
 
-  var withcolor = false.obs;
-
   var id = 0.obs;
 
   var isupdate = false.obs;
@@ -19,23 +17,39 @@ class _CompanyTabFormSource extends GetxController {
   var updateddate = ''.obs;
   var isactive = true.obs;
 
-  var pickerColor = ColorPallates.primary.obs;
-  var pickedColor = '0xFF6D9773'.obs;
+  var pickerColor = Color.fromARGB(0, 255, 255, 255).obs;
+  var pickedColor = '0xFF0000ffff'.obs;
+
+  var pickerTextColor = Color.fromARGB(255, 0, 0, 0).obs;
+  var pickedTextColor = '0xFF000000'.obs;
 
   TextEditingController inputName = TextEditingController();
   TextEditingController inputSeq = TextEditingController();
 
   reset() {
-    source.value.seq.value = false;
+    seq.value = false;
+    id.value = 0;
+    isupdate.value = false;
+
+    createdby.value = '';
+    createddate.value = '';
+    updatedby.value = '';
+    updateddate.value = '';
+    isactive.value = false;
+
+    pickerColor.value = Color.fromARGB(0, 255, 255, 255);
+    pickedColor.value = '0xFF0000ffff';
+
+    pickerTextColor.value = Color.fromARGB(255, 0, 0, 0);
+    pickedTextColor.value = '0xFF000000';
+
     inputName.text = '';
     inputSeq.text = '';
-    withcolor.value = false;
   }
 
   Widget form(BuildContext context, presenter, int typeid, String typename,
       String tabname,
-      {bool color = false}) {
-    if (color) withcolor.value = color;
+      {bool color = false, bool textcolor = false}) {
     return BsRow(
       children: [
         BsCol(
@@ -84,55 +98,160 @@ class _CompanyTabFormSource extends GetxController {
                     ),
                   ),
                 if (color)
-                  FormGroup(
-                      child: Row(
+                  BsRow(
                     children: [
-                      BsButton(
-                          style: BsButtonStyle.success,
-                          label: Text('Pick Color'),
-                          onPressed: () => showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                    title: const Text('Pick a color !'),
-                                    content: SingleChildScrollView(
-                                      child: Obx(() => ColorPicker(
-                                          pickerColor: pickerColor.value,
-                                          onColorChanged: ((value) {
-                                            pickerColor.value = value;
-                                            pickedColor.value = pickerColor
-                                                .value
-                                                .toString()
-                                                .replaceAll('Color(', '')
-                                                .replaceAll(')', '');
-                                          }))),
-                                    ),
-                                  ))),
-                      Obx(() => BsButton(
-                            margin: EdgeInsets.only(left: 20),
-                            onPressed: () => showDialog(
-                                context: context,
-                                builder: (context) => _ShowColor(
-                                      color: pickerColor.value,
-                                    )),
-                            style: BsButtonStyle(
-                                borderColor: Colors.black,
-                                color: Colors.black,
-                                backgroundColor: pickerColor.value),
-                          ))
+                      BsCol(
+                        sizes: ColScreen(sm: Col.col_6),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                BsButton(
+                                    style: BsButtonStyle.success,
+                                    label: Text('Pick Color'),
+                                    onPressed: () => showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                              backgroundColor:
+                                                  Color(0xfff1f1f1),
+                                              title:
+                                                  const Text('Pick a color !'),
+                                              content: SingleChildScrollView(
+                                                child: Obx(() => ColorPicker(
+                                                    pickerColor:
+                                                        pickerColor.value,
+                                                    onColorChanged: ((value) {
+                                                      pickerColor.value = value;
+                                                      pickedColor.value =
+                                                          pickerColor.value
+                                                              .toString()
+                                                              .replaceAll(
+                                                                  'Color(', '')
+                                                              .replaceAll(
+                                                                  ')', '');
+                                                    }))),
+                                              ),
+                                            ))),
+                                Obx(() => BsButton(
+                                      margin: EdgeInsets.only(left: 20),
+                                      onPressed: () {},
+                                      style: BsButtonStyle(
+                                          borderColor: Colors.black,
+                                          color: Colors.black,
+                                          backgroundColor: pickerColor.value),
+                                    ))
+                              ],
+                            ),
+                            if (textcolor)
+                              Container(
+                                margin: EdgeInsets.only(top: 5),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    BsButton(
+                                        style: BsButtonStyle.success,
+                                        label: Text('Pick Text Color'),
+                                        onPressed: () => showDialog(
+                                            context: context,
+                                            builder: (context) => AlertDialog(
+                                                  backgroundColor:
+                                                      Color(0xfff1f1f1),
+                                                  title: const Text(
+                                                      'Pick a color !'),
+                                                  content:
+                                                      SingleChildScrollView(
+                                                    child: Obx(() =>
+                                                        ColorPicker(
+                                                            pickerColor:
+                                                                pickerTextColor
+                                                                    .value,
+                                                            onColorChanged:
+                                                                ((value) {
+                                                              pickerTextColor
+                                                                      .value =
+                                                                  value;
+                                                              pickedTextColor
+                                                                      .value =
+                                                                  pickerTextColor
+                                                                      .value
+                                                                      .toString()
+                                                                      .replaceAll(
+                                                                          'Color(',
+                                                                          '')
+                                                                      .replaceAll(
+                                                                          ')',
+                                                                          '');
+                                                            }))),
+                                                  ),
+                                                ))),
+                                    Obx(() => BsButton(
+                                          margin: EdgeInsets.only(left: 20),
+                                          onPressed: () {},
+                                          style: BsButtonStyle(
+                                              borderColor: Colors.black,
+                                              color: Colors.black,
+                                              backgroundColor:
+                                                  pickerTextColor.value),
+                                        ))
+                                  ],
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+                      BsCol(
+                        alignment: Alignment.centerRight,
+                        sizes: ColScreen(sm: Col.col_6),
+                        child: Obx(() => InkWell(
+                              onTap: () => showDialog(
+                                  context: context,
+                                  builder: (context) => _ShowColor(
+                                        color: pickerColor.value,
+                                        textcolor: pickerTextColor.value,
+                                        text: tabname,
+                                      )),
+                              child: Container(
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    color: pickerColor.value,
+                                    borderRadius: BorderRadius.circular(5)),
+                                child: Text(
+                                  '$tabname',
+                                  style: TextStyle(
+                                      color: textcolor
+                                          ? pickerTextColor.value
+                                          : Colors.black,
+                                      fontSize: 28),
+                                ),
+                              ),
+                            )),
+                      )
                     ],
-                  )),
+                  ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     ThemeButtonSave(onPressed: () async {
                       SessionModel session = await SessionManager.current();
+                      late Map<String, dynamic> colors;
+                      if (color)
+                        colors = {
+                          'color': pickedColor.value,
+                        };
+                      if (color && textcolor)
+                        colors = {
+                          'color': pickedColor.value,
+                          'textcolor': pickedTextColor.value,
+                        };
                       Map<String, dynamic> body = {
                         'sbtbpid': box.read('mybpid'),
                         'sbtname': typename,
                         'sbtseq': inputSeq.text == '' ? null : inputSeq.text,
                         'sbttypemasterid': typeid,
                         'sbttypename': inputName.text,
-                        'sbtremark': withcolor.value ? pickedColor.value : null,
+                        'sbtremark': color ? jsonEncode(colors) : null,
                         'createdby': session.userid,
                         'updatedby': session.userid,
                         'isactive': isactive.value,

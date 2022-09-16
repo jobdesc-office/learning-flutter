@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:boilerplate/constants/base_text.dart';
 import 'package:boilerplate/helpers/function.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
@@ -93,6 +95,10 @@ class ProspectDataTableSource extends BsDatatableSource {
     // } else {
     //   contact = Text('');
     // }
+    Map<String, dynamic> colors = {};
+    String remark =
+        row.prospectstatus?.sbtremark?.replaceAll('&quot;', '"') ?? '';
+    if (row.prospectstatus?.sbtremark != null) colors = jsonDecode(remark);
     return BsDataRow(
       index: index,
       cells: [
@@ -167,30 +173,49 @@ class ProspectDataTableSource extends BsDatatableSource {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (row.prospectstatus?.sbttypename == 'Closed Won')
+              if (row.prospectstatus?.sbttypename != 'Closed Won' &&
+                  row.prospectstatus?.sbttypename != 'Closed Lost' &&
+                  row.prospectstatus?.sbttypename != 'Force Closed' &&
+                  row.prospectstatus?.sbtremark != null)
                 Container(
                   child: Text(
-                    row.prospectstatus!.sbttypename.toString(),
-                    style: TextStyle(color: Colors.white),
+                    row.prospectstatus?.sbttypename ?? '',
+                    style: TextStyle(
+                        color: Color(
+                      parseInt(colors['textcolor']),
+                    )),
                   ),
                   padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
                   decoration: BoxDecoration(
-                      color: Colors.green,
-                      borderRadius: BorderRadius.circular(5)),
-                )
-              else if (row.prospectstatus?.sbttypename == 'Closed Lost')
-                Container(
-                  child: Text(
-                    row.prospectstatus!.sbttypename.toString(),
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
-                  decoration: BoxDecoration(
-                      color: Colors.red,
+                      color: Color(parseInt(colors['color'])),
                       borderRadius: BorderRadius.circular(5)),
                 )
               else
-                Text(row.prospectstatus?.sbttypename ?? ''),
+                Container(
+                  child: Text(
+                    row.prospectstatus?.sbttypename ?? '',
+                    style: TextStyle(
+                        color: row.prospectstatus?.sbttypename == 'Closed Won'
+                            ? Colors.white
+                            : row.prospectstatus?.sbttypename == 'Closed Lost'
+                                ? Colors.white
+                                : row.prospectstatus?.sbttypename ==
+                                        'Force Closed'
+                                    ? Colors.white
+                                    : Colors.black),
+                  ),
+                  padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: row.prospectstatus?.sbttypename == 'Closed Won'
+                        ? Colors.green
+                        : row.prospectstatus?.sbttypename == 'Closed Lost'
+                            ? Colors.red
+                            : row.prospectstatus?.sbttypename == 'Force Closed'
+                                ? Colors.red
+                                : Colors.transparent,
+                  ),
+                ),
               Text(''),
               if (_navigation.isCollapse.value) Text(''),
             ],

@@ -24,7 +24,7 @@ class _TabProspectState extends State<_TabProspect>
       child: BsRow(
         children: [
           BsCol(
-            sizes: ColScreen(sm: Col.col_8),
+            sizes: ColScreen(sm: Col.col_9),
             child: TabBar(
               controller: _tabController,
               labelColor: Colors.green,

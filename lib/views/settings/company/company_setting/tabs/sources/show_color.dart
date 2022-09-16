@@ -2,7 +2,10 @@ part of '../../company.dart';
 
 class _ShowColor extends StatelessWidget {
   final Color color;
-  _ShowColor({required this.color});
+  final Color textcolor;
+  final String text;
+  _ShowColor(
+      {required this.color, required this.textcolor, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +34,10 @@ class _ShowColor extends StatelessWidget {
                     color: color,
                     height: MediaQuery.of(context).size.height * 0.5,
                     width: MediaQuery.of(context).size.width,
+                    child: Center(
+                      child: Text('$text',
+                          style: TextStyle(color: textcolor, fontSize: 24)),
+                    ),
                   ),
                 )
               ]),

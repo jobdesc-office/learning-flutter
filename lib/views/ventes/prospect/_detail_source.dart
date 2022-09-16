@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../models/session_model.dart';
@@ -21,6 +22,9 @@ class ProspectDetailsSource extends GetxController {
   var custid = 0.obs;
   var custname = ''.obs;
   var custlabel = ''.obs;
+
+  var custlabelcolor = Color.fromARGB(0, 255, 255, 255).obs;
+  var custlabeltextcolor = Color.fromARGB(255, 0, 0, 0).obs;
 
   var userfullname = ''.obs;
   var bpname = ''.obs;

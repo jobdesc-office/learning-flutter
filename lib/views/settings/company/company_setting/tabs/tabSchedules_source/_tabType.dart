@@ -76,6 +76,9 @@ class _TabScheduleType extends StatelessWidget
                                       context: context,
                                       builder: (context) => _ShowColor(
                                             color: Color(parseInt(e.sbtremark)),
+                                            textcolor:
+                                                Color(parseInt(e.sbtremark)),
+                                            text: e.sbttypename!,
                                           )),
                                   child: Container(
                                     color: Color(parseInt(e.sbtremark)),
@@ -200,7 +203,6 @@ class _TabScheduleType extends StatelessWidget
     source.update((val) {
       source.value.isupdate.value = true;
       source.value.isformactcat.value = true;
-      source.value.withcolor.value = true;
       StbptypeModel val = StbptypeModel.fromJson(response.body);
       source.value.id.value = val.sbtid ?? 0;
       source.value.inputName.text = val.sbttypename ?? '';
