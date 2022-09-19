@@ -1,13 +1,15 @@
 part of '../../company.dart';
 
 class _CustomerFormSource extends GetxController
-    implements CustomerAddressContract, EditViewContract {
+    implements CustomerAddressContract, EditViewContract, IndexViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final source = PCustomersSource().obs;
   CustomerPresenter presenter = Get.find<CustomerPresenter>();
   BpCustomerPresenter get bppresenter => Get.find<BpCustomerPresenter>();
+  final stbpPresenter = Get.find<StBpTypeActivityCategoryPresenter>();
 
   _CustomerFormSource() {
+    stbpPresenter.stBpTypeActivityCategoryViewContract = this;
     presenter.customerAddresContract = this;
     presenter.customerAddressContract = this;
     presenter.customerFetchDataContract = this;
@@ -66,7 +68,8 @@ class _CustomerFormSource extends GetxController
                                               pCustomerForm.inputPrefix(),
                                               pCustomerForm.inputName(),
                                               pCustomerForm.inputPhone(),
-                                              pCustomerForm.selectTypes(),
+                                              pCustomerForm
+                                                  .selectTypes(context),
                                               pCustomerForm.inputReferal(),
                                             ],
                                           ),
@@ -506,5 +509,31 @@ class _CustomerFormSource extends GetxController
       source.value.updateddate.value = customer.updateddate ?? '';
       source.value.isactive.value = customer.isactive ?? true;
     });
+  }
+
+  @override
+  void onCreateSuccess(Response response, {BuildContext? context}) {
+    // TODO: implement onCreateSuccess
+    Snackbar().createSuccess(context!);
+  }
+
+  @override
+  void onDeleteSuccess(Response response, {BuildContext? context}) {
+    // TODO: implement onDeleteSuccess
+  }
+
+  @override
+  void onEditSuccess(Response response, {BuildContext? context}) {
+    // TODO: implement onEditSuccess
+  }
+
+  @override
+  void onErrorRequest(Response response) {
+    // TODO: implement onErrorRequest
+  }
+
+  @override
+  void onLoadDatatables(BuildContext context, Response response) {
+    // TODO: implement onLoadDatatables
   }
 }

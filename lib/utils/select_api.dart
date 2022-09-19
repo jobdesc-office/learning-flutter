@@ -56,15 +56,36 @@ Future<BsSelectBoxResponse> selectApiRole(Map<String, String> params) async {
 
 Future<BsSelectBoxResponse> selectApiCustomerType(
     Map<String, String> params) async {
-  final typeService = Get.put(TypeService());
-  Response response = await typeService.byCode(ConfigType.cstmtype);
+  params
+      .addAll({'typecd': ConfigType.cstmtype, 'bpid': '${box.read('mybpid')}'});
+  final typeService = Get.put(StBpTypeService());
+  Response response = await typeService.byCodeAdd(params);
   if (response.isOk) {
     if (response.statusCode == 200) {
-      return BsSelectBoxResponse.createFromJson(
-        response.body,
-        value: (data) => TypeModel.fromJson(data).typeid,
-        renderText: (data) => Text(TypeModel.fromJson(data).typename ?? ''),
-      );
+      List data = response.body;
+      if (data.isNotEmpty) {
+        return BsSelectBoxResponse.createFromJson(
+          response.body,
+          value: (data) => StbptypeModel.fromJson(data).sbtid,
+          renderText: (data) =>
+              Text(StbptypeModel.fromJson(data).sbttypename ?? ''),
+        );
+      } else if (params['searchValue'] == '') {
+        return BsSelectBoxResponse();
+      } else {
+        int id = jsonDecode(response.headers!['masterid'] ?? '');
+        String master = jsonDecode(response.headers!['master'] ?? '');
+        return BsSelectBoxResponse(options: [
+          BsSelectBoxOption(
+              value: 'add',
+              text: Text('Add ${params['searchValue']} as New Type'),
+              other: {
+                'name': '${params['searchValue']}',
+                'masterid': id,
+                'master': master
+              })
+        ]);
+      }
     }
   }
 
@@ -84,6 +105,8 @@ Future<BsSelectBoxResponse> selectApiBpType(Map<String, String> params) async {
           value: (data) => TypeModel.fromJson(data).typeid,
           renderText: (data) => Text(TypeModel.fromJson(data).typename ?? ''),
         );
+      } else if (params['searchValue'] == '') {
+        return BsSelectBoxResponse();
       } else {
         List list = jsonDecode(response.headers!['masterid'] ?? '');
         int id = TypeModel.fromJson(list.first).typeid ?? 0;
@@ -249,16 +272,37 @@ Future<BsSelectBoxResponse> selectApiTaxTypes(
 
 Future<BsSelectBoxResponse> selectApiContactTypes(
     Map<String, String> params) async {
-  final typeService = Get.put(TypeService());
-  Response response = await typeService.byCode(ConfigType.contactType);
+  params.addAll(
+      {'typecd': ConfigType.contactType, 'bpid': '${box.read('mybpid')}'});
+  final typeService = Get.put(StBpTypeService());
+  Response response = await typeService.byCodeAdd(params);
 
   if (response.isOk) {
     if (response.statusCode == 200) {
-      return BsSelectBoxResponse.createFromJson(
-        response.body,
-        value: (data) => TypeModel.fromJson(data).typeid,
-        renderText: (data) => Text(TypeModel.fromJson(data).typename ?? ''),
-      );
+      List data = response.body;
+      if (data.isNotEmpty) {
+        return BsSelectBoxResponse.createFromJson(
+          response.body,
+          value: (data) => StbptypeModel.fromJson(data).sbtid,
+          renderText: (data) =>
+              Text(StbptypeModel.fromJson(data).sbttypename ?? ''),
+        );
+      } else if (params['searchValue'] == '') {
+        return BsSelectBoxResponse();
+      } else {
+        int id = jsonDecode(response.headers!['masterid'] ?? '');
+        String master = jsonDecode(response.headers!['master'] ?? '');
+        return BsSelectBoxResponse(options: [
+          BsSelectBoxOption(
+              value: 'add',
+              text: Text('Add ${params['searchValue']} as New Type'),
+              other: {
+                'name': '${params['searchValue']}',
+                'masterid': id,
+                'master': master
+              })
+        ]);
+      }
     }
   }
 
@@ -519,6 +563,8 @@ Future<BsSelectBoxResponse> selectApiProductWithBp(
           renderText: (data) =>
               Text(ProductModel.fromJson(data).productname ?? ''),
         );
+      } else if (params['searchValue'] == '') {
+        return BsSelectBoxResponse(options: []);
       } else {
         return BsSelectBoxResponse(options: [
           BsSelectBoxOption(

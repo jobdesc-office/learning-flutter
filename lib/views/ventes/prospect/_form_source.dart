@@ -13,6 +13,7 @@ import 'package:intl/intl.dart';
 import '../../../constants/base_text.dart';
 import '../../../helpers/function.dart';
 import '../../../models/session_model.dart';
+import '../../../presenters/masters/product_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../styles/color_palattes.dart';
 import '../../../utils/select_api.dart';
@@ -28,6 +29,7 @@ import '_text.dart';
 import 'product/product_form.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
+final presenter = Get.find<ProductPresenter>();
 
 class ProspectSource extends GetxController {
   bool isProcessing = false;
@@ -610,18 +612,20 @@ class ProspectForm {
                             validators: [
                               Validators.selectRequired(ProspectText.labelItem)
                             ],
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(top: 3),
-                            child: InkWell(
-                              onTap: () => Get.to(PProductFormFormView()),
-                              child: Container(
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    'Add More Item',
-                                    style: TextStyle(color: Colors.blue),
-                                  )),
-                            ),
+                            onChange: (val) async {
+                              if (val.getValueAsString() == 'add') {
+                                SessionModel session =
+                                    await SessionManager.current();
+                                presenter.saveViaProspect({
+                                  'productname': val.getOtherValue()['name'],
+                                  'productbpid': val.getOtherValue()['bpid'],
+                                  'createdby': session.userid,
+                                  'updatedby': session.userid,
+                                  'isactive': true,
+                                });
+                                selectItem.clear();
+                              }
+                            },
                           )
                         ],
                       ),

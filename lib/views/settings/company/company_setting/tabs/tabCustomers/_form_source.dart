@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:boilerplate/presenters/settings/stbptype/stbptypeactivitycategory_presenter.dart';
 import 'package:boilerplate/services/settings/customfield_service.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
@@ -250,19 +251,34 @@ class PCustomersForm {
     );
   }
 
-  Widget selectTypes() {
+  Widget selectTypes(context) {
     return FormGroup(
       label: Obx(() => Text(PCustomerText.labelType,
           style: TextStyle(
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomSelectBox(
-        searchable: false,
         disabled: source.isProcessing,
         controller: source.selectType,
         hintText: BaseText.hiintSelect(field: PCustomerText.labelType),
         serverSide: (params) => selectApiCustomerType(params),
         validators: [Validators.selectRequired(PCustomerText.labelType)],
+        onChange: (value) async {
+          if (value.getValueAsString() == 'add') {
+            SessionModel session = await SessionManager.current();
+            final presenter = Get.find<StBpTypeActivityCategoryPresenter>();
+            presenter.save(context, {
+              'sbtbpid': box.read('mybpid'),
+              'sbtname': value.getOtherValue()['master'],
+              'sbttypemasterid': value.getOtherValue()['masterid'],
+              'sbttypename': value.getOtherValue()['name'],
+              'createdby': session.userid,
+              'updatedby': session.userid,
+              'isactive': true,
+            });
+            source.selectType.clear();
+          }
+        },
       ),
     );
   }

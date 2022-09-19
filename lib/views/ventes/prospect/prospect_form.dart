@@ -198,6 +198,46 @@ class ProspectFormView extends StatelessWidget
                                         children: [
                                           prospectForm.inputProduct(
                                               onRemoveItem: onClickRemoveItem),
+                                          Container(
+                                            margin: EdgeInsets.only(bottom: 20),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                GestureDetector(
+                                                    onTap: () {
+                                                      source.update((val) {
+                                                        source.value.inputPrices
+                                                            .add(
+                                                                TextEditingController());
+                                                        source.value
+                                                            .inputQuantities
+                                                            .add(
+                                                                TextEditingController());
+                                                        source
+                                                            .value.inputAmounts
+                                                            .add(
+                                                                TextEditingController());
+                                                        source.value.inputTaxes.add(
+                                                            TextEditingController());
+                                                        source.value.selectsItem
+                                                            .add(
+                                                                BsSelectBoxController());
+                                                        source.value
+                                                            .inputDiscounts
+                                                            .add(
+                                                                TextEditingController());
+                                                        source.value.selectsTax.add(
+                                                            BsSelectBoxController());
+                                                      });
+                                                    },
+                                                    child: Text(
+                                                        '+ Add More Items')),
+                                                // prospectForm.total()
+                                              ],
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ),

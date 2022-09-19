@@ -85,6 +85,15 @@ class StBpTypeActivityCategoryPresenter extends CustomGetXController {
       _stBpTypeActivityCategoryViewContract.onErrorRequest(response);
   }
 
+  void saveAdd(Map<String, dynamic> body) async {
+    setProcessing(true);
+    Response response = await _stBpTypeService.store(body);
+    if (response.statusCode == 200)
+      _stBpTypeActivityCategoryViewContract.onCreateSuccess(response);
+    else
+      _stBpTypeActivityCategoryViewContract.onErrorRequest(response);
+  }
+
   void save(BuildContext context, Map<String, dynamic> body) async {
     setProcessing(true);
     Response response = await _stBpTypeService.store(body);
