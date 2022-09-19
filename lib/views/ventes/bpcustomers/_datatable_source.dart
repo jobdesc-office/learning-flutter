@@ -19,10 +19,6 @@ class BpCustomerDataTableSource extends BsDatatableSource {
   ValueChanged<int> onEditListener = (value) {};
   Function onDeleteListener = (value, name) {};
 
-  BpCustomerDataTableSource({
-    List data = const [],
-  }) : super(data: data);
-
   List<BsDataColumn> get columns {
     return <BsDataColumn>[
       CustomBsDataColumn(

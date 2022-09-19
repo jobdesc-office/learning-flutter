@@ -20,7 +20,7 @@ class UserDataTableSource extends BsDatatableSource {
   Function onDeleteListener = (value, name) {};
 
   UserDataTableSource({
-    List data = const [],
+    List? data,
   }) : super(data: data);
 
   List<BsDataColumn> get columns {

@@ -19,10 +19,6 @@ class BusinessPartnerDataTableSource extends BsDatatableSource {
   ValueChanged<int> onEditListener = (value) {};
   Function onDeleteListener = (value, name) {};
 
-  BusinessPartnerDataTableSource({
-    List data = const [],
-  }) : super(data: data);
-
   List<BsDataColumn> get columns {
     return <BsDataColumn>[
       CustomBsDataColumn(

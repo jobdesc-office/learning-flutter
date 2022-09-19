@@ -22,10 +22,6 @@ class CustomerDataTableSource extends BsDatatableSource {
   ValueChanged<int> onEditListener = (value) {};
   Function onDeleteListener = (value, name) {};
 
-  CustomerDataTableSource({
-    List data = const [],
-  }) : super(data: data);
-
   List<BsDataColumn> get columns {
     return <BsDataColumn>[
       CustomBsDataColumn(

@@ -18,10 +18,6 @@ class FileDataTableSource extends BsDatatableSource {
   ValueChanged<int> onDetailListener = (value) {};
   Function onDeleteListener = (value, name) {};
 
-  FileDataTableSource({
-    List data = const [],
-  }) : super(data: data);
-
   List<BsDataColumn> get columns {
     return <BsDataColumn>[
       CustomBsDataColumn(

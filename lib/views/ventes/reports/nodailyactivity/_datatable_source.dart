@@ -34,18 +34,21 @@ class ReportNoDailyActivityDataTableSource extends BsDatatableSource {
       ),
       CustomBsDataColumn(
         label: Text('User Name'),
-        columnName: 'ReportNoDailyActivityname',
-        searchable: false,
+        columnKey: (v) => v.userfullname,
+        columnName: 'userfullname',
+        searchable: true,
         orderable: false,
       ),
       CustomBsDataColumn(
         label: Text('User Email'),
-        searchable: false,
+        columnName: 'useremail',
+        searchable: true,
         orderable: false,
       ),
       CustomBsDataColumn(
         label: Text('User Phone'),
-        searchable: false,
+        columnName: 'userphone',
+        searchable: true,
         orderable: false,
       ),
     ];
