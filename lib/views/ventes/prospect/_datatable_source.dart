@@ -198,7 +198,7 @@ class ProspectDataTableSource extends BsDatatableSource {
                                 : row.prospectstatus?.sbttypename ==
                                         'Force Closed'
                                     ? Colors.white
-                                    : Colors.black),
+                                    : null),
                   ),
                   padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
                   decoration: BoxDecoration(

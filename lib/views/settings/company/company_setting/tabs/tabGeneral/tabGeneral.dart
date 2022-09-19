@@ -6,9 +6,12 @@ class _TabGeneral extends StatelessWidget
   GeneralSource get source => _source.value;
   CPGeneralPresenter get presenter => Get.find<CPGeneralPresenter>();
 
+  final typePresenter = Get.find<TypesChildrenPresenter>();
+
   _TabGeneral() {
     presenter.businessPartnerFetchDataContract = this;
     presenter.businessPartnerViewContract = this;
+    typePresenter.typeChildrenViewContract = this;
     fetchData();
   }
 
@@ -104,7 +107,7 @@ class _TabGeneral extends StatelessWidget
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    selectSubdistrict(),
+                    selectSubdistrict(context),
                     Obx(() {
                       return BsCol(
                         margin: EdgeInsets.only(top: 10),
@@ -133,7 +136,7 @@ class _TabGeneral extends StatelessWidget
     presenter.update(context, data, bpid!);
   }
 
-  Widget selectSubdistrict() {
+  Widget selectSubdistrict(context) {
     return FormGroup(
       child: CustomSelectBox(
         searchable: true,
@@ -144,6 +147,19 @@ class _TabGeneral extends StatelessWidget
         validators: [
           Validators.selectRequired("Type"),
         ],
+        onChange: (val) async {
+          print(val.getOtherValue());
+          if (val.getValueAsString() == 'add') {
+            SessionModel session = await SessionManager.current();
+            typePresenter.save(context, {
+              'typename': val.getOtherValue()['name'],
+              'typemasterid': val.getOtherValue()['masterid'],
+              'createdby': session.userid,
+              'updatedby': session.userid,
+              'isactive': true,
+            });
+          }
+        },
       ),
     );
   }
@@ -166,7 +182,8 @@ class _TabGeneral extends StatelessWidget
 
   @override
   void onCreateSuccess(Response response, {BuildContext? context}) {
-    // TODO: implement onCreateSuccess
+    source.choosedType.clear();
+    Snackbar().createSuccess(context!);
   }
 
   @override
