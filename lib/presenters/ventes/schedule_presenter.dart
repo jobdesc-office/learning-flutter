@@ -53,11 +53,11 @@ class SchedulePresenter extends CustomGetXController {
     final List<ScheduleModel> appointmentData = [];
     for (var data in response.body) {
       ScheduleModel meetingData = ScheduleModel(
-        scheid: data['scheid'],
-        schenm: data['schenm'],
-        schestartdate: data['schestartdate'],
-        scheenddate: data['scheenddate'],
-      );
+          scheid: data['scheid'],
+          schenm: data['schenm'],
+          schestartdate: data['schestartdate'],
+          scheenddate: data['scheenddate'],
+          schetype: Schetype.fromJson(data['schetype']));
       appointmentData.add(meetingData);
     }
     _scheduleContract.onLoadScheduleSuccess(appointmentData);
