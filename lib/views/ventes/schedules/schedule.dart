@@ -6,6 +6,7 @@ import 'package:boilerplate/contracts/ventes/schedule_contract.dart';
 import 'package:boilerplate/presenters/navigation_presenter.dart';
 import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:boilerplate/utils/handle_error_request.dart';
+import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -50,15 +51,60 @@ class ScheduleView extends GetView
         background: true,
         child: Obx(() => Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    ThemeButtonCreate(
-                      margin: EdgeInsets.only(bottom: 5),
-                      prefix: ScheduleText.title,
-                      onPressed: () => presenter.add(context),
-                    )
-                  ],
+                Container(
+                  margin: EdgeInsets.only(top: 10, left: 10),
+                  child: BsRow(
+                    children: [
+                      BsCol(
+                        sizes: ColScreen(sm: Col.col_1),
+                        child: Row(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(right: 3),
+                              color: Color(0xFFFFBA00),
+                              child: Text('     '),
+                            ),
+                            Text('Event')
+                          ],
+                        ),
+                      ),
+                      BsCol(
+                        sizes: ColScreen(sm: Col.col_1),
+                        child: Row(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(right: 3),
+                              color: Color(0xFFDD4A48),
+                              child: Text('     '),
+                            ),
+                            Text('Task')
+                          ],
+                        ),
+                      ),
+                      BsCol(
+                        sizes: ColScreen(sm: Col.col_1),
+                        child: Row(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(right: 3),
+                              color: Color(0xFF01CAE4),
+                              child: Text('     '),
+                            ),
+                            Text('Reminder')
+                          ],
+                        ),
+                      ),
+                      BsCol(
+                        alignment: Alignment.centerRight,
+                        sizes: ColScreen(sm: Col.col_9),
+                        child: ThemeButtonCreate(
+                          margin: EdgeInsets.only(bottom: 5),
+                          prefix: ScheduleText.title,
+                          onPressed: () => presenter.add(context),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
                 if (source.isTap.value)
                   SingleChildScrollView(
@@ -87,8 +133,11 @@ class ScheduleView extends GetView
                               decoration: BoxDecoration(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(5)),
-                                color: Colors.primaries[
-                                    Random().nextInt(Colors.primaries.length)],
+                                color: element.schetype?.typename == 'Event'
+                                    ? Color(0xFFFFBA00)
+                                    : element.schetype!.typename! == 'Task'
+                                        ? Color(0xFFDD4A48)
+                                        : Color(0xFF01CAE4),
                               ),
                               child: Row(
                                 mainAxisAlignment:
