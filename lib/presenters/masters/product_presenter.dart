@@ -69,6 +69,14 @@ class ProductPresenter extends CustomGetXController {
       _productViewContract.onErrorRequest(response);
   }
 
+  void saveViaProspect(Map<String, dynamic> body) async {
+    Response response = await _productService.store(body);
+    if (response.statusCode == 200)
+      _productViewContract.onCreateSuccess(response);
+    else
+      _productViewContract.onErrorRequest(response);
+  }
+
   Future show(int id) async {
     setProcessing(true);
 

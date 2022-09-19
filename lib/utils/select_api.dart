@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:boilerplate/models/masters/type_model.dart';
 import 'package:boilerplate/models/security/menu_model.dart';
 import 'package:boilerplate/models/ventes/prospect_model.dart';
@@ -70,19 +72,32 @@ Future<BsSelectBoxResponse> selectApiCustomerType(
 }
 
 Future<BsSelectBoxResponse> selectApiBpType(Map<String, String> params) async {
+  params.addAll({'typecd': ConfigType.businessPartner});
   final typeService = Get.put(TypeService());
-  Response response = await typeService.byCode(ConfigType.businessPartner);
+  Response response = await typeService.byCodeAdd(params);
   if (response.isOk) {
     if (response.statusCode == 200) {
-      return BsSelectBoxResponse.createFromJson(
-        response.body,
-        value: (data) => TypeModel.fromJson(data).typeid,
-        renderText: (data) => Text(TypeModel.fromJson(data).typename ?? ''),
-      );
+      List data = response.body;
+      if (data.isNotEmpty) {
+        return BsSelectBoxResponse.createFromJson(
+          response.body,
+          value: (data) => TypeModel.fromJson(data).typeid,
+          renderText: (data) => Text(TypeModel.fromJson(data).typename ?? ''),
+        );
+      } else {
+        List list = jsonDecode(response.headers!['masterid'] ?? '');
+        int id = TypeModel.fromJson(list.first).typeid ?? 0;
+        return BsSelectBoxResponse(options: [
+          BsSelectBoxOption(
+              value: 'add',
+              text: Text('Add ${params['searchValue']} as New Type'),
+              other: {'name': '${params['searchValue']}', 'masterid': id})
+        ]);
+      }
     }
   }
 
-  return BsSelectBoxResponse(options: []);
+  return BsSelectBoxResponse();
 }
 
 Future<BsSelectBoxResponse> selectApiProspectStatus(
@@ -496,12 +511,22 @@ Future<BsSelectBoxResponse> selectApiProductWithBp(
   Response response = await productService.selectWithBp(params, id);
   if (response.isOk) {
     if (response.statusCode == 200) {
-      return BsSelectBoxResponse.createFromJson(
-        response.body,
-        value: (data) => ProductModel.fromJson(data).productid,
-        renderText: (data) =>
-            Text(ProductModel.fromJson(data).productname ?? ''),
-      );
+      List data = response.body;
+      if (data.isNotEmpty) {
+        return BsSelectBoxResponse.createFromJson(
+          response.body,
+          value: (data) => ProductModel.fromJson(data).productid,
+          renderText: (data) =>
+              Text(ProductModel.fromJson(data).productname ?? ''),
+        );
+      } else {
+        return BsSelectBoxResponse(options: [
+          BsSelectBoxOption(
+              value: 'add',
+              text: Text('Add ${params['searchValue']} as New Item'),
+              other: {'name': '${params['searchValue']}', 'bpid': id})
+        ]);
+      }
     }
   }
 

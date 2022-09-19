@@ -10,8 +10,10 @@ import '../../../contracts/base/index_view_contract.dart';
 import '../../../models/masters/type_model.dart';
 import '../../../models/settings/stbptype_model.dart';
 import '../../../models/ventes/prospect_model.dart';
+import '../../../presenters/masters/product_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../presenters/ventes/prospect_presenter.dart';
+import '../../../presenters/ventes/prospectproduct_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../styles/color_palattes.dart';
 import '../../../widgets/breadcrumb.dart';
@@ -27,6 +29,7 @@ class ProspectFormView extends StatelessWidget
     implements EditViewContract, MenuTypeViewContract, IndexViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final ProspectPresenter presenter = Get.find<ProspectPresenter>();
+  final productPresenter = Get.find<ProductPresenter>();
   final source = ProspectSource().obs;
   final Function(Map<String, dynamic> body) onSave;
   final _navigation = Get.find<NavigationPresenter>();
@@ -37,6 +40,7 @@ class ProspectFormView extends StatelessWidget
     presenter.prospectFetchDataContract = this;
     presenter.prospectTypeViewContract = this;
     presenter.addCustomerViewContract = this;
+    productPresenter.productViewContract = this;
   }
 
   @override
@@ -194,46 +198,6 @@ class ProspectFormView extends StatelessWidget
                                         children: [
                                           prospectForm.inputProduct(
                                               onRemoveItem: onClickRemoveItem),
-                                          Container(
-                                            margin: EdgeInsets.only(bottom: 20),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                GestureDetector(
-                                                    onTap: () {
-                                                      source.update((val) {
-                                                        source.value.inputPrices
-                                                            .add(
-                                                                TextEditingController());
-                                                        source.value
-                                                            .inputQuantities
-                                                            .add(
-                                                                TextEditingController());
-                                                        source
-                                                            .value.inputAmounts
-                                                            .add(
-                                                                TextEditingController());
-                                                        source.value.inputTaxes.add(
-                                                            TextEditingController());
-                                                        source.value.selectsItem
-                                                            .add(
-                                                                BsSelectBoxController());
-                                                        source.value
-                                                            .inputDiscounts
-                                                            .add(
-                                                                TextEditingController());
-                                                        source.value.selectsTax.add(
-                                                            BsSelectBoxController());
-                                                      });
-                                                    },
-                                                    child: Text(
-                                                        '+ Add More Items')),
-                                                // prospectForm.total()
-                                              ],
-                                            ),
-                                          ),
                                         ],
                                       ),
                                     ),

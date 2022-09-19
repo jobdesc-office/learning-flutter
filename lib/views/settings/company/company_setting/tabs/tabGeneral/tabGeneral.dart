@@ -148,12 +148,11 @@ class _TabGeneral extends StatelessWidget
           Validators.selectRequired("Type"),
         ],
         onChange: (val) async {
-          print(val.getOtherValue());
           if (val.getValueAsString() == 'add') {
             SessionModel session = await SessionManager.current();
             typePresenter.save(context, {
-              'typename': val.getOtherValue()['name'],
-              'typemasterid': val.getOtherValue()['masterid'],
+              'productname': val.getOtherValue()['name'],
+              'productbpid': val.getOtherValue()['bpid'],
               'createdby': session.userid,
               'updatedby': session.userid,
               'isactive': true,

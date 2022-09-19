@@ -286,6 +286,7 @@ class AppRoute {
           Get.lazyPut(() => UserService());
           Get.lazyPut(() => CustomerService());
           Get.lazyPut(() => ProductService());
+          Get.lazyPut(() => ProductPresenter());
           Get.lazyPut(() => ProspectService());
           Get.lazyPut(() => ProspectActivityService());
           Get.lazyPut(() => ProspectActivityPresenter());
