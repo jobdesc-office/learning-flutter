@@ -1,3 +1,4 @@
+import 'package:boilerplate/models/masters/user_model.dart';
 import 'package:boilerplate/utils/handle_error_request.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
@@ -19,12 +20,15 @@ import '_text.dart';
 class UserView extends GetView
     implements IndexViewContract, HandleErrorRequest, UserResetContract {
   final presenter = Get.find<UserPresenter>();
-  final datatable = UserDataTableSource();
+  late UserDataTableSource datatable;
   final UserSource c = Get.put(UserSource());
 
   UserView() {
     presenter.userViewContract = this;
     presenter.userResetContract = this;
+    datatable = UserDataTableSource(data: [
+      UserModel(userfullname: 'Data Baru').toJson(),
+    ]);
   }
 
   @override
@@ -45,6 +49,19 @@ class UserView extends GetView
                 source: datatable,
                 columns: datatable.columns,
                 headerActions: [
+                  ThemeButtonCreate(
+                    prefix: UserText.title,
+                    onPressed: () {
+                      print(datatable.localData);
+                    },
+                  ),
+                  ThemeButtonCreate(
+                    prefix: UserText.title,
+                    onPressed: () {
+                      datatable.add(UserModel(userfullname: 'Add 1').toJson());
+                      datatable.reload();
+                    },
+                  ),
                   ThemeButtonCreate(
                     prefix: UserText.title,
                     onPressed: () => presenter.add(context),

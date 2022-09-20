@@ -26,6 +26,9 @@ class ReportNoDailyActivities extends GetView {
     datatable.addAll(act);
     datatable.addAll(act);
     datatable.addAll(act);
+    datatable.addAll(act);
+    datatable.addAll(act);
+    datatable.addAll(act);
     datatable.reload();
   }
 

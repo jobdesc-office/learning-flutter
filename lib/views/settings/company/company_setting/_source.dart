@@ -12,6 +12,12 @@ class CompanySources extends GetxController {
   var activitytypetype = ''.obs;
   var activitytypeseq = 0.obs;
 
+  var customertypeid = 0.obs;
+  var customertypetype = ''.obs;
+
+  var contacttypeid = 0.obs;
+  var contacttypetype = ''.obs;
+
   var scheduletypetypeid = 0.obs;
   var scheduletypetype = ''.obs;
 
@@ -35,6 +41,9 @@ class CompanySources extends GetxController {
 
   var stbpactivitycategory = <StbptypeModel>[].obs;
   var stbpactivitytype = <StbptypeModel>[].obs;
+
+  var stbpcontacttype = <StbptypeModel>[].obs;
+  var stbpcustomertype = <StbptypeModel>[].obs;
 
   var stbpprospectcategory = <StbptypeModel>[].obs;
   var stbpprospectcustomerlabel = <StbptypeModel>[].obs;

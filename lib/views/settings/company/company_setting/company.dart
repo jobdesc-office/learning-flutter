@@ -45,6 +45,8 @@ import '../../../../presenters/masters/user_presenter.dart';
 import '../../../../presenters/navigation_presenter.dart';
 import '../../../../presenters/settings/stbptype/stbptypeactivitycategory_presenter.dart';
 import '../../../../presenters/settings/stbptype/stbptypeactivitytype_presenter.dart';
+import '../../../../presenters/settings/stbptype/stbptypecontacttype_presenter.dart';
+import '../../../../presenters/settings/stbptype/stbptypecustomertype_presenter.dart';
 import '../../../../presenters/settings/stbptype/stbptypeprospectcategory_presenter.dart';
 import '../../../../presenters/settings/stbptype/stbptypeprospectcustomerlabel_presenter.dart';
 import '../../../../presenters/settings/stbptype/stbptypeprospectlostreason_presenter.dart';
@@ -98,6 +100,9 @@ part 'tabs/tabCustomers/tabCustomerspr.dart';
 
 part 'tabs/tabActivities_source/_tabCategory.dart';
 part 'tabs/tabActivities_source/_tabType.dart';
+
+part 'tabs/tabCustomers_source/_tabContactType.dart';
+part 'tabs/tabCustomers_source/_tabCustomerType.dart';
 
 part 'tabs/tabProspect_source/_tabCategory.dart';
 part 'tabs/tabProspect_source/_tabCustomerLabel.dart';

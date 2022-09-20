@@ -20,6 +20,8 @@ import '../presenters/settings/file_presenter.dart';
 import '../presenters/settings/permission_presenter.dart';
 import '../presenters/settings/stbptype/stbptypeactivitycategory_presenter.dart';
 import '../presenters/settings/stbptype/stbptypeactivitytype_presenter.dart';
+import '../presenters/settings/stbptype/stbptypecontacttype_presenter.dart';
+import '../presenters/settings/stbptype/stbptypecustomertype_presenter.dart';
 import '../presenters/settings/stbptype/stbptypeprospectcategory_presenter.dart';
 import '../presenters/settings/stbptype/stbptypeprospectcustomerlabel_presenter.dart';
 import '../presenters/settings/stbptype/stbptypeprospectlostreason_presenter.dart';
@@ -378,6 +380,8 @@ class AppRoute {
           Get.lazyPut(() => StBpTypeProspectStagePresenter());
           Get.lazyPut(() => StBpTypeProspectStatusPresenter());
           Get.lazyPut(() => StBpTypeScheduleTypePresenter());
+          Get.lazyPut(() => StBpTypeCustomerTypePresenter());
+          Get.lazyPut(() => StBpTypeContactTypePresenter());
           Get.lazyPut(() => TypeService());
           Get.lazyPut(() => ContactService());
           Get.lazyPut(() => CompetitorPresenter());

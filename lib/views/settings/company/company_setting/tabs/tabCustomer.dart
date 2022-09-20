@@ -12,12 +12,11 @@ class _TabCustomerState extends State<_TabCustomer>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 5, vsync: this);
   }
 
   @override
   Widget build(BuildContext context) {
-    final datatable = CompanyCurrencyDataTableSource();
     return SingleChildScrollView(
       child: Container(
         margin: EdgeInsets.all(20),
@@ -34,6 +33,8 @@ class _TabCustomerState extends State<_TabCustomer>
                     Tab(text: 'Customer'),
                     Tab(text: 'Prospective Customer'),
                     Tab(text: 'Contact'),
+                    Tab(text: 'Customer Type'),
+                    Tab(text: 'Contact Type'),
                   ],
                 ),
               ),
@@ -49,6 +50,8 @@ class _TabCustomerState extends State<_TabCustomer>
                     _TabCustomers("Customer"),
                     _TabCustomerspr("Prospective Customer"),
                     _TabContact(),
+                    _TabCustomerType(context),
+                    _TabContactType(context)
                   ],
                 ),
               ),
