@@ -151,8 +151,8 @@ class _TabGeneral extends StatelessWidget
           if (val.getValueAsString() == 'add') {
             SessionModel session = await SessionManager.current();
             typePresenter.save(context, {
-              'productname': val.getOtherValue()['name'],
-              'productbpid': val.getOtherValue()['bpid'],
+              'typename': val.getOtherValue()['name'],
+              'typemasterid': val.getOtherValue()['masterid'],
               'createdby': session.userid,
               'updatedby': session.userid,
               'isactive': true,

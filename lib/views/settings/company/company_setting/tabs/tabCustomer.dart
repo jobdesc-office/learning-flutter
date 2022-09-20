@@ -23,7 +23,7 @@ class _TabCustomerState extends State<_TabCustomer>
         child: BsRow(
           children: [
             BsCol(
-              sizes: ColScreen(sm: Col.col_6),
+              sizes: ColScreen(sm: Col.col_7),
               child: Container(
                 child: TabBar(
                   controller: _tabController,
