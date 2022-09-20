@@ -1,5 +1,6 @@
 part of '../company.dart';
 
+// ignore: must_be_immutable
 class _TabUsers extends StatelessWidget
     implements IndexViewContract, UserResetContract, EditViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
