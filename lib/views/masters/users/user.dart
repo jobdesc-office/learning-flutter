@@ -17,6 +17,7 @@ import '_datatable_source.dart';
 import '_form_source.dart';
 import '_text.dart';
 
+// ignore: must_be_immutable
 class UserView extends GetView
     implements IndexViewContract, HandleErrorRequest, UserResetContract {
   final presenter = Get.find<UserPresenter>();

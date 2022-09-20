@@ -26,7 +26,6 @@ import '../../../widgets/input/custom_input_currency.dart';
 import '../../../widgets/selectbox/custom_selectbox.dart';
 import '../../masters/menus/_menu_sbttype.dart';
 import '_text.dart';
-import 'product/product_form.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 final presenter = Get.find<ProductPresenter>();

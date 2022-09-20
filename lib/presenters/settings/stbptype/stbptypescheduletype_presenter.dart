@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 import '../../../constants/base_text.dart';
 import '../../../constants/config_types.dart';
-import '../../../contracts/base/details_view_contract.dart';
 import '../../../contracts/base/edit_view_contract.dart';
 import '../../../contracts/base/index_view_contract.dart';
 import '../../../models/session_model.dart';

@@ -1,7 +1,7 @@
 part of '../../company.dart';
 
-class _TabCustomerspr extends StatelessWidget
-    implements IndexViewContract {
+// ignore: must_be_immutable
+class _TabCustomerspr extends StatelessWidget implements IndexViewContract {
   final datatable = CustomerDataTableSource();
   final String typename;
 

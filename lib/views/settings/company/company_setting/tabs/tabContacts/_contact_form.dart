@@ -1,5 +1,6 @@
 part of '../../company.dart';
 
+// ignore: must_be_immutable
 class _ContactForm extends StatelessWidget implements IndexViewContract {
   CPContactPresenter presenter = Get.find();
   final sbtpresenter = Get.find<StBpTypeActivityCategoryPresenter>();
@@ -286,22 +287,14 @@ class _ContactForm extends StatelessWidget implements IndexViewContract {
   }
 
   @override
-  void onDeleteSuccess(Response response, {BuildContext? context}) {
-    // TODO: implement onDeleteSuccess
-  }
+  void onDeleteSuccess(Response response, {BuildContext? context}) {}
 
   @override
-  void onEditSuccess(Response response, {BuildContext? context}) {
-    // TODO: implement onEditSuccess
-  }
+  void onEditSuccess(Response response, {BuildContext? context}) {}
 
   @override
-  void onErrorRequest(Response response) {
-    // TODO: implement onErrorRequest
-  }
+  void onErrorRequest(Response response) {}
 
   @override
-  void onLoadDatatables(BuildContext context, Response response) {
-    // TODO: implement onLoadDatatables
-  }
+  void onLoadDatatables(BuildContext context, Response response) {}
 }

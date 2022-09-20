@@ -1,5 +1,6 @@
 part of '../../company.dart';
 
+// ignore: must_be_immutable
 class _TabContact extends StatelessWidget
     implements IndexViewContract, EditViewContract {
   CPContactPresenter presenter = Get.find();

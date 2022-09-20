@@ -1,5 +1,6 @@
 part of '../../company.dart';
 
+// ignore: must_be_immutable
 class _TabCompetitor extends GetView
     implements IndexViewContract, EditViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();

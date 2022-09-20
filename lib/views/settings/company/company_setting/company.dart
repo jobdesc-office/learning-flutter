@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:boilerplate/constants/base_text.dart';
 import 'package:boilerplate/contracts/base/edit_view_contract.dart';
@@ -7,7 +6,6 @@ import 'package:boilerplate/contracts/base/index_view_contract.dart';
 import 'package:boilerplate/helpers/function.dart';
 import 'package:boilerplate/models/masters/businesspartner_model.dart';
 import 'package:boilerplate/models/masters/contact_model.dart';
-import 'package:boilerplate/models/ventes/bpcustomer_model.dart';
 import 'package:boilerplate/utils/select_api.dart';
 import 'package:boilerplate/utils/validators.dart';
 import 'package:boilerplate/views/masters/contact/_text.dart';
@@ -15,7 +13,6 @@ import 'package:boilerplate/views/settings/company/company_setting/tabs/tabConta
 import 'package:boilerplate/views/settings/company/company_setting/tabs/tabContacts/contact_form_source.dart';
 import 'package:boilerplate/views/settings/company/company_setting/tabs/tabContacts/cp_contact_presenter.dart';
 import 'package:boilerplate/views/settings/company/company_setting/tabs/tabGeneral/_general_form_source.dart';
-import 'package:boilerplate/views/settings/company/company_setting/tabs/tabCustomers/cp_customer_presenter.dart';
 import 'package:boilerplate/views/settings/company/company_setting/tabs/tabGeneral/cp_general_presenter.dart';
 import 'package:boilerplate/widgets/button/theme_button_cancel.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
@@ -27,7 +24,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:image_picker_web/image_picker_web.dart';
 
 import '../../../../contracts/master/customerAddress_contract.dart';
 import '../../../../contracts/master/userReset_contract.dart';
@@ -79,7 +75,6 @@ import '../../../masters/users/_form_source.dart';
 import '../../../skins/template.dart';
 import '../../../ventes/competitor/_datatable_source.dart';
 import '../../../ventes/competitor/_form_source.dart';
-import '_datatable_source.dart';
 import '_source.dart';
 import 'tabs/tabCustomers/_datatable_source.dart';
 import 'tabs/tabCustomers/_form_source.dart';

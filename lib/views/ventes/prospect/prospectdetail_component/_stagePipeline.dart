@@ -1,11 +1,9 @@
-import 'package:boilerplate/views/ventes/prospect/prospectactivity/_text.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:timelines/timelines.dart';
 
 import '../../../../constants/base_text.dart';
-import '../../../../models/masters/type_model.dart';
 import '../../../../models/session_model.dart';
 import '../../../../models/settings/stbptype_model.dart';
 import '../../../../presenters/ventes/prospect_presenter.dart';

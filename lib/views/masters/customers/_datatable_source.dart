@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../constants/base_text.dart';
-import '../../../models/masters/customer_model.dart';
 import '../../../models/ventes/bpcustomer_model.dart';
 import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';

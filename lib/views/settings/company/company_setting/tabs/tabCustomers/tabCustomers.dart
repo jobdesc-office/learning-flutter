@@ -1,5 +1,6 @@
 part of '../../company.dart';
 
+// ignore: must_be_immutable
 class _TabCustomers extends StatelessWidget
     implements IndexViewContract, EditViewContract {
   final datatable = CustomersDataTableSource();
@@ -106,8 +107,5 @@ class _TabCustomers extends StatelessWidget
   @override
   void onSuccessFetchData(Response response) {
     bppresenter.setProcessing(false);
-    BusinessPartnerCustomerModel model =
-        BusinessPartnerCustomerModel.fromJson(response.body);
-    // source.fromModel(model);
   }
 }

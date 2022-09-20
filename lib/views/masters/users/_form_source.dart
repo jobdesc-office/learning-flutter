@@ -117,7 +117,6 @@ class UserForm {
         children: source.selectsRole.map((controller) {
           int index = source.selectsRole.indexOf(controller);
           var selectRole = source.selectsRole[index];
-          var selectBp = source.selectsBp[index];
           return BsRow(
             children: [
               BsCol(

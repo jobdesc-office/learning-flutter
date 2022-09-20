@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../constants/base_text.dart';
-import '../../../../models/masters/type_model.dart';
 import '../../../../models/session_model.dart';
-import '../../../../models/settings/stbptype_model.dart';
 import '../../../../presenters/navigation_presenter.dart';
 import '../../../../presenters/ventes/prospect_presenter.dart';
 import '../../../../utils/select_api.dart';

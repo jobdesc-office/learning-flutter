@@ -1,9 +1,7 @@
 import 'package:boilerplate/contracts/base/details_view_contract.dart';
 import 'package:boilerplate/helpers/function.dart';
-import 'package:boilerplate/views/masters/menus/feature/_form_source.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
 import '../../../models/ventes/report_model.dart';

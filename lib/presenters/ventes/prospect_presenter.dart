@@ -7,7 +7,6 @@ import '../../constants/config_types.dart';
 import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
-import '../../models/masters/type_model.dart';
 import '../../models/settings/stbptype_model.dart';
 import '../../services/masters/stbptype_service.dart';
 import '../../services/ventes/prospect_service.dart';

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../models/masters/type_model.dart';
 import '../../../models/settings/stbptype_model.dart';
 import '../../../styles/color_palattes.dart';
 

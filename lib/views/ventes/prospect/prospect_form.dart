@@ -7,13 +7,11 @@ import 'package:intl/intl.dart';
 
 import '../../../contracts/base/edit_view_contract.dart';
 import '../../../contracts/base/index_view_contract.dart';
-import '../../../models/masters/type_model.dart';
 import '../../../models/settings/stbptype_model.dart';
 import '../../../models/ventes/prospect_model.dart';
 import '../../../presenters/masters/product_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../presenters/ventes/prospect_presenter.dart';
-import '../../../presenters/ventes/prospectproduct_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../styles/color_palattes.dart';
 import '../../../widgets/breadcrumb.dart';

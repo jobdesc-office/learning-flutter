@@ -21,7 +21,6 @@ import '../../../contracts/base/details_view_contract.dart';
 import '../../../contracts/base/index_view_contract.dart';
 import '../../../contracts/ventes/customfield_contract.dart';
 import '../../../contracts/ventes/prospectcustomfield_contract.dart';
-import '../../../models/masters/type_model.dart';
 import '../../../models/session_model.dart';
 import '../../../models/settings/stbptype_model.dart';
 import '../../../models/ventes/prospect_model.dart';

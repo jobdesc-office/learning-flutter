@@ -1,5 +1,3 @@
-import 'package:boilerplate/constants/config_types.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 import '../../utils/api_connect_provider.dart';
