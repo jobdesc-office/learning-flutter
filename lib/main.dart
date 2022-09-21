@@ -23,9 +23,15 @@ class MyApp extends StatelessWidget {
     return Obx(() => GetMaterialApp(
           title: 'Ventes',
           theme: control.darkTheme.value
-              ? ThemeData(brightness: Brightness.dark, primarySwatch: Colors.green, fontFamily: 'Monseratt')
-              : ThemeData(brightness: Brightness.light, primarySwatch: Colors.green, fontFamily: 'Monseratt'),
-          initialRoute: RouteList.ventesProspect.index,
+              ? ThemeData(
+                  brightness: Brightness.dark,
+                  primarySwatch: Colors.green,
+                  fontFamily: 'Monseratt')
+              : ThemeData(
+                  brightness: Brightness.light,
+                  primarySwatch: Colors.green,
+                  fontFamily: 'Monseratt'),
+          initialRoute: RouteList.home.index,
           debugShowCheckedModeBanner: false,
           getPages: AppRoute.routes,
           initialBinding: BindingsBuilder(() {

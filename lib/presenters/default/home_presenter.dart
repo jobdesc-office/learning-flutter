@@ -14,10 +14,19 @@ class HomePresenter extends CustomGetXController {
     _homeContract = homeContract;
   }
 
-  Future index() async {
-    Response response = await _homeService.index(box.read('id'));
+  Future byCust(
+      {Map<String, dynamic> params = const {}, String order = 'asc'}) async {
+    Response response = await _homeService.byCust(params: params, order: order);
     if (response.statusCode == 200)
-      _homeContract.onSuccess(response);
+      _homeContract.onSuccessDspbycust(response);
+    else
+      _homeContract.onError(response);
+  }
+
+  Future byStatus({Map<String, dynamic> params = const {}}) async {
+    Response response = await _homeService.byStatus(params: params);
+    if (response.statusCode == 200)
+      _homeContract.onSuccessDspbystatus(response);
     else
       _homeContract.onError(response);
   }
