@@ -30,4 +30,14 @@ class HomePresenter extends CustomGetXController {
     else
       _homeContract.onError(response);
   }
+
+  Future byStage(
+      {Map<String, dynamic> params = const {}, String order = 'asc'}) async {
+    Response response =
+        await _homeService.byStage(params: params, order: order);
+    if (response.statusCode == 200)
+      _homeContract.onSuccessDspbystage(response);
+    else
+      _homeContract.onError(response);
+  }
 }

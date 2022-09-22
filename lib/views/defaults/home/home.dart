@@ -47,8 +47,6 @@ class _HomeViewState extends State<HomeView>
     initiator();
   }
 
-  final schedulePresenter = Get.find<SchedulePresenter>();
-
   final source = Get.put(HomeSource());
   final currencyFormatter = NumberFormat('#,##0.00', 'ID');
   int indexColor = 0;
@@ -240,8 +238,21 @@ class _HomeViewState extends State<HomeView>
                     margin: EdgeInsets.all(3),
                     sizes: ColScreen(sm: Col.col_4),
                     child: Container(
+                      padding: EdgeInsets.all(10),
                       color: Colors.white,
-                      child: LeadsUsersChart(),
+                      child: Column(
+                        children: [
+                          Container(
+                              width: MediaQuery.of(context).size.width,
+                              color: Colors.grey.shade300,
+                              padding: EdgeInsets.fromLTRB(5, 20, 20, 20),
+                              child: Text(
+                                'Number of Open Opportunities and Average Days in Each Stage',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              )),
+                          ChartByStage()
+                        ],
+                      ),
                     ),
                   ),
                   BsCol(
@@ -419,6 +430,13 @@ class _HomeViewState extends State<HomeView>
       'prospectyy': selectYear.getSelectedAsString(),
       'prospectmm': selectMonth.getSelectedAsString(),
     });
+    presenter.byStage(
+      params: {
+        'prospectyy': selectYear.getSelectedAsString(),
+        'prospectmm': selectMonth.getSelectedAsString()
+      },
+      order: source.orderasc.value ? 'asc' : 'desc',
+    );
   }
 
   initiator() {
@@ -536,9 +554,12 @@ class _HomeViewState extends State<HomeView>
   @override
   void onSuccessDspbystage(Response response) {
     List<DspbystageModel> model = [];
+    List stagename = [];
     for (var element in response.body) {
       model.add(DspbystageModel.fromJson(element));
+      stagename.add(DspbystageModel.fromJson(element).prospectstage);
     }
+    source.stagename.value = stagename.toSet().toList();
     source.bystage.value = model;
   }
 

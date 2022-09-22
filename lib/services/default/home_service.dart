@@ -19,4 +19,10 @@ class HomeService extends ApiConnectProvider {
   Future<Response> byStatus({Map<String, dynamic> params = const {}}) {
     return get('$api/bystatus/${box.read('mybpid').toString()}', query: params);
   }
+
+  Future<Response> byStage(
+      {Map<String, dynamic> params = const {}, String order = 'asc'}) {
+    return get('$api/bystage/${box.read('mybpid').toString()}',
+        query: params, headers: {'order': order});
+  }
 }
