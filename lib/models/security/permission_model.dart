@@ -12,6 +12,8 @@ class PermissionModel {
   int? updatedby;
   String? updateddate;
   bool? isactive;
+  Menucreatedby? menucreatedby;
+  Menucreatedby? menuupdatedby;
   Menutype? menutype;
   List<Children>? children;
   List<Features>? features;
@@ -30,6 +32,8 @@ class PermissionModel {
       this.updatedby,
       this.updateddate,
       this.isactive,
+      this.menucreatedby,
+      this.menuupdatedby,
       this.menutype,
       this.children,
       this.features});
@@ -48,6 +52,10 @@ class PermissionModel {
     updatedby = json['updatedby'];
     updateddate = json['updateddate'];
     isactive = json['isactive'];
+    menucreatedby = json['menucreatedby'] != null
+        ? new Menucreatedby.fromJson(json['menucreatedby'])
+        : null;
+    menuupdatedby = json['menuupdatedby'];
     menutype = json['menutype'] != null
         ? new Menutype.fromJson(json['menutype'])
         : null;
@@ -80,6 +88,10 @@ class PermissionModel {
     data['updatedby'] = this.updatedby;
     data['updateddate'] = this.updateddate;
     data['isactive'] = this.isactive;
+    if (this.menucreatedby != null) {
+      data['menucreatedby'] = this.menucreatedby!.toJson();
+    }
+    data['menuupdatedby'] = this.menuupdatedby;
     if (this.menutype != null) {
       data['menutype'] = this.menutype!.toJson();
     }
@@ -89,6 +101,75 @@ class PermissionModel {
     if (this.features != null) {
       data['features'] = this.features!.map((v) => v.toJson()).toList();
     }
+    return data;
+  }
+}
+
+class Menucreatedby {
+  int? userid;
+  String? username;
+  String? userpassword;
+  String? userfullname;
+  String? useremail;
+  String? userphone;
+  String? userdeviceid;
+  String? userfcmtoken;
+  String? usersocketid;
+  int? createdby;
+  String? createddate;
+  int? updatedby;
+  String? updateddate;
+  bool? isactive;
+
+  Menucreatedby(
+      {this.userid,
+      this.username,
+      this.userpassword,
+      this.userfullname,
+      this.useremail,
+      this.userphone,
+      this.userdeviceid,
+      this.userfcmtoken,
+      this.usersocketid,
+      this.createdby,
+      this.createddate,
+      this.updatedby,
+      this.updateddate,
+      this.isactive});
+
+  Menucreatedby.fromJson(Map<String, dynamic> json) {
+    userid = json['userid'];
+    username = json['username'];
+    userpassword = json['userpassword'];
+    userfullname = json['userfullname'];
+    useremail = json['useremail'];
+    userphone = json['userphone'];
+    userdeviceid = json['userdeviceid'];
+    userfcmtoken = json['userfcmtoken'];
+    usersocketid = json['usersocketid'];
+    createdby = json['createdby'];
+    createddate = json['createddate'];
+    updatedby = json['updatedby'];
+    updateddate = json['updateddate'];
+    isactive = json['isactive'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['userid'] = this.userid;
+    data['username'] = this.username;
+    data['userpassword'] = this.userpassword;
+    data['userfullname'] = this.userfullname;
+    data['useremail'] = this.useremail;
+    data['userphone'] = this.userphone;
+    data['userdeviceid'] = this.userdeviceid;
+    data['userfcmtoken'] = this.userfcmtoken;
+    data['usersocketid'] = this.usersocketid;
+    data['createdby'] = this.createdby;
+    data['createddate'] = this.createddate;
+    data['updatedby'] = this.updatedby;
+    data['updateddate'] = this.updateddate;
+    data['isactive'] = this.isactive;
     return data;
   }
 }
@@ -127,6 +208,7 @@ class Children {
   String? updateddate;
   bool? isactive;
   List<Features>? features;
+  List<Children>? children;
 
   Children(
       {this.menuid,
@@ -142,7 +224,8 @@ class Children {
       this.updatedby,
       this.updateddate,
       this.isactive,
-      this.features});
+      this.features,
+      this.children});
 
   Children.fromJson(Map<String, dynamic> json) {
     menuid = json['menuid'];
@@ -164,6 +247,12 @@ class Children {
         features!.add(new Features.fromJson(v));
       });
     }
+    if (json['children'] != null) {
+      children = <Children>[];
+      json['children'].forEach((v) {
+        children!.add(new Children.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -183,6 +272,9 @@ class Children {
     data['isactive'] = this.isactive;
     if (this.features != null) {
       data['features'] = this.features!.map((v) => v.toJson()).toList();
+    }
+    if (this.children != null) {
+      data['children'] = this.children!.map((v) => v.toJson()).toList();
     }
     return data;
   }

@@ -160,7 +160,6 @@ class PermissionMenuView extends GetView implements IndexViewContract {
                                 children: element.children!.map((e) {
                                   x++;
                                   return BsRow(
-                                    height: 57,
                                     decoration: BoxDecoration(
                                       color: _navigation.darkTheme.value
                                           ? x % 2 == 0
@@ -279,7 +278,138 @@ class PermissionMenuView extends GetView implements IndexViewContract {
                                                   ))
                                               .toList(),
                                         ),
-                                      )
+                                      ),
+                                      if (e.children != null)
+                                        BsCol(
+                                          sizes: ColScreen(sm: Col.col_12),
+                                          child: Column(
+                                            children: e.children!.map((c) {
+                                              x++;
+                                              return BsRow(
+                                                height: 57,
+                                                decoration: BoxDecoration(
+                                                  color: _navigation
+                                                          .darkTheme.value
+                                                      ? x % 2 == 0
+                                                          ? ColorPallates
+                                                              .datatableDarkEvenRowColor
+                                                          : ColorPallates
+                                                              .datatableDarkOddRowColor
+                                                      : x % 2 == 0
+                                                          ? ColorPallates
+                                                              .datatableLightEvenRowColor
+                                                          : ColorPallates
+                                                              .datatableLightOddRowColor,
+                                                ),
+                                                margin: EdgeInsets.only(top: 5),
+                                                children: [
+                                                  BsCol(
+                                                    sizes: ColScreen(
+                                                        sm: Col.col_2),
+                                                  ),
+                                                  BsCol(
+                                                      margin: EdgeInsets.only(
+                                                          top: 10, left: 10),
+                                                      sizes: ColScreen(
+                                                          sm: Col.col_3),
+                                                      child:
+                                                          Text(c.menunm ?? '')),
+                                                  BsCol(
+                                                    sizes: ColScreen(
+                                                        sm: Col.col_7),
+                                                    child: BsRow(
+                                                      children: c.features!
+                                                          .map((el) => BsCol(
+                                                                margin: EdgeInsets
+                                                                    .only(
+                                                                        top: 5),
+                                                                sizes: ColScreen(
+                                                                    sm: Col
+                                                                        .col_2),
+                                                                child: Column(
+                                                                  children: [
+                                                                    Text(el
+                                                                        .feattitle!),
+                                                                    if (el
+                                                                        .hasaccess!)
+                                                                      InkWell(
+                                                                        child:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .toggle_on,
+                                                                          size:
+                                                                              35,
+                                                                          color: _navigation.darkTheme.value
+                                                                              ? ColorPallates.onDarkMode
+                                                                              : ColorPallates.onLightMode,
+                                                                        ),
+                                                                        onTap:
+                                                                            () async {
+                                                                          x = 1;
+                                                                          SessionModel
+                                                                              session =
+                                                                              await SessionManager.current();
+                                                                          Map<String, dynamic>
+                                                                              body =
+                                                                              {
+                                                                            'hasaccess':
+                                                                                false,
+                                                                            'updatedby':
+                                                                                session.userid
+                                                                          };
+                                                                          presenter.update(
+                                                                              context,
+                                                                              body,
+                                                                              el.permisid!);
+                                                                        },
+                                                                      )
+                                                                    else
+                                                                      InkWell(
+                                                                          child:
+                                                                              Icon(
+                                                                            Icons.toggle_off,
+                                                                            size:
+                                                                                35,
+                                                                            color: _navigation.darkTheme.value
+                                                                                ? ColorPallates.offDarkMode
+                                                                                : ColorPallates.offLightMode,
+                                                                          ),
+                                                                          onTap:
+                                                                              () async {
+                                                                            x = 1;
+                                                                            SessionModel
+                                                                                session =
+                                                                                await SessionManager.current();
+                                                                            Map<String, dynamic>
+                                                                                body =
+                                                                                {
+                                                                              'hasaccess': true,
+                                                                              'updatedby': session.userid
+                                                                            };
+                                                                            presenter.update(
+                                                                                context,
+                                                                                body,
+                                                                                el.permisid!);
+                                                                            presenter.update(
+                                                                                context,
+                                                                                body,
+                                                                                e.features!.where((element) => element.feattitle == 'Viewable').first.permisid!);
+                                                                            presenter.update(
+                                                                                context,
+                                                                                body,
+                                                                                element.features!.where((element) => element.feattitle == 'Viewable').first.permisid!);
+                                                                          }),
+                                                                  ],
+                                                                ),
+                                                              ))
+                                                          .toList(),
+                                                    ),
+                                                  ),
+                                                ],
+                                              );
+                                            }).toList(),
+                                          ),
+                                        )
                                     ],
                                   );
                                 }).toList(),
