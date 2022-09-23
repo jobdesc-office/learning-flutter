@@ -58,14 +58,6 @@ class _ChartByStageState extends State<ChartByStage> {
 
   @override
   Widget build(BuildContext context) {
-    List titledataList = [
-      'Make Contact',
-      'Qualify Compability',
-      'Analize Needs',
-      'Pitch',
-      'Deliver Proposal',
-      'Negotiate',
-    ];
     List<_BarData> dataList =
         source.bystage.groupBy((p0) => p0.prospectstage).values.map((e) {
       switch (indexColor) {
@@ -194,7 +186,7 @@ class _ChartByStageState extends State<ChartByStage> {
                         // data.shadowValue
                       );
                     }).toList(),
-                    maxY: 30,
+                    maxY: 10,
                     barTouchData: BarTouchData(
                       enabled: true,
                       handleBuiltInTouches: false,

@@ -14,6 +14,7 @@ import 'package:intl/intl.dart';
 import '../../../constants/base_text.dart';
 import '../../../contracts/default/home_view_contract.dart';
 import '../../../models/default/dspbycust_model.dart';
+import '../../../models/default/dspbycustlabel_model.dart';
 import '../../../models/default/dspbystage_model.dart';
 import '../../../models/default/dspbystatus_model.dart';
 import '../../../models/default/home_model.dart';
@@ -25,6 +26,7 @@ import '../../../widgets/button/theme_button_search.dart';
 import '../../../widgets/form_group.dart';
 import '../../skins/template.dart';
 import '_source.dart';
+import 'chart/_bycustlabel_chart.dart';
 import 'chart/_bystage_chart.dart';
 import 'chart/_leads_users_chart.dart';
 
@@ -415,6 +417,10 @@ class _HomeViewState extends State<HomeView>
                           ),
                         )),
                   ),
+                  BsCol(
+                    sizes: ColScreen(sm: Col.col_4),
+                    child: ChartByCustLabel(),
+                  )
                 ],
               )
             ],
@@ -430,6 +436,10 @@ class _HomeViewState extends State<HomeView>
       },
       order: source.orderasc.value ? 'asc' : 'desc',
     );
+    presenter.byCustLabel(params: {
+      'prospectyy': selectYear.getSelectedAsString(),
+      'prospectmm': selectMonth.getSelectedAsString(),
+    });
     presenter.byStatus(params: {
       'prospectyy': selectYear.getSelectedAsString(),
       'prospectmm': selectMonth.getSelectedAsString(),
@@ -548,7 +558,11 @@ class _HomeViewState extends State<HomeView>
 
   @override
   void onSuccessDspbycustlabel(Response response) {
-    // TODO: implement onSuccessDspbycustlabel
+    List<DspbycustlabelModel> model = [];
+    for (var element in response.body) {
+      model.add(DspbycustlabelModel.fromJson(element));
+    }
+    source.bycustlabel.value = model;
   }
 
   @override

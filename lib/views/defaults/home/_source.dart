@@ -2,6 +2,7 @@ import 'package:boilerplate/helpers/function.dart';
 import 'package:boilerplate/models/default/dspbycust_model.dart';
 import 'package:get/get.dart';
 
+import '../../../models/default/dspbycustlabel_model.dart';
 import '../../../models/default/dspbystage_model.dart';
 
 class HomeSource extends GetxController {
@@ -20,6 +21,7 @@ class HomeSource extends GetxController {
 
   var bycust = <DspbycustModel>[].obs;
   var bystage = <DspbystageModel>[].obs;
+  var bycustlabel = <DspbycustlabelModel>[].obs;
 
   var stagename = <String>[].obs;
 

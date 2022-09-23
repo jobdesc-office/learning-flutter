@@ -23,6 +23,14 @@ class HomePresenter extends CustomGetXController {
       _homeContract.onError(response);
   }
 
+  Future byCustLabel({Map<String, dynamic> params = const {}}) async {
+    Response response = await _homeService.byCustLabel(params: params);
+    if (response.statusCode == 200)
+      _homeContract.onSuccessDspbycustlabel(response);
+    else
+      _homeContract.onError(response);
+  }
+
   Future byStatus({Map<String, dynamic> params = const {}}) async {
     Response response = await _homeService.byStatus(params: params);
     if (response.statusCode == 200)
