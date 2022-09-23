@@ -50,6 +50,8 @@ class _HomeViewState extends State<HomeView>
   final source = Get.put(HomeSource());
   final currencyFormatter = NumberFormat('#,##0.00', 'ID');
   int indexColor = 0;
+  String newvalue = '';
+  String oldvalue = '';
 
   BsSelectBoxController selectYear = BsSelectBoxController();
   BsSelectBoxController selectMonth = BsSelectBoxController(options: [
@@ -238,27 +240,31 @@ class _HomeViewState extends State<HomeView>
                     margin: EdgeInsets.all(3),
                     sizes: ColScreen(sm: Col.col_4),
                     child: Container(
+                      height: MediaQuery.of(context).size.height,
                       padding: EdgeInsets.all(10),
                       color: Colors.white,
-                      child: Column(
-                        children: [
-                          Container(
-                              width: MediaQuery.of(context).size.width,
-                              color: Colors.grey.shade300,
-                              padding: EdgeInsets.fromLTRB(5, 20, 20, 20),
-                              child: Text(
-                                'Number of Open Opportunities and Average Days in Each Stage',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              )),
-                          ChartByStage()
-                        ],
-                      ),
+                      child: Obx(() => Column(
+                            children: [
+                              Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  color: Colors.grey.shade300,
+                                  padding: EdgeInsets.fromLTRB(5, 20, 20, 20),
+                                  child: Text(
+                                    'Number of Open Opportunities and Average Days in Each Stage',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  )),
+                              if (source.stagename.isNotEmpty)
+                                ChartByStage(stage: source.stagename.value)
+                            ],
+                          )),
                     ),
                   ),
                   BsCol(
                     margin: EdgeInsets.all(3),
                     sizes: ColScreen(sm: Col.col_8),
                     child: Obx(() => Container(
+                          height: MediaQuery.of(context).size.height,
                           padding: EdgeInsets.all(10),
                           color: Colors.white,
                           child: Column(
@@ -320,13 +326,14 @@ class _HomeViewState extends State<HomeView>
                               if (source.bycust.value.isNotEmpty)
                                 Column(
                                   children: source.bycust.value.map((e) {
-                                    String newvalue = '';
-                                    String oldvalue = '';
                                     newvalue = e.prospectvalue.toString();
-                                    if (newvalue == oldvalue)
+                                    if (newvalue == oldvalue) {
                                       indexColor = indexColor;
-                                    else
+                                      oldvalue = e.prospectvalue.toString();
+                                    } else {
                                       indexColor++;
+                                      oldvalue = e.prospectvalue.toString();
+                                    }
                                     Color color = Colors.transparent;
                                     switch (indexColor) {
                                       case 0:
@@ -363,7 +370,6 @@ class _HomeViewState extends State<HomeView>
                                         color = ColorPallates.mobileprimary;
                                         indexColor = 0;
                                     }
-                                    oldvalue = e.prospectvalue.toString();
                                     return Column(
                                       children: [
                                         Divider(),
@@ -373,9 +379,7 @@ class _HomeViewState extends State<HomeView>
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text(
-                                                  e.prospectcust?.sbccstmname ??
-                                                      ''),
+                                              Text(e.prospectcustname ?? ''),
                                               Container(
                                                 alignment: Alignment.center,
                                                 padding: EdgeInsets.all(5),
@@ -440,71 +444,72 @@ class _HomeViewState extends State<HomeView>
   }
 
   initiator() {
-    selectYear.setSelected(BsSelectBoxOption(
-        value: '${DateTime.now().year}', text: Text('${DateTime.now().year}')));
-    int month = DateTime.now().month;
-    switch (month) {
-      case 1:
-        selectMonth
-            .setSelected(BsSelectBoxOption(value: 1, text: Text('January')));
-        break;
-      case 2:
-        selectMonth.setSelected(
-          BsSelectBoxOption(value: 2, text: Text('February')),
-        );
-        break;
-      case 3:
-        selectMonth.setSelected(
-          BsSelectBoxOption(value: 3, text: Text('March')),
-        );
-        break;
-      case 4:
-        selectMonth.setSelected(
-          BsSelectBoxOption(value: 4, text: Text('April')),
-        );
-        break;
-      case 5:
-        selectMonth.setSelected(
-          BsSelectBoxOption(value: 5, text: Text('May')),
-        );
-        break;
-      case 6:
-        selectMonth.setSelected(
-          BsSelectBoxOption(value: 6, text: Text('June')),
-        );
-        break;
-      case 7:
-        selectMonth.setSelected(
-          BsSelectBoxOption(value: 7, text: Text('July')),
-        );
-        break;
-      case 8:
-        selectMonth.setSelected(
-          BsSelectBoxOption(value: 8, text: Text('August')),
-        );
-        break;
-      case 9:
-        selectMonth.setSelected(
-          BsSelectBoxOption(value: 9, text: Text('September')),
-        );
-        break;
-      case 10:
-        selectMonth.setSelected(
-          BsSelectBoxOption(value: 10, text: Text('October')),
-        );
-        break;
-      case 11:
-        selectMonth.setSelected(
-          BsSelectBoxOption(value: 11, text: Text('November')),
-        );
-        break;
-      case 12:
-        selectMonth.setSelected(
-          BsSelectBoxOption(value: 12, text: Text('December')),
-        );
-        break;
-      default:
-    }
+    // selectYear.setSelected(BsSelectBoxOption(
+    //     value: '${DateTime.now().year}', text: Text('${DateTime.now().year}')));
+    // int month = DateTime.now().month;
+    // switch (month) {
+    //   case 1:
+    //     selectMonth
+    //         .setSelected(BsSelectBoxOption(value: 1, text: Text('January')));
+    //     break;
+    //   case 2:
+    //     selectMonth.setSelected(
+    //       BsSelectBoxOption(value: 2, text: Text('February')),
+    //     );
+    //     break;
+    //   case 3:
+    //     selectMonth.setSelected(
+    //       BsSelectBoxOption(value: 3, text: Text('March')),
+    //     );
+    //     break;
+    //   case 4:
+    //     selectMonth.setSelected(
+    //       BsSelectBoxOption(value: 4, text: Text('April')),
+    //     );
+    //     break;
+    //   case 5:
+    //     selectMonth.setSelected(
+    //       BsSelectBoxOption(value: 5, text: Text('May')),
+    //     );
+    //     break;
+    //   case 6:
+    //     selectMonth.setSelected(
+    //       BsSelectBoxOption(value: 6, text: Text('June')),
+    //     );
+    //     break;
+    //   case 7:
+    //     selectMonth.setSelected(
+    //       BsSelectBoxOption(value: 7, text: Text('July')),
+    //     );
+    //     break;
+    //   case 8:
+    //     selectMonth.setSelected(
+    //       BsSelectBoxOption(value: 8, text: Text('August')),
+    //     );
+    //     break;
+    //   case 9:
+    //     selectMonth.setSelected(
+    //       BsSelectBoxOption(value: 9, text: Text('September')),
+    //     );
+    //     break;
+    //   case 10:
+    //     selectMonth.setSelected(
+    //       BsSelectBoxOption(value: 10, text: Text('October')),
+    //     );
+    //     break;
+    //   case 11:
+    //     selectMonth.setSelected(
+    //       BsSelectBoxOption(value: 11, text: Text('November')),
+    //     );
+    //     break;
+    //   case 12:
+    //     selectMonth.setSelected(
+    //       BsSelectBoxOption(value: 12, text: Text('December')),
+    //     );
+    //     break;
+    //   default:
+    // }
+    // source.year.value = '${DateTime.now().year}';
     refresh();
   }
 
@@ -554,10 +559,10 @@ class _HomeViewState extends State<HomeView>
   @override
   void onSuccessDspbystage(Response response) {
     List<DspbystageModel> model = [];
-    List stagename = [];
+    List<String> stagename = [];
     for (var element in response.body) {
       model.add(DspbystageModel.fromJson(element));
-      stagename.add(DspbystageModel.fromJson(element).prospectstage);
+      stagename.add(DspbystageModel.fromJson(element).prospectstage ?? '');
     }
     source.stagename.value = stagename.toSet().toList();
     source.bystage.value = model;

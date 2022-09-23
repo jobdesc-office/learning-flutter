@@ -21,11 +21,12 @@ class PermissionPresenter extends CustomGetXController {
     _permissionViewMenuContract = permissionViewMenuContract;
   }
 
-  void menu(BuildContext context, int roleid) async {
+  void menu(BuildContext context, int roleid, String rolename) async {
     showDialog(
       context: context,
       builder: (context) => PermissionMenuView(
         roleid: roleid,
+        rolename: rolename,
       ),
     );
   }

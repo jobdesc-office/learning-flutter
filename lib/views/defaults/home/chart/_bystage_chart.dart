@@ -1,3 +1,4 @@
+import 'package:boilerplate/helpers/function.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,17 +9,18 @@ import '../_source.dart';
 final source = Get.put(HomeSource());
 
 class ChartByStage extends StatefulWidget {
-  const ChartByStage({Key? key}) : super(key: key);
+  ChartByStage({required this.stage, Key? key}) : super(key: key);
+
+  List<String> stage = [
+    'Make Contact',
+    'Qualify Compability',
+    'Analize Needs',
+    'Pitch',
+    'Deliver Proposal',
+    'Negotiate',
+  ];
 
   static const shadowColor = Color(0xFF122132);
-  static const dataList = [
-    _BarData(Color(0xFFecb206), 18, 18),
-    _BarData(Color(0xFFa8bd1a), 17, 8),
-    _BarData(Color(0xFF17987b), 10, 15),
-    _BarData(Color(0xFFb87d46), 2.5, 5),
-    _BarData(Color(0xFF295ab5), 2, 2.5),
-    _BarData(Color(0xFFea0107), 2, 2),
-  ];
 
   @override
   State<ChartByStage> createState() => _ChartByStageState();
@@ -61,6 +63,12 @@ class _ChartByStageState extends State<ChartByStage> {
       'Deliver Proposal',
       'Negotiate',
     ];
+    print(widget.stage);
+    List<_BarData> dataList = source.bystage
+        .groupBy((p0) => p0.prospectstage)
+        .values
+        .map((e) => _BarData(Colors.grey, parseDouble(e.length)))
+        .toList();
     return Card(
       color: Colors.white,
       elevation: 4,
@@ -88,7 +96,10 @@ class _ChartByStageState extends State<ChartByStage> {
                     titlesData: FlTitlesData(
                       show: true,
                       rightTitles: AxisTitles(
-                        axisNameWidget: Text('Opportunities'),
+                        axisNameWidget: Container(
+                          margin: EdgeInsets.only(right: 10),
+                          child: Text('Opportunities'),
+                        ),
                         drawBehindEverything: true,
                         sideTitles: SideTitles(
                           showTitles: true,
@@ -110,7 +121,7 @@ class _ChartByStageState extends State<ChartByStage> {
                       bottomTitles: AxisTitles(
                         sideTitles: SideTitles(
                           showTitles: true,
-                          reservedSize: 150,
+                          reservedSize: 200,
                           getTitlesWidget: (value, meta) {
                             final index = value.toInt();
                             return SideTitleWidget(
@@ -118,7 +129,7 @@ class _ChartByStageState extends State<ChartByStage> {
                               child: RotatedBox(
                                 quarterTurns: 3,
                                 child: Text(
-                                  titledataList[index],
+                                  widget.stage[index],
                                 ),
                               ),
                             );
@@ -137,7 +148,7 @@ class _ChartByStageState extends State<ChartByStage> {
                         strokeWidth: 1,
                       ),
                     ),
-                    barGroups: ChartByStage.dataList.asMap().entries.map((e) {
+                    barGroups: dataList.asMap().entries.map((e) {
                       final index = e.key;
                       final data = e.value;
                       return generateBarGroup(
@@ -145,11 +156,12 @@ class _ChartByStageState extends State<ChartByStage> {
                         // data.shadowValue
                       );
                     }).toList(),
-                    maxY: 20,
+                    maxY: 30,
                     barTouchData: BarTouchData(
                       enabled: true,
                       handleBuiltInTouches: false,
                       touchTooltipData: BarTouchTooltipData(
+                          rotateAngle: -90,
                           tooltipBgColor: Colors.transparent,
                           tooltipMargin: 0,
                           getTooltipItem: (
@@ -201,9 +213,11 @@ class _ChartByStageState extends State<ChartByStage> {
 class _BarData {
   final Color color;
   final double value;
-  final double shadowValue;
+  // final double shadowValue;
 
-  const _BarData(this.color, this.value, this.shadowValue);
+  const _BarData(this.color, this.value
+      // , this.shadowValue
+      );
 }
 
 class _IconWidget extends ImplicitlyAnimatedWidget {

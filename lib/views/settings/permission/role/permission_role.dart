@@ -90,8 +90,7 @@ class PermissionRoleView extends GetView implements IndexViewContract {
     source.role.value = role;
     datatable.addAll(role);
     datatable.onDeleteListener = (roleid, rolename) {
-      source.rolename.value = rolename;
-      presenter.menu(context, roleid);
+      presenter.menu(context, roleid, rolename);
     };
   }
 }

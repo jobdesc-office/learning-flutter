@@ -120,9 +120,9 @@ class Prospectcust {
   String? sbccstmname;
   String? sbccstmphone;
   String? sbccstmaddress;
-  Null? createdby;
+  int? createdby;
   String? createddate;
-  Null? updatedby;
+  int? updatedby;
   String? updateddate;
   bool? isactive;
 

@@ -23,8 +23,9 @@ class PermissionMenuView extends GetView implements IndexViewContract {
   final source = Get.put(PermissionSource());
 
   final int roleid;
+  final String rolename;
 
-  PermissionMenuView({required this.roleid}) {
+  PermissionMenuView({required this.roleid, required this.rolename}) {
     presenter.permissionViewMenuContract = this;
   }
 
@@ -54,7 +55,7 @@ class PermissionMenuView extends GetView implements IndexViewContract {
                         : Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(5.0)),
                   ),
-                  child: Text('${source.rolename.value}',
+                  child: Text('$rolename',
                       style:
                           TextStyle(fontSize: 27, fontWeight: FontWeight.bold)),
                 )),

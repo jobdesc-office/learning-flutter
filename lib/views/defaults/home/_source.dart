@@ -21,8 +21,8 @@ class HomeSource extends GetxController {
   var bycust = <DspbycustModel>[].obs;
   var bystage = <DspbystageModel>[].obs;
 
-  var stagename = [].obs;
+  var stagename = <String>[].obs;
 
   var years = <int>[].obs;
-  var year = '${DateTime.now().year}'.obs;
+  var year = ''.obs;
 }
