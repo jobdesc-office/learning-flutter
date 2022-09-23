@@ -53,11 +53,12 @@ class _ChartByStageState extends State<ChartByStage> {
   }
 
   int touchedGroupIndex = -1;
-  int indexColor = 0;
+  // int indexColor = 0;
   Color color = Colors.transparent;
 
   @override
   Widget build(BuildContext context) {
+    int indexColor = 0;
     List<_BarData> dataList =
         source.bystage.groupBy((p0) => p0.prospectstage).values.map((e) {
       switch (indexColor) {
@@ -111,10 +112,11 @@ class _ChartByStageState extends State<ChartByStage> {
             RotatedBox(
               quarterTurns: 1,
               child: AspectRatio(
-                aspectRatio: 1.3,
+                aspectRatio: 1.35,
                 child: BarChart(
                   BarChartData(
-                    alignment: BarChartAlignment.spaceEvenly,
+                    alignment: BarChartAlignment.center,
+                    groupsSpace: 29.9,
                     borderData: FlBorderData(
                       show: true,
                       border: const Border.symmetric(
@@ -186,7 +188,7 @@ class _ChartByStageState extends State<ChartByStage> {
                         // data.shadowValue
                       );
                     }).toList(),
-                    maxY: 10,
+                    maxY: 100,
                     barTouchData: BarTouchData(
                       enabled: true,
                       handleBuiltInTouches: false,
