@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:math' as math;
 
+import '../../../../styles/color_palattes.dart';
 import '../_source.dart';
 
 final source = Get.put(HomeSource());
@@ -52,6 +53,8 @@ class _ChartByStageState extends State<ChartByStage> {
   }
 
   int touchedGroupIndex = -1;
+  int indexColor = 0;
+  Color color = Colors.transparent;
 
   @override
   Widget build(BuildContext context) {
@@ -63,12 +66,47 @@ class _ChartByStageState extends State<ChartByStage> {
       'Deliver Proposal',
       'Negotiate',
     ];
-    print(widget.stage);
-    List<_BarData> dataList = source.bystage
-        .groupBy((p0) => p0.prospectstage)
-        .values
-        .map((e) => _BarData(Colors.grey, parseDouble(e.length)))
-        .toList();
+    List<_BarData> dataList =
+        source.bystage.groupBy((p0) => p0.prospectstage).values.map((e) {
+      switch (indexColor) {
+        case 0:
+          color = ColorPallates.mobileprimary;
+          break;
+        case 1:
+          color = ColorPallates.mobilesecondary;
+          break;
+        case 2:
+          color = ColorPallates.green;
+          break;
+        case 3:
+          color = ColorPallates.red;
+          break;
+        case 4:
+          color = ColorPallates.indigo;
+          break;
+        case 5:
+          color = ColorPallates.purple;
+          break;
+        case 6:
+          color = ColorPallates.yellow;
+          break;
+        case 7:
+          color = ColorPallates.cyan;
+          break;
+        case 8:
+          color = ColorPallates.pink;
+          break;
+        case 9:
+          color = ColorPallates.cancel;
+          break;
+        default:
+          color = ColorPallates.mobileprimary;
+          indexColor = 0;
+      }
+      indexColor++;
+      return _BarData(color, parseDouble(e.length));
+    }).toList();
+
     return Card(
       color: Colors.white,
       elevation: 4,

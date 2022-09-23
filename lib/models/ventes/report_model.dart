@@ -35,8 +35,6 @@ class Activities {
   int? dayactid;
   int? dayactcatid;
   int? dayactcustid;
-  int? dayacttypeid;
-  String? dayacttypevalue;
   String? dayactdate;
   String? dayactdesc;
   String? dayactloclabel;
@@ -52,15 +50,13 @@ class Activities {
   Dayactuser? dayactupdatedby;
   Dayactcust? dayactcust;
   Dayactcat? dayactcat;
-  Dayactcat? dayacttype;
-  Dayactpics? dayactpics;
+  List<Activitycustomfield>? activitycustomfield;
+  List<Dayactpics>? dayactpics;
 
   Activities(
       {this.dayactid,
       this.dayactcatid,
       this.dayactcustid,
-      this.dayacttypeid,
-      this.dayacttypevalue,
       this.dayactdate,
       this.dayactdesc,
       this.dayactloclabel,
@@ -73,17 +69,16 @@ class Activities {
       this.updateddate,
       this.isactive,
       this.dayactuser,
+      this.dayactupdatedby,
       this.dayactcust,
       this.dayactcat,
-      this.dayacttype,
+      this.activitycustomfield,
       this.dayactpics});
 
   Activities.fromJson(Map<String, dynamic> json) {
     dayactid = json['dayactid'];
     dayactcatid = json['dayactcatid'];
     dayactcustid = json['dayactcustid'];
-    dayacttypeid = json['dayacttypeid'];
-    dayacttypevalue = json['dayacttypevalue'];
     dayactdate = json['dayactdate'];
     dayactdesc = json['dayactdesc'];
     dayactloclabel = json['dayactloclabel'];
@@ -107,12 +102,18 @@ class Activities {
     dayactcat = json['dayactcat'] != null
         ? new Dayactcat.fromJson(json['dayactcat'])
         : null;
-    dayacttype = json['dayacttype'] != null
-        ? new Dayactcat.fromJson(json['dayacttype'])
-        : null;
-    dayactpics = json['dayactpics'] != null
-        ? new Dayactpics.fromJson(json['dayactpics'])
-        : null;
+    if (json['activitycustomfield'] != null) {
+      activitycustomfield = <Activitycustomfield>[];
+      json['activitycustomfield'].forEach((v) {
+        activitycustomfield!.add(new Activitycustomfield.fromJson(v));
+      });
+    }
+    if (json['dayactpics'] != null) {
+      dayactpics = <Dayactpics>[];
+      json['dayactpics'].forEach((v) {
+        dayactpics!.add(new Dayactpics.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -120,8 +121,6 @@ class Activities {
     data['dayactid'] = this.dayactid;
     data['dayactcatid'] = this.dayactcatid;
     data['dayactcustid'] = this.dayactcustid;
-    data['dayacttypeid'] = this.dayacttypeid;
-    data['dayacttypevalue'] = this.dayacttypevalue;
     data['dayactdate'] = this.dayactdate;
     data['dayactdesc'] = this.dayactdesc;
     data['dayactloclabel'] = this.dayactloclabel;
@@ -145,11 +144,12 @@ class Activities {
     if (this.dayactcat != null) {
       data['dayactcat'] = this.dayactcat!.toJson();
     }
-    if (this.dayacttype != null) {
-      data['dayacttype'] = this.dayacttype!.toJson();
+    if (this.activitycustomfield != null) {
+      data['activitycustomfield'] =
+          this.activitycustomfield!.map((v) => v.toJson()).toList();
     }
     if (this.dayactpics != null) {
-      data['dayactpics'] = this.dayactpics!.toJson();
+      data['dayactpics'] = this.dayactpics!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -225,20 +225,13 @@ class Dayactuser {
 }
 
 class Dayactcust {
-  int? cstmid;
-  String? cstmprefix;
-  String? cstmname;
-  String? cstmphone;
-  String? cstmaddress;
-  int? cstmtypeid;
-  int? cstmprovinceid;
-  int? cstmcityid;
-  int? cstmsubdistrictid;
-  int? cstmuvid;
-  String? cstmpostalcode;
-  String? cstmlatitude;
-  String? cstmlongitude;
-  int? referalcode;
+  int? sbcid;
+  int? sbcbpid;
+  int? sbccstmid;
+  int? sbccstmstatusid;
+  String? sbccstmname;
+  String? sbccstmphone;
+  String? sbccstmaddress;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -246,20 +239,13 @@ class Dayactcust {
   bool? isactive;
 
   Dayactcust(
-      {this.cstmid,
-      this.cstmprefix,
-      this.cstmname,
-      this.cstmphone,
-      this.cstmaddress,
-      this.cstmtypeid,
-      this.cstmprovinceid,
-      this.cstmcityid,
-      this.cstmsubdistrictid,
-      this.cstmuvid,
-      this.cstmpostalcode,
-      this.cstmlatitude,
-      this.cstmlongitude,
-      this.referalcode,
+      {this.sbcid,
+      this.sbcbpid,
+      this.sbccstmid,
+      this.sbccstmstatusid,
+      this.sbccstmname,
+      this.sbccstmphone,
+      this.sbccstmaddress,
       this.createdby,
       this.createddate,
       this.updatedby,
@@ -267,20 +253,13 @@ class Dayactcust {
       this.isactive});
 
   Dayactcust.fromJson(Map<String, dynamic> json) {
-    cstmid = json['cstmid'];
-    cstmprefix = json['cstmprefix'];
-    cstmname = json['cstmname'];
-    cstmphone = json['cstmphone'];
-    cstmaddress = json['cstmaddress'];
-    cstmtypeid = json['cstmtypeid'];
-    cstmprovinceid = json['cstmprovinceid'];
-    cstmcityid = json['cstmcityid'];
-    cstmsubdistrictid = json['cstmsubdistrictid'];
-    cstmuvid = json['cstmuvid'];
-    cstmpostalcode = json['cstmpostalcode'];
-    cstmlatitude = json['cstmlatitude'];
-    cstmlongitude = json['cstmlongitude'];
-    referalcode = json['referalcode'];
+    sbcid = json['sbcid'];
+    sbcbpid = json['sbcbpid'];
+    sbccstmid = json['sbccstmid'];
+    sbccstmstatusid = json['sbccstmstatusid'];
+    sbccstmname = json['sbccstmname'];
+    sbccstmphone = json['sbccstmphone'];
+    sbccstmaddress = json['sbccstmaddress'];
     createdby = json['createdby'];
     createddate = json['createddate'];
     updatedby = json['updatedby'];
@@ -290,20 +269,13 @@ class Dayactcust {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['cstmid'] = this.cstmid;
-    data['cstmprefix'] = this.cstmprefix;
-    data['cstmname'] = this.cstmname;
-    data['cstmphone'] = this.cstmphone;
-    data['cstmaddress'] = this.cstmaddress;
-    data['cstmtypeid'] = this.cstmtypeid;
-    data['cstmprovinceid'] = this.cstmprovinceid;
-    data['cstmcityid'] = this.cstmcityid;
-    data['cstmsubdistrictid'] = this.cstmsubdistrictid;
-    data['cstmuvid'] = this.cstmuvid;
-    data['cstmpostalcode'] = this.cstmpostalcode;
-    data['cstmlatitude'] = this.cstmlatitude;
-    data['cstmlongitude'] = this.cstmlongitude;
-    data['referalcode'] = this.referalcode;
+    data['sbcid'] = this.sbcid;
+    data['sbcbpid'] = this.sbcbpid;
+    data['sbccstmid'] = this.sbccstmid;
+    data['sbccstmstatusid'] = this.sbccstmstatusid;
+    data['sbccstmname'] = this.sbccstmname;
+    data['sbccstmphone'] = this.sbccstmphone;
+    data['sbccstmaddress'] = this.sbccstmaddress;
     data['createdby'] = this.createdby;
     data['createddate'] = this.createddate;
     data['updatedby'] = this.updatedby;
@@ -314,20 +286,142 @@ class Dayactcust {
 }
 
 class Dayactcat {
-  int? typeid;
-  String? typename;
+  int? sbtid;
+  String? sbttypename;
 
-  Dayactcat({this.typeid, this.typename});
+  Dayactcat({this.sbtid, this.sbttypename});
 
   Dayactcat.fromJson(Map<String, dynamic> json) {
-    typeid = json['sbtid'];
-    typename = json['sbttypename'];
+    sbtid = json['sbtid'];
+    sbttypename = json['sbttypename'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['sbtid'] = this.typeid;
-    data['sbttypename'] = this.typename;
+    data['sbtid'] = this.sbtid;
+    data['sbttypename'] = this.sbttypename;
+    return data;
+  }
+}
+
+class Activitycustomfield {
+  int? activitycfid;
+  int? activityid;
+  int? activitycustfid;
+  String? activitycfvalue;
+  int? createdby;
+  String? createddate;
+  int? updatedby;
+  String? updateddate;
+  bool? isactive;
+  Customfield? customfield;
+
+  Activitycustomfield(
+      {this.activitycfid,
+      this.activityid,
+      this.activitycustfid,
+      this.activitycfvalue,
+      this.createdby,
+      this.createddate,
+      this.updatedby,
+      this.updateddate,
+      this.isactive,
+      this.customfield});
+
+  Activitycustomfield.fromJson(Map<String, dynamic> json) {
+    activitycfid = json['activitycfid'];
+    activityid = json['activityid'];
+    activitycustfid = json['activitycustfid'];
+    activitycfvalue = json['activitycfvalue'];
+    createdby = json['createdby'];
+    createddate = json['createddate'];
+    updatedby = json['updatedby'];
+    updateddate = json['updateddate'];
+    isactive = json['isactive'];
+    customfield = json['customfield'] != null
+        ? new Customfield.fromJson(json['customfield'])
+        : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['activitycfid'] = this.activitycfid;
+    data['activityid'] = this.activityid;
+    data['activitycustfid'] = this.activitycustfid;
+    data['activitycfvalue'] = this.activitycfvalue;
+    data['createdby'] = this.createdby;
+    data['createddate'] = this.createddate;
+    data['updatedby'] = this.updatedby;
+    data['updateddate'] = this.updateddate;
+    data['isactive'] = this.isactive;
+    if (this.customfield != null) {
+      data['customfield'] = this.customfield!.toJson();
+    }
+    return data;
+  }
+}
+
+class Customfield {
+  int? custfid;
+  int? custfbpid;
+  String? custfname;
+  int? custftypeid;
+  int? custfreftypeid;
+  bool? alldata;
+  bool? onlythisdata;
+  bool? thisdataid;
+  int? createdby;
+  String? createddate;
+  int? updatedby;
+  String? updateddate;
+  bool? isactive;
+
+  Customfield(
+      {this.custfid,
+      this.custfbpid,
+      this.custfname,
+      this.custftypeid,
+      this.custfreftypeid,
+      this.alldata,
+      this.onlythisdata,
+      this.thisdataid,
+      this.createdby,
+      this.createddate,
+      this.updatedby,
+      this.updateddate,
+      this.isactive});
+
+  Customfield.fromJson(Map<String, dynamic> json) {
+    custfid = json['custfid'];
+    custfbpid = json['custfbpid'];
+    custfname = json['custfname'];
+    custftypeid = json['custftypeid'];
+    custfreftypeid = json['custfreftypeid'];
+    alldata = json['alldata'];
+    onlythisdata = json['onlythisdata'];
+    thisdataid = json['thisdataid'];
+    createdby = json['createdby'];
+    createddate = json['createddate'];
+    updatedby = json['updatedby'];
+    updateddate = json['updateddate'];
+    isactive = json['isactive'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['custfid'] = this.custfid;
+    data['custfbpid'] = this.custfbpid;
+    data['custfname'] = this.custfname;
+    data['custftypeid'] = this.custftypeid;
+    data['custfreftypeid'] = this.custfreftypeid;
+    data['alldata'] = this.alldata;
+    data['onlythisdata'] = this.onlythisdata;
+    data['thisdataid'] = this.thisdataid;
+    data['createdby'] = this.createdby;
+    data['createddate'] = this.createddate;
+    data['updatedby'] = this.updatedby;
+    data['updateddate'] = this.updateddate;
+    data['isactive'] = this.isactive;
     return data;
   }
 }
@@ -340,6 +434,7 @@ class Dayactpics {
   String? filename;
   String? mimetype;
   String? filesize;
+  String? remark;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -355,6 +450,7 @@ class Dayactpics {
       this.filename,
       this.mimetype,
       this.filesize,
+      this.remark,
       this.createdby,
       this.createddate,
       this.updatedby,
@@ -370,6 +466,7 @@ class Dayactpics {
     filename = json['filename'];
     mimetype = json['mimetype'];
     filesize = json['filesize'];
+    remark = json['remark'];
     createdby = json['createdby'];
     createddate = json['createddate'];
     updatedby = json['updatedby'];
@@ -387,6 +484,7 @@ class Dayactpics {
     data['filename'] = this.filename;
     data['mimetype'] = this.mimetype;
     data['filesize'] = this.filesize;
+    data['remark'] = this.remark;
     data['createdby'] = this.createdby;
     data['createddate'] = this.createddate;
     data['updatedby'] = this.updatedby;

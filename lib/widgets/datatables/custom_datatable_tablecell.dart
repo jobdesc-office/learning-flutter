@@ -6,7 +6,8 @@ class CustomBsDataCell extends BsDataCell {
       {Key? key,
       this.padding = const EdgeInsets.all(10.0),
       this.alignment,
-      this.color = Colors.white})
+      this.color = Colors.white,
+      this.onTap})
       : super(child, key: key);
 
   final Widget child;
@@ -17,14 +18,19 @@ class CustomBsDataCell extends BsDataCell {
 
   final AlignmentGeometry? alignment;
 
+  final GestureTapCallback? onTap;
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: color,
-      padding: padding,
-      alignment: alignment,
-      child: Row(
-        children: [Expanded(child: Container(child: child))],
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        color: color,
+        padding: padding,
+        alignment: alignment,
+        child: Row(
+          children: [Expanded(child: Container(child: child))],
+        ),
       ),
     );
   }

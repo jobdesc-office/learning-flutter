@@ -352,10 +352,8 @@ class ReportDetail extends GetView implements DetailViewContract {
   @override
   void onSuccessFetchData(Response response) {
     Activities dt = Activities.fromJson(response.body);
-    controller.customer.value = dt.dayactcust?.cstmname ?? '';
-    controller.cat.value = dt.dayactcat?.typename ?? '';
-    controller.type.value = dt.dayacttype?.typename ?? '';
-    controller.typeval.value = dt.dayacttypevalue ?? '';
+    controller.customer.value = dt.dayactcust?.sbccstmname ?? '';
+    controller.cat.value = dt.dayactcat?.sbttypename ?? '';
     controller.date.value = dt.dayactdate ?? '';
     controller.desc.value = dt.dayactdesc ?? '';
     controller.loclab.value = dt.dayactloclabel ?? '';

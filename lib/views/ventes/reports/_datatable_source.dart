@@ -17,10 +17,6 @@ class ReportDataTableSource extends BsDatatableSource {
   ValueChanged<int> onEditListener = (value) {};
   Function onDeleteListener = (value, name) {};
 
-  ReportDataTableSource({
-    List data = const [],
-  }) : super(data: data);
-
   List<BsDataColumn> get columns {
     return <BsDataColumn>[
       CustomBsDataColumn(
@@ -37,12 +33,6 @@ class ReportDataTableSource extends BsDatatableSource {
       ),
       CustomBsDataColumn(
         label: Text('Daily Activity Category'),
-        columnName: 'comptproductname',
-        searchable: false,
-        orderable: false,
-      ),
-      CustomBsDataColumn(
-        label: Text('Daily Activity Type'),
         columnName: 'comptproductname',
         searchable: false,
         orderable: false,
@@ -99,7 +89,7 @@ class ReportDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.dayactcat!.typename ?? ''),
+          Text(row.dayactcat?.sbttypename ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -109,17 +99,7 @@ class ReportDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.dayacttype!.typename ?? ''),
-          color: _navigation.darkTheme.value
-              ? x % 2 == 0
-                  ? ColorPallates.datatableDarkEvenRowColor
-                  : ColorPallates.datatableDarkOddRowColor
-              : x % 2 == 0
-                  ? ColorPallates.datatableLightEvenRowColor
-                  : ColorPallates.datatableLightOddRowColor,
-        ),
-        CustomBsDataCell(
-          Text(row.dayactcust?.cstmname ?? ''),
+          Text(row.dayactcust?.sbccstmname ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -133,7 +113,7 @@ class ReportDataTableSource extends BsDatatableSource {
             children: [
               Tooltip(
                 message: BaseText.detailHintDatatable(
-                    field: row.dayactcat?.typename),
+                    field: row.dayactcat?.sbttypename),
                 child: ButtonDetailsDatatables(
                   margin: EdgeInsets.only(right: 5),
                   onPressed: () => onDetailsListener(row.dayactid!),

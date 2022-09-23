@@ -19,15 +19,15 @@ class ReportDailyActivities extends GetView {
   final controllers = Get.put(ReportHelper());
 
   List<Activities> act = [];
-  final datatable = ReportDailyActivityDataTableSource();
 
   ReportDailyActivities({required this.act}) {
     controllers.act.value = act;
-    datatable.addAll(act);
   }
 
   @override
   Widget build(BuildContext context) {
+    final datatable = ReportDailyActivityDataTableSource(context: context);
+    datatable.addAll(act);
     return BsModal(
         context: context,
         dialog: BsModalDialog(
