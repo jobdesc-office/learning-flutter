@@ -1,4 +1,6 @@
 import 'package:boilerplate/helpers/function.dart';
+import 'package:boilerplate/models/default/dspbystage_model.dart';
+import 'package:boilerplate/views/defaults/home/home.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,14 +14,7 @@ final source = Get.put(HomeSource());
 class ChartByStage extends StatefulWidget {
   ChartByStage({required this.stage, Key? key}) : super(key: key);
 
-  List<String> stage = [
-    'Make Contact',
-    'Qualify Compability',
-    'Analize Needs',
-    'Pitch',
-    'Deliver Proposal',
-    'Negotiate',
-  ];
+  List<String> stage;
 
   static const shadowColor = Color(0xFF122132);
 
@@ -29,11 +24,10 @@ class ChartByStage extends StatefulWidget {
 
 class _ChartByStageState extends State<ChartByStage> {
   BarChartGroupData generateBarGroup(
-    int x,
-    Color color,
-    double value,
-    // double shadowValue,
-  ) {
+      int x, Color color, double value, List<DspbystageModel> list
+
+      // double shadowValue,
+      ) {
     return BarChartGroupData(
       x: x,
       barRods: [
@@ -42,11 +36,6 @@ class _ChartByStageState extends State<ChartByStage> {
           color: color,
           width: 6,
         ),
-        // BarChartRodData(
-        //   toY: shadowValue,
-        //   color: ChartByStage.shadowColor,
-        //   width: 6,
-        // ),
       ],
       showingTooltipIndicators: touchedGroupIndex == x ? [0] : [],
     );
@@ -97,7 +86,7 @@ class _ChartByStageState extends State<ChartByStage> {
           indexColor = 0;
       }
       indexColor++;
-      return _BarData(color, parseDouble(e.length));
+      return _BarData(color, parseDouble(e.length), e);
     }).toList();
 
     return Card(
@@ -184,9 +173,9 @@ class _ChartByStageState extends State<ChartByStage> {
                       final index = e.key;
                       final data = e.value;
                       return generateBarGroup(
-                        index, data.color, data.value,
-                        // data.shadowValue
-                      );
+                          index, data.color, data.value, data.list
+                          // data.shadowValue
+                          );
                     }).toList(),
                     maxY: 100,
                     barTouchData: BarTouchData(
@@ -229,6 +218,19 @@ class _ChartByStageState extends State<ChartByStage> {
                             touchedGroupIndex = -1;
                           });
                         }
+
+                        if (response != null &&
+                            response.spot != null &&
+                            event is FlTapUpEvent) {
+                          final x = response.spot!.touchedBarGroup.x;
+                          setState(() {
+                            showDialog(
+                              context: context,
+                              builder: (context) =>
+                                  StageDetails(widget.stage[x]),
+                            );
+                          });
+                        }
                       },
                     ),
                   ),
@@ -245,9 +247,10 @@ class _ChartByStageState extends State<ChartByStage> {
 class _BarData {
   final Color color;
   final double value;
+  final List<DspbystageModel> list;
   // final double shadowValue;
 
-  const _BarData(this.color, this.value
+  const _BarData(this.color, this.value, this.list
       // , this.shadowValue
       );
 }

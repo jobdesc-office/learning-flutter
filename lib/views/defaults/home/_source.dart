@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../models/default/dspbycustlabel_model.dart';
 import '../../../models/default/dspbystage_model.dart';
+import '../../../models/default/dspbystatus_model.dart';
 
 class HomeSource extends GetxController {
   Map<String, List<DspbystageModel>> get groupedStageStats =>
@@ -19,10 +20,14 @@ class HomeSource extends GetxController {
   var prospectlosttotal = ''.obs;
   var prospectwontotal = ''.obs;
 
+  var bystatuswon = <DspbystatusModel>[].obs;
+  var bystatuslost = <DspbystatusModel>[].obs;
+  var bycustall = <DspbycustModel>[].obs;
   var bycust = <DspbycustModel>[].obs;
   var bystage = <DspbystageModel>[].obs;
   var bycustlabel = <DspbycustlabelModel>[].obs;
 
+  var labelname = <String>[].obs;
   var stagename = <String>[].obs;
 
   var years = <int>[].obs;

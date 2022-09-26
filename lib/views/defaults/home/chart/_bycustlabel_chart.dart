@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../../../../models/default/dspbycustlabel_model.dart';
 import '../../../../styles/color_palattes.dart';
 import '../_source.dart';
+import '../home.dart';
 
 final source = Get.put(HomeSource());
 int indexColor = 0;
@@ -34,6 +35,19 @@ class ChartByCustLabelState extends State {
               PieChartData(
                   pieTouchData: PieTouchData(
                       touchCallback: (FlTouchEvent event, pieTouchResponse) {
+                    if (pieTouchResponse != null &&
+                        pieTouchResponse.touchedSection != null &&
+                        event is FlTapUpEvent) {
+                      final x =
+                          pieTouchResponse.touchedSection!.touchedSectionIndex;
+                      setState(() {
+                        showDialog(
+                          context: context,
+                          builder: (context) =>
+                              CustLabelDetails(source.labelname.value[x]),
+                        );
+                      });
+                    }
                     setState(() {
                       if (!event.isInterestedForInteractions ||
                           pieTouchResponse == null ||
