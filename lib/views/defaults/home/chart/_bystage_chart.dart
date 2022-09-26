@@ -34,7 +34,7 @@ class _ChartByStageState extends State<ChartByStage> {
         BarChartRodData(
           toY: value,
           color: color,
-          width: 6,
+          width: 15,
         ),
       ],
       showingTooltipIndicators: touchedGroupIndex == x ? [0] : [],
