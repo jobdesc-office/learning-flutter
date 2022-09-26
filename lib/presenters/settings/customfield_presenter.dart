@@ -122,6 +122,16 @@ class CustomFieldPresenter extends CustomGetXController {
       _customFieldViewContract.onErrorRequest(response);
   }
 
+  void edits(BuildContext context, int id) async {
+    setProcessing(true);
+
+    Response response = await _customFieldService.show(id);
+    if (response.statusCode == 200)
+      _customFieldFetchDataContract.onSuccessFetchData(response);
+    else
+      _customFieldViewContract.onErrorRequest(response);
+  }
+
   void update(BuildContext context, Map<String, dynamic> body, int id) async {
     setProcessing(true);
     Response response = await _customFieldService.update(id, body);

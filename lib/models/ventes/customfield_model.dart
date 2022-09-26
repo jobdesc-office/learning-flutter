@@ -39,9 +39,9 @@ class CustomFieldModel {
     custfbpid = json['custfbpid'];
     custfname = json['custfname'];
     custftypeid = json['custftypeid'];
-    allprospect = json['allprospect'];
-    onlythisprospect = json['onlythisprospect'];
-    thisprospectid = json['thisprospectid'];
+    allprospect = json['alldata'];
+    onlythisprospect = json['onlythisdata'];
+    thisprospectid = json['thisdataid'];
     createdby = json['createdby'];
     createddate = json['createddate'];
     updatedby = json['updatedby'];
@@ -50,7 +50,9 @@ class CustomFieldModel {
     custfcreatedby = json['custfcreatedby'] != null
         ? new Custfcreatedby.fromJson(json['custfcreatedby'])
         : null;
-    custfupdatedby = json['custfupdatedby'];
+    custfupdatedby = json['custfupdatedby'] != null
+        ? new Custfcreatedby.fromJson(json['custfupdatedby'])
+        : null;
     businesspartner = json['businesspartner'] != null
         ? new Businesspartner.fromJson(json['businesspartner'])
         : null;

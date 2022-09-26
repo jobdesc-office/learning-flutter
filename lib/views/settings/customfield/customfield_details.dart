@@ -254,14 +254,14 @@ class CustomFieldDetails extends GetView implements DetailViewContract {
     controller.name.value = dt.custfname ?? '-';
     controller.type.value = dt.custftype!.typename ?? '-';
     controller.bp.value = dt.businesspartner!.bpname ?? '-';
-    controller.isvisible.value = dt.allprospect!;
-    controller.newprospect.value = dt.onlythisprospect!;
+    controller.isvisible.value = dt.onlythisprospect!;
+    controller.newprospect.value = dt.allprospect!;
 
     controller.createdby.value = dt.custfcreatedby?.userfullname ?? '-';
     controller.createddate.value = dt.createddate ?? '';
     controller.updatedby.value = dt.custfupdatedby?.userfullname ?? '-';
     controller.updateddate.value = dt.updateddate ?? '';
-    controller.isactive.value = dt.onlythisprospect!;
+    controller.isactive.value = dt.isactive!;
     presenter.setProcessing(false);
   }
 }

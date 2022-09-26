@@ -25,20 +25,24 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+import '../../../../constants/config_types.dart';
 import '../../../../contracts/master/customerAddress_contract.dart';
 import '../../../../contracts/master/userReset_contract.dart';
 import '../../../../models/masters/competitor_model.dart';
 import '../../../../models/masters/customer_model.dart';
 import '../../../../models/masters/maps_model.dart';
 import '../../../../models/masters/product_model.dart';
+import '../../../../models/masters/type_model.dart';
 import '../../../../models/masters/user_model.dart';
 import '../../../../models/session_model.dart';
 import '../../../../models/settings/stbptype_model.dart';
+import '../../../../models/ventes/customfield_model.dart';
 import '../../../../presenters/masters/customer_presenter.dart';
 import '../../../../presenters/masters/product_presenter.dart';
 import '../../../../presenters/masters/typechildren_presenter.dart';
 import '../../../../presenters/masters/user_presenter.dart';
 import '../../../../presenters/navigation_presenter.dart';
+import '../../../../presenters/settings/customfield_presenter.dart';
 import '../../../../presenters/settings/stbptype/stbptypeactivitycategory_presenter.dart';
 import '../../../../presenters/settings/stbptype/stbptypeactivitytype_presenter.dart';
 import '../../../../presenters/settings/stbptype/stbptypecontacttype_presenter.dart';
@@ -54,6 +58,7 @@ import '../../../../presenters/ventes/bpcustomer_presenter.dart';
 import '../../../../presenters/ventes/competitor_presenter.dart';
 import '../../../../presenters/ventes/prospect_presenter.dart';
 import '../../../../routes/route_list.dart';
+import '../../../../services/masters/type_service.dart';
 import '../../../../styles/color_palattes.dart';
 import '../../../../utils/session_manager.dart';
 import '../../../../widgets/breadcrumb.dart';
@@ -75,6 +80,9 @@ import '../../../masters/users/_form_source.dart';
 import '../../../skins/template.dart';
 import '../../../ventes/competitor/_datatable_source.dart';
 import '../../../ventes/competitor/_form_source.dart';
+import '../../customfield/_datatable_source.dart';
+import '../../customfield/_form_source.dart';
+import '../../customfield/_text.dart';
 import '_source.dart';
 import 'tabs/tabCustomers/_datatable_source.dart';
 import 'tabs/tabCustomers/_form_source.dart';
@@ -89,6 +97,7 @@ part 'tabs/tabProspect.dart';
 part 'tabs/tabSchedule.dart';
 part 'tabs/tabUsers.dart';
 part 'tabs/tabProduct.dart';
+part 'tabs/tabCustomizeField.dart';
 
 part 'tabs/tabCustomers/customers_form_source.dart';
 part 'tabs/tabCustomers/tabCustomerspr.dart';
@@ -106,6 +115,10 @@ part 'tabs/tabProspect_source/_tabType.dart';
 part 'tabs/tabProspect_source/_tabStage.dart';
 part 'tabs/tabProspect_source/_tabStatus.dart';
 part 'tabs/tabProspect_source/_tabCompetitor.dart';
+
+part 'tabs/tabCustomizeField_source/_tabDailyActivity.dart';
+part 'tabs/tabCustomizeField_source/_tabProspect.dart';
+part 'tabs/tabCustomizeField_source/customfield_source.dart';
 
 part 'tabs/tabSchedules_source/_tabType.dart';
 
@@ -131,7 +144,7 @@ class _CompanyViewState extends State<CompanyView>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 6, vsync: this);
+    _tabController = TabController(length: 7, vsync: this);
   }
 
   @override
@@ -158,7 +171,7 @@ class _CompanyViewState extends State<CompanyView>
           child: BsRow(
             children: [
               BsCol(
-                sizes: ColScreen(sm: Col.col_6),
+                sizes: ColScreen(sm: Col.col_8),
                 child: Container(
                   child: TabBar(
                     controller: _tabController,
@@ -172,6 +185,7 @@ class _CompanyViewState extends State<CompanyView>
                       // Tab(text: 'Schedule'),
                       Tab(text: 'Users'),
                       Tab(text: 'Product'),
+                      Tab(text: 'Customize Field'),
                     ],
                   ),
                 ),
@@ -191,6 +205,7 @@ class _CompanyViewState extends State<CompanyView>
                       // _TabSchedules(),
                       _TabUsers(),
                       _TabProduct(),
+                      _TabCustomizeField(),
                     ],
                   ),
                 ),

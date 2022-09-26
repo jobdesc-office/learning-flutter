@@ -3,10 +3,10 @@ import '../../../constants/base_text.dart';
 class CustomFieldText {
   static String title = 'Custom Field';
   static String labelName = BaseText.defaultLabelName;
-  static String isVisible = 'Sidebar Visibility';
-  static String labelNewPropect = 'New Propect Only';
+  static String isVisible = 'This Propect Only';
+  static String labelNewPropect = 'All Propect';
   static String labelType = 'Type';
-  static String labelBp = 'Business Partner';
+  static String labelBp = 'Prospect';
   static String labelCustomer = 'Customer';
   static String labelImage = 'Image';
 }

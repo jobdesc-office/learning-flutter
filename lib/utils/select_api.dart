@@ -484,12 +484,18 @@ Future<BsSelectBoxResponse> selectApiProspect(
   Response response = await prospectService.select(params);
   if (response.isOk) {
     if (response.statusCode == 200) {
+      List<ProspectModel> prospect = [];
+      for (var element in response.body) {
+        var res = ProspectModel.fromJson(element);
+        if (res.prospectbpid == box.read('mybpid')) {
+          prospect.add(res);
+        }
+      }
       return BsSelectBoxResponse.createFromJson(
-        response.body,
-        value: (data) => ProspectModel.fromJson(data).prospectid,
-        renderText: (data) => Text(ProspectModel.fromJson(data).prospectname! +
-            ' || ' +
-            ProspectModel.fromJson(data).prospectcust!.sbccstmname!),
+        prospect,
+        value: (data) => data.prospectid,
+        renderText: (data) => Text(
+            '${data.prospectname!} +  ||  + ${data.prospectcust!.sbccstmname!}'),
       );
     }
   }

@@ -400,8 +400,12 @@ class AppRoute {
           Get.lazyPut(() => ProspectService());
           Get.lazyPut(() => ProductPresenter());
           Get.lazyPut(() => ProductService());
+          Get.lazyPut(() => ProspectPresenter());
+          Get.lazyPut(() => ProspectService());
           Get.lazyPut(() => TypesChildrenPresenter());
           Get.lazyPut(() => TypeChildrenService());
+          Get.lazyPut(() => CustomFieldPresenter());
+          Get.lazyPut(() => CustomFieldService());
         }),
       ),
       CustomGetPage(

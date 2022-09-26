@@ -35,25 +35,25 @@ class ChartByCustLabelState extends State {
               PieChartData(
                   pieTouchData: PieTouchData(
                       touchCallback: (FlTouchEvent event, pieTouchResponse) {
-                    if (pieTouchResponse != null &&
-                        pieTouchResponse.touchedSection != null &&
-                        event is FlTapUpEvent) {
-                      final x =
-                          pieTouchResponse.touchedSection!.touchedSectionIndex;
-                      setState(() {
-                        showDialog(
-                          context: context,
-                          builder: (context) =>
-                              CustLabelDetails(source.labelname.value[x]),
-                        );
-                      });
-                    }
                     setState(() {
                       if (!event.isInterestedForInteractions ||
                           pieTouchResponse == null ||
                           pieTouchResponse.touchedSection == null) {
-                        touchedIndex = -1;
+                        touchedIndex = 0;
                         return;
+                      }
+                      if (pieTouchResponse != null &&
+                          pieTouchResponse.touchedSection != null &&
+                          event is FlTapUpEvent) {
+                        final x = pieTouchResponse
+                            .touchedSection!.touchedSectionIndex;
+
+                        if (x != -1)
+                          showDialog(
+                            context: context,
+                            builder: (context) =>
+                                CustLabelDetails(source.labelname.value[x]),
+                          );
                       }
                       touchedIndex =
                           pieTouchResponse.touchedSection!.touchedSectionIndex;
