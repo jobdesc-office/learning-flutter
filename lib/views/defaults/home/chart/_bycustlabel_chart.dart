@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../models/default/dspbycustlabel_model.dart';
+import '../../../../presenters/navigation_presenter.dart';
 import '../../../../styles/color_palattes.dart';
 import '../_source.dart';
 import '../home.dart';
@@ -11,6 +12,7 @@ import '../home.dart';
 final source = Get.put(HomeSource());
 int indexColor = 0;
 Color color = Colors.transparent;
+final _navigation = Get.find<NavigationPresenter>();
 
 class ChartByCustLabel extends StatefulWidget {
   const ChartByCustLabel({Key? key}) : super(key: key);
@@ -26,53 +28,55 @@ class ChartByCustLabelState extends State {
   Widget build(BuildContext context) {
     return AspectRatio(
       aspectRatio: 0.9,
-      child: Card(
-        color: Colors.white,
-        child: AspectRatio(
-          aspectRatio: 1,
-          child: Obx(() {
-            return PieChart(
-              PieChartData(
-                  pieTouchData: PieTouchData(
-                      touchCallback: (FlTouchEvent event, pieTouchResponse) {
-                    setState(() {
-                      if (!event.isInterestedForInteractions ||
-                          pieTouchResponse == null ||
-                          pieTouchResponse.touchedSection == null) {
-                        touchedIndex = 0;
-                        return;
-                      }
-                      if (pieTouchResponse != null &&
-                          pieTouchResponse.touchedSection != null &&
-                          event is FlTapUpEvent) {
-                        final x = pieTouchResponse
-                            .touchedSection!.touchedSectionIndex;
+      child: Obx(() => Card(
+            color: _navigation.darkTheme.value
+                ? ColorPallates.elseDarkColor
+                : Colors.white,
+            child: AspectRatio(
+              aspectRatio: 1,
+              child: Obx(() {
+                return PieChart(
+                  PieChartData(
+                      pieTouchData: PieTouchData(touchCallback:
+                          (FlTouchEvent event, pieTouchResponse) {
+                        setState(() {
+                          if (!event.isInterestedForInteractions ||
+                              pieTouchResponse == null ||
+                              pieTouchResponse.touchedSection == null) {
+                            touchedIndex = 0;
+                            return;
+                          }
+                          if (pieTouchResponse != null &&
+                              pieTouchResponse.touchedSection != null &&
+                              event is FlTapUpEvent) {
+                            final x = pieTouchResponse
+                                .touchedSection!.touchedSectionIndex;
 
-                        if (x != -1)
-                          showDialog(
-                            context: context,
-                            builder: (context) =>
-                                CustLabelDetails(source.labelname.value[x]),
-                          );
-                      }
-                      touchedIndex =
-                          pieTouchResponse.touchedSection!.touchedSectionIndex;
-                    });
-                  }),
-                  borderData: FlBorderData(
-                    show: false,
-                  ),
-                  sectionsSpace: 0,
-                  centerSpaceRadius: 0,
-                  sections: showingSections(source.bycustlabel
-                      .groupBy((p0) => p0.prospectcustlabel)
-                      .values
-                      .map((e) => e)
-                      .toList())),
-            );
-          }),
-        ),
-      ),
+                            if (x != -1)
+                              showDialog(
+                                context: context,
+                                builder: (context) =>
+                                    CustLabelDetails(source.labelname.value[x]),
+                              );
+                          }
+                          touchedIndex = pieTouchResponse
+                              .touchedSection!.touchedSectionIndex;
+                        });
+                      }),
+                      borderData: FlBorderData(
+                        show: false,
+                      ),
+                      sectionsSpace: 0,
+                      centerSpaceRadius: 0,
+                      sections: showingSections(source.bycustlabel
+                          .groupBy((p0) => p0.prospectcustlabel)
+                          .values
+                          .map((e) => e)
+                          .toList())),
+                );
+              }),
+            ),
+          )),
     );
   }
 
@@ -153,29 +157,31 @@ class _Badge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: PieChart.defaultDuration,
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        // shape: BoxShape.circle,
-        border: Border.all(
-          color: borderColor,
-          width: 2,
-        ),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: Colors.black.withOpacity(.5),
-            offset: const Offset(3, 3),
-            blurRadius: 3,
+    return Obx(() => AnimatedContainer(
+          duration: PieChart.defaultDuration,
+          width: size,
+          height: size,
+          decoration: BoxDecoration(
+            color: _navigation.darkTheme.value
+                ? ColorPallates.elseDarkColor
+                : Colors.white,
+            // shape: BoxShape.circle,
+            border: Border.all(
+              color: borderColor,
+              width: 2,
+            ),
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: Colors.black.withOpacity(.5),
+                offset: const Offset(3, 3),
+                blurRadius: 3,
+              ),
+            ],
           ),
-        ],
-      ),
-      padding: EdgeInsets.all(size * .15),
-      child: Center(
-        child: Text(svgAsset),
-      ),
-    );
+          padding: EdgeInsets.all(size * .15),
+          child: Center(
+            child: Text(svgAsset),
+          ),
+        ));
   }
 }

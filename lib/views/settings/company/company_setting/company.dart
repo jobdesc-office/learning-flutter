@@ -162,59 +162,59 @@ class _CompanyViewState extends State<CompanyView>
           RouteList.settings.index,
           RouteList.settingsCompany.index
         ],
-        child: Container(
-          padding: EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: _navigation.darkTheme.value
-                ? ColorPallates.elseDarkColor
-                : Colors.white,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: BsRow(
-            children: [
-              BsCol(
-                sizes: ColScreen(sm: Col.col_8),
-                child: Container(
-                  child: TabBar(
-                    controller: _tabController,
-                    labelColor: Colors.green,
-                    unselectedLabelColor: Colors.black,
-                    tabs: [
-                      Tab(text: 'General'),
-                      Tab(text: 'Activities'),
-                      Tab(text: 'Customer'),
-                      Tab(text: 'Prospect'),
-                      // Tab(text: 'Schedule'),
-                      Tab(text: 'Users'),
-                      Tab(text: 'Product'),
-                      Tab(text: 'Customize Field'),
-                    ],
-                  ),
-                ),
+        child: Obx(() => Container(
+              padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: _navigation.darkTheme.value
+                    ? ColorPallates.elseDarkColor
+                    : Colors.white,
+                borderRadius: BorderRadius.circular(10),
               ),
-              BsCol(
-                sizes: ColScreen(sm: Col.col_12),
-                child: Container(
-                  width: double.infinity,
-                  height: MediaQuery.of(context).size.height,
-                  child: TabBarView(
-                    controller: _tabController,
-                    children: [
-                      _TabGeneral(),
-                      _TabActivities(),
-                      _TabCustomer(),
-                      _TabProspect(),
-                      // _TabSchedules(),
-                      _TabUsers(),
-                      _TabProduct(),
-                      _TabCustomizeField(),
-                    ],
+              child: BsRow(
+                children: [
+                  BsCol(
+                    sizes: ColScreen(sm: Col.col_8),
+                    child: Container(
+                      child: TabBar(
+                        controller: _tabController,
+                        labelColor: Colors.green,
+                        unselectedLabelColor: Colors.black,
+                        tabs: [
+                          Tab(text: 'General'),
+                          Tab(text: 'Activities'),
+                          Tab(text: 'Customer'),
+                          Tab(text: 'Prospect'),
+                          // Tab(text: 'Schedule'),
+                          Tab(text: 'Users'),
+                          Tab(text: 'Product'),
+                          Tab(text: 'Customize Field'),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-              )
-            ],
-          ),
-        ),
+                  BsCol(
+                    sizes: ColScreen(sm: Col.col_12),
+                    child: Container(
+                      width: double.infinity,
+                      height: MediaQuery.of(context).size.height,
+                      child: TabBarView(
+                        controller: _tabController,
+                        children: [
+                          _TabGeneral(),
+                          _TabActivities(),
+                          _TabCustomer(),
+                          _TabProspect(),
+                          // _TabSchedules(),
+                          _TabUsers(),
+                          _TabProduct(),
+                          _TabCustomizeField(),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            )),
       ),
     );
   }

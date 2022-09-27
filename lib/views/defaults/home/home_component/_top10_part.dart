@@ -7,13 +7,22 @@ BsCol top10(context) {
     child: Obx(() => Container(
           height: MediaQuery.of(context).size.height,
           padding: EdgeInsets.all(10),
-          color: Colors.white,
+          decoration: BoxDecoration(
+            color: _navigation.darkTheme.value
+                ? ColorPallates.elseDarkColor
+                : Colors.white,
+            borderRadius: BorderRadius.circular(10),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 width: MediaQuery.of(context).size.width,
-                color: Colors.grey.shade300,
+                decoration: BoxDecoration(
+                  color: _navigation.darkTheme.value
+                      ? ColorPallates.contentDarkColor
+                      : Colors.grey.shade300,
+                ),
                 padding: EdgeInsets.all(5),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
