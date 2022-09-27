@@ -112,9 +112,9 @@ class _ChartByStageState extends State<ChartByStage> {
                         groupsSpace: 29.9,
                         borderData: FlBorderData(
                           show: true,
-                          border: const Border.symmetric(
+                          border: Border.symmetric(
                             horizontal: BorderSide(
-                              color: Color(0xFFececec),
+                              color: Colors.grey.shade500,
                             ),
                           ),
                         ),
@@ -170,7 +170,7 @@ class _ChartByStageState extends State<ChartByStage> {
                           show: true,
                           drawVerticalLine: false,
                           getDrawingHorizontalLine: (value) => FlLine(
-                            color: const Color(0xFFececec),
+                            color: Colors.grey.shade500,
                             dashArray: null,
                             strokeWidth: 1,
                           ),
