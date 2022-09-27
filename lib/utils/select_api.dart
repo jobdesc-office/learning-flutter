@@ -20,6 +20,7 @@ import '../models/masters/user_model.dart';
 import '../models/settings/stbptype_model.dart';
 import '../models/ventes/bpcustomer_model.dart';
 import '../models/ventes/customfield_model.dart';
+import '../models/ventes/report_model.dart';
 import '../models/ventes/selectbp_model.dart';
 import '../services/masters/city_service.dart';
 import '../services/masters/country_service.dart';
@@ -35,6 +36,7 @@ import '../services/security/menu_service.dart';
 import '../services/ventes/bpcustomer_service.dart';
 import '../services/settings/customfield_service.dart';
 import '../services/ventes/prospect_service.dart';
+import '../services/ventes/report_service.dart';
 import '../views/ventes/prospect/_detail_source.dart';
 import 'connect_internet_api.dart';
 
@@ -491,11 +493,31 @@ Future<BsSelectBoxResponse> selectApiProspect(
           prospect.add(res);
         }
       }
+      print(response.body);
       return BsSelectBoxResponse.createFromJson(
         prospect,
         value: (data) => data.prospectid,
         renderText: (data) => Text(
             '${data.prospectname!} +  ||  + ${data.prospectcust!.sbccstmname!}'),
+      );
+    }
+  }
+
+  return BsSelectBoxResponse(options: []);
+}
+
+Future<BsSelectBoxResponse> selectApiActivity(
+    Map<String, String> params) async {
+  final prospectService = Get.find<ReportService>();
+  Response response = await prospectService.selectbp(params);
+  if (response.isOk) {
+    if (response.statusCode == 200) {
+      print(response.body);
+      return BsSelectBoxResponse.createFromJson(
+        response.body,
+        value: (data) => Activities.fromJson(data).dayactid,
+        renderText: (data) => Text(
+            '${Activities.fromJson(data).dayactloclabel} || ${Activities.fromJson(data).dayactdate}'),
       );
     }
   }

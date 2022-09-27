@@ -14,6 +14,10 @@ class ReportService extends ApiConnectProvider {
     return get('$api/bp/$id');
   }
 
+  Future<Response> selectbp(Map<String, dynamic> params) {
+    return get('$api/select/${box.read('mybpid')}', query: params);
+  }
+
   Future<Response> datatablesbp(Map<String, dynamic> params) {
     return post('$api/datatables/${box.read('mybpid')}', params);
   }

@@ -71,59 +71,107 @@ class _TabContactType extends StatelessWidget
                           BsCol(
                               sizes: ColScreen(sm: Col.col_3),
                               child: Text(e.sbtname ?? '')),
-                          BsCol(
-                            sizes: ColScreen(sm: Col.col_4),
-                            child: BsRow(
-                              children: [
-                                BsCol(
-                                  alignment: Alignment.center,
-                                  sizes: ColScreen(sm: Col.col_1),
-                                ),
-                                BsCol(
-                                  alignment: Alignment.center,
-                                  sizes: ColScreen(sm: Col.col_3),
-                                  child: InkWell(
-                                    onTap: () =>
-                                        presenter.edit(context, e.sbtid!),
-                                    child: Text('Edit'),
-                                  ),
-                                ),
-                                BsCol(
+                          if (e.sbttypename != 'Email' &&
+                              e.sbttypename != 'Phone')
+                            BsCol(
+                              sizes: ColScreen(sm: Col.col_4),
+                              child: BsRow(
+                                children: [
+                                  BsCol(
                                     alignment: Alignment.center,
                                     sizes: ColScreen(sm: Col.col_1),
-                                    child: Text('|')),
-                                BsCol(
-                                  alignment: Alignment.center,
-                                  sizes: ColScreen(sm: Col.col_3),
-                                  child: InkWell(
-                                    onTap: () => presenter.changeStatus(
-                                        context, e.sbtid!, e.isactive!),
-                                    child: e.isactive!
-                                        ? Text('Active',
-                                            style:
-                                                TextStyle(color: Colors.green))
-                                        : Text(
-                                            'Not Active',
-                                            style: TextStyle(color: Colors.red),
-                                          ),
                                   ),
-                                ),
-                                BsCol(
+                                  BsCol(
+                                    alignment: Alignment.center,
+                                    sizes: ColScreen(sm: Col.col_3),
+                                    child: InkWell(
+                                      onTap: () =>
+                                          presenter.edit(context, e.sbtid!),
+                                      child: Text('Edit'),
+                                    ),
+                                  ),
+                                  BsCol(
+                                      alignment: Alignment.center,
+                                      sizes: ColScreen(sm: Col.col_1),
+                                      child: Text('|')),
+                                  BsCol(
+                                    alignment: Alignment.center,
+                                    sizes: ColScreen(sm: Col.col_3),
+                                    child: InkWell(
+                                      onTap: () => presenter.changeStatus(
+                                          context, e.sbtid!, e.isactive!),
+                                      child: e.isactive!
+                                          ? Text('Active',
+                                              style: TextStyle(
+                                                  color: Colors.green))
+                                          : Text(
+                                              'Not Active',
+                                              style:
+                                                  TextStyle(color: Colors.red),
+                                            ),
+                                    ),
+                                  ),
+                                  BsCol(
+                                      alignment: Alignment.center,
+                                      sizes: ColScreen(sm: Col.col_1),
+                                      child: Text('|')),
+                                  BsCol(
+                                    alignment: Alignment.center,
+                                    sizes: ColScreen(sm: Col.col_3),
+                                    child: InkWell(
+                                      onTap: () => presenter.delete(context,
+                                          e.sbtid!, e.sbttypename ?? ''),
+                                      child: Text('Delete'),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          else
+                            BsCol(
+                              sizes: ColScreen(sm: Col.col_4),
+                              child: BsRow(
+                                children: [
+                                  BsCol(
                                     alignment: Alignment.center,
                                     sizes: ColScreen(sm: Col.col_1),
-                                    child: Text('|')),
-                                BsCol(
-                                  alignment: Alignment.center,
-                                  sizes: ColScreen(sm: Col.col_3),
-                                  child: InkWell(
-                                    onTap: () => presenter.delete(
-                                        context, e.sbtid!, e.sbttypename ?? ''),
-                                    child: Text('Delete'),
                                   ),
-                                ),
-                              ],
+                                  BsCol(
+                                    alignment: Alignment.center,
+                                    sizes: ColScreen(sm: Col.col_3),
+                                  ),
+                                  BsCol(
+                                      alignment: Alignment.center,
+                                      sizes: ColScreen(sm: Col.col_1),
+                                      child: Text('|')),
+                                  BsCol(
+                                    alignment: Alignment.center,
+                                    sizes: ColScreen(sm: Col.col_3),
+                                    child: InkWell(
+                                      onTap: () => presenter.changeStatus(
+                                          context, e.sbtid!, e.isactive!),
+                                      child: e.isactive!
+                                          ? Text('Active',
+                                              style: TextStyle(
+                                                  color: Colors.green))
+                                          : Text(
+                                              'Not Active',
+                                              style:
+                                                  TextStyle(color: Colors.red),
+                                            ),
+                                    ),
+                                  ),
+                                  BsCol(
+                                      alignment: Alignment.center,
+                                      sizes: ColScreen(sm: Col.col_1),
+                                      child: Text('|')),
+                                  BsCol(
+                                    alignment: Alignment.center,
+                                    sizes: ColScreen(sm: Col.col_3),
+                                  ),
+                                ],
+                              ),
                             ),
-                          )
                         ],
                       );
                     }).toList(),

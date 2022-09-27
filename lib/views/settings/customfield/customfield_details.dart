@@ -21,7 +21,9 @@ class CustomFieldDetails extends GetView implements DetailViewContract {
   final CustomFieldDetailsSource controller =
       Get.put(CustomFieldDetailsSource());
 
-  CustomFieldDetails() {
+  final String data;
+
+  CustomFieldDetails(this.data) {
     Get.delete<CustomFieldDetailsSource>();
     presenter.customFieldDataDetailsContract = this;
   }
@@ -110,7 +112,7 @@ class CustomFieldDetails extends GetView implements DetailViewContract {
                               margin: EdgeInsets.only(top: 10),
                               sizes: ColScreen(lg: Col.col_12),
                               child: FormGroup(
-                                  label: Text('Available at All Prospect',
+                                  label: Text('Available at All $data',
                                       style: TextStyle(
                                           color: _navigation.darkTheme.value
                                               ? Colors.white

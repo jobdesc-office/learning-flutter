@@ -406,6 +406,8 @@ class AppRoute {
           Get.lazyPut(() => TypeChildrenService());
           Get.lazyPut(() => CustomFieldPresenter());
           Get.lazyPut(() => CustomFieldService());
+          Get.lazyPut(() => ReportPresenter());
+          Get.lazyPut(() => ReportService());
         }),
       ),
       CustomGetPage(

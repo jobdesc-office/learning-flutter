@@ -1,9 +1,6 @@
 part of '../../company.dart';
 
-class CustomizeFieldSource extends GetxController implements EditViewContract {
-  CustomizeFieldSource() {
-    presenter.customFieldFetchDataContract = this;
-  }
+class CustomizeFieldSource extends GetxController {
   final _type = Get.put(TypeService());
   var id = 0.obs;
 
@@ -15,6 +12,8 @@ class CustomizeFieldSource extends GetxController implements EditViewContract {
   var updatedby = ''.obs;
   var updateddate = ''.obs;
   var isactive = true.obs;
+
+  var config = ''.obs;
 
   reset() {
     id.value = 0;
@@ -31,6 +30,8 @@ class CustomizeFieldSource extends GetxController implements EditViewContract {
     selectprospect.clear();
 
     inputName.text = '';
+
+    config.value = '';
   }
 
   BsSelectBoxController selectType = BsSelectBoxController();
@@ -40,7 +41,7 @@ class CustomizeFieldSource extends GetxController implements EditViewContract {
 
   Future<Map<String, dynamic>> toJson() async {
     SessionModel session = await SessionManager.current();
-    Response res = await _type.byCodeMaster(ConfigType.prospectCustomField);
+    Response res = await _type.byCodeMaster(config.value);
     int id = TypeModel.fromJson(res.body.first).typeid ?? 0;
     return {
       'custfbpid': box.read('mybpid').toString(),
@@ -64,172 +65,6 @@ class CustomizeFieldSource extends GetxController implements EditViewContract {
   final source = CustomFieldSource().obs;
 
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
-
-  Widget form(BuildContext context) {
-    return Obx(() {
-      return BsRow(
-        children: [
-          BsCol(
-            sizes: ColScreen(
-              sm: Col.col_6,
-            ),
-            child: Form(
-              key: formState,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
-                    children: [
-                      inputNames(),
-                      selectTypes(),
-                      checkBoxForm(),
-                      if (visible.value) selectProspect()
-                    ],
-                  ),
-                  Obx(
-                    () => Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        ThemeButtonSave(
-                          disabled: presenter.isProcessing.value,
-                          processing: presenter.isProcessing.value,
-                          margin: EdgeInsets.only(right: 5),
-                          onPressed: () => onClickSaveModal(context),
-                        ),
-                        ThemeButtonCancel(
-                          disabled: presenter.isProcessing.value,
-                          margin: EdgeInsets.only(right: 5),
-                          onPressed: () => onClickCancelModal(context),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          if (isEdit.value)
-            BsCol(
-              margin: EdgeInsets.only(left: 5),
-              sizes: ColScreen(lg: Col.col_6),
-              child: Container(
-                padding: EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: _navigation.darkTheme.value
-                      ? ColorPallates.elseDarkColor
-                      : Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: BsRow(
-                  children: [
-                    BsCol(
-                      child: BsRow(
-                        children: [
-                          BsCol(
-                            child: FormGroup(
-                                label: Text('Created By',
-                                    style: TextStyle(
-                                        color: _navigation.darkTheme.value
-                                            ? Colors.white
-                                            : Colors.black)),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [Text(createdby.value), Divider()],
-                                )),
-                          ),
-                          BsCol(
-                            margin: EdgeInsets.only(top: 10),
-                            child: FormGroup(
-                                label: Text('Created At',
-                                    style: TextStyle(
-                                        color: _navigation.darkTheme.value
-                                            ? Colors.white
-                                            : Colors.black)),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(createddate.value),
-                                    Divider()
-                                  ],
-                                )),
-                          ),
-                          BsCol(
-                            margin: EdgeInsets.only(top: 10),
-                            child: FormGroup(
-                                label: Text('Last Updated By',
-                                    style: TextStyle(
-                                        color: _navigation.darkTheme.value
-                                            ? Colors.white
-                                            : Colors.black)),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [Text(updatedby.value), Divider()],
-                                )),
-                          ),
-                          BsCol(
-                            margin: EdgeInsets.only(top: 10),
-                            child: FormGroup(
-                                label: Text('Last Updated At',
-                                    style: TextStyle(
-                                        color: _navigation.darkTheme.value
-                                            ? Colors.white
-                                            : Colors.black)),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(updateddate.value),
-                                    Divider()
-                                  ],
-                                )),
-                          ),
-                          BsCol(
-                            margin: EdgeInsets.only(top: 10),
-                            child: FormGroup(
-                                label: Text('Is Active',
-                                    style: TextStyle(
-                                        color: _navigation.darkTheme.value
-                                            ? Colors.white
-                                            : Colors.black)),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    if (isactive.value)
-                                      InkWell(
-                                        child: Icon(
-                                          Icons.toggle_on,
-                                          size: 35,
-                                          color: _navigation.darkTheme.value
-                                              ? ColorPallates.onDarkMode
-                                              : ColorPallates.onLightMode,
-                                        ),
-                                        onTap: () => isactive.toggle(),
-                                      )
-                                    else
-                                      InkWell(
-                                        child: Icon(
-                                          Icons.toggle_off,
-                                          size: 35,
-                                          color: _navigation.darkTheme.value
-                                              ? ColorPallates.offDarkMode
-                                              : ColorPallates.offLightMode,
-                                        ),
-                                        onTap: () => isactive.toggle(),
-                                      ),
-                                    Divider()
-                                  ],
-                                )),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            )
-        ],
-      );
-    });
-  }
 
   void onClickSaveModal(BuildContext context) async {
     presenter.setProcessing(true);
@@ -292,6 +127,23 @@ class CustomizeFieldSource extends GetxController implements EditViewContract {
     );
   }
 
+  Widget selectActivity() {
+    return FormGroup(
+      label: Obx(() => Text('Activity',
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      child: CustomSelectBox(
+        controller: selectprospect,
+        hintText: BaseText.hiintSelect(field: 'Activity'),
+        serverSide: (params) => selectApiActivity(params),
+        validators: [
+          Validators.selectRequired('Activity'),
+        ],
+      ),
+    );
+  }
+
   Widget inputNames() {
     return FormGroup(
       label: Obx(() => Text(CustomFieldText.labelName,
@@ -308,7 +160,7 @@ class CustomizeFieldSource extends GetxController implements EditViewContract {
     );
   }
 
-  Widget checkBoxForm() {
+  Widget checkBoxForm(data) {
     return BsRow(
       children: [
         BsCol(
@@ -316,7 +168,7 @@ class CustomizeFieldSource extends GetxController implements EditViewContract {
           sizes: ColScreen(lg: Col.col_2),
           child: FormGroup(
             label: Obx(() => Center(
-                  child: Text(CustomFieldText.isVisible,
+                  child: Text('This $data Only',
                       style: TextStyle(
                           color: _navigation.darkTheme.value
                               ? Colors.white
@@ -339,7 +191,7 @@ class CustomizeFieldSource extends GetxController implements EditViewContract {
           sizes: ColScreen(lg: Col.col_2),
           child: FormGroup(
             label: Obx(() => Center(
-                  child: Text(CustomFieldText.labelNewPropect,
+                  child: Text('All $data',
                       style: TextStyle(
                           color: _navigation.darkTheme.value
                               ? Colors.white
@@ -359,32 +211,5 @@ class CustomizeFieldSource extends GetxController implements EditViewContract {
         ),
       ],
     );
-  }
-
-  @override
-  void onSuccessFetchData(Response response) {
-    presenter.setProcessing(false);
-    isEdit.value = true;
-    isForm.value = true;
-
-    source.update((val) {
-      CustomFieldModel customField = CustomFieldModel.fromJson(response.body);
-      id.value = customField.custfid ?? 0;
-      selectType.setSelected(BsSelectBoxOption(
-          value: customField.custftype!.typeid,
-          text: Text(customField.custftype!.typename.toString())));
-      selectprospect.setSelected(BsSelectBoxOption(
-          value: customField.businesspartner!.bpid,
-          text: Text(customField.businesspartner!.bpname.toString())));
-      newprospect.value = customField.allprospect ?? false;
-      visible.value = customField.onlythisprospect ?? false;
-      inputName.text = customField.custfname ?? '';
-
-      createdby.value = customField.custfcreatedby?.userfullname ?? '';
-      createddate.value = customField.createddate ?? '';
-      updatedby.value = customField.custfupdatedby?.userfullname ?? '';
-      updateddate.value = customField.updateddate ?? '';
-      isactive.value = customField.isactive ?? true;
-    });
   }
 }

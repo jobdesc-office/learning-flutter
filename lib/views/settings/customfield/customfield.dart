@@ -95,7 +95,7 @@ class CustomFieldView extends GetView implements IndexViewContract {
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onDetailsListener =
-        (userid) => presenter.details(context, userid);
+        (userid) => presenter.details(context, userid, 'data');
     datatable.onEditListener =
         (countryid) => presenter.edit(context, countryid);
     datatable.onDeleteListener =

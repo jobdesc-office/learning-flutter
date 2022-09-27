@@ -14,6 +14,10 @@ class CustomFieldService extends ApiConnectProvider {
     return post('$api/datatables/${box.read('mybpid')}', params);
   }
 
+  Future<Response> datatablesdayactbp(Map<String, dynamic> params) {
+    return post('$api/datatablesdayactbp/${box.read('mybpid')}', params);
+  }
+
   Future<Response> selectWithBp(Map<String, dynamic> params) {
     return post('$api/selectwithbp/${box.read('mybpid')}', params);
   }

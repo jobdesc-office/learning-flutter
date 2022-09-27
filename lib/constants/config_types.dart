@@ -31,6 +31,8 @@ class ConfigType {
 
   static String prospectCustomField = notNull(types['prospectCustomField']);
 
+  static String activityCustomField = notNull(types['activityCustomField']);
+
   static String prospectStatus = notNull(types['prospectStatus']);
 
   static String prospectCategory = notNull(types['prospectCategory']);

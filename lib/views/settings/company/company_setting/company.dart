@@ -126,6 +126,8 @@ part 'tabs/sources/_form_source.dart';
 part 'tabs/sources/default_notypes.dart';
 part 'tabs/sources/show_color.dart';
 
+part 'tabs/tabCustomizeField_source/form.dart';
+
 final _navigation = Get.find<NavigationPresenter>();
 final _sources = Get.find<CompanySources>();
 final box = GetStorage();

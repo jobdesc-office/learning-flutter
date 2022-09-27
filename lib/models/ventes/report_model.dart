@@ -39,6 +39,7 @@ class Activities {
   String? dayactdesc;
   String? dayactloclabel;
   String? dayactloc;
+  String? dayactaddress;
   double? dayactlatitude;
   double? dayactlongitude;
   int? createdby;
@@ -51,7 +52,7 @@ class Activities {
   Dayactcust? dayactcust;
   Dayactcat? dayactcat;
   List<Activitycustomfield>? activitycustomfield;
-  List<Dayactpics>? dayactpics;
+  Dayactpics? dayactpics;
 
   Activities(
       {this.dayactid,
@@ -61,6 +62,7 @@ class Activities {
       this.dayactdesc,
       this.dayactloclabel,
       this.dayactloc,
+      this.dayactaddress,
       this.dayactlatitude,
       this.dayactlongitude,
       this.createdby,
@@ -83,6 +85,7 @@ class Activities {
     dayactdesc = json['dayactdesc'];
     dayactloclabel = json['dayactloclabel'];
     dayactloc = json['dayactloc'];
+    dayactaddress = json['dayactaddress'];
     dayactlatitude = json['dayactlatitude'];
     dayactlongitude = json['dayactlongitude'];
     createdby = json['createdby'];
@@ -108,12 +111,9 @@ class Activities {
         activitycustomfield!.add(new Activitycustomfield.fromJson(v));
       });
     }
-    if (json['dayactpics'] != null) {
-      dayactpics = <Dayactpics>[];
-      json['dayactpics'].forEach((v) {
-        dayactpics!.add(new Dayactpics.fromJson(v));
-      });
-    }
+    dayactpics = json['dayactpics'] != null
+        ? new Dayactpics.fromJson(json['dayactpics'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -125,6 +125,7 @@ class Activities {
     data['dayactdesc'] = this.dayactdesc;
     data['dayactloclabel'] = this.dayactloclabel;
     data['dayactloc'] = this.dayactloc;
+    data['dayactaddress'] = this.dayactaddress;
     data['dayactlatitude'] = this.dayactlatitude;
     data['dayactlongitude'] = this.dayactlongitude;
     data['createdby'] = this.createdby;
@@ -149,7 +150,7 @@ class Activities {
           this.activitycustomfield!.map((v) => v.toJson()).toList();
     }
     if (this.dayactpics != null) {
-      data['dayactpics'] = this.dayactpics!.map((v) => v.toJson()).toList();
+      data['dayactpics'] = this.dayactpics!.toJson();
     }
     return data;
   }
@@ -369,7 +370,7 @@ class Customfield {
   int? custfreftypeid;
   bool? alldata;
   bool? onlythisdata;
-  bool? thisdataid;
+  int? thisdataid;
   int? createdby;
   String? createddate;
   int? updatedby;

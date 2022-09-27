@@ -13,7 +13,8 @@ class _TabCustomizeFieldProspect extends GetView implements IndexViewContract {
   Widget build(BuildContext context) {
     return Obx(() => Column(
           children: [
-            if (sources.isForm.value) sources.form(context),
+            if (sources.isForm.value)
+              _FormCustomfield(ConfigType.prospectCustomField, 'Prospect'),
             CustomDatabales(
               source: datatable,
               columns: datatable.columns,
@@ -41,6 +42,8 @@ class _TabCustomizeFieldProspect extends GetView implements IndexViewContract {
   void onCreateSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
     datatable.controller.reload();
+    sources.isEdit.value = false;
+    sources.isForm.value = false;
     Snackbar().createSuccess(context!);
   }
 
@@ -48,6 +51,8 @@ class _TabCustomizeFieldProspect extends GetView implements IndexViewContract {
   void onDeleteSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
     datatable.controller.reload();
+    sources.isEdit.value = false;
+    sources.isForm.value = false;
     Snackbar().deleteSuccess(context!);
   }
 
@@ -55,6 +60,8 @@ class _TabCustomizeFieldProspect extends GetView implements IndexViewContract {
   void onEditSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
     datatable.controller.reload();
+    sources.isEdit.value = false;
+    sources.isForm.value = false;
     Snackbar().editSuccess(context!);
   }
 
@@ -68,9 +75,12 @@ class _TabCustomizeFieldProspect extends GetView implements IndexViewContract {
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onDetailsListener =
-        (userid) => presenter.details(context, userid);
-    datatable.onEditListener =
-        (countryid) => presenter.edits(context, countryid);
+        (userid) => presenter.details(context, userid, 'Prospect');
+    datatable.onEditListener = (countryid) {
+      presenter.edits(context, countryid);
+      // sources.isEdit.value = true;
+      // sources.isForm.value = true;
+    };
     datatable.onDeleteListener =
         (cstmid, name) => presenter.delete(context, cstmid, name);
   }
