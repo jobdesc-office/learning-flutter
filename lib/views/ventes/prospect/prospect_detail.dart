@@ -164,26 +164,55 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                       child: TabBar(
                                         controller: _tabController,
                                         labelColor: Colors.green,
-                                        unselectedLabelColor: Colors.black,
+                                        unselectedLabelColor:
+                                            _navigation.darkTheme.value
+                                                ? Colors.white
+                                                : Colors.black,
                                         tabs: [
                                           Tab(
                                               text: 'Activities',
-                                              icon: Icon(Icons.local_activity)),
+                                              icon: Icon(
+                                                Icons.local_activity,
+                                                color:
+                                                    _navigation.darkTheme.value
+                                                        ? Colors.white
+                                                        : Colors.black,
+                                              )),
                                           Tab(
                                               text: 'Notes',
-                                              icon: Icon(Icons.note)),
+                                              icon: Icon(Icons.note,
+                                                  color: _navigation
+                                                          .darkTheme.value
+                                                      ? Colors.white
+                                                      : Colors.black)),
                                           Tab(
                                               text: 'Assign',
-                                              icon: Icon(Icons.group)),
+                                              icon: Icon(Icons.group,
+                                                  color: _navigation
+                                                          .darkTheme.value
+                                                      ? Colors.white
+                                                      : Colors.black)),
                                           Tab(
                                               text: 'Product',
-                                              icon: Icon(Icons.sell)),
+                                              icon: Icon(Icons.sell,
+                                                  color: _navigation
+                                                          .darkTheme.value
+                                                      ? Colors.white
+                                                      : Colors.black)),
                                           Tab(
                                               text: 'Contact',
-                                              icon: Icon(Icons.phone)),
+                                              icon: Icon(Icons.phone,
+                                                  color: _navigation
+                                                          .darkTheme.value
+                                                      ? Colors.white
+                                                      : Colors.black)),
                                           Tab(
                                               text: 'Files',
-                                              icon: Icon(Icons.file_copy)),
+                                              icon: Icon(Icons.file_copy,
+                                                  color: _navigation
+                                                          .darkTheme.value
+                                                      ? Colors.white
+                                                      : Colors.black)),
                                         ],
                                       ),
                                     ),

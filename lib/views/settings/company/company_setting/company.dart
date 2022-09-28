@@ -178,7 +178,9 @@ class _CompanyViewState extends State<CompanyView>
                       child: TabBar(
                         controller: _tabController,
                         labelColor: Colors.green,
-                        unselectedLabelColor: Colors.black,
+                        unselectedLabelColor: _navigation.darkTheme.value
+                            ? Colors.white
+                            : Colors.black,
                         tabs: [
                           Tab(text: 'General'),
                           Tab(text: 'Activities'),

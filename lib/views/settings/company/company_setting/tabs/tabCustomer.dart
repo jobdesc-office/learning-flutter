@@ -23,20 +23,22 @@ class _TabCustomerState extends State<_TabCustomer>
         child: BsRow(
           children: [
             BsCol(
-              sizes: ColScreen(sm: Col.col_7),
+              sizes: ColScreen(sm: Col.col_8),
               child: Container(
-                child: TabBar(
-                  controller: _tabController,
-                  labelColor: Colors.green,
-                  unselectedLabelColor: Colors.black,
-                  tabs: [
-                    Tab(text: 'Customer'),
-                    Tab(text: 'Prospective Customer'),
-                    Tab(text: 'Contact'),
-                    Tab(text: 'Customer Type'),
-                    Tab(text: 'Contact Type'),
-                  ],
-                ),
+                child: Obx(() => TabBar(
+                      controller: _tabController,
+                      labelColor: Colors.green,
+                      unselectedLabelColor: _navigation.darkTheme.value
+                          ? Colors.white
+                          : Colors.black,
+                      tabs: [
+                        Tab(text: 'Customer'),
+                        Tab(text: 'Prospective Customer'),
+                        Tab(text: 'Contact'),
+                        Tab(text: 'Customer Type'),
+                        Tab(text: 'Contact Type'),
+                      ],
+                    )),
               ),
             ),
             BsCol(

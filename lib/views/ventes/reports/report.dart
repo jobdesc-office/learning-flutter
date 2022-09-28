@@ -36,6 +36,8 @@ final _nav = Get.find<NavigationPresenter>();
 final source = Get.put(ReportHelper());
 final datatable = ReportDataTableSource();
 
+final _navigation = Get.find<NavigationPresenter>();
+
 late TabController _tabController;
 
 class _ReportViewState extends State<ReportView>
@@ -62,19 +64,22 @@ class _ReportViewState extends State<ReportView>
         activeRoutes: [RouteList.master.index, RouteList.ventesReport.index],
         child: Column(
           children: [
-            Container(
-              child: TabBar(
-                  labelColor: Colors.black,
-                  controller: _tabController,
-                  tabs: [
-                    Tab(
-                      text: 'Calendar',
-                    ),
-                    Tab(
-                      text: 'List',
-                    )
-                  ]),
-            ),
+            Obx(() => Container(
+                  child: TabBar(
+                      labelColor: Colors.green,
+                      controller: _tabController,
+                      unselectedLabelColor: _navigation.darkTheme.value
+                          ? Colors.white
+                          : Colors.black,
+                      tabs: [
+                        Tab(
+                          text: 'Calendar',
+                        ),
+                        Tab(
+                          text: 'List',
+                        )
+                      ]),
+                )),
             Container(
               width: double.infinity,
               height: MediaQuery.of(context).size.height,

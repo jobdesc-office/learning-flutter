@@ -28,7 +28,8 @@ class _TabProspectState extends State<_TabProspect>
             child: TabBar(
               controller: _tabController,
               labelColor: Colors.green,
-              unselectedLabelColor: Colors.black,
+              unselectedLabelColor:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black,
               tabs: [
                 Tab(text: 'Category'),
                 Tab(text: 'Customer Label'),

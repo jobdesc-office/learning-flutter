@@ -25,15 +25,16 @@ class _TabCustomizeFieldState extends State<_TabCustomizeField>
         children: [
           BsCol(
             sizes: ColScreen(sm: Col.col_2),
-            child: TabBar(
-              controller: _tabController,
-              labelColor: Colors.green,
-              unselectedLabelColor: Colors.black,
-              tabs: [
-                Tab(text: 'Daily Activity'),
-                Tab(text: 'Prospect'),
-              ],
-            ),
+            child: Obx(() => TabBar(
+                  controller: _tabController,
+                  labelColor: Colors.green,
+                  unselectedLabelColor:
+                      _navigation.darkTheme.value ? Colors.white : Colors.black,
+                  tabs: [
+                    Tab(text: 'Daily Activity'),
+                    Tab(text: 'Prospect'),
+                  ],
+                )),
           ),
           BsCol(
             sizes: ColScreen(sm: Col.col_12),

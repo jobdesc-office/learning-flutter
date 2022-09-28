@@ -98,7 +98,7 @@ class StatusDetails extends StatelessWidget {
                                         child: Text(no.toString())),
                                     BsCol(
                                         sizes: ColScreen(sm: Col.col_8),
-                                        child: Text(e.prospectstatus ?? '')),
+                                        child: Text(e.prospectcustname ?? '')),
                                     BsCol(
                                       sizes: ColScreen(sm: Col.col_3),
                                       child: Container(

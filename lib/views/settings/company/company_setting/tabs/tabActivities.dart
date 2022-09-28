@@ -7,7 +7,8 @@ class _TabActivities extends StatefulWidget {
   State<_TabActivities> createState() => _TabActivitiesState();
 }
 
-class _TabActivitiesState extends State<_TabActivities> with TickerProviderStateMixin {
+class _TabActivitiesState extends State<_TabActivities>
+    with TickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -24,15 +25,16 @@ class _TabActivitiesState extends State<_TabActivities> with TickerProviderState
         children: [
           BsCol(
             sizes: ColScreen(sm: Col.col_2),
-            child: TabBar(
-              controller: _tabController,
-              labelColor: Colors.green,
-              unselectedLabelColor: Colors.black,
-              tabs: [
-                Tab(text: 'Category'),
-                Tab(text: 'Type'),
-              ],
-            ),
+            child: Obx(() => TabBar(
+                  controller: _tabController,
+                  labelColor: Colors.green,
+                  unselectedLabelColor:
+                      _navigation.darkTheme.value ? Colors.white : Colors.black,
+                  tabs: [
+                    Tab(text: 'Category'),
+                    Tab(text: 'Type'),
+                  ],
+                )),
           ),
           BsCol(
             sizes: ColScreen(sm: Col.col_12),

@@ -1,6 +1,8 @@
 class DspbycustlabelModel {
   int? prospectbpid;
   String? prospectbpname;
+  int? prospectcustid;
+  String? prospectcustname;
   String? prospectcustlabel;
   int? prospectyy;
   int? prospectmm;
@@ -10,6 +12,8 @@ class DspbycustlabelModel {
   DspbycustlabelModel(
       {this.prospectbpid,
       this.prospectbpname,
+      this.prospectcustid,
+      this.prospectcustname,
       this.prospectcustlabel,
       this.prospectyy,
       this.prospectmm,
@@ -19,6 +23,8 @@ class DspbycustlabelModel {
   DspbycustlabelModel.fromJson(Map<String, dynamic> json) {
     prospectbpid = json['prospectbpid'];
     prospectbpname = json['prospectbpname'];
+    prospectcustid = json['prospectcustid'];
+    prospectcustname = json['prospectcustname'];
     prospectcustlabel = json['prospectcustlabel'];
     prospectyy = json['prospectyy'];
     prospectmm = json['prospectmm'];
@@ -32,6 +38,8 @@ class DspbycustlabelModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['prospectbpid'] = this.prospectbpid;
     data['prospectbpname'] = this.prospectbpname;
+    data['prospectcustid'] = this.prospectcustid;
+    data['prospectcustname'] = this.prospectcustname;
     data['prospectcustlabel'] = this.prospectcustlabel;
     data['prospectyy'] = this.prospectyy;
     data['prospectmm'] = this.prospectmm;
