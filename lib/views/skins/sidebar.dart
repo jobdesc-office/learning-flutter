@@ -109,12 +109,37 @@ class SidebarSkins extends StatelessWidget {
                                                 .permissions
                                                 ?.hasaccess ??
                                             false)
-                                        .map((e) => MenuData(
+                                        .map((e) {
+                                      if (e.children != []) {
+                                        return MenuData(
                                             icon: parseIcon(e.menuicon),
                                             id: e.menuid ?? 0,
                                             label: e.menunm ?? '',
-                                            route: e.menuroute ?? ''))
-                                        .toList()))
+                                            route: e.menuroute ?? '');
+                                      } else {
+                                        return MenuData(
+                                            icon: parseIcon(e.menuicon),
+                                            id: e.menuid ?? 0,
+                                            label: e.menunm ?? '',
+                                            route: e.menuroute ?? '',
+                                            children: e.children!
+                                                .where((element) =>
+                                                    element.features
+                                                        ?.where((element) =>
+                                                            element.featslug ==
+                                                            'viewable')
+                                                        .first
+                                                        .permissions
+                                                        ?.hasaccess ??
+                                                    false)
+                                                .map((e) => MenuData(
+                                                    icon: parseIcon(e.menuicon),
+                                                    id: e.menuid ?? 0,
+                                                    label: e.menunm ?? '',
+                                                    route: e.menuroute ?? ''))
+                                                .toList());
+                                      }
+                                    }).toList()))
                                 .toList(),
                           ))
                       .toList(),
