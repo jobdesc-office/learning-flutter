@@ -183,7 +183,7 @@ class _ChartByStageState extends State<ChartByStage> {
                               // data.shadowValue
                               );
                         }).toList(),
-                        maxY: 100,
+                        maxY: parseDouble(source.bystage.length),
                         barTouchData: BarTouchData(
                           enabled: true,
                           handleBuiltInTouches: false,

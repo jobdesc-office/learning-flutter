@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:date_time_format/date_time_format.dart';
 
@@ -48,6 +50,32 @@ bool parseBool(dynamic value) {
               ? true
               : false
           : value;
+}
+
+IconData parseIcon(dynamic value) {
+  Map<String, IconData> icons = {
+    'Icons.dashboard': Icons.dashboard,
+    'Icons.storage_outlined': Icons.storage_outlined,
+    'Icons.handshake': Icons.handshake,
+    'Icons.groups': Icons.groups,
+    'FontAwesomeIcons.userPlus': FontAwesomeIcons.userPlus,
+    'Icons.contacts': Icons.contacts,
+    'Icons.analytics': Icons.analytics,
+    'FontAwesomeIcons.calendarDays': FontAwesomeIcons.calendarDays,
+    'FontAwesomeIcons.addressBook': FontAwesomeIcons.addressBook,
+    'Icons.settings_outlined': Icons.settings_outlined,
+    'Icons.domain': Icons.domain,
+    'Icons.file_open': Icons.file_open,
+    'Icons.key': Icons.key,
+    // ignore: deprecated_member_use
+    'FontAwesomeIcons.earthAmerica': FontAwesomeIcons.earthAmerica,
+    'FontAwesomeIcons.city': FontAwesomeIcons.city,
+    'FontAwesomeIcons.globe': FontAwesomeIcons.globe,
+    'FontAwesomeIcons.locationDot': FontAwesomeIcons.locationDot,
+    'Icons.square': Icons.square,
+    'Icons.category': Icons.category,
+  };
+  return value == null ? Icons.circle_outlined : icons[value]!;
 }
 
 void toNameRoute(String name, {bool pushReplace = false}) {
