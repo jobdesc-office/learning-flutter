@@ -467,10 +467,10 @@ class _ProspectDetailsState extends State<ProspectDetails>
       cf.removeWhere((element) => element.custfid == item.prospectcustfid);
     }
     cf.removeWhere((element) =>
-        element.onlythisprospect == true &&
-        element.thisprospectid != source.prospectid.value);
-    cf.removeWhere((element) =>
-        element.allprospect == false && element.onlythisprospect == false);
+        element.onlythisdata == true &&
+        element.thisdataid != source.prospectid.value);
+    cf.removeWhere(
+        (element) => element.alldata == false && element.onlythisdata == false);
     source.rawcustomField.value = cf;
   }
 }

@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../../../models/ventes/report_model.dart';
+
 class ReportDetailsSource extends GetxController {
   var customer = ''.obs;
   var cat = ''.obs;
@@ -11,6 +13,8 @@ class ReportDetailsSource extends GetxController {
   var loc = ''.obs;
   var long = ''.obs;
   var lat = ''.obs;
+
+  var cf = <Activitycustomfield>[].obs;
 
   var createdby = ''.obs;
   var createddate = ''.obs;

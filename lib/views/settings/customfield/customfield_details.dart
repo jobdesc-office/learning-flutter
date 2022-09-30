@@ -108,25 +108,44 @@ class CustomFieldDetails extends GetView implements DetailViewContract {
                                       Divider()
                                     ],
                                   ))),
-                          BsCol(
-                              margin: EdgeInsets.only(top: 10),
-                              sizes: ColScreen(lg: Col.col_12),
-                              child: FormGroup(
-                                  label: Text('Available at All $data',
-                                      style: TextStyle(
-                                          color: _navigation.darkTheme.value
-                                              ? Colors.white
-                                              : Colors.black)),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(controller.newprospect.value
-                                          ? 'Yes'
-                                          : 'No'),
-                                      Divider()
-                                    ],
-                                  ))),
+                          if (controller.newprospect.value)
+                            BsCol(
+                                margin: EdgeInsets.only(top: 10),
+                                sizes: ColScreen(lg: Col.col_12),
+                                child: FormGroup(
+                                    label: Text('Available at All $data',
+                                        style: TextStyle(
+                                            color: _navigation.darkTheme.value
+                                                ? Colors.white
+                                                : Colors.black)),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(controller.newprospect.value
+                                            ? 'Yes'
+                                            : 'No'),
+                                        Divider()
+                                      ],
+                                    ))),
+                          if (controller.isvisible.value)
+                            BsCol(
+                                margin: EdgeInsets.only(top: 10),
+                                sizes: ColScreen(lg: Col.col_12),
+                                child: FormGroup(
+                                    label: Text('Available at',
+                                        style: TextStyle(
+                                            color: _navigation.darkTheme.value
+                                                ? Colors.white
+                                                : Colors.black)),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text('${controller.ref.value}'),
+                                        Divider()
+                                      ],
+                                    ))),
                         ],
                       ),
                     )),
@@ -256,8 +275,15 @@ class CustomFieldDetails extends GetView implements DetailViewContract {
     controller.name.value = dt.custfname ?? '-';
     controller.type.value = dt.custftype!.typename ?? '-';
     controller.bp.value = dt.businesspartner!.bpname ?? '-';
-    controller.isvisible.value = dt.onlythisprospect!;
-    controller.newprospect.value = dt.allprospect!;
+    controller.isvisible.value = dt.onlythisdata!;
+    controller.newprospect.value = dt.alldata!;
+
+    if (dt.custfreftype?.typename == 'Prospect')
+      controller.ref.value =
+          '${dt.refprospect?.prospectname ?? '-'} || ${dt.refprospect?.prospectcust?.sbccstmname ?? '-'}';
+    else
+      controller.ref.value =
+          '${dt.refactivity?.dayactloclabel ?? '-'} || ${dt.refactivity?.dayactdate ?? '-'}';
 
     controller.createdby.value = dt.custfcreatedby?.userfullname ?? '-';
     controller.createddate.value = dt.createddate ?? '';

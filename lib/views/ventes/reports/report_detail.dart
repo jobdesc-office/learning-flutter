@@ -94,40 +94,6 @@ class ReportDetail extends GetView implements DetailViewContract {
                               margin: EdgeInsets.only(top: 10),
                               sizes: ColScreen(lg: Col.col_12),
                               child: FormGroup(
-                                  label: Text('Type',
-                                      style: TextStyle(
-                                          color: _navigation.darkTheme.value
-                                              ? Colors.white
-                                              : Colors.black)),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(controller.type.value),
-                                      Divider()
-                                    ],
-                                  ))),
-                          BsCol(
-                              margin: EdgeInsets.only(top: 10),
-                              sizes: ColScreen(lg: Col.col_12),
-                              child: FormGroup(
-                                  label: Text('Type Value',
-                                      style: TextStyle(
-                                          color: _navigation.darkTheme.value
-                                              ? Colors.white
-                                              : Colors.black)),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(controller.typeval.value),
-                                      Divider()
-                                    ],
-                                  ))),
-                          BsCol(
-                              margin: EdgeInsets.only(top: 10),
-                              sizes: ColScreen(lg: Col.col_12),
-                              child: FormGroup(
                                   label: Text('Date',
                                       style: TextStyle(
                                           color: _navigation.darkTheme.value
@@ -225,7 +191,37 @@ class ReportDetail extends GetView implements DetailViewContract {
                                       Text(controller.long.value),
                                       Divider()
                                     ],
-                                  )))
+                                  ))),
+                          if (controller.cf.isNotEmpty)
+                            BsCol(
+                                margin: EdgeInsets.only(top: 10),
+                                sizes: ColScreen(lg: Col.col_12),
+                                child: Column(
+                                  children: controller.cf
+                                      .map((element) => Container(
+                                            padding: EdgeInsets.all(5),
+                                            child: BsRow(children: [
+                                              BsCol(
+                                                  sizes:
+                                                      ColScreen(sm: Col.col_5),
+                                                  child: Text(element
+                                                          .customfield
+                                                          ?.custfname ??
+                                                      '')),
+                                              BsCol(
+                                                  sizes:
+                                                      ColScreen(sm: Col.col_1),
+                                                  child: Text(':')),
+                                              BsCol(
+                                                  sizes:
+                                                      ColScreen(sm: Col.col_6),
+                                                  child: Text(
+                                                      element.activitycfvalue ??
+                                                          ''))
+                                            ]),
+                                          ))
+                                      .toList(),
+                                )),
                         ],
                       ),
                     )),
@@ -360,6 +356,9 @@ class ReportDetail extends GetView implements DetailViewContract {
     controller.loc.value = dt.dayactloc ?? '';
     controller.long.value = parseString(dt.dayactlongitude ?? '');
     controller.lat.value = parseString(dt.dayactlatitude ?? '');
+
+    if (dt.activitycustomfield!.isNotEmpty)
+      controller.cf.value = dt.activitycustomfield!;
 
     controller.createdby.value = dt.dayactuser?.userfullname ?? '';
     controller.createddate.value = dt.createddate ?? '';

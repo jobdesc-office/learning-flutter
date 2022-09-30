@@ -65,6 +65,13 @@ BsCol prospectDetailTitleSection(context) {
                               ],
                             );
                           }),
+                          if (source.status.value != 'Closed Lost' &&
+                              source.status.value != 'Closed Won' &&
+                              source.status.value != 'Force Closed')
+                            Container(
+                              margin: EdgeInsets.only(top: 5),
+                              child: Text(source.status.value),
+                            )
                         ],
                       ),
                       if (source.status.value == 'Closed Lost')
@@ -154,6 +161,88 @@ BsCol prospectDetailTitleSection(context) {
                                     padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
                                     decoration: BoxDecoration(
                                         color: Colors.green,
+                                        borderRadius: BorderRadius.circular(5)),
+                                  );
+                                  break;
+                                default:
+                                  Text('${source.status.value}',
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold));
+                              }
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                      margin:
+                                          EdgeInsets.only(left: 10, bottom: 7),
+                                      child: card),
+                                  Container(
+                                    child: Text(''),
+                                  )
+                                ],
+                              );
+                            })
+                          ],
+                        )
+                      else if (source.status.value == 'Force Closed')
+                        Row(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                    color: Color.fromARGB(255, 207, 202, 202),
+                                  )),
+                              child: Text(
+                                  'Rp ' +
+                                      currencyFormatter
+                                          .format(double.parse(
+                                              source.prospectvalue.value))
+                                          .replaceAll(',00', '')
+                                          .replaceAll('.', ','),
+                                  style: TextStyle(
+                                    fontSize: 21,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                            ),
+                            Obx(() {
+                              Widget card = Text('${source.status.value}');
+                              switch (source.status.value) {
+                                case 'Closed Lost':
+                                  card = Container(
+                                    child: Text(
+                                      '${source.status.value}',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
+                                    decoration: BoxDecoration(
+                                        color: Colors.red,
+                                        borderRadius: BorderRadius.circular(5)),
+                                  );
+                                  break;
+                                case 'Closed Won':
+                                  card = Container(
+                                    child: Text(
+                                      '${source.status.value}',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
+                                    decoration: BoxDecoration(
+                                        color: Colors.green,
+                                        borderRadius: BorderRadius.circular(5)),
+                                  );
+                                  break;
+                                case 'Force Closed':
+                                  card = Container(
+                                    child: Text(
+                                      '${source.status.value}',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
+                                    decoration: BoxDecoration(
+                                        color: Colors.red,
                                         borderRadius: BorderRadius.circular(5)),
                                   );
                                   break;

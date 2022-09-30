@@ -1,7 +1,7 @@
 part of '../../company.dart';
 
 class _FormCustomfield extends StatelessWidget implements EditViewContract {
-  final String configg, data;
+  String configg, data;
   _FormCustomfield(this.configg, this.data);
 
   final presenter = Get.find<CustomFieldPresenter>();
@@ -194,12 +194,28 @@ class _FormCustomfield extends StatelessWidget implements EditViewContract {
     sources.selectType.setSelected(BsSelectBoxOption(
         value: customField.custftype!.typeid,
         text: Text(customField.custftype!.typename.toString())));
-    sources.selectprospect.setSelected(BsSelectBoxOption(
-        value: customField.businesspartner!.bpid,
-        text: Text(customField.businesspartner!.bpname.toString())));
-    sources.newprospect.value = customField.allprospect ?? false;
-    sources.visible.value = customField.onlythisprospect ?? false;
+    sources.newprospect.value = customField.alldata ?? false;
+    sources.visible.value = customField.onlythisdata ?? false;
     sources.inputName.text = customField.custfname ?? '';
+    if (customField.custfreftype?.typename == 'Prospect')
+      data = 'Prospect';
+    else
+      data = 'Activity';
+
+    if (customField.onlythisdata == true) {
+      sources.selectprospect.clear();
+      if (customField.custfreftype?.typename == 'Prospect') {
+        sources.selectprospect.setSelected(BsSelectBoxOption(
+            value: customField.refprospect?.prospectid,
+            text: Text(
+                '${customField.refprospect?.prospectname ?? ''} || ${customField.refprospect?.prospectcust?.sbccstmname ?? ''}')));
+      } else {
+        sources.selectprospect.setSelected(BsSelectBoxOption(
+            value: customField.refactivity?.dayactid,
+            text: Text(
+                '${customField.refactivity?.dayactloclabel ?? ''} || ${customField.refactivity?.dayactdate ?? ''}')));
+      }
+    }
 
     sources.createdby.value = customField.custfcreatedby?.userfullname ?? '';
     sources.createddate.value = customField.createddate ?? '';

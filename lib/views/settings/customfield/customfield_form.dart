@@ -254,8 +254,8 @@ class CustomFieldFormView extends StatelessWidget implements EditViewContract {
       source.value.selectBp.setSelected(BsSelectBoxOption(
           value: customField.businesspartner!.bpid,
           text: Text(customField.businesspartner!.bpname.toString())));
-      source.value.newprospect.value = customField.onlythisprospect ?? false;
-      source.value.visible.value = customField.allprospect ?? false;
+      source.value.newprospect.value = customField.onlythisdata ?? false;
+      source.value.visible.value = customField.alldata ?? false;
       source.value.inputName.text = customField.custfname ?? '';
 
       source.value.createdby.value =

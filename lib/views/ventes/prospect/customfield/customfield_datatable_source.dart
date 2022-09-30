@@ -108,8 +108,8 @@ class CustomFieldPopUpDataTableSource extends BsDatatableSource {
                   onPressed: () => onDetailsListener(row.custfid!),
                 ),
               ),
-              if (row.onlythisprospect! &&
-                  row.thisprospectid! > controllers.prospectid.value)
+              if (row.onlythisdata! &&
+                  row.thisdataid! > controllers.prospectid.value)
                 Tooltip(
                   message: '${row.custfname} is Not Available',
                   child: ButtonXDatatables(

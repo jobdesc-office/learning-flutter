@@ -36,6 +36,7 @@ class PermissionRoleView extends GetView implements IndexViewContract {
           RouteList.master.index,
           RouteList.settingsPermission.index
         ],
+        background: true,
         child: Container(
           child: Column(
             children: [

@@ -100,8 +100,8 @@ class _TabCustomizeFieldDailyActivity extends StatelessWidget
     sources.selectprospect.setSelected(BsSelectBoxOption(
         value: customField.businesspartner!.bpid,
         text: Text(customField.businesspartner!.bpname.toString())));
-    sources.newprospect.value = customField.allprospect ?? false;
-    sources.visible.value = customField.onlythisprospect ?? false;
+    sources.newprospect.value = customField.alldata ?? false;
+    sources.visible.value = customField.onlythisdata ?? false;
     sources.inputName.text = customField.custfname ?? '';
 
     sources.createdby.value = customField.custfcreatedby?.userfullname ?? '';
