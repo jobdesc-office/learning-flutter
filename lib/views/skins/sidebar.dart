@@ -42,7 +42,8 @@ class SidebarSkins extends StatelessWidget {
   }
 
   Widget sidebar() {
-    var permis = authPresenter.rolepermis.value;
+    var permis = authPresenter.rolepermis.value
+        .where((element) => element.menutypeid == 8);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
