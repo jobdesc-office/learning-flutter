@@ -30,7 +30,7 @@ class ReportDetail extends GetView implements DetailViewContract {
       body: TemplateView(
         title: 'Report Details',
         breadcrumbs: [
-          BreadcrumbWidget('Venteses'),
+          BreadcrumbWidget('Ventes'),
           BreadcrumbWidget(
             'Report',
             back: true,

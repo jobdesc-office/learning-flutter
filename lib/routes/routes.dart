@@ -314,7 +314,7 @@ class AppRoute {
         }),
       ),
 
-      /** Venteses **/
+      /** Ventes **/
 
       CustomGetPage(
         name: RouteList.ventesSchedule.index,

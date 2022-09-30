@@ -33,7 +33,7 @@ class CompetitorDetails extends GetView implements DetailViewContract {
       body: TemplateView(
         title: 'Competitor Details',
         breadcrumbs: [
-          BreadcrumbWidget('Venteses'),
+          BreadcrumbWidget('Ventes'),
           BreadcrumbWidget('Competitors', back: true),
           BreadcrumbWidget('Competitor Details', active: true),
         ],

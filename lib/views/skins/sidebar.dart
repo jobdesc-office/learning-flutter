@@ -84,7 +84,8 @@ class SidebarSkins extends StatelessWidget {
                           false)
                       .map((e) => MenuDataGroup(
                             title: e.menunm,
-                            icon: parseIcon(e.menuicon),
+                            icon:
+                                e.menuicon != '' ? parseIcon(e.menuicon) : null,
                             children: e.children!
                                 .where((element) =>
                                     element.features

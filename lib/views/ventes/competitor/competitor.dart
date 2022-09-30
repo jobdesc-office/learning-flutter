@@ -29,7 +29,7 @@ class CompetitorView extends GetView implements IndexViewContract {
       body: TemplateView(
         title: 'Competitors',
         breadcrumbs: [
-          BreadcrumbWidget('Venteses'),
+          BreadcrumbWidget('Ventes'),
           BreadcrumbWidget('Competitors', active: true),
         ],
         activeRoutes: [

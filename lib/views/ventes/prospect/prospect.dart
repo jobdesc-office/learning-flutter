@@ -27,7 +27,7 @@ class ProspectView extends GetView implements IndexViewContract {
       body: TemplateView(
         title: 'Prospects',
         breadcrumbs: [
-          BreadcrumbWidget('Venteses'),
+          BreadcrumbWidget('Ventes'),
           BreadcrumbWidget('Prospect', active: true),
         ],
         activeRoutes: [RouteList.ventes.index, RouteList.ventesProspect.index],

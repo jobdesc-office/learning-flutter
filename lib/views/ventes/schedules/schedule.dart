@@ -44,7 +44,7 @@ class ScheduleView extends GetView
       body: TemplateView(
         title: ScheduleText.title,
         breadcrumbs: [
-          BreadcrumbWidget('Venteses'),
+          BreadcrumbWidget('Ventes'),
           BreadcrumbWidget('Schedule', active: true),
         ],
         activeRoutes: [RouteList.master.index, RouteList.ventesSchedule.index],

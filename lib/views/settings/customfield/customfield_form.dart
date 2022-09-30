@@ -39,7 +39,7 @@ class CustomFieldFormView extends StatelessWidget implements EditViewContract {
       body: TemplateView(
         title: 'Custom Field Form',
         breadcrumbs: [
-          BreadcrumbWidget('Venteses'),
+          BreadcrumbWidget('Ventes'),
           BreadcrumbWidget('Prospects'),
           BreadcrumbWidget('Custom Fields', back: true),
           BreadcrumbWidget('Custom Field Form', active: true),

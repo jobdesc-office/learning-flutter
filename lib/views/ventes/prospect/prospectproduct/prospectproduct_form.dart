@@ -44,7 +44,7 @@ class ProspectProductFormView extends StatelessWidget
       body: TemplateView(
         title: 'Prospect Product Form',
         breadcrumbs: [
-          BreadcrumbWidget('Venteses'),
+          BreadcrumbWidget('Ventes'),
           BreadcrumbWidget('Prospect'),
           BreadcrumbWidget('Prospect Details', back: true),
           BreadcrumbWidget('Prospect Product Form', active: true),

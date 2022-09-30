@@ -14,6 +14,8 @@ class AuthGuard extends StatelessWidget implements GuardContract {
   final String? parent2;
   final String? route;
 
+  var isProcessing = false.obs;
+
   AuthGuard({this.child, this.parent, this.parent2, this.route}) {
     authPresenter.guardContract = this;
     authPresenter.checkLocalSession();
@@ -24,7 +26,7 @@ class AuthGuard extends StatelessWidget implements GuardContract {
       if (authPresenter.isAuthenticated.value) {
         if (authPresenter.rolepermis.isNotEmpty) {
           try {
-            bool perm = false;
+            isProcessing.value = true;
             var permis = authPresenter.rolepermis.value
                 .where((element) =>
                     element.features
@@ -68,17 +70,22 @@ class AuthGuard extends StatelessWidget implements GuardContract {
               return child;
             }
           } catch (e) {
-            return Page404();
+            if (isProcessing.value) {
+              return Page404();
+            } else {
+              return loadingProcess();
+            }
           }
         }
 
         // return child;
       }
+    } else {
+      authPresenter.checkLocalSession();
+      return loadingProcess();
     }
 
-    // return loadingProcess();
-
-    return Page404();
+    // return Page404();
   }
 
   @override

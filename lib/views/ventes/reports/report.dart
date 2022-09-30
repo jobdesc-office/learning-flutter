@@ -58,10 +58,11 @@ class _ReportViewState extends State<ReportView>
       body: TemplateView(
         title: ReportText.title,
         breadcrumbs: [
-          BreadcrumbWidget('Venteses'),
+          BreadcrumbWidget('Ventes'),
           BreadcrumbWidget('Report', active: true),
         ],
         activeRoutes: [RouteList.master.index, RouteList.ventesReport.index],
+        background: true,
         child: Column(
           children: [
             Obx(() => Container(

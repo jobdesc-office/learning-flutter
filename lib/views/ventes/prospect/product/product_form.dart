@@ -29,7 +29,7 @@ class PProductFormFormView extends StatelessWidget {
       body: TemplateView(
         title: 'Product Form',
         breadcrumbs: [
-          BreadcrumbWidget('Venteses'),
+          BreadcrumbWidget('Ventes'),
           BreadcrumbWidget('Prospects'),
           BreadcrumbWidget('Prospect Form', back: true),
           BreadcrumbWidget('Product Form', active: true),

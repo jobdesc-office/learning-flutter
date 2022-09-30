@@ -37,7 +37,7 @@ class ProspectAssignFormView extends StatelessWidget
       body: TemplateView(
         title: 'Prospect Assign Form',
         breadcrumbs: [
-          BreadcrumbWidget('Venteses'),
+          BreadcrumbWidget('Ventes'),
           BreadcrumbWidget('Prospect'),
           BreadcrumbWidget('Prospect Details', back: true),
           BreadcrumbWidget('Prospect Assign Form', active: true),

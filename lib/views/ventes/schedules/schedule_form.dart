@@ -46,7 +46,7 @@ class ScheduleFormView extends StatelessWidget
       body: TemplateView(
         title: ScheduleText.title + ' Form',
         breadcrumbs: [
-          BreadcrumbWidget('Venteses'),
+          BreadcrumbWidget('Ventes'),
           BreadcrumbWidget('Schedules', back: true),
           BreadcrumbWidget('Schedule Form', active: true),
         ],
