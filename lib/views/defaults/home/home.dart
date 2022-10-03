@@ -31,6 +31,7 @@ import '../../skins/template.dart';
 import '_source.dart';
 import 'chart/_bycustlabel_chart.dart';
 import 'chart/_bystage_chart.dart';
+import 'chart/_byvalue_chart.dart';
 import 'chart/_leads_users_chart.dart';
 
 part '_filter.dart';
@@ -38,6 +39,7 @@ part 'home_component/_total_part.dart';
 part 'home_component/_chart_stage.dart';
 part 'home_component/_top10_part.dart';
 part 'home_component/_chart_custlabel.dart';
+part 'home_component/_chart_value.dart';
 
 part 'details/_custdetails.dart';
 part 'details/_statusdetails.dart';
@@ -156,6 +158,7 @@ class _HomeViewState extends State<HomeView>
                   stageChart(context),
                   top10(context),
                   chartCustLabel(),
+                  chartValue()
                 ],
               )
             ],
