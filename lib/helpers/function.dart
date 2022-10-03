@@ -94,6 +94,15 @@ formatBytes(int size, int precision) {
   return result;
 }
 
+formatCurrencies(int size) {
+  double res;
+  if (size <= 0) return "0";
+  // result =
+  //     ((size / pow(1024, i)).toStringAsFixed(precision)) + ' ' + suffixes[i];
+  res = size / 1;
+  return res;
+}
+
 extension Iterables<E> on Iterable<E> {
   Map<K, List<E>> groupBy<K>(K Function(E) keyFunction) => fold(
       <K, List<E>>{},

@@ -1,8 +1,10 @@
+import 'package:boilerplate/helpers/function.dart';
 import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../models/default/dspbycust_model.dart';
 import '../../../../presenters/navigation_presenter.dart';
 import '../_source.dart';
 
@@ -44,9 +46,11 @@ class _ChartByValueState extends State<ChartByValue> {
                   child: Padding(
                     padding: const EdgeInsets.only(
                         right: 18.0, left: 12.0, top: 24, bottom: 12),
-                    child: LineChart(
-                      showAvg ? avgData() : mainData(),
-                    ),
+                    child: Obx(() => LineChart(
+                          showAvg
+                              ? avgData(dspbyvalues())
+                              : mainData(dspbyvalues()),
+                        )),
                   ),
                 )),
           ),
@@ -86,40 +90,40 @@ class _ChartByValueState extends State<ChartByValue> {
     );
     Widget text;
     switch (value.toInt()) {
-      case 0:
+      case 1:
         text = const Text('JAN', style: style);
         break;
-      case 1:
+      case 2:
         text = const Text('FEB', style: style);
         break;
-      case 2:
+      case 3:
         text = const Text('MAR', style: style);
         break;
-      case 3:
+      case 4:
         text = const Text('APR', style: style);
         break;
-      case 4:
+      case 5:
         text = const Text('MAY', style: style);
         break;
-      case 5:
+      case 6:
         text = const Text('JUN', style: style);
         break;
-      case 6:
+      case 7:
         text = const Text('JUL', style: style);
         break;
-      case 7:
+      case 8:
         text = const Text('AUG', style: style);
         break;
-      case 8:
+      case 9:
         text = const Text('SEP', style: style);
         break;
-      case 9:
+      case 10:
         text = const Text('OCT', style: style);
         break;
-      case 10:
+      case 11:
         text = const Text('NOV', style: style);
         break;
-      case 11:
+      case 12:
         text = const Text('DEC', style: style);
         break;
       default:
@@ -142,14 +146,17 @@ class _ChartByValueState extends State<ChartByValue> {
     );
     String text;
     switch (value.toInt()) {
-      case 1:
-        text = '10K';
+      case 200:
+        text = '2 M';
         break;
-      case 3:
-        text = '30k';
+      case 400:
+        text = '4 M';
         break;
-      case 5:
-        text = '50k';
+      case 600:
+        text = '6 M';
+        break;
+      case 800:
+        text = '8 M';
         break;
       default:
         return Container();
@@ -158,7 +165,9 @@ class _ChartByValueState extends State<ChartByValue> {
     return Text(text, style: style, textAlign: TextAlign.left);
   }
 
-  LineChartData mainData() {
+  LineChartData mainData(List<FlSpot> data) {
+    data.add(FlSpot(0, 0));
+    data.sort(mySortComparison2);
     return LineChartData(
       gridData: FlGridData(
         show: true,
@@ -207,20 +216,12 @@ class _ChartByValueState extends State<ChartByValue> {
           show: true,
           border: Border.all(color: const Color(0xff37434d), width: 1)),
       minX: 0,
-      maxX: 11,
+      maxX: 12,
       minY: 0,
-      maxY: 6,
+      maxY: 1000,
       lineBarsData: [
         LineChartBarData(
-          spots: const [
-            FlSpot(0, 3),
-            FlSpot(2, 2),
-            FlSpot(4.9, 5),
-            FlSpot(6.8, 3.1),
-            FlSpot(8, 4),
-            FlSpot(9.5, 3),
-            FlSpot(11, 4),
-          ],
+          spots: data,
           isCurved: true,
           gradient: LinearGradient(
             colors: gradientColors,
@@ -247,7 +248,9 @@ class _ChartByValueState extends State<ChartByValue> {
     );
   }
 
-  LineChartData avgData() {
+  LineChartData avgData(List<FlSpot> data) {
+    data.add(FlSpot(0, 0));
+    data.sort(mySortComparison2);
     return LineChartData(
       lineTouchData: LineTouchData(enabled: false),
       gridData: FlGridData(
@@ -297,20 +300,12 @@ class _ChartByValueState extends State<ChartByValue> {
           show: true,
           border: Border.all(color: const Color(0xff37434d), width: 1)),
       minX: 0,
-      maxX: 11,
+      maxX: 12,
       minY: 0,
-      maxY: 6,
+      maxY: 1000,
       lineBarsData: [
         LineChartBarData(
-          spots: const [
-            FlSpot(0, 3.44),
-            FlSpot(2, 3.44),
-            FlSpot(4.9, 3.44),
-            FlSpot(6.8, 3.44),
-            FlSpot(8, 3.44),
-            FlSpot(9.5, 3.44),
-            FlSpot(11, 3.44),
-          ],
+          spots: data,
           isCurved: true,
           gradient: LinearGradient(
             colors: [
@@ -345,5 +340,58 @@ class _ChartByValueState extends State<ChartByValue> {
         ),
       ],
     );
+  }
+
+  int mySortComparison(DspbycustModel a, DspbycustModel b) {
+    final propertyA = a.prospectmm ?? 0;
+    final propertyB = b.prospectmm ?? 0;
+    if (propertyA < propertyB) {
+      return -1;
+    } else if (propertyA > propertyB) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+
+  int mySortComparison2(FlSpot a, FlSpot b) {
+    final propertyA = a.x;
+    final propertyB = b.x;
+    if (propertyA < propertyB) {
+      return -1;
+    } else if (propertyA > propertyB) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+
+  List<FlSpot> dspbyvalues() {
+    return (source.bycustall..sort(mySortComparison))
+        .where((p0) => p0.prospectyy == DateTime.now().year)
+        .groupBy((p0) => p0.prospectmm)
+        .values
+        .map((e) {
+      int total = 0;
+      for (var element in e) {
+        int x;
+        switch (element.prospectvalue.toString().length) {
+          case 7:
+            x = 3;
+            break;
+          case 10:
+            x = 2;
+            break;
+          case 13:
+            x = 1;
+            break;
+          default:
+            x = 0;
+        }
+        total += parseInt(
+            parseDouble(element.prospectvalue.toString().substring(1, 3)));
+      }
+      return FlSpot(parseDouble(e.first.prospectmm), parseDouble(total));
+    }).toList();
   }
 }

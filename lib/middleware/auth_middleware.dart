@@ -14,7 +14,7 @@ class AuthMiddleware extends GetMiddleware {
       return RouteSettings(name: RouteList.sigin.index);
     } else if (authPresenter.isAuthenticated.value &&
         route == RouteList.sigin.index) {
-      return RouteSettings(name: RouteList.ventesProspect.index);
+      return RouteSettings(name: RouteList.home.index);
     }
 
     return null;
