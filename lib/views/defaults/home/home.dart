@@ -42,6 +42,7 @@ part 'home_component/_chart_custlabel.dart';
 part 'home_component/_chart_value.dart';
 
 part 'details/_custdetails.dart';
+part 'details/_valuedetails.dart';
 part 'details/_statusdetails.dart';
 part 'details/_stagedetails.dart';
 part 'details/_custlabeldetails.dart';

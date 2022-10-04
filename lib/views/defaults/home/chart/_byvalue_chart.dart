@@ -3,10 +3,12 @@ import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../models/default/dspbycust_model.dart';
 import '../../../../presenters/navigation_presenter.dart';
 import '../_source.dart';
+import '../home.dart';
 
 final source = Get.put(HomeSource());
 final _navigation = Get.find<NavigationPresenter>();
@@ -25,6 +27,12 @@ class _ChartByValueState extends State<ChartByValue> {
   ];
 
   bool showAvg = false;
+
+  List<DspbycustModel> alldata = [];
+  List<List<DspbycustModel>> alldatas = [];
+
+  final currencyFormatter = NumberFormat('#,##0.00', 'ID');
+  int touchedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -46,36 +54,15 @@ class _ChartByValueState extends State<ChartByValue> {
                   child: Padding(
                     padding: const EdgeInsets.only(
                         right: 18.0, left: 12.0, top: 24, bottom: 12),
-                    child: Obx(() => LineChart(
-                          showAvg
-                              ? avgData(dspbyvalues())
-                              : mainData(dspbyvalues()),
-                        )),
+                    child: LineChart(
+                      mainData(
+                          dspbyvalues(),
+                          _navigation.darkTheme.value
+                              ? ColorPallates.elseDarkColor
+                              : Colors.white),
+                    ),
                   ),
                 )),
-          ),
-          SizedBox(
-            width: 60,
-            height: 34,
-            child: TextButton(
-              onPressed: () {
-                setState(() {
-                  showAvg = !showAvg;
-                });
-              },
-              child: Obx(() => Text(
-                    'avg',
-                    style: TextStyle(
-                        fontSize: 12,
-                        color: _navigation.darkTheme.value
-                            ? showAvg
-                                ? Colors.grey.withOpacity(0.5)
-                                : Colors.grey
-                            : showAvg
-                                ? Colors.black.withOpacity(0.5)
-                                : Colors.black),
-                  )),
-            ),
           ),
         ],
       ),
@@ -146,17 +133,35 @@ class _ChartByValueState extends State<ChartByValue> {
     );
     String text;
     switch (value.toInt()) {
+      case 100:
+        text = '10 T';
+        break;
       case 200:
-        text = '2 M';
+        text = '20 T';
+        break;
+      case 300:
+        text = '30 T';
         break;
       case 400:
-        text = '4 M';
+        text = '40 T';
+        break;
+      case 500:
+        text = '50 T';
         break;
       case 600:
-        text = '6 M';
+        text = '60 T';
+        break;
+      case 700:
+        text = '70 T';
         break;
       case 800:
-        text = '8 M';
+        text = '80 T';
+        break;
+      case 900:
+        text = '90 T';
+        break;
+      case 1000:
+        text = '100 T';
         break;
       default:
         return Container();
@@ -165,7 +170,7 @@ class _ChartByValueState extends State<ChartByValue> {
     return Text(text, style: style, textAlign: TextAlign.left);
   }
 
-  LineChartData mainData(List<FlSpot> data) {
+  LineChartData mainData(List<FlSpot> data, Color theme) {
     data.add(FlSpot(0, 0));
     data.sort(mySortComparison2);
     return LineChartData(
@@ -175,14 +180,53 @@ class _ChartByValueState extends State<ChartByValue> {
         horizontalInterval: 1,
         verticalInterval: 1,
         getDrawingHorizontalLine: (value) {
+          Color color;
+          switch (value.toInt()) {
+            case 100:
+              color = Colors.grey;
+              break;
+            case 200:
+              color = Colors.grey;
+              break;
+            case 300:
+              color = Colors.grey;
+              break;
+            case 400:
+              color = Colors.grey;
+              break;
+            case 500:
+              color = Colors.grey;
+              break;
+            case 600:
+              color = Colors.grey;
+              break;
+            case 700:
+              color = Colors.grey;
+              break;
+            case 800:
+              color = Colors.grey;
+              break;
+            case 900:
+              color = Colors.grey;
+              break;
+            case 1000:
+              color = Colors.grey;
+              break;
+            default:
+              return FlLine(
+                color: theme,
+                strokeWidth: 1,
+              );
+          }
+
           return FlLine(
-            color: const Color(0xff37434d),
+            color: color,
             strokeWidth: 1,
           );
         },
         getDrawingVerticalLine: (value) {
           return FlLine(
-            color: const Color(0xff37434d),
+            color: theme,
             strokeWidth: 1,
           );
         },
@@ -213,12 +257,74 @@ class _ChartByValueState extends State<ChartByValue> {
         ),
       ),
       borderData: FlBorderData(
-          show: true,
-          border: Border.all(color: const Color(0xff37434d), width: 1)),
+        show: false,
+        // border: Border.all(color: const Color(0xff37434d), width: 1)
+      ),
       minX: 0,
       maxX: 12,
       minY: 0,
       maxY: 1000,
+      lineTouchData: LineTouchData(
+          touchCallback: (FlTouchEvent event, touchResponse) {
+            if (event is FlTapUpEvent) {
+              if (touchResponse?.lineBarSpots?.first.spotIndex != -1) {
+                int index = touchResponse?.lineBarSpots?.first.spotIndex ?? 0;
+                index--;
+                if (index != -1)
+                  showDialog(
+                    context: context,
+                    builder: (context) => ValueDetails(
+                      model: alldatas[index],
+                    ),
+                  );
+              }
+            }
+          },
+          getTouchedSpotIndicator:
+              (LineChartBarData barData, List<int> spotIndexes) {
+            return spotIndexes.map((index) {
+              return TouchedSpotIndicatorData(
+                FlLine(
+                  color: Colors.pink,
+                ),
+                FlDotData(
+                  show: true,
+                  getDotPainter: (spot, percent, barData, index) =>
+                      FlDotCirclePainter(
+                    radius: 8,
+                    strokeWidth: 2,
+                    strokeColor: Colors.black,
+                  ),
+                ),
+              );
+            }).toList();
+          },
+          touchTooltipData: LineTouchTooltipData(
+            tooltipBgColor: ColorPallates.primary,
+            tooltipRoundedRadius: 8,
+            getTooltipItems: (List<LineBarSpot> lineBarsSpot) {
+              return lineBarsSpot.map((lineBarSpot) {
+                if (lineBarSpot.spotIndex != 0) {
+                  return LineTooltipItem(
+                    'Rp ' +
+                        currencyFormatter
+                            .format(double.parse(
+                                alldata[lineBarSpot.spotIndex - 1]
+                                    .prospectvalue
+                                    .toString()))
+                            .replaceAll(',00', '')
+                            .replaceAll('.', ','),
+                    const TextStyle(
+                        fontSize: 12,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  );
+                } else {
+                  return null;
+                }
+              }).toList();
+            },
+          )),
       lineBarsData: [
         LineChartBarData(
           spots: data,
@@ -239,100 +345,6 @@ class _ChartByValueState extends State<ChartByValue> {
               colors: gradientColors
                   .map((color) => color.withOpacity(0.3))
                   .toList(),
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  LineChartData avgData(List<FlSpot> data) {
-    data.add(FlSpot(0, 0));
-    data.sort(mySortComparison2);
-    return LineChartData(
-      lineTouchData: LineTouchData(enabled: false),
-      gridData: FlGridData(
-        show: true,
-        drawHorizontalLine: true,
-        verticalInterval: 1,
-        horizontalInterval: 1,
-        getDrawingVerticalLine: (value) {
-          return FlLine(
-            color: const Color(0xff37434d),
-            strokeWidth: 1,
-          );
-        },
-        getDrawingHorizontalLine: (value) {
-          return FlLine(
-            color: const Color(0xff37434d),
-            strokeWidth: 1,
-          );
-        },
-      ),
-      titlesData: FlTitlesData(
-        show: true,
-        bottomTitles: AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: true,
-            reservedSize: 30,
-            getTitlesWidget: bottomTitleWidgets,
-            interval: 1,
-          ),
-        ),
-        leftTitles: AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: true,
-            getTitlesWidget: leftTitleWidgets,
-            reservedSize: 42,
-            interval: 1,
-          ),
-        ),
-        topTitles: AxisTitles(
-          sideTitles: SideTitles(showTitles: false),
-        ),
-        rightTitles: AxisTitles(
-          sideTitles: SideTitles(showTitles: false),
-        ),
-      ),
-      borderData: FlBorderData(
-          show: true,
-          border: Border.all(color: const Color(0xff37434d), width: 1)),
-      minX: 0,
-      maxX: 12,
-      minY: 0,
-      maxY: 1000,
-      lineBarsData: [
-        LineChartBarData(
-          spots: data,
-          isCurved: true,
-          gradient: LinearGradient(
-            colors: [
-              ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                  .lerp(0.2)!,
-              ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                  .lerp(0.2)!,
-            ],
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-          ),
-          barWidth: 5,
-          isStrokeCapRound: true,
-          dotData: FlDotData(
-            show: false,
-          ),
-          belowBarData: BarAreaData(
-            show: true,
-            gradient: LinearGradient(
-              colors: [
-                ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                    .lerp(0.2)!
-                    .withOpacity(0.1),
-                ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                    .lerp(0.2)!
-                    .withOpacity(0.1),
-              ],
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
             ),
@@ -367,30 +379,26 @@ class _ChartByValueState extends State<ChartByValue> {
   }
 
   List<FlSpot> dspbyvalues() {
+    int index = -1;
     return (source.bycustall..sort(mySortComparison))
         .where((p0) => p0.prospectyy == DateTime.now().year)
         .groupBy((p0) => p0.prospectmm)
         .values
         .map((e) {
       int total = 0;
+      int totalvalid = 0;
       for (var element in e) {
-        int x;
-        switch (element.prospectvalue.toString().length) {
-          case 7:
-            x = 3;
-            break;
-          case 10:
-            x = 2;
-            break;
-          case 13:
-            x = 1;
-            break;
-          default:
-            x = 0;
+        if (element.prospectvalue.toString().length > 9) {
+          index = 2;
+        } else {
+          index = 1;
         }
-        total += parseInt(
-            parseDouble(element.prospectvalue.toString().substring(1, 3)));
+        totalvalid += parseInt(element.prospectvalue);
+        total += parseInt(element.prospectvalue.toString().substring(0, index));
       }
+      alldatas.add(e);
+      alldata.add(DspbycustModel(
+          prospectvalue: totalvalid, prospectmm: e.first.prospectmm));
       return FlSpot(parseDouble(e.first.prospectmm), parseDouble(total));
     }).toList();
   }
