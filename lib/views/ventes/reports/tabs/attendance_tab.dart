@@ -146,7 +146,6 @@ class AttendanceTab extends StatelessWidget implements IndexViewContract {
 
   @override
   void onLoadDatatables(BuildContext context, Response response) {
-    datatable = AttendanceDataTableSource();
     map.reset();
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);

@@ -72,6 +72,5 @@ class ReportEmployees extends GetView implements IndexViewContract {
   @override
   void onLoadDatatables(BuildContext context, Response response) {
     datatable.response = BsDatatableResponse.createFromJson(response.body);
-    datatable.reload();
   }
 }

@@ -38,34 +38,29 @@ class _ChartByValueState extends State<ChartByValue> {
   Widget build(BuildContext context) {
     return Obx(() => Container(
           padding: EdgeInsets.all(5),
-          child: Stack(
-            children: <Widget>[
-              if (source.bycustall.isNotEmpty)
-                AspectRatio(
-                  aspectRatio: 1.79,
-                  child: Container(
-                    padding: EdgeInsets.only(right: 5),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(5),
-                        ),
-                        color: _navigation.darkTheme.value
-                            ? ColorPallates.elseDarkColor
-                            : Colors.white),
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          right: 18.0, left: 12.0, top: 24, bottom: 12),
-                      child: LineChart(
-                        mainData(
-                            dspbyvalues(),
-                            _navigation.darkTheme.value
-                                ? ColorPallates.elseDarkColor
-                                : Colors.white),
-                      ),
-                    ),
+          child: AspectRatio(
+            aspectRatio: 1.79,
+            child: Container(
+              padding: EdgeInsets.only(right: 5),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(5),
                   ),
+                  color: _navigation.darkTheme.value
+                      ? ColorPallates.elseDarkColor
+                      : Colors.white),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    right: 18.0, left: 12.0, top: 24, bottom: 12),
+                child: LineChart(
+                  mainData(
+                      dspbyvalues(),
+                      _navigation.darkTheme.value
+                          ? ColorPallates.elseDarkColor
+                          : Colors.white),
                 ),
-            ],
+              ),
+            ),
           ),
         ));
   }
