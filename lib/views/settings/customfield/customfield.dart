@@ -62,7 +62,7 @@ class CustomFieldView extends GetView implements IndexViewContract {
     presenter.setProcessing(false);
     datatable.controller.reload();
     if (context != null) Navigator.pop(context);
-    Snackbar().createSuccess();
+    Snackbar().createSuccess(context!);
   }
 
   @override
@@ -72,7 +72,7 @@ class CustomFieldView extends GetView implements IndexViewContract {
     presenter.setProcessing(false);
     datatable.controller.reload();
     if (context != null) Navigator.pop(context);
-    Snackbar().deleteSuccess();
+    Snackbar().deleteSuccess(context!);
   }
 
   @override
@@ -82,7 +82,7 @@ class CustomFieldView extends GetView implements IndexViewContract {
     presenter.setProcessing(false);
     datatable.controller.reload();
     if (context != null) Navigator.pop(context);
-    Snackbar().editSuccess();
+    Snackbar().editSuccess(context!);
   }
 
   @override
@@ -95,7 +95,7 @@ class CustomFieldView extends GetView implements IndexViewContract {
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onDetailsListener =
-        (userid) => presenter.details(context, userid);
+        (userid) => presenter.details(context, userid, 'data');
     datatable.onEditListener =
         (countryid) => presenter.edit(context, countryid);
     datatable.onDeleteListener =

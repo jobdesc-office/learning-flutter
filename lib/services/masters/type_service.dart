@@ -14,6 +14,10 @@ class TypeService extends ApiConnectProvider {
     return get('$api/by-code', query: {'typecd': typecd});
   }
 
+  Future<Response> byCodeAdd(Map<String, dynamic> params) {
+    return get('$api/by-code-add', query: params);
+  }
+
   Future<Response> bySeq(String typecd) {
     return get('$api/bySeq', query: {'typecd': typecd});
   }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:boilerplate/constants/base_text.dart';
 import 'package:boilerplate/helpers/function.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
@@ -22,10 +24,6 @@ class ProspectDataTableSource extends BsDatatableSource {
   ValueChanged<int> onDetailsListener = (value) {};
   ValueChanged<int> onEditListener = (value) {};
   Function onDeleteListener = (value, name) {};
-
-  ProspectDataTableSource({
-    List data = const [],
-  }) : super(data: data);
 
   List<BsDataColumn> get columns {
     return <BsDataColumn>[
@@ -77,22 +75,26 @@ class ProspectDataTableSource extends BsDatatableSource {
   BsDataRow getRow(int index) {
     final row = users[index];
     int x = controller.start + index + 1;
-    var contact;
-    if (row.prospectcust!.sbccstm!.cstmcontact!.isNotEmpty) {
-      if (_navigation.isCollapse.value) {
-        contact = Row(
-          children: [
-            Text(' | '),
-            Text(row.prospectcust!.sbccstm!.cstmcontact!.first.contactvalueid ??
-                '-'),
-          ],
-        );
-      } else {
-        contact = Text('');
-      }
-    } else {
-      contact = Text('');
-    }
+    // var contact;
+    // if (row.prospectcust!.sbccstm!.cstmcontact!.isNotEmpty) {
+    //   if (_navigation.isCollapse.value) {
+    //     contact = Row(
+    //       children: [
+    //         Text(' | '),
+    //         Text(row.prospectcust!.sbccstm!.cstmcontact!.first.contactvalueid ??
+    //             '-'),
+    //       ],
+    //     );
+    //   } else {
+    //     contact = Text('');
+    //   }
+    // } else {
+    //   contact = Text('');
+    // }
+    Map<String, dynamic> colors = {};
+    String remark =
+        row.prospectstatus?.sbtremark?.replaceAll('&quot;', '"') ?? '';
+    if (row.prospectstatus?.sbtremark != null) colors = jsonDecode(remark);
     return BsDataRow(
       index: index,
       cells: [
@@ -150,7 +152,7 @@ class ProspectDataTableSource extends BsDatatableSource {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(row.prospectstage!.typename.toString()),
+              Text(row.prospectstage?.sbttypename ?? ''),
               Text(''),
               if (_navigation.isCollapse.value) Text(''),
             ],
@@ -167,30 +169,49 @@ class ProspectDataTableSource extends BsDatatableSource {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (row.prospectstatus!.typename == 'Closed Won')
+              if (row.prospectstatus?.sbttypename != 'Closed Won' &&
+                  row.prospectstatus?.sbttypename != 'Closed Lost' &&
+                  row.prospectstatus?.sbttypename != 'Force Closed' &&
+                  row.prospectstatus?.sbtremark != null)
                 Container(
                   child: Text(
-                    row.prospectstatus!.typename.toString(),
-                    style: TextStyle(color: Colors.white),
+                    row.prospectstatus?.sbttypename ?? '',
+                    style: TextStyle(
+                        color: Color(
+                      parseInt(colors['textcolor']),
+                    )),
                   ),
                   padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
                   decoration: BoxDecoration(
-                      color: Colors.green,
-                      borderRadius: BorderRadius.circular(5)),
-                )
-              else if (row.prospectstatus!.typename == 'Closed Lost')
-                Container(
-                  child: Text(
-                    row.prospectstatus!.typename.toString(),
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
-                  decoration: BoxDecoration(
-                      color: Colors.red,
+                      color: Color(parseInt(colors['color'])),
                       borderRadius: BorderRadius.circular(5)),
                 )
               else
-                Text(row.prospectstatus!.typename.toString()),
+                Container(
+                  child: Text(
+                    row.prospectstatus?.sbttypename ?? '',
+                    style: TextStyle(
+                        color: row.prospectstatus?.sbttypename == 'Closed Won'
+                            ? Colors.white
+                            : row.prospectstatus?.sbttypename == 'Closed Lost'
+                                ? Colors.white
+                                : row.prospectstatus?.sbttypename ==
+                                        'Force Closed'
+                                    ? Colors.white
+                                    : null),
+                  ),
+                  padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: row.prospectstatus?.sbttypename == 'Closed Won'
+                        ? Colors.green
+                        : row.prospectstatus?.sbttypename == 'Closed Lost'
+                            ? Colors.red
+                            : row.prospectstatus?.sbttypename == 'Force Closed'
+                                ? Colors.red
+                                : Colors.transparent,
+                  ),
+                ),
               Text(''),
               if (_navigation.isCollapse.value) Text(''),
             ],
@@ -235,7 +256,7 @@ class ProspectDataTableSource extends BsDatatableSource {
                     row.prospectcust!.sbccstmphone ?? '-',
                     style: TextStyle(fontSize: 13),
                   ),
-                  contact
+                  // contact
                   // Text(row.prospectcust!.sbccstmphone ?? '-',
                   //     style: TextStyle(fontSize: 13))
                 ],

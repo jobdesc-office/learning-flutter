@@ -31,7 +31,7 @@ class ProspectContactSource {
     SessionModel session = await SessionManager.current();
     return {
       'contactname': inputName.text,
-      'contactcustomerid': id.value,
+      'contactbpcustomerid': id.value,
       'contacttypeid': selectType.getSelectedAsString(),
       'contactvalueid': inputValue.text,
       'createdby': session.userid,

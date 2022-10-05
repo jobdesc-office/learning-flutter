@@ -28,6 +28,9 @@ class PCustomerFormFormView extends StatelessWidget
 
   late PCustomerForm pCustomerForm;
 
+  var isEdit = false.obs;
+  var isForm = false.obs;
+
   PCustomerFormFormView() {
     cpresenter.customerAddresContract = this;
   }
@@ -38,7 +41,7 @@ class PCustomerFormFormView extends StatelessWidget
       body: TemplateView(
         title: 'Customer Form',
         breadcrumbs: [
-          BreadcrumbWidget('Venteses'),
+          BreadcrumbWidget('Ventes'),
           BreadcrumbWidget('Prospects'),
           BreadcrumbWidget('Prospect Form', back: true),
           BreadcrumbWidget('Customer Form', active: true),

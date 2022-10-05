@@ -22,6 +22,7 @@ class CustomBsDataColumn extends BsDataColumn {
     this.searchValue = '',
     this.searchRegex = 'false',
     this.columnName,
+    this.columnKey,
     this.columnData,
     this.orderState = const BsOrderColumn(),
     required this.label,
@@ -50,6 +51,8 @@ class CustomBsDataColumn extends BsDataColumn {
   final String searchRegex;
 
   BsOrderColumn orderState;
+
+  final dynamic columnKey;
 
   final String? columnName;
 

@@ -7,8 +7,8 @@ import '../../constants/config_types.dart';
 import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
-import '../../models/masters/type_model.dart';
-import '../../services/masters/type_service.dart';
+import '../../models/settings/stbptype_model.dart';
+import '../../services/masters/stbptype_service.dart';
 import '../../services/ventes/prospect_service.dart';
 import '../../utils/custom_get_controller.dart';
 import '../../views/masters/menus/_menu_type.dart';
@@ -21,7 +21,7 @@ import '../../widgets/confirm_dialog.dart';
 
 class ProspectPresenter extends CustomGetXController {
   final _prospectService = Get.find<ProspectService>();
-  final _typeService = Get.put(TypeService());
+  final _typeService = Get.put(StBpTypeService());
 
   late IndexViewContract _prospectViewContract;
   set prospectViewContract(IndexViewContract prospectViewContract) {
@@ -87,38 +87,38 @@ class ProspectPresenter extends CustomGetXController {
   Future lostStatus() async {
     Response response = await _typeService.byCode(ConfigType.prospectStatus);
     if (response.statusCode == 200) {
-      List<TypeModel> data = [];
+      List<StbptypeModel> data = [];
       for (var item in response.body) {
-        data.add(TypeModel.fromJson(item));
+        data.add(StbptypeModel.fromJson(item));
       }
-      data.removeWhere((element) => element.typename != 'Closed Lost');
-      return data.first.typeid;
+      data.removeWhere((element) => element.sbttypename != 'Closed Lost');
+      return data.first.sbtid;
     }
     return null;
   }
 
-  Future completePipeline() async {
-    Response response = await _typeService.byCode(ConfigType.prospectStage);
-    if (response.statusCode == 200) {
-      List<TypeModel> data = [];
-      for (var item in response.body) {
-        data.add(TypeModel.fromJson(item));
-      }
-      data.removeWhere((element) => element.typename != 'Negotiate');
-      return data.first;
-    }
-    return null;
-  }
+  // Future completePipeline() async {
+  //   Response response = await _typeService.byCode(ConfigType.prospectStage);
+  //   if (response.statusCode == 200) {
+  //     List<StbptypeModel> data = [];
+  //     for (var item in response.body) {
+  //       data.add(StbptypeModel.fromJson(item));
+  //     }
+  //     data.removeWhere((element) => element.sbttypename != 'Negotiate');
+  //     return data.first;
+  //   }
+  //   return null;
+  // }
 
   Future wonStatus() async {
     Response response = await _typeService.byCode(ConfigType.prospectStatus);
     if (response.statusCode == 200) {
-      List<TypeModel> data = [];
+      List<StbptypeModel> data = [];
       for (var item in response.body) {
-        data.add(TypeModel.fromJson(item));
+        data.add(StbptypeModel.fromJson(item));
       }
-      data.removeWhere((element) => element.typename != 'Closed Won');
-      return data.first.typeid;
+      data.removeWhere((element) => element.sbttypename != 'Closed Won');
+      return data.first.sbtid;
     }
     return null;
   }

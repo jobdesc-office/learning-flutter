@@ -40,6 +40,11 @@ class UserPresenter extends CustomGetXController {
     _userResetContract = userFetchDataContract;
   }
 
+  late EditViewContract _usersFetchDataContract;
+  set usersFetchDataContract(EditViewContract usersFetchDataContract) {
+    _usersFetchDataContract = usersFetchDataContract;
+  }
+
   Future datatables(BuildContext context, Map<String, String> params) async {
     Response response = await _userService.datatables(params);
     if (response.statusCode == 200)
@@ -118,6 +123,16 @@ class UserPresenter extends CustomGetXController {
     Response response = await _userService.show(userid);
     if (response.statusCode == 200)
       _userFetchDataContract.onSuccessFetchData(response);
+    else
+      _userViewContract.onErrorRequest(response);
+  }
+
+  void edits(BuildContext context, int userid) async {
+    setProcessing(true);
+
+    Response response = await _userService.show(userid);
+    if (response.statusCode == 200)
+      _usersFetchDataContract.onSuccessFetchData(response);
     else
       _userViewContract.onErrorRequest(response);
   }

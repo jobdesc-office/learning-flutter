@@ -29,7 +29,7 @@ class CompetitorView extends GetView implements IndexViewContract {
       body: TemplateView(
         title: 'Competitors',
         breadcrumbs: [
-          BreadcrumbWidget('Venteses'),
+          BreadcrumbWidget('Ventes'),
           BreadcrumbWidget('Competitors', active: true),
         ],
         activeRoutes: [
@@ -66,7 +66,7 @@ class CompetitorView extends GetView implements IndexViewContract {
     presenter.setProcessing(false);
     datatable.controller.reload();
     if (context != null) Navigator.pop(context);
-    Snackbar().createSuccess();
+    Snackbar().createSuccess(context!);
   }
 
   @override
@@ -76,7 +76,7 @@ class CompetitorView extends GetView implements IndexViewContract {
     presenter.setProcessing(false);
     datatable.controller.reload();
     if (context != null) Navigator.pop(context);
-    Snackbar().deleteSuccess();
+    Snackbar().deleteSuccess(context!);
   }
 
   @override
@@ -86,7 +86,7 @@ class CompetitorView extends GetView implements IndexViewContract {
     presenter.setProcessing(false);
     datatable.controller.reload();
     if (context != null) Navigator.pop(context);
-    Snackbar().editSuccess();
+    Snackbar().editSuccess(context!);
   }
 
   @override

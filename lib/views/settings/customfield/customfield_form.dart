@@ -39,7 +39,7 @@ class CustomFieldFormView extends StatelessWidget implements EditViewContract {
       body: TemplateView(
         title: 'Custom Field Form',
         breadcrumbs: [
-          BreadcrumbWidget('Venteses'),
+          BreadcrumbWidget('Ventes'),
           BreadcrumbWidget('Prospects'),
           BreadcrumbWidget('Custom Fields', back: true),
           BreadcrumbWidget('Custom Field Form', active: true),
@@ -254,8 +254,8 @@ class CustomFieldFormView extends StatelessWidget implements EditViewContract {
       source.value.selectBp.setSelected(BsSelectBoxOption(
           value: customField.businesspartner!.bpid,
           text: Text(customField.businesspartner!.bpname.toString())));
-      source.value.newprospect.value = customField.onlythisprospect ?? false;
-      source.value.visible.value = customField.allprospect ?? false;
+      source.value.newprospect.value = customField.onlythisdata ?? false;
+      source.value.visible.value = customField.alldata ?? false;
       source.value.inputName.text = customField.custfname ?? '';
 
       source.value.createdby.value =

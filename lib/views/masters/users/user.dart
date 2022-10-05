@@ -1,3 +1,4 @@
+import 'package:boilerplate/models/masters/user_model.dart';
 import 'package:boilerplate/utils/handle_error_request.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
@@ -16,15 +17,19 @@ import '_datatable_source.dart';
 import '_form_source.dart';
 import '_text.dart';
 
+// ignore: must_be_immutable
 class UserView extends GetView
     implements IndexViewContract, HandleErrorRequest, UserResetContract {
   final presenter = Get.find<UserPresenter>();
-  final datatable = UserDataTableSource();
+  late UserDataTableSource datatable;
   final UserSource c = Get.put(UserSource());
 
   UserView() {
     presenter.userViewContract = this;
     presenter.userResetContract = this;
+    datatable = UserDataTableSource(data: [
+      UserModel(userfullname: 'Data Baru').toJson(),
+    ]);
   }
 
   @override
@@ -47,6 +52,19 @@ class UserView extends GetView
                 headerActions: [
                   ThemeButtonCreate(
                     prefix: UserText.title,
+                    onPressed: () {
+                      print(datatable.localData);
+                    },
+                  ),
+                  ThemeButtonCreate(
+                    prefix: UserText.title,
+                    onPressed: () {
+                      datatable.add(UserModel(userfullname: 'Add 1').toJson());
+                      datatable.reload();
+                    },
+                  ),
+                  ThemeButtonCreate(
+                    prefix: UserText.title,
                     onPressed: () => presenter.add(context),
                   )
                 ],
@@ -64,7 +82,7 @@ class UserView extends GetView
     presenter.setProcessing(false);
     datatable.controller.reload();
     if (context != null) Navigator.pop(context);
-    Snackbar().createSuccess();
+    Snackbar().createSuccess(context!);
   }
 
   @override
@@ -72,7 +90,7 @@ class UserView extends GetView
     presenter.setProcessing(false);
     datatable.controller.reload();
     if (context != null) Navigator.pop(context);
-    Snackbar().deleteSuccess();
+    Snackbar().deleteSuccess(context!);
   }
 
   @override
@@ -81,7 +99,7 @@ class UserView extends GetView
     presenter.setProcessing(false);
     datatable.controller.reload();
     if (context != null) Navigator.pop(context);
-    Snackbar().editSuccess();
+    Snackbar().editSuccess(context!);
   }
 
   @override

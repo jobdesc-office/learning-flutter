@@ -13,6 +13,7 @@ import 'package:intl/intl.dart';
 import '../../../constants/base_text.dart';
 import '../../../helpers/function.dart';
 import '../../../models/session_model.dart';
+import '../../../presenters/masters/product_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../styles/color_palattes.dart';
 import '../../../utils/select_api.dart';
@@ -23,11 +24,11 @@ import '../../../widgets/form_group.dart';
 import '../../../widgets/input/custom_input.dart';
 import '../../../widgets/input/custom_input_currency.dart';
 import '../../../widgets/selectbox/custom_selectbox.dart';
-import '../../masters/menus/_menu_type.dart';
+import '../../masters/menus/_menu_sbttype.dart';
 import '_text.dart';
-import 'product/product_form.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
+final presenter = Get.find<ProductPresenter>();
 
 class ProspectSource extends GetxController {
   bool isProcessing = false;
@@ -69,8 +70,8 @@ class ProspectSource extends GetxController {
     }));
   }
 
-  MenuTypeOptionsController prospectStageController =
-      MenuTypeOptionsController();
+  MenuSbttypeOptionsController prospectStageController =
+      MenuSbttypeOptionsController();
 
   BsSelectBoxController selectCurrency = BsSelectBoxController(options: [
     BsSelectBoxOption(value: '1', text: Text('ID Rupiah')),
@@ -197,7 +198,9 @@ class ProspectSource extends GetxController {
       'prospectdescription': inputDesc.text,
       'prospectcustid': selectCustomer.getSelectedAsString(),
       'prospectcustlabel': selectCustLab.getSelectedAsString(),
-      'prospectrefid': selectReference.getSelectedAsString(),
+      'prospectrefid': selectReference.getSelectedAsString() != ''
+          ? selectReference.getSelectedAsString()
+          : null,
       'createdby': session.userid,
       'updatedby': session.userid,
       'isactive': isactive.value,
@@ -336,7 +339,7 @@ class ProspectForm {
           style: TextStyle(
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
-      child: MenuTypeOptions(
+      child: MenuSbttypeOptions(
         controller: source.prospectStageController,
       ),
     );
@@ -608,18 +611,20 @@ class ProspectForm {
                             validators: [
                               Validators.selectRequired(ProspectText.labelItem)
                             ],
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(top: 3),
-                            child: InkWell(
-                              onTap: () => Get.to(PProductFormFormView()),
-                              child: Container(
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    'Add More Item',
-                                    style: TextStyle(color: Colors.blue),
-                                  )),
-                            ),
+                            onChange: (val) async {
+                              if (val.getValueAsString() == 'add') {
+                                SessionModel session =
+                                    await SessionManager.current();
+                                presenter.saveViaProspect({
+                                  'productname': val.getOtherValue()['name'],
+                                  'productbpid': val.getOtherValue()['bpid'],
+                                  'createdby': session.userid,
+                                  'updatedby': session.userid,
+                                  'isactive': true,
+                                });
+                                selectItem.clear();
+                              }
+                            },
                           )
                         ],
                       ),

@@ -5,13 +5,14 @@ class _TabCustomer extends StatefulWidget {
   State<_TabCustomer> createState() => _TabCustomerState();
 }
 
-class _TabCustomerState extends State<_TabCustomer> with TickerProviderStateMixin {
+class _TabCustomerState extends State<_TabCustomer>
+    with TickerProviderStateMixin {
   late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 5, vsync: this);
   }
 
   @override
@@ -22,18 +23,22 @@ class _TabCustomerState extends State<_TabCustomer> with TickerProviderStateMixi
         child: BsRow(
           children: [
             BsCol(
-              sizes: ColScreen(sm: Col.col_6),
+              sizes: ColScreen(sm: Col.col_8),
               child: Container(
-                child: TabBar(
-                  controller: _tabController,
-                  labelColor: Colors.green,
-                  unselectedLabelColor: Colors.black,
-                  tabs: [
-                    Tab(text: 'Customer'),
-                    Tab(text: 'Prospective Customer'),
-                    Tab(text: 'Contact'),
-                  ],
-                ),
+                child: Obx(() => TabBar(
+                      controller: _tabController,
+                      labelColor: Colors.green,
+                      unselectedLabelColor: _navigation.darkTheme.value
+                          ? Colors.white
+                          : Colors.black,
+                      tabs: [
+                        Tab(text: 'Customer'),
+                        Tab(text: 'Prospective Customer'),
+                        Tab(text: 'Contact'),
+                        Tab(text: 'Customer Type'),
+                        Tab(text: 'Contact Type'),
+                      ],
+                    )),
               ),
             ),
             BsCol(
@@ -45,8 +50,10 @@ class _TabCustomerState extends State<_TabCustomer> with TickerProviderStateMixi
                   controller: _tabController,
                   children: [
                     _TabCustomers("Customer"),
-                    _TabCustomers("Prospective Customer"),
+                    _TabCustomerspr("Prospective Customer"),
                     _TabContact(),
+                    _TabCustomerType(context),
+                    _TabContactType(context)
                   ],
                 ),
               ),

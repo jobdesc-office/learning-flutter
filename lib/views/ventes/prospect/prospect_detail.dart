@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:boilerplate/helpers/function.dart';
 import 'package:boilerplate/models/ventes/customfield_model.dart';
 import 'package:boilerplate/views/skins/template.dart';
 import 'package:boilerplate/widgets/button/button_edit_datatable.dart';
@@ -20,8 +21,8 @@ import '../../../contracts/base/details_view_contract.dart';
 import '../../../contracts/base/index_view_contract.dart';
 import '../../../contracts/ventes/customfield_contract.dart';
 import '../../../contracts/ventes/prospectcustomfield_contract.dart';
-import '../../../models/masters/type_model.dart';
 import '../../../models/session_model.dart';
+import '../../../models/settings/stbptype_model.dart';
 import '../../../models/ventes/prospect_model.dart';
 import '../../../models/ventes/prospectactivity_model.dart';
 import '../../../models/ventes/prospectcustomfield_model.dart';
@@ -132,7 +133,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
       body: TemplateView(
         title: 'Prospect Details',
         breadcrumbs: [
-          BreadcrumbWidget('Venteses'),
+          BreadcrumbWidget('Ventes'),
           BreadcrumbWidget('Prospect', back: true),
           BreadcrumbWidget('Prospect Details', active: true),
         ],
@@ -163,26 +164,55 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                       child: TabBar(
                                         controller: _tabController,
                                         labelColor: Colors.green,
-                                        unselectedLabelColor: Colors.black,
+                                        unselectedLabelColor:
+                                            _navigation.darkTheme.value
+                                                ? Colors.white
+                                                : Colors.black,
                                         tabs: [
                                           Tab(
                                               text: 'Activities',
-                                              icon: Icon(Icons.local_activity)),
+                                              icon: Icon(
+                                                Icons.local_activity,
+                                                color:
+                                                    _navigation.darkTheme.value
+                                                        ? Colors.white
+                                                        : Colors.black,
+                                              )),
                                           Tab(
                                               text: 'Notes',
-                                              icon: Icon(Icons.note)),
+                                              icon: Icon(Icons.note,
+                                                  color: _navigation
+                                                          .darkTheme.value
+                                                      ? Colors.white
+                                                      : Colors.black)),
                                           Tab(
                                               text: 'Assign',
-                                              icon: Icon(Icons.group)),
+                                              icon: Icon(Icons.group,
+                                                  color: _navigation
+                                                          .darkTheme.value
+                                                      ? Colors.white
+                                                      : Colors.black)),
                                           Tab(
                                               text: 'Product',
-                                              icon: Icon(Icons.sell)),
+                                              icon: Icon(Icons.sell,
+                                                  color: _navigation
+                                                          .darkTheme.value
+                                                      ? Colors.white
+                                                      : Colors.black)),
                                           Tab(
                                               text: 'Contact',
-                                              icon: Icon(Icons.phone)),
+                                              icon: Icon(Icons.phone,
+                                                  color: _navigation
+                                                          .darkTheme.value
+                                                      ? Colors.white
+                                                      : Colors.black)),
                                           Tab(
                                               text: 'Files',
-                                              icon: Icon(Icons.file_copy)),
+                                              icon: Icon(Icons.file_copy,
+                                                  color: _navigation
+                                                          .darkTheme.value
+                                                      ? Colors.white
+                                                      : Colors.black)),
                                         ],
                                       ),
                                     ),
@@ -248,15 +278,15 @@ class _ProspectDetailsState extends State<ProspectDetails>
   void onSuccessFetchData(Response response) async {
     List products = [];
     List<Prospectassigns> assign = [];
-    List<Cstmcontact> contact = [];
+    List<Sbccontact> contact = [];
     List<ProspectCustomFieldModel> customField = [];
     List<Prospectfiles> files = [];
     ProspectModel dt = ProspectModel.fromJson(response.body);
     source.prospectid.value = dt.prospectid!;
     source.prospectbpid.value = dt.prospectbp!.bpid!;
     source.desc.value = dt.prospectdescription ?? '';
-    source.status.value = dt.prospectstatus!.typename!;
-    source.stage.value = dt.prospectstage!.typename ?? '';
+    source.status.value = dt.prospectstatus?.sbttypename ?? '';
+    source.stage.value = dt.prospectstage!.sbttypename ?? '';
     customFieldPresenter.allBp(context);
 
     detailPresenter.details(context, {'id': dt.prospectid.toString()});
@@ -268,11 +298,11 @@ class _ProspectDetailsState extends State<ProspectDetails>
     source.prospectstartdate.value = dt.prospectstartdate ?? '';
     source.prospectStageController.value.selected = dt.prospectstage;
     source.custname.value = dt.prospectcust!.sbccstmname ?? '';
-    source.custlabel.value = dt.prospectcustlabeltype?.typename ?? '';
+    source.custlabel.value = dt.prospectcustlabeltype?.sbttypename ?? '';
     source.custid.value = dt.prospectcust!.sbccstm!.cstmid ?? 0;
 
     if (dt.prospectlostreasonid != null) {
-      source.losttype.value = dt.prospectlost!.typename!;
+      source.losttype.value = dt.prospectlost!.sbttypename!;
       source.lostdesc.value = dt.prospectlostdesc!;
     }
 
@@ -297,8 +327,8 @@ class _ProspectDetailsState extends State<ProspectDetails>
       });
       source.customField.value = customField;
     }
-    if (dt.prospectcust!.sbccstm!.cstmcontact != null) {
-      dt.prospectcust!.sbccstm!.cstmcontact?.forEach((element) {
+    if (dt.prospectcust!.sbccontact != null) {
+      dt.prospectcust!.sbccontact!.forEach((element) {
         contact.add(element);
       });
       source.contact.value = contact;
@@ -309,17 +339,26 @@ class _ProspectDetailsState extends State<ProspectDetails>
       });
       source.files.value = files;
     }
+
+    if (dt.prospectcustlabeltype?.sbtremark != null) {
+      Map<String, dynamic> color =
+          jsonDecode(dt.prospectcustlabeltype?.sbtremark ?? '');
+      source.custlabelcolor.value = Color(parseInt(color['color']));
+      source.custlabeltextcolor.value = Color(parseInt(color['textcolor']));
+    }
+
     presenter.setProcessing(false);
   }
 
   @override
   void onLoadSuccess(Response response) {
-    source.prospectStageController.value.options = List<TypeModel>.from(
+    source.prospectStageController.value.options = List<StbptypeModel>.from(
       response.body.map((data) {
-        return TypeModel.fromJson(data);
+        return StbptypeModel.fromJson(data);
       }),
     ).toList();
     source.showPipeline.value = true;
+
     // presenter.details(context, source.prospectid.value);
   }
 
@@ -336,7 +375,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     source.pickedFile.clear();
     Navigator.pop(context!);
     presenter.details(context, source.prospectid.value);
-    Snackbar().createSuccess();
+    Snackbar().createSuccess(context);
     detailPresenter
         .details(context, {'id': source.prospectid.value.toString()});
     customFieldPresenter.allBp(context);
@@ -352,7 +391,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     Get.back();
     Navigator.pop(context!);
     presenter.details(context, source.prospectid.value);
-    Snackbar().deleteSuccess();
+    Snackbar().deleteSuccess(context);
     detailPresenter
         .details(context, {'id': source.prospectid.value.toString()});
     customFieldPresenter.allBp(context);
@@ -372,7 +411,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
         .details(context, {'id': source.prospectid.value.toString()});
     customFieldPresenter.allBp(context);
 
-    Snackbar().editSuccess();
+    Snackbar().editSuccess(context);
     prospectCustomFieldPresenter.setProcessing(false);
     detailPresenter.setProcessing(false);
     assignPresenter.setProcessing(false);
@@ -428,10 +467,10 @@ class _ProspectDetailsState extends State<ProspectDetails>
       cf.removeWhere((element) => element.custfid == item.prospectcustfid);
     }
     cf.removeWhere((element) =>
-        element.onlythisprospect == true &&
-        element.thisprospectid != source.prospectid.value);
-    cf.removeWhere((element) =>
-        element.allprospect == false && element.onlythisprospect == false);
+        element.onlythisdata == true &&
+        element.thisdataid != source.prospectid.value);
+    cf.removeWhere(
+        (element) => element.alldata == false && element.onlythisdata == false);
     source.rawcustomField.value = cf;
   }
 }

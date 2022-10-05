@@ -5,24 +5,25 @@ import 'package:intl/intl.dart';
 
 import '../../../../models/ventes/report_model.dart';
 import '../../../../presenters/navigation_presenter.dart';
+import '../../../../presenters/ventes/report_presenter.dart';
 import '../../../../styles/color_palattes.dart';
 import '../../../../widgets/datatables/custom_datatable_tablecell.dart';
 import '../../../../widgets/datatables/custom_datatable_tablehead.dart';
 import '../_report_source.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
+final presenter = Get.find<ReportPresenter>();
 
 class ReportDailyActivityDataTableSource extends BsDatatableSource {
   final controllers = Get.put(ReportHelper());
   final currencyFormatter = NumberFormat('#,##0.00', 'ID');
+  final BuildContext context;
 
   ValueChanged<int> onDetailsListener = (value) {};
   ValueChanged<int> onEditListener = (value) {};
   Function onDeleteListener = (value, name) {};
 
-  ReportDailyActivityDataTableSource({
-    List data = const [],
-  }) : super(data: data);
+  ReportDailyActivityDataTableSource({required this.context});
 
   List<BsDataColumn> get columns {
     return <BsDataColumn>[
@@ -39,7 +40,7 @@ class ReportDailyActivityDataTableSource extends BsDatatableSource {
         orderable: false,
       ),
       CustomBsDataColumn(
-        label: Text('Daily Task Type'),
+        label: Text('Daily Task Category'),
         searchable: false,
         orderable: false,
       ),
@@ -63,6 +64,7 @@ class ReportDailyActivityDataTableSource extends BsDatatableSource {
       cells: [
         CustomBsDataCell(
           Text('$x'),
+          onTap: () => presenter.details(context, row.dayactid!),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -73,6 +75,7 @@ class ReportDailyActivityDataTableSource extends BsDatatableSource {
         ),
         CustomBsDataCell(
           Text(row.dayactuser!.userfullname ?? ''),
+          onTap: () => presenter.details(context, row.dayactid!),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -82,7 +85,8 @@ class ReportDailyActivityDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.dayactcat!.typename ?? ''),
+          Text(row.dayactcat!.sbttypename ?? ''),
+          onTap: () => presenter.details(context, row.dayactid!),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -93,6 +97,7 @@ class ReportDailyActivityDataTableSource extends BsDatatableSource {
         ),
         CustomBsDataCell(
           Text(row.dayactdate ?? ''),
+          onTap: () => presenter.details(context, row.dayactid!),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor

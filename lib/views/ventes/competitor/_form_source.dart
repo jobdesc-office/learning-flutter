@@ -5,6 +5,7 @@ import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_picker_web/image_picker_web.dart';
 
 import '../../../constants/base_text.dart';
@@ -25,6 +26,35 @@ class CompetitorSource extends GetxController {
   bool isProcessing = false;
   var isnGetLatLong = true.obs;
 
+  reset() {
+    id.value = 0;
+    transtypeid.value = 0;
+    refid.value = 0;
+
+    imgname.value = '';
+    image.clear();
+    imageupdate.clear();
+    isImage.value = false;
+    isUpdate.value = false;
+    isUpdateImage.value = false;
+
+    createdby.value = '';
+    createddate.value = '';
+    updatedby.value = '';
+    updateddate.value = '';
+    isactive.value = false;
+
+    inputName.text = '';
+    inputProductName.text = '';
+    inputDesc.text = '';
+
+    selectType.clear();
+    selectBp.clear();
+    selectRef.clear();
+  }
+
+  var id = 0.obs;
+
   var transtypeid = 0.obs;
   var refid = 0.obs;
 
@@ -33,6 +63,7 @@ class CompetitorSource extends GetxController {
   var imageupdate = [].obs;
   var isImage = false.obs;
   var isUpdate = false.obs;
+  var isUpdateImage = false.obs;
 
   var createdby = ''.obs;
   var createddate = ''.obs;
@@ -59,18 +90,22 @@ class CompetitorSource extends GetxController {
   }
 
   Future<Map<String, dynamic>> toJson() async {
+    final box = GetStorage();
     SessionModel session = await SessionManager.current();
     return {
-      'comptbpid': selectBp.getSelectedAsString(),
+      'comptbpid': box.read('mybpid').toString(),
       'comptreftypeid': selectType.getSelectedAsString(),
-      'comptrefid': selectRef.getSelectedAsString(),
+      'comptrefid': selectRef.getSelectedAsString() != ''
+          ? selectRef.getSelectedAsString()
+          : null,
       'comptname': inputName.text,
       'comptproductname': inputProductName.text,
       'description': inputDesc.text,
       'createdby': session.userid,
       'updatedby': session.userid,
       'isactive': isactive.value,
-      'comptpics[]': jsonImages()
+      'comptpics[]': jsonImages(),
+      '_method': isUpdateImage.value ? 'put' : null
     };
   }
 }

@@ -11,7 +11,6 @@ import '../../../presenters/ventes/competitor_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../styles/color_palattes.dart';
 import '../../../widgets/breadcrumb.dart';
-import '../../../widgets/button/theme_button_back.dart';
 import '../../../widgets/form_group.dart';
 import '../../skins/template.dart';
 import '_details_source.dart';
@@ -34,7 +33,7 @@ class CompetitorDetails extends GetView implements DetailViewContract {
       body: TemplateView(
         title: 'Competitor Details',
         breadcrumbs: [
-          BreadcrumbWidget('Venteses'),
+          BreadcrumbWidget('Ventes'),
           BreadcrumbWidget('Competitors', back: true),
           BreadcrumbWidget('Competitor Details', active: true),
         ],

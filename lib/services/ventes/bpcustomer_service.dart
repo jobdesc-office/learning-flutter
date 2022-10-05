@@ -17,6 +17,14 @@ class BpCustomerService extends ApiConnectProvider {
     return post('$api/datatables/${box.read('mybpid')}', params);
   }
 
+  Future<Response> datatablesbppro(Map<String, dynamic> params) {
+    return post('$api/datatablespro/${box.read('mybpid')}', params);
+  }
+
+  Future<Response> datatablesbpcus(Map<String, dynamic> params) {
+    return post('$api/datatablescust/${box.read('mybpid')}', params);
+  }
+
   Future<Response> storeBpCustomer(
     dynamic body, {
     String? contentType,

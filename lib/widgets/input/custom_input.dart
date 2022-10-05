@@ -36,7 +36,10 @@ class CustomInput extends BsInput {
             backgroundColor: _navigation.darkTheme.value
                 ? ColorPallates.elseDarkColor
                 : Colors.white,
-            border: Border.all(color: ColorPallates.dark),
+            border: Border.all(
+                color: _navigation.darkTheme.value
+                    ? Colors.white
+                    : ColorPallates.dark),
             borderRadius: BorderRadius.circular(5),
             boxShadowFocused: [
               BoxShadow(

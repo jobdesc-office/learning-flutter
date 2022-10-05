@@ -31,6 +31,12 @@ class CompetitorPresenter extends CustomGetXController {
     _competitorDataDetailsContract = competitorDataDetailsContract;
   }
 
+  late EditViewContract _competitorsFetchDataContract;
+  set competitorsFetchDataContract(
+      EditViewContract competitorsFetchDataContract) {
+    _competitorsFetchDataContract = competitorsFetchDataContract;
+  }
+
   Future datatables(BuildContext context, Map<String, String> params) async {
     Response response = await _competitorService.datatables(params);
     if (response.statusCode == 200)
@@ -104,6 +110,14 @@ class CompetitorPresenter extends CustomGetXController {
     Response response = await _competitorService.show(id);
     if (response.statusCode == 200)
       _competitorFetchDataContract.onSuccessFetchData(response);
+    else
+      _competitorViewContract.onErrorRequest(response);
+  }
+
+  void edits(BuildContext context, int id) async {
+    Response response = await _competitorService.show(id);
+    if (response.statusCode == 200)
+      _competitorsFetchDataContract.onSuccessFetchData(response);
     else
       _competitorViewContract.onErrorRequest(response);
   }

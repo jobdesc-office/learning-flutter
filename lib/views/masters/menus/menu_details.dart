@@ -13,7 +13,6 @@ import '../../../presenters/navigation_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../styles/color_palattes.dart';
 import '../../../widgets/breadcrumb.dart';
-import '../../../widgets/button/theme_button_back.dart';
 import '../../../widgets/datatables/custom_datatable.dart';
 import '../../../widgets/form_group.dart';
 import '../../../widgets/snackbar.dart';
@@ -243,7 +242,7 @@ class MenuDetails extends GetView
     featurePresenter.setProcessing(false);
     datatable.controller.reload();
     if (context != null) Navigator.pop(context);
-    Snackbar().createSuccess();
+    Snackbar().createSuccess(context!);
   }
 
   @override
@@ -251,7 +250,7 @@ class MenuDetails extends GetView
     featurePresenter.setProcessing(false);
     datatable.controller.reload();
     if (context != null) Navigator.pop(context);
-    Snackbar().deleteSuccess();
+    Snackbar().deleteSuccess(context!);
   }
 
   @override
@@ -259,7 +258,7 @@ class MenuDetails extends GetView
     featurePresenter.setProcessing(false);
     datatable.controller.reload();
     if (context != null) Navigator.pop(context);
-    Snackbar().editSuccess();
+    Snackbar().editSuccess(context!);
   }
 
   @override

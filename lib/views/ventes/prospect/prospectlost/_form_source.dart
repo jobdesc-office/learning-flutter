@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../constants/base_text.dart';
-import '../../../../models/masters/type_model.dart';
 import '../../../../models/session_model.dart';
 import '../../../../presenters/navigation_presenter.dart';
 import '../../../../presenters/ventes/prospect_presenter.dart';
@@ -31,7 +30,7 @@ class ProspectLostSource extends GetxController {
   Future<Map<String, dynamic>> toJson() async {
     SessionModel session = await SessionManager.current();
     int data = await _prospectPresenter.lostStatus();
-    TypeModel stage = await _prospectPresenter.completePipeline();
+    // StbptypeModel stage = await _prospectPresenter.completePipeline();
 
     return {
       'prospectenddate':

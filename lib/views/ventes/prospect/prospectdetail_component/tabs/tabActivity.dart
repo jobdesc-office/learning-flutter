@@ -16,27 +16,28 @@ class _TabActivity extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    alignment: Alignment.topLeft,
-                    margin: EdgeInsets.only(top: 10, bottom: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Activities :',
-                          style: TextStyle(fontSize: 18),
+                  Obx(() => Container(
+                        alignment: Alignment.topLeft,
+                        margin: EdgeInsets.only(top: 10, bottom: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Activities :',
+                              style: TextStyle(fontSize: 18),
+                            ),
+                            if (source.status.value != ProspectText.closedWon &&
+                                source.status.value !=
+                                    ProspectText.closedLost &&
+                                source.status.value != ProspectText.forceClosed)
+                              BsButton(
+                                  style: BsButtonStyle.success,
+                                  onPressed: () => detailPresenter.add(
+                                      context, source.prospectid.value),
+                                  label: Text('Add Activity')),
+                          ],
                         ),
-                        if (source.status.value != ProspectText.closedWon &&
-                            source.status.value != ProspectText.closedLost &&
-                            source.status.value != ProspectText.forceClosed)
-                          BsButton(
-                              style: BsButtonStyle.success,
-                              onPressed: () => detailPresenter.add(
-                                  context, source.prospectid.value),
-                              label: Text('Add Activity')),
-                      ],
-                    ),
-                  ),
+                      )),
                   Obx(() => Column(
                         // crossAxisAlignment: CrossAxisAlignment.center,
                         // mainAxisAlignment: MainAxisAlignment.center,
@@ -163,20 +164,20 @@ class _TabActivity extends StatelessWidget {
         ),
       );
     else
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('There\'s no Activity'),
-          if (source.status.value != ProspectText.closedWon &&
-              source.status.value != ProspectText.closedLost &&
-              source.status.value != ProspectText.forceClosed)
-            BsButton(
-                margin: EdgeInsets.only(top: 5),
-                style: BsButtonStyle.success,
-                onPressed: () =>
-                    detailPresenter.add(context, source.prospectid.value),
-                label: Text('Add Activity')),
-        ],
-      );
+      return Obx(() => Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('There\'s no Activity'),
+              if (source.status.value != ProspectText.closedWon &&
+                  source.status.value != ProspectText.closedLost &&
+                  source.status.value != ProspectText.forceClosed)
+                BsButton(
+                    margin: EdgeInsets.only(top: 5),
+                    style: BsButtonStyle.success,
+                    onPressed: () =>
+                        detailPresenter.add(context, source.prospectid.value),
+                    label: Text('Add Activity')),
+            ],
+          ));
   }
 }

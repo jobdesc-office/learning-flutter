@@ -2,9 +2,11 @@ import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../constants/base_text.dart';
 import '../../../models/ventes/report_model.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../styles/color_palattes.dart';
+import '../../../widgets/button/button_details_datatable.dart';
 import '../../../widgets/datatables/custom_datatable_tablecell.dart';
 import '../../../widgets/datatables/custom_datatable_tablehead.dart';
 
@@ -14,10 +16,6 @@ class ReportDataTableSource extends BsDatatableSource {
   ValueChanged<int> onDetailsListener = (value) {};
   ValueChanged<int> onEditListener = (value) {};
   Function onDeleteListener = (value, name) {};
-
-  ReportDataTableSource({
-    List data = const [],
-  }) : super(data: data);
 
   List<BsDataColumn> get columns {
     return <BsDataColumn>[
@@ -31,15 +29,10 @@ class ReportDataTableSource extends BsDatatableSource {
         label: Text('Daily Activity Date'),
         searchable: false,
         orderable: false,
+        width: 160,
       ),
       CustomBsDataColumn(
         label: Text('Daily Activity Category'),
-        columnName: 'comptproductname',
-        searchable: false,
-        orderable: false,
-      ),
-      CustomBsDataColumn(
-        label: Text('Daily Activity Type'),
         columnName: 'comptproductname',
         searchable: false,
         orderable: false,
@@ -56,6 +49,12 @@ class ReportDataTableSource extends BsDatatableSource {
       //   searchable: false,
       //   orderable: false,
       // ),
+      CustomBsDataColumn(
+        label: Text('Actions'),
+        orderable: false,
+        searchable: false,
+        width: 100,
+      ),
     ];
   }
 
@@ -90,7 +89,7 @@ class ReportDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.dayactcat!.typename ?? ''),
+          Text(row.dayactcat?.sbttypename ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -100,7 +99,7 @@ class ReportDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.dayacttype!.typename ?? ''),
+          Text(row.dayactcust?.sbccstmname ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -110,7 +109,18 @@ class ReportDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.dayactcust?.cstmname ?? ''),
+          Row(
+            children: [
+              Tooltip(
+                message: BaseText.detailHintDatatable(
+                    field: row.dayactcat?.sbttypename),
+                child: ButtonDetailsDatatables(
+                  margin: EdgeInsets.only(right: 5),
+                  onPressed: () => onDetailsListener(row.dayactid!),
+                ),
+              ),
+            ],
+          ),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -118,6 +128,7 @@ class ReportDataTableSource extends BsDatatableSource {
               : x % 2 == 0
                   ? ColorPallates.datatableLightEvenRowColor
                   : ColorPallates.datatableLightOddRowColor,
+          padding: EdgeInsets.all(9),
         ),
       ],
     );

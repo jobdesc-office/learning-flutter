@@ -1,18 +1,27 @@
 part of '../../company.dart';
 
+// ignore: must_be_immutable
 class _TabCustomers extends StatelessWidget implements IndexViewContract, EditViewContract {
-  CPCustomerPresenter get presenter => Get.find<CPCustomerPresenter>();
-  final datatable = CustomerDataTableSource();
-  late CustomerFormSource source;
+  final datatable = CustomersDataTableSource();
+  final String typename;
 
-  _TabCustomers(String typename) {
-    presenter.customerContract = this;
-    presenter.customerEditContract = this;
-    source = CustomerFormSource(typename);
+  late PCustomersForm pCustomerForm;
+
+  ProspectPresenter get presenter => Get.find<ProspectPresenter>();
+  BpCustomerPresenter get bppresenter => Get.find<BpCustomerPresenter>();
+  CustomerPresenter custpresenter = Get.find<CustomerPresenter>();
+  final source = PCustomersSource().obs;
+  final custsource = _CustomerFormSource().obs;
+
+  _TabCustomers(this.typename) {
+    presenter.addCustomerViewContract = this;
+    bppresenter.bpCustomerViewContract = this;
+    custpresenter.customerViewContract = this;
   }
 
   @override
   Widget build(BuildContext context) {
+    pCustomerForm = PCustomersForm(source.value);
     return Container(
       margin: EdgeInsets.all(20),
       child: Column(
@@ -22,22 +31,21 @@ class _TabCustomers extends StatelessWidget implements IndexViewContract, EditVi
             child: Obx(() {
               return Column(
                 children: [
-                  if (source.isFormActive) _CustomersForm(source),
+                  if (custsource.value.isForm.value) custsource.value.form(context),
                   CustomDatabales(
                     source: datatable,
                     columns: datatable.columns,
                     headerActions: [
                       ThemeButtonCreate(
-                        prefix: "Add Customer",
+                        prefix: "$typename",
                         // onPressed: () => presenter.add(context),
-                        onPressed: () => source.isFormActive = true,
+                        onPressed: () {
+                          custsource.value.isForm.toggle();
+                          source.value.pro.value = false;
+                        },
                       )
                     ],
-                    serverSide: (params) async {
-                      int? statusid = await presenter.fetchCustomerStatus(source.typename);
-                      params['statusid'] = statusid!.toString();
-                      return presenter.datatables(context, params);
-                    },
+                    serverSide: (params) => bppresenter.datatablesbpcus(context, params),
                   ),
                 ],
               );
@@ -51,47 +59,49 @@ class _TabCustomers extends StatelessWidget implements IndexViewContract, EditVi
   @override
   void onCreateSuccess(Response response, {BuildContext? context}) {
     datatable.controller.reload();
-    presenter.setProcessing(false);
-    source.clear();
-    source.isProcessing = false;
-    Snackbar().createSuccess();
+    source.value.reset();
+    custsource.value.isForm.value = false;
+    custpresenter.setProcessing(false);
+    Snackbar().createSuccess(context!);
   }
 
   @override
   void onDeleteSuccess(Response response, {BuildContext? context}) {
-    presenter.setProcessing(false);
+    bppresenter.setProcessing(false);
+    source.value.reset();
     datatable.controller.reload();
-    Snackbar().deleteSuccess();
+    custsource.value.isForm.value = false;
+    Get.back();
+    Snackbar().deleteSuccess(context!);
   }
 
   @override
   void onEditSuccess(Response response, {BuildContext? context}) {
     datatable.controller.reload();
-    source.clear();
-    presenter.setProcessing(false);
-    source.isProcessing = false;
-    Snackbar().editSuccess();
+    source.value.reset();
+    custpresenter.setProcessing(false);
+    custsource.value.isForm.value = false;
+    Snackbar().editSuccess(context!);
   }
 
   @override
   void onErrorRequest(Response response) {
-    presenter.setProcessing(false);
-    source.isProcessing = false;
+    bppresenter.setProcessing(false);
   }
 
   @override
   void onLoadDatatables(BuildContext context, Response response) {
-    presenter.setProcessing(false);
+    source.value.reset();
+    custsource.value.isForm.value = false;
+    bppresenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onDetailsListener = (userid) {};
-    datatable.onEditListener = presenter.show;
-    datatable.onDeleteListener = (cstmid, cstmname) => presenter.delete(context, cstmid, cstmname);
+    // datatable.onEditListener = presenter.show;
+    datatable.onDeleteListener = (cstmid, cstmname) => bppresenter.delete(context, cstmid, cstmname);
   }
 
   @override
   void onSuccessFetchData(Response response) {
-    presenter.setProcessing(false);
-    BusinessPartnerCustomerModel model = BusinessPartnerCustomerModel.fromJson(response.body);
-    source.fromModel(model);
+    bppresenter.setProcessing(false);
   }
 }

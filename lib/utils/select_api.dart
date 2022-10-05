@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:boilerplate/models/masters/type_model.dart';
 import 'package:boilerplate/models/security/menu_model.dart';
 import 'package:boilerplate/models/ventes/prospect_model.dart';
@@ -15,14 +17,17 @@ import '../models/masters/product_model.dart';
 import '../models/masters/province_model.dart';
 import '../models/masters/subdistrict_model.dart';
 import '../models/masters/user_model.dart';
+import '../models/settings/stbptype_model.dart';
 import '../models/ventes/bpcustomer_model.dart';
 import '../models/ventes/customfield_model.dart';
+import '../models/ventes/report_model.dart';
 import '../models/ventes/selectbp_model.dart';
 import '../services/masters/city_service.dart';
 import '../services/masters/country_service.dart';
 import '../services/masters/customer_service.dart';
 import '../services/masters/product_service.dart';
 import '../services/masters/province_service.dart';
+import '../services/masters/stbptype_service.dart';
 import '../services/masters/subdistrict_service.dart';
 import '../services/masters/type_service.dart';
 import '../services/masters/typechildren_service.dart';
@@ -31,6 +36,7 @@ import '../services/security/menu_service.dart';
 import '../services/ventes/bpcustomer_service.dart';
 import '../services/settings/customfield_service.dart';
 import '../services/ventes/prospect_service.dart';
+import '../services/ventes/report_service.dart';
 import '../views/ventes/prospect/_detail_source.dart';
 import 'connect_internet_api.dart';
 
@@ -52,15 +58,36 @@ Future<BsSelectBoxResponse> selectApiRole(Map<String, String> params) async {
 
 Future<BsSelectBoxResponse> selectApiCustomerType(
     Map<String, String> params) async {
-  final typeService = Get.put(TypeService());
-  Response response = await typeService.byCode(ConfigType.cstmtype);
+  params
+      .addAll({'typecd': ConfigType.cstmtype, 'bpid': '${box.read('mybpid')}'});
+  final typeService = Get.put(StBpTypeService());
+  Response response = await typeService.byCodeAdd(params);
   if (response.isOk) {
     if (response.statusCode == 200) {
-      return BsSelectBoxResponse.createFromJson(
-        response.body,
-        value: (data) => TypeModel.fromJson(data).typeid,
-        renderText: (data) => Text(TypeModel.fromJson(data).typename ?? ''),
-      );
+      List data = response.body;
+      if (data.isNotEmpty) {
+        return BsSelectBoxResponse.createFromJson(
+          response.body,
+          value: (data) => StbptypeModel.fromJson(data).sbtid,
+          renderText: (data) =>
+              Text(StbptypeModel.fromJson(data).sbttypename ?? ''),
+        );
+      } else if (params['searchValue'] == '') {
+        return BsSelectBoxResponse();
+      } else {
+        int id = jsonDecode(response.headers!['masterid'] ?? '');
+        String master = jsonDecode(response.headers!['master'] ?? '');
+        return BsSelectBoxResponse(options: [
+          BsSelectBoxOption(
+              value: 'add',
+              text: Text('Add ${params['searchValue']} as New Type'),
+              other: {
+                'name': '${params['searchValue']}',
+                'masterid': id,
+                'master': master
+              })
+        ]);
+      }
     }
   }
 
@@ -68,37 +95,52 @@ Future<BsSelectBoxResponse> selectApiCustomerType(
 }
 
 Future<BsSelectBoxResponse> selectApiBpType(Map<String, String> params) async {
+  params.addAll({'typecd': ConfigType.businessPartner});
   final typeService = Get.put(TypeService());
-  Response response = await typeService.byCode(ConfigType.businessPartner);
+  Response response = await typeService.byCodeAdd(params);
   if (response.isOk) {
     if (response.statusCode == 200) {
-      return BsSelectBoxResponse.createFromJson(
-        response.body,
-        value: (data) => TypeModel.fromJson(data).typeid,
-        renderText: (data) => Text(TypeModel.fromJson(data).typename ?? ''),
-      );
+      List data = response.body;
+      if (data.isNotEmpty) {
+        return BsSelectBoxResponse.createFromJson(
+          response.body,
+          value: (data) => TypeModel.fromJson(data).typeid,
+          renderText: (data) => Text(TypeModel.fromJson(data).typename ?? ''),
+        );
+      } else if (params['searchValue'] == '') {
+        return BsSelectBoxResponse();
+      } else {
+        List list = jsonDecode(response.headers!['masterid'] ?? '');
+        int id = TypeModel.fromJson(list.first).typeid ?? 0;
+        return BsSelectBoxResponse(options: [
+          BsSelectBoxOption(
+              value: 'add',
+              text: Text('Add ${params['searchValue']} as New Type'),
+              other: {'name': '${params['searchValue']}', 'masterid': id})
+        ]);
+      }
     }
   }
 
-  return BsSelectBoxResponse(options: []);
+  return BsSelectBoxResponse();
 }
 
 Future<BsSelectBoxResponse> selectApiProspectStatus(
     Map<String, String> params) async {
-  final typeService = Get.put(TypeService());
+  final typeService = Get.put(StBpTypeService());
   Response response = await typeService.bySeq(ConfigType.prospectStatus);
   if (response.isOk) {
     if (response.statusCode == 200) {
-      List<TypeModel> data = [];
+      List<StbptypeModel> data = [];
       for (var item in response.body) {
-        data.add(TypeModel.fromJson(item));
+        data.add(StbptypeModel.fromJson(item));
       }
-      data.removeWhere((element) => element.typename == 'Closed Lost');
-      data.removeWhere((element) => element.typename == 'Closed Won');
+      data.removeWhere((element) => element.sbttypename == 'Closed Lost');
+      data.removeWhere((element) => element.sbttypename == 'Closed Won');
       return BsSelectBoxResponse.createFromJson(
         data,
-        value: (data) => data.typeid,
-        renderText: (data) => Text(data.typename),
+        value: (data) => data.sbtid,
+        renderText: (data) => Text(data.sbttypename),
       );
     }
   }
@@ -108,14 +150,15 @@ Future<BsSelectBoxResponse> selectApiProspectStatus(
 
 Future<BsSelectBoxResponse> selectApiProspectCategory(
     Map<String, String> params) async {
-  final typeService = Get.put(TypeService());
+  final typeService = Get.put(StBpTypeService());
   Response response = await typeService.byCode(ConfigType.prospectCategory);
   if (response.isOk) {
     if (response.statusCode == 200) {
       return BsSelectBoxResponse.createFromJson(
         response.body,
-        value: (data) => TypeModel.fromJson(data).typeid,
-        renderText: (data) => Text(TypeModel.fromJson(data).typename ?? ''),
+        value: (data) => StbptypeModel.fromJson(data).sbtid,
+        renderText: (data) =>
+            Text(StbptypeModel.fromJson(data).sbttypename ?? ''),
       );
     }
   }
@@ -125,14 +168,15 @@ Future<BsSelectBoxResponse> selectApiProspectCategory(
 
 Future<BsSelectBoxResponse> selectApiProspectType(
     Map<String, String> params) async {
-  final typeService = Get.put(TypeService());
+  final typeService = Get.put(StBpTypeService());
   Response response = await typeService.byCode(ConfigType.prospectType);
   if (response.isOk) {
     if (response.statusCode == 200) {
       return BsSelectBoxResponse.createFromJson(
         response.body,
-        value: (data) => TypeModel.fromJson(data).typeid,
-        renderText: (data) => Text(TypeModel.fromJson(data).typename ?? ''),
+        value: (data) => StbptypeModel.fromJson(data).sbtid,
+        renderText: (data) =>
+            Text(StbptypeModel.fromJson(data).sbttypename ?? ''),
       );
     }
   }
@@ -142,14 +186,15 @@ Future<BsSelectBoxResponse> selectApiProspectType(
 
 Future<BsSelectBoxResponse> selectApiProspectCustLab(
     Map<String, String> params) async {
-  final typeService = Get.put(TypeService());
+  final typeService = Get.put(StBpTypeService());
   Response response = await typeService.bySeq(ConfigType.prospectCustLabel);
   if (response.isOk) {
     if (response.statusCode == 200) {
       return BsSelectBoxResponse.createFromJson(
         response.body,
-        value: (data) => TypeModel.fromJson(data).typeid,
-        renderText: (data) => Text(TypeModel.fromJson(data).typename ?? ''),
+        value: (data) => StbptypeModel.fromJson(data).sbtid,
+        renderText: (data) =>
+            Text(StbptypeModel.fromJson(data).sbttypename ?? ''),
       );
     }
   }
@@ -159,14 +204,15 @@ Future<BsSelectBoxResponse> selectApiProspectCustLab(
 
 Future<BsSelectBoxResponse> selectApiProspectLostType(
     Map<String, String> params) async {
-  final typeService = Get.put(TypeService());
+  final typeService = Get.put(StBpTypeService());
   Response response = await typeService.byCode(ConfigType.prospectLostReason);
   if (response.isOk) {
     if (response.statusCode == 200) {
       return BsSelectBoxResponse.createFromJson(
         response.body,
-        value: (data) => TypeModel.fromJson(data).typeid,
-        renderText: (data) => Text(TypeModel.fromJson(data).typename ?? ''),
+        value: (data) => StbptypeModel.fromJson(data).sbtid,
+        renderText: (data) =>
+            Text(StbptypeModel.fromJson(data).sbttypename ?? ''),
       );
     }
   }
@@ -228,16 +274,37 @@ Future<BsSelectBoxResponse> selectApiTaxTypes(
 
 Future<BsSelectBoxResponse> selectApiContactTypes(
     Map<String, String> params) async {
-  final typeService = Get.put(TypeService());
-  Response response = await typeService.byCode(ConfigType.contactType);
+  params.addAll(
+      {'typecd': ConfigType.contactType, 'bpid': '${box.read('mybpid')}'});
+  final typeService = Get.put(StBpTypeService());
+  Response response = await typeService.byCodeAdd(params);
 
   if (response.isOk) {
     if (response.statusCode == 200) {
-      return BsSelectBoxResponse.createFromJson(
-        response.body,
-        value: (data) => TypeModel.fromJson(data).typeid,
-        renderText: (data) => Text(TypeModel.fromJson(data).typename ?? ''),
-      );
+      List data = response.body;
+      if (data.isNotEmpty) {
+        return BsSelectBoxResponse.createFromJson(
+          response.body,
+          value: (data) => StbptypeModel.fromJson(data).sbtid,
+          renderText: (data) =>
+              Text(StbptypeModel.fromJson(data).sbttypename ?? ''),
+        );
+      } else if (params['searchValue'] == '') {
+        return BsSelectBoxResponse();
+      } else {
+        int id = jsonDecode(response.headers!['masterid'] ?? '');
+        String master = jsonDecode(response.headers!['master'] ?? '');
+        return BsSelectBoxResponse(options: [
+          BsSelectBoxOption(
+              value: 'add',
+              text: Text('Add ${params['searchValue']} as New Type'),
+              other: {
+                'name': '${params['searchValue']}',
+                'masterid': id,
+                'master': master
+              })
+        ]);
+      }
     }
   }
 
@@ -419,12 +486,38 @@ Future<BsSelectBoxResponse> selectApiProspect(
   Response response = await prospectService.select(params);
   if (response.isOk) {
     if (response.statusCode == 200) {
+      List<ProspectModel> prospect = [];
+      for (var element in response.body) {
+        var res = ProspectModel.fromJson(element);
+        if (res.prospectbpid == box.read('mybpid')) {
+          prospect.add(res);
+        }
+      }
+      print(response.body);
+      return BsSelectBoxResponse.createFromJson(
+        prospect,
+        value: (data) => data.prospectid,
+        renderText: (data) => Text(
+            '${data.prospectname!} +  ||  + ${data.prospectcust!.sbccstmname!}'),
+      );
+    }
+  }
+
+  return BsSelectBoxResponse(options: []);
+}
+
+Future<BsSelectBoxResponse> selectApiActivity(
+    Map<String, String> params) async {
+  final prospectService = Get.find<ReportService>();
+  Response response = await prospectService.selectbp(params);
+  if (response.isOk) {
+    if (response.statusCode == 200) {
+      print(response.body);
       return BsSelectBoxResponse.createFromJson(
         response.body,
-        value: (data) => ProspectModel.fromJson(data).prospectid,
-        renderText: (data) => Text(ProspectModel.fromJson(data).prospectname! +
-            ' || ' +
-            ProspectModel.fromJson(data).prospectcust!.sbccstmname!),
+        value: (data) => Activities.fromJson(data).dayactid,
+        renderText: (data) => Text(
+            '${Activities.fromJson(data).dayactloclabel} || ${Activities.fromJson(data).dayactdate}'),
       );
     }
   }
@@ -490,12 +583,24 @@ Future<BsSelectBoxResponse> selectApiProductWithBp(
   Response response = await productService.selectWithBp(params, id);
   if (response.isOk) {
     if (response.statusCode == 200) {
-      return BsSelectBoxResponse.createFromJson(
-        response.body,
-        value: (data) => ProductModel.fromJson(data).productid,
-        renderText: (data) =>
-            Text(ProductModel.fromJson(data).productname ?? ''),
-      );
+      List data = response.body;
+      if (data.isNotEmpty) {
+        return BsSelectBoxResponse.createFromJson(
+          response.body,
+          value: (data) => ProductModel.fromJson(data).productid,
+          renderText: (data) =>
+              Text(ProductModel.fromJson(data).productname ?? ''),
+        );
+      } else if (params['searchValue'] == '') {
+        return BsSelectBoxResponse(options: []);
+      } else {
+        return BsSelectBoxResponse(options: [
+          BsSelectBoxOption(
+              value: 'add',
+              text: Text('Add ${params['searchValue']} as New Item'),
+              other: {'name': '${params['searchValue']}', 'bpid': id})
+        ]);
+      }
     }
   }
 

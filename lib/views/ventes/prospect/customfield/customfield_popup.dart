@@ -63,7 +63,7 @@ class CustomFieldPopup extends GetView implements CustomFieldContract {
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onDetailsListener =
-        (userid) => presenter.details(context, userid);
+        (userid) => presenter.details(context, userid, 'Prospect');
     datatable.onEditListener = (menuid) => presenter.edit(context, menuid);
     datatable.onDeleteListener =
         (menuid, name) => presenter.delete(context, menuid, name);

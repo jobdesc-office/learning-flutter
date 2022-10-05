@@ -27,8 +27,11 @@ class ConfigType {
 
   static String prospectLostReason = notNull(types['prospectLostReason']);
 
-  static String prospectCustomizeField =
-      notNull(types['prospectCustomizeField']);
+  static String prospectCustomizeField = notNull(types['customizeField']);
+
+  static String prospectCustomField = notNull(types['prospectCustomField']);
+
+  static String activityCustomField = notNull(types['activityCustomField']);
 
   static String prospectStatus = notNull(types['prospectStatus']);
 

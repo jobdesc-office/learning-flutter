@@ -1,3 +1,6 @@
+// ignore: avoid_web_libraries_in_flutter
+import 'dart:html' as html;
+
 import 'package:boilerplate/services/settings/customfield_service.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,6 +33,7 @@ class HeaderSkins extends StatelessWidget implements LogoutViewContract {
   Widget build(BuildContext context) {
     final box = GetStorage();
     final controller = Get.put(ButtonController());
+    var refresh = true.obs;
     return Obx(() => Container(
           decoration: BoxDecoration(
             color: _navigation.darkTheme.value
@@ -90,7 +94,8 @@ class HeaderSkins extends StatelessWidget implements LogoutViewContract {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(box.read('name')),
+                                  if (refresh.value)
+                                    Text('${box.read('name')}'),
                                 ],
                               ),
                             ),
@@ -106,16 +111,25 @@ class HeaderSkins extends StatelessWidget implements LogoutViewContract {
                                             margin: EdgeInsets.all(3),
                                             child: InkWell(
                                               onTap: () {
-                                                box.writeInMemory(
+                                                refresh.value = false;
+                                                box.remove('mybpid');
+                                                box.remove('role');
+                                                box.write(
                                                     'mybpid',
                                                     element
                                                         .businesspartner!.bpid);
-                                                box.writeInMemory('role',
+                                                box.write('role',
                                                     element.usertype?.typeid);
+
                                                 Get.defaultDialog(
+                                                    barrierDismissible: false,
                                                     title: 'Caution',
                                                     middleText:
-                                                        'Bp : ${element.businesspartner!.bpname} \n Role : ${element.usertype!.typename}');
+                                                        'Bp : ${element.businesspartner!.bpname} \n Role : ${element.usertype!.typename}',
+                                                    onConfirm: () => html
+                                                        .window.location
+                                                        .reload());
+                                                refresh.value = true;
                                               },
                                               child: Container(
                                                 padding: EdgeInsets.all(3),

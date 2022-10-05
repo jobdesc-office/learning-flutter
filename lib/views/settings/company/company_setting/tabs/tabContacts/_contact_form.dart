@@ -1,10 +1,14 @@
 part of '../../company.dart';
 
-class _ContactForm extends StatelessWidget {
+// ignore: must_be_immutable
+class _ContactForm extends StatelessWidget implements IndexViewContract {
   CPContactPresenter presenter = Get.find();
+  final sbtpresenter = Get.find<StBpTypeActivityCategoryPresenter>();
   ContactFormSource source;
 
-  _ContactForm(this.source);
+  _ContactForm(this.source) {
+    sbtpresenter.stBpTypeActivityCategoryViewContract = this;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +20,9 @@ class _ContactForm extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : Colors.white,
+                color: _navigation.darkTheme.value
+                    ? ColorPallates.elseDarkColor
+                    : Colors.white,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Form(
@@ -25,7 +31,7 @@ class _ContactForm extends StatelessWidget {
                   children: [
                     inputName(),
                     selectCustomer(),
-                    selectType(),
+                    selectType(context),
                     inputValue(),
                     Obx(
                       () => Row(
@@ -57,7 +63,9 @@ class _ContactForm extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : Colors.white,
+                  color: _navigation.darkTheme.value
+                      ? ColorPallates.elseDarkColor
+                      : Colors.white,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: BsRow(
@@ -67,43 +75,75 @@ class _ContactForm extends StatelessWidget {
                         children: [
                           BsCol(
                             child: FormGroup(
-                                label: Text('Created By', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
+                                label: Text('Created By',
+                                    style: TextStyle(
+                                        color: _navigation.darkTheme.value
+                                            ? Colors.white
+                                            : Colors.black)),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [Text(source.createdby.value), Divider()],
+                                  children: [
+                                    Text(source.createdby.value),
+                                    Divider()
+                                  ],
                                 )),
                           ),
                           BsCol(
                             margin: EdgeInsets.only(top: 10),
                             child: FormGroup(
-                                label: Text('Created At', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
+                                label: Text('Created At',
+                                    style: TextStyle(
+                                        color: _navigation.darkTheme.value
+                                            ? Colors.white
+                                            : Colors.black)),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [Text(source.createddate.value), Divider()],
+                                  children: [
+                                    Text(source.createddate.value),
+                                    Divider()
+                                  ],
                                 )),
                           ),
                           BsCol(
                             margin: EdgeInsets.only(top: 10),
                             child: FormGroup(
-                                label: Text('Last Updated By', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
+                                label: Text('Last Updated By',
+                                    style: TextStyle(
+                                        color: _navigation.darkTheme.value
+                                            ? Colors.white
+                                            : Colors.black)),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [Text(source.updatedby.value), Divider()],
+                                  children: [
+                                    Text(source.updatedby.value),
+                                    Divider()
+                                  ],
                                 )),
                           ),
                           BsCol(
                             margin: EdgeInsets.only(top: 10),
                             child: FormGroup(
-                                label: Text('Last Updated At', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
+                                label: Text('Last Updated At',
+                                    style: TextStyle(
+                                        color: _navigation.darkTheme.value
+                                            ? Colors.white
+                                            : Colors.black)),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [Text(source.updateddate.value), Divider()],
+                                  children: [
+                                    Text(source.updateddate.value),
+                                    Divider()
+                                  ],
                                 )),
                           ),
                           BsCol(
                             margin: EdgeInsets.only(top: 10),
                             child: FormGroup(
-                                label: Text('Is Active', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
+                                label: Text('Is Active',
+                                    style: TextStyle(
+                                        color: _navigation.darkTheme.value
+                                            ? Colors.white
+                                            : Colors.black)),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -112,7 +152,9 @@ class _ContactForm extends StatelessWidget {
                                         child: Icon(
                                           Icons.toggle_on,
                                           size: 35,
-                                          color: _navigation.darkTheme.value ? ColorPallates.onDarkMode : ColorPallates.onLightMode,
+                                          color: _navigation.darkTheme.value
+                                              ? ColorPallates.onDarkMode
+                                              : ColorPallates.onLightMode,
                                         ),
                                         onTap: () => source.isactive.toggle(),
                                       )
@@ -121,7 +163,9 @@ class _ContactForm extends StatelessWidget {
                                         child: Icon(
                                           Icons.toggle_off,
                                           size: 35,
-                                          color: _navigation.darkTheme.value ? ColorPallates.offDarkMode : ColorPallates.offLightMode,
+                                          color: _navigation.darkTheme.value
+                                              ? ColorPallates.offDarkMode
+                                              : ColorPallates.offLightMode,
                                         ),
                                         onTap: () => source.isactive.toggle(),
                                       ),
@@ -153,19 +197,28 @@ class _ContactForm extends StatelessWidget {
 
   Widget inputName() {
     return FormGroup(
-      label: Obx(() => Text(ContactText.labelName, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(ContactText.labelName,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: presenter.isProcessing.value,
         controller: source.inputName,
         hintText: BaseText.hintText(field: ContactText.labelName),
-        validators: [Validators.inputRequired(ContactText.labelName), Validators.maxLength(ContactText.labelName, 255)],
+        validators: [
+          Validators.inputRequired(ContactText.labelName),
+          Validators.maxLength(ContactText.labelName, 255)
+        ],
       ),
     );
   }
 
   Widget selectCustomer() {
     return FormGroup(
-      label: Obx(() => Text(ContactText.labelCustomer, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(ContactText.labelCustomer,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomSelectBox(
         searchable: true,
         disabled: presenter.isProcessing.value,
@@ -179,11 +232,13 @@ class _ContactForm extends StatelessWidget {
     );
   }
 
-  Widget selectType() {
+  Widget selectType(context) {
     return FormGroup(
-      label: Obx(() => Text(ContactText.labelType, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(ContactText.labelType,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomSelectBox(
-        searchable: false,
         disabled: presenter.isProcessing.value,
         controller: source.selectType,
         hintText: BaseText.hiintSelect(field: ContactText.labelType),
@@ -191,13 +246,31 @@ class _ContactForm extends StatelessWidget {
         validators: [
           Validators.selectRequired(ContactText.labelType),
         ],
+        onChange: (value) async {
+          if (value.getValueAsString() == 'add') {
+            SessionModel session = await SessionManager.current();
+            sbtpresenter.save(context, {
+              'sbtbpid': box.read('mybpid'),
+              'sbtname': value.getOtherValue()['master'],
+              'sbttypemasterid': value.getOtherValue()['masterid'],
+              'sbttypename': value.getOtherValue()['name'],
+              'createdby': session.userid,
+              'updatedby': session.userid,
+              'isactive': true,
+            });
+            source.selectType.clear();
+          }
+        },
       ),
     );
   }
 
   Widget inputValue() {
     return FormGroup(
-      label: Obx(() => Text(ContactText.labelValue, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(ContactText.labelValue,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         minLines: 3,
         maxLines: 5,
@@ -207,4 +280,21 @@ class _ContactForm extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  void onCreateSuccess(Response response, {BuildContext? context}) {
+    Snackbar().createSuccess(context!);
+  }
+
+  @override
+  void onDeleteSuccess(Response response, {BuildContext? context}) {}
+
+  @override
+  void onEditSuccess(Response response, {BuildContext? context}) {}
+
+  @override
+  void onErrorRequest(Response response) {}
+
+  @override
+  void onLoadDatatables(BuildContext context, Response response) {}
 }

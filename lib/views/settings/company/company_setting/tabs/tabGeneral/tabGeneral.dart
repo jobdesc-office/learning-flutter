@@ -1,13 +1,17 @@
 part of '../../company.dart';
 
-class _TabGeneral extends StatelessWidget implements EditViewContract, IndexViewContract {
+class _TabGeneral extends StatelessWidget
+    implements EditViewContract, IndexViewContract {
   final _source = GeneralSource().obs;
   GeneralSource get source => _source.value;
   CPGeneralPresenter get presenter => Get.find<CPGeneralPresenter>();
 
+  final typePresenter = Get.find<TypesChildrenPresenter>();
+
   _TabGeneral() {
     presenter.businessPartnerFetchDataContract = this;
     presenter.businessPartnerViewContract = this;
+    typePresenter.typeChildrenViewContract = this;
     fetchData();
   }
 
@@ -25,11 +29,13 @@ class _TabGeneral extends StatelessWidget implements EditViewContract, IndexView
           child: BsRow(
             children: [
               BsCol(
-                sizes: ColScreen(sm: Col.col_4),
+                margin: EdgeInsets.only(top: 15),
+                alignment: Alignment.bottomCenter,
+                sizes: ColScreen(sm: Col.col_1),
                 child: Text('Name'),
               ),
               BsCol(
-                sizes: ColScreen(sm: Col.col_7),
+                sizes: ColScreen(sm: Col.col_11),
                 child: CustomInput(controller: source.inputName),
               ),
             ],
@@ -40,11 +46,13 @@ class _TabGeneral extends StatelessWidget implements EditViewContract, IndexView
           child: BsRow(
             children: [
               BsCol(
-                sizes: ColScreen(sm: Col.col_4),
+                margin: EdgeInsets.only(top: 15),
+                alignment: Alignment.bottomCenter,
+                sizes: ColScreen(sm: Col.col_1),
                 child: Text('PIC'),
               ),
               BsCol(
-                sizes: ColScreen(sm: Col.col_7),
+                sizes: ColScreen(sm: Col.col_11),
                 child: CustomInput(controller: source.inputPIC),
               ),
             ],
@@ -55,11 +63,13 @@ class _TabGeneral extends StatelessWidget implements EditViewContract, IndexView
           child: BsRow(
             children: [
               BsCol(
-                sizes: ColScreen(sm: Col.col_4),
+                margin: EdgeInsets.only(top: 15),
+                alignment: Alignment.bottomCenter,
+                sizes: ColScreen(sm: Col.col_1),
                 child: Text('Phone'),
               ),
               BsCol(
-                sizes: ColScreen(sm: Col.col_7),
+                sizes: ColScreen(sm: Col.col_11),
                 child: CustomInput(controller: source.inputPhone),
               ),
             ],
@@ -70,11 +80,13 @@ class _TabGeneral extends StatelessWidget implements EditViewContract, IndexView
           child: BsRow(
             children: [
               BsCol(
-                sizes: ColScreen(sm: Col.col_4),
+                margin: EdgeInsets.only(top: 15),
+                alignment: Alignment.bottomCenter,
+                sizes: ColScreen(sm: Col.col_1),
                 child: Text('Email'),
               ),
               BsCol(
-                sizes: ColScreen(sm: Col.col_7),
+                sizes: ColScreen(sm: Col.col_11),
                 child: CustomInput(controller: source.inputEmail),
               ),
             ],
@@ -85,15 +97,17 @@ class _TabGeneral extends StatelessWidget implements EditViewContract, IndexView
           child: BsRow(
             children: [
               BsCol(
-                sizes: ColScreen(sm: Col.col_4),
-                child: Text('Type'),
+                margin: EdgeInsets.only(top: 15),
+                alignment: Alignment.bottomCenter,
+                sizes: ColScreen(sm: Col.col_1),
+                child: Text('Company Type'),
               ),
               BsCol(
-                sizes: ColScreen(sm: Col.col_7),
+                sizes: ColScreen(sm: Col.col_11),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    selectSubdistrict(),
+                    selectSubdistrict(context),
                     Obx(() {
                       return BsCol(
                         margin: EdgeInsets.only(top: 10),
@@ -122,7 +136,7 @@ class _TabGeneral extends StatelessWidget implements EditViewContract, IndexView
     presenter.update(context, data, bpid!);
   }
 
-  Widget selectSubdistrict() {
+  Widget selectSubdistrict(context) {
     return FormGroup(
       child: CustomSelectBox(
         searchable: true,
@@ -133,6 +147,18 @@ class _TabGeneral extends StatelessWidget implements EditViewContract, IndexView
         validators: [
           Validators.selectRequired("Type"),
         ],
+        onChange: (val) async {
+          if (val.getValueAsString() == 'add') {
+            SessionModel session = await SessionManager.current();
+            typePresenter.save(context, {
+              'typename': val.getOtherValue()['name'],
+              'typemasterid': val.getOtherValue()['masterid'],
+              'createdby': session.userid,
+              'updatedby': session.userid,
+              'isactive': true,
+            });
+          }
+        },
       ),
     );
   }
@@ -140,40 +166,38 @@ class _TabGeneral extends StatelessWidget implements EditViewContract, IndexView
   @override
   void onSuccessFetchData(Response response) {
     presenter.setProcessing(false);
-    BusinessPartnerModel businessPartner = BusinessPartnerModel.fromJson(response.body);
+    BusinessPartnerModel businessPartner =
+        BusinessPartnerModel.fromJson(response.body);
     _source.update((val) {
       source.inputName.text = businessPartner.bpname ?? "";
       source.inputPIC.text = businessPartner.bppicname ?? "";
       source.inputEmail.text = businessPartner.bpemail ?? "";
       source.inputPhone.text = businessPartner.bpphone ?? "";
     });
-    source.choosedType.setSelected(BsSelectBoxOption(value: businessPartner.bptype?.typeid, text: Text(businessPartner.bptype!.typename!)));
+    source.choosedType.setSelected(BsSelectBoxOption(
+        value: businessPartner.bptype?.typeid,
+        text: Text(businessPartner.bptype!.typename!)));
   }
 
   @override
   void onCreateSuccess(Response response, {BuildContext? context}) {
-    // TODO: implement onCreateSuccess
+    source.choosedType.clear();
+    Snackbar().createSuccess(context!);
   }
 
   @override
-  void onDeleteSuccess(Response response, {BuildContext? context}) {
-    // TODO: implement onDeleteSuccess
-  }
+  void onDeleteSuccess(Response response, {BuildContext? context}) {}
 
   @override
   void onEditSuccess(Response response, {BuildContext? context}) async {
     presenter.setProcessing(false);
     fetchData();
-    Snackbar().editSuccess();
+    Snackbar().editSuccess(context!);
   }
 
   @override
-  void onErrorRequest(Response response) {
-    // TODO: implement onErrorRequest
-  }
+  void onErrorRequest(Response response) {}
 
   @override
-  void onLoadDatatables(BuildContext context, Response response) {
-    // TODO: implement onLoadDatatables
-  }
+  void onLoadDatatables(BuildContext context, Response response) {}
 }

@@ -3,10 +3,8 @@ import 'dart:async';
 import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:google_maps_webservice/places.dart';
 import 'package:map_picker/map_picker.dart';
 
 import '../../contracts/master/customerAddress_contract.dart';

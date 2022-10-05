@@ -21,10 +21,22 @@ class CustomFieldPresenter extends CustomGetXController {
     _customFieldViewContract = customFieldViewContract;
   }
 
+  late IndexViewContract _customFielddayactViewContract;
+  set customFielddayactViewContract(
+      IndexViewContract customFielddayactViewContract) {
+    _customFielddayactViewContract = customFielddayactViewContract;
+  }
+
   late EditViewContract _customFieldFetchDataContract;
   set customFieldFetchDataContract(
       EditViewContract customFieldFetchDataContract) {
     _customFieldFetchDataContract = customFieldFetchDataContract;
+  }
+
+  late EditViewContract _customFielddFetchDataContract;
+  set customFielddFetchDataContract(
+      EditViewContract customFielddFetchDataContract) {
+    _customFielddFetchDataContract = customFielddFetchDataContract;
   }
 
   late DetailViewContract _customFieldDataDetailsContract;
@@ -46,16 +58,25 @@ class CustomFieldPresenter extends CustomGetXController {
       _customFieldViewContract.onErrorRequest(response);
   }
 
+  Future datatablesdayact(
+      BuildContext context, Map<String, String> params) async {
+    Response response = await _customFieldService.datatablesdayactbp(params);
+    if (response.statusCode == 200)
+      _customFielddayactViewContract.onLoadDatatables(context, response);
+    else
+      _customFielddayactViewContract.onErrorRequest(response);
+  }
+
   Future cstm(int id) async {
     Response response = await _customFieldService.show(id);
     return response.body['cstmname'];
   }
 
-  void details(BuildContext context, int userid) async {
+  void details(BuildContext context, int userid, String data) async {
     setProcessing(true);
     showDialog(
       context: context,
-      builder: (context) => CustomFieldDetails(),
+      builder: (context) => CustomFieldDetails(data),
     );
 
     Response response = await _customFieldService.show(userid);
@@ -118,6 +139,16 @@ class CustomFieldPresenter extends CustomGetXController {
     Response response = await _customFieldService.show(id);
     if (response.statusCode == 200)
       _customFieldFetchDataContract.onSuccessFetchData(response);
+    else
+      _customFieldViewContract.onErrorRequest(response);
+  }
+
+  void edits(BuildContext context, int id) async {
+    setProcessing(true);
+
+    Response response = await _customFieldService.show(id);
+    if (response.statusCode == 200)
+      _customFielddFetchDataContract.onSuccessFetchData(response);
     else
       _customFieldViewContract.onErrorRequest(response);
   }

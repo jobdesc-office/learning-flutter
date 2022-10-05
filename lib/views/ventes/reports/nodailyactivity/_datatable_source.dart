@@ -21,7 +21,7 @@ class ReportNoDailyActivityDataTableSource extends BsDatatableSource {
   Function onDeleteListener = (value, name) {};
 
   ReportNoDailyActivityDataTableSource({
-    List data = const [],
+    List? data,
   }) : super(data: data);
 
   List<BsDataColumn> get columns {
@@ -34,25 +34,30 @@ class ReportNoDailyActivityDataTableSource extends BsDatatableSource {
       ),
       CustomBsDataColumn(
         label: Text('User Name'),
-        columnName: 'ReportNoDailyActivityname',
-        searchable: false,
+        columnKey: (v) => v.userfullname,
+        columnName: 'userfullname',
+        searchable: true,
         orderable: false,
       ),
       CustomBsDataColumn(
         label: Text('User Email'),
-        searchable: false,
+        columnName: 'useremail',
+        searchable: true,
         orderable: false,
       ),
       CustomBsDataColumn(
         label: Text('User Phone'),
-        searchable: false,
+        columnName: 'userphone',
+        searchable: true,
         orderable: false,
       ),
     ];
   }
 
   // ignore: invalid_use_of_protected_member
-  List<Dayactuser> get users => controllers.employees.value;
+  List<Dayactuser> get users => response.data.map((e) {
+        return e is Dayactuser ? e : Dayactuser.fromJson(e);
+      }).toList();
 
   @override
   BsDataRow getRow(int index) {

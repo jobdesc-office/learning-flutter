@@ -56,28 +56,31 @@ class _ReportViewState extends State<ReportView>
       body: TemplateView(
         title: ReportText.title,
         breadcrumbs: [
-          BreadcrumbWidget('Venteses'),
+          BreadcrumbWidget('Ventes'),
           BreadcrumbWidget('Report', active: true),
         ],
         activeRoutes: [RouteList.master.index, RouteList.ventesReport.index],
+        background: true,
         child: Column(
           children: [
-            Container(
-              child: TabBar(
-                  labelColor: Colors.black,
-                  controller: _tabController,
-                  tabs: [
-                    Tab(
-                      text: 'Calendar',
-                    ),
-                    Tab(
-                      text: 'List',
-                    )
-                  ]),
-            ),
+            Obx(() => Container(
+                  child: TabBar(
+                      labelColor: Colors.green,
+                      controller: _tabController,
+                      unselectedLabelColor:
+                          _nav.darkTheme.value ? Colors.white : Colors.black,
+                      tabs: [
+                        Tab(
+                          text: 'Calendar',
+                        ),
+                        Tab(
+                          text: 'List',
+                        )
+                      ]),
+                )),
             Container(
               width: double.infinity,
-              height: 500,
+              height: MediaQuery.of(context).size.height,
               child: TabBarView(controller: _tabController, children: [
                 Container(
                   child: Obx(() => SingleChildScrollView(
@@ -169,7 +172,7 @@ class _ReportViewState extends State<ReportView>
                                                 children: [
                                                   InkWell(
                                                     onTap: () =>
-                                                        presenter.details(
+                                                        presenter.detailsDayAct(
                                                             context, reports),
                                                     child: Container(
                                                       width: 150,
@@ -346,8 +349,8 @@ class _ReportViewState extends State<ReportView>
   void onCreateSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
     map.reset();
-    Snackbar().createSuccess();
-    Navigator.pop(context!);
+    Snackbar().createSuccess(context!);
+    Navigator.pop(context);
   }
 
   @override
@@ -355,16 +358,16 @@ class _ReportViewState extends State<ReportView>
     source.done.value = true;
     presenter.setProcessing(false);
     map.reset();
-    Snackbar().deleteSuccess();
-    Navigator.pop(context!);
+    Snackbar().deleteSuccess(context!);
+    Navigator.pop(context);
   }
 
   @override
   void onEditSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
     map.reset();
-    Snackbar().editSuccess();
-    Navigator.pop(context!);
+    Snackbar().editSuccess(context!);
+    Navigator.pop(context);
   }
 
   @override
@@ -378,6 +381,8 @@ class _ReportViewState extends State<ReportView>
     map.reset();
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
+    datatable.onDetailsListener =
+        (userid) => presenter.details(context, userid);
   }
 
   @override

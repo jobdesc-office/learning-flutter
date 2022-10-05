@@ -18,6 +18,7 @@ class TemplateView extends StatelessWidget {
     this.back = false,
     this.titlebg = true,
     this.background = false,
+    this.widget,
   }) : super(key: key);
 
   final Widget? child;
@@ -33,6 +34,8 @@ class TemplateView extends StatelessWidget {
   final bool titlebg;
 
   final bool background;
+
+  final Widget? widget;
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +64,7 @@ class TemplateView extends StatelessWidget {
                             back: this.back,
                             titlebg: this.titlebg,
                             background: this.background,
+                            widget: widget,
                           ),
                         ),
                       ],

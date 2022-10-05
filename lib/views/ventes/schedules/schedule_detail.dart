@@ -33,7 +33,7 @@ class ScheduleDetails extends GetView implements DetailViewContract {
       body: TemplateView(
         title: ScheduleText.title + ' Details',
         breadcrumbs: [
-          BreadcrumbWidget('Venteses'),
+          BreadcrumbWidget('Ventes'),
           BreadcrumbWidget('Schedules', back: true),
           BreadcrumbWidget('Schedule Details', active: true),
         ],

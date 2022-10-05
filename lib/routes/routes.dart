@@ -20,6 +20,8 @@ import '../presenters/settings/file_presenter.dart';
 import '../presenters/settings/permission_presenter.dart';
 import '../presenters/settings/stbptype/stbptypeactivitycategory_presenter.dart';
 import '../presenters/settings/stbptype/stbptypeactivitytype_presenter.dart';
+import '../presenters/settings/stbptype/stbptypecontacttype_presenter.dart';
+import '../presenters/settings/stbptype/stbptypecustomertype_presenter.dart';
 import '../presenters/settings/stbptype/stbptypeprospectcategory_presenter.dart';
 import '../presenters/settings/stbptype/stbptypeprospectcustomerlabel_presenter.dart';
 import '../presenters/settings/stbptype/stbptypeprospectlostreason_presenter.dart';
@@ -113,7 +115,11 @@ class AppRoute {
       ),
       CustomGetPage(
         name: RouteList.home.index,
-        page: () => AuthGuard(child: HomeView()),
+        page: () => AuthGuard(
+          child: HomeView(),
+          route: '/',
+          parent: 'Insight',
+        ),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => ScheduleService());
           Get.lazyPut(() => SchedulePresenter());
@@ -144,9 +150,14 @@ class AppRoute {
           Get.lazyPut(() => FeaturePresenter());
         }),
       ),
+
       CustomGetPage(
         name: RouteList.masterUser.index,
-        page: () => UserView(),
+        page: () => AuthGuard(
+          child: UserView(),
+          parent: 'Master Datas',
+          route: '/masters/user',
+        ),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => UserService());
           Get.lazyPut(() => UserPresenter());
@@ -154,7 +165,12 @@ class AppRoute {
       ),
       CustomGetPage(
         name: RouteList.masterCustomer.index,
-        page: () => CustomerView(),
+        page: () => AuthGuard(
+          child: CustomerView(),
+          parent: 'Master Datas',
+          parent2: 'Customers',
+          route: '/masters/customer',
+        ),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => ProvinceService());
           Get.lazyPut(() => CityService());
@@ -166,7 +182,12 @@ class AppRoute {
       ),
       CustomGetPage(
         name: RouteList.masterContact.index,
-        page: () => ContactView(),
+        page: () => AuthGuard(
+          child: ContactView(),
+          parent: 'Master Datas',
+          parent2: 'Customers',
+          route: '/masters/contact',
+        ),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => CustomerService());
           Get.lazyPut(() => TypeService());
@@ -176,24 +197,33 @@ class AppRoute {
       ),
       CustomGetPage(
         name: RouteList.masterBusinessPartner.index,
-        page: () => BusinessPartnerView(),
+        page: () => AuthGuard(
+          child: BusinessPartnerView(),
+          parent: 'Master Datas',
+          route: '/masters/businesspartner',
+        ),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => BusinessPartnerService());
           Get.lazyPut(() => BusinessPartnerPresenter());
         }),
       ),
-      CustomGetPage(
-        name: RouteList.masterProduct.index,
-        page: () => ProductView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => UserService());
-          Get.lazyPut(() => ProductService());
-          Get.lazyPut(() => ProductPresenter());
-        }),
-      ),
+      // CustomGetPage(
+      //   name: RouteList.masterProduct.index,
+      //   page: () => ProductView(),
+      //   binding: BindingsBuilder(() {
+      //     Get.lazyPut(() => UserService());
+      //     Get.lazyPut(() => ProductService());
+      //     Get.lazyPut(() => ProductPresenter());
+      //   }),
+      // ),
       CustomGetPage(
         name: RouteList.masterTypeParent.index,
-        page: () => TypesParentView(),
+        page: () => AuthGuard(
+          child: TypesParentView(),
+          parent: 'Settings',
+          parent2: 'Types',
+          route: '/masters/typeparent',
+        ),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => TypeService());
           Get.lazyPut(() => TypeParentPresenter());
@@ -201,7 +231,12 @@ class AppRoute {
       ),
       CustomGetPage(
         name: RouteList.masterTypeChildren.index,
-        page: () => TypesChildrenView(),
+        page: () => AuthGuard(
+          child: TypesChildrenView(),
+          parent: 'Settings',
+          parent2: 'Types',
+          route: '/masters/typechildren',
+        ),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => TypeChildrenService());
           Get.lazyPut(() => TypesChildrenPresenter());
@@ -209,7 +244,12 @@ class AppRoute {
       ),
       CustomGetPage(
         name: RouteList.masterCountry.index,
-        page: () => CountryView(),
+        page: () => AuthGuard(
+          child: CountryView(),
+          parent: 'Settings',
+          parent2: 'Regions',
+          route: '/masters/country',
+        ),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => CountryService());
           Get.lazyPut(() => CountryPresenter());
@@ -217,7 +257,12 @@ class AppRoute {
       ),
       CustomGetPage(
         name: RouteList.masterProvince.index,
-        page: () => ProvinceView(),
+        page: () => AuthGuard(
+          child: ProvinceView(),
+          parent: 'Settings',
+          parent2: 'Regions',
+          route: '/masters/province',
+        ),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => CountryService());
           Get.lazyPut(() => ProvinceService());
@@ -226,7 +271,12 @@ class AppRoute {
       ),
       CustomGetPage(
         name: RouteList.masterCity.index,
-        page: () => CityView(),
+        page: () => AuthGuard(
+          child: CityView(),
+          parent: 'Settings',
+          parent2: 'Regions',
+          route: '/masters/city',
+        ),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => ProvinceService());
           Get.lazyPut(() => CityService());
@@ -235,7 +285,12 @@ class AppRoute {
       ),
       CustomGetPage(
         name: RouteList.masterSubdistrict.index,
-        page: () => SubdistrictView(),
+        page: () => AuthGuard(
+          child: SubdistrictView(),
+          parent: 'Settings',
+          parent2: 'Regions',
+          route: '/masters/subdistrict',
+        ),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => ProvinceService());
           Get.lazyPut(() => CityService());
@@ -245,7 +300,12 @@ class AppRoute {
       ),
       CustomGetPage(
         name: RouteList.masterVillage.index,
-        page: () => VillageView(),
+        page: () => AuthGuard(
+          child: VillageView(),
+          parent: 'Settings',
+          parent2: 'Regions',
+          route: '/masters/village',
+        ),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => SubdistrictService());
           Get.lazyPut(() => SubdistrictPresenter());
@@ -254,11 +314,15 @@ class AppRoute {
         }),
       ),
 
-      /** Venteses **/
+      /** Ventes **/
 
       CustomGetPage(
         name: RouteList.ventesSchedule.index,
-        page: () => ScheduleView(),
+        page: () => AuthGuard(
+          child: ScheduleView(),
+          parent: 'Ventes Datas',
+          route: '/ventes/schedule',
+        ),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => ProspectService());
           Get.lazyPut(() => ScheduleService());
@@ -269,7 +333,11 @@ class AppRoute {
       ),
       CustomGetPage(
         name: RouteList.ventesReport.index,
-        page: () => ReportView(),
+        page: () => AuthGuard(
+          child: ReportView(),
+          parent: 'Ventes Datas',
+          route: '/ventes/report',
+        ),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => ReportService());
           Get.lazyPut(() => ReportPresenter());
@@ -277,7 +345,11 @@ class AppRoute {
       ),
       CustomGetPage(
         name: RouteList.ventesProspect.index,
-        page: () => AuthGuard(child: ProspectView()),
+        page: () => AuthGuard(
+          child: ProspectView(),
+          parent: 'Ventes Datas',
+          route: '/ventes/prospect',
+        ),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => VillageService());
           Get.lazyPut(() => SubdistrictService());
@@ -286,6 +358,7 @@ class AppRoute {
           Get.lazyPut(() => UserService());
           Get.lazyPut(() => CustomerService());
           Get.lazyPut(() => ProductService());
+          Get.lazyPut(() => ProductPresenter());
           Get.lazyPut(() => ProspectService());
           Get.lazyPut(() => ProspectActivityService());
           Get.lazyPut(() => ProspectActivityPresenter());
@@ -306,7 +379,11 @@ class AppRoute {
       ),
       CustomGetPage(
         name: RouteList.ventesBpCustomer.index,
-        page: () => BpCustomerView(),
+        page: () => AuthGuard(
+          child: BpCustomerView(),
+          parent: 'Masters Datas',
+          route: '/ventes/bpcustomer',
+        ),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => ProvinceService());
           Get.lazyPut(() => CityService());
@@ -320,29 +397,33 @@ class AppRoute {
           Get.lazyPut(() => CustomerPresenter());
         }),
       ),
-      CustomGetPage(
-        name: RouteList.ventesCompetitor.index,
-        page: () => CompetitorView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => CompetitorService());
-          Get.lazyPut(() => CompetitorPresenter());
-        }),
-      ),
+      // CustomGetPage(
+      //   name: RouteList.ventesCompetitor.index,
+      //   page: () => AuthGuard(child: CompetitorView(), route: '',),
+      //   binding: BindingsBuilder(() {
+      //     Get.lazyPut(() => CompetitorService());
+      //     Get.lazyPut(() => CompetitorPresenter());
+      //   }),
+      // ),
 
       /** Settings **/
-      CustomGetPage(
-        name: RouteList.settingsCustomField.index,
-        page: () => CustomFieldView(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => ProspectService());
-          Get.lazyPut(() => ProspectPresenter());
-          Get.lazyPut(() => CustomFieldService());
-          Get.lazyPut(() => CustomFieldPresenter());
-        }),
-      ),
+      // CustomGetPage(
+      //   name: RouteList.settingsCustomField.index,
+      //   page: () => CustomFieldView(),
+      //   binding: BindingsBuilder(() {
+      //     Get.lazyPut(() => ProspectService());
+      //     Get.lazyPut(() => ProspectPresenter());
+      //     Get.lazyPut(() => CustomFieldService());
+      //     Get.lazyPut(() => CustomFieldPresenter());
+      //   }),
+      // ),
       CustomGetPage(
         name: RouteList.settingsFiles.index,
-        page: () => FileView(),
+        page: () => AuthGuard(
+          child: FileView(),
+          parent: 'Settings',
+          route: '/settings/files',
+        ),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => FileService());
           Get.lazyPut(() => FilePresenter());
@@ -350,7 +431,13 @@ class AppRoute {
       ),
       CustomGetPage(
         name: RouteList.settingsPermission.index,
-        page: () => PermissionRoleView(),
+        page: () =>
+            // AuthGuard(
+            //   child:
+            PermissionRoleView(),
+        //   parent: 'Settings',
+        //   route: '/settings/permission',
+        // ),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => PermissionService());
           Get.lazyPut(() => PermissionPresenter());
@@ -358,7 +445,12 @@ class AppRoute {
       ),
       CustomGetPage(
         name: RouteList.settingsCompany.index,
-        page: () => CompanyView(),
+        page: () => AuthGuard(
+          child: CompanyView(),
+          parent: 'Settings',
+          // parent2: 'Company',
+          route: '/settings/company',
+        ),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => CompanySources());
           Get.lazyPut(() => CPGeneralPresenter());
@@ -377,8 +469,34 @@ class AppRoute {
           Get.lazyPut(() => StBpTypeProspectStagePresenter());
           Get.lazyPut(() => StBpTypeProspectStatusPresenter());
           Get.lazyPut(() => StBpTypeScheduleTypePresenter());
+          Get.lazyPut(() => StBpTypeCustomerTypePresenter());
+          Get.lazyPut(() => StBpTypeContactTypePresenter());
           Get.lazyPut(() => TypeService());
           Get.lazyPut(() => ContactService());
+          Get.lazyPut(() => CompetitorPresenter());
+          Get.lazyPut(() => CompetitorService());
+          Get.lazyPut(() => UserPresenter());
+          Get.lazyPut(() => UserService());
+          Get.lazyPut(() => BpCustomerPresenter());
+          Get.lazyPut(() => BpCustomerService());
+          Get.lazyPut(() => CustomerPresenter());
+          Get.lazyPut(() => CustomerService());
+          Get.lazyPut(() => VillageService());
+          Get.lazyPut(() => SubdistrictService());
+          Get.lazyPut(() => CityService());
+          Get.lazyPut(() => ProvinceService());
+          Get.lazyPut(() => ProspectPresenter());
+          Get.lazyPut(() => ProspectService());
+          Get.lazyPut(() => ProductPresenter());
+          Get.lazyPut(() => ProductService());
+          Get.lazyPut(() => ProspectPresenter());
+          Get.lazyPut(() => ProspectService());
+          Get.lazyPut(() => TypesChildrenPresenter());
+          Get.lazyPut(() => TypeChildrenService());
+          Get.lazyPut(() => CustomFieldPresenter());
+          Get.lazyPut(() => CustomFieldService());
+          Get.lazyPut(() => ReportPresenter());
+          Get.lazyPut(() => ReportService());
         }),
       ),
       CustomGetPage(

@@ -17,17 +17,17 @@ final _navigation = Get.find<NavigationPresenter>();
 class ReportDailyActivities extends GetView {
   final ReportPresenter presenter = Get.find<ReportPresenter>();
   final controllers = Get.put(ReportHelper());
-  final datatable = ReportDailyActivityDataTableSource();
 
   List<Activities> act = [];
 
   ReportDailyActivities({required this.act}) {
     controllers.act.value = act;
-    datatable.addAll(act);
   }
 
   @override
   Widget build(BuildContext context) {
+    final datatable = ReportDailyActivityDataTableSource(context: context);
+    datatable.addAll(act);
     return BsModal(
         context: context,
         dialog: BsModalDialog(

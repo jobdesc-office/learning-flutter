@@ -36,6 +36,7 @@ class PermissionRoleView extends GetView implements IndexViewContract {
           RouteList.master.index,
           RouteList.settingsPermission.index
         ],
+        background: true,
         child: Container(
           child: Column(
             children: [
@@ -56,7 +57,7 @@ class PermissionRoleView extends GetView implements IndexViewContract {
     presenter.setProcessing(false);
     datatable.controller.reload();
     if (context != null) Navigator.pop(context);
-    Snackbar().createSuccess();
+    Snackbar().createSuccess(context!);
   }
 
   @override
@@ -64,7 +65,7 @@ class PermissionRoleView extends GetView implements IndexViewContract {
     presenter.setProcessing(false);
     datatable.controller.reload();
     if (context != null) Navigator.pop(context);
-    Snackbar().deleteSuccess();
+    Snackbar().deleteSuccess(context!);
   }
 
   @override
@@ -72,7 +73,7 @@ class PermissionRoleView extends GetView implements IndexViewContract {
     presenter.setProcessing(false);
     datatable.controller.reload();
     if (context != null) Navigator.pop(context);
-    Snackbar().editSuccess();
+    Snackbar().editSuccess(context!);
   }
 
   @override
@@ -90,8 +91,7 @@ class PermissionRoleView extends GetView implements IndexViewContract {
     source.role.value = role;
     datatable.addAll(role);
     datatable.onDeleteListener = (roleid, rolename) {
-      source.rolename.value = rolename;
-      presenter.menu(context, roleid);
+      presenter.menu(context, roleid, rolename);
     };
   }
 }

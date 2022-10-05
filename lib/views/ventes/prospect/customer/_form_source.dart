@@ -40,6 +40,12 @@ class PCustomerSource extends GetxController {
   var image = Uint8List(1).obs;
   var isImage = false.obs;
 
+  final createdby = Rx<String>('');
+  final createddate = Rx<String>('');
+  final updatedby = Rx<String>('');
+  final updateddate = Rx<String>('');
+  final isactive = Rx<bool>(true);
+
   TextEditingController inputPrefix = TextEditingController();
   TextEditingController inputName = TextEditingController();
   TextEditingController inputPhone = TextEditingController();
@@ -71,7 +77,7 @@ class PCustomerSource extends GetxController {
       imgname.value = name;
       json = {
         'isregistered': isRegistered.value,
-        'contactcustomerid': selectCustomer.getSelectedAsString(),
+        'contactbpcustomerid': selectCustomer.getSelectedAsString(),
         'contactname': inputContactName.text,
         'contacttypeid': selectContactType.getSelectedAsString(),
         'contactvalueid': inputValue.text,

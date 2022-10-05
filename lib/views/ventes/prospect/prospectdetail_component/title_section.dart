@@ -25,50 +25,6 @@ BsCol prospectDetailTitleSection(context) {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Obx(() {
-                            Widget cards = Text('${source.status.value}');
-                            switch (source.custlabel.value) {
-                              case 'Cold':
-                                cards = Container(
-                                  child: Text(
-                                    '${source.custlabel.value}',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                  padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
-                                  decoration: BoxDecoration(
-                                      color: Colors.blue,
-                                      borderRadius: BorderRadius.circular(5)),
-                                );
-                                break;
-                              case 'Warm':
-                                cards = Container(
-                                  child: Text(
-                                    '${source.custlabel.value}',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                  padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
-                                  decoration: BoxDecoration(
-                                      color: Colors.orange,
-                                      borderRadius: BorderRadius.circular(5)),
-                                );
-                                break;
-                              case 'Hot':
-                                cards = Container(
-                                  child: Text(
-                                    '${source.custlabel.value}',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                  padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
-                                  decoration: BoxDecoration(
-                                      color: Colors.red,
-                                      borderRadius: BorderRadius.circular(5)),
-                                );
-                                break;
-                              default:
-                                Text('${source.custlabel.value}',
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold));
-                            }
                             return Row(
                               children: [
                                 Text(
@@ -91,12 +47,31 @@ BsCol prospectDetailTitleSection(context) {
                                 Row(
                                   children: [
                                     Text(' | '),
-                                    cards,
+                                    Container(
+                                      child: Text(
+                                        '${source.custlabel.value}',
+                                        style: TextStyle(
+                                            color: source
+                                                .custlabeltextcolor.value),
+                                      ),
+                                      padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
+                                      decoration: BoxDecoration(
+                                          color: source.custlabelcolor.value,
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
+                                    ),
                                   ],
                                 )
                               ],
                             );
                           }),
+                          if (source.status.value != 'Closed Lost' &&
+                              source.status.value != 'Closed Won' &&
+                              source.status.value != 'Force Closed')
+                            Container(
+                              margin: EdgeInsets.only(top: 5),
+                              child: Text(source.status.value),
+                            )
                         ],
                       ),
                       if (source.status.value == 'Closed Lost')
@@ -210,6 +185,88 @@ BsCol prospectDetailTitleSection(context) {
                             })
                           ],
                         )
+                      else if (source.status.value == 'Force Closed')
+                        Row(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                    color: Color.fromARGB(255, 207, 202, 202),
+                                  )),
+                              child: Text(
+                                  'Rp ' +
+                                      currencyFormatter
+                                          .format(double.parse(
+                                              source.prospectvalue.value))
+                                          .replaceAll(',00', '')
+                                          .replaceAll('.', ','),
+                                  style: TextStyle(
+                                    fontSize: 21,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                            ),
+                            Obx(() {
+                              Widget card = Text('${source.status.value}');
+                              switch (source.status.value) {
+                                case 'Closed Lost':
+                                  card = Container(
+                                    child: Text(
+                                      '${source.status.value}',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
+                                    decoration: BoxDecoration(
+                                        color: Colors.red,
+                                        borderRadius: BorderRadius.circular(5)),
+                                  );
+                                  break;
+                                case 'Closed Won':
+                                  card = Container(
+                                    child: Text(
+                                      '${source.status.value}',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
+                                    decoration: BoxDecoration(
+                                        color: Colors.green,
+                                        borderRadius: BorderRadius.circular(5)),
+                                  );
+                                  break;
+                                case 'Force Closed':
+                                  card = Container(
+                                    child: Text(
+                                      '${source.status.value}',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
+                                    decoration: BoxDecoration(
+                                        color: Colors.red,
+                                        borderRadius: BorderRadius.circular(5)),
+                                  );
+                                  break;
+                                default:
+                                  Text('${source.status.value}',
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold));
+                              }
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                      margin:
+                                          EdgeInsets.only(left: 10, bottom: 7),
+                                      child: card),
+                                  Container(
+                                    child: Text(''),
+                                  )
+                                ],
+                              );
+                            })
+                          ],
+                        )
                       else
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -243,8 +300,9 @@ BsCol prospectDetailTitleSection(context) {
                                     style: BsButtonStyle.success,
                                     onPressed: () async {
                                       int data = await presenter.wonStatus();
-                                      TypeModel stage =
-                                          await presenter.completePipeline();
+                                      print(data);
+                                      // TypeModel stage =
+                                      //     await presenter.completePipeline();
                                       showDialog(
                                         context: context,
                                         builder: (context) => ConfirmDialog(
@@ -299,7 +357,6 @@ BsCol prospectDetailTitleSection(context) {
               ),
               Container(
                 child: BsRow(
-                  margin: EdgeInsets.only(top: 10),
                   children: [
                     if (source.showPipeline.value)
                       BsCol(

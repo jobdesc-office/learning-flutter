@@ -1,3 +1,4 @@
+import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,6 +19,7 @@ class ContentSkins extends StatelessWidget {
     this.back = false,
     this.titlebg = true,
     this.background = false,
+    this.widget,
   }) : super(key: key);
 
   final String? title;
@@ -33,6 +35,8 @@ class ContentSkins extends StatelessWidget {
   final bool titlebg;
 
   final bool background;
+
+  final Widget? widget;
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +123,9 @@ class ContentSkins extends StatelessWidget {
                       if (this.back)
                         ThemeButtonBack(
                           margin: EdgeInsets.only(right: 15, top: 5),
-                        ),
+                        )
+                      else
+                        widget ?? Container(),
                     ],
                   ),
                 ),

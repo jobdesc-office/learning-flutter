@@ -7,8 +7,9 @@ import 'package:intl/intl.dart';
 
 import '../../../contracts/base/edit_view_contract.dart';
 import '../../../contracts/base/index_view_contract.dart';
-import '../../../models/masters/type_model.dart';
+import '../../../models/settings/stbptype_model.dart';
 import '../../../models/ventes/prospect_model.dart';
+import '../../../presenters/masters/product_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../presenters/ventes/prospect_presenter.dart';
 import '../../../routes/route_list.dart';
@@ -26,6 +27,7 @@ class ProspectFormView extends StatelessWidget
     implements EditViewContract, MenuTypeViewContract, IndexViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final ProspectPresenter presenter = Get.find<ProspectPresenter>();
+  final productPresenter = Get.find<ProductPresenter>();
   final source = ProspectSource().obs;
   final Function(Map<String, dynamic> body) onSave;
   final _navigation = Get.find<NavigationPresenter>();
@@ -36,6 +38,7 @@ class ProspectFormView extends StatelessWidget
     presenter.prospectFetchDataContract = this;
     presenter.prospectTypeViewContract = this;
     presenter.addCustomerViewContract = this;
+    productPresenter.productViewContract = this;
   }
 
   @override
@@ -44,7 +47,7 @@ class ProspectFormView extends StatelessWidget
       body: TemplateView(
         title: 'Prospect Form',
         breadcrumbs: [
-          BreadcrumbWidget('Venteses'),
+          BreadcrumbWidget('Ventes'),
           BreadcrumbWidget('Prospect', back: true),
           BreadcrumbWidget('Prospect Form', active: true),
         ],
@@ -343,11 +346,11 @@ class ProspectFormView extends StatelessWidget
           text: Text(prospect.prospectcust!.sbccstmname.toString())));
       source.value.inputCompanyName.text = prospect.prospectname ?? '';
       source.value.selectStatus.setSelected(BsSelectBoxOption(
-          value: prospect.prospectstatus!.typeid,
-          text: Text(prospect.prospectstatus!.typename.toString())));
+          value: prospect.prospectstatus!.sbtid,
+          text: Text(prospect.prospectstatus!.sbttypename.toString())));
       source.value.selectCustLab.setSelected(BsSelectBoxOption(
-          value: prospect.prospectcustlabeltype?.typeid,
-          text: Text(prospect.prospectcustlabeltype!.typename.toString())));
+          value: prospect.prospectcustlabeltype?.sbtid,
+          text: Text(prospect.prospectcustlabeltype!.sbttypename.toString())));
 
       if (prospect.prospectvalue != null) {
         source.value.inputValue.text = currencyFormatter
@@ -398,9 +401,9 @@ class ProspectFormView extends StatelessWidget
   @override
   void onLoadSuccess(Response response) {
     source.update((val) {
-      source.value.prospectStageController.options = List<TypeModel>.from(
+      source.value.prospectStageController.options = List<StbptypeModel>.from(
         response.body.map((data) {
-          return TypeModel.fromJson(data);
+          return StbptypeModel.fromJson(data);
         }),
       );
     });
@@ -410,21 +413,21 @@ class ProspectFormView extends StatelessWidget
   void onCreateSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
     if (context != null) Navigator.pop(context);
-    Snackbar().createSuccess();
+    Snackbar().createSuccess(context!);
   }
 
   @override
   void onDeleteSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
     if (context != null) Navigator.pop(context);
-    Snackbar().deleteSuccess();
+    Snackbar().deleteSuccess(context!);
   }
 
   @override
   void onEditSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
     if (context != null) Navigator.pop(context);
-    Snackbar().editSuccess();
+    Snackbar().editSuccess(context!);
   }
 
   @override

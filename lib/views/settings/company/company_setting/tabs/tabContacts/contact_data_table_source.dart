@@ -18,10 +18,6 @@ class ContactDataTableSource extends BsDatatableSource {
   ValueChanged<int> onEditListener = (value) {};
   Function onDeleteListener = (value, name) {};
 
-  ContactDataTableSource({
-    List data = const [],
-  }) : super(data: data);
-
   List<BsDataColumn> get columns {
     return <BsDataColumn>[
       CustomBsDataColumn(
@@ -40,11 +36,22 @@ class ContactDataTableSource extends BsDatatableSource {
         label: Text('Contact Value'),
         columnName: 'contactvalueid',
       ),
-      CustomBsDataColumn(label: Text('Actions'), width: 100, orderable: false, searchable: false),
+      CustomBsDataColumn(
+        label: Text('Contact Customer'),
+        columnName: 'contactvalueid',
+        searchable: false,
+        orderable: false,
+      ),
+      CustomBsDataColumn(
+          label: Text('Actions'),
+          width: 100,
+          orderable: false,
+          searchable: false),
     ];
   }
 
-  List<ContactModel> get contacts => response.data.map((data) => ContactModel.fromJson(data)).toList();
+  List<ContactModel> get contacts =>
+      response.data.map((data) => ContactModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
@@ -64,7 +71,7 @@ class ContactDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.contactname!),
+          Text(row.contactname ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -74,7 +81,17 @@ class ContactDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.contactvalueid!),
+          Text(row.contactvalueid ?? ''),
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
+        ),
+        CustomBsDataCell(
+          Text(row.contactcustomer?.cstmname ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -102,7 +119,9 @@ class ContactDataTableSource extends BsDatatableSource {
               ),
               Tooltip(
                 message: BaseText.deleteHintDatatable(field: row.contactname),
-                child: ButtonDeleteDatatables(onPressed: () => onDeleteListener(row.contactpersonid!, row.contactname!)),
+                child: ButtonDeleteDatatables(
+                    onPressed: () => onDeleteListener(
+                        row.contactpersonid!, row.contactname!)),
               ),
             ],
           ),

@@ -7,11 +7,14 @@ import '../styles/color_palattes.dart';
 final _navigation = Get.find<NavigationPresenter>();
 
 class Snackbar {
-  void createSuccess() {
+  void createSuccess(BuildContext context) {
     Get.snackbar('Success', 'Create Data Success',
         colorText: _navigation.darkTheme.value ? Colors.black : Colors.white,
         backgroundColor: ColorPallates.primary,
-        margin: EdgeInsets.only(top: 10, right: 10, bottom: 10, left: 1150),
+        margin: EdgeInsets.only(
+            top: MediaQuery.of(context).size.height * 0.005,
+            right: 10,
+            left: MediaQuery.of(context).size.width * 0.85),
         maxWidth: 300,
         icon: Icon(
           Icons.check,
@@ -20,11 +23,14 @@ class Snackbar {
         ));
   }
 
-  void editSuccess() {
+  void editSuccess(BuildContext context) {
     Get.snackbar('Success', 'Edit Data Success',
         colorText: _navigation.darkTheme.value ? Colors.black : Colors.white,
         backgroundColor: ColorPallates.warning,
-        margin: EdgeInsets.only(top: 10, right: 10, bottom: 10, left: 1150),
+        margin: EdgeInsets.only(
+            top: MediaQuery.of(context).size.height * 0.005,
+            right: 10,
+            left: MediaQuery.of(context).size.width * 0.85),
         maxWidth: 500,
         icon: Icon(
           Icons.edit,
@@ -33,11 +39,14 @@ class Snackbar {
         ));
   }
 
-  void deleteSuccess() {
+  void deleteSuccess(BuildContext context) {
     Get.snackbar('Success', 'Delete Data Success',
         colorText: _navigation.darkTheme.value ? Colors.black : Colors.white,
         backgroundColor: ColorPallates.danger,
-        margin: EdgeInsets.only(top: 10, right: 10, bottom: 10, left: 1150),
+        margin: EdgeInsets.only(
+            top: MediaQuery.of(context).size.height * 0.005,
+            right: 10,
+            left: MediaQuery.of(context).size.width * 0.85),
         maxWidth: 300,
         icon: Icon(
           Icons.delete,

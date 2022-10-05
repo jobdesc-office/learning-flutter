@@ -14,7 +14,7 @@ class _TabProspectState extends State<_TabProspect>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 6, vsync: this);
+    _tabController = TabController(length: 7, vsync: this);
   }
 
   @override
@@ -24,11 +24,12 @@ class _TabProspectState extends State<_TabProspect>
       child: BsRow(
         children: [
           BsCol(
-            sizes: ColScreen(sm: Col.col_8),
+            sizes: ColScreen(sm: Col.col_9),
             child: TabBar(
               controller: _tabController,
               labelColor: Colors.green,
-              unselectedLabelColor: Colors.black,
+              unselectedLabelColor:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black,
               tabs: [
                 Tab(text: 'Category'),
                 Tab(text: 'Customer Label'),
@@ -36,6 +37,7 @@ class _TabProspectState extends State<_TabProspect>
                 Tab(text: 'Stage'),
                 Tab(text: 'Status'),
                 Tab(text: 'Type'),
+                Tab(text: 'Competitor'),
               ],
             ),
           ),
@@ -53,6 +55,7 @@ class _TabProspectState extends State<_TabProspect>
                   _TabProspectStage(context),
                   _TabProspectStatus(context),
                   _TabProspectType(context),
+                  _TabCompetitor(),
                 ],
               ),
             ),

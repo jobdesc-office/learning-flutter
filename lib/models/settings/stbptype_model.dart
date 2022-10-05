@@ -5,6 +5,7 @@ class StbptypeModel {
   int? sbtseq;
   int? sbttypemasterid;
   String? sbttypename;
+  String? sbtremark;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -22,6 +23,7 @@ class StbptypeModel {
       this.sbtseq,
       this.sbttypemasterid,
       this.sbttypename,
+      this.sbtremark,
       this.createdby,
       this.createddate,
       this.updatedby,
@@ -39,6 +41,7 @@ class StbptypeModel {
     sbtseq = json['sbtseq'];
     sbttypemasterid = json['sbttypemasterid'];
     sbttypename = json['sbttypename'];
+    sbtremark = json['sbtremark'];
     createdby = json['createdby'];
     createddate = json['createddate'];
     updatedby = json['updatedby'];
@@ -66,6 +69,7 @@ class StbptypeModel {
     data['sbtseq'] = this.sbtseq;
     data['sbttypemasterid'] = this.sbttypemasterid;
     data['sbttypename'] = this.sbttypename;
+    data['sbtremark'] = this.sbtremark;
     data['createdby'] = this.createdby;
     data['createddate'] = this.createddate;
     data['updatedby'] = this.updatedby;

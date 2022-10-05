@@ -4,6 +4,7 @@ class CustomFieldDetailsSource extends GetxController {
   var name = ''.obs;
   var bp = ''.obs;
   var type = ''.obs;
+  var ref = ''.obs;
   var isvisible = false.obs;
   var newprospect = false.obs;
 

@@ -23,6 +23,7 @@ class _TabScheduleType extends StatelessWidget
                     presenter,
                     _sources.scheduletypetypeid.value,
                     _sources.scheduletypetype.value,
+                    'Type',
                     color: true),
               ThemeButtonCreate(
                   prefix: 'Type',
@@ -57,69 +58,85 @@ class _TabScheduleType extends StatelessWidget
                         margin: EdgeInsets.only(top: 5),
                         children: [
                           BsCol(
-                              sizes: ColScreen(sm: Col.col_4),
+                              sizes: ColScreen(sm: Col.col_3),
                               child: Text(
                                 e.sbttypename ?? '',
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
+                                style: TextStyle(fontWeight: FontWeight.bold),
                               )),
                           BsCol(
                               sizes: ColScreen(sm: Col.col_1),
                               child: Text(
-                                  e.sbtseq != null ? e.sbtseq.toString() : '',
-                                  style: TextStyle(fontSize: 18))),
+                                  e.sbtseq != null ? e.sbtseq.toString() : '')),
+                          if (e.sbtremark != null)
+                            BsCol(
+                                margin: EdgeInsets.fromLTRB(5, 3, 5, 0),
+                                sizes: ColScreen(sm: Col.col_1),
+                                child: InkWell(
+                                  onTap: () => showDialog(
+                                      context: context,
+                                      builder: (context) => _ShowColor(
+                                            color: Color(parseInt(e.sbtremark)),
+                                            textcolor:
+                                                Color(parseInt(e.sbtremark)),
+                                            text: e.sbttypename!,
+                                          )),
+                                  child: Container(
+                                    color: Color(parseInt(e.sbtremark)),
+                                    child: Text(''),
+                                  ),
+                                )),
                           BsCol(
+                              alignment: Alignment.center,
                               sizes: ColScreen(sm: Col.col_3),
-                              child: Text(e.sbtname ?? '',
-                                  style: TextStyle(fontSize: 18))),
+                              child: Text(e.sbtname ?? '')),
                           BsCol(
-                            sizes: ColScreen(sm: Col.col_3),
+                            sizes: ColScreen(sm: Col.col_4),
                             child: BsRow(
                               children: [
                                 BsCol(
-                                  sizes: ColScreen(sm: Col.col_2),
+                                  alignment: Alignment.center,
+                                  sizes: ColScreen(sm: Col.col_1),
+                                ),
+                                BsCol(
+                                  alignment: Alignment.center,
+                                  sizes: ColScreen(sm: Col.col_3),
                                   child: InkWell(
                                     onTap: () =>
                                         presenter.edit(context, e.sbtid!),
-                                    child: Text('Edit',
-                                        style: TextStyle(fontSize: 18)),
+                                    child: Text('Edit'),
                                   ),
                                 ),
                                 BsCol(
+                                    alignment: Alignment.center,
                                     sizes: ColScreen(sm: Col.col_1),
-                                    child: Text('|',
-                                        style: TextStyle(fontSize: 18))),
-                                if (e.isactive!)
-                                  BsCol(
-                                    sizes: ColScreen(sm: Col.col_5),
-                                    child: InkWell(
-                                      onTap: () => presenter.changeStatus(
-                                          context, e.sbtid!, e.isactive!),
-                                      child: Text('Active',
-                                          style: TextStyle(fontSize: 18)),
-                                    ),
-                                  )
-                                else
-                                  BsCol(
-                                    sizes: ColScreen(sm: Col.col_5),
-                                    child: InkWell(
-                                      onTap: () => presenter.changeStatus(
-                                          context, e.sbtid!, e.isactive!),
-                                      child: Text('Not Active',
-                                          style: TextStyle(fontSize: 18)),
-                                    ),
+                                    child: Text('|')),
+                                BsCol(
+                                  alignment: Alignment.center,
+                                  sizes: ColScreen(sm: Col.col_3),
+                                  child: InkWell(
+                                    onTap: () => presenter.changeStatus(
+                                        context, e.sbtid!, e.isactive!),
+                                    child: e.isactive!
+                                        ? Text('Active',
+                                            style:
+                                                TextStyle(color: Colors.green))
+                                        : Text(
+                                            'Not Active',
+                                            style: TextStyle(color: Colors.red),
+                                          ),
                                   ),
+                                ),
                                 BsCol(
+                                    alignment: Alignment.center,
                                     sizes: ColScreen(sm: Col.col_1),
-                                    child: Text('|',
-                                        style: TextStyle(fontSize: 18))),
+                                    child: Text('|')),
                                 BsCol(
+                                  alignment: Alignment.center,
                                   sizes: ColScreen(sm: Col.col_3),
                                   child: InkWell(
                                     onTap: () => presenter.delete(
-                                        context, e.sbtid!, e.sbtname ?? ''),
-                                    child: Text('Delete',
-                                        style: TextStyle(fontSize: 18)),
+                                        context, e.sbtid!, e.sbttypename ?? ''),
+                                    child: Text('Delete'),
                                   ),
                                 ),
                               ],
@@ -131,7 +148,7 @@ class _TabScheduleType extends StatelessWidget
                   ),
                 )
               else
-                _DefautlNoTypes(),
+                _DefautlNoTypes('Type'),
             ]),
           )),
     );
@@ -144,7 +161,7 @@ class _TabScheduleType extends StatelessWidget
     source.value.reset();
     source.value.isformactcat.value = false;
     source.value.isupdate.value = false;
-    Snackbar().createSuccess();
+    Snackbar().createSuccess(context);
   }
 
   @override
@@ -152,7 +169,7 @@ class _TabScheduleType extends StatelessWidget
     presenter.setProcessing(false);
     presenter.datatables(context!);
     Navigator.pop(context);
-    Snackbar().deleteSuccess();
+    Snackbar().deleteSuccess(context);
   }
 
   @override
@@ -162,7 +179,7 @@ class _TabScheduleType extends StatelessWidget
     source.value.reset();
     source.value.isformactcat.value = false;
     source.value.isupdate.value = false;
-    Snackbar().editSuccess();
+    Snackbar().editSuccess(context);
   }
 
   @override
@@ -190,8 +207,16 @@ class _TabScheduleType extends StatelessWidget
       source.value.id.value = val.sbtid ?? 0;
       source.value.inputName.text = val.sbttypename ?? '';
 
-      source.value.inputSeq.text =
-          val.sbtseq != null ? val.sbtseq.toString() : '';
+      if (val.sbtseq != null) {
+        source.value.seq.value = true;
+        source.value.inputSeq.text =
+            val.sbtseq != null ? val.sbtseq.toString() : '';
+      }
+
+      if (val.sbtremark != null) {
+        source.value.pickerColor.value = Color(parseInt(val.sbtremark));
+      }
+
       source.value.createdby.value = val.stbptypecreatedby?.userfullname ?? '';
       source.value.createddate.value = val.createddate ?? '';
       source.value.updatedby.value = val.stbptypeupdatedby?.userfullname ?? '';

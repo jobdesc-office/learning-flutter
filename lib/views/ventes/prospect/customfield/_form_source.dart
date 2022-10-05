@@ -1,12 +1,15 @@
+import 'package:boilerplate/models/masters/type_model.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../constants/base_text.dart';
+import '../../../../constants/config_types.dart';
 import '../../../../models/session_model.dart';
 import '../../../../presenters/navigation_presenter.dart';
 import '../../../../presenters/settings/customfield_presenter.dart';
+import '../../../../services/masters/type_service.dart';
 import '../../../../utils/select_api.dart';
 import '../../../../utils/session_manager.dart';
 import '../../../../utils/validators.dart';
@@ -17,6 +20,7 @@ import '../_detail_source.dart';
 import '_text.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
+final _type = Get.put(TypeService());
 
 class CustomFieldSource extends GetxController {
   final source = Get.put(ProspectDetailsSource());
@@ -34,13 +38,17 @@ class CustomFieldSource extends GetxController {
 
   Future<Map<String, dynamic>> toJson() async {
     SessionModel session = await SessionManager.current();
+    Response res = await _type.byCodeMaster(ConfigType.prospectCustomField);
+    int id = TypeModel.fromJson(res.body.first).typeid ?? 0;
+
     return {
       'custfbpid': source.prospectbpid.value,
       'custftypeid': selectType.getSelectedAsString(),
+      'custfreftypeid': id,
       'custfname': inputName.text,
-      'allprospect': allprospect.value,
-      'onlythisprospect': onlythisprospect.value,
-      'thisprospectid': source.prospectid.value,
+      'alldata': allprospect.value,
+      'onlythisdata': onlythisprospect.value,
+      'thisdataid': source.prospectid.value,
       'createdby': session.userid,
       'updatedby': session.userid,
     };

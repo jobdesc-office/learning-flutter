@@ -46,7 +46,7 @@ class ScheduleFormView extends StatelessWidget
       body: TemplateView(
         title: ScheduleText.title + ' Form',
         breadcrumbs: [
-          BreadcrumbWidget('Venteses'),
+          BreadcrumbWidget('Ventes'),
           BreadcrumbWidget('Schedules', back: true),
           BreadcrumbWidget('Schedule Form', active: true),
         ],
@@ -400,24 +400,24 @@ class ScheduleFormView extends StatelessWidget
   @override
   void onCreateSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
-    Snackbar().createSuccess();
-    Navigator.pop(context!);
+    Snackbar().createSuccess(context!);
+    Navigator.pop(context);
     Navigator.pop(context);
   }
 
   @override
   void onDeleteSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
-    Snackbar().deleteSuccess();
-    Navigator.pop(context!);
+    Snackbar().deleteSuccess(context!);
+    Navigator.pop(context);
     Navigator.pop(context);
   }
 
   @override
   void onEditSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
-    Snackbar().editSuccess();
-    Navigator.pop(context!);
+    Snackbar().editSuccess(context!);
+    Navigator.pop(context);
     Navigator.pop(context);
   }
 
