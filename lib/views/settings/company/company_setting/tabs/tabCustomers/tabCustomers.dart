@@ -1,8 +1,7 @@
 part of '../../company.dart';
 
 // ignore: must_be_immutable
-class _TabCustomers extends StatelessWidget
-    implements IndexViewContract, EditViewContract {
+class _TabCustomers extends StatelessWidget implements IndexViewContract, EditViewContract {
   final datatable = CustomersDataTableSource();
   final String typename;
 
@@ -32,8 +31,7 @@ class _TabCustomers extends StatelessWidget
             child: Obx(() {
               return Column(
                 children: [
-                  if (custsource.value.isForm.value)
-                    custsource.value.form(context),
+                  if (custsource.value.isForm.value) custsource.value.form(context),
                   CustomDatabales(
                     source: datatable,
                     columns: datatable.columns,
@@ -47,8 +45,7 @@ class _TabCustomers extends StatelessWidget
                         },
                       )
                     ],
-                    serverSide: (params) =>
-                        bppresenter.datatablesbpcus(context, params),
+                    serverSide: (params) => bppresenter.datatablesbpcus(context, params),
                   ),
                 ],
               );
@@ -100,8 +97,7 @@ class _TabCustomers extends StatelessWidget
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onDetailsListener = (userid) {};
     // datatable.onEditListener = presenter.show;
-    datatable.onDeleteListener =
-        (cstmid, cstmname) => bppresenter.delete(context, cstmid, cstmname);
+    datatable.onDeleteListener = (cstmid, cstmname) => bppresenter.delete(context, cstmid, cstmname);
   }
 
   @override
