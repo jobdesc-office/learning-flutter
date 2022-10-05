@@ -1,5 +1,5 @@
 class ReportText {
-  static String title = 'Daily Activity Reports';
+  static String title = 'Reports';
 
   static String labelStartDate = 'Start Date';
   static String labelEndDate = 'End Date';

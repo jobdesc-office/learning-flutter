@@ -60,6 +60,7 @@ import '../services/masters/village_service.dart';
 import '../services/security/feature_service.dart';
 import '../services/security/permission_service.dart';
 import '../services/settings/file_service.dart';
+import '../services/ventes/attendance_service.dart';
 import '../services/ventes/bpcustomer_service.dart';
 import '../services/ventes/competitor_service.dart';
 import '../services/settings/customfield_service.dart';
@@ -355,6 +356,7 @@ class AppRoute {
         ),
         binding: BindingsBuilder(() {
           Get.lazyPut(() => ReportService());
+          Get.lazyPut(() => AttendanceService());
           Get.lazyPut(() => ReportPresenter());
         }),
       ),

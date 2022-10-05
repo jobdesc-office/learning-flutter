@@ -8,6 +8,7 @@ import '../../contracts/base/index_view_contract.dart';
 import '../../contracts/ventes/report_contract.dart';
 import '../../models/ventes/report_model.dart';
 import '../../services/masters/user_service.dart';
+import '../../services/ventes/attendance_service.dart';
 import '../../services/ventes/report_service.dart';
 import '../../utils/custom_get_controller.dart';
 import '../../views/ventes/reports/employees/report_employee.dart';
@@ -18,6 +19,7 @@ import '../auth_presenter.dart';
 
 class ReportPresenter extends CustomGetXController {
   final _reportService = Get.find<ReportService>();
+  final _attendService = Get.find<AttendanceService>();
   final _userService = Get.put(UserService());
   final authPresenter = Get.find<AuthPresenter>();
   final map = Get.put(MapSource());
@@ -32,6 +34,12 @@ class ReportPresenter extends CustomGetXController {
   set reportFetchDataDetailsContract(
       IndexViewContract reportFetchDataDetailsContract) {
     _reportViewContract = reportFetchDataDetailsContract;
+  }
+
+  late IndexViewContract _attendViewContract;
+  set attendFetchDataDetailsContract(
+      IndexViewContract attendFetchDataDetailsContract) {
+    _attendViewContract = attendFetchDataDetailsContract;
   }
 
   late ReportContract _reportContract;
@@ -66,6 +74,16 @@ class ReportPresenter extends CustomGetXController {
       _reportViewContract.onLoadDatatables(context, response);
     else
       _reportViewContract.onErrorRequest(response);
+  }
+
+  Future attenddatatables(BuildContext context, Map<String, String> params,
+      {start, end, userid}) async {
+    Response response = await _attendService.datatablesbp(params,
+        start: start, end: end, userid: userid);
+    if (response.statusCode == 200)
+      _attendViewContract.onLoadDatatables(context, response);
+    else
+      _attendViewContract.onErrorRequest(response);
   }
 
   void details(BuildContext context, int scheid) async {
