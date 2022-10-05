@@ -31,6 +31,7 @@ class RouteList {
       RouteData(prefix: '/masters/subdistrict');
   static final RouteData masterVillage = RouteData(prefix: '/masters/village');
   static final RouteData masterContact = RouteData(prefix: '/masters/contact');
+  static final RouteData masterRole = RouteData(prefix: '/masters/role');
 
   static final RouteData ventes = RouteData(prefix: '/-ventes');
 

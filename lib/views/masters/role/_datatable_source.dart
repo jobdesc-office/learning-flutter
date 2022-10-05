@@ -7,17 +7,15 @@ import '../../../models/masters/type_model.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../styles/color_palattes.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
-import '../../../widgets/button/button_details_datatable.dart';
 import '../../../widgets/button/button_edit_datatable.dart';
 import '../../../widgets/datatables/custom_datatable_tablecell.dart';
 import '../../../widgets/datatables/custom_datatable_tablehead.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 
-class TypeChildrenDataTableSource extends BsDatatableSource {
-  ValueChanged<int> onDetailsListener = (value) {};
+class RoleDataTableSource extends BsDatatableSource {
   ValueChanged<int> onEditListener = (value) {};
-  Function onDeleteListener = (value, name) {};
+  Function onDeleteListener = (value) {};
 
   List<BsDataColumn> get columns {
     return <BsDataColumn>[
@@ -27,7 +25,7 @@ class TypeChildrenDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      CustomBsDataColumn(label: Text('Data Name'), columnName: 'typename'),
+      CustomBsDataColumn(label: Text('Role Name'), columnName: 'provname'),
       CustomBsDataColumn(
           label: Text('Actions'),
           width: 100,
@@ -36,16 +34,16 @@ class TypeChildrenDataTableSource extends BsDatatableSource {
     ];
   }
 
-  List<TypeModel> get menus =>
+  List<TypeModel> get Roles =>
       response.data.map((data) => TypeModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
-    final row = menus[index];
+    final row = Roles[index];
     int x = controller.start + index + 1;
     return BsDataRow(
       index: index,
-      cells: <BsDataCell>[
+      cells: [
         CustomBsDataCell(
           Text('$x'),
           color: _navigation.darkTheme.value
@@ -69,13 +67,6 @@ class TypeChildrenDataTableSource extends BsDatatableSource {
         CustomBsDataCell(
           Row(
             children: [
-              Tooltip(
-                message: BaseText.detailHintDatatable(field: row.typename),
-                child: ButtonDetailsDatatables(
-                  margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onDetailsListener(row.typeid!),
-                ),
-              ),
               Tooltip(
                 message: BaseText.editHintDatatable(field: row.typename),
                 child: ButtonEditDatatables(

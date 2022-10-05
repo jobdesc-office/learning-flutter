@@ -1,3 +1,4 @@
+import 'package:boilerplate/middleware/verifyToken.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -5,9 +6,11 @@ import 'package:get_storage/get_storage.dart';
 import '../../contracts/auth/login_view_contract.dart';
 import '../../helpers/function.dart';
 import '../../models/auth_model.dart';
+import '../../models/rolepermission_model.dart';
 import '../../models/session_model.dart';
 import '../../presenters/auth_presenter.dart';
 import '../../routes/route_list.dart';
+import '../../services/app_service.dart';
 import '../../utils/session_manager.dart';
 import '../../widgets/login_button.dart';
 
@@ -29,6 +32,8 @@ class _SignInViewState extends State<SignInView>
   }
 
   final authPresenter = Get.put(AuthPresenter());
+
+  final appService = Get.put(AppService());
 
   BackgroundAuth _bg = BackgroundAuth();
 
@@ -218,7 +223,20 @@ class _SignInViewState extends State<SignInView>
           userid: userModel.userid,
           jwtToken: userModel.jwtToken,
         ),
-      ).then((value) => toNameRoute(RouteList.home.index));
+      ).then((value) async {
+        Response roleResponse = await appService.role();
+        List<RolePermissionModel> role = [];
+        List rawrole = [];
+        if (roleResponse.statusCode == 200) {
+          for (var item in roleResponse.body) {
+            rawrole.add(item);
+            role.add(RolePermissionModel.fromJson(item));
+          }
+          authPresenter.rolepermis.value = role;
+          authPresenter.rawrolepermis.value = rawrole;
+        }
+        toNameRoute(RouteList.home.index);
+      });
     }
   }
 

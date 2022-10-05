@@ -14,6 +14,7 @@ import '../presenters/masters/feature_presenter.dart';
 import '../presenters/masters/menu_presenter.dart';
 import '../presenters/masters/product_presenter.dart';
 import '../presenters/masters/province_presenter.dart';
+import '../presenters/masters/role_presenter.dart';
 import '../presenters/masters/subdistrict_presenter.dart';
 import '../presenters/masters/village_presenter.dart';
 import '../presenters/settings/file_presenter.dart';
@@ -86,6 +87,7 @@ import '../views/masters/customers/customer.dart';
 import '../views/masters/menus/menu.dart';
 import '../views/masters/product/product.dart';
 import '../views/masters/provinces/province.dart';
+import '../views/masters/role/role.dart';
 import '../views/masters/subdistricts/subdistrict.dart';
 import '../views/masters/villages/village.dart';
 import '../views/settings/company/company_setting/_source.dart';
@@ -205,6 +207,19 @@ class AppRoute {
         binding: BindingsBuilder(() {
           Get.lazyPut(() => BusinessPartnerService());
           Get.lazyPut(() => BusinessPartnerPresenter());
+        }),
+      ),
+      CustomGetPage(
+        name: RouteList.masterRole.index,
+        page: () => AuthGuard(
+          child: RoleView(),
+          parent: 'Master Datas',
+          route: '/masters/role',
+        ),
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => TypeChildrenService());
+          Get.lazyPut(() => TypeService());
+          Get.lazyPut(() => RolePresenter());
         }),
       ),
       // CustomGetPage(

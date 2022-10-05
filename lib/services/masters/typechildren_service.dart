@@ -10,6 +10,10 @@ class TypeChildrenService extends ApiConnectProvider {
     return post('$api/datatables', params);
   }
 
+  Future<Response> storerole(Map<String, dynamic> body) {
+    return post('$api/role', body);
+  }
+
   Future<Response> datatablesTypesChild(Map<String, dynamic> params, int id) {
     return post('$api/datatables/$id', params);
   }
