@@ -1,0 +1,365 @@
+// import 'package:boilerplate/contracts/base/details_view_contract.dart';
+// import 'package:boilerplate/helpers/function.dart';
+// import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
+// import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
+
+
+// import '../../../../../models/ventes/attendance_model.dart';
+// import '../../../../../presenters/navigation_presenter.dart';
+// import '../../../../../presenters/ventes/report_presenter.dart';
+// import '../../../../../routes/route_list.dart';
+// import '../../../../../styles/color_palattes.dart';
+// import '../../../../../widgets/breadcrumb.dart';
+// import '../../../../../widgets/form_group.dart';
+// import '../../../../skins/template.dart';
+// import '_details_source.dart';
+
+// final _navigation = Get.find<NavigationPresenter>();
+// final controller = Get.put(AttendDetailsSource());
+
+// class ReportDetail extends GetView implements DetailViewContract {
+//   final presenter = Get.find<ReportPresenter>();
+
+//   ReportDetail() {
+//     presenter.reportsFetchDataDetailsContract = this;
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: TemplateView(
+//         title: 'Report Details',
+//         breadcrumbs: [
+//           BreadcrumbWidget('Ventes'),
+//           BreadcrumbWidget(
+//             'Report',
+//             back: true,
+//           ),
+//           BreadcrumbWidget(
+//             'Report Details',
+//             active: true,
+//           ),
+//         ],
+//         activeRoutes: [RouteList.ventes.index, RouteList.ventesReport.index],
+//         back: true,
+//         child: Obx(() => BsRow(
+//               children: [
+//                 BsCol(
+//                     sizes: ColScreen(lg: Col.col_6),
+//                     child: Container(
+//                       height: MediaQuery.of(context).size.height,
+//                       padding: EdgeInsets.all(20),
+//                       decoration: BoxDecoration(
+//                         color: _navigation.darkTheme.value
+//                             ? ColorPallates.elseDarkColor
+//                             : Colors.white,
+//                         borderRadius: BorderRadius.circular(10),
+//                       ),
+//                       child: BsRow(
+//                         children: [
+//                           BsCol(
+//                               sizes: ColScreen(lg: Col.col_12),
+//                               child: FormGroup(
+//                                   label: Text('Customer',
+//                                       style: TextStyle(
+//                                           color: _navigation.darkTheme.value
+//                                               ? Colors.white
+//                                               : Colors.black)),
+//                                   child: Column(
+//                                     crossAxisAlignment:
+//                                         CrossAxisAlignment.start,
+//                                     children: [
+//                                       Text(controller.customer.value),
+//                                       Divider()
+//                                     ],
+//                                   ))),
+//                           BsCol(
+//                               margin: EdgeInsets.only(top: 10),
+//                               sizes: ColScreen(lg: Col.col_12),
+//                               child: FormGroup(
+//                                   label: Text('Category',
+//                                       style: TextStyle(
+//                                           color: _navigation.darkTheme.value
+//                                               ? Colors.white
+//                                               : Colors.black)),
+//                                   child: Column(
+//                                     crossAxisAlignment:
+//                                         CrossAxisAlignment.start,
+//                                     children: [
+//                                       Text(controller.cat.value),
+//                                       Divider()
+//                                     ],
+//                                   ))),
+//                           BsCol(
+//                               margin: EdgeInsets.only(top: 10),
+//                               sizes: ColScreen(lg: Col.col_12),
+//                               child: FormGroup(
+//                                   label: Text('Date',
+//                                       style: TextStyle(
+//                                           color: _navigation.darkTheme.value
+//                                               ? Colors.white
+//                                               : Colors.black)),
+//                                   child: Column(
+//                                     crossAxisAlignment:
+//                                         CrossAxisAlignment.start,
+//                                     children: [
+//                                       Text(controller.date.value),
+//                                       Divider()
+//                                     ],
+//                                   ))),
+//                           BsCol(
+//                               margin: EdgeInsets.only(top: 10),
+//                               sizes: ColScreen(lg: Col.col_12),
+//                               child: FormGroup(
+//                                   label: Text('Description',
+//                                       style: TextStyle(
+//                                           color: _navigation.darkTheme.value
+//                                               ? Colors.white
+//                                               : Colors.black)),
+//                                   child: Column(
+//                                     crossAxisAlignment:
+//                                         CrossAxisAlignment.start,
+//                                     children: [
+//                                       Text(controller.desc.value),
+//                                       Divider()
+//                                     ],
+//                                   ))),
+//                           BsCol(
+//                               margin: EdgeInsets.only(top: 10),
+//                               sizes: ColScreen(lg: Col.col_12),
+//                               child: FormGroup(
+//                                   label: Text('Location Label',
+//                                       style: TextStyle(
+//                                           color: _navigation.darkTheme.value
+//                                               ? Colors.white
+//                                               : Colors.black)),
+//                                   child: Column(
+//                                     crossAxisAlignment:
+//                                         CrossAxisAlignment.start,
+//                                     children: [
+//                                       Text(controller.loclab.value),
+//                                       Divider()
+//                                     ],
+//                                   ))),
+//                           BsCol(
+//                               margin: EdgeInsets.only(top: 10),
+//                               sizes: ColScreen(lg: Col.col_12),
+//                               child: FormGroup(
+//                                   label: Text('Location',
+//                                       style: TextStyle(
+//                                           color: _navigation.darkTheme.value
+//                                               ? Colors.white
+//                                               : Colors.black)),
+//                                   child: Column(
+//                                     crossAxisAlignment:
+//                                         CrossAxisAlignment.start,
+//                                     children: [
+//                                       Text(controller.loc.value),
+//                                       Divider()
+//                                     ],
+//                                   ))),
+//                           BsCol(
+//                               margin: EdgeInsets.only(top: 10),
+//                               sizes: ColScreen(lg: Col.col_12),
+//                               child: FormGroup(
+//                                   label: Text('Latitude',
+//                                       style: TextStyle(
+//                                           color: _navigation.darkTheme.value
+//                                               ? Colors.white
+//                                               : Colors.black)),
+//                                   child: Column(
+//                                     crossAxisAlignment:
+//                                         CrossAxisAlignment.start,
+//                                     children: [
+//                                       Text(controller.lat.value),
+//                                       Divider()
+//                                     ],
+//                                   ))),
+//                           BsCol(
+//                               margin: EdgeInsets.only(top: 10),
+//                               sizes: ColScreen(lg: Col.col_12),
+//                               child: FormGroup(
+//                                   label: Text('Longitude',
+//                                       style: TextStyle(
+//                                           color: _navigation.darkTheme.value
+//                                               ? Colors.white
+//                                               : Colors.black)),
+//                                   child: Column(
+//                                     crossAxisAlignment:
+//                                         CrossAxisAlignment.start,
+//                                     children: [
+//                                       Text(controller.long.value),
+//                                       Divider()
+//                                     ],
+//                                   ))),
+//                           if (controller.cf.isNotEmpty)
+//                             BsCol(
+//                                 margin: EdgeInsets.only(top: 10),
+//                                 sizes: ColScreen(lg: Col.col_12),
+//                                 child: Column(
+//                                   children: controller.cf
+//                                       .map((element) => Container(
+//                                             padding: EdgeInsets.all(5),
+//                                             child: BsRow(children: [
+//                                               BsCol(
+//                                                   sizes:
+//                                                       ColScreen(sm: Col.col_5),
+//                                                   child: Text(element
+//                                                           .customfield
+//                                                           ?.custfname ??
+//                                                       '')),
+//                                               BsCol(
+//                                                   sizes:
+//                                                       ColScreen(sm: Col.col_1),
+//                                                   child: Text(':')),
+//                                               BsCol(
+//                                                   sizes:
+//                                                       ColScreen(sm: Col.col_6),
+//                                                   child: Text(
+//                                                       element.activitycfvalue ??
+//                                                           ''))
+//                                             ]),
+//                                           ))
+//                                       .toList(),
+//                                 )),
+//                         ],
+//                       ),
+//                     )),
+//                 BsCol(
+//                     margin: EdgeInsets.only(left: 10),
+//                     sizes: ColScreen(lg: Col.col_6),
+//                     child: Container(
+//                       padding: EdgeInsets.all(20),
+//                       decoration: BoxDecoration(
+//                         color: _navigation.darkTheme.value
+//                             ? ColorPallates.elseDarkColor
+//                             : Colors.white,
+//                         borderRadius: BorderRadius.circular(10),
+//                       ),
+//                       child: BsRow(
+//                         children: [
+//                           BsCol(
+//                             child: FormGroup(
+//                                 label: Text('Created By',
+//                                     style: TextStyle(
+//                                         color: _navigation.darkTheme.value
+//                                             ? Colors.white
+//                                             : Colors.black)),
+//                                 child: Column(
+//                                   crossAxisAlignment: CrossAxisAlignment.start,
+//                                   children: [
+//                                     Text(controller.createdby.value),
+//                                     Divider()
+//                                   ],
+//                                 )),
+//                           ),
+//                           BsCol(
+//                             margin: EdgeInsets.only(top: 10),
+//                             child: FormGroup(
+//                                 label: Text('Created At',
+//                                     style: TextStyle(
+//                                         color: _navigation.darkTheme.value
+//                                             ? Colors.white
+//                                             : Colors.black)),
+//                                 child: Column(
+//                                   crossAxisAlignment: CrossAxisAlignment.start,
+//                                   children: [
+//                                     Text(controller.createddate.value),
+//                                     Divider()
+//                                   ],
+//                                 )),
+//                           ),
+//                           BsCol(
+//                             margin: EdgeInsets.only(top: 10),
+//                             child: FormGroup(
+//                                 label: Text('Last Updated By',
+//                                     style: TextStyle(
+//                                         color: _navigation.darkTheme.value
+//                                             ? Colors.white
+//                                             : Colors.black)),
+//                                 child: Column(
+//                                   crossAxisAlignment: CrossAxisAlignment.start,
+//                                   children: [
+//                                     Text(controller.updatedby.value),
+//                                     Divider()
+//                                   ],
+//                                 )),
+//                           ),
+//                           BsCol(
+//                             margin: EdgeInsets.only(top: 10),
+//                             child: FormGroup(
+//                                 label: Text('Last Updated At',
+//                                     style: TextStyle(
+//                                         color: _navigation.darkTheme.value
+//                                             ? Colors.white
+//                                             : Colors.black)),
+//                                 child: Column(
+//                                   crossAxisAlignment: CrossAxisAlignment.start,
+//                                   children: [
+//                                     Text(controller.updateddate.value),
+//                                     Divider()
+//                                   ],
+//                                 )),
+//                           ),
+//                           BsCol(
+//                             margin: EdgeInsets.only(top: 10),
+//                             child: FormGroup(
+//                                 label: Text('Is Active',
+//                                     style: TextStyle(
+//                                         color: _navigation.darkTheme.value
+//                                             ? Colors.white
+//                                             : Colors.black)),
+//                                 child: Column(
+//                                   crossAxisAlignment: CrossAxisAlignment.start,
+//                                   children: [
+//                                     if (controller.isactive.value)
+//                                       Card(
+//                                         color: Colors.green,
+//                                         child: Text('Active',
+//                                             style: TextStyle(
+//                                                 color:
+//                                                     _navigation.darkTheme.value
+//                                                         ? Colors.white
+//                                                         : Colors.black)),
+//                                       )
+//                                     else
+//                                       Card(
+//                                         color: Colors.red,
+//                                         child: Text('Not Active',
+//                                             style: TextStyle(
+//                                                 color:
+//                                                     _navigation.darkTheme.value
+//                                                         ? Colors.white
+//                                                         : Colors.black)),
+//                                       ),
+//                                     Divider()
+//                                   ],
+//                                 )),
+//                           ),
+//                         ],
+//                       ),
+//                     )),
+//               ],
+//             )),
+//       ),
+//     );
+//   }
+
+//   @override
+//   void onSuccessFetchData(Response response) {
+//     AttendanceModel dt = AttendanceModel.fromJson(response.body);
+//     controller.attdate.value = dt.attdate ?? '';
+//     controller.attaddress.value = dt.attaddress ?? '';
+//     controller.attclockin.value = dt.attclockin ?? '';
+//     controller.attclockout.value = dt.attclockout ?? '';
+//     controller.attlat.value = parseString(dt.attlat ?? 0.0);
+//     controller.attlong.value = parseString(dt.attlong ?? 0.0);
+
+//     controller.createdby.value = dt.?.userfullname ?? '';
+//     controller.createddate.value = dt.createddate ?? '';
+//     controller.updatedby.value = dt.dayactupdatedby?.userfullname ?? '';
+//     controller.updateddate.value = dt.updateddate ?? '';
+//     controller.isactive.value = dt.isactive ?? false;
+//   }
+// }

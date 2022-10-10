@@ -8,7 +8,7 @@ class CustomBsDataCell extends BsDataCell {
       this.alignment,
       this.color = Colors.white,
       this.onTap})
-      : super(child, key: key);
+      : super(child, key: key, color: color);
 
   final Widget child;
 

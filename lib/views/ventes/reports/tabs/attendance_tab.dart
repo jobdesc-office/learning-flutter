@@ -13,26 +13,24 @@ class AttendanceTab extends StatelessWidget implements IndexViewContract {
 
     return Obx(() => Column(
           children: [
-            if (show.value)
-              CustomDatabales(
-                source: datatable,
-                columns: datatable.columns,
-                headerActions: [user(), startdate(context), enddate(context)],
-                serverSide: (params) => presenter.attenddatatables(
-                    context, params,
-                    start: startdates.value == ''
-                        ? DateTime(2000).toString()
-                        : startdates.value,
-                    end: enddates.value == ''
-                        ? DateTime.now().toString()
-                        : enddates.value,
-                    userid: selectOwner.getSelectedAsString()),
-              ),
+            CustomDatabales(
+              source: datatable,
+              columns: datatable.columns,
+              headerActions: [user(), startdate(context), enddate(context)],
+              serverSide: (params) => presenter.attenddatatables(
+                  context, params,
+                  start: startdates.value == ''
+                      ? DateTime(2000).toString()
+                      : startdates.value,
+                  end: enddates.value == ''
+                      ? DateTime.now().toString()
+                      : enddates.value,
+                  userid: selectOwner.getSelectedAsString()),
+            ),
           ],
         ));
   }
 
-  var show = true.obs;
   var startdates = ''.obs;
   var enddates = ''.obs;
   var dates = DateTime.now().obs;
@@ -41,16 +39,15 @@ class AttendanceTab extends StatelessWidget implements IndexViewContract {
 
   final _navigation = Get.find<NavigationPresenter>();
   Widget user() {
-    show.value = false;
     return Obx(() => Container(
-          width: 150,
+          width: 200,
           child: CustomSelectBox(
             searchable: true,
             controller: selectOwner,
             hintText: BaseText.hiintSelect(field: 'User'),
             serverSide: (params) => selectApiProspectOwner(params),
             onChange: (value) {
-              show.value = true;
+              datatable.controller.reload();
             },
           ),
         ));
@@ -104,11 +101,11 @@ class AttendanceTab extends StatelessWidget implements IndexViewContract {
       startdates.value =
           '${selectedAct.year}-${selectedAct.month}-${selectedAct.day}';
       dates.value = selectedAct;
+      if (enddates.value != '') datatable.controller.reload();
     }
   }
 
   _endDates(BuildContext context) async {
-    show.value = false;
     final DateTime? selectedAct = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -118,9 +115,7 @@ class AttendanceTab extends StatelessWidget implements IndexViewContract {
     if (selectedAct != null) {
       enddates.value =
           '${selectedAct.year}-${selectedAct.month}-${selectedAct.day}';
-      show.value = true;
-    } else {
-      show.value = true;
+      datatable.controller.reload();
     }
   }
 
