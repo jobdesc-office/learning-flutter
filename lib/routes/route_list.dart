@@ -53,8 +53,8 @@ class RouteList {
 
   static final RouteData settingsCompany =
       RouteData(prefix: '/settings/company');
-  static final RouteData settingsDataField =
-      RouteData(prefix: '/settings/datafield');
+  static final RouteData settingsInformation =
+      RouteData(prefix: '/settings/information');
 
   static final RouteData settingsPermission =
       RouteData(prefix: '/settings/permission');

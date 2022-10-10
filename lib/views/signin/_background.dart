@@ -4,7 +4,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class BackgroundAuth extends GetView {
+import '../../contracts/default/information_view_contract.dart';
+import '../../models/default/information_model.dart';
+import '../../presenters/default/information_presenter.dart';
+import "_source.dart";
+
+final controller = Get.put(LoginSource());
+final presenter = Get.put(InformationPresenter());
+
+class BackgroundAuth extends GetView implements InformationViewContract {
+  BackgroundAuth() {
+    presenter.infoContract = this;
+  }
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -26,12 +37,36 @@ class BackgroundAuth extends GetView {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text("What's Ventes ?",
-                    style: TextStyle(fontSize: 18, color: ColorPallates.dark)),
+                InkWell(
+                  onTap: () {
+                    controller.what.toggle();
+                    if (controller.about.value && controller.what.value) {
+                      controller.about.value = !controller.what.value;
+                    }
+                    if (controller.what.value) {
+                      presenter.getInfo('whatsventes');
+                    }
+                  },
+                  child: Text("What's Ventes ?",
+                      style:
+                          TextStyle(fontSize: 18, color: ColorPallates.dark)),
+                ),
                 Text('Testimonials',
                     style: TextStyle(fontSize: 18, color: ColorPallates.dark)),
-                Text('About Hyperdata',
-                    style: TextStyle(fontSize: 18, color: ColorPallates.dark))
+                InkWell(
+                  onTap: () {
+                    controller.about.toggle();
+                    if (controller.what.value && controller.about.value) {
+                      controller.what.value = !controller.about.value;
+                    }
+                    if (controller.about.value) {
+                      presenter.getInfo('abouthyperdata');
+                    }
+                  },
+                  child: Text('About Hyperdata',
+                      style:
+                          TextStyle(fontSize: 18, color: ColorPallates.dark)),
+                )
               ],
             ),
           ),
@@ -44,17 +79,23 @@ class BackgroundAuth extends GetView {
           BsCol(
             alignment: Alignment.centerLeft,
             sizes: ColScreen(lg: Col.col_5),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 30,
-                ),
-                Image.asset('assets/images/bg_auth.png'),
-              ],
-            ),
+            child: Obx(() => Column(
+                  children: [
+                    if (!controller.about.value && !controller.what.value)
+                      Image.asset('assets/images/bg_auth.png'),
+                    if (controller.about.value || controller.what.value)
+                      Container(child: Text(controller.desc.value)),
+                  ],
+                )),
           ),
         ],
       ),
     );
+  }
+
+  @override
+  void onSuccess(Response response) {
+    InformationModel model = InformationModel.fromJson(response.body);
+    controller.desc.value = model.infodesc ?? '';
   }
 }
