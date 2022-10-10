@@ -2,13 +2,7 @@ import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 
 class CustomBsDataCell extends BsDataCell {
-  const CustomBsDataCell(this.child,
-      {Key? key,
-      this.padding = const EdgeInsets.all(10.0),
-      this.alignment,
-      this.color = Colors.white,
-      this.onTap})
-      : super(child, key: key, color: color);
+  const CustomBsDataCell(this.child, {Key? key, this.padding = const EdgeInsets.all(10.0), this.alignment, this.color = Colors.white, this.onTap}) : super(child, key: key);
 
   final Widget child;
 
