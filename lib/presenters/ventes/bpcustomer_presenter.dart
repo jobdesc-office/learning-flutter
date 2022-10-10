@@ -25,8 +25,7 @@ class BpCustomerPresenter extends CustomGetXController {
   }
 
   late EditViewContract _bpCustomerFetchDataContract;
-  set bpCustomerFetchDataContract(
-      EditViewContract bpCustomerFetchDataContract) {
+  set bpCustomerFetchDataContract(EditViewContract bpCustomerFetchDataContract) {
     _bpCustomerFetchDataContract = bpCustomerFetchDataContract;
   }
 
@@ -51,8 +50,7 @@ class BpCustomerPresenter extends CustomGetXController {
       _bpCustomerViewContract.onErrorRequest(response);
   }
 
-  Future datatablesbppro(
-      BuildContext context, Map<String, String> params) async {
+  Future datatablesbppro(BuildContext context, Map<String, String> params) async {
     Response response = await _bpCustomerService.datatablesbppro(params);
     if (response.statusCode == 200)
       _bpCustomerproViewContract.onLoadDatatables(context, response);
@@ -60,8 +58,7 @@ class BpCustomerPresenter extends CustomGetXController {
       _bpCustomerproViewContract.onErrorRequest(response);
   }
 
-  Future datatablesbpcus(
-      BuildContext context, Map<String, String> params) async {
+  Future datatablesbpcus(BuildContext context, Map<String, String> params) async {
     Response response = await _bpCustomerService.datatablesbpcus(params);
     if (response.statusCode == 200)
       _bpCustomerViewContract.onLoadDatatables(context, response);
@@ -132,6 +129,23 @@ class BpCustomerPresenter extends CustomGetXController {
       _bpCustomerViewContract.onErrorRequest(response);
   }
 
+  void setAnytime(BuildContext context, int id) async {
+    Response response = await _bpCustomerService.setAnytime(id);
+    print(response);
+    if (response.statusCode == 200)
+      _bpCustomerViewContract.onEditSuccess(response, context: context);
+    else
+      _bpCustomerViewContract.onErrorRequest(response);
+  }
+
+  void setOnlyWithAttendance(BuildContext context, int id) async {
+    Response response = await _bpCustomerService.setOnlyWithAttendance(id);
+    if (response.statusCode == 200)
+      _bpCustomerViewContract.onEditSuccess(response, context: context);
+    else
+      _bpCustomerViewContract.onErrorRequest(response);
+  }
+
   void delete(BuildContext context, int bpCustomerid, String name) {
     showDialog(
       context: context,
@@ -142,8 +156,7 @@ class BpCustomerPresenter extends CustomGetXController {
           if (value == ConfirmDialogOption.YES_OPTION) {
             Response response = await _bpCustomerService.destroy(bpCustomerid);
             if (response.statusCode == 200)
-              _bpCustomerViewContract.onDeleteSuccess(response,
-                  context: context);
+              _bpCustomerViewContract.onDeleteSuccess(response, context: context);
             else
               _bpCustomerViewContract.onErrorRequest(response);
           } else

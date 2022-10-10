@@ -17,11 +17,8 @@ final _navigation = Get.find<NavigationPresenter>();
 final authPresenter = Get.find<AuthPresenter>();
 
 class CustomersActivityDataTableSource extends BsDatatableSource {
-  ValueChanged<int> onDetailsListener = (value) {};
-  ValueChanged<int> onEditListener = (value) {};
-  Function onDeleteListener = (value, name) {};
-
-  GlobalKey global = GlobalKey();
+  ValueChanged<int> onSetAnytime = (value) {};
+  ValueChanged<int> onSetWithAttendance = (value) {};
 
   List<BsDataColumn> get columns {
     return <BsDataColumn>[
@@ -33,13 +30,15 @@ class CustomersActivityDataTableSource extends BsDatatableSource {
       ),
       CustomBsDataColumn(label: Text('Customer Name'), columnName: 'sbccstmname'),
       CustomBsDataColumn(
-        label: Text('Fill In Attendance First'),
+        label: Text('Allow Without Attendance'),
         orderable: false,
         searchable: false,
-        width: 190,
+        width: 220,
       ),
     ];
   }
+
+  Map<int, bool> cetekanState = {};
 
   List<BusinessPartnerCustomerModel> get customers => response.data.map((data) => BusinessPartnerCustomerModel.fromJson(data)).toList();
 
@@ -47,6 +46,8 @@ class CustomersActivityDataTableSource extends BsDatatableSource {
   BsDataRow getRow(int index) {
     final row = customers[index];
     int x = controller.start + index + 1;
+    print(cetekanState);
+    if (!cetekanState.containsKey(index)) cetekanState[index] = row.sbcactivitytype?.sbttypename == "Anytime";
     // var permis = authPresenter.rolepermis.value;
     return BsDataRow(
       index: index,
@@ -74,10 +75,14 @@ class CustomersActivityDataTableSource extends BsDatatableSource {
         CustomBsDataCell(
           Row(
             children: [
-              Cetekan(
-                true,
-                key: global,
-              ),
+              Cetekan(cetekanState[index]!, onTap: (value) {
+                cetekanState[index] = value;
+                if (value) {
+                  onSetAnytime(row.sbcid!);
+                } else {
+                  onSetWithAttendance(row.sbcid!);
+                }
+              }),
             ],
           ),
           color: _navigation.darkTheme.value
@@ -96,7 +101,7 @@ class CustomersActivityDataTableSource extends BsDatatableSource {
 
 class Cetekan extends StatelessWidget {
   Function(bool)? onTap;
-  Cetekan(bool value, {this.onTap, GlobalKey? key}) : super(key: key) {
+  Cetekan(bool value, {this.onTap}) {
     isActive = Rx(value);
   }
   late Rx<bool> isActive;

@@ -25,6 +25,14 @@ class BpCustomerService extends ApiConnectProvider {
     return post('$api/datatablescust/${box.read('mybpid')}', params);
   }
 
+  Future<Response> setAnytime(int id) {
+    return get('$api/setanytime/$id');
+  }
+
+  Future<Response> setOnlyWithAttendance(int id) {
+    return get('$api/setonlywithattendance/$id');
+  }
+
   Future<Response> storeBpCustomer(
     dynamic body, {
     String? contentType,

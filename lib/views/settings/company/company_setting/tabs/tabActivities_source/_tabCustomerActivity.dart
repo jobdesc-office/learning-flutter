@@ -83,8 +83,8 @@ class _TabCustomerActivity extends StatelessWidget implements IndexViewContract,
     custsource.value.isForm.value = false;
     bppresenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
-    datatable.onDetailsListener = (userid) {};
-    datatable.onDeleteListener = (cstmid, cstmname) => bppresenter.delete(context, cstmid, cstmname);
+    datatable.onSetAnytime = (userid) => bppresenter.setAnytime(context, userid);
+    datatable.onSetWithAttendance = (perusahaanid) => bppresenter.setOnlyWithAttendance(context, perusahaanid);
   }
 
   @override
