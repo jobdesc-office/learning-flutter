@@ -9,6 +9,7 @@ import 'package:boilerplate/models/masters/contact_model.dart';
 import 'package:boilerplate/utils/select_api.dart';
 import 'package:boilerplate/utils/validators.dart';
 import 'package:boilerplate/views/masters/contact/_text.dart';
+import 'package:boilerplate/views/settings/company/company_setting/tabs/tabActivities_source/_datatable_source.dart';
 import 'package:boilerplate/views/settings/company/company_setting/tabs/tabContacts/contact_data_table_source.dart';
 import 'package:boilerplate/views/settings/company/company_setting/tabs/tabContacts/contact_form_source.dart';
 import 'package:boilerplate/views/settings/company/company_setting/tabs/tabContacts/cp_contact_presenter.dart';
@@ -104,6 +105,7 @@ part 'tabs/tabCustomers/tabCustomerspr.dart';
 
 part 'tabs/tabActivities_source/_tabCategory.dart';
 part 'tabs/tabActivities_source/_tabType.dart';
+part 'tabs/tabActivities_source/_tabCustomerActivity.dart';
 
 part 'tabs/tabCustomers_source/_tabContactType.dart';
 part 'tabs/tabCustomers_source/_tabCustomerType.dart';
@@ -139,8 +141,7 @@ class CompanyView extends StatefulWidget {
   State<CompanyView> createState() => _CompanyViewState();
 }
 
-class _CompanyViewState extends State<CompanyView>
-    with TickerProviderStateMixin {
+class _CompanyViewState extends State<CompanyView> with TickerProviderStateMixin {
   final _navigation = Get.find<NavigationPresenter>();
   late TabController _tabController;
   @override
@@ -158,16 +159,11 @@ class _CompanyViewState extends State<CompanyView>
           BreadcrumbWidget('Settings'),
           BreadcrumbWidget('Company Setting', active: true),
         ],
-        activeRoutes: [
-          RouteList.settings.index,
-          RouteList.settingsCompany.index
-        ],
+        activeRoutes: [RouteList.settings.index, RouteList.settingsCompany.index],
         child: Obx(() => Container(
               padding: EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: _navigation.darkTheme.value
-                    ? ColorPallates.elseDarkColor
-                    : Colors.white,
+                color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : Colors.white,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: BsRow(
@@ -178,9 +174,7 @@ class _CompanyViewState extends State<CompanyView>
                       child: TabBar(
                         controller: _tabController,
                         labelColor: Colors.green,
-                        unselectedLabelColor: _navigation.darkTheme.value
-                            ? Colors.white
-                            : Colors.black,
+                        unselectedLabelColor: _navigation.darkTheme.value ? Colors.white : Colors.black,
                         tabs: [
                           Tab(text: 'General'),
                           Tab(text: 'Activities'),

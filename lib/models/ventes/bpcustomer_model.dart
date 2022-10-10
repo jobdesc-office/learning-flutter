@@ -3,6 +3,7 @@ class BusinessPartnerCustomerModel {
   int? sbcbpid;
   int? sbccstmid;
   int? sbccstmstatusid;
+  int? sbcactivitytypeid;
   String? sbccstmname;
   String? sbccstmphone;
   String? sbccstmaddress;
@@ -14,6 +15,7 @@ class BusinessPartnerCustomerModel {
   Bpcustcreatedby? bpcustcreatedby;
   Bpcustcreatedby? bpcustupdatedby;
   Sbccstmstatus? sbccstmstatus;
+  Sbcactivitytype? sbcactivitytype;
   Sbcbp? sbcbp;
   Sbccstm? sbccstm;
   List<Sbccstmpics>? sbccstmpics;
@@ -23,6 +25,8 @@ class BusinessPartnerCustomerModel {
       this.sbcbpid,
       this.sbccstmid,
       this.sbccstmstatusid,
+      this.sbcactivitytypeid,
+      this.sbcactivitytype,
       this.sbccstmname,
       this.sbccstmphone,
       this.sbccstmaddress,
@@ -43,6 +47,7 @@ class BusinessPartnerCustomerModel {
     sbcbpid = json['sbcbpid'];
     sbccstmid = json['sbccstmid'];
     sbccstmstatusid = json['sbccstmstatusid'];
+    sbcactivitytypeid = json['sbcactivitytypeid'];
     sbccstmname = json['sbccstmname'];
     sbccstmphone = json['sbccstmphone'];
     sbccstmaddress = json['sbccstmaddress'];
@@ -51,18 +56,12 @@ class BusinessPartnerCustomerModel {
     updatedby = json['updatedby'];
     updateddate = json['updateddate'];
     isactive = json['isactive'];
-    bpcustcreatedby = json['bpcustcreatedby'] != null
-        ? new Bpcustcreatedby.fromJson(json['bpcustcreatedby'])
-        : null;
-    bpcustupdatedby = json['bpcustupdatedby'] != null
-        ? new Bpcustcreatedby.fromJson(json['bpcustupdatedby'])
-        : null;
-    sbccstmstatus = json['sbccstmstatus'] != null
-        ? new Sbccstmstatus.fromJson(json['sbccstmstatus'])
-        : null;
+    bpcustcreatedby = json['bpcustcreatedby'] != null ? new Bpcustcreatedby.fromJson(json['bpcustcreatedby']) : null;
+    bpcustupdatedby = json['bpcustupdatedby'] != null ? new Bpcustcreatedby.fromJson(json['bpcustupdatedby']) : null;
+    sbccstmstatus = json['sbccstmstatus'] != null ? new Sbccstmstatus.fromJson(json['sbccstmstatus']) : null;
+    sbcactivitytype = json['sbcactivitytype'] != null ? new Sbcactivitytype.fromJson(json['sbcactivitytype']) : null;
     sbcbp = json['sbcbp'] != null ? new Sbcbp.fromJson(json['sbcbp']) : null;
-    sbccstm =
-        json['sbccstm'] != null ? new Sbccstm.fromJson(json['sbccstm']) : null;
+    sbccstm = json['sbccstm'] != null ? new Sbccstm.fromJson(json['sbccstm']) : null;
     if (json['sbccstmpics'] != null) {
       sbccstmpics = <Sbccstmpics>[];
       json['sbccstmpics'].forEach((v) {
@@ -195,6 +194,25 @@ class Sbccstmstatus {
   }
 }
 
+class Sbcactivitytype {
+  int? typeid;
+  String? typename;
+
+  Sbcactivitytype({this.typeid, this.typename});
+
+  Sbcactivitytype.fromJson(Map<String, dynamic> json) {
+    typeid = json['typeid'];
+    typename = json['typename'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['typeid'] = this.typeid;
+    data['typename'] = this.typename;
+    return data;
+  }
+}
+
 class Sbcbp {
   int? bpid;
   String? bpname;
@@ -278,9 +296,7 @@ class Sbccstm {
     updatedby = json['updatedby'];
     updateddate = json['updateddate'];
     isactive = json['isactive'];
-    cstmtype = json['cstmtype'] != null
-        ? new Sbccstmstatus.fromJson(json['cstmtype'])
-        : null;
+    cstmtype = json['cstmtype'] != null ? new Sbccstmstatus.fromJson(json['cstmtype']) : null;
   }
 
   Map<String, dynamic> toJson() {
