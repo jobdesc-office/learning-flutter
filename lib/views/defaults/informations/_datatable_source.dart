@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../constants/base_text.dart';
-import '../../../models/masters/city_model.dart';
+import '../../../models/default/information_model.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_edit_datatable.dart';
@@ -13,7 +13,7 @@ import '../../../widgets/datatables/custom_datatable_tablehead.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 
-class CityDataTableSource extends BsDatatableSource {
+class InformationDataTableSource extends BsDatatableSource {
   ValueChanged<int> onEditListener = (value) {};
   Function onDeleteListener = (value, name) {};
 
@@ -26,13 +26,14 @@ class CityDataTableSource extends BsDatatableSource {
         orderable: false,
       ),
       CustomBsDataColumn(
+          width: 200,
           label: Text(
-            'City Name',
+            'Information Name',
           ),
-          columnName: 'cityname'),
+          columnName: 'infoname'),
       CustomBsDataColumn(
-        label: Text('City Province'),
-        columnName: 'Citynm',
+        label: Text('Information Description'),
+        columnName: 'infodesc',
         searchable: false,
         orderable: false,
       ),
@@ -44,12 +45,12 @@ class CityDataTableSource extends BsDatatableSource {
     ];
   }
 
-  List<CityModel> get citys =>
-      response.data.map((data) => CityModel.fromJson(data)).toList();
+  List<InformationModel> get informations =>
+      response.data.map((data) => InformationModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
-    final row = citys[index];
+    final row = informations[index];
     int x = controller.start + index + 1;
     return BsDataRow(
       index: index,
@@ -65,7 +66,7 @@ class CityDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.cityname ?? ''),
+          Text(row.infoname ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -75,7 +76,7 @@ class CityDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.cityprov?.provname ?? ''),
+          Text(row.infodesc ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -88,18 +89,19 @@ class CityDataTableSource extends BsDatatableSource {
           Row(
             children: [
               Tooltip(
-                message: BaseText.editHintDatatable(field: row.cityname),
+                message: BaseText.editHintDatatable(field: row.infoname),
                 child: ButtonEditDatatables(
                   margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onEditListener(row.cityid!),
+                  onPressed: () => onEditListener(row.infoid!),
                 ),
               ),
-              Tooltip(
-                message: BaseText.deleteHintDatatable(field: row.cityname),
-                child: ButtonDeleteDatatables(
-                    onPressed: () =>
-                        onDeleteListener(row.cityid, row.cityname)),
-              ),
+              // Tooltip(
+              //   message:
+              //       BaseText.deleteHintDatatable(field: row.infoname),
+              //   child: ButtonDeleteDatatables(
+              //       onPressed: () => onDeleteListener(
+              //           row.infoid, row.infoname)),
+              // ),
             ],
           ),
           color: _navigation.darkTheme.value

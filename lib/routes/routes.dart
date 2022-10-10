@@ -1,9 +1,11 @@
 import 'package:boilerplate/views/settings/company/company_setting/tabs/tabContacts/cp_contact_presenter.dart';
 import 'package:boilerplate/views/settings/company/company_setting/tabs/tabCustomers/cp_customer_presenter.dart';
 import 'package:boilerplate/views/settings/company/company_setting/tabs/tabGeneral/cp_general_presenter.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../presenters/default/home_presenter.dart';
+import '../presenters/default/information_presenter.dart';
 import '../presenters/default/profile_presenter.dart';
 import '../presenters/masters/businesspartner_presenter.dart';
 import '../presenters/masters/city_presenter.dart';
@@ -46,6 +48,7 @@ import '../presenters/masters/typechildren_presenter.dart';
 import '../presenters/masters/typeparent_presenter.dart';
 import '../presenters/masters/user_presenter.dart';
 import '../services/default/home_service.dart';
+import '../services/default/info_service.dart';
 import '../services/default/profile_service.dart';
 import '../services/masters/businesspartner_service.dart';
 import '../services/masters/city_service.dart';
@@ -79,6 +82,7 @@ import '../utils/custom_get_page.dart';
 import '../utils/guards/auth_guard.dart';
 import '../utils/guards/guest_guard.dart';
 import '../views/defaults/home/home.dart';
+import '../views/defaults/informations/info.dart';
 import '../views/defaults/profile/profile.dart';
 import '../views/masters/businesspartners/businesspartner.dart';
 import '../views/masters/cities/city.dart';
@@ -461,6 +465,18 @@ class AppRoute {
         }),
       ),
       CustomGetPage(
+        name: RouteList.settingsInformation.index,
+        page: () => AuthGuard(
+          child: InformationView(),
+          parent: 'Settings',
+          route: '/settings/information',
+        ),
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => InfoService());
+          Get.lazyPut(() => InformationPresenter());
+        }),
+      ),
+      CustomGetPage(
         name: RouteList.settingsCompany.index,
         page: () => AuthGuard(
           child: CompanyView(),
@@ -515,14 +531,6 @@ class AppRoute {
           Get.lazyPut(() => ReportPresenter());
           Get.lazyPut(() => ReportService());
         }),
-      ),
-      CustomGetPage(
-        name: RouteList.settingsDataField.index,
-        page: () => DataFieldView(),
-        // binding: BindingsBuilder(() {
-        //   Get.lazyPut(() => FileService());
-        //   Get.lazyPut(() => FilePresenter());
-        // }),
       ),
     ];
   }

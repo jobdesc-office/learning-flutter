@@ -58,6 +58,7 @@ IconData parseIcon(dynamic value) {
     'Icons.storage_outlined': Icons.storage_outlined,
     'Icons.handshake': Icons.handshake,
     'Icons.group': Icons.group,
+    'Icons.info': Icons.info,
     'Icons.groups': Icons.groups,
     'FontAwesomeIcons.userPlus': FontAwesomeIcons.userPlus,
     'Icons.contacts': Icons.contacts,

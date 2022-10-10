@@ -16,7 +16,7 @@ import '_text.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 
-class CitySource {
+class InformationSource {
   bool isProcessing = false;
 
   var createdby = ''.obs;
@@ -26,14 +26,15 @@ class CitySource {
   var isactive = true.obs;
 
   TextEditingController inputName = TextEditingController();
+  TextEditingController inputDesc = TextEditingController();
 
   BsSelectBoxController selectProvince = BsSelectBoxController();
 
   Future<Map<String, dynamic>> toJson() async {
     SessionModel session = await SessionManager.current();
     return {
-      'cityprovid': selectProvince.getSelectedAsString(),
-      'cityname': inputName.text,
+      'infoname': inputName.text,
+      'infodesc': inputDesc.text,
       'createdby': session.userid,
       'updatedby': session.userid,
       'isactive': isactive.value,
@@ -41,44 +42,43 @@ class CitySource {
   }
 }
 
-class CityForm {
-  final CitySource source;
+class InformationForm {
+  final InformationSource source;
 
-  CityForm(this.source);
+  InformationForm(this.source);
 
   Widget inputName() {
     return FormGroup(
-      label: Obx(() => Text(CityText.labelName,
+      label: Obx(() => Text(InformationText.labelName,
           style: TextStyle(
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
-        disabled: source.isProcessing,
+        disabled: true,
         controller: source.inputName,
-        hintText: BaseText.hintText(field: CityText.labelName),
+        hintText: BaseText.hintText(field: InformationText.labelName),
         validators: [
-          Validators.inputRequired(CityText.labelName),
-          Validators.maxLength(CityText.labelName, 150),
+          Validators.inputRequired(InformationText.labelName),
+          Validators.maxLength(InformationText.labelName, 150),
         ],
       ),
     );
   }
 
-  Widget selectProvince() {
+  Widget inputDesc() {
     return FormGroup(
-      label: Obx(() => Text(CityText.labelProvince,
+      label: Obx(() => Text(InformationText.labelDesc,
           style: TextStyle(
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
-      child: CustomSelectBox(
-        searchable: true,
+      child: CustomInput(
         disabled: source.isProcessing,
-        controller: source.selectProvince,
-        hintText: BaseText.hiintSelect(field: CityText.labelProvince),
-        serverSide: (params) => selectProvinces(params),
+        controller: source.inputDesc,
+        hintText: BaseText.hintText(field: InformationText.labelDesc),
         validators: [
-          Validators.selectRequired(CityText.labelProvince),
+          Validators.inputRequired(InformationText.labelDesc),
         ],
+        maxLines: 20,
       ),
     );
   }

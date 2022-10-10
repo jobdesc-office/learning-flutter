@@ -1,7 +1,7 @@
 import '../../../constants/base_text.dart';
 
-class CityText {
-  static String title = 'City';
+class InformationText {
+  static String title = 'Information';
   static String labelName = BaseText.defaultLabelName;
-  static String labelProvince = 'Province';
+  static String labelDesc = 'Description';
 }

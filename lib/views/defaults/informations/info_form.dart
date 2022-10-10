@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/edit_view_contract.dart';
-import '../../../models/masters/city_model.dart';
-import '../../../presenters/masters/city_presenter.dart';
+import '../../../models/default/information_model.dart';
+import '../../../presenters/default/information_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../styles/color_palattes.dart';
@@ -18,34 +18,37 @@ import '../../../widgets/form_group.dart';
 import '_form_source.dart';
 
 // ignore: must_be_immutable
-class CityFormView extends StatelessWidget implements EditViewContract {
+class InformationFormView extends StatelessWidget implements EditViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
-  final CityPresenter presenter = Get.find<CityPresenter>();
-  final source = CitySource().obs;
+  final InformationPresenter presenter = Get.find<InformationPresenter>();
+  final source = InformationSource().obs;
   final Function(Map<String, dynamic> body) onSave;
   final _navigation = Get.find<NavigationPresenter>();
 
   var isEdit = false.obs;
 
-  late CityForm cityForm;
+  late InformationForm informationForm;
 
-  CityFormView({required this.onSave}) {
-    presenter.cityFetchDataContract = this;
+  InformationFormView({required this.onSave}) {
+    presenter.informationFetchDataContract = this;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: TemplateView(
-        title: 'City Form',
+        title: 'Information Form',
         breadcrumbs: [
           BreadcrumbWidget('Masters'),
           BreadcrumbWidget('Cities', back: true),
-          BreadcrumbWidget('City Form', active: true),
+          BreadcrumbWidget('Information Form', active: true),
         ],
-        activeRoutes: [RouteList.master.index, RouteList.masterCity.index],
+        activeRoutes: [
+          RouteList.settings.index,
+          RouteList.settingsInformation.index
+        ],
         child: Obx(() {
-          cityForm = CityForm(source.value);
+          informationForm = InformationForm(source.value);
           return BsRow(
             children: [
               BsCol(
@@ -64,8 +67,8 @@ class CityFormView extends StatelessWidget implements EditViewContract {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        cityForm.inputName(),
-                        cityForm.selectProvince(),
+                        informationForm.inputName(),
+                        informationForm.inputDesc(),
                         Obx(
                           () => Row(
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -245,17 +248,17 @@ class CityFormView extends StatelessWidget implements EditViewContract {
     isEdit.value = true;
 
     source.update((val) {
-      CityModel city = CityModel.fromJson(response.body);
-      source.value.inputName.text = city.cityname ?? '';
-      source.value.selectProvince.setSelected(BsSelectBoxOption(
-          value: city.cityprov?.provid ?? 0,
-          text: Text(city.cityprov?.provname ?? '')));
+      InformationModel information = InformationModel.fromJson(response.body);
+      source.value.inputName.text = information.infoname ?? '';
+      source.value.inputDesc.text = information.infodesc ?? '';
 
-      source.value.createdby.value = city.citycreatedby?.userfullname ?? '';
-      source.value.createddate.value = city.createddate ?? '';
-      source.value.updatedby.value = city.cityupdatedby?.userfullname ?? '';
-      source.value.updateddate.value = city.updateddate ?? '';
-      source.value.isactive.value = city.isactive ?? true;
+      source.value.createdby.value =
+          information.infocreatedby?.userfullname ?? '';
+      source.value.createddate.value = information.createddate ?? '';
+      source.value.updatedby.value =
+          information.infoupdatedby?.userfullname ?? '';
+      source.value.updateddate.value = information.updateddate ?? '';
+      source.value.isactive.value = information.isactive ?? true;
     });
   }
 }

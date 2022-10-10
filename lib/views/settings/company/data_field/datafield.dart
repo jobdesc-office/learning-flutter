@@ -48,7 +48,7 @@ class _DataFieldViewState extends State<DataFieldView>
         // ],
         activeRoutes: [
           RouteList.settings.index,
-          RouteList.settingsDataField.index
+          RouteList.settingsInformation.index
         ],
         child: Obx(() => Container(
               padding: EdgeInsets.all(20),
