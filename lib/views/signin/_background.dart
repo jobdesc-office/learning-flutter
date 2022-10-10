@@ -83,9 +83,7 @@ class BackgroundAuth extends GetView implements InformationViewContract {
                   children: [
                     if (!controller.about.value && !controller.what.value)
                       Image.asset('assets/images/bg_auth.png'),
-                    if (controller.about.value && !controller.what.value)
-                      Container(child: Text(controller.desc.value)),
-                    if (!controller.about.value && controller.what.value)
+                    if (controller.about.value || controller.what.value)
                       Container(child: Text(controller.desc.value)),
                   ],
                 )),
