@@ -68,13 +68,11 @@ class AuthGuard extends StatelessWidget implements GuardContract {
 
             if (access) {
               return child;
+            } else {
+              return Page404();
             }
           } catch (e) {
-            if (isProcessing.value) {
-              return Page404();
-            } else {
-              return loadingProcess();
-            }
+            return Page404();
           }
         }
 

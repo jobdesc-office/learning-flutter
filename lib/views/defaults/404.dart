@@ -1,4 +1,6 @@
+import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 
 class Page404 extends StatelessWidget {
   const Page404({Key? key}) : super(key: key);
@@ -9,7 +11,19 @@ class Page404 extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Center(
-          child: Text('404 Not Found'),
+          child: Column(
+            children: [
+              Text(
+                '404 Not Found',
+                style: TextStyle(fontSize: 28),
+              ),
+              BsButton(
+                margin: EdgeInsets.only(top: 10),
+                onPressed: () => Get.back(),
+                label: Text('Back'),
+              )
+            ],
+          ),
         )
       ],
     );
