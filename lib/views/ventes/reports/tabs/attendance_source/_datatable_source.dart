@@ -29,10 +29,31 @@ class AttendanceDataTableSource extends BsDatatableSource {
         label: Text('Attendance User'),
         searchable: false,
         orderable: false,
-        width: 160,
+        width: 250,
       ),
       CustomBsDataColumn(
         label: Text('Attendance Date'),
+        columnName: 'comptproductname',
+        searchable: false,
+        orderable: false,
+        width: 150,
+      ),
+      CustomBsDataColumn(
+        label: Text('Attendance In'),
+        columnName: 'comptproductname',
+        searchable: false,
+        orderable: false,
+        width: 150,
+      ),
+      CustomBsDataColumn(
+        label: Text('Attendance Out'),
+        columnName: 'comptproductname',
+        searchable: false,
+        orderable: false,
+        width: 150,
+      ),
+      CustomBsDataColumn(
+        label: Text('Attendance Address'),
         columnName: 'comptproductname',
         searchable: false,
         orderable: false,
@@ -84,6 +105,36 @@ class AttendanceDataTableSource extends BsDatatableSource {
         ),
         CustomBsDataCell(
           Text(row.attdate ?? ''),
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
+        ),
+        CustomBsDataCell(
+          Text(row.attclockin ?? ''),
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
+        ),
+        CustomBsDataCell(
+          Text(row.attclockout ?? ''),
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
+        ),
+        CustomBsDataCell(
+          Text(row.attaddress ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
