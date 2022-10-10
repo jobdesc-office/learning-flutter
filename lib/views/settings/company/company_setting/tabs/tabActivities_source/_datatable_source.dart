@@ -21,6 +21,8 @@ class CustomersActivityDataTableSource extends BsDatatableSource {
   ValueChanged<int> onEditListener = (value) {};
   Function onDeleteListener = (value, name) {};
 
+  GlobalKey global = GlobalKey();
+
   List<BsDataColumn> get columns {
     return <BsDataColumn>[
       CustomBsDataColumn(
@@ -31,16 +33,10 @@ class CustomersActivityDataTableSource extends BsDatatableSource {
       ),
       CustomBsDataColumn(label: Text('Customer Name'), columnName: 'sbccstmname'),
       CustomBsDataColumn(
-        label: Text('Customer Activity Type'),
-        columnName: 'sbcactivitytypeid',
+        label: Text('Fill In Attendance First'),
         orderable: false,
         searchable: false,
-      ),
-      CustomBsDataColumn(
-        label: Text('Actions'),
-        orderable: false,
-        searchable: false,
-        width: 100,
+        width: 190,
       ),
     ];
   }
@@ -76,45 +72,11 @@ class CustomersActivityDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.sbcactivitytype?.typename ?? ''),
-          color: _navigation.darkTheme.value
-              ? x % 2 == 0
-                  ? ColorPallates.datatableDarkEvenRowColor
-                  : ColorPallates.datatableDarkOddRowColor
-              : x % 2 == 0
-                  ? ColorPallates.datatableLightEvenRowColor
-                  : ColorPallates.datatableLightOddRowColor,
-        ),
-        CustomBsDataCell(
           Row(
             children: [
-              Tooltip(
-                message: BaseText.detailHintDatatable(field: row.sbccstmname),
-                child: ButtonDetailsDatatables(
-                  margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onDetailsListener(row.sbcid!),
-                ),
-              ),
-              // if (permis
-              //     .where((element) => element.menu?.menunm == 'Customers')
-              //     .where((element) => element.feature?.feattitle == 'Update')
-              //     .first
-              //     .hasaccess!)
-              Tooltip(
-                message: BaseText.editHintDatatable(field: row.sbccstmname),
-                child: ButtonEditDatatables(
-                  margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onEditListener(row.sbccstm!.cstmid!),
-                ),
-              ),
-              // if (permis
-              //     .where((element) => element.menu?.menunm == 'Customers')
-              //     .where((element) => element.feature?.feattitle == 'Delete')
-              //     .first
-              //     .hasaccess!)
-              Tooltip(
-                message: BaseText.deleteHintDatatable(field: row.sbccstmname),
-                child: ButtonDeleteDatatables(onPressed: () => onDeleteListener(row.sbcid, row.sbccstmname)),
+              Cetekan(
+                true,
+                key: global,
               ),
             ],
           ),
@@ -125,9 +87,32 @@ class CustomersActivityDataTableSource extends BsDatatableSource {
               : x % 2 == 0
                   ? ColorPallates.datatableLightEvenRowColor
                   : ColorPallates.datatableLightOddRowColor,
-          padding: EdgeInsets.all(9),
+          padding: EdgeInsets.all(1),
         ),
       ],
+    );
+  }
+}
+
+class Cetekan extends StatelessWidget {
+  Function(bool)? onTap;
+  Cetekan(bool value, {this.onTap, GlobalKey? key}) : super(key: key) {
+    isActive = Rx(value);
+  }
+  late Rx<bool> isActive;
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        isActive.toggle();
+        onTap?.call(isActive.value);
+      },
+      child: Obx(() {
+        return Icon(
+          isActive.value ? Icons.toggle_on : Icons.toggle_off,
+          size: 35,
+          color: isActive.value ? ColorPallates.onDarkMode : ColorPallates.red,
+        );
+      }),
     );
   }
 }

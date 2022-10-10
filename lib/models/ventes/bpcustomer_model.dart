@@ -195,20 +195,20 @@ class Sbccstmstatus {
 }
 
 class Sbcactivitytype {
-  int? typeid;
-  String? typename;
+  int? sbtid;
+  String? sbttypename;
 
-  Sbcactivitytype({this.typeid, this.typename});
+  Sbcactivitytype({this.sbtid, this.sbttypename});
 
   Sbcactivitytype.fromJson(Map<String, dynamic> json) {
-    typeid = json['typeid'];
-    typename = json['typename'];
+    sbtid = json['sbtid'];
+    sbttypename = json['sbttypename'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['typeid'] = this.typeid;
-    data['typename'] = this.typename;
+    data['sbtid'] = this.sbtid;
+    data['sbttypename'] = this.sbttypename;
     return data;
   }
 }
