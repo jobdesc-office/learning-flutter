@@ -5,9 +5,12 @@ class AttendanceModel {
   String? attdate;
   String? attclockin;
   String? attclockout;
-  double? attlat;
-  double? attlong;
-  String? attaddress;
+  double? attlatin;
+  double? attlongin;
+  String? attaddressin;
+  double? attlatout;
+  double? attlongout;
+  String? attaddressout;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -23,9 +26,12 @@ class AttendanceModel {
       this.attdate,
       this.attclockin,
       this.attclockout,
-      this.attlat,
-      this.attlong,
-      this.attaddress,
+      this.attlatin,
+      this.attlongin,
+      this.attaddressin,
+      this.attlatout,
+      this.attlongout,
+      this.attaddressout,
       this.createdby,
       this.createddate,
       this.updatedby,
@@ -41,9 +47,12 @@ class AttendanceModel {
     attdate = json['attdate'];
     attclockin = json['attclockin'];
     attclockout = json['attclockout'];
-    attlat = json['attlat'];
-    attlong = json['attlong'];
-    attaddress = json['attaddress'];
+    attlatin = json['attlatin'];
+    attlongin = json['attlongin'];
+    attaddressin = json['attaddressin'];
+    attlatout = json['attlatout'];
+    attlongout = json['attlongout'];
+    attaddressout = json['attaddressout'];
     createdby = json['createdby'];
     createddate = json['createddate'];
     updatedby = json['updatedby'];
@@ -62,9 +71,12 @@ class AttendanceModel {
     data['attdate'] = this.attdate;
     data['attclockin'] = this.attclockin;
     data['attclockout'] = this.attclockout;
-    data['attlat'] = this.attlat;
-    data['attlong'] = this.attlong;
-    data['attaddress'] = this.attaddress;
+    data['attlatin'] = this.attlatin;
+    data['attlongin'] = this.attlongin;
+    data['attaddressin'] = this.attaddressin;
+    data['attlatout'] = this.attlatout;
+    data['attlongout'] = this.attlongout;
+    data['attaddressout'] = this.attaddressout;
     data['createdby'] = this.createdby;
     data['createddate'] = this.createddate;
     data['updatedby'] = this.updatedby;
@@ -87,9 +99,9 @@ class Attuser {
   String? userfullname;
   String? useremail;
   String? userphone;
-  String? userdeviceid;
-  String? userfcmtoken;
-  String? usersocketid;
+  Null? userdeviceid;
+  Null? userfcmtoken;
+  Null? usersocketid;
   int? createdby;
   String? createddate;
   int? updatedby;

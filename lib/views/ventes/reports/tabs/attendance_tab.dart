@@ -19,12 +19,8 @@ class AttendanceTab extends StatelessWidget implements IndexViewContract {
               headerActions: [user(), startdate(context), enddate(context)],
               serverSide: (params) => presenter.attenddatatables(
                   context, params,
-                  start: startdates.value == ''
-                      ? DateTime(2000).toString()
-                      : startdates.value,
-                  end: enddates.value == ''
-                      ? DateTime.now().toString()
-                      : enddates.value,
+                  start: startdates.value == '' ? null : startdates.value,
+                  end: enddates.value == '' ? null : enddates.value,
                   userid: selectOwner.getSelectedAsString()),
             ),
           ],
@@ -63,7 +59,8 @@ class AttendanceTab extends StatelessWidget implements IndexViewContract {
                 : Colors.white,
             borderColor: Colors.black,
             borderRadius: BorderRadius.all(Radius.circular(5))),
-        width: 100,
+        width: 120,
+        size: BsButtonSize.btnLg,
         onPressed: () {
           _startDates(context);
         },
@@ -82,7 +79,8 @@ class AttendanceTab extends StatelessWidget implements IndexViewContract {
                 : Colors.white,
             borderColor: Colors.black,
             borderRadius: BorderRadius.all(Radius.circular(5))),
-        width: 100,
+        width: 120,
+        size: BsButtonSize.btnLg,
         onPressed: () {
           _endDates(context);
         },
@@ -101,7 +99,7 @@ class AttendanceTab extends StatelessWidget implements IndexViewContract {
       startdates.value =
           '${selectedAct.year}-${selectedAct.month}-${selectedAct.day}';
       dates.value = selectedAct;
-      if (enddates.value != '') datatable.controller.reload();
+      datatable.controller.reload();
     }
   }
 
