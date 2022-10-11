@@ -18,6 +18,7 @@ class _TabFileState extends State<_TabFile> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    var permis = authPresenter.rolepermis.value;
     final filePresenter = Get.find<ProspectFilePresenter>();
     final presenter = Get.find<ProspectPresenter>();
     if (source.files.length != 0)
@@ -67,61 +68,80 @@ class _TabFileState extends State<_TabFile> with TickerProviderStateMixin {
                                               ProspectText.closedLost &&
                                           source.status.value !=
                                               ProspectText.forceClosed)
-                                        Row(children: [
-                                          Column(
-                                            children: [
-                                              BsButton(
-                                                style: BsButtonStyle.success,
-                                                margin:
-                                                    EdgeInsets.only(top: 10),
-                                                onPressed: () async {
-                                                  FilePickerResult? result =
-                                                      await FilePicker.platform
-                                                          .pickFiles(
-                                                    allowMultiple: true,
-                                                    type: FileType.custom,
-                                                    allowedExtensions: [
-                                                      'jpeg',
-                                                      'jpg',
-                                                      'pdf',
-                                                      'png',
-                                                      'gif'
-                                                    ],
-                                                  );
-                                                  if (result != null) {
-                                                    List<Uint8List> pickedFile =
-                                                        [];
-                                                    for (var item
-                                                        in result.files) {
-                                                      pickedFile
-                                                          .add(item.bytes!);
+                                        if (permis
+                                            .where((element) =>
+                                                element.menunm ==
+                                                'Ventes Datas')
+                                            .first
+                                            .children!
+                                            .where((element) =>
+                                                element.menunm == 'Prospect')
+                                            .first
+                                            .features!
+                                            .where((element) =>
+                                                element.featslug == 'create')
+                                            .first
+                                            .permissions!
+                                            .hasaccess!)
+                                          Row(children: [
+                                            Column(
+                                              children: [
+                                                BsButton(
+                                                  style: BsButtonStyle.success,
+                                                  margin:
+                                                      EdgeInsets.only(top: 10),
+                                                  onPressed: () async {
+                                                    FilePickerResult? result =
+                                                        await FilePicker
+                                                            .platform
+                                                            .pickFiles(
+                                                      allowMultiple: true,
+                                                      type: FileType.custom,
+                                                      allowedExtensions: [
+                                                        'jpeg',
+                                                        'jpg',
+                                                        'pdf',
+                                                        'png',
+                                                        'gif'
+                                                      ],
+                                                    );
+                                                    if (result != null) {
+                                                      List<Uint8List>
+                                                          pickedFile = [];
+                                                      for (var item
+                                                          in result.files) {
+                                                        pickedFile
+                                                            .add(item.bytes!);
+                                                      }
+                                                      source.pickedFile.value =
+                                                          pickedFile;
                                                     }
-                                                    source.pickedFile.value =
-                                                        pickedFile;
-                                                  }
+                                                  },
+                                                  prefixIcon: Icons.file_open,
+                                                  label: Text('Add File'),
+                                                ),
+                                                if (source
+                                                    .pickedFile.isNotEmpty)
+                                                  Container(
+                                                      margin: EdgeInsets.all(3),
+                                                      child: Text(
+                                                          'Choosed Files : ${source.pickedFile.length}'))
+                                              ],
+                                            ),
+                                            if (source.pickedFile.isNotEmpty)
+                                              ThemeButtonSave(
+                                                disabled: filePresenter
+                                                    .isProcessing.value,
+                                                processing: filePresenter
+                                                    .isProcessing.value,
+                                                margin:
+                                                    EdgeInsets.only(right: 5),
+                                                onPressed: () async {
+                                                  presenter
+                                                      .choosedPopup(context);
                                                 },
-                                                prefixIcon: Icons.file_open,
-                                                label: Text('Add File'),
-                                              ),
-                                              if (source.pickedFile.isNotEmpty)
-                                                Container(
-                                                    margin: EdgeInsets.all(3),
-                                                    child: Text(
-                                                        'Choosed Files : ${source.pickedFile.length}'))
-                                            ],
-                                          ),
-                                          if (source.pickedFile.isNotEmpty)
-                                            ThemeButtonSave(
-                                              disabled: filePresenter
-                                                  .isProcessing.value,
-                                              processing: filePresenter
-                                                  .isProcessing.value,
-                                              margin: EdgeInsets.only(right: 5),
-                                              onPressed: () async {
-                                                presenter.choosedPopup(context);
-                                              },
-                                            )
-                                        ])
+                                              )
+                                          ])
                                     ],
                                   ),
                                 ),
@@ -206,22 +226,45 @@ class _TabFileState extends State<_TabFile> with TickerProviderStateMixin {
                                                                     .value !=
                                                                 ProspectText
                                                                     .forceClosed)
-                                                          InkWell(
-                                                              onTap: () => filePresenter.edit(
-                                                                  context,
-                                                                  files.fileid!,
-                                                                  files
-                                                                      .filename!,
-                                                                  files
-                                                                      .remark!),
-                                                              child: Container(
-                                                                margin: EdgeInsets
-                                                                    .only(
-                                                                        left:
-                                                                            5),
-                                                                child: Icon(
-                                                                    Icons.edit),
-                                                              )),
+                                                          if (permis
+                                                              .where((element) =>
+                                                                  element
+                                                                      .menunm ==
+                                                                  'Ventes Datas')
+                                                              .first
+                                                              .children!
+                                                              .where((element) =>
+                                                                  element
+                                                                      .menunm ==
+                                                                  'Prospect')
+                                                              .first
+                                                              .features!
+                                                              .where((element) =>
+                                                                  element
+                                                                      .featslug ==
+                                                                  'update')
+                                                              .first
+                                                              .permissions!
+                                                              .hasaccess!)
+                                                            InkWell(
+                                                                onTap: () => filePresenter.edit(
+                                                                    context,
+                                                                    files
+                                                                        .fileid!,
+                                                                    files
+                                                                        .filename!,
+                                                                    files
+                                                                        .remark!),
+                                                                child:
+                                                                    Container(
+                                                                  margin: EdgeInsets
+                                                                      .only(
+                                                                          left:
+                                                                              5),
+                                                                  child: Icon(
+                                                                      Icons
+                                                                          .edit),
+                                                                )),
                                                         if (source.status.value != ProspectText.closedWon &&
                                                             source.status
                                                                     .value !=
@@ -231,22 +274,43 @@ class _TabFileState extends State<_TabFile> with TickerProviderStateMixin {
                                                                     .value !=
                                                                 ProspectText
                                                                     .forceClosed)
-                                                          InkWell(
-                                                              onTap: () =>
-                                                                  filePresenter.delete(
-                                                                      context,
-                                                                      files
-                                                                          .fileid!,
-                                                                      files
-                                                                          .filename!),
-                                                              child: Container(
-                                                                margin: EdgeInsets
-                                                                    .only(
-                                                                        left:
-                                                                            5),
-                                                                child: Icon(Icons
-                                                                    .delete),
-                                                              )),
+                                                          if (permis
+                                                              .where((element) =>
+                                                                  element
+                                                                      .menunm ==
+                                                                  'Ventes Datas')
+                                                              .first
+                                                              .children!
+                                                              .where((element) =>
+                                                                  element
+                                                                      .menunm ==
+                                                                  'Prospect')
+                                                              .first
+                                                              .features!
+                                                              .where((element) =>
+                                                                  element
+                                                                      .featslug ==
+                                                                  'delete')
+                                                              .first
+                                                              .permissions!
+                                                              .hasaccess!)
+                                                            InkWell(
+                                                                onTap: () =>
+                                                                    filePresenter.delete(
+                                                                        context,
+                                                                        files
+                                                                            .fileid!,
+                                                                        files
+                                                                            .filename!),
+                                                                child:
+                                                                    Container(
+                                                                  margin: EdgeInsets
+                                                                      .only(
+                                                                          left:
+                                                                              5),
+                                                                  child: Icon(Icons
+                                                                      .delete),
+                                                                )),
                                                       ],
                                                     ),
                                                     ExpansionTile(
@@ -304,53 +368,64 @@ class _TabFileState extends State<_TabFile> with TickerProviderStateMixin {
               if (source.status.value != ProspectText.closedWon &&
                   source.status.value != ProspectText.closedLost &&
                   source.status.value != ProspectText.forceClosed)
-                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  Column(
-                    children: [
-                      BsButton(
-                        style: BsButtonStyle.success,
-                        margin: EdgeInsets.only(top: 10),
-                        onPressed: () async {
-                          FilePickerResult? result =
-                              await FilePicker.platform.pickFiles(
-                            allowMultiple: true,
-                            type: FileType.custom,
-                            allowedExtensions: [
-                              'jpeg',
-                              'jpg',
-                              'pdf',
-                              'png',
-                              'gif'
-                            ],
-                          );
-                          if (result != null) {
-                            List<Uint8List> pickedFile = [];
-                            for (var item in result.files) {
-                              pickedFile.add(item.bytes!);
+                if (permis
+                    .where((element) => element.menunm == 'Ventes Datas')
+                    .first
+                    .children!
+                    .where((element) => element.menunm == 'Prospect')
+                    .first
+                    .features!
+                    .where((element) => element.featslug == 'create')
+                    .first
+                    .permissions!
+                    .hasaccess!)
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    Column(
+                      children: [
+                        BsButton(
+                          style: BsButtonStyle.success,
+                          margin: EdgeInsets.only(top: 10),
+                          onPressed: () async {
+                            FilePickerResult? result =
+                                await FilePicker.platform.pickFiles(
+                              allowMultiple: true,
+                              type: FileType.custom,
+                              allowedExtensions: [
+                                'jpeg',
+                                'jpg',
+                                'pdf',
+                                'png',
+                                'gif'
+                              ],
+                            );
+                            if (result != null) {
+                              List<Uint8List> pickedFile = [];
+                              for (var item in result.files) {
+                                pickedFile.add(item.bytes!);
+                              }
+                              source.pickedFile.value = pickedFile;
                             }
-                            source.pickedFile.value = pickedFile;
-                          }
+                          },
+                          prefixIcon: Icons.file_open,
+                          label: Text('Add File'),
+                        ),
+                        if (source.pickedFile.isNotEmpty)
+                          Container(
+                              margin: EdgeInsets.all(3),
+                              child: Text(
+                                  'Choosed Files : ${source.pickedFile.length}'))
+                      ],
+                    ),
+                    if (source.pickedFile.isNotEmpty)
+                      ThemeButtonSave(
+                        disabled: filePresenter.isProcessing.value,
+                        processing: filePresenter.isProcessing.value,
+                        margin: EdgeInsets.only(right: 5),
+                        onPressed: () async {
+                          presenter.choosedPopup(context);
                         },
-                        prefixIcon: Icons.file_open,
-                        label: Text('Add File'),
-                      ),
-                      if (source.pickedFile.isNotEmpty)
-                        Container(
-                            margin: EdgeInsets.all(3),
-                            child: Text(
-                                'Choosed Files : ${source.pickedFile.length}'))
-                    ],
-                  ),
-                  if (source.pickedFile.isNotEmpty)
-                    ThemeButtonSave(
-                      disabled: filePresenter.isProcessing.value,
-                      processing: filePresenter.isProcessing.value,
-                      margin: EdgeInsets.only(right: 5),
-                      onPressed: () async {
-                        presenter.choosedPopup(context);
-                      },
-                    )
-                ])
+                      )
+                  ])
             ],
           ));
   }

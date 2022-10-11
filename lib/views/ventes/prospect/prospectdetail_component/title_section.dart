@@ -1,6 +1,7 @@
 part of '../prospect_detail.dart';
 
 BsCol prospectDetailTitleSection(context) {
+  var permis = authPresenter.rolepermis.value;
   final _navigation = Get.find<NavigationPresenter>();
   final presenter = Get.find<ProspectPresenter>();
   final source = Get.put(ProspectDetailsSource());
@@ -267,7 +268,17 @@ BsCol prospectDetailTitleSection(context) {
                             })
                           ],
                         )
-                      else
+                      else if (permis
+                          .where((element) => element.menunm == 'Ventes Datas')
+                          .first
+                          .children!
+                          .where((element) => element.menunm == 'Prospect')
+                          .first
+                          .features!
+                          .where((element) => element.featslug == 'update')
+                          .first
+                          .permissions!
+                          .hasaccess!)
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

@@ -12,7 +12,9 @@ import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../../helpers/function.dart';
+import '../../../middleware/verifyToken.dart';
 import '../../../models/ventes/schedule_model.dart';
+import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/ventes/schedule_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
@@ -25,6 +27,8 @@ import '../../skins/template.dart';
 import '_schedule_source.dart';
 import '_text.dart';
 
+final authPresenter = Get.find<AuthPresenter>();
+
 class ScheduleView extends GetView
     implements HandleErrorRequest, IndexViewContract, ScheduleContract {
   final presenter = Get.find<SchedulePresenter>();
@@ -33,6 +37,7 @@ class ScheduleView extends GetView
   final source = Get.put(ScheduleHelper());
 
   ScheduleView() {
+    if (authPresenter.rolepermis.isEmpty) checkJwtToken();
     presenter.scheduleViewContract = this;
     presenter.scheduleContract = this;
     presenter.getDataFromAPI();
@@ -40,6 +45,7 @@ class ScheduleView extends GetView
 
   @override
   Widget build(BuildContext context) {
+    var permis = authPresenter.rolepermis.value;
     return Scaffold(
       body: TemplateView(
         title: ScheduleText.title,
@@ -94,15 +100,26 @@ class ScheduleView extends GetView
                           ],
                         ),
                       ),
-                      BsCol(
-                        alignment: Alignment.centerRight,
-                        sizes: ColScreen(sm: Col.col_9),
-                        child: ThemeButtonCreate(
-                          margin: EdgeInsets.only(bottom: 5),
-                          prefix: ScheduleText.title,
-                          onPressed: () => presenter.add(context),
-                        ),
-                      )
+                      if (permis
+                          .where((element) => element.menunm == 'Ventes Datas')
+                          .first
+                          .children!
+                          .where((element) => element.menunm == 'Schedule')
+                          .first
+                          .features!
+                          .where((element) => element.featslug == 'create')
+                          .first
+                          .permissions!
+                          .hasaccess!)
+                        BsCol(
+                          alignment: Alignment.centerRight,
+                          sizes: ColScreen(sm: Col.col_9),
+                          child: ThemeButtonCreate(
+                            margin: EdgeInsets.only(bottom: 5),
+                            prefix: ScheduleText.title,
+                            onPressed: () => presenter.add(context),
+                          ),
+                        )
                     ],
                   ),
                 ),
@@ -117,13 +134,41 @@ class ScheduleView extends GetView
                                 middleText: '',
                                 title: 'Setting',
                                 actions: [
-                                  ButtonEditDatatables(onPressed: () {
-                                    presenter.edit(context, element.scheid!);
-                                  }),
-                                  ButtonDeleteDatatables(onPressed: () {
-                                    presenter.delete(context, element.scheid!,
-                                        '${element.schenm!}');
-                                  }),
+                                  if (permis
+                                      .where((element) =>
+                                          element.menunm == 'Ventes Datas')
+                                      .first
+                                      .children!
+                                      .where((element) =>
+                                          element.menunm == 'Schedule')
+                                      .first
+                                      .features!
+                                      .where((element) =>
+                                          element.featslug == 'update')
+                                      .first
+                                      .permissions!
+                                      .hasaccess!)
+                                    ButtonEditDatatables(onPressed: () {
+                                      presenter.edit(context, element.scheid!);
+                                    }),
+                                  if (permis
+                                      .where((element) =>
+                                          element.menunm == 'Ventes Datas')
+                                      .first
+                                      .children!
+                                      .where((element) =>
+                                          element.menunm == 'Schedule')
+                                      .first
+                                      .features!
+                                      .where((element) =>
+                                          element.featslug == 'delete')
+                                      .first
+                                      .permissions!
+                                      .hasaccess!)
+                                    ButtonDeleteDatatables(onPressed: () {
+                                      presenter.delete(context, element.scheid!,
+                                          '${element.schenm!}');
+                                    }),
                                 ]),
                             onTap: () =>
                                 presenter.details(context, element.scheid!),

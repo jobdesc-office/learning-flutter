@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../models/ventes/prospect_model.dart';
+import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../styles/color_palattes.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
@@ -17,6 +18,7 @@ import '../../../widgets/datatables/custom_datatable_tablecell.dart';
 import '../../../widgets/datatables/custom_datatable_tablehead.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
+final authPresenter = Get.find<AuthPresenter>();
 
 class ProspectDataTableSource extends BsDatatableSource {
   final currencyFormatter = NumberFormat('#,##0.00', 'ID');
@@ -73,6 +75,7 @@ class ProspectDataTableSource extends BsDatatableSource {
 
   @override
   BsDataRow getRow(int index) {
+    var permis = authPresenter.rolepermis.value;
     final row = users[index];
     int x = controller.start + index + 1;
     // var contact;
@@ -297,21 +300,43 @@ class ProspectDataTableSource extends BsDatatableSource {
                       onPressed: () => onDetailsListener(row.prospectid!),
                     ),
                   ),
-                  Tooltip(
-                    message:
-                        BaseText.editHintDatatable(field: row.prospectname),
-                    child: ButtonEditDatatables(
-                      margin: EdgeInsets.only(right: 5),
-                      onPressed: () => onEditListener(row.prospectid!),
+                  if (permis
+                      .where((element) => element.menunm == 'Ventes Datas')
+                      .first
+                      .children!
+                      .where((element) => element.menunm == 'Prospect')
+                      .first
+                      .features!
+                      .where((element) => element.featslug == 'update')
+                      .first
+                      .permissions!
+                      .hasaccess!)
+                    Tooltip(
+                      message:
+                          BaseText.editHintDatatable(field: row.prospectname),
+                      child: ButtonEditDatatables(
+                        margin: EdgeInsets.only(right: 5),
+                        onPressed: () => onEditListener(row.prospectid!),
+                      ),
                     ),
-                  ),
-                  Tooltip(
-                    message:
-                        BaseText.deleteHintDatatable(field: row.prospectname),
-                    child: ButtonDeleteDatatables(
-                        onPressed: () => onDeleteListener(
-                            row.prospectid!, row.prospectname)),
-                  ),
+                  if (permis
+                      .where((element) => element.menunm == 'Ventes Datas')
+                      .first
+                      .children!
+                      .where((element) => element.menunm == 'Prospect')
+                      .first
+                      .features!
+                      .where((element) => element.featslug == 'delete')
+                      .first
+                      .permissions!
+                      .hasaccess!)
+                    Tooltip(
+                      message:
+                          BaseText.deleteHintDatatable(field: row.prospectname),
+                      child: ButtonDeleteDatatables(
+                          onPressed: () => onDeleteListener(
+                              row.prospectid!, row.prospectname)),
+                    ),
                 ],
               ),
               Text(''),

@@ -7,6 +7,7 @@ class _TabContact extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var permis = authPresenter.rolepermis.value;
     // ignore: invalid_use_of_protected_member
     source.contactname.value = '';
     final contactPresenter = Get.find<ProspectContactPresenter>();
@@ -24,15 +25,26 @@ class _TabContact extends StatelessWidget {
                 if (source.status.value != ProspectText.closedWon &&
                     source.status.value != ProspectText.closedLost &&
                     source.status.value != ProspectText.forceClosed)
-                  BsButton(
-                    style: BsButtonStyle.success,
-                    margin: EdgeInsets.only(top: 10),
-                    onPressed: () {
-                      contactPresenter.add(context, source.custid.value);
-                    },
-                    prefixIcon: Icons.phone,
-                    label: Text('Add Contact'),
-                  )
+                  if (permis
+                      .where((element) => element.menunm == 'Ventes Datas')
+                      .first
+                      .children!
+                      .where((element) => element.menunm == 'Prospect')
+                      .first
+                      .features!
+                      .where((element) => element.featslug == 'create')
+                      .first
+                      .permissions!
+                      .hasaccess!)
+                    BsButton(
+                      style: BsButtonStyle.success,
+                      margin: EdgeInsets.only(top: 10),
+                      onPressed: () {
+                        contactPresenter.add(context, source.custid.value);
+                      },
+                      prefixIcon: Icons.phone,
+                      label: Text('Add Contact'),
+                    )
               ],
             ),
             Column(
@@ -96,37 +108,72 @@ class _TabContact extends StatelessWidget {
                                                     ProspectText.closedLost &&
                                                 source.status.value !=
                                                     ProspectText.forceClosed)
-                                              Tooltip(
-                                                message: BaseText.editHintDatatable(
-                                                    field:
-                                                        '${e.contactname}\'s ${e.contacttype?.typename}'),
-                                                child: InkWell(
-                                                    onTap: () =>
-                                                        contactPresenter.edit(
-                                                            context,
-                                                            e.contactpersonid!,
-                                                            e.contactbpcustomerid!),
-                                                    child: Icon(Icons.edit)),
-                                              ),
+                                              if (permis
+                                                  .where((element) =>
+                                                      element.menunm ==
+                                                      'Ventes Datas')
+                                                  .first
+                                                  .children!
+                                                  .where((element) =>
+                                                      element.menunm ==
+                                                      'Prospect')
+                                                  .first
+                                                  .features!
+                                                  .where((element) =>
+                                                      element.featslug ==
+                                                      'update')
+                                                  .first
+                                                  .permissions!
+                                                  .hasaccess!)
+                                                Tooltip(
+                                                  message: BaseText
+                                                      .editHintDatatable(
+                                                          field:
+                                                              '${e.contactname}\'s ${e.contacttype?.typename}'),
+                                                  child: InkWell(
+                                                      onTap: () =>
+                                                          contactPresenter.edit(
+                                                              context,
+                                                              e.contactpersonid!,
+                                                              e.contactbpcustomerid!),
+                                                      child: Icon(Icons.edit)),
+                                                ),
                                             if (source.status.value !=
                                                     ProspectText.closedWon &&
                                                 source.status.value !=
                                                     ProspectText.closedLost &&
                                                 source.status.value !=
                                                     ProspectText.forceClosed)
-                                              Tooltip(
-                                                message: BaseText
-                                                    .deleteHintDatatable(
-                                                        field:
-                                                            '${e.contactname}\'s ${e.contacttype?.typename}'),
-                                                child: InkWell(
-                                                    onTap: () =>
-                                                        contactPresenter.delete(
-                                                            context,
-                                                            e.contactpersonid!,
-                                                            '${e.contactname}\'s ${e.contacttype?.typename}'),
-                                                    child: Icon(Icons.delete)),
-                                              )
+                                              if (permis
+                                                  .where((element) =>
+                                                      element.menunm ==
+                                                      'Ventes Datas')
+                                                  .first
+                                                  .children!
+                                                  .where((element) =>
+                                                      element.menunm ==
+                                                      'Prospect')
+                                                  .first
+                                                  .features!
+                                                  .where((element) =>
+                                                      element.featslug ==
+                                                      'delete')
+                                                  .first
+                                                  .permissions!
+                                                  .hasaccess!)
+                                                Tooltip(
+                                                  message: BaseText
+                                                      .deleteHintDatatable(
+                                                          field:
+                                                              '${e.contactname}\'s ${e.contacttype?.typename}'),
+                                                  child: InkWell(
+                                                      onTap: () =>
+                                                          contactPresenter.delete(
+                                                              context,
+                                                              e.contactpersonid!,
+                                                              '${e.contactname}\'s ${e.contacttype?.typename}'),
+                                                      child: Icon(Icons.delete)),
+                                                )
                                           ],
                                         ))
                                   ],
@@ -149,15 +196,26 @@ class _TabContact extends StatelessWidget {
           if (source.status.value != ProspectText.closedWon &&
               source.status.value != ProspectText.closedLost &&
               source.status.value != ProspectText.forceClosed)
-            BsButton(
-              style: BsButtonStyle.success,
-              margin: EdgeInsets.only(top: 10),
-              onPressed: () {
-                contactPresenter.add(context, source.custid.value);
-              },
-              prefixIcon: Icons.phone,
-              label: Text('Add Contact'),
-            )
+            if (permis
+                .where((element) => element.menunm == 'Ventes Datas')
+                .first
+                .children!
+                .where((element) => element.menunm == 'Prospect')
+                .first
+                .features!
+                .where((element) => element.featslug == 'create')
+                .first
+                .permissions!
+                .hasaccess!)
+              BsButton(
+                style: BsButtonStyle.success,
+                margin: EdgeInsets.only(top: 10),
+                onPressed: () {
+                  contactPresenter.add(context, source.custid.value);
+                },
+                prefixIcon: Icons.phone,
+                label: Text('Add Contact'),
+              )
         ],
       );
   }

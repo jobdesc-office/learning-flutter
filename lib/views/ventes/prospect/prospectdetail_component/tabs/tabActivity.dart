@@ -5,6 +5,7 @@ class _TabActivity extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var permis = authPresenter.rolepermis.value;
     final source = Get.put(ProspectDetailsSource());
     final detailPresenter = Get.find<ProspectActivityPresenter>();
     if (source.detailData.isNotEmpty)
@@ -30,11 +31,25 @@ class _TabActivity extends StatelessWidget {
                                 source.status.value !=
                                     ProspectText.closedLost &&
                                 source.status.value != ProspectText.forceClosed)
-                              BsButton(
-                                  style: BsButtonStyle.success,
-                                  onPressed: () => detailPresenter.add(
-                                      context, source.prospectid.value),
-                                  label: Text('Add Activity')),
+                              if (permis
+                                  .where((element) =>
+                                      element.menunm == 'Ventes Datas')
+                                  .first
+                                  .children!
+                                  .where(
+                                      (element) => element.menunm == 'Prospect')
+                                  .first
+                                  .features!
+                                  .where(
+                                      (element) => element.featslug == 'create')
+                                  .first
+                                  .permissions!
+                                  .hasaccess!)
+                                BsButton(
+                                    style: BsButtonStyle.success,
+                                    onPressed: () => detailPresenter.add(
+                                        context, source.prospectid.value),
+                                    label: Text('Add Activity')),
                           ],
                         ),
                       )),
@@ -63,20 +78,56 @@ class _TabActivity extends StatelessWidget {
                                             middleText: '',
                                             title: 'Setting',
                                             actions: [
-                                              ButtonEditDatatables(
-                                                  onPressed: () {
-                                                detailPresenter.edit(
-                                                    context,
-                                                    element.prospectactivityid!,
-                                                    source.prospectid.value);
-                                              }),
-                                              ButtonDeleteDatatables(
-                                                  onPressed: () {
-                                                detailPresenter.delete(
-                                                    context,
-                                                    element.prospectactivityid!,
-                                                    '${element.prospectactivitytype!.typename} at ${element.prospectactivitydate}');
-                                              }),
+                                              if (permis
+                                                  .where((element) =>
+                                                      element.menunm ==
+                                                      'Ventes Datas')
+                                                  .first
+                                                  .children!
+                                                  .where((element) =>
+                                                      element.menunm ==
+                                                      'Prospect')
+                                                  .first
+                                                  .features!
+                                                  .where((element) =>
+                                                      element.featslug ==
+                                                      'update')
+                                                  .first
+                                                  .permissions!
+                                                  .hasaccess!)
+                                                ButtonEditDatatables(
+                                                    onPressed: () {
+                                                  detailPresenter.edit(
+                                                      context,
+                                                      element
+                                                          .prospectactivityid!,
+                                                      source.prospectid.value);
+                                                }),
+                                              if (permis
+                                                  .where((element) =>
+                                                      element.menunm ==
+                                                      'Ventes Datas')
+                                                  .first
+                                                  .children!
+                                                  .where((element) =>
+                                                      element.menunm ==
+                                                      'Prospect')
+                                                  .first
+                                                  .features!
+                                                  .where((element) =>
+                                                      element.featslug ==
+                                                      'delete')
+                                                  .first
+                                                  .permissions!
+                                                  .hasaccess!)
+                                                ButtonDeleteDatatables(
+                                                    onPressed: () {
+                                                  detailPresenter.delete(
+                                                      context,
+                                                      element
+                                                          .prospectactivityid!,
+                                                      '${element.prospectactivitytype!.typename} at ${element.prospectactivitydate}');
+                                                }),
                                             ]);
                                     },
                                     onTap: () {
@@ -171,12 +222,23 @@ class _TabActivity extends StatelessWidget {
               if (source.status.value != ProspectText.closedWon &&
                   source.status.value != ProspectText.closedLost &&
                   source.status.value != ProspectText.forceClosed)
-                BsButton(
-                    margin: EdgeInsets.only(top: 5),
-                    style: BsButtonStyle.success,
-                    onPressed: () =>
-                        detailPresenter.add(context, source.prospectid.value),
-                    label: Text('Add Activity')),
+                if (permis
+                    .where((element) => element.menunm == 'Ventes Datas')
+                    .first
+                    .children!
+                    .where((element) => element.menunm == 'Prospect')
+                    .first
+                    .features!
+                    .where((element) => element.featslug == 'create')
+                    .first
+                    .permissions!
+                    .hasaccess!)
+                  BsButton(
+                      margin: EdgeInsets.only(top: 5),
+                      style: BsButtonStyle.success,
+                      onPressed: () =>
+                          detailPresenter.add(context, source.prospectid.value),
+                      label: Text('Add Activity')),
             ],
           ));
   }

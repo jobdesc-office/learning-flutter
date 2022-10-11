@@ -3,6 +3,8 @@ import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../middleware/verifyToken.dart';
+import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/ventes/prospect_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
@@ -13,16 +15,20 @@ import '../../skins/template.dart';
 import '_datatable_source.dart';
 import '_text.dart';
 
+final authPresenter = Get.find<AuthPresenter>();
+
 class ProspectView extends GetView implements IndexViewContract {
   final presenter = Get.put(ProspectPresenter());
   final datatable = ProspectDataTableSource();
 
   ProspectView() {
+    if (authPresenter.rolepermis.isEmpty) checkJwtToken();
     presenter.prospectViewContract = this;
   }
 
   @override
   Widget build(BuildContext context) {
+    var permis = authPresenter.rolepermis.value;
     return Scaffold(
       body: TemplateView(
         title: 'Prospects',
@@ -37,9 +43,20 @@ class ProspectView extends GetView implements IndexViewContract {
             children: [
               CustomDatabales(
                 headerActions: [
-                  ThemeButtonCreate(
-                      prefix: ProspectText.title,
-                      onPressed: () => presenter.add(context)),
+                  if (permis
+                      .where((element) => element.menunm == 'Ventes Datas')
+                      .first
+                      .children!
+                      .where((element) => element.menunm == 'Prospect')
+                      .first
+                      .features!
+                      .where((element) => element.featslug == 'create')
+                      .first
+                      .permissions!
+                      .hasaccess!)
+                    ThemeButtonCreate(
+                        prefix: ProspectText.title,
+                        onPressed: () => presenter.add(context)),
                 ],
                 source: datatable,
                 columns: datatable.columns,

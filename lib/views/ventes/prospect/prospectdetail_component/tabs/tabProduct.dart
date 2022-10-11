@@ -5,6 +5,7 @@ class _TabProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var permis = authPresenter.rolepermis.value;
     final productPresenter = Get.find<ProspectProductPresenter>();
     final currencyFormatter = NumberFormat('#,##0.00', 'ID');
     if (source.product.length != 0)
@@ -25,14 +26,25 @@ class _TabProduct extends StatelessWidget {
                 if (source.status.value != ProspectText.closedWon &&
                     source.status.value != ProspectText.closedLost &&
                     source.status.value != ProspectText.forceClosed)
-                  BsButton(
-                    style: BsButtonStyle.success,
-                    onPressed: () {
-                      productPresenter.add(context, source.prospectid.value);
-                    },
-                    prefixIcon: Icons.shopping_bag,
-                    label: Text('Add Product'),
-                  )
+                  if (permis
+                      .where((element) => element.menunm == 'Ventes Datas')
+                      .first
+                      .children!
+                      .where((element) => element.menunm == 'Prospect')
+                      .first
+                      .features!
+                      .where((element) => element.featslug == 'create')
+                      .first
+                      .permissions!
+                      .hasaccess!)
+                    BsButton(
+                      style: BsButtonStyle.success,
+                      onPressed: () {
+                        productPresenter.add(context, source.prospectid.value);
+                      },
+                      prefixIcon: Icons.shopping_bag,
+                      label: Text('Add Product'),
+                    )
               ],
             ),
             Obx(() => Container(
@@ -59,18 +71,46 @@ class _TabProduct extends StatelessWidget {
                                   middleText: '',
                                   title: 'Setting',
                                   actions: [
-                                    ButtonEditDatatables(onPressed: () {
-                                      productPresenter.edit(
-                                          context,
-                                          products.prosproductid,
-                                          source.prospectid.value);
-                                    }),
-                                    ButtonDeleteDatatables(onPressed: () {
-                                      productPresenter.delete(
-                                          context,
-                                          products.prosproductid,
-                                          '${products.prosproductproduct?.productname}');
-                                    }),
+                                    if (permis
+                                        .where((element) =>
+                                            element.menunm == 'Ventes Datas')
+                                        .first
+                                        .children!
+                                        .where((element) =>
+                                            element.menunm == 'Prospect')
+                                        .first
+                                        .features!
+                                        .where((element) =>
+                                            element.featslug == 'update')
+                                        .first
+                                        .permissions!
+                                        .hasaccess!)
+                                      ButtonEditDatatables(onPressed: () {
+                                        productPresenter.edit(
+                                            context,
+                                            products.prosproductid,
+                                            source.prospectid.value);
+                                      }),
+                                    if (permis
+                                        .where((element) =>
+                                            element.menunm == 'Ventes Datas')
+                                        .first
+                                        .children!
+                                        .where((element) =>
+                                            element.menunm == 'Prospect')
+                                        .first
+                                        .features!
+                                        .where((element) =>
+                                            element.featslug == 'delete')
+                                        .first
+                                        .permissions!
+                                        .hasaccess!)
+                                      ButtonDeleteDatatables(onPressed: () {
+                                        productPresenter.delete(
+                                            context,
+                                            products.prosproductid,
+                                            '${products.prosproductproduct?.productname}');
+                                      }),
                                   ]);
                           },
                           onTap: () {
@@ -144,15 +184,26 @@ class _TabProduct extends StatelessWidget {
           if (source.status.value != ProspectText.closedWon &&
               source.status.value != ProspectText.closedLost &&
               source.status.value != ProspectText.forceClosed)
-            BsButton(
-              style: BsButtonStyle.success,
-              margin: EdgeInsets.only(top: 10),
-              onPressed: () {
-                productPresenter.add(context, source.prospectid.value);
-              },
-              prefixIcon: Icons.shopping_bag,
-              label: Text('Add Product'),
-            )
+            if (permis
+                .where((element) => element.menunm == 'Ventes Datas')
+                .first
+                .children!
+                .where((element) => element.menunm == 'Prospect')
+                .first
+                .features!
+                .where((element) => element.featslug == 'create')
+                .first
+                .permissions!
+                .hasaccess!)
+              BsButton(
+                style: BsButtonStyle.success,
+                margin: EdgeInsets.only(top: 10),
+                onPressed: () {
+                  productPresenter.add(context, source.prospectid.value);
+                },
+                prefixIcon: Icons.shopping_bag,
+                label: Text('Add Product'),
+              )
         ],
       );
   }

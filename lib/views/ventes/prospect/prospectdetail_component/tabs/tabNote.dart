@@ -8,6 +8,7 @@ class _TabNote extends StatelessWidget {
     final presenter = Get.find<ProspectPresenter>();
     final GlobalKey<FormState> formState = GlobalKey<FormState>();
     ZefyrController inputDescription;
+    var permis = authPresenter.rolepermis.value;
     if (source.desc.value == '')
       inputDescription = ZefyrController(NotusDocument());
     else
@@ -72,33 +73,46 @@ class _TabNote extends StatelessWidget {
                         if (source.status.value != ProspectText.closedWon &&
                             source.status.value != ProspectText.closedLost &&
                             source.status.value != ProspectText.forceClosed)
-                          BsCol(
-                              margin: EdgeInsets.only(top: 5),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Obx(() =>
-                                      ThemeButtonSave(onPressed: () async {
-                                        if (formState.currentState!
-                                            .validate()) {
-                                          SessionModel session =
-                                              await SessionManager.current();
-                                          presenter.changeNote(
-                                              context,
-                                              {
-                                                'prospectdescription':
-                                                    jsonEncode(inputDescription
-                                                        .document),
-                                                'createdby': session.userid,
-                                                'updatedby': session.userid
-                                              },
-                                              source.prospectid.value);
-                                          source.desc.value = jsonEncode(
-                                              inputDescription.document);
-                                        }
-                                      }))
-                                ],
-                              )),
+                          if (permis
+                              .where(
+                                  (element) => element.menunm == 'Ventes Datas')
+                              .first
+                              .children!
+                              .where((element) => element.menunm == 'Prospect')
+                              .first
+                              .features!
+                              .where((element) => element.featslug == 'update')
+                              .first
+                              .permissions!
+                              .hasaccess!)
+                            BsCol(
+                                margin: EdgeInsets.only(top: 5),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Obx(() =>
+                                        ThemeButtonSave(onPressed: () async {
+                                          if (formState.currentState!
+                                              .validate()) {
+                                            SessionModel session =
+                                                await SessionManager.current();
+                                            presenter.changeNote(
+                                                context,
+                                                {
+                                                  'prospectdescription':
+                                                      jsonEncode(
+                                                          inputDescription
+                                                              .document),
+                                                  'createdby': session.userid,
+                                                  'updatedby': session.userid
+                                                },
+                                                source.prospectid.value);
+                                            source.desc.value = jsonEncode(
+                                                inputDescription.document);
+                                          }
+                                        }))
+                                  ],
+                                )),
                       ],
                     ),
                   ))

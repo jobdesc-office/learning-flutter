@@ -5,6 +5,7 @@ class CustomfieldSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var permis = authPresenter.rolepermis.value;
     final presenter = Get.find<ProspectPresenter>();
     final source = Get.put(ProspectDetailsSource());
     final cfieldForm = CustomFieldSource().obs;
@@ -124,26 +125,40 @@ class CustomfieldSection extends StatelessWidget {
                                 source.status.value !=
                                     ProspectText.closedLost &&
                                 source.status.value != ProspectText.forceClosed)
-                              Tooltip(
-                                message: source.status.value !=
-                                            ProspectText.closedWon &&
-                                        source.status.value !=
-                                            ProspectText.closedLost &&
-                                        source.status.value !=
-                                            ProspectText.forceClosed
-                                    ? 'Add Custom Field'
-                                    : '',
-                                child: BsButton(
-                                  margin: EdgeInsets.only(left: 5),
-                                  size: BsButtonSize.btnSm,
-                                  onPressed: () {
-                                    source.isAddCF.toggle();
-                                    source.isAdd.value = false;
-                                  },
-                                  prefixIcon: Icons.add,
-                                  label: Text('Customize Fields'),
-                                ),
-                              )
+                              if (permis
+                                  .where((element) =>
+                                      element.menunm == 'Ventes Datas')
+                                  .first
+                                  .children!
+                                  .where(
+                                      (element) => element.menunm == 'Prospect')
+                                  .first
+                                  .features!
+                                  .where(
+                                      (element) => element.featslug == 'create')
+                                  .first
+                                  .permissions!
+                                  .hasaccess!)
+                                Tooltip(
+                                  message: source.status.value !=
+                                              ProspectText.closedWon &&
+                                          source.status.value !=
+                                              ProspectText.closedLost &&
+                                          source.status.value !=
+                                              ProspectText.forceClosed
+                                      ? 'Add Custom Field'
+                                      : '',
+                                  child: BsButton(
+                                    margin: EdgeInsets.only(left: 5),
+                                    size: BsButtonSize.btnSm,
+                                    onPressed: () {
+                                      source.isAddCF.toggle();
+                                      source.isAdd.value = false;
+                                    },
+                                    prefixIcon: Icons.add,
+                                    label: Text('Customize Fields'),
+                                  ),
+                                )
                           ],
                         )),
                   ],
@@ -318,20 +333,57 @@ class CustomfieldSection extends StatelessWidget {
                                           middleText: '',
                                           title: 'Setting',
                                           actions: [
-                                            ButtonEditDatatables(onPressed: () {
-                                              prospectCustomFieldPresenter.edit(
-                                                  context,
-                                                  customField.prospectcfid!);
-                                              source.cfid.value =
-                                                  customField.prospectcfid!;
-                                            }),
-                                            ButtonDeleteDatatables(
-                                                onPressed: () {
-                                              prospectCustomFieldPresenter.delete(
-                                                  context,
-                                                  customField.prospectcfid!,
-                                                  '${customField.prospectcfvalue}');
-                                            }),
+                                            if (permis
+                                                .where((element) =>
+                                                    element.menunm ==
+                                                    'Ventes Datas')
+                                                .first
+                                                .children!
+                                                .where((element) =>
+                                                    element.menunm ==
+                                                    'Prospect')
+                                                .first
+                                                .features!
+                                                .where((element) =>
+                                                    element.featslug ==
+                                                    'update')
+                                                .first
+                                                .permissions!
+                                                .hasaccess!)
+                                              ButtonEditDatatables(
+                                                  onPressed: () {
+                                                prospectCustomFieldPresenter
+                                                    .edit(
+                                                        context,
+                                                        customField
+                                                            .prospectcfid!);
+                                                source.cfid.value =
+                                                    customField.prospectcfid!;
+                                              }),
+                                            if (permis
+                                                .where((element) =>
+                                                    element.menunm ==
+                                                    'Ventes Datas')
+                                                .first
+                                                .children!
+                                                .where((element) =>
+                                                    element.menunm ==
+                                                    'Prospect')
+                                                .first
+                                                .features!
+                                                .where((element) =>
+                                                    element.featslug ==
+                                                    'delete')
+                                                .first
+                                                .permissions!
+                                                .hasaccess!)
+                                              ButtonDeleteDatatables(
+                                                  onPressed: () {
+                                                prospectCustomFieldPresenter.delete(
+                                                    context,
+                                                    customField.prospectcfid!,
+                                                    '${customField.prospectcfvalue}');
+                                              }),
                                           ]);
                                   },
                                   child: BsRow(

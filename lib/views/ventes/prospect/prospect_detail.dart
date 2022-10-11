@@ -26,6 +26,7 @@ import '../../../models/settings/stbptype_model.dart';
 import '../../../models/ventes/prospect_model.dart';
 import '../../../models/ventes/prospectactivity_model.dart';
 import '../../../models/ventes/prospectcustomfield_model.dart';
+import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../presenters/settings/customfield_presenter.dart';
 import '../../../presenters/ventes/prospect_presenter.dart';
@@ -65,6 +66,8 @@ part 'prospectdetail_component/tabs/tabProduct.dart';
 part 'prospectdetail_component/tabs/tabContact.dart';
 part 'prospectdetail_component/tabs/tabFile.dart';
 part 'prospectdetail_component/title_section.dart';
+
+final authPresenter = Get.find<AuthPresenter>();
 
 final cfForm = ProspectCustomFieldSource().obs;
 
@@ -129,6 +132,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
 
   @override
   Widget build(BuildContext context) {
+    var permis = authPresenter.rolepermis.value;
     return Scaffold(
       body: TemplateView(
         title: 'Prospect Details',
