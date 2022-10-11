@@ -6,6 +6,7 @@ class CustomizeFieldSource extends GetxController {
 
   var visible = false.obs;
   var newprospect = false.obs;
+  var isselectbox = false.obs;
 
   var createdby = ''.obs;
   var createddate = ''.obs;
@@ -19,6 +20,7 @@ class CustomizeFieldSource extends GetxController {
     id.value = 0;
     visible.value = false;
     newprospect.value = false;
+    isselectbox.value = false;
 
     createdby.value = '';
     createddate.value = '';
@@ -32,12 +34,25 @@ class CustomizeFieldSource extends GetxController {
     inputName.text = '';
 
     config.value = '';
+
+    inputOptions = [TextEditingController()];
   }
 
   BsSelectBoxController selectType = BsSelectBoxController();
   BsSelectBoxController selectprospect = BsSelectBoxController();
 
   TextEditingController inputName = TextEditingController();
+
+  List<TextEditingController> inputOptions = List<TextEditingController>.filled(
+      1, TextEditingController(),
+      growable: true);
+
+  List<Map<String, dynamic>> jsonOption() {
+    return List<Map<String, dynamic>>.from(inputOptions.map((controller) {
+      int index = inputOptions.indexOf(controller);
+      return {'optvalue': inputOptions[index].text};
+    }));
+  }
 
   Future<Map<String, dynamic>> toJson() async {
     SessionModel session = await SessionManager.current();
@@ -54,6 +69,7 @@ class CustomizeFieldSource extends GetxController {
       'createdby': session.userid,
       'updatedby': session.userid,
       'isactive': isactive.value,
+      'option': isselectbox.value ? jsonEncode(jsonOption()) : null
     };
   }
 
@@ -71,9 +87,11 @@ class CustomizeFieldSource extends GetxController {
     if (formState.currentState!.validate()) {
       if (isEdit.value) {
         presenter.update(context, await toJson(), id.value);
+        reset();
       } else {
         if (formState.currentState!.validate()) {
           presenter.save(context, await toJson());
+          reset();
         } else
           presenter.setProcessing(false);
       }
@@ -99,14 +117,17 @@ class CustomizeFieldSource extends GetxController {
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomSelectBox(
-        searchable: false,
-        controller: selectType,
-        hintText: BaseText.hiintSelect(field: CustomFieldText.labelType),
-        serverSide: (params) => selectApiCustomFieldTypes(params),
-        validators: [
-          Validators.selectRequired(CustomFieldText.labelType),
-        ],
-      ),
+          searchable: false,
+          controller: selectType,
+          hintText: BaseText.hiintSelect(field: CustomFieldText.labelType),
+          serverSide: (params) => selectApiCustomFieldTypes(params),
+          validators: [
+            Validators.selectRequired(CustomFieldText.labelType),
+          ],
+          onChange: (value) {
+            if (value.getOtherValue()['typename'] == 'Selectbox')
+              isselectbox.value = true;
+          }),
     );
   }
 
@@ -210,6 +231,41 @@ class CustomizeFieldSource extends GetxController {
           ),
         ),
       ],
+    );
+  }
+
+  Widget formDetail({required ValueChanged<int> onRemoveItem}) {
+    return FormGroup(
+      child: Column(
+        children: inputOptions.map((controller) {
+          int index = inputOptions.indexOf(controller);
+          var inputOption = inputOptions[index];
+          return BsRow(
+            children: [
+              BsCol(
+                margin: EdgeInsets.only(right: 5),
+                sizes: ColScreen(lg: Col.col_11),
+                child: FormGroup(
+                  child: CustomInput(
+                    hintText: BaseText.hintText(field: 'Option ${index + 1}'),
+                    controller: inputOption,
+                    validators: [
+                      Validators.inputRequired('Option ${index + 1}')
+                    ],
+                  ),
+                ),
+              ),
+              BsCol(
+                sizes: ColScreen(sm: Col.col_1),
+                child: ButtonMultipleCancel(
+                    disabled: inputOptions.length > 1 ? false : true,
+                    margin: EdgeInsets.only(top: 10),
+                    onPressed: () => onRemoveItem(index)),
+              )
+            ],
+          );
+        }).toList(),
+      ),
     );
   }
 }

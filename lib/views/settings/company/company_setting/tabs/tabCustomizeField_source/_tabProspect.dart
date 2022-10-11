@@ -11,41 +11,43 @@ class _TabCustomizeFieldProspect extends GetView implements IndexViewContract {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Column(
-          children: [
-            if (sources.isForm.value)
-              _FormCustomfield(ConfigType.prospectCustomField, 'Prospect'),
-            CustomDatabales(
-              source: datatable,
-              columns: datatable.columns,
-              headerActions: [
-                if (permis
-                    .where((element) => element.menunm == 'Settings')
-                    .first
-                    .children!
-                    .where((element) => element.menunm == 'Company Setting')
-                    .first
-                    .features!
-                    .where((element) => element.featslug == 'create')
-                    .first
-                    .permissions!
-                    .hasaccess!)
-                  ThemeButtonCreate(
-                    prefix: 'Add Prospect Customize Field',
-                    onPressed: () {
-                      if (sources.isEdit.value) {
-                        sources.isEdit.value = false;
-                        sources.reset();
-                      } else {
-                        sources.isForm.toggle();
-                        sources.reset();
-                      }
-                    },
-                  )
-              ],
-              serverSide: (params) => presenter.datatables(context, params),
-            )
-          ],
+    return Obx(() => SingleChildScrollView(
+          child: Column(
+            children: [
+              if (sources.isForm.value)
+                _FormCustomfield(ConfigType.prospectCustomField, 'Prospect'),
+              CustomDatabales(
+                source: datatable,
+                columns: datatable.columns,
+                headerActions: [
+                  if (permis
+                      .where((element) => element.menunm == 'Settings')
+                      .first
+                      .children!
+                      .where((element) => element.menunm == 'Company Setting')
+                      .first
+                      .features!
+                      .where((element) => element.featslug == 'create')
+                      .first
+                      .permissions!
+                      .hasaccess!)
+                    ThemeButtonCreate(
+                      prefix: 'Add Prospect Customize Field',
+                      onPressed: () {
+                        if (sources.isEdit.value) {
+                          sources.isEdit.value = false;
+                          sources.reset();
+                        } else {
+                          sources.isForm.toggle();
+                          sources.reset();
+                        }
+                      },
+                    )
+                ],
+                serverSide: (params) => presenter.datatables(context, params),
+              )
+            ],
+          ),
         ));
   }
 

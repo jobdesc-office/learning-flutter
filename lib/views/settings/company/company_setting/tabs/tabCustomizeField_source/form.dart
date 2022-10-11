@@ -6,11 +6,11 @@ class _FormCustomfield extends StatelessWidget implements EditViewContract {
 
   final presenter = Get.find<CustomFieldPresenter>();
   final _navigation = Get.find<NavigationPresenter>();
-  final sources = Get.put(CustomizeFieldSource());
+  final sources = CustomizeFieldSource().obs;
 
   @override
   Widget build(BuildContext context) {
-    sources.config.value = this.configg;
+    sources.value.config.value = this.configg;
     return Obx(() {
       return BsRow(
         children: [
@@ -19,19 +19,37 @@ class _FormCustomfield extends StatelessWidget implements EditViewContract {
               sm: Col.col_6,
             ),
             child: Form(
-              key: sources.formState,
+              key: sources.value.formState,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Column(
                     children: [
-                      sources.inputNames(),
-                      sources.selectTypes(),
-                      sources.checkBoxForm(data),
-                      if (sources.visible.value && data == 'Prospect')
-                        sources.selectProspect(),
-                      if (sources.visible.value && data == 'Activity')
-                        sources.selectActivity()
+                      sources.value.inputNames(),
+                      sources.value.selectTypes(),
+                      sources.value.checkBoxForm(data),
+                      if (sources.value.visible.value && data == 'Prospect')
+                        sources.value.selectProspect(),
+                      if (sources.value.visible.value && data == 'Activity')
+                        sources.value.selectActivity(),
+                      if (sources.value.isselectbox.value)
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            InkWell(
+                              onTap: () => sources.update((val) {
+                                sources.value.inputOptions
+                                    .add(TextEditingController());
+                              }),
+                              child: Text(
+                                'Add More Option',
+                                style: TextStyle(color: Colors.blue),
+                              ),
+                            ),
+                            sources.value.formDetail(
+                                onRemoveItem: onClickRemoveRoleItem),
+                          ],
+                        ),
                     ],
                   ),
                   Obx(
@@ -42,12 +60,14 @@ class _FormCustomfield extends StatelessWidget implements EditViewContract {
                           disabled: presenter.isProcessing.value,
                           processing: presenter.isProcessing.value,
                           margin: EdgeInsets.only(right: 5),
-                          onPressed: () => sources.onClickSaveModal(context),
+                          onPressed: () =>
+                              sources.value.onClickSaveModal(context),
                         ),
                         ThemeButtonCancel(
                           disabled: presenter.isProcessing.value,
                           margin: EdgeInsets.only(right: 5),
-                          onPressed: () => sources.onClickCancelModal(context),
+                          onPressed: () =>
+                              sources.value.onClickCancelModal(context),
                         ),
                       ],
                     ),
@@ -56,7 +76,7 @@ class _FormCustomfield extends StatelessWidget implements EditViewContract {
               ),
             ),
           ),
-          if (sources.isEdit.value)
+          if (sources.value.isEdit.value)
             BsCol(
               margin: EdgeInsets.only(left: 5),
               sizes: ColScreen(lg: Col.col_6),
@@ -83,7 +103,7 @@ class _FormCustomfield extends StatelessWidget implements EditViewContract {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(sources.createdby.value),
+                                    Text(sources.value.createdby.value),
                                     Divider()
                                   ],
                                 )),
@@ -99,7 +119,7 @@ class _FormCustomfield extends StatelessWidget implements EditViewContract {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(sources.createddate.value),
+                                    Text(sources.value.createddate.value),
                                     Divider()
                                   ],
                                 )),
@@ -115,7 +135,7 @@ class _FormCustomfield extends StatelessWidget implements EditViewContract {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(sources.updatedby.value),
+                                    Text(sources.value.updatedby.value),
                                     Divider()
                                   ],
                                 )),
@@ -131,7 +151,7 @@ class _FormCustomfield extends StatelessWidget implements EditViewContract {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(sources.updateddate.value),
+                                    Text(sources.value.updateddate.value),
                                     Divider()
                                   ],
                                 )),
@@ -147,7 +167,7 @@ class _FormCustomfield extends StatelessWidget implements EditViewContract {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    if (sources.isactive.value)
+                                    if (sources.value.isactive.value)
                                       InkWell(
                                         child: Icon(
                                           Icons.toggle_on,
@@ -156,7 +176,8 @@ class _FormCustomfield extends StatelessWidget implements EditViewContract {
                                               ? ColorPallates.onDarkMode
                                               : ColorPallates.onLightMode,
                                         ),
-                                        onTap: () => sources.isactive.toggle(),
+                                        onTap: () =>
+                                            sources.value.isactive.toggle(),
                                       )
                                     else
                                       InkWell(
@@ -167,7 +188,8 @@ class _FormCustomfield extends StatelessWidget implements EditViewContract {
                                               ? ColorPallates.offDarkMode
                                               : ColorPallates.offLightMode,
                                         ),
-                                        onTap: () => sources.isactive.toggle(),
+                                        onTap: () =>
+                                            sources.value.isactive.toggle(),
                                       ),
                                     Divider()
                                   ],
@@ -185,44 +207,52 @@ class _FormCustomfield extends StatelessWidget implements EditViewContract {
     });
   }
 
+  void onClickRemoveRoleItem(int index) {
+    sources.update((val) {
+      sources.value.inputOptions.removeAt(index);
+    });
+  }
+
   @override
   void onSuccessFetchData(Response response) {
     presenter.setProcessing(false);
 
     CustomFieldModel customField = CustomFieldModel.fromJson(response.body);
-    sources.id.value = customField.custfid ?? 0;
-    sources.selectType.setSelected(BsSelectBoxOption(
+    sources.value.id.value = customField.custfid ?? 0;
+    sources.value.selectType.setSelected(BsSelectBoxOption(
         value: customField.custftype!.typeid,
         text: Text(customField.custftype!.typename.toString())));
-    sources.newprospect.value = customField.alldata ?? false;
-    sources.visible.value = customField.onlythisdata ?? false;
-    sources.inputName.text = customField.custfname ?? '';
+    sources.value.newprospect.value = customField.alldata ?? false;
+    sources.value.visible.value = customField.onlythisdata ?? false;
+    sources.value.inputName.text = customField.custfname ?? '';
     if (customField.custfreftype?.typename == 'Prospect')
       data = 'Prospect';
     else
       data = 'Activity';
 
     if (customField.onlythisdata == true) {
-      sources.selectprospect.clear();
+      sources.value.selectprospect.clear();
       if (customField.custfreftype?.typename == 'Prospect') {
-        sources.selectprospect.setSelected(BsSelectBoxOption(
+        sources.value.selectprospect.setSelected(BsSelectBoxOption(
             value: customField.refprospect?.prospectid,
             text: Text(
                 '${customField.refprospect?.prospectname ?? ''} || ${customField.refprospect?.prospectcust?.sbccstmname ?? ''}')));
       } else {
-        sources.selectprospect.setSelected(BsSelectBoxOption(
+        sources.value.selectprospect.setSelected(BsSelectBoxOption(
             value: customField.refactivity?.dayactid,
             text: Text(
                 '${customField.refactivity?.dayactloclabel ?? ''} || ${customField.refactivity?.dayactdate ?? ''}')));
       }
     }
 
-    sources.createdby.value = customField.custfcreatedby?.userfullname ?? '';
-    sources.createddate.value = customField.createddate ?? '';
-    sources.updatedby.value = customField.custfupdatedby?.userfullname ?? '';
-    sources.updateddate.value = customField.updateddate ?? '';
-    sources.isactive.value = customField.isactive ?? true;
-    sources.isEdit.value = true;
-    sources.isForm.value = true;
+    sources.value.createdby.value =
+        customField.custfcreatedby?.userfullname ?? '';
+    sources.value.createddate.value = customField.createddate ?? '';
+    sources.value.updatedby.value =
+        customField.custfupdatedby?.userfullname ?? '';
+    sources.value.updateddate.value = customField.updateddate ?? '';
+    sources.value.isactive.value = customField.isactive ?? true;
+    sources.value.isEdit.value = true;
+    sources.value.isForm.value = true;
   }
 }

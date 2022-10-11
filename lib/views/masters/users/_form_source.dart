@@ -117,38 +117,18 @@ class UserForm {
         children: source.selectsRole.map((controller) {
           int index = source.selectsRole.indexOf(controller);
           var selectRole = source.selectsRole[index];
-          return BsRow(
-            children: [
-              BsCol(
-                margin: EdgeInsets.only(right: 5),
-                sizes: ColScreen(lg: Col.col_10),
-                child: FormGroup(
-                  child: CustomSelectBox(
-                    searchable: false,
-                    disabled: source.isProcessing,
-                    controller: selectRole,
-                    hintText: BaseText.hiintSelect(
-                        field: UserText.labelRole + ' ${index + 1}'),
-                    serverSide: (params) => selectApiRole(params),
-                    validators: [
-                      Validators.selectRequired(
-                          UserText.labelRole + ' ${index + 1}')
-                    ],
-                  ),
-                ),
-              ),
-              BsCol(
-                margin: EdgeInsets.only(left: 5, top: 3),
-                sizes: ColScreen(lg: Col.col_2),
-                child: FormGroup(
-                  child: ButtonMultipleCancel(
-                    margin: EdgeInsets.only(left: 10),
-                    onPressed: () => onRemoveItem(index),
-                    disabled: source.selectsRole.length > 1 ? false : true,
-                  ),
-                ),
-              ),
-            ],
+          return FormGroup(
+            child: CustomSelectBox(
+              searchable: false,
+              disabled: source.isProcessing,
+              controller: selectRole,
+              hintText: BaseText.hiintSelect(
+                  field: UserText.labelRole + ' ${index + 1}'),
+              serverSide: (params) => selectApiRole(params),
+              validators: [
+                Validators.selectRequired(UserText.labelRole + ' ${index + 1}')
+              ],
+            ),
           );
         }).toList(),
       ),

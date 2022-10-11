@@ -13,43 +13,45 @@ class _TabCustomizeFieldDailyActivity extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Column(
-          children: [
-            if (sources.isForm.value)
-              _FormCustomfield(ConfigType.activityCustomField, 'Activity'),
-            CustomDatabales(
-              source: datatable,
-              columns: datatable.columns,
-              headerActions: [
-                if (permis
-                    .where((element) => element.menunm == 'Settings')
-                    .first
-                    .children!
-                    .where((element) => element.menunm == 'Company Setting')
-                    .first
-                    .features!
-                    .where((element) => element.featslug == 'create')
-                    .first
-                    .permissions!
-                    .hasaccess!)
-                  ThemeButtonCreate(
-                    prefix: 'Add Daily Activity Customize Field',
-                    onPressed: () {
-                      if (sources.isEdit.value) {
-                        sources.isEdit.value = false;
-                        sources.reset();
-                      } else {
-                        sources.isForm.toggle();
-                        sources.reset();
-                      }
-                    },
-                  )
-              ],
-              serverSide: (params) =>
-                  presenter.datatablesdayact(context, params),
-            )
-          ],
-        ));
+    return Obx(() => SingleChildScrollView(
+      child: Column(
+            children: [
+              if (sources.isForm.value)
+                _FormCustomfield(ConfigType.activityCustomField, 'Activity'),
+              CustomDatabales(
+                source: datatable,
+                columns: datatable.columns,
+                headerActions: [
+                  if (permis
+                      .where((element) => element.menunm == 'Settings')
+                      .first
+                      .children!
+                      .where((element) => element.menunm == 'Company Setting')
+                      .first
+                      .features!
+                      .where((element) => element.featslug == 'create')
+                      .first
+                      .permissions!
+                      .hasaccess!)
+                    ThemeButtonCreate(
+                      prefix: 'Add Daily Activity Customize Field',
+                      onPressed: () {
+                        if (sources.isEdit.value) {
+                          sources.isEdit.value = false;
+                          sources.reset();
+                        } else {
+                          sources.isForm.toggle();
+                          sources.reset();
+                        }
+                      },
+                    )
+                ],
+                serverSide: (params) =>
+                    presenter.datatablesdayact(context, params),
+              )
+            ],
+          ),
+    ));
   }
 
   @override
