@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/index_view_contract.dart';
+import '../../../middleware/verifyToken.dart';
+import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/masters/role_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
@@ -15,15 +17,18 @@ import '_datatable_source.dart';
 import '_text.dart';
 
 class RoleView extends GetView implements IndexViewContract {
+  final authPresenter = Get.find<AuthPresenter>();
   final presenter = Get.find<RolePresenter>();
   final datatable = RoleDataTableSource();
 
   RoleView() {
     presenter.typeChildrenViewContract = this;
+    if (authPresenter.rolepermis.isEmpty) checkJwtToken();
   }
 
   @override
   Widget build(BuildContext context) {
+    var permis = authPresenter.rolepermis.value;
     return Scaffold(
       body: TemplateView(
         title: 'Roles',
@@ -39,10 +44,21 @@ class RoleView extends GetView implements IndexViewContract {
                 source: datatable,
                 columns: datatable.columns,
                 headerActions: [
-                  ThemeButtonCreate(
-                    prefix: RoleText.title,
-                    onPressed: () => presenter.add(context),
-                  )
+                  if (permis
+                      .where((element) => element.menunm == 'Master Datas')
+                      .first
+                      .children!
+                      .where((element) => element.menunm == 'Role')
+                      .first
+                      .features!
+                      .where((element) => element.featslug == 'create')
+                      .first
+                      .permissions!
+                      .hasaccess!)
+                    ThemeButtonCreate(
+                      prefix: RoleText.title,
+                      onPressed: () => presenter.add(context),
+                    )
                 ],
                 serverSide: (params) => presenter.datatables(context, params),
               )

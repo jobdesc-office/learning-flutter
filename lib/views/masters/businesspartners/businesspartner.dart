@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/index_view_contract.dart';
+import '../../../middleware/verifyToken.dart';
+import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/masters/businesspartner_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
@@ -16,15 +18,18 @@ import '_text.dart';
 
 class BusinessPartnerView extends GetView
     implements IndexViewContract, HandleErrorRequest {
+  final authPresenter = Get.find<AuthPresenter>();
   final presenter = Get.find<BusinessPartnerPresenter>();
   final datatable = BusinessPartnerDataTableSource();
 
   BusinessPartnerView() {
     presenter.businessPartnerViewContract = this;
+    if (authPresenter.rolepermis.isEmpty) checkJwtToken();
   }
 
   @override
   Widget build(BuildContext context) {
+    var permis = authPresenter.rolepermis.value;
     return Scaffold(
       body: TemplateView(
         title: 'Business Partner',
@@ -44,10 +49,21 @@ class BusinessPartnerView extends GetView
                 source: datatable,
                 columns: datatable.columns,
                 headerActions: [
-                  ThemeButtonCreate(
-                    prefix: BusinessPartnerText.title,
-                    onPressed: () => presenter.add(context),
-                  )
+                  if (permis
+                      .where((element) => element.menunm == 'Master Datas')
+                      .first
+                      .children!
+                      .where((element) => element.menunm == 'Business Partner')
+                      .first
+                      .features!
+                      .where((element) => element.featslug == 'create')
+                      .first
+                      .permissions!
+                      .hasaccess!)
+                    ThemeButtonCreate(
+                      prefix: BusinessPartnerText.title,
+                      onPressed: () => presenter.add(context),
+                    )
                 ],
                 serverSide: (params) => presenter.datatables(context, params),
               )

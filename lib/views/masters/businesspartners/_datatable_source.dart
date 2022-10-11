@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../models/masters/businesspartner_model.dart';
+import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_details_datatable.dart';
@@ -13,6 +14,7 @@ import '../../../widgets/datatables/custom_datatable_tablecell.dart';
 import '../../../widgets/datatables/custom_datatable_tablehead.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
+final authPresenter = Get.find<AuthPresenter>();
 
 class BusinessPartnerDataTableSource extends BsDatatableSource {
   ValueChanged<int> onDetailsListener = (value) {};
@@ -44,6 +46,7 @@ class BusinessPartnerDataTableSource extends BsDatatableSource {
 
   @override
   BsDataRow getRow(int index) {
+    var permis = authPresenter.rolepermis.value;
     final row = bpartners[index];
     int x = controller.start + index + 1;
     return BsDataRow(
@@ -100,18 +103,40 @@ class BusinessPartnerDataTableSource extends BsDatatableSource {
                   onPressed: () => onDetailsListener(row.bpid!),
                 ),
               ),
-              Tooltip(
-                message: BaseText.editHintDatatable(field: row.bpname),
-                child: ButtonEditDatatables(
-                  margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onEditListener(row.bpid!),
+              if (permis
+                  .where((element) => element.menunm == 'Master Datas')
+                  .first
+                  .children!
+                  .where((element) => element.menunm == 'Business Partner')
+                  .first
+                  .features!
+                  .where((element) => element.featslug == 'update')
+                  .first
+                  .permissions!
+                  .hasaccess!)
+                Tooltip(
+                  message: BaseText.editHintDatatable(field: row.bpname),
+                  child: ButtonEditDatatables(
+                    margin: EdgeInsets.only(right: 5),
+                    onPressed: () => onEditListener(row.bpid!),
+                  ),
                 ),
-              ),
-              Tooltip(
-                message: BaseText.deleteHintDatatable(field: row.bpname),
-                child: ButtonDeleteDatatables(
-                    onPressed: () => onDeleteListener(row.bpid, row.bpname)),
-              ),
+              if (permis
+                  .where((element) => element.menunm == 'Master Datas')
+                  .first
+                  .children!
+                  .where((element) => element.menunm == 'Business Partner')
+                  .first
+                  .features!
+                  .where((element) => element.featslug == 'delete')
+                  .first
+                  .permissions!
+                  .hasaccess!)
+                Tooltip(
+                  message: BaseText.deleteHintDatatable(field: row.bpname),
+                  child: ButtonDeleteDatatables(
+                      onPressed: () => onDeleteListener(row.bpid, row.bpname)),
+                ),
             ],
           ),
           color: _navigation.darkTheme.value
