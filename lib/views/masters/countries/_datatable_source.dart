@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../constants/base_text.dart';
 import '../../../models/masters/country_model.dart';
+import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../styles/color_palattes.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
@@ -12,6 +13,8 @@ import '../../../widgets/datatables/custom_datatable_tablecell.dart';
 import '../../../widgets/datatables/custom_datatable_tablehead.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
+
+final authPresenter = Get.find<AuthPresenter>();
 
 class CountryDataTableSource extends BsDatatableSource {
   ValueChanged<int> onEditListener = (value) {};
@@ -40,6 +43,7 @@ class CountryDataTableSource extends BsDatatableSource {
 
   @override
   BsDataRow getRow(int index) {
+    var permis = authPresenter.rolepermis.value;
     final row = countrys[index];
     int x = controller.start + index + 1;
     return BsDataRow(
@@ -68,19 +72,47 @@ class CountryDataTableSource extends BsDatatableSource {
         CustomBsDataCell(
           Row(
             children: [
-              Tooltip(
-                message: BaseText.editHintDatatable(field: row.countryname),
-                child: ButtonEditDatatables(
-                  margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onEditListener(row.countryid!),
+              if (permis
+                  .where((element) => element.menunm == 'Settings')
+                  .first
+                  .children!
+                  .where((element) => element.menunm == 'Regions')
+                  .first
+                  .children!
+                  .where((element) => element.menunm == 'Countries')
+                  .first
+                  .features!
+                  .where((element) => element.featslug == 'update')
+                  .first
+                  .permissions!
+                  .hasaccess!)
+                Tooltip(
+                  message: BaseText.editHintDatatable(field: row.countryname),
+                  child: ButtonEditDatatables(
+                    margin: EdgeInsets.only(right: 5),
+                    onPressed: () => onEditListener(row.countryid!),
+                  ),
                 ),
-              ),
-              Tooltip(
-                message: BaseText.deleteHintDatatable(field: row.countryname),
-                child: ButtonDeleteDatatables(
-                    onPressed: () =>
-                        onDeleteListener(row.countryid, row.countryname)),
-              ),
+              if (permis
+                  .where((element) => element.menunm == 'Settings')
+                  .first
+                  .children!
+                  .where((element) => element.menunm == 'Regions')
+                  .first
+                  .children!
+                  .where((element) => element.menunm == 'Countries')
+                  .first
+                  .features!
+                  .where((element) => element.featslug == 'delete')
+                  .first
+                  .permissions!
+                  .hasaccess!)
+                Tooltip(
+                  message: BaseText.deleteHintDatatable(field: row.countryname),
+                  child: ButtonDeleteDatatables(
+                      onPressed: () =>
+                          onDeleteListener(row.countryid, row.countryname)),
+                ),
             ],
           ),
           color: _navigation.darkTheme.value

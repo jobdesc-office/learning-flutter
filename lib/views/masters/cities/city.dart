@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/index_view_contract.dart';
+import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/masters/city_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
@@ -18,12 +19,15 @@ class CityView extends GetView implements IndexViewContract {
   final presenter = Get.find<CityPresenter>();
   final datatable = CityDataTableSource();
 
+  final authPresenter = Get.find<AuthPresenter>();
+
   CityView() {
     presenter.cityViewContract = this;
   }
 
   @override
   Widget build(BuildContext context) {
+    var permis = authPresenter.rolepermis.value;
     return Scaffold(
       body: TemplateView(
         title: 'Cities',
@@ -40,10 +44,24 @@ class CityView extends GetView implements IndexViewContract {
                 source: datatable,
                 columns: datatable.columns,
                 headerActions: [
-                  ThemeButtonCreate(
-                    prefix: CityText.title,
-                    onPressed: () => presenter.add(context),
-                  )
+                  if (permis
+                      .where((element) => element.menunm == 'Settings')
+                      .first
+                      .children!
+                      .where((element) => element.menunm == 'Regions')
+                      .first
+                      .children!
+                      .where((element) => element.menunm == 'Cities')
+                      .first
+                      .features!
+                      .where((element) => element.featslug == 'create')
+                      .first
+                      .permissions!
+                      .hasaccess!)
+                    ThemeButtonCreate(
+                      prefix: CityText.title,
+                      onPressed: () => presenter.add(context),
+                    )
                 ],
                 serverSide: (params) => presenter.datatables(context, params),
               )

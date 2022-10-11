@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../constants/base_text.dart';
 import '../../../models/masters/type_model.dart';
+import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../styles/color_palattes.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
@@ -13,6 +14,8 @@ import '../../../widgets/datatables/custom_datatable_tablecell.dart';
 import '../../../widgets/datatables/custom_datatable_tablehead.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
+
+final authPresenter = Get.find<AuthPresenter>();
 
 class TypeParentDataTableSource extends BsDatatableSource {
   ValueChanged<int> onDetailsListener = (value) {};
@@ -42,6 +45,7 @@ class TypeParentDataTableSource extends BsDatatableSource {
 
   @override
   BsDataRow getRow(int index) {
+    var permis = authPresenter.rolepermis.value;
     final row = menus[index];
     int x = controller.start + index + 1;
     return BsDataRow(
@@ -80,20 +84,48 @@ class TypeParentDataTableSource extends BsDatatableSource {
         CustomBsDataCell(
           Row(
             children: [
-              Tooltip(
-                message: BaseText.detailHintDatatable(field: row.typename),
-                child: ButtonDetailsDatatables(
-                  margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onDetailsListener(row.typeid!),
+              if (permis
+                  .where((element) => element.menunm == 'Settings')
+                  .first
+                  .children!
+                  .where((element) => element.menunm == 'Types')
+                  .first
+                  .children!
+                  .where((element) => element.menunm == 'Type Parents')
+                  .first
+                  .features!
+                  .where((element) => element.featslug == 'update')
+                  .first
+                  .permissions!
+                  .hasaccess!)
+                Tooltip(
+                  message: BaseText.detailHintDatatable(field: row.typename),
+                  child: ButtonDetailsDatatables(
+                    margin: EdgeInsets.only(right: 5),
+                    onPressed: () => onDetailsListener(row.typeid!),
+                  ),
                 ),
-              ),
-              Tooltip(
-                message: BaseText.editHintDatatable(field: row.typename),
-                child: ButtonEditDatatables(
-                  margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onEditListener(row.typeid!),
+              if (permis
+                  .where((element) => element.menunm == 'Settings')
+                  .first
+                  .children!
+                  .where((element) => element.menunm == 'Types')
+                  .first
+                  .children!
+                  .where((element) => element.menunm == 'Type Parents')
+                  .first
+                  .features!
+                  .where((element) => element.featslug == 'delete')
+                  .first
+                  .permissions!
+                  .hasaccess!)
+                Tooltip(
+                  message: BaseText.editHintDatatable(field: row.typename),
+                  child: ButtonEditDatatables(
+                    margin: EdgeInsets.only(right: 5),
+                    onPressed: () => onEditListener(row.typeid!),
+                  ),
                 ),
-              ),
               Tooltip(
                 message: BaseText.deleteHintDatatable(field: row.typename),
                 child: ButtonDeleteDatatables(

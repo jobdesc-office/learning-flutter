@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../constants/base_text.dart';
 import '../../../models/masters/subdistrict_model.dart';
+import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../styles/color_palattes.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
@@ -12,6 +13,8 @@ import '../../../widgets/datatables/custom_datatable_tablecell.dart';
 import '../../../widgets/datatables/custom_datatable_tablehead.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
+
+final authPresenter = Get.find<AuthPresenter>();
 
 class SubdistrictDataTableSource extends BsDatatableSource {
   ValueChanged<int> onEditListener = (value) {};
@@ -46,6 +49,7 @@ class SubdistrictDataTableSource extends BsDatatableSource {
 
   @override
   BsDataRow getRow(int index) {
+    var permis = authPresenter.rolepermis.value;
     final row = subdistrict[index];
     int x = controller.start + index + 1;
     return BsDataRow(
@@ -84,20 +88,49 @@ class SubdistrictDataTableSource extends BsDatatableSource {
         CustomBsDataCell(
           Row(
             children: [
-              Tooltip(
-                message: BaseText.editHintDatatable(field: row.subdistrictname),
-                child: ButtonEditDatatables(
-                  margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onEditListener(row.subdistrictid!),
+              if (permis
+                  .where((element) => element.menunm == 'Settings')
+                  .first
+                  .children!
+                  .where((element) => element.menunm == 'Regions')
+                  .first
+                  .children!
+                  .where((element) => element.menunm == 'Subdistricts')
+                  .first
+                  .features!
+                  .where((element) => element.featslug == 'update')
+                  .first
+                  .permissions!
+                  .hasaccess!)
+                Tooltip(
+                  message:
+                      BaseText.editHintDatatable(field: row.subdistrictname),
+                  child: ButtonEditDatatables(
+                    margin: EdgeInsets.only(right: 5),
+                    onPressed: () => onEditListener(row.subdistrictid!),
+                  ),
                 ),
-              ),
-              Tooltip(
-                message:
-                    BaseText.deleteHintDatatable(field: row.subdistrictname),
-                child: ButtonDeleteDatatables(
-                    onPressed: () => onDeleteListener(
-                        row.subdistrictid, row.subdistrictname)),
-              ),
+              if (permis
+                  .where((element) => element.menunm == 'Settings')
+                  .first
+                  .children!
+                  .where((element) => element.menunm == 'Regions')
+                  .first
+                  .children!
+                  .where((element) => element.menunm == 'Subdistricts')
+                  .first
+                  .features!
+                  .where((element) => element.featslug == 'delete')
+                  .first
+                  .permissions!
+                  .hasaccess!)
+                Tooltip(
+                  message:
+                      BaseText.deleteHintDatatable(field: row.subdistrictname),
+                  child: ButtonDeleteDatatables(
+                      onPressed: () => onDeleteListener(
+                          row.subdistrictid, row.subdistrictname)),
+                ),
             ],
           ),
           color: _navigation.darkTheme.value

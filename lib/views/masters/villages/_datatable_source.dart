@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../constants/base_text.dart';
 import '../../../models/masters/village_model.dart';
+import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../styles/color_palattes.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
@@ -12,6 +13,8 @@ import '../../../widgets/datatables/custom_datatable_tablecell.dart';
 import '../../../widgets/datatables/custom_datatable_tablehead.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
+
+final authPresenter = Get.find<AuthPresenter>();
 
 class VillageDataTableSource extends BsDatatableSource {
   ValueChanged<int> onEditListener = (value) {};
@@ -46,6 +49,7 @@ class VillageDataTableSource extends BsDatatableSource {
 
   @override
   BsDataRow getRow(int index) {
+    var permis = authPresenter.rolepermis.value;
     final row = villages[index];
     int x = controller.start + index + 1;
     return BsDataRow(
@@ -84,19 +88,47 @@ class VillageDataTableSource extends BsDatatableSource {
         CustomBsDataCell(
           Row(
             children: [
-              Tooltip(
-                message: BaseText.editHintDatatable(field: row.villagename),
-                child: ButtonEditDatatables(
-                  margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onEditListener(row.villageid!),
+              if (permis
+                  .where((element) => element.menunm == 'Settings')
+                  .first
+                  .children!
+                  .where((element) => element.menunm == 'Regions')
+                  .first
+                  .children!
+                  .where((element) => element.menunm == 'Villages')
+                  .first
+                  .features!
+                  .where((element) => element.featslug == 'update')
+                  .first
+                  .permissions!
+                  .hasaccess!)
+                Tooltip(
+                  message: BaseText.editHintDatatable(field: row.villagename),
+                  child: ButtonEditDatatables(
+                    margin: EdgeInsets.only(right: 5),
+                    onPressed: () => onEditListener(row.villageid!),
+                  ),
                 ),
-              ),
-              Tooltip(
-                message: BaseText.deleteHintDatatable(field: row.villagename),
-                child: ButtonDeleteDatatables(
-                    onPressed: () =>
-                        onDeleteListener(row.villageid, row.villagename)),
-              ),
+              if (permis
+                  .where((element) => element.menunm == 'Settings')
+                  .first
+                  .children!
+                  .where((element) => element.menunm == 'Regions')
+                  .first
+                  .children!
+                  .where((element) => element.menunm == 'Villages')
+                  .first
+                  .features!
+                  .where((element) => element.featslug == 'delete')
+                  .first
+                  .permissions!
+                  .hasaccess!)
+                Tooltip(
+                  message: BaseText.deleteHintDatatable(field: row.villagename),
+                  child: ButtonDeleteDatatables(
+                      onPressed: () =>
+                          onDeleteListener(row.villageid, row.villagename)),
+                ),
             ],
           ),
           color: _navigation.darkTheme.value

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/index_view_contract.dart';
+import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/masters/country_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
@@ -18,12 +19,15 @@ class CountryView extends GetView implements IndexViewContract {
   final presenter = Get.find<CountryPresenter>();
   final datatable = CountryDataTableSource();
 
+  final authPresenter = Get.find<AuthPresenter>();
+
   CountryView() {
     presenter.countryViewContract = this;
   }
 
   @override
   Widget build(BuildContext context) {
+    var permis = authPresenter.rolepermis.value;
     return Scaffold(
       body: TemplateView(
         title: 'Countries',
@@ -40,10 +44,24 @@ class CountryView extends GetView implements IndexViewContract {
                 source: datatable,
                 columns: datatable.columns,
                 headerActions: [
-                  ThemeButtonCreate(
-                    prefix: CountryText.title,
-                    onPressed: () => presenter.add(context),
-                  )
+                  if (permis
+                      .where((element) => element.menunm == 'Settings')
+                      .first
+                      .children!
+                      .where((element) => element.menunm == 'Regions')
+                      .first
+                      .children!
+                      .where((element) => element.menunm == 'Countries')
+                      .first
+                      .features!
+                      .where((element) => element.featslug == 'create')
+                      .first
+                      .permissions!
+                      .hasaccess!)
+                    ThemeButtonCreate(
+                      prefix: CountryText.title,
+                      onPressed: () => presenter.add(context),
+                    )
                 ],
                 serverSide: (params) => presenter.datatables(context, params),
               )

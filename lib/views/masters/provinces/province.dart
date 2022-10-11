@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/index_view_contract.dart';
+import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/masters/province_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
@@ -18,12 +19,15 @@ class ProvinceView extends GetView implements IndexViewContract {
   final presenter = Get.find<ProvincePresenter>();
   final datatable = ProvinceDataTableSource();
 
+  final authPresenter = Get.find<AuthPresenter>();
+
   ProvinceView() {
     presenter.provinceViewContract = this;
   }
 
   @override
   Widget build(BuildContext context) {
+    var permis = authPresenter.rolepermis.value;
     return Scaffold(
       body: TemplateView(
         title: 'Provinces',
@@ -39,10 +43,24 @@ class ProvinceView extends GetView implements IndexViewContract {
                 source: datatable,
                 columns: datatable.columns,
                 headerActions: [
-                  ThemeButtonCreate(
-                    prefix: ProvinceText.title,
-                    onPressed: () => presenter.add(context),
-                  )
+                  if (permis
+                      .where((element) => element.menunm == 'Settings')
+                      .first
+                      .children!
+                      .where((element) => element.menunm == 'Regions')
+                      .first
+                      .children!
+                      .where((element) => element.menunm == 'Provinces')
+                      .first
+                      .features!
+                      .where((element) => element.featslug == 'create')
+                      .first
+                      .permissions!
+                      .hasaccess!)
+                    ThemeButtonCreate(
+                      prefix: ProvinceText.title,
+                      onPressed: () => presenter.add(context),
+                    )
                 ],
                 serverSide: (params) => presenter.datatables(context, params),
               )

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/index_view_contract.dart';
+import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/masters/typeparent_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../utils/handle_error_request.dart';
@@ -20,12 +21,15 @@ class TypesParentView extends StatelessWidget
   final presenter = Get.find<TypeParentPresenter>();
   final datatable = TypeParentDataTableSource();
 
+  final authPresenter = Get.find<AuthPresenter>();
+
   TypesParentView() {
     presenter.typeParentViewContract = this;
   }
 
   @override
   Widget build(BuildContext context) {
+    var permis = authPresenter.rolepermis.value;
     return Scaffold(
       body: TemplateView(
         title: TypeParentsText.title,
@@ -46,10 +50,24 @@ class TypesParentView extends StatelessWidget
                 source: datatable,
                 columns: datatable.columns,
                 headerActions: [
-                  ThemeButtonCreate(
-                    prefix: TypeParentsText.title,
-                    onPressed: () => presenter.add(context),
-                  )
+                  if (permis
+                      .where((element) => element.menunm == 'Settings')
+                      .first
+                      .children!
+                      .where((element) => element.menunm == 'Types')
+                      .first
+                      .children!
+                      .where((element) => element.menunm == 'Type Parents')
+                      .first
+                      .features!
+                      .where((element) => element.featslug == 'create')
+                      .first
+                      .permissions!
+                      .hasaccess!)
+                    ThemeButtonCreate(
+                      prefix: TypeParentsText.title,
+                      onPressed: () => presenter.add(context),
+                    )
                 ],
                 serverSide: (params) => presenter.datatables(context, params),
               )

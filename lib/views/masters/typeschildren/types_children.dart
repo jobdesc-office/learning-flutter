@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../contracts/base/index_view_contract.dart';
 import '../../../models/masters/type_model.dart';
+import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/masters/typechildren_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../utils/handle_error_request.dart';
@@ -28,6 +29,8 @@ class TypesChildrenView extends StatelessWidget
   final datatable = TypeChildrenDataTableSource();
   final source = ParentSource().obs;
 
+  final authPresenter = Get.find<AuthPresenter>();
+
   TypesChildrenView() {
     presenter.typeChildrenViewContract = this;
     presenter.typeChildrenTypeViewContract = this;
@@ -35,6 +38,7 @@ class TypesChildrenView extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
+    var permis = authPresenter.rolepermis.value;
     return Scaffold(
       body: TemplateView(
         title: TypeChildrenText.title,
@@ -71,10 +75,24 @@ class TypesChildrenView extends StatelessWidget
                     SizedBox(
                       width: 10,
                     ),
-                    ThemeButtonCreate(
-                      prefix: TypeChildrenText.title,
-                      onPressed: () => presenter.add(context),
-                    )
+                    if (permis
+                        .where((element) => element.menunm == 'Settings')
+                        .first
+                        .children!
+                        .where((element) => element.menunm == 'Types')
+                        .first
+                        .children!
+                        .where((element) => element.menunm == 'Type Datas')
+                        .first
+                        .features!
+                        .where((element) => element.featslug == 'create')
+                        .first
+                        .permissions!
+                        .hasaccess!)
+                      ThemeButtonCreate(
+                        prefix: TypeChildrenText.title,
+                        onPressed: () => presenter.add(context),
+                      )
                   ],
                   serverSide: (params) => controller.chosed.value == 0
                       ? presenter.datatablesNonFilter(context, params)

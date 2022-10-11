@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../constants/base_text.dart';
 import '../../../models/masters/province_model.dart';
+import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../styles/color_palattes.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
@@ -12,6 +13,8 @@ import '../../../widgets/datatables/custom_datatable_tablecell.dart';
 import '../../../widgets/datatables/custom_datatable_tablehead.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
+
+final authPresenter = Get.find<AuthPresenter>();
 
 class ProvinceDataTableSource extends BsDatatableSource {
   ValueChanged<int> onEditListener = (value) {};
@@ -45,6 +48,7 @@ class ProvinceDataTableSource extends BsDatatableSource {
 
   @override
   BsDataRow getRow(int index) {
+    var permis = authPresenter.rolepermis.value;
     final row = provinces[index];
     int x = controller.start + index + 1;
     return BsDataRow(
@@ -83,19 +87,47 @@ class ProvinceDataTableSource extends BsDatatableSource {
         CustomBsDataCell(
           Row(
             children: [
-              Tooltip(
-                message: BaseText.editHintDatatable(field: row.provname),
-                child: ButtonEditDatatables(
-                  margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onEditListener(row.provid!),
+              if (permis
+                  .where((element) => element.menunm == 'Settings')
+                  .first
+                  .children!
+                  .where((element) => element.menunm == 'Regions')
+                  .first
+                  .children!
+                  .where((element) => element.menunm == 'Provinces')
+                  .first
+                  .features!
+                  .where((element) => element.featslug == 'update')
+                  .first
+                  .permissions!
+                  .hasaccess!)
+                Tooltip(
+                  message: BaseText.editHintDatatable(field: row.provname),
+                  child: ButtonEditDatatables(
+                    margin: EdgeInsets.only(right: 5),
+                    onPressed: () => onEditListener(row.provid!),
+                  ),
                 ),
-              ),
-              Tooltip(
-                message: BaseText.deleteHintDatatable(field: row.provname),
-                child: ButtonDeleteDatatables(
-                    onPressed: () =>
-                        onDeleteListener(row.provid, row.provname)),
-              ),
+              if (permis
+                  .where((element) => element.menunm == 'Settings')
+                  .first
+                  .children!
+                  .where((element) => element.menunm == 'Regions')
+                  .first
+                  .children!
+                  .where((element) => element.menunm == 'Provinces')
+                  .first
+                  .features!
+                  .where((element) => element.featslug == 'delete')
+                  .first
+                  .permissions!
+                  .hasaccess!)
+                Tooltip(
+                  message: BaseText.deleteHintDatatable(field: row.provname),
+                  child: ButtonDeleteDatatables(
+                      onPressed: () =>
+                          onDeleteListener(row.provid, row.provname)),
+                ),
             ],
           ),
           color: _navigation.darkTheme.value
