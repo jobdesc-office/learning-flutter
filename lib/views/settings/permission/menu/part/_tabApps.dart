@@ -36,72 +36,84 @@ class _AppsMenuPermission extends StatelessWidget {
                             fontSize: 21, fontWeight: FontWeight.bold),
                       ),
                     ),
-                    BsCol(
-                      sizes: ColScreen(sm: Col.col_7),
-                      child: BsRow(
-                        height: 52,
-                        children: element.features!.map((e) {
-                          return BsCol(
-                            sizes: ColScreen(sm: Col.col_2),
-                            child: Column(
-                              children: [
-                                if (e.hasaccess!)
-                                  Column(
-                                    children: [
-                                      Text(e.feattitle ?? ''),
-                                      InkWell(
-                                        child: Icon(
-                                          Icons.toggle_on,
-                                          size: 35,
-                                          color: _navigation.darkTheme.value
-                                              ? ColorPallates.onDarkMode
-                                              : ColorPallates.onLightMode,
-                                        ),
-                                        onTap: () async {
-                                          x = 1;
-                                          SessionModel session =
-                                              await SessionManager.current();
-                                          Map<String, dynamic> body = {
-                                            'hasaccess': false,
-                                            'updatedby': session.userid
-                                          };
-                                          presenter.update(
-                                              context, body, e.permisid!);
-                                        },
-                                      ),
-                                    ],
-                                  )
-                                else
-                                  Column(
-                                    children: [
-                                      Text(e.feattitle ?? ''),
-                                      InkWell(
+                    if (permis
+                        .where((element) => element.menunm == 'Settings')
+                        .first
+                        .children!
+                        .where((element) => element.menunm == 'Permission')
+                        .first
+                        .features!
+                        .where((element) => element.featslug == 'update')
+                        .first
+                        .permissions!
+                        .hasaccess!)
+                      BsCol(
+                        sizes: ColScreen(sm: Col.col_7),
+                        child: BsRow(
+                          height: 52,
+                          children: element.features!.map((e) {
+                            return BsCol(
+                              sizes: ColScreen(sm: Col.col_2),
+                              child: Column(
+                                children: [
+                                  if (e.hasaccess!)
+                                    Column(
+                                      children: [
+                                        Text(e.feattitle ?? ''),
+                                        InkWell(
                                           child: Icon(
-                                            Icons.toggle_off,
+                                            Icons.toggle_on,
                                             size: 35,
                                             color: _navigation.darkTheme.value
-                                                ? ColorPallates.offDarkMode
-                                                : ColorPallates.offLightMode,
+                                                ? ColorPallates.onDarkMode
+                                                : ColorPallates.onLightMode,
                                           ),
                                           onTap: () async {
                                             x = 1;
                                             SessionModel session =
                                                 await SessionManager.current();
                                             Map<String, dynamic> body = {
-                                              'hasaccess': true,
+                                              'hasaccess': false,
                                               'updatedby': session.userid
                                             };
                                             presenter.update(
                                                 context, body, e.permisid!);
-                                          }),
-                                    ],
-                                  ),
-                              ],
-                            ),
-                          );
-                        }).toList(),
+                                          },
+                                        ),
+                                      ],
+                                    )
+                                  else
+                                    Column(
+                                      children: [
+                                        Text(e.feattitle ?? ''),
+                                        InkWell(
+                                            child: Icon(
+                                              Icons.toggle_off,
+                                              size: 35,
+                                              color: _navigation.darkTheme.value
+                                                  ? ColorPallates.offDarkMode
+                                                  : ColorPallates.offLightMode,
+                                            ),
+                                            onTap: () async {
+                                              x = 1;
+                                              SessionModel session =
+                                                  await SessionManager
+                                                      .current();
+                                              Map<String, dynamic> body = {
+                                                'hasaccess': true,
+                                                'updatedby': session.userid
+                                              };
+                                              presenter.update(
+                                                  context, body, e.permisid!);
+                                            }),
+                                      ],
+                                    ),
+                                ],
+                              ),
+                            );
+                          }).toList(),
+                        ),
                       ),
-                    ),
                     if (element.children != null)
                       BsCol(
                         sizes: ColScreen(sm: Col.col_12),

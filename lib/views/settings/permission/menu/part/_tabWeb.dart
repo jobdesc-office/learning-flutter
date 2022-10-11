@@ -35,55 +35,38 @@ class _WebMenuPermission extends StatelessWidget {
                                 fontSize: 21, fontWeight: FontWeight.bold),
                           ),
                         ),
-                        BsCol(
-                          sizes: ColScreen(sm: Col.col_7),
-                          child: BsRow(
-                            height: 52,
-                            children: element.features!.map((e) {
-                              return BsCol(
-                                sizes: ColScreen(sm: Col.col_2),
-                                child: Column(
-                                  children: [
-                                    if (e.hasaccess!)
-                                      Column(
-                                        children: [
-                                          Text(e.feattitle ?? ''),
-                                          InkWell(
-                                            child: Icon(
-                                              Icons.toggle_on,
-                                              size: 35,
-                                              color: _navigation.darkTheme.value
-                                                  ? ColorPallates.onDarkMode
-                                                  : ColorPallates.onLightMode,
-                                            ),
-                                            onTap: () async {
-                                              x = 1;
-                                              SessionModel session =
-                                                  await SessionManager
-                                                      .current();
-                                              Map<String, dynamic> body = {
-                                                'hasaccess': false,
-                                                'updatedby': session.userid
-                                              };
-                                              presenter.update(
-                                                  context, body, e.permisid!);
-                                            },
-                                          ),
-                                        ],
-                                      )
-                                    else
-                                      Column(
-                                        children: [
-                                          Text(e.feattitle ?? ''),
-                                          InkWell(
+                        if (permis
+                            .where((element) => element.menunm == 'Settings')
+                            .first
+                            .children!
+                            .where((element) => element.menunm == 'Permission')
+                            .first
+                            .features!
+                            .where((element) => element.featslug == 'update')
+                            .first
+                            .permissions!
+                            .hasaccess!)
+                          BsCol(
+                            sizes: ColScreen(sm: Col.col_7),
+                            child: BsRow(
+                              height: 52,
+                              children: element.features!.map((e) {
+                                return BsCol(
+                                  sizes: ColScreen(sm: Col.col_2),
+                                  child: Column(
+                                    children: [
+                                      if (e.hasaccess!)
+                                        Column(
+                                          children: [
+                                            Text(e.feattitle ?? ''),
+                                            InkWell(
                                               child: Icon(
-                                                Icons.toggle_off,
+                                                Icons.toggle_on,
                                                 size: 35,
                                                 color: _navigation
                                                         .darkTheme.value
-                                                    ? ColorPallates.offDarkMode
-                                                    : ColorPallates
-                                                        .offLightMode,
+                                                    ? ColorPallates.onDarkMode
+                                                    : ColorPallates.onLightMode,
                                               ),
                                               onTap: () async {
                                                 x = 1;
@@ -91,20 +74,50 @@ class _WebMenuPermission extends StatelessWidget {
                                                     await SessionManager
                                                         .current();
                                                 Map<String, dynamic> body = {
-                                                  'hasaccess': true,
+                                                  'hasaccess': false,
                                                   'updatedby': session.userid
                                                 };
                                                 presenter.update(
                                                     context, body, e.permisid!);
-                                              }),
-                                        ],
-                                      ),
-                                  ],
-                                ),
-                              );
-                            }).toList(),
+                                              },
+                                            ),
+                                          ],
+                                        )
+                                      else
+                                        Column(
+                                          children: [
+                                            Text(e.feattitle ?? ''),
+                                            InkWell(
+                                                child: Icon(
+                                                  Icons.toggle_off,
+                                                  size: 35,
+                                                  color: _navigation
+                                                          .darkTheme.value
+                                                      ? ColorPallates
+                                                          .offDarkMode
+                                                      : ColorPallates
+                                                          .offLightMode,
+                                                ),
+                                                onTap: () async {
+                                                  x = 1;
+                                                  SessionModel session =
+                                                      await SessionManager
+                                                          .current();
+                                                  Map<String, dynamic> body = {
+                                                    'hasaccess': true,
+                                                    'updatedby': session.userid
+                                                  };
+                                                  presenter.update(context,
+                                                      body, e.permisid!);
+                                                }),
+                                          ],
+                                        ),
+                                    ],
+                                  ),
+                                );
+                              }).toList(),
+                            ),
                           ),
-                        ),
                         if (element.children != null)
                           BsCol(
                             sizes: ColScreen(sm: Col.col_12),
@@ -135,62 +148,44 @@ class _WebMenuPermission extends StatelessWidget {
                                             EdgeInsets.only(top: 10, left: 10),
                                         sizes: ColScreen(sm: Col.col_4),
                                         child: Text(e.menunm ?? '')),
-                                    BsCol(
-                                      sizes: ColScreen(sm: Col.col_7),
-                                      child: BsRow(
-                                        children: e.features!
-                                            .map((el) => BsCol(
-                                                  margin:
-                                                      EdgeInsets.only(top: 5),
-                                                  sizes:
-                                                      ColScreen(sm: Col.col_2),
-                                                  child: Column(
-                                                    children: [
-                                                      Text(el.feattitle!),
-                                                      if (el.hasaccess!)
-                                                        InkWell(
-                                                          child: Icon(
-                                                            Icons.toggle_on,
-                                                            size: 35,
-                                                            color: _navigation
-                                                                    .darkTheme
-                                                                    .value
-                                                                ? ColorPallates
-                                                                    .onDarkMode
-                                                                : ColorPallates
-                                                                    .onLightMode,
-                                                          ),
-                                                          onTap: () async {
-                                                            x = 1;
-                                                            SessionModel
-                                                                session =
-                                                                await SessionManager
-                                                                    .current();
-                                                            Map<String, dynamic>
-                                                                body = {
-                                                              'hasaccess':
-                                                                  false,
-                                                              'updatedby':
-                                                                  session.userid
-                                                            };
-                                                            presenter.update(
-                                                                context,
-                                                                body,
-                                                                el.permisid!);
-                                                          },
-                                                        )
-                                                      else
-                                                        InkWell(
+                                    if (permis
+                                        .where((element) =>
+                                            element.menunm == 'Settings')
+                                        .first
+                                        .children!
+                                        .where((element) =>
+                                            element.menunm == 'Permission')
+                                        .first
+                                        .features!
+                                        .where((element) =>
+                                            element.featslug == 'update')
+                                        .first
+                                        .permissions!
+                                        .hasaccess!)
+                                      BsCol(
+                                        sizes: ColScreen(sm: Col.col_7),
+                                        child: BsRow(
+                                          children: e.features!
+                                              .map((el) => BsCol(
+                                                    margin:
+                                                        EdgeInsets.only(top: 5),
+                                                    sizes: ColScreen(
+                                                        sm: Col.col_2),
+                                                    child: Column(
+                                                      children: [
+                                                        Text(el.feattitle!),
+                                                        if (el.hasaccess!)
+                                                          InkWell(
                                                             child: Icon(
-                                                              Icons.toggle_off,
+                                                              Icons.toggle_on,
                                                               size: 35,
                                                               color: _navigation
                                                                       .darkTheme
                                                                       .value
                                                                   ? ColorPallates
-                                                                      .offDarkMode
+                                                                      .onDarkMode
                                                                   : ColorPallates
-                                                                      .offLightMode,
+                                                                      .onLightMode,
                                                             ),
                                                             onTap: () async {
                                                               x = 1;
@@ -202,7 +197,7 @@ class _WebMenuPermission extends StatelessWidget {
                                                                       dynamic>
                                                                   body = {
                                                                 'hasaccess':
-                                                                    true,
+                                                                    false,
                                                                 'updatedby':
                                                                     session
                                                                         .userid
@@ -211,119 +206,135 @@ class _WebMenuPermission extends StatelessWidget {
                                                                   context,
                                                                   body,
                                                                   el.permisid!);
-                                                              presenter.update(
-                                                                  context,
-                                                                  body,
-                                                                  element
-                                                                      .features!
-                                                                      .where((element) =>
-                                                                          element
-                                                                              .feattitle ==
-                                                                          'Viewable')
-                                                                      .first
-                                                                      .permisid!);
-                                                            }),
-                                                    ],
-                                                  ),
-                                                ))
-                                            .toList(),
+                                                            },
+                                                          )
+                                                        else
+                                                          InkWell(
+                                                              child: Icon(
+                                                                Icons
+                                                                    .toggle_off,
+                                                                size: 35,
+                                                                color: _navigation
+                                                                        .darkTheme
+                                                                        .value
+                                                                    ? ColorPallates
+                                                                        .offDarkMode
+                                                                    : ColorPallates
+                                                                        .offLightMode,
+                                                              ),
+                                                              onTap: () async {
+                                                                x = 1;
+                                                                SessionModel
+                                                                    session =
+                                                                    await SessionManager
+                                                                        .current();
+                                                                Map<String,
+                                                                        dynamic>
+                                                                    body = {
+                                                                  'hasaccess':
+                                                                      true,
+                                                                  'updatedby':
+                                                                      session
+                                                                          .userid
+                                                                };
+                                                                presenter.update(
+                                                                    context,
+                                                                    body,
+                                                                    el.permisid!);
+                                                                presenter.update(
+                                                                    context,
+                                                                    body,
+                                                                    element
+                                                                        .features!
+                                                                        .where((element) =>
+                                                                            element.feattitle ==
+                                                                            'Viewable')
+                                                                        .first
+                                                                        .permisid!);
+                                                              }),
+                                                      ],
+                                                    ),
+                                                  ))
+                                              .toList(),
+                                        ),
                                       ),
-                                    ),
-                                    if (e.children != null)
-                                      BsCol(
-                                        sizes: ColScreen(sm: Col.col_12),
-                                        child: Column(
-                                          children: e.children!.map((c) {
-                                            x++;
-                                            return BsRow(
-                                              height: 57,
-                                              decoration: BoxDecoration(
-                                                color: _navigation
-                                                        .darkTheme.value
-                                                    ? x % 2 == 0
-                                                        ? ColorPallates
-                                                            .datatableDarkEvenRowColor
-                                                        : ColorPallates
-                                                            .datatableDarkOddRowColor
-                                                    : x % 2 == 0
-                                                        ? ColorPallates
-                                                            .datatableLightEvenRowColor
-                                                        : ColorPallates
-                                                            .datatableLightOddRowColor,
-                                              ),
-                                              margin: EdgeInsets.only(top: 5),
-                                              children: [
-                                                BsCol(
-                                                  sizes:
-                                                      ColScreen(sm: Col.col_2),
+                                    if (permis
+                                        .where((element) =>
+                                            element.menunm == 'Settings')
+                                        .first
+                                        .children!
+                                        .where((element) =>
+                                            element.menunm == 'Permission')
+                                        .first
+                                        .features!
+                                        .where((element) =>
+                                            element.featslug == 'update')
+                                        .first
+                                        .permissions!
+                                        .hasaccess!)
+                                      if (e.children != null)
+                                        BsCol(
+                                          sizes: ColScreen(sm: Col.col_12),
+                                          child: Column(
+                                            children: e.children!.map((c) {
+                                              x++;
+                                              return BsRow(
+                                                height: 57,
+                                                decoration: BoxDecoration(
+                                                  color: _navigation
+                                                          .darkTheme.value
+                                                      ? x % 2 == 0
+                                                          ? ColorPallates
+                                                              .datatableDarkEvenRowColor
+                                                          : ColorPallates
+                                                              .datatableDarkOddRowColor
+                                                      : x % 2 == 0
+                                                          ? ColorPallates
+                                                              .datatableLightEvenRowColor
+                                                          : ColorPallates
+                                                              .datatableLightOddRowColor,
                                                 ),
-                                                BsCol(
-                                                    margin: EdgeInsets.only(
-                                                        top: 10, left: 10),
+                                                margin: EdgeInsets.only(top: 5),
+                                                children: [
+                                                  BsCol(
                                                     sizes: ColScreen(
-                                                        sm: Col.col_3),
-                                                    child:
-                                                        Text(c.menunm ?? '')),
-                                                BsCol(
-                                                  sizes:
-                                                      ColScreen(sm: Col.col_7),
-                                                  child: BsRow(
-                                                    children: c.features!
-                                                        .map((el) => BsCol(
-                                                              margin: EdgeInsets
-                                                                  .only(top: 5),
-                                                              sizes: ColScreen(
-                                                                  sm: Col
-                                                                      .col_2),
-                                                              child: Column(
-                                                                children: [
-                                                                  Text(el
-                                                                      .feattitle!),
-                                                                  if (el
-                                                                      .hasaccess!)
-                                                                    InkWell(
-                                                                      child:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .toggle_on,
-                                                                        size:
-                                                                            35,
-                                                                        color: _navigation.darkTheme.value
-                                                                            ? ColorPallates.onDarkMode
-                                                                            : ColorPallates.onLightMode,
-                                                                      ),
-                                                                      onTap:
-                                                                          () async {
-                                                                        x = 1;
-                                                                        SessionModel
-                                                                            session =
-                                                                            await SessionManager.current();
-                                                                        Map<String,
-                                                                                dynamic>
-                                                                            body =
-                                                                            {
-                                                                          'hasaccess':
-                                                                              false,
-                                                                          'updatedby':
-                                                                              session.userid
-                                                                        };
-                                                                        presenter.update(
-                                                                            context,
-                                                                            body,
-                                                                            el.permisid!);
-                                                                      },
-                                                                    )
-                                                                  else
-                                                                    InkWell(
+                                                        sm: Col.col_2),
+                                                  ),
+                                                  BsCol(
+                                                      margin: EdgeInsets.only(
+                                                          top: 10, left: 10),
+                                                      sizes: ColScreen(
+                                                          sm: Col.col_3),
+                                                      child:
+                                                          Text(c.menunm ?? '')),
+                                                  BsCol(
+                                                    sizes: ColScreen(
+                                                        sm: Col.col_7),
+                                                    child: BsRow(
+                                                      children: c.features!
+                                                          .map((el) => BsCol(
+                                                                margin: EdgeInsets
+                                                                    .only(
+                                                                        top: 5),
+                                                                sizes: ColScreen(
+                                                                    sm: Col
+                                                                        .col_2),
+                                                                child: Column(
+                                                                  children: [
+                                                                    Text(el
+                                                                        .feattitle!),
+                                                                    if (el
+                                                                        .hasaccess!)
+                                                                      InkWell(
                                                                         child:
                                                                             Icon(
                                                                           Icons
-                                                                              .toggle_off,
+                                                                              .toggle_on,
                                                                           size:
                                                                               35,
                                                                           color: _navigation.darkTheme.value
-                                                                              ? ColorPallates.offDarkMode
-                                                                              : ColorPallates.offLightMode,
+                                                                              ? ColorPallates.onDarkMode
+                                                                              : ColorPallates.onLightMode,
                                                                         ),
                                                                         onTap:
                                                                             () async {
@@ -335,7 +346,7 @@ class _WebMenuPermission extends StatelessWidget {
                                                                               body =
                                                                               {
                                                                             'hasaccess':
-                                                                                true,
+                                                                                false,
                                                                             'updatedby':
                                                                                 session.userid
                                                                           };
@@ -343,26 +354,55 @@ class _WebMenuPermission extends StatelessWidget {
                                                                               context,
                                                                               body,
                                                                               el.permisid!);
-                                                                          presenter.update(
-                                                                              context,
-                                                                              body,
-                                                                              e.features!.where((element) => element.feattitle == 'Viewable').first.permisid!);
-                                                                          presenter.update(
-                                                                              context,
-                                                                              body,
-                                                                              element.features!.where((element) => element.feattitle == 'Viewable').first.permisid!);
-                                                                        }),
-                                                                ],
-                                                              ),
-                                                            ))
-                                                        .toList(),
+                                                                        },
+                                                                      )
+                                                                    else
+                                                                      InkWell(
+                                                                          child:
+                                                                              Icon(
+                                                                            Icons.toggle_off,
+                                                                            size:
+                                                                                35,
+                                                                            color: _navigation.darkTheme.value
+                                                                                ? ColorPallates.offDarkMode
+                                                                                : ColorPallates.offLightMode,
+                                                                          ),
+                                                                          onTap:
+                                                                              () async {
+                                                                            x = 1;
+                                                                            SessionModel
+                                                                                session =
+                                                                                await SessionManager.current();
+                                                                            Map<String, dynamic>
+                                                                                body =
+                                                                                {
+                                                                              'hasaccess': true,
+                                                                              'updatedby': session.userid
+                                                                            };
+                                                                            presenter.update(
+                                                                                context,
+                                                                                body,
+                                                                                el.permisid!);
+                                                                            presenter.update(
+                                                                                context,
+                                                                                body,
+                                                                                e.features!.where((element) => element.feattitle == 'Viewable').first.permisid!);
+                                                                            presenter.update(
+                                                                                context,
+                                                                                body,
+                                                                                element.features!.where((element) => element.feattitle == 'Viewable').first.permisid!);
+                                                                          }),
+                                                                  ],
+                                                                ),
+                                                              ))
+                                                          .toList(),
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
-                                            );
-                                          }).toList(),
-                                        ),
-                                      )
+                                                ],
+                                              );
+                                            }).toList(),
+                                          ),
+                                        )
                                   ],
                                 );
                               }).toList(),

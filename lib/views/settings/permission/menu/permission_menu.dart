@@ -6,6 +6,7 @@ import '../../../../contracts/base/index_view_contract.dart';
 import '../../../../middleware/verifyToken.dart';
 import '../../../../models/security/permission_model.dart';
 import '../../../../models/session_model.dart';
+import '../../../../presenters/auth_presenter.dart';
 import '../../../../presenters/navigation_presenter.dart';
 import '../../../../presenters/settings/permission_presenter.dart';
 import '../../../../routes/route_list.dart';
@@ -22,6 +23,8 @@ part 'part/_tabApps.dart';
 final _navigation = Get.find<NavigationPresenter>();
 final presenter = Get.find<PermissionPresenter>();
 final source = Get.put(PermissionSource());
+final authPresenter = Get.find<AuthPresenter>();
+var permis = authPresenter.rolepermis.value;
 
 class PermissionMenuView extends StatefulWidget {
   final int roleid;

@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../../../constants/base_text.dart';
 import '../../../helpers/function.dart';
 import '../../../models/settings/file_model.dart';
+import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_details_datatable.dart';
@@ -13,6 +14,8 @@ import '../../../widgets/datatables/custom_datatable_tablecell.dart';
 import '../../../widgets/datatables/custom_datatable_tablehead.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
+final authPresenter = Get.find<AuthPresenter>();
+var permis = authPresenter.rolepermis.value;
 
 class FileDataTableSource extends BsDatatableSource {
   ValueChanged<int> onDetailListener = (value) {};
@@ -95,12 +98,23 @@ class FileDataTableSource extends BsDatatableSource {
                   onPressed: () => onDetailListener(row.fileid!),
                 ),
               ),
-              Tooltip(
-                message: BaseText.deleteHintDatatable(field: row.filename),
-                child: ButtonDeleteDatatables(
-                    onPressed: () =>
-                        onDeleteListener(row.fileid, row.filename)),
-              ),
+              if (permis
+                  .where((element) => element.menunm == 'Settings')
+                  .first
+                  .children!
+                  .where((element) => element.menunm == 'Files')
+                  .first
+                  .features!
+                  .where((element) => element.featslug == 'delete')
+                  .first
+                  .permissions!
+                  .hasaccess!)
+                Tooltip(
+                  message: BaseText.deleteHintDatatable(field: row.filename),
+                  child: ButtonDeleteDatatables(
+                      onPressed: () =>
+                          onDeleteListener(row.fileid, row.filename)),
+                ),
             ],
           ),
           color: _navigation.darkTheme.value
