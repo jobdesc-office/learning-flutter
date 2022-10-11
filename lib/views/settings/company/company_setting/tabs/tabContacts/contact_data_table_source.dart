@@ -11,7 +11,10 @@ import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../../../presenters/auth_presenter.dart';
+
 final _navigation = Get.find<NavigationPresenter>();
+final authPresenter = Get.find<AuthPresenter>();
 
 class ContactDataTableSource extends BsDatatableSource {
   ValueChanged<int> onDetailsListener = (value) {};
@@ -55,6 +58,7 @@ class ContactDataTableSource extends BsDatatableSource {
 
   @override
   BsDataRow getRow(int index) {
+    var permis = authPresenter.rolepermis.value;
     final row = contacts[index];
     int x = controller.start + index + 1;
     return BsDataRow(
@@ -110,19 +114,41 @@ class ContactDataTableSource extends BsDatatableSource {
                   onPressed: () => onDetailsListener(row.contactpersonid!),
                 ),
               ),
-              Tooltip(
-                message: BaseText.editHintDatatable(field: row.contactname),
-                child: ButtonEditDatatables(
-                  margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onEditListener(row.contactpersonid!),
+              if (permis
+                  .where((element) => element.menunm == 'Settings')
+                  .first
+                  .children!
+                  .where((element) => element.menunm == 'Company Setting')
+                  .first
+                  .features!
+                  .where((element) => element.featslug == 'update')
+                  .first
+                  .permissions!
+                  .hasaccess!)
+                Tooltip(
+                  message: BaseText.editHintDatatable(field: row.contactname),
+                  child: ButtonEditDatatables(
+                    margin: EdgeInsets.only(right: 5),
+                    onPressed: () => onEditListener(row.contactpersonid!),
+                  ),
                 ),
-              ),
-              Tooltip(
-                message: BaseText.deleteHintDatatable(field: row.contactname),
-                child: ButtonDeleteDatatables(
-                    onPressed: () => onDeleteListener(
-                        row.contactpersonid!, row.contactname!)),
-              ),
+              if (permis
+                  .where((element) => element.menunm == 'Settings')
+                  .first
+                  .children!
+                  .where((element) => element.menunm == 'Company Setting')
+                  .first
+                  .features!
+                  .where((element) => element.featslug == 'delete')
+                  .first
+                  .permissions!
+                  .hasaccess!)
+                Tooltip(
+                  message: BaseText.deleteHintDatatable(field: row.contactname),
+                  child: ButtonDeleteDatatables(
+                      onPressed: () => onDeleteListener(
+                          row.contactpersonid!, row.contactname!)),
+                ),
             ],
           ),
           color: _navigation.darkTheme.value

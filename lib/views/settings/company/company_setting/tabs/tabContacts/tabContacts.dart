@@ -28,10 +28,22 @@ class _TabContact extends StatelessWidget
                     source: datatable,
                     columns: datatable.columns,
                     headerActions: [
-                      ThemeButtonCreate(
-                        prefix: "Contact",
-                        onPressed: () => source.isFormActive.value = true,
-                      )
+                      if (permis
+                          .where((element) => element.menunm == 'Settings')
+                          .first
+                          .children!
+                          .where(
+                              (element) => element.menunm == 'Company Setting')
+                          .first
+                          .features!
+                          .where((element) => element.featslug == 'create')
+                          .first
+                          .permissions!
+                          .hasaccess!)
+                        ThemeButtonCreate(
+                          prefix: "Contact",
+                          onPressed: () => source.isFormActive.value = true,
+                        )
                     ],
                     serverSide: (params) =>
                         presenter.datatables(context, params),

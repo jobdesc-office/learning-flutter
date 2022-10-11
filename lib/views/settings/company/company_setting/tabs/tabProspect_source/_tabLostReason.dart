@@ -26,18 +26,29 @@ class _TabProspectLostReason extends StatelessWidget
                     _sources.prospectLostReasontypeid.value,
                     _sources.prospectLostReasontype.value,
                     'Lost Reason'),
-              ThemeButtonCreate(
-                  prefix: 'Lost Reason',
-                  onPressed: () {
-                    if (source.value.isupdate.value) {
-                      source.value.isupdate.value = false;
-                      source.value.reset();
-                    } else {
-                      source.value.isformactcat.toggle();
-                      source.value.isupdate.value = false;
-                      source.value.reset();
-                    }
-                  }),
+              if (permis
+                  .where((element) => element.menunm == 'Settings')
+                  .first
+                  .children!
+                  .where((element) => element.menunm == 'Company Setting')
+                  .first
+                  .features!
+                  .where((element) => element.featslug == 'create')
+                  .first
+                  .permissions!
+                  .hasaccess!)
+                ThemeButtonCreate(
+                    prefix: 'Lost Reason',
+                    onPressed: () {
+                      if (source.value.isupdate.value) {
+                        source.value.isupdate.value = false;
+                        source.value.reset();
+                      } else {
+                        source.value.isformactcat.toggle();
+                        source.value.isupdate.value = false;
+                        source.value.reset();
+                      }
+                    }),
               if (_sources.stbpprospectlostreason.isNotEmpty)
                 Container(
                   margin: EdgeInsets.only(top: 10),
@@ -79,48 +90,119 @@ class _TabProspectLostReason extends StatelessWidget
                                   alignment: Alignment.center,
                                   sizes: ColScreen(sm: Col.col_1),
                                 ),
-                                BsCol(
-                                  alignment: Alignment.center,
-                                  sizes: ColScreen(sm: Col.col_3),
-                                  child: InkWell(
-                                    onTap: () =>
-                                        presenter.edit(context, e.sbtid!),
-                                    child: Text('Edit'),
-                                  ),
-                                ),
-                                BsCol(
+                                if (permis
+                                    .where((element) =>
+                                        element.menunm == 'Settings')
+                                    .first
+                                    .children!
+                                    .where((element) =>
+                                        element.menunm == 'Company Setting')
+                                    .first
+                                    .features!
+                                    .where((element) =>
+                                        element.featslug == 'update')
+                                    .first
+                                    .permissions!
+                                    .hasaccess!)
+                                  BsCol(
                                     alignment: Alignment.center,
-                                    sizes: ColScreen(sm: Col.col_1),
-                                    child: Text('|')),
-                                BsCol(
-                                  alignment: Alignment.center,
-                                  sizes: ColScreen(sm: Col.col_3),
-                                  child: InkWell(
-                                    onTap: () => presenter.changeStatus(
-                                        context, e.sbtid!, e.isactive!),
-                                    child: e.isactive!
-                                        ? Text('Active',
-                                            style:
-                                                TextStyle(color: Colors.green))
-                                        : Text(
-                                            'Not Active',
-                                            style: TextStyle(color: Colors.red),
-                                          ),
+                                    sizes: ColScreen(sm: Col.col_3),
+                                    child: InkWell(
+                                      onTap: () =>
+                                          presenter.edit(context, e.sbtid!),
+                                      child: Text('Edit'),
+                                    ),
                                   ),
-                                ),
-                                BsCol(
+                                if (permis
+                                    .where((element) =>
+                                        element.menunm == 'Settings')
+                                    .first
+                                    .children!
+                                    .where((element) =>
+                                        element.menunm == 'Company Setting')
+                                    .first
+                                    .features!
+                                    .where((element) =>
+                                        element.featslug == 'update')
+                                    .first
+                                    .permissions!
+                                    .hasaccess!)
+                                  BsCol(
+                                      alignment: Alignment.center,
+                                      sizes: ColScreen(sm: Col.col_1),
+                                      child: Text('|')),
+                                if (permis
+                                    .where((element) =>
+                                        element.menunm == 'Settings')
+                                    .first
+                                    .children!
+                                    .where((element) =>
+                                        element.menunm == 'Company Setting')
+                                    .first
+                                    .features!
+                                    .where((element) =>
+                                        element.featslug == 'update')
+                                    .first
+                                    .permissions!
+                                    .hasaccess!)
+                                  BsCol(
                                     alignment: Alignment.center,
-                                    sizes: ColScreen(sm: Col.col_1),
-                                    child: Text('|')),
-                                BsCol(
-                                  alignment: Alignment.center,
-                                  sizes: ColScreen(sm: Col.col_3),
-                                  child: InkWell(
-                                    onTap: () => presenter.delete(
-                                        context, e.sbtid!, e.sbttypename ?? ''),
-                                    child: Text('Delete'),
+                                    sizes: ColScreen(sm: Col.col_3),
+                                    child: InkWell(
+                                      onTap: () => presenter.changeStatus(
+                                          context, e.sbtid!, e.isactive!),
+                                      child: e.isactive!
+                                          ? Text('Active',
+                                              style: TextStyle(
+                                                  color: Colors.green))
+                                          : Text(
+                                              'Not Active',
+                                              style:
+                                                  TextStyle(color: Colors.red),
+                                            ),
+                                    ),
                                   ),
-                                ),
+                                if (permis
+                                    .where((element) =>
+                                        element.menunm == 'Settings')
+                                    .first
+                                    .children!
+                                    .where((element) =>
+                                        element.menunm == 'Company Setting')
+                                    .first
+                                    .features!
+                                    .where((element) =>
+                                        element.featslug == 'delete')
+                                    .first
+                                    .permissions!
+                                    .hasaccess!)
+                                  BsCol(
+                                      alignment: Alignment.center,
+                                      sizes: ColScreen(sm: Col.col_1),
+                                      child: Text('|')),
+                                if (permis
+                                    .where((element) =>
+                                        element.menunm == 'Settings')
+                                    .first
+                                    .children!
+                                    .where((element) =>
+                                        element.menunm == 'Company Setting')
+                                    .first
+                                    .features!
+                                    .where((element) =>
+                                        element.featslug == 'delete')
+                                    .first
+                                    .permissions!
+                                    .hasaccess!)
+                                  BsCol(
+                                    alignment: Alignment.center,
+                                    sizes: ColScreen(sm: Col.col_3),
+                                    child: InkWell(
+                                      onTap: () => presenter.delete(context,
+                                          e.sbtid!, e.sbttypename ?? ''),
+                                      child: Text('Delete'),
+                                    ),
+                                  ),
                               ],
                             ),
                           )

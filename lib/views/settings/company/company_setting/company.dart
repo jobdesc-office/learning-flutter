@@ -29,6 +29,7 @@ import 'package:get_storage/get_storage.dart';
 import '../../../../constants/config_types.dart';
 import '../../../../contracts/master/customerAddress_contract.dart';
 import '../../../../contracts/master/userReset_contract.dart';
+import '../../../../middleware/verifyToken.dart';
 import '../../../../models/masters/competitor_model.dart';
 import '../../../../models/masters/customer_model.dart';
 import '../../../../models/masters/maps_model.dart';
@@ -38,6 +39,7 @@ import '../../../../models/masters/user_model.dart';
 import '../../../../models/session_model.dart';
 import '../../../../models/settings/stbptype_model.dart';
 import '../../../../models/ventes/customfield_model.dart';
+import '../../../../presenters/auth_presenter.dart';
 import '../../../../presenters/masters/customer_presenter.dart';
 import '../../../../presenters/masters/product_presenter.dart';
 import '../../../../presenters/masters/typechildren_presenter.dart';
@@ -131,23 +133,27 @@ part 'tabs/sources/show_color.dart';
 part 'tabs/tabCustomizeField_source/form.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
+final authPresenter = Get.find<AuthPresenter>();
 final _sources = Get.find<CompanySources>();
 final box = GetStorage();
 final source = _CompanyTabFormSource().obs;
 final sources = CompetitorSource().obs;
+var permis = authPresenter.rolepermis.value;
 
 class CompanyView extends StatefulWidget {
   @override
   State<CompanyView> createState() => _CompanyViewState();
 }
 
-class _CompanyViewState extends State<CompanyView> with TickerProviderStateMixin {
+class _CompanyViewState extends State<CompanyView>
+    with TickerProviderStateMixin {
   final _navigation = Get.find<NavigationPresenter>();
   late TabController _tabController;
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 7, vsync: this);
+    if (authPresenter.rolepermis.isEmpty) checkJwtToken();
   }
 
   @override
@@ -159,11 +165,16 @@ class _CompanyViewState extends State<CompanyView> with TickerProviderStateMixin
           BreadcrumbWidget('Settings'),
           BreadcrumbWidget('Company Setting', active: true),
         ],
-        activeRoutes: [RouteList.settings.index, RouteList.settingsCompany.index],
+        activeRoutes: [
+          RouteList.settings.index,
+          RouteList.settingsCompany.index
+        ],
         child: Obx(() => Container(
               padding: EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : Colors.white,
+                color: _navigation.darkTheme.value
+                    ? ColorPallates.elseDarkColor
+                    : Colors.white,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: BsRow(
@@ -174,7 +185,9 @@ class _CompanyViewState extends State<CompanyView> with TickerProviderStateMixin
                       child: TabBar(
                         controller: _tabController,
                         labelColor: Colors.green,
-                        unselectedLabelColor: _navigation.darkTheme.value ? Colors.white : Colors.black,
+                        unselectedLabelColor: _navigation.darkTheme.value
+                            ? Colors.white
+                            : Colors.black,
                         tabs: [
                           Tab(text: 'General'),
                           Tab(text: 'Activities'),

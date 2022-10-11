@@ -15,6 +15,7 @@ import '../../../../../../widgets/datatables/custom_datatable_tablehead.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 final authPresenter = Get.find<AuthPresenter>();
+var permis = authPresenter.rolepermis.value;
 
 class CustomersActivityDataTableSource extends BsDatatableSource {
   ValueChanged<int> onSetAnytime = (value) {};
@@ -28,7 +29,8 @@ class CustomersActivityDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      CustomBsDataColumn(label: Text('Customer Name'), columnName: 'sbccstmname'),
+      CustomBsDataColumn(
+          label: Text('Customer Name'), columnName: 'sbccstmname'),
       CustomBsDataColumn(
         label: Text('Allow Without Attendance'),
         orderable: false,
@@ -40,14 +42,17 @@ class CustomersActivityDataTableSource extends BsDatatableSource {
 
   Map<int, bool> cetekanState = {};
 
-  List<BusinessPartnerCustomerModel> get customers => response.data.map((data) => BusinessPartnerCustomerModel.fromJson(data)).toList();
+  List<BusinessPartnerCustomerModel> get customers => response.data
+      .map((data) => BusinessPartnerCustomerModel.fromJson(data))
+      .toList();
 
   @override
   BsDataRow getRow(int index) {
     final row = customers[index];
     int x = controller.start + index + 1;
     print(cetekanState);
-    if (!cetekanState.containsKey(index)) cetekanState[index] = row.sbcactivitytype?.sbttypename == "Anytime";
+    if (!cetekanState.containsKey(index))
+      cetekanState[index] = row.sbcactivitytype?.sbttypename == "Anytime";
     // var permis = authPresenter.rolepermis.value;
     return BsDataRow(
       index: index,
@@ -75,14 +80,25 @@ class CustomersActivityDataTableSource extends BsDatatableSource {
         CustomBsDataCell(
           Row(
             children: [
-              Cetekan(cetekanState[index]!, onTap: (value) {
-                cetekanState[index] = value;
-                if (value) {
-                  onSetAnytime(row.sbcid!);
-                } else {
-                  onSetWithAttendance(row.sbcid!);
-                }
-              }),
+              if (permis
+                  .where((element) => element.menunm == 'Settings')
+                  .first
+                  .children!
+                  .where((element) => element.menunm == 'Company Setting')
+                  .first
+                  .features!
+                  .where((element) => element.featslug == 'update')
+                  .first
+                  .permissions!
+                  .hasaccess!)
+                Cetekan(cetekanState[index]!, onTap: (value) {
+                  cetekanState[index] = value;
+                  if (value) {
+                    onSetAnytime(row.sbcid!);
+                  } else {
+                    onSetWithAttendance(row.sbcid!);
+                  }
+                }),
             ],
           ),
           color: _navigation.darkTheme.value

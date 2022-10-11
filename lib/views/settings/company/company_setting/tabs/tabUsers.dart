@@ -262,17 +262,28 @@ class _TabUsers extends StatelessWidget
                 source: datatable,
                 columns: datatable.columns,
                 headerActions: [
-                  ThemeButtonCreate(
-                    prefix: 'User',
-                    onPressed: () {
-                      if (isEdit.value) {
-                        isEdit.value = false;
-                        isForm.toggle();
-                      } else {
-                        isForm.toggle();
-                      }
-                    },
-                  )
+                  if (permis
+                      .where((element) => element.menunm == 'Settings')
+                      .first
+                      .children!
+                      .where((element) => element.menunm == 'Company Setting')
+                      .first
+                      .features!
+                      .where((element) => element.featslug == 'create')
+                      .first
+                      .permissions!
+                      .hasaccess!)
+                    ThemeButtonCreate(
+                      prefix: 'User',
+                      onPressed: () {
+                        if (isEdit.value) {
+                          isEdit.value = false;
+                          isForm.toggle();
+                        } else {
+                          isForm.toggle();
+                        }
+                      },
+                    )
                 ],
                 serverSide: (params) => presenter.datatablesbp(context, params),
               ),

@@ -37,14 +37,26 @@ class _TabCustomerspr extends StatelessWidget implements IndexViewContract {
                     source: datatable,
                     columns: datatable.columns,
                     headerActions: [
-                      ThemeButtonCreate(
-                        prefix: "$typename",
-                        // onPressed: () => presenter.add(context),
-                        onPressed: () {
-                          custsource.value.isForm.toggle();
-                          source.value.pro.value = true;
-                        },
-                      )
+                      if (permis
+                          .where((element) => element.menunm == 'Settings')
+                          .first
+                          .children!
+                          .where(
+                              (element) => element.menunm == 'Company Setting')
+                          .first
+                          .features!
+                          .where((element) => element.featslug == 'create')
+                          .first
+                          .permissions!
+                          .hasaccess!)
+                        ThemeButtonCreate(
+                          prefix: "$typename",
+                          // onPressed: () => presenter.add(context),
+                          onPressed: () {
+                            custsource.value.isForm.toggle();
+                            source.value.pro.value = true;
+                          },
+                        )
                     ],
                     serverSide: (params) =>
                         bppresenter.datatablesbppro(context, params),

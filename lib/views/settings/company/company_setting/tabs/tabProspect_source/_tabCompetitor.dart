@@ -277,17 +277,28 @@ class _TabCompetitor extends GetView
                 source: datatable,
                 columns: datatable.columns,
                 headerActions: [
-                  ThemeButtonCreate(
-                    prefix: 'Competitor',
-                    onPressed: () {
-                      if (isEdit.value) {
-                        isEdit.value = false;
-                      } else {
-                        isForm.toggle();
-                        source.value.isupdate.value = false;
-                      }
-                    },
-                  )
+                  if (permis
+                      .where((element) => element.menunm == 'Settings')
+                      .first
+                      .children!
+                      .where((element) => element.menunm == 'Company Setting')
+                      .first
+                      .features!
+                      .where((element) => element.featslug == 'create')
+                      .first
+                      .permissions!
+                      .hasaccess!)
+                    ThemeButtonCreate(
+                      prefix: 'Competitor',
+                      onPressed: () {
+                        if (isEdit.value) {
+                          isEdit.value = false;
+                        } else {
+                          isForm.toggle();
+                          source.value.isupdate.value = false;
+                        }
+                      },
+                    )
                 ],
                 serverSide: (params) => presenter.datatablesbp(context, params),
                 // searchHintText: 'Search by Competitor name, Competitor phone ...',

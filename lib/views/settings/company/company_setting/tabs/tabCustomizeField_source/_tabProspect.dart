@@ -19,18 +19,29 @@ class _TabCustomizeFieldProspect extends GetView implements IndexViewContract {
               source: datatable,
               columns: datatable.columns,
               headerActions: [
-                ThemeButtonCreate(
-                  prefix: 'Add Prospect Customize Field',
-                  onPressed: () {
-                    if (sources.isEdit.value) {
-                      sources.isEdit.value = false;
-                      sources.reset();
-                    } else {
-                      sources.isForm.toggle();
-                      sources.reset();
-                    }
-                  },
-                )
+                if (permis
+                    .where((element) => element.menunm == 'Settings')
+                    .first
+                    .children!
+                    .where((element) => element.menunm == 'Company Setting')
+                    .first
+                    .features!
+                    .where((element) => element.featslug == 'create')
+                    .first
+                    .permissions!
+                    .hasaccess!)
+                  ThemeButtonCreate(
+                    prefix: 'Add Prospect Customize Field',
+                    onPressed: () {
+                      if (sources.isEdit.value) {
+                        sources.isEdit.value = false;
+                        sources.reset();
+                      } else {
+                        sources.isForm.toggle();
+                        sources.reset();
+                      }
+                    },
+                  )
               ],
               serverSide: (params) => presenter.datatables(context, params),
             )

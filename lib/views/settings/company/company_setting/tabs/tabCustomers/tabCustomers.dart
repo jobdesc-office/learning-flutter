@@ -1,7 +1,8 @@
 part of '../../company.dart';
 
 // ignore: must_be_immutable
-class _TabCustomers extends StatelessWidget implements IndexViewContract, EditViewContract {
+class _TabCustomers extends StatelessWidget
+    implements IndexViewContract, EditViewContract {
   final datatable = CustomersDataTableSource();
   final String typename;
 
@@ -31,21 +32,35 @@ class _TabCustomers extends StatelessWidget implements IndexViewContract, EditVi
             child: Obx(() {
               return Column(
                 children: [
-                  if (custsource.value.isForm.value) custsource.value.form(context),
+                  if (custsource.value.isForm.value)
+                    custsource.value.form(context),
                   CustomDatabales(
                     source: datatable,
                     columns: datatable.columns,
                     headerActions: [
-                      ThemeButtonCreate(
-                        prefix: "$typename",
-                        // onPressed: () => presenter.add(context),
-                        onPressed: () {
-                          custsource.value.isForm.toggle();
-                          source.value.pro.value = false;
-                        },
-                      )
+                      if (permis
+                          .where((element) => element.menunm == 'Settings')
+                          .first
+                          .children!
+                          .where(
+                              (element) => element.menunm == 'Company Setting')
+                          .first
+                          .features!
+                          .where((element) => element.featslug == 'create')
+                          .first
+                          .permissions!
+                          .hasaccess!)
+                        ThemeButtonCreate(
+                          prefix: "$typename",
+                          // onPressed: () => presenter.add(context),
+                          onPressed: () {
+                            custsource.value.isForm.toggle();
+                            source.value.pro.value = false;
+                          },
+                        )
                     ],
-                    serverSide: (params) => bppresenter.datatablesbpcus(context, params),
+                    serverSide: (params) =>
+                        bppresenter.datatablesbpcus(context, params),
                   ),
                 ],
               );
@@ -97,7 +112,8 @@ class _TabCustomers extends StatelessWidget implements IndexViewContract, EditVi
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onDetailsListener = (userid) {};
     // datatable.onEditListener = presenter.show;
-    datatable.onDeleteListener = (cstmid, cstmname) => bppresenter.delete(context, cstmid, cstmname);
+    datatable.onDeleteListener =
+        (cstmid, cstmname) => bppresenter.delete(context, cstmid, cstmname);
   }
 
   @override

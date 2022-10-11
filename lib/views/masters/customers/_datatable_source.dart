@@ -54,7 +54,7 @@ class CustomerDataTableSource extends BsDatatableSource {
   BsDataRow getRow(int index) {
     final row = customers[index];
     int x = controller.start + index + 1;
-    // var permis = authPresenter.rolepermis.value;
+    var permis = authPresenter.rolepermis.value;
     return BsDataRow(
       index: index,
       cells: [
@@ -98,29 +98,41 @@ class CustomerDataTableSource extends BsDatatableSource {
                   onPressed: () => onDetailsListener(row.sbcid!),
                 ),
               ),
-              // if (permis
-              //     .where((element) => element.menu?.menunm == 'Customers')
-              //     .where((element) => element.feature?.feattitle == 'Update')
-              //     .first
-              //     .hasaccess!)
-              Tooltip(
-                message: BaseText.editHintDatatable(field: row.sbccstmname),
-                child: ButtonEditDatatables(
-                  margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onEditListener(row.sbccstm!.cstmid!),
+              if (permis
+                  .where((element) => element.menunm == 'Settings')
+                  .first
+                  .children!
+                  .where((element) => element.menunm == 'Company Setting')
+                  .first
+                  .features!
+                  .where((element) => element.featslug == 'update')
+                  .first
+                  .permissions!
+                  .hasaccess!)
+                Tooltip(
+                  message: BaseText.editHintDatatable(field: row.sbccstmname),
+                  child: ButtonEditDatatables(
+                    margin: EdgeInsets.only(right: 5),
+                    onPressed: () => onEditListener(row.sbccstm!.cstmid!),
+                  ),
                 ),
-              ),
-              // if (permis
-              //     .where((element) => element.menu?.menunm == 'Customers')
-              //     .where((element) => element.feature?.feattitle == 'Delete')
-              //     .first
-              //     .hasaccess!)
-              Tooltip(
-                message: BaseText.deleteHintDatatable(field: row.sbccstmname),
-                child: ButtonDeleteDatatables(
-                    onPressed: () =>
-                        onDeleteListener(row.sbcid, row.sbccstmname)),
-              ),
+              if (permis
+                  .where((element) => element.menunm == 'Settings')
+                  .first
+                  .children!
+                  .where((element) => element.menunm == 'Company Setting')
+                  .first
+                  .features!
+                  .where((element) => element.featslug == 'delete')
+                  .first
+                  .permissions!
+                  .hasaccess!)
+                Tooltip(
+                  message: BaseText.deleteHintDatatable(field: row.sbccstmname),
+                  child: ButtonDeleteDatatables(
+                      onPressed: () =>
+                          onDeleteListener(row.sbcid, row.sbccstmname)),
+                ),
             ],
           ),
           color: _navigation.darkTheme.value

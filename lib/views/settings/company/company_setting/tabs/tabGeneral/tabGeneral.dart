@@ -108,17 +108,28 @@ class _TabGeneral extends StatelessWidget
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     selectSubdistrict(context),
-                    Obx(() {
-                      return BsCol(
-                        margin: EdgeInsets.only(top: 10),
-                        sizes: ColScreen(sm: Col.col_1),
-                        child: ThemeButtonSave(
-                          onPressed: () => onSave(context),
-                          processing: presenter.isProcessing.value,
-                          disabled: presenter.isProcessing.value,
-                        ),
-                      );
-                    }),
+                    if (permis
+                        .where((element) => element.menunm == 'Settings')
+                        .first
+                        .children!
+                        .where((element) => element.menunm == 'Company Setting')
+                        .first
+                        .features!
+                        .where((element) => element.featslug == 'update')
+                        .first
+                        .permissions!
+                        .hasaccess!)
+                      Obx(() {
+                        return BsCol(
+                          margin: EdgeInsets.only(top: 10),
+                          sizes: ColScreen(sm: Col.col_1),
+                          child: ThemeButtonSave(
+                            onPressed: () => onSave(context),
+                            processing: presenter.isProcessing.value,
+                            disabled: presenter.isProcessing.value,
+                          ),
+                        );
+                      }),
                   ],
                 ),
               ),
