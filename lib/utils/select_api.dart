@@ -448,8 +448,8 @@ Future<BsSelectBoxResponse> selectApiCustomField(
         data.add(CustomFieldModel.fromJson(item));
       }
       data.removeWhere((element) =>
-          element.onlythisprospect! &&
-          element.thisprospectid! > source.prospectid.value);
+          element.onlythisdata! &&
+          element.thisdataid! > source.prospectid.value);
       return BsSelectBoxResponse.createFromJson(
         data,
         value: (data) => data.custfid,

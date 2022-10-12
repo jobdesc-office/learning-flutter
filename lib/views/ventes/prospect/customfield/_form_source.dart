@@ -29,7 +29,7 @@ class CustomFieldSource extends GetxController {
   var id = 0.obs;
 
   var allprospect = false.obs;
-  var onlythisprospect = false.obs;
+  var onlythisdata = false.obs;
 
   BsSelectBoxController selectType = BsSelectBoxController();
   BsSelectBoxController selectBp = BsSelectBoxController();
@@ -47,7 +47,7 @@ class CustomFieldSource extends GetxController {
       'custfreftypeid': id,
       'custfname': inputName.text,
       'alldata': allprospect.value,
-      'onlythisdata': onlythisprospect.value,
+      'onlythisdata': onlythisdata.value,
       'thisdataid': source.prospectid.value,
       'createdby': session.userid,
       'updatedby': session.userid,
@@ -113,10 +113,10 @@ class CustomFieldForm {
                 )),
             child: Obx(() => Center(
                   child: Checkbox(
-                    value: source.onlythisprospect.value,
+                    value: source.onlythisdata.value,
                     onChanged: (value) {
-                      source.onlythisprospect.value = value!;
-                      if (source.onlythisprospect.value == true)
+                      source.onlythisdata.value = value!;
+                      if (source.onlythisdata.value == true)
                         source.allprospect.value = !value;
                     },
                   ),
@@ -139,8 +139,8 @@ class CustomFieldForm {
                     value: source.allprospect.value,
                     onChanged: (value) {
                       source.allprospect.value = value!;
-                      if (source.onlythisprospect.value == true)
-                        source.onlythisprospect.value = !value;
+                      if (source.onlythisdata.value == true)
+                        source.onlythisdata.value = !value;
                     },
                   ),
                 )),

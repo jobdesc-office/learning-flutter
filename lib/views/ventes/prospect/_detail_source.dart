@@ -61,6 +61,7 @@ class ProspectDetailsSource extends GetxController {
   var customField = <ProspectCustomFieldModel>[].obs;
   var rawcustomField = <CustomFieldModel>[].obs;
 
+  var isSelect = false.obs;
   var isAdd = false.obs;
   var isUpdate = false.obs;
   var cfid = 0.obs;

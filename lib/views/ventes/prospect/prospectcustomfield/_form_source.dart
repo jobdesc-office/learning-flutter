@@ -31,6 +31,7 @@ class ProspectCustomFieldSource extends GetxController {
   var format = ''.obs;
 
   BsSelectBoxController selectCustomfield = BsSelectBoxController();
+  BsSelectBoxController selectOption = BsSelectBoxController();
 
   TextEditingController inputValue = TextEditingController();
 
@@ -40,6 +41,8 @@ class ProspectCustomFieldSource extends GetxController {
       'prospectid': source.prospectid.value,
       'prospectcustfid': selectCustomfield.getSelectedAsString(),
       'prospectcfvalue': inputValue.text,
+      'optchoosed':
+          source.isSelect.value ? selectOption.getSelectedAsString() : null,
       'createdby': session.userid,
       'updatedby': session.userid,
     };
@@ -96,6 +99,25 @@ class ProspectCustomFieldForm {
         validators: [
           Validators.inputRequired(ProspectCustomFieldText.labelValue),
           if (source.format.value == 'Email') Validators.inputEmail()
+        ],
+      ),
+    );
+  }
+
+  Widget selectOpt() {
+    return FormGroup(
+      label: Obx(() => Text(ProspectCustomFieldText.labelOption,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      child: CustomSelectBox(
+        searchable: true,
+        disabled: source.isProcessing,
+        controller: source.selectOption,
+        hintText:
+            BaseText.hiintSelect(field: ProspectCustomFieldText.labelOption),
+        validators: [
+          Validators.selectRequired(ProspectCustomFieldText.labelOption),
         ],
       ),
     );

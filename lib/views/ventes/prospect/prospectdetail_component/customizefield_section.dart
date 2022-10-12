@@ -47,6 +47,7 @@ class CustomfieldSection extends StatelessWidget {
 
     void onClickCancelModal(BuildContext context) {
       source.isAdd.value = false;
+      source.isSelect.value = false;
       source.isUpdate.value = false;
       cfForm.value.inputValue.text = '';
       cfForm.value.selectCustomfield.clear();
@@ -54,9 +55,10 @@ class CustomfieldSection extends StatelessWidget {
 
     void onClickSave(BuildContext context) async {
       source.isAddCF.value = false;
+      source.isSelect.value = false;
       customFieldPresenter.setProcessing(true);
       if (formStateCF.currentState!.validate()) {
-        if (!cfieldForm.value.onlythisprospect.value &&
+        if (!cfieldForm.value.onlythisdata.value &&
             !cfieldForm.value.allprospect.value) {
           Get.defaultDialog(
               title: 'Attention', middleText: 'Checkbox Required !');
@@ -72,7 +74,7 @@ class CustomfieldSection extends StatelessWidget {
       cfieldForm.value.inputName.text = '';
       cfieldForm.value.selectType.clear();
       cfieldForm.value.allprospect.value = false;
-      cfieldForm.value.onlythisprospect.value = false;
+      cfieldForm.value.onlythisdata.value = false;
     }
 
     return Obx(() => Container(
@@ -263,8 +265,12 @@ class CustomfieldSection extends StatelessWidget {
                                             children: [
                                               prospectCustomFieldForm
                                                   .selectCf(),
-                                              prospectCustomFieldForm
-                                                  .inputValue(),
+                                              if (source.isSelect.value)
+                                                prospectCustomFieldForm
+                                                    .selectOpt()
+                                              else
+                                                prospectCustomFieldForm
+                                                    .inputValue(),
                                             ],
                                           ),
                                         ),
@@ -311,6 +317,7 @@ class CustomfieldSection extends StatelessWidget {
                             itemCount: source.customField.length,
                             itemBuilder: (context, index) {
                               var customField = source.customField[index];
+                              print(customField.selectedoption);
 
                               return Tooltip(
                                 message: source.status.value !=
@@ -412,7 +419,11 @@ class CustomfieldSection extends StatelessWidget {
                                           alignment: Alignment.center,
                                           sizes: ColScreen(sm: Col.col_5),
                                           child: Text(
-                                              customField.prospectcfvalue!,
+                                              customField.prospectcfvalue !=
+                                                      null
+                                                  ? customField.prospectcfvalue!
+                                                  : customField.selectedoption!
+                                                      .optvalue!,
                                               style: TextStyle(
                                                   color: Colors.white))),
                                     ],
@@ -443,6 +454,17 @@ class CustomfieldSection extends StatelessWidget {
                                             value: rawcustomField.custfid,
                                             text: Text(
                                                 rawcustomField.custfname!)));
+                                    if (rawcustomField.custftype?.typename ==
+                                        'Selectbox') {
+                                      source.isSelect.value = true;
+                                      cfForm.value.selectOption.setOptions(
+                                          rawcustomField.selectoption!
+                                              .map((e) => BsSelectBoxOption(
+                                                  value: e.optid,
+                                                  text: Text(e.optvalue!)))
+                                              .toList());
+                                    } else
+                                      source.isSelect.value = false;
                                   }
                                 },
                                 child: BsRow(

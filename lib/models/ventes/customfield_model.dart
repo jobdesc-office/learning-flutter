@@ -19,6 +19,7 @@ class CustomFieldModel {
   Custftype? custfreftype;
   Refprospect? refprospect;
   Refactivity? refactivity;
+  List<Selectoption>? selectoption;
 
   CustomFieldModel(
       {this.custfid,
@@ -40,7 +41,8 @@ class CustomFieldModel {
       this.custftype,
       this.custfreftype,
       this.refprospect,
-      this.refactivity});
+      this.refactivity,
+      this.selectoption});
 
   CustomFieldModel.fromJson(Map<String, dynamic> json) {
     custfid = json['custfid'];
@@ -77,6 +79,12 @@ class CustomFieldModel {
     refactivity = json['refactivity'] != null
         ? new Refactivity.fromJson(json['refactivity'])
         : null;
+    if (json['selectoption'] != null) {
+      selectoption = <Selectoption>[];
+      json['selectoption'].forEach((v) {
+        selectoption!.add(new Selectoption.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -114,6 +122,9 @@ class CustomFieldModel {
     }
     if (this.refactivity != null) {
       data['refactivity'] = this.refactivity!.toJson();
+    }
+    if (this.selectoption != null) {
+      data['selectoption'] = this.selectoption!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -340,6 +351,7 @@ class Prospectcust {
   int? sbcbpid;
   int? sbccstmid;
   int? sbccstmstatusid;
+  int? sbcactivitytypeid;
   String? sbccstmname;
   String? sbccstmphone;
   String? sbccstmaddress;
@@ -354,6 +366,7 @@ class Prospectcust {
       this.sbcbpid,
       this.sbccstmid,
       this.sbccstmstatusid,
+      this.sbcactivitytypeid,
       this.sbccstmname,
       this.sbccstmphone,
       this.sbccstmaddress,
@@ -368,6 +381,7 @@ class Prospectcust {
     sbcbpid = json['sbcbpid'];
     sbccstmid = json['sbccstmid'];
     sbccstmstatusid = json['sbccstmstatusid'];
+    sbcactivitytypeid = json['sbcactivitytypeid'];
     sbccstmname = json['sbccstmname'];
     sbccstmphone = json['sbccstmphone'];
     sbccstmaddress = json['sbccstmaddress'];
@@ -384,6 +398,7 @@ class Prospectcust {
     data['sbcbpid'] = this.sbcbpid;
     data['sbccstmid'] = this.sbccstmid;
     data['sbccstmstatusid'] = this.sbccstmstatusid;
+    data['sbcactivitytypeid'] = this.sbcactivitytypeid;
     data['sbccstmname'] = this.sbccstmname;
     data['sbccstmphone'] = this.sbccstmphone;
     data['sbccstmaddress'] = this.sbccstmaddress;
@@ -460,6 +475,51 @@ class Refactivity {
     data['dayactaddress'] = this.dayactaddress;
     data['dayactlatitude'] = this.dayactlatitude;
     data['dayactlongitude'] = this.dayactlongitude;
+    data['createdby'] = this.createdby;
+    data['createddate'] = this.createddate;
+    data['updatedby'] = this.updatedby;
+    data['updateddate'] = this.updateddate;
+    data['isactive'] = this.isactive;
+    return data;
+  }
+}
+
+class Selectoption {
+  int? optid;
+  int? custfid;
+  String? optvalue;
+  int? createdby;
+  String? createddate;
+  int? updatedby;
+  String? updateddate;
+  bool? isactive;
+
+  Selectoption(
+      {this.optid,
+      this.custfid,
+      this.optvalue,
+      this.createdby,
+      this.createddate,
+      this.updatedby,
+      this.updateddate,
+      this.isactive});
+
+  Selectoption.fromJson(Map<String, dynamic> json) {
+    optid = json['optid'];
+    custfid = json['custfid'];
+    optvalue = json['optvalue'];
+    createdby = json['createdby'];
+    createddate = json['createddate'];
+    updatedby = json['updatedby'];
+    updateddate = json['updateddate'];
+    isactive = json['isactive'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['optid'] = this.optid;
+    data['custfid'] = this.custfid;
+    data['optvalue'] = this.optvalue;
     data['createdby'] = this.createdby;
     data['createddate'] = this.createddate;
     data['updatedby'] = this.updatedby;

@@ -3,4 +3,5 @@ class ProspectCustomFieldText {
 
   static String labelCustomField = 'CustomField';
   static String labelValue = 'Value';
+  static String labelOption = 'Option';
 }
