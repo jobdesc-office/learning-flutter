@@ -90,6 +90,8 @@ class _TabCustomizeFieldProspect extends GetView implements IndexViewContract {
     datatable.onDetailsListener =
         (userid) => presenter.details(context, userid, 'Prospect');
     datatable.onEditListener = (countryid) {
+      _FormCustomfield(ConfigType.prospectCustomField, 'Prospect');
+      sources.isForm.value = true;
       presenter.edits(context, countryid);
       // sources.isEdit.value = true;
       // sources.isForm.value = true;

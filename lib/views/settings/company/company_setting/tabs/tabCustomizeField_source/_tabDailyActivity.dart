@@ -1,20 +1,19 @@
 part of '../../company.dart';
 
 class _TabCustomizeFieldDailyActivity extends StatelessWidget
-    implements IndexViewContract, EditViewContract {
+    implements IndexViewContract {
   final presenter = Get.find<CustomFieldPresenter>();
   final datatable = CustomFieldDataTableSource();
   final sources = Get.put(CustomizeFieldSource());
 
   _TabCustomizeFieldDailyActivity() {
     presenter.customFielddayactViewContract = this;
-    presenter.customFielddFetchDataContract = this;
   }
 
   @override
   Widget build(BuildContext context) {
     return Obx(() => SingleChildScrollView(
-      child: Column(
+          child: Column(
             children: [
               if (sources.isForm.value)
                 _FormCustomfield(ConfigType.activityCustomField, 'Activity'),
@@ -51,7 +50,7 @@ class _TabCustomizeFieldDailyActivity extends StatelessWidget
               )
             ],
           ),
-    ));
+        ));
   }
 
   @override
@@ -93,54 +92,13 @@ class _TabCustomizeFieldDailyActivity extends StatelessWidget
     datatable.onDetailsListener =
         (userid) => presenter.details(context, userid, 'Daily Activity');
     datatable.onEditListener = (countryid) {
+      _FormCustomfield(ConfigType.activityCustomField, 'Activity');
+      sources.isForm.value = true;
       presenter.edits(context, countryid);
       // sources.isEdit.value = true;
       // sources.isForm.value = true;
     };
     datatable.onDeleteListener =
         (cstmid, name) => presenter.delete(context, cstmid, name);
-  }
-
-  @override
-  void onSuccessFetchData(Response response) {
-    presenter.setProcessing(false);
-
-    CustomFieldModel customField = CustomFieldModel.fromJson(response.body);
-    sources.id.value = customField.custfid ?? 0;
-    sources.selectType.setSelected(BsSelectBoxOption(
-        value: customField.custftype!.typeid,
-        text: Text(customField.custftype!.typename.toString())));
-    sources.newprospect.value = customField.alldata ?? false;
-    sources.visible.value = customField.onlythisdata ?? false;
-    sources.inputName.text = customField.custfname ?? '';
-    if (customField.custfreftype?.typename == 'Prospect')
-      _FormCustomfield(ConfigType.prospectCustomField, 'Prospect').data =
-          'Prospect';
-    else
-      _FormCustomfield(ConfigType.activityCustomField, 'Activity').data =
-          'Activity';
-
-    if (customField.onlythisdata == true) {
-      sources.selectprospect.clear();
-      if (customField.custfreftype?.typename == 'Prospect') {
-        sources.selectprospect.setSelected(BsSelectBoxOption(
-            value: customField.refprospect?.prospectid,
-            text: Text(
-                '${customField.refprospect?.prospectname ?? ''} || ${customField.refprospect?.prospectcust?.sbccstmname ?? ''}')));
-      } else {
-        sources.selectprospect.setSelected(BsSelectBoxOption(
-            value: customField.refactivity?.dayactid,
-            text: Text(
-                '${customField.refactivity?.dayactloclabel ?? ''} || ${customField.refactivity?.dayactdate ?? ''}')));
-      }
-    }
-
-    sources.createdby.value = customField.custfcreatedby?.userfullname ?? '';
-    sources.createddate.value = customField.createddate ?? '';
-    sources.updatedby.value = customField.custfupdatedby?.userfullname ?? '';
-    sources.updateddate.value = customField.updateddate ?? '';
-    sources.isactive.value = customField.isactive ?? true;
-    sources.isEdit.value = true;
-    sources.isForm.value = true;
   }
 }

@@ -65,7 +65,7 @@ class CustomizeFieldSource extends GetxController {
       'custfreftypeid': id,
       'alldata': newprospect.value,
       'onlythisdata': visible.value,
-      'thisdataid': selectprospect.getSelectedAsString(),
+      'thisdataid': visible.value ? selectprospect.getSelectedAsString() : null,
       'createdby': session.userid,
       'updatedby': session.userid,
       'isactive': isactive.value,

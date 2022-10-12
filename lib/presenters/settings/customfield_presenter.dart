@@ -147,6 +147,7 @@ class CustomFieldPresenter extends CustomGetXController {
     setProcessing(true);
 
     Response response = await _customFieldService.show(id);
+    print(response.statusCode);
     if (response.statusCode == 200)
       _customFielddFetchDataContract.onSuccessFetchData(response);
     else

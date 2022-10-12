@@ -2,7 +2,9 @@ part of '../../company.dart';
 
 class _FormCustomfield extends StatelessWidget implements EditViewContract {
   String configg, data;
-  _FormCustomfield(this.configg, this.data);
+  _FormCustomfield(this.configg, this.data) {
+    presenter.customFielddFetchDataContract = this;
+  }
 
   final presenter = Get.find<CustomFieldPresenter>();
   final _navigation = Get.find<NavigationPresenter>();
@@ -215,6 +217,7 @@ class _FormCustomfield extends StatelessWidget implements EditViewContract {
 
   @override
   void onSuccessFetchData(Response response) {
+    sources.value.isEdit.value = true;
     presenter.setProcessing(false);
 
     CustomFieldModel customField = CustomFieldModel.fromJson(response.body);
@@ -226,9 +229,19 @@ class _FormCustomfield extends StatelessWidget implements EditViewContract {
     sources.value.visible.value = customField.onlythisdata ?? false;
     sources.value.inputName.text = customField.custfname ?? '';
     if (customField.custfreftype?.typename == 'Prospect')
-      data = 'Prospect';
+      _FormCustomfield(ConfigType.prospectCustomField, 'Prospect').data =
+          'Prospect';
     else
-      data = 'Activity';
+      _FormCustomfield(ConfigType.activityCustomField, 'Activity').data =
+          'Activity';
+
+    if (customField.selectoption!.isNotEmpty) {
+      sources.value.inputOptions.clear();
+      sources.value.isselectbox.value = true;
+      sources.value.inputOptions.addAll(customField.selectoption!
+          .map((e) => TextEditingController(text: e.optvalue))
+          .toList());
+    }
 
     if (customField.onlythisdata == true) {
       sources.value.selectprospect.clear();
@@ -252,7 +265,5 @@ class _FormCustomfield extends StatelessWidget implements EditViewContract {
         customField.custfupdatedby?.userfullname ?? '';
     sources.value.updateddate.value = customField.updateddate ?? '';
     sources.value.isactive.value = customField.isactive ?? true;
-    sources.value.isEdit.value = true;
-    sources.value.isForm.value = true;
   }
 }
