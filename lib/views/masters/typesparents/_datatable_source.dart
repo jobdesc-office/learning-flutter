@@ -45,6 +45,7 @@ class TypeParentDataTableSource extends BsDatatableSource {
 
   @override
   BsDataRow getRow(int index) {
+    // ignore: invalid_use_of_protected_member
     var permis = authPresenter.rolepermis.value;
     final row = menus[index];
     int x = controller.start + index + 1;

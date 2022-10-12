@@ -1,6 +1,5 @@
 import 'package:boilerplate/helpers/function.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -8,7 +7,6 @@ import '../../presenters/auth_presenter.dart';
 import '../../presenters/navigation_presenter.dart';
 import '../../widgets/menus/sidebar_menus.dart';
 import '../../widgets/menus/sidebar_widget.dart';
-import '../../routes/route_list.dart';
 import '../../styles/color_palattes.dart';
 import '../../widgets/menus/menu_data.dart';
 import '../../widgets/menus/menu_data_group.dart';
@@ -42,6 +40,7 @@ class SidebarSkins extends StatelessWidget {
   }
 
   Widget sidebar() {
+    // ignore: invalid_use_of_protected_member
     var permis = authPresenter.rolepermis.value
         .where((element) => element.menutypeid == 8);
     return Column(

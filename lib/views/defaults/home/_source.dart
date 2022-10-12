@@ -8,6 +8,7 @@ import '../../../models/default/dspbystatus_model.dart';
 
 class HomeSource extends GetxController {
   Map<String, List<DspbystageModel>> get groupedStageStats =>
+      // ignore: invalid_use_of_protected_member
       bystage.value.groupBy<String>((e) => e.prospectstage!);
 
   var orderasc = false.obs;

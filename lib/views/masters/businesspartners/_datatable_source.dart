@@ -46,6 +46,7 @@ class BusinessPartnerDataTableSource extends BsDatatableSource {
 
   @override
   BsDataRow getRow(int index) {
+    // ignore: invalid_use_of_protected_member
     var permis = authPresenter.rolepermis.value;
     final row = bpartners[index];
     int x = controller.start + index + 1;

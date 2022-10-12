@@ -36,13 +36,14 @@ class RoleDataTableSource extends BsDatatableSource {
     ];
   }
 
-  List<TypeModel> get Roles =>
+  List<TypeModel> get roles =>
       response.data.map((data) => TypeModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
+    // ignore: invalid_use_of_protected_member
     var permis = authPresenter.rolepermis.value;
-    final row = Roles[index];
+    final row = roles[index];
     int x = controller.start + index + 1;
     return BsDataRow(
       index: index,

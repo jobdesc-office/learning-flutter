@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_protected_member
+
 import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +9,6 @@ import '../../../constants/base_text.dart';
 import '../../../models/default/information_model.dart';
 import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
-import '../../../widgets/button/button_delete_datatable.dart';
 import '../../../widgets/button/button_edit_datatable.dart';
 import '../../../widgets/datatables/custom_datatable_tablecell.dart';
 import '../../../widgets/datatables/custom_datatable_tablehead.dart';

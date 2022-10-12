@@ -54,6 +54,7 @@ class CustomerDataTableSource extends BsDatatableSource {
   BsDataRow getRow(int index) {
     final row = customers[index];
     int x = controller.start + index + 1;
+    // ignore: invalid_use_of_protected_member
     var permis = authPresenter.rolepermis.value;
     return BsDataRow(
       index: index,

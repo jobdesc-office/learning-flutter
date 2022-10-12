@@ -29,6 +29,7 @@ class TypesParentView extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
+    // ignore: invalid_use_of_protected_member
     var permis = authPresenter.rolepermis.value;
     return Scaffold(
       body: TemplateView(

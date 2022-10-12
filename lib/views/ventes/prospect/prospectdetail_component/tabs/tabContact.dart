@@ -7,8 +7,8 @@ class _TabContact extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var permis = authPresenter.rolepermis.value;
     // ignore: invalid_use_of_protected_member
+    var permis = authPresenter.rolepermis.value;
     source.contactname.value = '';
     final contactPresenter = Get.find<ProspectContactPresenter>();
     if (source.contact.length != 0)

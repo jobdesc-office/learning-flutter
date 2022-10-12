@@ -5,6 +5,7 @@ class _TabProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: invalid_use_of_protected_member
     var permis = authPresenter.rolepermis.value;
     final productPresenter = Get.find<ProspectProductPresenter>();
     final currencyFormatter = NumberFormat('#,##0.00', 'ID');

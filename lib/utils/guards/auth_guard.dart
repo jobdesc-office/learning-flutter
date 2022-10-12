@@ -7,6 +7,7 @@ import '../../presenters/auth_presenter.dart';
 import '../../routes/route_list.dart';
 import '../../views/defaults/404.dart';
 
+// ignore: must_be_immutable
 class AuthGuard extends StatelessWidget implements GuardContract {
   final authPresenter = Get.find<AuthPresenter>();
   final Widget? child;
@@ -21,12 +22,14 @@ class AuthGuard extends StatelessWidget implements GuardContract {
     authPresenter.checkLocalSession();
   }
 
+  // ignore: body_might_complete_normally_nullable
   Widget? get resultPage {
     if (authPresenter.statusCode.value == 200) {
       if (authPresenter.isAuthenticated.value) {
         if (authPresenter.rolepermis.isNotEmpty) {
           try {
             isProcessing.value = true;
+            // ignore: invalid_use_of_protected_member
             var permis = authPresenter.rolepermis.value
                 .where((element) =>
                     element.features

@@ -1,11 +1,13 @@
 part of '../home.dart';
 
+// ignore: must_be_immutable
 class StageDetails extends StatelessWidget {
   String stage;
   StageDetails(this.stage);
 
   @override
   Widget build(BuildContext context) {
+    // ignore: invalid_use_of_protected_member
     List<DspbystageModel> list = source.bystage.value
         .where((element) => element.prospectstage == stage)
         .toList();

@@ -1,5 +1,8 @@
+// ignore_for_file: invalid_use_of_protected_member
+
 part of '../home.dart';
 
+// ignore: must_be_immutable
 class StatusDetails extends StatelessWidget {
   String status;
   StatusDetails(this.status);

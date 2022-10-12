@@ -18,6 +18,7 @@ class _TabFileState extends State<_TabFile> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: invalid_use_of_protected_member
     var permis = authPresenter.rolepermis.value;
     final filePresenter = Get.find<ProspectFilePresenter>();
     final presenter = Get.find<ProspectPresenter>();

@@ -1,7 +1,6 @@
 import 'package:boilerplate/views/settings/company/company_setting/tabs/tabContacts/cp_contact_presenter.dart';
 import 'package:boilerplate/views/settings/company/company_setting/tabs/tabCustomers/cp_customer_presenter.dart';
 import 'package:boilerplate/views/settings/company/company_setting/tabs/tabGeneral/cp_general_presenter.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../presenters/default/home_presenter.dart';
@@ -90,7 +89,6 @@ import '../views/masters/contact/contact.dart';
 import '../views/masters/countries/country.dart';
 import '../views/masters/customers/customer.dart';
 import '../views/masters/menus/menu.dart';
-import '../views/masters/product/product.dart';
 import '../views/masters/provinces/province.dart';
 import '../views/masters/role/role.dart';
 import '../views/masters/subdistricts/subdistrict.dart';
@@ -98,12 +96,9 @@ import '../views/masters/villages/village.dart';
 import '../views/settings/company/company_setting/_source.dart';
 import '../views/settings/company/company_setting/company.dart';
 import '../views/settings/company/company_setting/tabs/tabCustomizeField_source/customfield_presenter.dart';
-import '../views/settings/company/data_field/datafield.dart';
-import '../views/settings/customfield/customfield.dart';
 import '../views/settings/files/file.dart';
 import '../views/settings/permission/role/permission_role.dart';
 import '../views/ventes/bpcustomers/bpcustomer.dart';
-import '../views/ventes/competitor/competitor.dart';
 import '../views/ventes/prospect/prospect.dart';
 import '../views/ventes/reports/report.dart';
 import '../views/ventes/schedules/schedule.dart';

@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:boilerplate/views/masters/users/_text.dart';
 import 'package:bs_flutter_inputtext/bs_flutter_inputtext.dart';
-import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,7 +13,6 @@ import '../../../presenters/navigation_presenter.dart';
 import '../../../utils/select_api.dart';
 import '../../../utils/session_manager.dart';
 import '../../../utils/validators.dart';
-import '../../../widgets/button/button_role_user.dart';
 import '../../../widgets/form_group.dart';
 import '../../../widgets/input/custom_input.dart';
 import '../../../widgets/selectbox/custom_selectbox.dart';

@@ -1,5 +1,6 @@
 part of '../../company.dart';
 
+// ignore: must_be_immutable
 class _FormCustomfield extends StatelessWidget implements EditViewContract {
   String configg, data;
   _FormCustomfield(this.configg, this.data) {

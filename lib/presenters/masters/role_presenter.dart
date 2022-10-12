@@ -1,4 +1,3 @@
-import 'package:boilerplate/constants/config_types.dart';
 import 'package:boilerplate/models/masters/type_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,7 +12,6 @@ import '../../utils/custom_get_controller.dart';
 import '../../views/masters/role/role_form.dart';
 import '../../views/masters/typeschildren/parentFilter.dart';
 import '../../views/masters/typeschildren/typechildren_detail.dart';
-import '../../views/masters/typeschildren/typechildren_form.dart';
 import '../../widgets/confirm_dialog.dart';
 
 class RolePresenter extends CustomGetXController {

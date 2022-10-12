@@ -132,7 +132,6 @@ class _ProspectDetailsState extends State<ProspectDetails>
 
   @override
   Widget build(BuildContext context) {
-    var permis = authPresenter.rolepermis.value;
     return Scaffold(
       body: TemplateView(
         title: 'Prospect Details',

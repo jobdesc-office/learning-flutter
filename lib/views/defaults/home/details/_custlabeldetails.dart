@@ -1,11 +1,13 @@
 part of '../home.dart';
 
+// ignore: must_be_immutable
 class CustLabelDetails extends StatelessWidget {
   String label;
   CustLabelDetails(this.label);
 
   @override
   Widget build(BuildContext context) {
+    // ignore: invalid_use_of_protected_member
     List<DspbycustlabelModel> list = source.bycustlabel.value
         .where((element) => element.prospectcustlabel == label)
         .toList();

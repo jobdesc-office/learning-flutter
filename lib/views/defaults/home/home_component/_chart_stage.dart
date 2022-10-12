@@ -28,6 +28,7 @@ BsCol stageChart(context) {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       )),
                   if (source.stagename.isNotEmpty)
+                    // ignore: invalid_use_of_protected_member
                     ChartByStage(stage: source.stagename.value)
                 ],
               )),

@@ -8,6 +8,7 @@ class _TabNote extends StatelessWidget {
     final presenter = Get.find<ProspectPresenter>();
     final GlobalKey<FormState> formState = GlobalKey<FormState>();
     ZefyrController inputDescription;
+    // ignore: invalid_use_of_protected_member
     var permis = authPresenter.rolepermis.value;
     if (source.desc.value == '')
       inputDescription = ZefyrController(NotusDocument());

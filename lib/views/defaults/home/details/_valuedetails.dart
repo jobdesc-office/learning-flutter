@@ -1,5 +1,6 @@
 part of '../home.dart';
 
+// ignore: must_be_immutable
 class ValueDetails extends StatelessWidget {
   List<DspbycustModel> model;
   ValueDetails({required this.model});

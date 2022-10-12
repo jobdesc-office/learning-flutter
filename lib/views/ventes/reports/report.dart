@@ -1,6 +1,5 @@
 // ignore_for_file: invalid_use_of_protected_member
 
-import 'package:boilerplate/views/settings/company/data_field/datafield.dart';
 import 'package:boilerplate/widgets/datatables/custom_datatable.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';

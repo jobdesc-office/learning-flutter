@@ -120,6 +120,7 @@ class _DailyActivityTabState extends State<DailyActivityTab>
                                 markerBuilder: (_, date, reports) {
                                   late List<Dayactuser> employee;
                                   for (var el in reports) {
+                                    // ignore: invalid_use_of_protected_member
                                     employee = source.employees.value
                                         .where((element) =>
                                             element.userfullname !=

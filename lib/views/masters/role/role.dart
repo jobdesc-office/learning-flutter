@@ -28,6 +28,7 @@ class RoleView extends GetView implements IndexViewContract {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: invalid_use_of_protected_member
     var permis = authPresenter.rolepermis.value;
     return Scaffold(
       body: TemplateView(
@@ -103,13 +104,13 @@ class RoleView extends GetView implements IndexViewContract {
     final btn = Get.put(ButtonController());
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
-    datatable.onEditListener = (Roleid) => presenter.edit(context, Roleid);
+    datatable.onEditListener = (roleid) => presenter.edit(context, roleid);
 
     if (btn.btnDeleteDisabled.value)
       datatable.onDeleteListener =
-          (Roleid, name) => presenter.delete(context, Roleid, name);
+          (roleid, name) => presenter.delete(context, roleid, name);
     else
       datatable.onDeleteListener =
-          (Roleid, name) => Snackbar().regionDeletePermission();
+          (roleid, name) => Snackbar().regionDeletePermission();
   }
 }

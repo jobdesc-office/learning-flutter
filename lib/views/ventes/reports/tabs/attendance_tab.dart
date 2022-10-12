@@ -1,5 +1,6 @@
 part of '../report.dart';
 
+// ignore: must_be_immutable
 class AttendanceTab extends StatelessWidget implements IndexViewContract {
   AttendanceDataTableSource datatable = AttendanceDataTableSource();
 
@@ -118,24 +119,16 @@ class AttendanceTab extends StatelessWidget implements IndexViewContract {
   }
 
   @override
-  void onCreateSuccess(Response response, {BuildContext? context}) {
-    // TODO: implement onCreateSuccess
-  }
+  void onCreateSuccess(Response response, {BuildContext? context}) {}
 
   @override
-  void onDeleteSuccess(Response response, {BuildContext? context}) {
-    // TODO: implement onDeleteSuccess
-  }
+  void onDeleteSuccess(Response response, {BuildContext? context}) {}
 
   @override
-  void onEditSuccess(Response response, {BuildContext? context}) {
-    // TODO: implement onEditSuccess
-  }
+  void onEditSuccess(Response response, {BuildContext? context}) {}
 
   @override
-  void onErrorRequest(Response response) {
-    // TODO: implement onErrorRequest
-  }
+  void onErrorRequest(Response response) {}
 
   @override
   void onLoadDatatables(BuildContext context, Response response) {

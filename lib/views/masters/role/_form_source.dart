@@ -8,10 +8,8 @@ import '../../../models/session_model.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../services/masters/type_service.dart';
 import '../../../utils/session_manager.dart';
-import '../../../utils/select_api.dart';
 import '../../../utils/validators.dart';
 import '../../../widgets/input/custom_input.dart';
-import '../../../widgets/selectbox/custom_selectbox.dart';
 import '../../../widgets/form_group.dart';
 
 import '_text.dart';

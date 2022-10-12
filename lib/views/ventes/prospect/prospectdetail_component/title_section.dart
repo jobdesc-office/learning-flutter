@@ -1,6 +1,7 @@
 part of '../prospect_detail.dart';
 
 BsCol prospectDetailTitleSection(context) {
+  // ignore: invalid_use_of_protected_member
   var permis = authPresenter.rolepermis.value;
   final _navigation = Get.find<NavigationPresenter>();
   final presenter = Get.find<ProspectPresenter>();

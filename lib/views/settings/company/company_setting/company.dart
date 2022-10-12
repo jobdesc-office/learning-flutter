@@ -139,6 +139,7 @@ final _sources = Get.find<CompanySources>();
 final box = GetStorage();
 final source = _CompanyTabFormSource().obs;
 final sources = CompetitorSource().obs;
+// ignore: invalid_use_of_protected_member
 var permis = authPresenter.rolepermis.value;
 
 class CompanyView extends StatefulWidget {

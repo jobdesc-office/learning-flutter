@@ -46,8 +46,7 @@ class ChartByCustLabelState extends State {
                             touchedIndex = 0;
                             return;
                           }
-                          if (pieTouchResponse != null &&
-                              pieTouchResponse.touchedSection != null &&
+                          if (pieTouchResponse.touchedSection != null &&
                               event is FlTapUpEvent) {
                             final x = pieTouchResponse
                                 .touchedSection!.touchedSectionIndex;
@@ -56,6 +55,7 @@ class ChartByCustLabelState extends State {
                               showDialog(
                                 context: context,
                                 builder: (context) =>
+                                    // ignore: invalid_use_of_protected_member
                                     CustLabelDetails(source.labelname.value[x]),
                               );
                           }

@@ -1,9 +1,7 @@
-import 'dart:math';
+// ignore_for_file: invalid_use_of_protected_member
 
 import 'package:boilerplate/helpers/function.dart';
 import 'package:boilerplate/styles/color_palattes.dart';
-import 'package:boilerplate/widgets/button/button_X_datatable.dart';
-import 'package:boilerplate/widgets/input/custom_input_number.dart';
 import 'package:boilerplate/widgets/selectbox/custom_selectbox.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_modal/bs_flutter_modal.dart';
@@ -19,22 +17,16 @@ import '../../../models/default/dspbycust_model.dart';
 import '../../../models/default/dspbycustlabel_model.dart';
 import '../../../models/default/dspbystage_model.dart';
 import '../../../models/default/dspbystatus_model.dart';
-import '../../../models/default/home_model.dart';
 import '../../../presenters/default/home_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
-import '../../../presenters/ventes/schedule_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
-import '../../../widgets/button/theme_button_search.dart';
-import '../../../widgets/form_group.dart';
 import '../../skins/template.dart';
 import '_source.dart';
 import 'chart/_bycustlabel_chart.dart';
 import 'chart/_bystage_chart.dart';
 import 'chart/_byvalue_chart.dart';
-import 'chart/_leads_users_chart.dart';
 
-part '_filter.dart';
 part 'home_component/_total_part.dart';
 part 'home_component/_chart_stage.dart';
 part 'home_component/_top10_part.dart';
@@ -266,9 +258,7 @@ class _HomeViewState extends State<HomeView>
   void onError(message) {}
 
   @override
-  void onSuccessDspbybp(Response response) {
-    // TODO: implement onSuccessDspbybp
-  }
+  void onSuccessDspbybp(Response response) {}
 
   @override
   void onSuccessDspbycust(Response response) {
@@ -308,9 +298,7 @@ class _HomeViewState extends State<HomeView>
   }
 
   @override
-  void onSuccessDspbyowner(Response response) {
-    // TODO: implement onSuccessDspbyowner
-  }
+  void onSuccessDspbyowner(Response response) {}
 
   @override
   void onSuccessDspbystage(Response response) {

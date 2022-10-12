@@ -5,6 +5,7 @@ class _TabActivity extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: invalid_use_of_protected_member
     var permis = authPresenter.rolepermis.value;
     final source = Get.put(ProspectDetailsSource());
     final detailPresenter = Get.find<ProspectActivityPresenter>();

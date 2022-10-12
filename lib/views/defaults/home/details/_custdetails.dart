@@ -35,6 +35,7 @@ class CustDetails extends StatelessWidget {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       Column(
+                        // ignore: invalid_use_of_protected_member
                         children: source.bycustall.value.map((e) {
                           no++;
                           newvalue = e.prospectvalue.toString();

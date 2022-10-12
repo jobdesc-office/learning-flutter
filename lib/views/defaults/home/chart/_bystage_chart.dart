@@ -13,6 +13,7 @@ import '../_source.dart';
 final source = Get.put(HomeSource());
 final _navigation = Get.find<NavigationPresenter>();
 
+// ignore: must_be_immutable
 class ChartByStage extends StatefulWidget {
   ChartByStage({required this.stage, Key? key}) : super(key: key);
 

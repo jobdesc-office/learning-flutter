@@ -24,6 +24,7 @@ final _navigation = Get.find<NavigationPresenter>();
 final presenter = Get.find<PermissionPresenter>();
 final source = Get.put(PermissionSource());
 final authPresenter = Get.find<AuthPresenter>();
+// ignore: invalid_use_of_protected_member
 var permis = authPresenter.rolepermis.value;
 
 class PermissionMenuView extends StatefulWidget {

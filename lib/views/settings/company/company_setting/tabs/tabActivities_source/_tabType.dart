@@ -1,5 +1,6 @@
 part of '../../company.dart';
 
+// ignore: unused_element
 class _TabActivityType extends StatelessWidget
     implements IndexViewContract, EditViewContract {
   final BuildContext context;

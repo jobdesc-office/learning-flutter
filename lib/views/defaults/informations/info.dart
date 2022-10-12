@@ -6,13 +6,10 @@ import '../../../contracts/base/index_view_contract.dart';
 import '../../../presenters/default/information_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
-import '../../../widgets/button/button_controller.dart';
-import '../../../widgets/button/theme_button_create.dart';
 import '../../../widgets/datatables/custom_datatable.dart';
 import '../../../widgets/snackbar.dart';
 import '../../skins/template.dart';
 import '_datatable_source.dart';
-import '_text.dart';
 
 class InformationView extends GetView implements IndexViewContract {
   final presenter = Get.find<InformationPresenter>();
@@ -92,7 +89,7 @@ class InformationView extends GetView implements IndexViewContract {
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onEditListener =
-        (Informationid) => presenter.edit(context, Informationid);
+        (informationid) => presenter.edit(context, informationid);
 
     // if (btn.btnDeleteDisabled.value)
     //   datatable.onDeleteListener = (Informationid, name) =>

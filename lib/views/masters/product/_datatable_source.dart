@@ -14,6 +14,7 @@ import '../../../widgets/datatables/custom_datatable_tablehead.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 final authPresenter = Get.find<AuthPresenter>();
+// ignore: invalid_use_of_protected_member
 var permis = authPresenter.rolepermis.value;
 
 class ProductDataTableSource extends BsDatatableSource {

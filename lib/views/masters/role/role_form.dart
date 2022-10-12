@@ -244,14 +244,14 @@ class RoleFormView extends StatelessWidget implements EditViewContract {
     presenter.setProcessing(false);
 
     source.update((val) {
-      TypeModel Role = TypeModel.fromJson(response.body);
+      TypeModel role = TypeModel.fromJson(response.body);
       source.value.isEdit.value = true;
-      source.value.inputName.text = Role.typename ?? '';
-      source.value.createdby.value = Role.typecreatedby?.userfullname ?? '';
-      source.value.createddate.value = Role.createddate ?? '';
-      source.value.updatedby.value = Role.typeupdatedby?.userfullname ?? '';
-      source.value.updateddate.value = Role.updateddate ?? '';
-      source.value.isactive.value = Role.isactive ?? false;
+      source.value.inputName.text = role.typename ?? '';
+      source.value.createdby.value = role.typecreatedby?.userfullname ?? '';
+      source.value.createddate.value = role.createddate ?? '';
+      source.value.updatedby.value = role.typeupdatedby?.userfullname ?? '';
+      source.value.updateddate.value = role.updateddate ?? '';
+      source.value.isactive.value = role.isactive ?? false;
     });
   }
 }
