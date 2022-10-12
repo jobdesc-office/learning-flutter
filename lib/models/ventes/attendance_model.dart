@@ -99,9 +99,9 @@ class Attuser {
   String? userfullname;
   String? useremail;
   String? userphone;
-  Null? userdeviceid;
-  Null? userfcmtoken;
-  Null? usersocketid;
+  String? userdeviceid;
+  String? userfcmtoken;
+  String? usersocketid;
   int? createdby;
   String? createddate;
   int? updatedby;

@@ -16,6 +16,13 @@ class CustomizeFieldSource extends GetxController {
 
   var config = ''.obs;
 
+  var isEdit = false.obs;
+  var isForm = false.obs;
+  final presenter = Get.find<CustomFieldPresenter>();
+  final datatable = CustomFieldDataTableSource();
+  final _navigation = Get.find<NavigationPresenter>();
+  final source = CustomFieldSource().obs;
+
   reset() {
     id.value = 0;
     visible.value = false;
@@ -36,6 +43,8 @@ class CustomizeFieldSource extends GetxController {
     config.value = '';
 
     inputOptions = [TextEditingController()];
+
+    isEdit.value = false;
   }
 
   BsSelectBoxController selectType = BsSelectBoxController();
@@ -73,37 +82,7 @@ class CustomizeFieldSource extends GetxController {
     };
   }
 
-  var isEdit = false.obs;
-  var isForm = false.obs;
-  final presenter = Get.find<CustomFieldPresenter>();
-  final datatable = CustomFieldDataTableSource();
-  final _navigation = Get.find<NavigationPresenter>();
-  final source = CustomFieldSource().obs;
-
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
-
-  void onClickSaveModal(BuildContext context) async {
-    presenter.setProcessing(true);
-    if (formState.currentState!.validate()) {
-      if (isEdit.value) {
-        presenter.update(context, await toJson(), id.value);
-        reset();
-      } else {
-        if (formState.currentState!.validate()) {
-          presenter.save(context, await toJson());
-          reset();
-        } else
-          presenter.setProcessing(false);
-      }
-    } else
-      presenter.setProcessing(false);
-  }
-
-  void onClickCancelModal(BuildContext context) {
-    isEdit.value = false;
-    isForm.value = false;
-    reset();
-  }
 
   Widget selectTypes() {
     return FormGroup(
