@@ -100,14 +100,9 @@ class CustomizeFieldSource extends GetxController {
   }
 
   void onClickCancelModal(BuildContext context) {
-    if (isEdit.value) {
-      isEdit.value = false;
-      isForm.toggle();
-      reset();
-    } else {
-      isForm.toggle();
-      reset();
-    }
+    isEdit.value = false;
+    isForm.value = false;
+    reset();
   }
 
   Widget selectTypes() {

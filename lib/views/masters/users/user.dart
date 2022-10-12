@@ -52,9 +52,7 @@ class UserView extends GetView
                 headerActions: [
                   ThemeButtonCreate(
                     prefix: UserText.title,
-                    onPressed: () {
-                      print(datatable.localData);
-                    },
+                    onPressed: () {},
                   ),
                   ThemeButtonCreate(
                     prefix: UserText.title,
@@ -105,7 +103,6 @@ class UserView extends GetView
   @override
   void onErrorRequest(Response response) {
     presenter.setProcessing(false);
-    print(response);
   }
 
   @override

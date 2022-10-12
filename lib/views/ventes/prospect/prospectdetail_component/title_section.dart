@@ -311,7 +311,6 @@ BsCol prospectDetailTitleSection(context) {
                                     style: BsButtonStyle.success,
                                     onPressed: () async {
                                       int data = await presenter.wonStatus();
-                                      print(data);
                                       // TypeModel stage =
                                       //     await presenter.completePipeline();
                                       showDialog(

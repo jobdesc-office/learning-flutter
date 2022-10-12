@@ -1,7 +1,7 @@
 part of '../../company.dart';
 
 class _TabCustomizeFieldProspect extends GetView implements IndexViewContract {
-  final presenter = Get.find<CustomFieldPresenter>();
+  final presenter = Get.find<CustomFieldsPresenter>();
   final datatable = CustomFieldDataTableSource();
   final sources = Get.put(CustomizeFieldSource());
 

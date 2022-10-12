@@ -263,9 +263,7 @@ class _HomeViewState extends State<HomeView>
   }
 
   @override
-  void onError(message) {
-    print(message);
-  }
+  void onError(message) {}
 
   @override
   void onSuccessDspbybp(Response response) {

@@ -317,7 +317,6 @@ class CustomfieldSection extends StatelessWidget {
                             itemCount: source.customField.length,
                             itemBuilder: (context, index) {
                               var customField = source.customField[index];
-                              print(customField.selectedoption);
 
                               return Tooltip(
                                 message: source.status.value !=

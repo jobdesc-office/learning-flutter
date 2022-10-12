@@ -99,9 +99,7 @@ class BusinessPartnerView extends GetView
   }
 
   @override
-  void onErrorRequest(Response response) {
-    print(response);
-  }
+  void onErrorRequest(Response response) {}
 
   @override
   void onLoadDatatables(BuildContext context, Response response) {

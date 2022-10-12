@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../constants/base_text.dart';
-import '../../contracts/base/details_view_contract.dart';
-import '../../contracts/base/edit_view_contract.dart';
-import '../../contracts/base/index_view_contract.dart';
-import '../../contracts/ventes/customfield_contract.dart';
-import '../../services/settings/customfield_service.dart';
-import '../../utils/custom_get_controller.dart';
-import '../../views/settings/customfield/customfield_details.dart';
-import '../../views/settings/customfield/customfield_form.dart';
-import '../../views/ventes/prospect/customfield/customfield_popup.dart';
-import '../../widgets/confirm_dialog.dart';
+import '../../../../../../constants/base_text.dart';
+import '../../../../../../contracts/base/details_view_contract.dart';
+import '../../../../../../contracts/base/edit_view_contract.dart';
+import '../../../../../../contracts/base/index_view_contract.dart';
+import '../../../../../../contracts/ventes/customfield_contract.dart';
+import '../../../../../../services/settings/customfield_service.dart';
+import '../../../../../../utils/custom_get_controller.dart';
+import '../../../../../../widgets/confirm_dialog.dart';
+import '../../../../../ventes/prospect/customfield/customfield_popup.dart';
+import '../../../../customfield/customfield_details.dart';
+import '../../../../customfield/customfield_form.dart';
 
-class CustomFieldPresenter extends CustomGetXController {
+class CustomFieldsPresenter extends CustomGetXController {
   final _customFieldService = Get.find<CustomFieldService>();
 
   late IndexViewContract _customFieldViewContract;

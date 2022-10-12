@@ -97,6 +97,7 @@ import '../views/masters/subdistricts/subdistrict.dart';
 import '../views/masters/villages/village.dart';
 import '../views/settings/company/company_setting/_source.dart';
 import '../views/settings/company/company_setting/company.dart';
+import '../views/settings/company/company_setting/tabs/tabCustomizeField_source/customfield_presenter.dart';
 import '../views/settings/company/data_field/datafield.dart';
 import '../views/settings/customfield/customfield.dart';
 import '../views/settings/files/file.dart';
@@ -526,6 +527,7 @@ class AppRoute {
           Get.lazyPut(() => ProspectService());
           Get.lazyPut(() => TypesChildrenPresenter());
           Get.lazyPut(() => TypeChildrenService());
+          Get.lazyPut(() => CustomFieldsPresenter());
           Get.lazyPut(() => CustomFieldPresenter());
           Get.lazyPut(() => CustomFieldService());
           Get.lazyPut(() => ReportPresenter());

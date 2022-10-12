@@ -79,7 +79,6 @@ class ProspectPresenter extends CustomGetXController {
     Response response = await _typeService.bySeq(ConfigType.prospectStage);
     if (response.statusCode == 200) {
       _prospectTypeViewContract.onLoadSuccess(response);
-      print(response.body);
     } else
       _prospectViewContract.onErrorRequest(response);
   }

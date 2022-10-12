@@ -54,14 +54,6 @@ class CustomFieldPopUpDataTableSource extends BsDatatableSource {
 
   @override
   BsDataRow getRow(int index) {
-    // print(users.indexWhere((element) =>
-    //     element.onlythisprospect == true &&
-    //     element.thisprospectid! > controllers.prospectid.value));
-    // print(users.removeAt(users.indexWhere((element) =>
-    //     element.onlythisprospect == true &&
-    //     element.thisprospectid! > controllers.prospectid.value)));
-    // print(users.length);
-
     final row = users[index];
     int x = controller.start + index + 1;
     return BsDataRow(

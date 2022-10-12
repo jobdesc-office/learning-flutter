@@ -70,7 +70,5 @@ class CustomFieldPopup extends GetView implements CustomFieldContract {
   }
 
   @override
-  void onErrorCustomFieldRequest(Response response) {
-    print(response.body);
-  }
+  void onErrorCustomFieldRequest(Response response) {}
 }

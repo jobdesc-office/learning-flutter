@@ -4,9 +4,11 @@ class _FormCustomfield extends StatelessWidget implements EditViewContract {
   String configg, data;
   _FormCustomfield(this.configg, this.data) {
     presenter.customFielddFetchDataContract = this;
+    presenters.customFielddFetchDataContract = this;
   }
 
   final presenter = Get.find<CustomFieldPresenter>();
+  final presenters = Get.find<CustomFieldsPresenter>();
   final _navigation = Get.find<NavigationPresenter>();
   final sources = CustomizeFieldSource().obs;
 

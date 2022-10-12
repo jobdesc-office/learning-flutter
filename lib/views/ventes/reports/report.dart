@@ -137,7 +137,6 @@ class _ReportViewState extends State<ReportView>
   @override
   void onErrorRequest(Response response) {
     presenter.setProcessing(false);
-    print(response);
   }
 
   @override

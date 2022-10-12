@@ -493,7 +493,6 @@ Future<BsSelectBoxResponse> selectApiProspect(
           prospect.add(res);
         }
       }
-      print(response.body);
       return BsSelectBoxResponse.createFromJson(
         prospect,
         value: (data) => data.prospectid,
@@ -512,7 +511,6 @@ Future<BsSelectBoxResponse> selectApiActivity(
   Response response = await prospectService.selectbp(params);
   if (response.isOk) {
     if (response.statusCode == 200) {
-      print(response.body);
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => Activities.fromJson(data).dayactid,

@@ -220,7 +220,6 @@ class MenuDetails extends GetView
   void onSuccessFetchData(Response response) {
     MenuModel dt = MenuModel.fromJson(response.body);
     source.id.value = dt.menuid!;
-    print(source.id.value);
     source.type.value = dt.menutype?.typename ?? '';
     source.parent.value = dt.parent?.menunm ?? '';
     source.name.value = dt.menunm ?? '';

@@ -144,7 +144,6 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
           sizes: ColScreen(sm: Col.col_2),
           child: InkWell(
             onTap: () async {
-              // print(source.status.value);
               if (source.status.value != ProspectText.closedWon &&
                   source.status.value != ProspectText.closedLost &&
                   source.status.value != ProspectText.forceClosed) {

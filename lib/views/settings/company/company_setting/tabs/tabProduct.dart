@@ -308,7 +308,6 @@ class _TabProduct extends StatelessWidget
   @override
   void onErrorRequest(Response response) {
     presenter.setProcessing(false);
-    print(response);
   }
 
   @override

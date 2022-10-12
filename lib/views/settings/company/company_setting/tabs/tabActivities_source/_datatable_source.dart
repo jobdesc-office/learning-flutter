@@ -50,7 +50,6 @@ class CustomersActivityDataTableSource extends BsDatatableSource {
   BsDataRow getRow(int index) {
     final row = customers[index];
     int x = controller.start + index + 1;
-    print(cetekanState);
     if (!cetekanState.containsKey(index))
       cetekanState[index] = row.sbcactivitytype?.sbttypename == "Anytime";
     // var permis = authPresenter.rolepermis.value;
