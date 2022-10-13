@@ -207,17 +207,31 @@ class _FormCustomfield extends StatelessWidget implements EditViewContract {
   }
 
   void onClickSaveModal(BuildContext context) async {
-    presenter.setProcessing(true);
     if (sources.formState.currentState!.validate()) {
-      if (sources.isEdit.value) {
-        presenter.update(context, await sources.toJson(), sources.id.value);
-        sources.reset();
-      } else {
-        if (sources.formState.currentState!.validate()) {
-          presenter.save(context, await sources.toJson());
+      presenters.setProcessing(true);
+      if (data == 'Prospect') {
+        if (sources.isEdit.value) {
+          presenters.update(context, await sources.toJson(), sources.id.value);
           sources.reset();
-        } else
-          presenter.setProcessing(false);
+        } else {
+          if (sources.formState.currentState!.validate()) {
+            presenters.save(context, await sources.toJson());
+            sources.reset();
+          } else
+            presenters.setProcessing(false);
+        }
+      } else {
+        presenter.setProcessing(true);
+        if (sources.isEdit.value) {
+          presenter.update(context, await sources.toJson(), sources.id.value);
+          sources.reset();
+        } else {
+          if (sources.formState.currentState!.validate()) {
+            presenter.save(context, await sources.toJson());
+            sources.reset();
+          } else
+            presenter.setProcessing(false);
+        }
       }
     } else
       presenter.setProcessing(false);
@@ -234,6 +248,7 @@ class _FormCustomfield extends StatelessWidget implements EditViewContract {
 
   @override
   void onSuccessFetchData(Response response) {
+    sources.isForm.value = true;
     sources.isEdit.value = true;
     presenter.setProcessing(false);
 

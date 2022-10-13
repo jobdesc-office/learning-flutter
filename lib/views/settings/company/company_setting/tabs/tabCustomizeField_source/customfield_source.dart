@@ -42,7 +42,7 @@ class CustomizeFieldSource extends GetxController {
 
     config.value = '';
 
-    inputOptions = [TextEditingController()];
+    inputOptions.value = [TextEditingController()];
 
     isEdit.value = false;
   }
@@ -52,9 +52,10 @@ class CustomizeFieldSource extends GetxController {
 
   TextEditingController inputName = TextEditingController();
 
-  List<TextEditingController> inputOptions = List<TextEditingController>.filled(
-      1, TextEditingController(),
-      growable: true);
+  var inputOptions = List<TextEditingController>.filled(
+          1, TextEditingController(),
+          growable: true)
+      .obs;
 
   List<Map<String, dynamic>> jsonOption() {
     return List<Map<String, dynamic>>.from(inputOptions.map((controller) {
@@ -210,36 +211,37 @@ class CustomizeFieldSource extends GetxController {
 
   Widget formDetail({required ValueChanged<int> onRemoveItem}) {
     return FormGroup(
-      child: Column(
-        children: inputOptions.map((controller) {
-          int index = inputOptions.indexOf(controller);
-          var inputOption = inputOptions[index];
-          return BsRow(
-            children: [
-              BsCol(
-                margin: EdgeInsets.only(right: 5),
-                sizes: ColScreen(lg: Col.col_11),
-                child: FormGroup(
-                  child: CustomInput(
-                    hintText: BaseText.hintText(field: 'Option ${index + 1}'),
-                    controller: inputOption,
-                    validators: [
-                      Validators.inputRequired('Option ${index + 1}')
-                    ],
+      child: Obx(() => Column(
+            children: inputOptions.value.map((controller) {
+              int index = inputOptions.value.indexOf(controller);
+              var inputOption = inputOptions.value[index];
+              return BsRow(
+                children: [
+                  BsCol(
+                    margin: EdgeInsets.only(right: 5),
+                    sizes: ColScreen(lg: Col.col_11),
+                    child: FormGroup(
+                      child: CustomInput(
+                        hintText:
+                            BaseText.hintText(field: 'Option ${index + 1}'),
+                        controller: inputOption,
+                        validators: [
+                          Validators.inputRequired('Option ${index + 1}')
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              BsCol(
-                sizes: ColScreen(sm: Col.col_1),
-                child: ButtonMultipleCancel(
-                    disabled: inputOptions.length > 1 ? false : true,
-                    margin: EdgeInsets.only(top: 10),
-                    onPressed: () => onRemoveItem(index)),
-              )
-            ],
-          );
-        }).toList(),
-      ),
+                  BsCol(
+                    sizes: ColScreen(sm: Col.col_1),
+                    child: ButtonMultipleCancel(
+                        disabled: inputOptions.length > 1 ? false : true,
+                        margin: EdgeInsets.only(top: 10),
+                        onPressed: () => onRemoveItem(index)),
+                  )
+                ],
+              );
+            }).toList(),
+          )),
     );
   }
 }

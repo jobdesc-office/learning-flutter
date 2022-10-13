@@ -67,6 +67,7 @@ class _TabCustomizeFieldProspect extends GetView implements IndexViewContract {
     sources.isEdit.value = false;
     sources.isForm.value = false;
     Snackbar().deleteSuccess(context!);
+    Navigator.pop(context);
   }
 
   @override

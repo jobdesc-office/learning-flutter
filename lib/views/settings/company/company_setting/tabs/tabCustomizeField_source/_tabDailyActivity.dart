@@ -8,6 +8,7 @@ class _TabCustomizeFieldDailyActivity extends StatelessWidget
 
   _TabCustomizeFieldDailyActivity() {
     presenter.customFielddayactViewContract = this;
+    presenter.customFieldViewContract = this;
   }
 
   @override
@@ -69,6 +70,7 @@ class _TabCustomizeFieldDailyActivity extends StatelessWidget
     sources.isEdit.value = false;
     sources.isForm.value = false;
     Snackbar().deleteSuccess(context!);
+    Navigator.pop(context);
   }
 
   @override
