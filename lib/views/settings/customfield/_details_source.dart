@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../../../models/ventes/customfield_model.dart';
+
 class CustomFieldDetailsSource extends GetxController {
   var name = ''.obs;
   var bp = ''.obs;
@@ -13,6 +15,9 @@ class CustomFieldDetailsSource extends GetxController {
   var updatedby = ''.obs;
   var updateddate = ''.obs;
   var isactive = false.obs;
+
+  var isselectbox = false.obs;
+  var selectbox = <Selectoption>[].obs;
 
   @override
   void onClose() {

@@ -486,7 +486,7 @@ class Refactivity {
 
 class Selectoption {
   int? optid;
-  int? custfid;
+  int? optcustfid;
   String? optvalue;
   int? createdby;
   String? createddate;
@@ -496,7 +496,7 @@ class Selectoption {
 
   Selectoption(
       {this.optid,
-      this.custfid,
+      this.optcustfid,
       this.optvalue,
       this.createdby,
       this.createddate,
@@ -506,7 +506,7 @@ class Selectoption {
 
   Selectoption.fromJson(Map<String, dynamic> json) {
     optid = json['optid'];
-    custfid = json['custfid'];
+    optcustfid = json['optcustfid'];
     optvalue = json['optvalue'];
     createdby = json['createdby'];
     createddate = json['createddate'];
@@ -518,7 +518,7 @@ class Selectoption {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['optid'] = this.optid;
-    data['custfid'] = this.custfid;
+    data['optcustfid'] = this.optcustfid;
     data['optvalue'] = this.optvalue;
     data['createdby'] = this.createdby;
     data['createddate'] = this.createddate;

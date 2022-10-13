@@ -11,6 +11,7 @@ import '../../../styles/color_palattes.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/form_group.dart';
 import '../../skins/template.dart';
+import '../company/company_setting/tabs/tabCustomizeField_source/customfield_presenter.dart';
 import '_details_source.dart';
 import '_text.dart';
 
@@ -18,6 +19,7 @@ final _navigation = Get.find<NavigationPresenter>();
 
 class CustomFieldDetails extends GetView implements DetailViewContract {
   final CustomFieldPresenter presenter = Get.find<CustomFieldPresenter>();
+  final CustomFieldsPresenter presenters = Get.find<CustomFieldsPresenter>();
   final CustomFieldDetailsSource controller =
       Get.put(CustomFieldDetailsSource());
 
@@ -26,6 +28,7 @@ class CustomFieldDetails extends GetView implements DetailViewContract {
   CustomFieldDetails(this.data) {
     Get.delete<CustomFieldDetailsSource>();
     presenter.customFieldDataDetailsContract = this;
+    presenters.customFieldDataDetailsContract = this;
   }
 
   @override
@@ -145,6 +148,30 @@ class CustomFieldDetails extends GetView implements DetailViewContract {
                                         Text('${controller.ref.value}'),
                                         Divider()
                                       ],
+                                    ))),
+                          if (controller.isselectbox.value)
+                            BsCol(
+                                margin: EdgeInsets.only(top: 10),
+                                sizes: ColScreen(lg: Col.col_12),
+                                child: FormGroup(
+                                    label: Text('Option',
+                                        style: TextStyle(
+                                            color: _navigation.darkTheme.value
+                                                ? Colors.white
+                                                : Colors.black)),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: controller.selectbox
+                                          .map((element) => Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(element.optvalue ?? ''),
+                                                  Divider()
+                                                ],
+                                              ))
+                                          .toList(),
                                     ))),
                         ],
                       ),
@@ -278,6 +305,11 @@ class CustomFieldDetails extends GetView implements DetailViewContract {
     controller.isvisible.value = dt.onlythisdata!;
     controller.newprospect.value = dt.alldata!;
 
+    if (dt.selectoption != []) {
+      controller.isselectbox.value = true;
+      controller.selectbox.value = dt.selectoption!;
+    }
+
     if (dt.custfreftype?.typename == 'Prospect')
       controller.ref.value =
           '${dt.refprospect?.prospectname ?? '-'} || ${dt.refprospect?.prospectcust?.sbccstmname ?? '-'}';
@@ -291,5 +323,6 @@ class CustomFieldDetails extends GetView implements DetailViewContract {
     controller.updateddate.value = dt.updateddate ?? '';
     controller.isactive.value = dt.isactive!;
     presenter.setProcessing(false);
+    presenters.setProcessing(false);
   }
 }
