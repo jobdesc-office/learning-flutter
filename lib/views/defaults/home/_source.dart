@@ -33,4 +33,6 @@ class HomeSource extends GetxController {
 
   var years = <int>[].obs;
   var year = ''.obs;
+
+  var showValueChart = false.obs;
 }

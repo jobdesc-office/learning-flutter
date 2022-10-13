@@ -11,7 +11,10 @@ import "_source.dart";
 final controller = Get.put(LoginSource());
 final presenter = Get.put(InformationPresenter());
 
+// ignore: must_be_immutable
 class BackgroundAuth extends GetView implements InformationViewContract {
+  var isProcessing = false.obs;
+
   BackgroundAuth() {
     presenter.infoContract = this;
   }
@@ -43,6 +46,7 @@ class BackgroundAuth extends GetView implements InformationViewContract {
                       controller.about.value = !controller.what.value;
                     }
                     if (controller.what.value) {
+                      isProcessing.value = true;
                       presenter.getInfo('whatsventes');
                     }
                   },
@@ -50,8 +54,6 @@ class BackgroundAuth extends GetView implements InformationViewContract {
                       style:
                           TextStyle(fontSize: 18, color: ColorPallates.dark)),
                 ),
-                Text('Testimonials',
-                    style: TextStyle(fontSize: 18, color: ColorPallates.dark)),
                 InkWell(
                   onTap: () {
                     controller.about.toggle();
@@ -59,6 +61,7 @@ class BackgroundAuth extends GetView implements InformationViewContract {
                       controller.what.value = !controller.about.value;
                     }
                     if (controller.about.value) {
+                      isProcessing.value = true;
                       presenter.getInfo('abouthyperdata');
                     }
                   },
@@ -80,10 +83,40 @@ class BackgroundAuth extends GetView implements InformationViewContract {
             sizes: ColScreen(lg: Col.col_5),
             child: Obx(() => Column(
                   children: [
-                    if (!controller.about.value && !controller.what.value)
-                      Image.asset('assets/images/bg_auth.png'),
-                    if (controller.about.value || controller.what.value)
-                      Container(child: Text(controller.desc.value)),
+                    if (!isProcessing.value)
+                      if (!controller.about.value && !controller.what.value)
+                        Image.asset('assets/images/bg_auth.png'),
+                    if (!isProcessing.value)
+                      if (controller.about.value || controller.what.value)
+                        Container(child: Text(controller.desc.value)),
+                    if (isProcessing.value)
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.7,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Center(
+                              child: SizedBox(
+                                width: 80,
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.only(bottom: 10),
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Processing',
+                                      style: TextStyle(fontSize: 12),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                   ],
                 )),
           ),
@@ -94,6 +127,7 @@ class BackgroundAuth extends GetView implements InformationViewContract {
 
   @override
   void onSuccess(Response response) {
+    isProcessing.value = false;
     InformationModel model = InformationModel.fromJson(response.body);
     controller.desc.value = model.infodesc ?? '';
   }

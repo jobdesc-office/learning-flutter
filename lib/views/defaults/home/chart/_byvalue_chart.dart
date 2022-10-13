@@ -6,15 +6,19 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../models/default/dspbycust_model.dart';
-import '../../../../presenters/navigation_presenter.dart';
 import '../_source.dart';
 import '../home.dart';
 
 final source = Get.put(HomeSource());
-final _navigation = Get.find<NavigationPresenter>();
 
+// ignore: must_be_immutable
 class ChartByValue extends StatefulWidget {
-  const ChartByValue({Key? key}) : super(key: key);
+  ChartByValue({Key? key, required this.color});
+
+  List<DspbycustModel> alldata = [];
+  List<List<DspbycustModel>> alldatas = [];
+
+  final Color color;
 
   @override
   _ChartByValueState createState() => _ChartByValueState();
@@ -28,41 +32,34 @@ class _ChartByValueState extends State<ChartByValue> {
 
   bool showAvg = false;
 
-  List<DspbycustModel> alldata = [];
-  List<List<DspbycustModel>> alldatas = [];
-
   final currencyFormatter = NumberFormat('#,##0.00', 'ID');
   int touchedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Container(
-          padding: EdgeInsets.all(5),
-          child: AspectRatio(
-            aspectRatio: 1.79,
-            child: Container(
-              padding: EdgeInsets.only(right: 5),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(5),
-                  ),
-                  color: _navigation.darkTheme.value
-                      ? ColorPallates.elseDarkColor
-                      : Colors.white),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    right: 18.0, left: 12.0, top: 24, bottom: 12),
-                child: LineChart(
-                  mainData(
-                      dspbyvalues(),
-                      _navigation.darkTheme.value
-                          ? ColorPallates.elseDarkColor
-                          : Colors.white),
-                ),
+    widget.alldata.clear();
+    widget.alldatas.clear();
+    return Container(
+      padding: EdgeInsets.all(5),
+      child: AspectRatio(
+        aspectRatio: 1.79,
+        child: Container(
+          padding: EdgeInsets.only(right: 5),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(
+                Radius.circular(5),
               ),
+              color: widget.color),
+          child: Padding(
+            padding: const EdgeInsets.only(
+                right: 18.0, left: 12.0, top: 24, bottom: 12),
+            child: LineChart(
+              mainData(dspbyvalues(), widget.color),
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
@@ -270,7 +267,7 @@ class _ChartByValueState extends State<ChartByValue> {
                   showDialog(
                     context: context,
                     builder: (context) => ValueDetails(
-                      model: alldatas[index],
+                      model: widget.alldatas[index],
                     ),
                   );
               }
@@ -304,10 +301,10 @@ class _ChartByValueState extends State<ChartByValue> {
                   return LineTooltipItem(
                     'Rp ' +
                         currencyFormatter
-                            .format(double.parse(
-                                alldata[lineBarSpot.spotIndex - 1]
-                                    .prospectvalue
-                                    .toString()))
+                            .format(double.parse(widget
+                                .alldata[lineBarSpot.spotIndex - 1]
+                                .prospectvalue
+                                .toString()))
                             .replaceAll(',00', '')
                             .replaceAll('.', ','),
                     const TextStyle(
@@ -392,8 +389,8 @@ class _ChartByValueState extends State<ChartByValue> {
         totalvalid += parseInt(element.prospectvalue);
         total += parseInt(element.prospectvalue.toString().substring(0, index));
       }
-      alldatas.add(e);
-      alldata.add(DspbycustModel(
+      widget.alldatas.add(e);
+      widget.alldata.add(DspbycustModel(
           prospectvalue: totalvalid, prospectmm: e.first.prospectmm));
       return FlSpot(parseDouble(e.first.prospectmm), parseDouble(total));
     }).toList();

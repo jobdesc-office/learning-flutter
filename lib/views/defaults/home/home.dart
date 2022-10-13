@@ -262,6 +262,7 @@ class _HomeViewState extends State<HomeView>
 
   @override
   void onSuccessDspbycust(Response response) {
+    source.bycustall.clear();
     source.prospecttotal.value = '0';
     source.bycust.clear();
     source.years.clear();
@@ -282,6 +283,7 @@ class _HomeViewState extends State<HomeView>
     }
     source.prospecttotal.value = total.toString();
     source.years.value = year;
+    source.showValueChart.value = true;
   }
 
   @override
