@@ -17,7 +17,12 @@ class AttendanceTab extends StatelessWidget implements IndexViewContract {
             CustomDatabales(
               source: datatable,
               columns: datatable.columns,
-              headerActions: [user(), startdate(context), enddate(context)],
+              headerActions: [
+                user(),
+                startdate(context),
+                enddate(context),
+                reset()
+              ],
               serverSide: (params) => presenter.attenddatatables(
                   context, params,
                   start: startdates.value == '' ? null : startdates.value,
@@ -35,6 +40,23 @@ class AttendanceTab extends StatelessWidget implements IndexViewContract {
   BsSelectBoxController selectOwner = BsSelectBoxController();
 
   final _navigation = Get.find<NavigationPresenter>();
+
+  Widget reset() {
+    return Container(
+      margin: EdgeInsets.only(left: 5, right: 5),
+      child: BsButton(
+          size: BsButtonSize.btnSm,
+          style: BsButtonStyle.danger,
+          label: Icon(Icons.close_rounded),
+          onPressed: () {
+            startdates.value = '';
+            enddates.value = '';
+            selectOwner.clear();
+            datatable.controller.reload();
+          }),
+    );
+  }
+
   Widget user() {
     return Obx(() => Container(
           width: 200,
@@ -61,7 +83,11 @@ class AttendanceTab extends StatelessWidget implements IndexViewContract {
             borderColor: Colors.black,
             borderRadius: BorderRadius.all(Radius.circular(5))),
         width: 120,
-        size: BsButtonSize.btnLg,
+        size: BsButtonSize(
+            iconSize: 18.0,
+            fontSize: 14.0,
+            padding: EdgeInsets.fromLTRB(22, 12, 22, 12),
+            spaceLabelIcon: 10.0),
         onPressed: () {
           _startDates(context);
         },
@@ -81,7 +107,11 @@ class AttendanceTab extends StatelessWidget implements IndexViewContract {
             borderColor: Colors.black,
             borderRadius: BorderRadius.all(Radius.circular(5))),
         width: 120,
-        size: BsButtonSize.btnLg,
+        size: BsButtonSize(
+            iconSize: 18.0,
+            fontSize: 14.0,
+            padding: EdgeInsets.fromLTRB(22, 12, 22, 12),
+            spaceLabelIcon: 10.0),
         onPressed: () {
           _endDates(context);
         },

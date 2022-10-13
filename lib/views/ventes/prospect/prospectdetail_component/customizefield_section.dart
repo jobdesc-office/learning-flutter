@@ -445,7 +445,20 @@ class CustomfieldSection extends StatelessWidget {
                                       source.status.value !=
                                           ProspectText.closedLost &&
                                       source.status.value !=
-                                          ProspectText.forceClosed) {
+                                          ProspectText.forceClosed) if (permis
+                                      .where((element) =>
+                                          element.menunm == 'Ventes Datas')
+                                      .first
+                                      .children!
+                                      .where((element) =>
+                                          element.menunm == 'Prospect')
+                                      .first
+                                      .features!
+                                      .where((element) =>
+                                          element.featslug == 'update')
+                                      .first
+                                      .permissions!
+                                      .hasaccess!) {
                                     source.isAdd.value = true;
                                     cfForm.value.format.value =
                                         rawcustomField.custftype!.typename!;

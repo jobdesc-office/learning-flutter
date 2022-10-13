@@ -6,12 +6,15 @@ import 'package:timelines/timelines.dart';
 import '../../../../constants/base_text.dart';
 import '../../../../models/session_model.dart';
 import '../../../../models/settings/stbptype_model.dart';
+import '../../../../presenters/auth_presenter.dart';
 import '../../../../presenters/ventes/prospect_presenter.dart';
 import '../../../../styles/color_palattes.dart';
 import '../../../../utils/session_manager.dart';
 import '../../../../widgets/confirm_dialog.dart';
 import '../_detail_source.dart';
 import '../_text.dart';
+
+final authPresenter = Get.find<AuthPresenter>();
 
 abstract class MenuTypeViewDetailContract {
   void onLoadSuccess(Response response);
@@ -139,6 +142,8 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
         // int index = widget.controller.options.indexOf(type);
         // if (index == 0) {
         // } else if (index == widget.controller.options.length - 1) {}
+        // ignore: invalid_use_of_protected_member
+        var permis = authPresenter.rolepermis.value;
         return BsCol(
           margin: EdgeInsets.only(top: 10),
           sizes: ColScreen(sm: Col.col_2),
@@ -146,7 +151,18 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
             onTap: () async {
               if (source.status.value != ProspectText.closedWon &&
                   source.status.value != ProspectText.closedLost &&
-                  source.status.value != ProspectText.forceClosed) {
+                  source.status.value !=
+                      ProspectText.forceClosed) if (permis
+                  .where((element) => element.menunm == 'Ventes Datas')
+                  .first
+                  .children!
+                  .where((element) => element.menunm == 'Prospect')
+                  .first
+                  .features!
+                  .where((element) => element.featslug == 'update')
+                  .first
+                  .permissions!
+                  .hasaccess!) {
                 SessionModel session = await SessionManager.current();
                 Map<String, dynamic> body = {
                   'prospectstageid': type.sbtid,

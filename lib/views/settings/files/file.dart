@@ -30,6 +30,7 @@ class FileView extends GetView implements IndexViewContract {
           BreadcrumbWidget('Files', active: true),
         ],
         activeRoutes: [RouteList.master.index, RouteList.settingsFiles.index],
+        background: true,
         child: Container(
           child: Column(
             children: [

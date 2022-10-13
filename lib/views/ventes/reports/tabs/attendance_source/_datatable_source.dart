@@ -2,11 +2,9 @@ import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../../constants/base_text.dart';
 import '../../../../../models/ventes/attendance_model.dart';
 import '../../../../../presenters/navigation_presenter.dart';
 import '../../../../../styles/color_palattes.dart';
-import '../../../../../widgets/button/button_details_datatable.dart';
 import '../../../../../widgets/datatables/custom_datatable_tablecell.dart';
 import '../../../../../widgets/datatables/custom_datatable_tablehead.dart';
 
@@ -39,18 +37,18 @@ class AttendanceDataTableSource extends BsDatatableSource {
         width: 150,
       ),
       CustomBsDataColumn(
-        label: Text('Attendance In'),
+        label: Text('Attendance Clock In'),
         columnName: 'comptproductname',
         searchable: false,
         orderable: false,
-        width: 150,
+        width: 200,
       ),
       CustomBsDataColumn(
-        label: Text('Attendance Out'),
+        label: Text('Attendance Clock Out'),
         columnName: 'comptproductname',
         searchable: false,
         orderable: false,
-        width: 150,
+        width: 200,
       ),
       CustomBsDataColumn(
         label: Text('Attendance Address'),
@@ -64,12 +62,12 @@ class AttendanceDataTableSource extends BsDatatableSource {
       //   searchable: false,
       //   orderable: false,
       // ),
-      CustomBsDataColumn(
-        label: Text('Actions'),
-        orderable: false,
-        searchable: false,
-        width: 100,
-      ),
+      // CustomBsDataColumn(
+      //   label: Text('Actions'),
+      //   orderable: false,
+      //   searchable: false,
+      //   width: 100,
+      // ),
     ];
   }
 
@@ -143,28 +141,28 @@ class AttendanceDataTableSource extends BsDatatableSource {
                   ? ColorPallates.datatableLightEvenRowColor
                   : ColorPallates.datatableLightOddRowColor,
         ),
-        CustomBsDataCell(
-          Row(
-            children: [
-              Tooltip(
-                message: BaseText.detailHintDatatable(
-                    field: row.attuser?.userfullname),
-                child: ButtonDetailsDatatables(
-                  margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onDetailsListener(row.attid!),
-                ),
-              ),
-            ],
-          ),
-          color: _navigation.darkTheme.value
-              ? x % 2 == 0
-                  ? ColorPallates.datatableDarkEvenRowColor
-                  : ColorPallates.datatableDarkOddRowColor
-              : x % 2 == 0
-                  ? ColorPallates.datatableLightEvenRowColor
-                  : ColorPallates.datatableLightOddRowColor,
-          padding: EdgeInsets.all(9),
-        ),
+        // CustomBsDataCell(
+        //   Row(
+        //     children: [
+        //       Tooltip(
+        //         message: BaseText.detailHintDatatable(
+        //             field: row.attuser?.userfullname),
+        //         child: ButtonDetailsDatatables(
+        //           margin: EdgeInsets.only(right: 5),
+        //           onPressed: () => onDetailsListener(row.attid!),
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        //   color: _navigation.darkTheme.value
+        //       ? x % 2 == 0
+        //           ? ColorPallates.datatableDarkEvenRowColor
+        //           : ColorPallates.datatableDarkOddRowColor
+        //       : x % 2 == 0
+        //           ? ColorPallates.datatableLightEvenRowColor
+        //           : ColorPallates.datatableLightOddRowColor,
+        //   padding: EdgeInsets.all(9),
+        // ),
       ],
     );
   }
