@@ -1,20 +1,24 @@
+import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 import '../../contracts/auth/login_view_contract.dart';
+import '../../contracts/default/information_view_contract.dart';
 import '../../helpers/function.dart';
 import '../../models/auth_model.dart';
+import '../../models/default/information_model.dart';
 import '../../models/rolepermission_model.dart';
 import '../../models/session_model.dart';
 import '../../presenters/auth_presenter.dart';
+import '../../presenters/default/information_presenter.dart';
 import '../../routes/route_list.dart';
 import '../../services/app_service.dart';
+import '../../styles/color_palattes.dart';
 import '../../utils/session_manager.dart';
 import '../../widgets/login_button.dart';
 
 import '../../widgets/snackbar.dart';
-import '_background.dart';
 import '_form_source.dart';
 import '_source.dart';
 
@@ -25,16 +29,17 @@ class SignInView extends StatefulWidget {
 
 class _SignInViewState extends State<SignInView>
     with TickerProviderStateMixin
-    implements LoginViewContract {
+    implements LoginViewContract, InformationViewContract {
   _SignInViewState() {
     authPresenter.loginViewContract = this;
+    presenter.infoContract = this;
   }
+
+  final presenter = Get.put(InformationPresenter());
 
   final authPresenter = Get.put(AuthPresenter());
 
   final appService = Get.put(AppService());
-
-  BackgroundAuth _bg = BackgroundAuth();
 
   final LoginForm _loginForm = LoginForm();
 
@@ -42,145 +47,275 @@ class _SignInViewState extends State<SignInView>
 
   final GlobalKey<FormState> _formStateSignIn = GlobalKey<FormState>();
 
-  late TabController _tabController;
-
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 1, vsync: this);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Stack(
-        children: [
-          _bg,
-          Container(
-            margin: EdgeInsets.only(left: 50),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Container(
-                      width: 400,
-                      margin: EdgeInsets.only(top: Get.height * 0.15),
-                      padding: EdgeInsets.fromLTRB(20, 10, 20, 40),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset: Offset(0, 3), // changes position of shadow
+      backgroundColor: Color(0xfff1f1f1),
+      body: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              child: BsRow(
+                children: [
+                  BsCol(
+                    sizes: ColScreen(sm: Col.col_2),
+                  ),
+                  BsCol(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.shade500,
+                          offset: Offset(0, 0),
+                          blurRadius: 20,
+                          spreadRadius: 10,
+                        )
+                      ],
+                    ),
+                    sizes: ColScreen(sm: Col.col_8),
+                    child: BsRow(
+                      children: [
+                        BsCol(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(5.0),
+                                bottomLeft: Radius.circular(5.0)),
+                            color: ColorPallates.primary,
                           ),
-                        ],
-                      ),
-                      child: Column(
-                        children: [
-                          // Container(child: Text('data')),
-                          Container(
-                            child: TabBar(
-                              controller: _tabController,
-                              labelColor: Colors.blue,
-                              unselectedLabelColor: Colors.black,
-                              tabs: [
-                                Tab(text: 'Sign In'),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            width: double.infinity,
-                            height: 400,
-                            child: TabBarView(
-                              controller: _tabController,
+                          height: MediaQuery.of(context).size.height * 0.55,
+                          alignment: Alignment.center,
+                          sizes: ColScreen(sm: Col.col_6),
+                          child: Container(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Form(
-                                  key: _formStateSignIn,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        margin:
-                                            EdgeInsets.fromLTRB(20, 5, 20, 5),
-                                        padding:
-                                            EdgeInsets.fromLTRB(0, 10, 0, 10),
-                                        child: Obx(
-                                          () => Column(
-                                            children: [
-                                              _loginForm.username(
-                                                controller: authPresenter
-                                                    .source.value.inputUsername,
-                                              ),
-                                              _loginForm.password(
-                                                  obsecureText: controller
-                                                      .showPassword.value,
+                                Text('Sign in',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 32,
+                                        color: Colors.white)),
+                                Container(
+                                  margin: EdgeInsets.only(top: 10),
+                                  child: Form(
+                                    key: _formStateSignIn,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          margin:
+                                              EdgeInsets.fromLTRB(20, 5, 20, 5),
+                                          padding:
+                                              EdgeInsets.fromLTRB(0, 10, 0, 10),
+                                          child: Obx(
+                                            () => Column(
+                                              children: [
+                                                _loginForm.username(
                                                   controller: authPresenter
                                                       .source
                                                       .value
-                                                      .inputPassword,
-                                                  onTapSuffixIcon: () {
-                                                    controller.showPassword
-                                                        .toggle();
-                                                  },
-                                                  suffixIcon: controller
-                                                          .showPassword.isTrue
-                                                      ? Icons.visibility
-                                                      : Icons.visibility_off,
-                                                  onFieldSubmitted: (value) {
-                                                    onClickLogin();
-                                                  })
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      LayoutBuilder(
-                                        builder: (context, constraints) =>
-                                            Container(
-                                          margin: EdgeInsets.fromLTRB(
-                                              20, 10, 20, 20),
-                                          child: Obx(
-                                            () => LoginButton(
-                                              disabled: authPresenter
-                                                  .isProcessing.value,
-                                              width: constraints.maxWidth,
-                                              label: authPresenter
-                                                      .isProcessing.value
-                                                  ? SizedBox(
-                                                      child:
-                                                          CircularProgressIndicator(
-                                                        color: Colors.white,
-                                                        strokeWidth: 1,
-                                                      ),
-                                                      width: 20,
-                                                      height: 20,
-                                                    )
-                                                  : Text('Sign In'),
-                                              onPressed: onClickLogin,
+                                                      .inputUsername,
+                                                ),
+                                                _loginForm.password(
+                                                    obsecureText: controller
+                                                        .showPassword.value,
+                                                    controller: authPresenter
+                                                        .source
+                                                        .value
+                                                        .inputPassword,
+                                                    onTapSuffixIcon: () {
+                                                      controller.showPassword
+                                                          .toggle();
+                                                    },
+                                                    suffixIcon: controller
+                                                            .showPassword.isTrue
+                                                        ? Icons.visibility
+                                                        : Icons.visibility_off,
+                                                    onFieldSubmitted: (value) {
+                                                      onClickLogin();
+                                                    })
+                                              ],
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                        LayoutBuilder(
+                                          builder: (context, constraints) =>
+                                              Container(
+                                            margin: EdgeInsets.fromLTRB(
+                                                20, 10, 20, 20),
+                                            child: Obx(
+                                              () => LoginButton(
+                                                disabled: authPresenter
+                                                    .isProcessing.value,
+                                                width: constraints.maxWidth,
+                                                label: authPresenter
+                                                        .isProcessing.value
+                                                    ? SizedBox(
+                                                        child:
+                                                            CircularProgressIndicator(
+                                                          color: Colors.white,
+                                                          strokeWidth: 1,
+                                                        ),
+                                                        width: 20,
+                                                        height: 20,
+                                                      )
+                                                    : Text('Sign In'),
+                                                onPressed: onClickLogin,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ],
                             ),
-                          )
-                        ],
-                      ),
+                          ),
+                        ),
+                        BsCol(
+                          height: MediaQuery.of(context).size.height * 0.55,
+                          sizes: ColScreen(sm: Col.col_6),
+                          child: Obx(() => Column(
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(top: 10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            controller.what.toggle();
+                                            if (controller.about.value &&
+                                                controller.what.value) {
+                                              controller.about.value =
+                                                  !controller.what.value;
+                                            }
+                                            if (controller.what.value) {
+                                              controller.isProcessing.value =
+                                                  true;
+                                              presenter.getInfo('whatsventes');
+                                            }
+                                          },
+                                          child: Text("What's Ventes ?",
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  color: ColorPallates.dark)),
+                                        ),
+                                        InkWell(
+                                          onTap: () {
+                                            controller.about.toggle();
+                                            if (controller.what.value &&
+                                                controller.about.value) {
+                                              controller.what.value =
+                                                  !controller.about.value;
+                                            }
+                                            if (controller.about.value) {
+                                              controller.isProcessing.value =
+                                                  true;
+                                              presenter
+                                                  .getInfo('abouthyperdata');
+                                            }
+                                          },
+                                          child: Text('About Hyperdata',
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  color: ColorPallates.dark)),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.5,
+                                    padding: EdgeInsets.all(10),
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        children: [
+                                          if (!controller.isProcessing.value)
+                                            if (!controller.about.value &&
+                                                !controller.what.value)
+                                              Image.asset(
+                                                  'assets/images/bg_auth.png'),
+                                          if (!controller.isProcessing.value)
+                                            if (controller.about.value ||
+                                                controller.what.value)
+                                              Container(
+                                                  decoration: BoxDecoration(
+                                                    // border: Border.all(
+                                                    //     color: Colors.black),
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                5.0)),
+                                                  ),
+                                                  child: Container(
+                                                    padding: EdgeInsets.all(5),
+                                                    child: Text(
+                                                        controller.desc.value),
+                                                  )),
+                                          if (controller.isProcessing.value)
+                                            Container(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.7,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Center(
+                                                    child: SizedBox(
+                                                      width: 80,
+                                                      child: Column(
+                                                        children: [
+                                                          Container(
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    bottom: 10),
+                                                            child:
+                                                                CircularProgressIndicator(
+                                                              strokeWidth: 2,
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            'Processing',
+                                                            style: TextStyle(
+                                                                fontSize: 12),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )),
+                        )
+                      ],
                     ),
                   ),
-                )
-              ],
-            ),
-          ),
-        ],
+                  BsCol(
+                    sizes: ColScreen(sm: Col.col_2),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -243,5 +378,12 @@ class _SignInViewState extends State<SignInView>
   void onErrorResponse() {
     authPresenter.setProcessing(false);
     Snackbar().loginFailed();
+  }
+
+  @override
+  void onSuccess(Response response) {
+    controller.isProcessing.value = false;
+    InformationModel model = InformationModel.fromJson(response.body);
+    controller.desc.value = model.infodesc ?? '';
   }
 }

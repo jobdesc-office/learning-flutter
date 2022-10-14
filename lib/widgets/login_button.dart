@@ -15,8 +15,8 @@ class LoginButton extends BsButton {
           label: label,
           onPressed: onPressed,
           style: BsButtonStyle(
-            color: Colors.white,
-            backgroundColor: ColorPallates.primary,
+            color: ColorPallates.secondary,
+            backgroundColor: Colors.white,
             borderRadius: BorderRadius.circular(5),
           ),
           size: BsButtonSize(

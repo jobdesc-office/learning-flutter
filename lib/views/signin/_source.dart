@@ -8,6 +8,8 @@ class LoginSource extends GetxController {
 
   bool onProgress = false;
 
+  var isProcessing = false.obs;
+
   var what = false.obs;
   var about = false.obs;
 
