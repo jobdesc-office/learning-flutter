@@ -86,13 +86,14 @@ class PCustomersSource extends GetxController {
   TextEditingController inputPrefix = TextEditingController();
   TextEditingController inputName = TextEditingController();
   TextEditingController inputPhone = TextEditingController();
-  TextEditingController inputAddress = TextEditingController();
   TextEditingController inputReferal = TextEditingController();
+
   TextEditingController inputProvince = TextEditingController();
   TextEditingController inputCity = TextEditingController();
   TextEditingController inputSubdistrict = TextEditingController();
   TextEditingController inputVillage = TextEditingController();
   TextEditingController inputPostal = TextEditingController();
+  TextEditingController inputAddress = TextEditingController();
 
   BsSelectBoxController selectCustomer = BsSelectBoxController();
   BsSelectBoxController selectType = BsSelectBoxController();
@@ -346,11 +347,8 @@ class PCustomersForm {
         onPressed: () => Get.to(GoogleMapsPage()),
         label: Obx(() {
           if (map.latitudelongitude.isNotEmpty) {
-            if (source.pro.value) {
-              presenter.address(map.latitudelongitude.value);
-            } else {
-              presenter.addresss(map.latitudelongitude.value);
-            }
+            presenter.address(map.latitudelongitude.value);
+
             return Text(map.latitudelongitude.isEmpty
                 ? "Choose the Place"
                 : map.latitudelongitude.value);

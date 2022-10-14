@@ -3,7 +3,7 @@ part of '../../company.dart';
 class _CustomerFormSource extends GetxController
     implements CustomerAddressContract, EditViewContract, IndexViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
-  final source = PCustomersSource().obs;
+  final source = Get.put(PCustomersSource());
   CustomerPresenter presenter = Get.find<CustomerPresenter>();
   BpCustomerPresenter get bppresenter => Get.find<BpCustomerPresenter>();
 
@@ -19,7 +19,7 @@ class _CustomerFormSource extends GetxController
   late PCustomersForm pCustomerForm;
 
   Widget form(BuildContext context) {
-    pCustomerForm = PCustomersForm(source.value);
+    pCustomerForm = PCustomersForm(source);
     return Obx(() {
       return BsRow(
         children: [
@@ -44,7 +44,7 @@ class _CustomerFormSource extends GetxController
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         pCustomerForm.checkBox(),
-                        if (!source.value.isRegistered.value)
+                        if (!source.isRegistered.value)
                           BsRow(
                             children: [
                               BsCol(
@@ -271,7 +271,7 @@ class _CustomerFormSource extends GetxController
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(source.value.createdby.value),
+                                    Text(source.createdby.value),
                                     Divider()
                                   ],
                                 )),
@@ -287,7 +287,7 @@ class _CustomerFormSource extends GetxController
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(source.value.createddate.value),
+                                    Text(source.createddate.value),
                                     Divider()
                                   ],
                                 )),
@@ -303,7 +303,7 @@ class _CustomerFormSource extends GetxController
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(source.value.updatedby.value),
+                                    Text(source.updatedby.value),
                                     Divider()
                                   ],
                                 )),
@@ -319,7 +319,7 @@ class _CustomerFormSource extends GetxController
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(source.value.updateddate.value),
+                                    Text(source.updateddate.value),
                                     Divider()
                                   ],
                                 )),
@@ -335,7 +335,7 @@ class _CustomerFormSource extends GetxController
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    if (source.value.isactive.value)
+                                    if (source.isactive.value)
                                       InkWell(
                                         child: Icon(
                                           Icons.toggle_on,
@@ -344,7 +344,7 @@ class _CustomerFormSource extends GetxController
                                               ? ColorPallates.onDarkMode
                                               : ColorPallates.onLightMode,
                                         ),
-                                        onTap: source.value.isactive.toggle,
+                                        onTap: source.isactive.toggle,
                                       )
                                     else
                                       InkWell(
@@ -355,7 +355,7 @@ class _CustomerFormSource extends GetxController
                                               ? ColorPallates.offDarkMode
                                               : ColorPallates.offLightMode,
                                         ),
-                                        onTap: source.value.isactive.toggle,
+                                        onTap: source.isactive.toggle,
                                       ),
                                     Divider()
                                   ],
@@ -376,11 +376,10 @@ class _CustomerFormSource extends GetxController
   void onClickSaveModal(BuildContext context) async {
     presenter.setProcessing(true);
     if (isEdit.value) {
-      presenter.update(
-          context, await source.value.toJson(), source.value.id.value);
+      presenter.update(context, await source.toJson(), source.id.value);
     } else {
       if (formState.currentState!.validate()) {
-        presenter.saveCustomer(context, FormData(await source.value.toJson()));
+        presenter.saveCustomer(context, FormData(await source.toJson()));
       } else
         presenter.setProcessing(false);
     }
@@ -399,7 +398,8 @@ class _CustomerFormSource extends GetxController
 
   @override
   void onLoadAddressSuccess(Response response) {
-    pCustomerForm = PCustomersForm(source.value);
+    print('tes');
+    pCustomerForm = PCustomersForm(source);
     pCustomerForm.source.isnGetLatLong.value = false;
     MapsLoc address = MapsLoc.fromJson(response.body);
     List<AddressComponents>? addresses =
@@ -463,14 +463,12 @@ class _CustomerFormSource extends GetxController
             "";
 
         String adres = address.adresses!.first.formattedAddress ?? "";
-        source.update((val) {
-          source.value.inputProvince.text = province;
-          source.value.inputCity.text = city;
-          source.value.inputSubdistrict.text = subdistrict;
-          source.value.inputVillage.text = village;
-          source.value.inputPostal.text = postalCode;
-          source.value.inputAddress.text = adres;
-        });
+        source.inputProvince.text = province;
+        source.inputCity.text = city;
+        source.inputSubdistrict.text = subdistrict;
+        source.inputVillage.text = village;
+        source.inputPostal.text = postalCode;
+        source.inputAddress.text = adres;
       }
     } catch (e) {
       Snackbar().unknowLocation();
@@ -483,30 +481,28 @@ class _CustomerFormSource extends GetxController
     isEdit.value = true;
     isForm.value = true;
 
-    source.update((val) {
-      CustomerModel customer = CustomerModel.fromJson(response.body);
-      source.value.id.value = customer.cstmid ?? 0;
-      source.value.inputPrefix.text = customer.cstmprefix ?? '';
-      source.value.inputName.text = customer.cstmname ?? '';
-      source.value.inputPhone.text = customer.cstmphone ?? '';
-      source.value.inputAddress.text = customer.cstmaddress ?? '';
-      source.value.selectType.setSelected(BsSelectBoxOption(
-          value: customer.cstmtypeid,
-          text: Text(customer.cstmtype?.typename ?? '')));
-      source.value.inputReferal.text = customer.referalcode ?? '';
-      source.value.inputProvince.text = customer.cstmprovince?.provname ?? '';
-      source.value.inputCity.text = customer.cstmcity?.cityname ?? '';
-      source.value.inputSubdistrict.text =
-          customer.cstmsubdistrict?.subdistrictname ?? '';
-      source.value.inputVillage.text = customer.cstmvillage?.villagename ?? '';
-      source.value.inputPostal.text = customer.cstmpostalcode ?? '';
+    CustomerModel customer = CustomerModel.fromJson(response.body);
+    source.id.value = customer.cstmid ?? 0;
+    source.inputPrefix.text = customer.cstmprefix ?? '';
+    source.inputName.text = customer.cstmname ?? '';
+    source.inputPhone.text = customer.cstmphone ?? '';
+    source.inputAddress.text = customer.cstmaddress ?? '';
+    source.selectType.setSelected(BsSelectBoxOption(
+        value: customer.cstmtypeid,
+        text: Text(customer.cstmtype?.typename ?? '')));
+    source.inputReferal.text = customer.referalcode ?? '';
+    source.inputProvince.text = customer.cstmprovince?.provname ?? '';
+    source.inputCity.text = customer.cstmcity?.cityname ?? '';
+    source.inputSubdistrict.text =
+        customer.cstmsubdistrict?.subdistrictname ?? '';
+    source.inputVillage.text = customer.cstmvillage?.villagename ?? '';
+    source.inputPostal.text = customer.cstmpostalcode ?? '';
 
-      source.value.createdby.value = customer.custcreatedby?.userfullname ?? '';
-      source.value.createddate.value = customer.createddate ?? '';
-      source.value.updatedby.value = customer.custupdatedby?.userfullname ?? '';
-      source.value.updateddate.value = customer.updateddate ?? '';
-      source.value.isactive.value = customer.isactive ?? true;
-    });
+    source.createdby.value = customer.custcreatedby?.userfullname ?? '';
+    source.createddate.value = customer.createddate ?? '';
+    source.updatedby.value = customer.custupdatedby?.userfullname ?? '';
+    source.updateddate.value = customer.updateddate ?? '';
+    source.isactive.value = customer.isactive ?? true;
   }
 
   @override
