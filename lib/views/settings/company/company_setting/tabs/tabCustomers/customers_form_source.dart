@@ -6,10 +6,8 @@ class _CustomerFormSource extends GetxController
   final source = PCustomersSource().obs;
   CustomerPresenter presenter = Get.find<CustomerPresenter>();
   BpCustomerPresenter get bppresenter => Get.find<BpCustomerPresenter>();
-  final stbpPresenter = Get.find<StBpTypeActivityCategoryPresenter>();
 
   _CustomerFormSource() {
-    stbpPresenter.stBpTypeActivityCategoryViewContract = this;
     presenter.customerAddresContract = this;
     presenter.customerAddressContract = this;
     presenter.customerFetchDataContract = this;

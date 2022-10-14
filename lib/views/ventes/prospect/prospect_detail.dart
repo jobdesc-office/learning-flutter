@@ -348,6 +348,9 @@ class _ProspectDetailsState extends State<ProspectDetails>
           jsonDecode(dt.prospectcustlabeltype?.sbtremark ?? '');
       source.custlabelcolor.value = Color(parseInt(color['color']));
       source.custlabeltextcolor.value = Color(parseInt(color['textcolor']));
+    } else {
+      source.custlabelcolor.value = Color.fromARGB(0, 255, 255, 255);
+      source.custlabeltextcolor.value = Color.fromARGB(255, 0, 0, 0);
     }
 
     if (dt.prospectstatus?.sbtremark != null) {
@@ -355,6 +358,9 @@ class _ProspectDetailsState extends State<ProspectDetails>
           jsonDecode(dt.prospectstatus?.sbtremark ?? '');
       source.statuscolor.value = Color(parseInt(color['color']));
       source.statustextcolor.value = Color(parseInt(color['textcolor']));
+    } else {
+      source.statuscolor.value = Color.fromARGB(0, 255, 255, 255);
+      source.statustextcolor.value = Color.fromARGB(255, 0, 0, 0);
     }
 
     presenter.setProcessing(false);

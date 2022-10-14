@@ -38,6 +38,7 @@ class RoleView extends GetView implements IndexViewContract {
           BreadcrumbWidget('Roles', active: true),
         ],
         activeRoutes: [RouteList.master.index, RouteList.masterRole.index],
+        background: true,
         child: Container(
           child: Column(
             children: [

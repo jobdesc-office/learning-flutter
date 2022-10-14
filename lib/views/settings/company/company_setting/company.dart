@@ -47,7 +47,6 @@ import '../../../../presenters/masters/user_presenter.dart';
 import '../../../../presenters/navigation_presenter.dart';
 import '../../../../presenters/settings/customfield_presenter.dart';
 import '../../../../presenters/settings/stbptype/stbptypeactivitycategory_presenter.dart';
-import '../../../../presenters/settings/stbptype/stbptypeactivitytype_presenter.dart';
 import '../../../../presenters/settings/stbptype/stbptypecontacttype_presenter.dart';
 import '../../../../presenters/settings/stbptype/stbptypecustomertype_presenter.dart';
 import '../../../../presenters/settings/stbptype/stbptypeprospectcategory_presenter.dart';
@@ -107,7 +106,7 @@ part 'tabs/tabCustomers/customers_form_source.dart';
 part 'tabs/tabCustomers/tabCustomerspr.dart';
 
 part 'tabs/tabActivities_source/_tabCategory.dart';
-part 'tabs/tabActivities_source/_tabType.dart';
+// part 'tabs/tabActivities_source/_tabType.dart';
 part 'tabs/tabActivities_source/_tabCustomerActivity.dart';
 
 part 'tabs/tabCustomers_source/_tabContactType.dart';
