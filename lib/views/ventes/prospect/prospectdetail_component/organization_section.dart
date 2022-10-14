@@ -16,7 +16,7 @@ class OrganizationSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() => Container(
-          height: 130,
+          // height: 160,
           decoration: BoxDecoration(
             color: _navigation.darkTheme.value
                 ? ColorPallates.elseDarkColor
@@ -56,6 +56,29 @@ class OrganizationSection extends StatelessWidget {
                         ],
                       ),
                     ),
+                    Container(
+                      margin: EdgeInsets.only(top: 10),
+                      child: Row(
+                        children: [
+                          Icon(Icons.code),
+                          Container(
+                              margin: EdgeInsets.only(top: 5),
+                              child: Text(source.prospectCode.value))
+                        ],
+                      ),
+                    ),
+                    if (source.prospectRef.value != '')
+                      Container(
+                        margin: EdgeInsets.only(top: 10),
+                        child: Row(
+                          children: [
+                            Icon(Icons.domain),
+                            Container(
+                                margin: EdgeInsets.only(top: 5),
+                                child: Text(source.prospectRef.value))
+                          ],
+                        ),
+                      ),
                   ],
                 ),
               )),

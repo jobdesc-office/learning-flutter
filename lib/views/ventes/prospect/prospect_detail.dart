@@ -304,6 +304,9 @@ class _ProspectDetailsState extends State<ProspectDetails>
     source.custlabel.value = dt.prospectcustlabeltype?.sbttypename ?? '';
     source.custid.value = dt.prospectcust!.sbccstm!.cstmid ?? 0;
 
+    source.prospectCode.value = dt.prospectcode ?? '';
+    source.prospectRef.value = dt.prospectreference?.prospectname ?? '';
+
     if (dt.prospectlostreasonid != null) {
       source.losttype.value = dt.prospectlost!.sbttypename!;
       source.lostdesc.value = dt.prospectlostdesc!;
