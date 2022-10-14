@@ -398,7 +398,6 @@ class _CustomerFormSource extends GetxController
 
   @override
   void onLoadAddressSuccess(Response response) {
-    print('tes');
     pCustomerForm = PCustomersForm(source);
     pCustomerForm.source.isnGetLatLong.value = false;
     MapsLoc address = MapsLoc.fromJson(response.body);

@@ -94,47 +94,49 @@ class _TabGeneral extends StatelessWidget
         ),
         BsCol(
           margin: EdgeInsets.only(top: 10),
-          child: BsRow(
-            children: [
-              BsCol(
-                margin: EdgeInsets.only(top: 15),
-                alignment: Alignment.bottomCenter,
-                sizes: ColScreen(sm: Col.col_1),
-                child: Text('Company Type'),
-              ),
-              BsCol(
-                sizes: ColScreen(sm: Col.col_11),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    selectSubdistrict(context),
-                    if (permis
-                        .where((element) => element.menunm == 'Settings')
-                        .first
-                        .children!
-                        .where((element) => element.menunm == 'Company Setting')
-                        .first
-                        .features!
-                        .where((element) => element.featslug == 'update')
-                        .first
-                        .permissions!
-                        .hasaccess!)
-                      Obx(() {
-                        return BsCol(
-                          margin: EdgeInsets.only(top: 10),
-                          sizes: ColScreen(sm: Col.col_1),
-                          child: ThemeButtonSave(
-                            onPressed: () => onSave(context),
-                            processing: presenter.isProcessing.value,
-                            disabled: presenter.isProcessing.value,
-                          ),
-                        );
-                      }),
-                  ],
-                ),
-              ),
-            ],
-          ),
+          child: Obx(() => BsRow(
+                children: [
+                  BsCol(
+                    margin: EdgeInsets.only(top: 15),
+                    alignment: Alignment.bottomCenter,
+                    sizes: ColScreen(sm: Col.col_1),
+                    child: Text('Company Type'),
+                  ),
+                  if (source.show.value)
+                    BsCol(
+                      sizes: ColScreen(sm: Col.col_11),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          selectSubdistrict(context),
+                          if (permis
+                              .where((element) => element.menunm == 'Settings')
+                              .first
+                              .children!
+                              .where((element) =>
+                                  element.menunm == 'Company Setting')
+                              .first
+                              .features!
+                              .where((element) => element.featslug == 'update')
+                              .first
+                              .permissions!
+                              .hasaccess!)
+                            Obx(() {
+                              return BsCol(
+                                margin: EdgeInsets.only(top: 10),
+                                sizes: ColScreen(sm: Col.col_1),
+                                child: ThemeButtonSave(
+                                  onPressed: () => onSave(context),
+                                  processing: presenter.isProcessing.value,
+                                  disabled: presenter.isProcessing.value,
+                                ),
+                              );
+                            }),
+                        ],
+                      ),
+                    ),
+                ],
+              )),
         ),
       ],
     );
@@ -184,10 +186,11 @@ class _TabGeneral extends StatelessWidget
       source.inputPIC.text = businessPartner.bppicname ?? "";
       source.inputEmail.text = businessPartner.bpemail ?? "";
       source.inputPhone.text = businessPartner.bpphone ?? "";
+      source.choosedType.setSelected(BsSelectBoxOption(
+          value: businessPartner.bptype?.typeid,
+          text: Text(businessPartner.bptype!.typename!)));
     });
-    source.choosedType.setSelected(BsSelectBoxOption(
-        value: businessPartner.bptype?.typeid,
-        text: Text(businessPartner.bptype!.typename!)));
+    source.show.value = true;
   }
 
   @override

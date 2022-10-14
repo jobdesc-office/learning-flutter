@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 class GeneralSource {
   bool isProcessing = false;
 
+  var show = false.obs;
+
   var createdby = ''.obs;
   var createddate = ''.obs;
   var updatedby = ''.obs;
