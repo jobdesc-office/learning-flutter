@@ -37,6 +37,7 @@ class VillageView extends GetView implements IndexViewContract {
           BreadcrumbWidget('Villages', active: true),
         ],
         activeRoutes: [RouteList.master.index, RouteList.masterVillage.index],
+        background: true,
         child: Container(
           child: Column(
             children: [

@@ -457,7 +457,7 @@ class PCustomersForm {
     return BsRow(
       children: [
         BsCol(
-          sizes: ColScreen(sm: Col.col_2),
+          sizes: ColScreen(sm: Col.col_3),
           child: Obx(() => Row(
                 children: [
                   Text(PCustomerText.labelRegistered,
