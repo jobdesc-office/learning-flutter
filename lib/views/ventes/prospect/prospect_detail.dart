@@ -350,6 +350,13 @@ class _ProspectDetailsState extends State<ProspectDetails>
       source.custlabeltextcolor.value = Color(parseInt(color['textcolor']));
     }
 
+    if (dt.prospectstatus?.sbtremark != null) {
+      Map<String, dynamic> color =
+          jsonDecode(dt.prospectstatus?.sbtremark ?? '');
+      source.statuscolor.value = Color(parseInt(color['color']));
+      source.statustextcolor.value = Color(parseInt(color['textcolor']));
+    }
+
     presenter.setProcessing(false);
   }
 

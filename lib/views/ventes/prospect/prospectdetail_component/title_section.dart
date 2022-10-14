@@ -72,7 +72,15 @@ BsCol prospectDetailTitleSection(context) {
                               source.status.value != 'Force Closed')
                             Container(
                               margin: EdgeInsets.only(top: 5),
-                              child: Text(source.status.value),
+                              child: Text(
+                                source.status.value,
+                                style: TextStyle(
+                                    color: source.statustextcolor.value),
+                              ),
+                              padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
+                              decoration: BoxDecoration(
+                                  color: source.statuscolor.value,
+                                  borderRadius: BorderRadius.circular(5)),
                             )
                         ],
                       ),

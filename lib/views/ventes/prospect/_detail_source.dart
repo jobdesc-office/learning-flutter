@@ -42,6 +42,8 @@ class ProspectDetailsSource extends GetxController {
   var remind = ''.obs;
   var timezone = ''.obs;
   var status = ''.obs;
+  var statuscolor = Color.fromARGB(0, 255, 255, 255).obs;
+  var statustextcolor = Color.fromARGB(255, 0, 0, 0).obs;
   var stage = ''.obs;
 
   var online = false.obs;
