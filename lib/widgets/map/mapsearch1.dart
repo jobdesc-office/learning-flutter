@@ -15,32 +15,29 @@ import '../../contracts/master/customerAddress_contract.dart';
 import '../../presenters/default/map_presenter.dart';
 import '../snackbar.dart';
 import '_map_source.dart';
-import 'mapsearch1.dart';
+import 'mapsearch2.dart';
 
-class GoogleMapsPage extends StatefulWidget {
-  const GoogleMapsPage({Key? key}) : super(key: key);
+class GoogleMapsSearchPage extends StatefulWidget {
+  final CameraPosition camera;
+  const GoogleMapsSearchPage({Key? key, required this.camera});
 
   @override
-  _GoogleMapsPageState createState() => _GoogleMapsPageState();
+  _GoogleMapsSearchPageState createState() => _GoogleMapsSearchPageState();
 }
 
-class _GoogleMapsPageState extends State<GoogleMapsPage>
+class _GoogleMapsSearchPageState extends State<GoogleMapsSearchPage>
     implements CustomerAddressContract {
   final controller = Get.put(MapSource());
   final _controller = Completer<GoogleMapController>();
   final presenter = Get.put(MapPresenter());
   MapPickerController mapPickerController = MapPickerController();
 
-  CameraPosition cameraPosition = const CameraPosition(
-    target: LatLng(-6.199086, 106.5750849),
-    zoom: 14.4746,
-  );
-
   var textController = TextEditingController();
   TextEditingController search = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    CameraPosition cameraPosition = widget.camera;
     return Scaffold(
       body: Stack(
         alignment: Alignment.topCenter,
@@ -70,7 +67,7 @@ class _GoogleMapsPageState extends State<GoogleMapsPage>
                 textController.text = "checking ...";
               },
               onCameraMove: (cameraPosition) {
-                this.cameraPosition = cameraPosition;
+                cameraPosition = cameraPosition;
               },
               onCameraIdle: () async {
                 // notify map stopped moving
@@ -116,7 +113,6 @@ class _GoogleMapsPageState extends State<GoogleMapsPage>
                   sizes: ColScreen(sm: Col.col_4),
                   child: Container(
                     width: 300,
-                    color: Colors.white,
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     child: GooglePlaceAutoCompleteTextField(
                         textEditingController: search,
@@ -128,13 +124,13 @@ class _GoogleMapsPageState extends State<GoogleMapsPage>
                         isLatLngRequired: true,
                         getPlaceDetailWithLatLng: (Prediction prediction) {
                           setState(() {
-                            this.cameraPosition = CameraPosition(
+                            cameraPosition = CameraPosition(
                               target: LatLng(parseDouble(prediction.lat),
                                   parseDouble(prediction.lng)),
                               zoom: 14.4746,
                             );
                           });
-                          Get.to(GoogleMapsSearchPage(
+                          Get.to(GoogleMapsSearchPage2(
                             camera: CameraPosition(
                               target: LatLng(parseDouble(prediction.lat),
                                   parseDouble(prediction.lng)),
