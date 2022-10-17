@@ -17,6 +17,7 @@ class SidebarWidgets {
           // width: 250,
           // height: 75,
           filterQuality: FilterQuality.high,
+          fit: BoxFit.fill,
         ))
       ],
     );
@@ -28,6 +29,7 @@ class SidebarWidgets {
         Expanded(
             child: Image.asset(
           'assets/images/logo-short.png',
+          fit: BoxFit.fill,
           // width: 150,
           // height: 50,
           filterQuality: FilterQuality.high,
