@@ -33,7 +33,7 @@ class ProspectActivityDetails extends GetView implements DetailViewContract {
     return BsModal(
         context: context,
         dialog: BsModalDialog(
-          size: BsModalSize.md,
+          size: BsModalSize.lg,
           child: BsModalContent(
               decoration: BoxDecoration(
                 color: _navigation.darkTheme.value
