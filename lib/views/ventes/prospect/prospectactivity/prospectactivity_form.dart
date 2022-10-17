@@ -132,8 +132,8 @@ class ProspectActivityFormView extends StatelessWidget
       ProspectActivityModel prospect =
           ProspectActivityModel.fromJson(response.body);
       source.value.selectType.setSelected(BsSelectBoxOption(
-          value: prospect.prospectactivitytype!.typeid,
-          text: Text(prospect.prospectactivitytype!.typename.toString())));
+          value: prospect.prospectactivitytype!.sbtid,
+          text: Text(prospect.prospectactivitytype!.sbttypename.toString())));
       source.value.selectCat.setSelected(BsSelectBoxOption(
           value: prospect.prospectactivitycat!.typeid,
           text: Text(prospect.prospectactivitycat!.typename.toString())));

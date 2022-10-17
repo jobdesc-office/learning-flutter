@@ -139,7 +139,7 @@ class _TabActivity extends StatelessWidget {
                                                               context,
                                                               element
                                                                   .prospectactivityid!,
-                                                              '${element.prospectactivitytype!.typename} at ${element.prospectactivitydate}');
+                                                              '${element.prospectactivitytype!.sbttypename} at ${element.prospectactivitydate}');
                                                         }),
                                                     ]);
                                             },
@@ -206,7 +206,7 @@ class _TabActivity extends StatelessWidget {
                                                                   top: 5),
                                                           child: Text(element
                                                                   .prospectactivitytype
-                                                                  ?.typename ??
+                                                                  ?.sbttypename ??
                                                               ''),
                                                         ),
                                                         Container(

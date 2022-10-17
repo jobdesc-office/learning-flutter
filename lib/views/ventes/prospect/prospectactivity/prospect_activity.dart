@@ -192,7 +192,7 @@ class ProspectActivityDetails extends GetView implements DetailViewContract {
     controller.date.value = activity.prospectactivitydate ?? '';
     controller.desc.value = activity.prospectactivitydesc ?? '';
     controller.info.value = activity.prospectactivityinfo ?? '';
-    controller.type.value = activity.prospectactivitytype!.typename ?? '';
+    controller.type.value = activity.prospectactivitytype!.sbttypename ?? '';
     controller.link.value = activity.prospectactivityloc ?? '';
     presenter.setProcessing(false);
   }

@@ -18,7 +18,7 @@ class ProspectActivityModel {
   Prospectactivitycreatedby? prospectactivityupdatedby;
   Prospectactivityprospect? prospectactivityprospect;
   Prospectactivitycat? prospectactivitycat;
-  Prospectactivitycat? prospectactivitytype;
+  Prospectactivitytype? prospectactivitytype;
 
   ProspectActivityModel(
       {this.prospectactivityid,
@@ -74,7 +74,7 @@ class ProspectActivityModel {
         ? new Prospectactivitycat.fromJson(json['prospectactivitycat'])
         : null;
     prospectactivitytype = json['prospectactivitytype'] != null
-        ? new Prospectactivitycat.fromJson(json['prospectactivitytype'])
+        ? new Prospectactivitytype.fromJson(json['prospectactivitytype'])
         : null;
   }
 
@@ -302,6 +302,25 @@ class Prospectactivitycat {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['typeid'] = this.typeid;
     data['typename'] = this.typename;
+    return data;
+  }
+}
+
+class Prospectactivitytype {
+  int? sbtid;
+  String? sbttypename;
+
+  Prospectactivitytype({this.sbtid, this.sbttypename});
+
+  Prospectactivitytype.fromJson(Map<String, dynamic> json) {
+    sbtid = json['sbtid'];
+    sbttypename = json['sbttypename'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['sbtid'] = this.sbtid;
+    data['sbttypename'] = this.sbttypename;
     return data;
   }
 }
