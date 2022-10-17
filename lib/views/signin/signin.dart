@@ -267,7 +267,7 @@ class _SignInViewState extends State<SignInView>
                                               height: MediaQuery.of(context)
                                                       .size
                                                       .height *
-                                                  0.7,
+                                                  0.5,
                                               child: Column(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,

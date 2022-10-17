@@ -12,8 +12,12 @@ class SidebarWidgets {
     return Row(
       children: [
         Expanded(
-            child: Image.asset('assets/images/ventes-logo.png',
-                width: 250, height: 75))
+            child: Image(
+          image: AssetImage('assets/images/ventes-logo.png'),
+          // width: 250,
+          // height: 75,
+          filterQuality: FilterQuality.high,
+        ))
       ],
     );
   }
@@ -22,8 +26,12 @@ class SidebarWidgets {
     return Row(
       children: [
         Expanded(
-            child: Image.asset('assets/images/logo-short.png',
-                width: 150, height: 50))
+            child: Image.asset(
+          'assets/images/logo-short.png',
+          // width: 150,
+          // height: 50,
+          filterQuality: FilterQuality.high,
+        ))
       ],
     );
   }
