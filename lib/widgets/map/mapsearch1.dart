@@ -202,6 +202,7 @@ class _GoogleMapsSearchPageState extends State<GoogleMapsSearchPage>
                     controller.latitudelongitude.value =
                         '${cameraPosition.target.latitude},${cameraPosition.target.longitude}';
                     Navigator.pop(context, true);
+                    Navigator.pop(context, true);
                   } else {
                     Snackbar().outOfRange();
                   }
