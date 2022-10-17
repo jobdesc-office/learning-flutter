@@ -97,76 +97,76 @@ class _GoogleMapsSearchPageState extends State<GoogleMapsSearchPage>
               controller: textController,
             ),
           ),
-          Positioned(
-            top: 24,
-            left: 24,
-            right: 24,
-            child: BsRow(
-              children: [
-                BsCol(
-                  decoration: BoxDecoration(
-                    // border: Border.all(
-                    //     color: Colors.black),
-                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                    color: Colors.white,
-                  ),
-                  sizes: ColScreen(sm: Col.col_4),
-                  child: Container(
-                    width: 300,
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: GooglePlaceAutoCompleteTextField(
-                        textEditingController: search,
-                        googleAPIKey: "AIzaSyDUYfxm7qJq8dcMMhvhaoUukhQqMxBO6oc",
-                        inputDecoration:
-                            InputDecoration(hintText: "Search your location"),
-                        debounceTime: 800,
-                        countries: ["id"],
-                        isLatLngRequired: true,
-                        getPlaceDetailWithLatLng: (Prediction prediction) {
-                          setState(() {
-                            cameraPosition = CameraPosition(
-                              target: LatLng(parseDouble(prediction.lat),
-                                  parseDouble(prediction.lng)),
-                              zoom: 14.4746,
-                            );
-                          });
-                          Get.to(GoogleMapsSearchPage2(
-                            camera: CameraPosition(
-                              target: LatLng(parseDouble(prediction.lat),
-                                  parseDouble(prediction.lng)),
-                              zoom: 14.4746,
-                            ),
-                          ));
-                        },
-                        itmClick: (Prediction prediction) {
-                          search.text = prediction.description ?? '';
+          // Positioned(
+          //   top: 24,
+          //   left: 24,
+          //   right: 24,
+          //   child: BsRow(
+          //     children: [
+          //       BsCol(
+          //         decoration: BoxDecoration(
+          //           // border: Border.all(
+          //           //     color: Colors.black),
+          //           borderRadius: BorderRadius.all(Radius.circular(5.0)),
+          //           color: Colors.white,
+          //         ),
+          //         sizes: ColScreen(sm: Col.col_4),
+          //         child: Container(
+          //           width: 300,
+          //           padding: EdgeInsets.symmetric(horizontal: 20),
+          //           child: GooglePlaceAutoCompleteTextField(
+          //               textEditingController: search,
+          //               googleAPIKey: "AIzaSyDUYfxm7qJq8dcMMhvhaoUukhQqMxBO6oc",
+          //               inputDecoration:
+          //                   InputDecoration(hintText: "Search your location"),
+          //               debounceTime: 800,
+          //               countries: ["id"],
+          //               isLatLngRequired: true,
+          //               getPlaceDetailWithLatLng: (Prediction prediction) {
+          //                 setState(() {
+          //                   cameraPosition = CameraPosition(
+          //                     target: LatLng(parseDouble(prediction.lat),
+          //                         parseDouble(prediction.lng)),
+          //                     zoom: 14.4746,
+          //                   );
+          //                 });
+          //                 Get.to(GoogleMapsSearchPage2(
+          //                   camera: CameraPosition(
+          //                     target: LatLng(parseDouble(prediction.lat),
+          //                         parseDouble(prediction.lng)),
+          //                     zoom: 14.4746,
+          //                   ),
+          //                 ));
+          //               },
+          //               itmClick: (Prediction prediction) {
+          //                 search.text = prediction.description ?? '';
 
-                          search.selection = TextSelection.fromPosition(
-                              TextPosition(
-                                  offset: prediction.description?.length ?? 0));
-                        }
-                        // default 600 ms ,
-                        ),
-                  ),
-                ),
-                // BsCol(
-                //   decoration: BoxDecoration(
-                //     // border: Border.all(
-                //     //     color: Colors.black),
-                //     borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                //     color: Colors.white,
-                //   ),
-                //   height: 49,
-                //   alignment: Alignment.center,
-                //   sizes: ColScreen(sm: Col.col_1),
-                //   child: Icon(
-                //     Icons.search,
-                //     size: 24,
-                //   ),
-                // )
-              ],
-            ),
-          ),
+          //                 search.selection = TextSelection.fromPosition(
+          //                     TextPosition(
+          //                         offset: prediction.description?.length ?? 0));
+          //               }
+          //               // default 600 ms ,
+          //               ),
+          //         ),
+          //       ),
+          //       // BsCol(
+          //       //   decoration: BoxDecoration(
+          //       //     // border: Border.all(
+          //       //     //     color: Colors.black),
+          //       //     borderRadius: BorderRadius.all(Radius.circular(5.0)),
+          //       //     color: Colors.white,
+          //       //   ),
+          //       //   height: 49,
+          //       //   alignment: Alignment.center,
+          //       //   sizes: ColScreen(sm: Col.col_1),
+          //       //   child: Icon(
+          //       //     Icons.search,
+          //       //     size: 24,
+          //       //   ),
+          //       // )
+          //     ],
+          //   ),
+          // ),
           Positioned(
             bottom: 24,
             left: 24,
