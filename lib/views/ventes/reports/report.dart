@@ -55,7 +55,6 @@ class _ReportViewState extends State<ReportView>
     super.initState();
     _tabControllers = TabController(length: 2, vsync: this);
     presenter.reportContract = this;
-    presenter.reportDataContract = this;
     presenter.getDataFromAPI();
   }
 

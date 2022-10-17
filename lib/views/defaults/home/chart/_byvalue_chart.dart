@@ -127,34 +127,34 @@ class _ChartByValueState extends State<ChartByValue> {
     String text;
     switch (value.toInt()) {
       case 100:
-        text = '10 T';
+        text = '10 B';
         break;
       case 200:
-        text = '20 T';
+        text = '20 B';
         break;
       case 300:
-        text = '30 T';
+        text = '30 B';
         break;
       case 400:
-        text = '40 T';
+        text = '40 B';
         break;
       case 500:
-        text = '50 T';
+        text = '50 B';
         break;
       case 600:
-        text = '60 T';
+        text = '60 B';
         break;
       case 700:
-        text = '70 T';
+        text = '70 B';
         break;
       case 800:
-        text = '80 T';
+        text = '80 B';
         break;
       case 900:
-        text = '90 T';
+        text = '90 B';
         break;
       case 1000:
-        text = '100 T';
+        text = '100 B';
         break;
       default:
         return Container();

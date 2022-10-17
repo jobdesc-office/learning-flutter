@@ -11,6 +11,7 @@ import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
 import 'package:map_picker/map_picker.dart';
 
+import '../../config.dart';
 import '../../contracts/master/customerAddress_contract.dart';
 import '../../presenters/default/map_presenter.dart';
 import '../snackbar.dart';
@@ -117,10 +118,10 @@ class _GoogleMapsPageState extends State<GoogleMapsPage>
                   child: Container(
                     width: 300,
                     color: Colors.white,
-                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    padding: EdgeInsets.all(10),
                     child: GooglePlaceAutoCompleteTextField(
                         textEditingController: search,
-                        googleAPIKey: "AIzaSyDUYfxm7qJq8dcMMhvhaoUukhQqMxBO6oc",
+                        googleAPIKey: Config.gmapApi,
                         inputDecoration:
                             InputDecoration(hintText: "Search your location"),
                         debounceTime: 800,

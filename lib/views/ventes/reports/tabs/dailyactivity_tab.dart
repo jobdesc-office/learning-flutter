@@ -8,13 +8,18 @@ class DailyActivityTab extends StatefulWidget {
 }
 
 class _DailyActivityTabState extends State<DailyActivityTab>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin
+    implements IndexViewContract {
   late TabController _tabController;
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    presenter.reportDataContract = this;
   }
+
+  late List<Dayactuser> employee;
+  late DateTime dateNow;
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +123,6 @@ class _DailyActivityTabState extends State<DailyActivityTab>
                                 defaultBuilder: (context, date, _) =>
                                     source.dayContainer(context, date),
                                 markerBuilder: (_, date, reports) {
-                                  late List<Dayactuser> employee;
                                   for (var el in reports) {
                                     // ignore: invalid_use_of_protected_member
                                     employee = source.employees.value
@@ -127,7 +131,14 @@ class _DailyActivityTabState extends State<DailyActivityTab>
                                                 el.dayactuser?.userfullname &&
                                             parseDate(el.dayactdate) != date)
                                         .toList();
+                                    // employee = source.employees.value
+                                    //     .skipWhile((value) =>
+                                    //         value.userfullname !=
+                                    //             el.dayactuser!.userfullname &&
+                                    //         parseDate(el.dayactdate) != date)
+                                    //     .toList();
                                   }
+                                  dateNow = date;
 
                                   // for (var item in reports)
                                   // employee.removeWhere((element) =>
@@ -298,5 +309,45 @@ class _DailyActivityTabState extends State<DailyActivityTab>
         ],
       ),
     );
+  }
+
+  @override
+  void onCreateSuccess(Response response, {BuildContext? context}) {
+    presenter.setProcessing(false);
+    map.reset();
+    Snackbar().createSuccess(context!);
+    Navigator.pop(context);
+  }
+
+  @override
+  void onDeleteSuccess(Response response, {BuildContext? context}) {
+    source.done.value = true;
+    presenter.setProcessing(false);
+    map.reset();
+    Snackbar().deleteSuccess(context!);
+    Navigator.pop(context);
+  }
+
+  @override
+  void onEditSuccess(Response response, {BuildContext? context}) {
+    presenter.setProcessing(false);
+    map.reset();
+    Snackbar().editSuccess(context!);
+    Navigator.pop(context);
+  }
+
+  @override
+  void onErrorRequest(Response response) {
+    presenter.setProcessing(false);
+  }
+
+  @override
+  void onLoadDatatables(BuildContext context, Response response) {
+    final datatable = ReportDataTableSource();
+    map.reset();
+    presenter.setProcessing(false);
+    datatable.response = BsDatatableResponse.createFromJson(response.body);
+    datatable.onDetailsListener =
+        (userid) => presenter.details(context, userid);
   }
 }
