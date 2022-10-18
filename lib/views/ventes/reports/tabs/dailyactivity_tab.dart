@@ -18,9 +18,6 @@ class _DailyActivityTabState extends State<DailyActivityTab>
     presenter.reportDataContract = this;
   }
 
-  late List<Dayactuser> employee;
-  late DateTime dateNow;
-
   @override
   Widget build(BuildContext context) {
     final datatable = ReportDataTableSource();
@@ -123,6 +120,7 @@ class _DailyActivityTabState extends State<DailyActivityTab>
                                 defaultBuilder: (context, date, _) =>
                                     source.dayContainer(context, date),
                                 markerBuilder: (_, date, reports) {
+                                  late List<Dayactuser> employee;
                                   for (var el in reports) {
                                     // ignore: invalid_use_of_protected_member
                                     employee = source.employees.value
@@ -138,7 +136,6 @@ class _DailyActivityTabState extends State<DailyActivityTab>
                                     //         parseDate(el.dayactdate) != date)
                                     //     .toList();
                                   }
-                                  dateNow = date;
 
                                   // for (var item in reports)
                                   // employee.removeWhere((element) =>
