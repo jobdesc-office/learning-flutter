@@ -4,6 +4,7 @@ part of '../../company.dart';
 class _ContactForm extends StatelessWidget implements IndexViewContract {
   CPContactPresenter presenter = Get.find();
   final sbtpresenter = Get.find<StBpTypeActivityCategoryPresenter>();
+  final GlobalKey<FormState> formState = GlobalKey<FormState>();
   ContactFormSource source;
 
   _ContactForm(this.source) {
@@ -26,6 +27,7 @@ class _ContactForm extends StatelessWidget implements IndexViewContract {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Form(
+                key: formState,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -186,13 +188,17 @@ class _ContactForm extends StatelessWidget implements IndexViewContract {
   }
 
   void save() async {
-    Map<String, dynamic> data = await source.toJson();
-    presenter.save(Get.context!, data);
+    if (formState.currentState!.validate()) {
+      Map<String, dynamic> data = await source.toJson();
+      presenter.save(Get.context!, data);
+    }
   }
 
   void update() async {
-    Map<String, dynamic> data = await source.toJson();
-    presenter.update(Get.context!, data, source.contactid!);
+    if (formState.currentState!.validate()) {
+      Map<String, dynamic> data = await source.toJson();
+      presenter.update(Get.context!, data, source.contactid!);
+    }
   }
 
   Widget inputName() {

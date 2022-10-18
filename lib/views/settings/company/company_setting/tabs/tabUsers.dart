@@ -74,14 +74,17 @@ class _TabUsers extends StatelessWidget
                                             presenter.isProcessing.value,
                                         margin: EdgeInsets.only(right: 5),
                                         onPressed: () async {
-                                          if (isEdit.value) {
-                                            presenter.update(
-                                                context,
-                                                await source.value.toJson(),
-                                                source.value.id.value);
-                                          } else {
-                                            presenter.save(context,
-                                                await source.value.toJson());
+                                          if (formState.currentState!
+                                              .validate()) {
+                                            if (isEdit.value) {
+                                              presenter.update(
+                                                  context,
+                                                  await source.value.toJson(),
+                                                  source.value.id.value);
+                                            } else {
+                                              presenter.save(context,
+                                                  await source.value.toJson());
+                                            }
                                           }
                                         },
                                       ),

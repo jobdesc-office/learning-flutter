@@ -7,6 +7,8 @@ class _CompanyTabFormSource extends GetxController {
 
   var id = 0.obs;
 
+  final GlobalKey<FormState> formState = GlobalKey<FormState>();
+
   var isupdate = false.obs;
 
   var isformactcat = false.obs;
@@ -61,16 +63,21 @@ class _CompanyTabFormSource extends GetxController {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                FormGroup(
-                  label: Obx(() => Text('$tabname Name',
-                      style: TextStyle(
-                          color: _navigation.darkTheme.value
-                              ? Colors.white
-                              : Colors.black))),
-                  child: CustomInput(
-                    disabled: presenter.isProcessing.value,
-                    controller: inputName,
-                    hintText: BaseText.hintText(field: '$tabname Name'),
+                Form(
+                  key: formState,
+                  child: FormGroup(
+                    label: Obx(() => Text('$tabname Name',
+                        style: TextStyle(
+                            color: _navigation.darkTheme.value
+                                ? Colors.white
+                                : Colors.black))),
+                    child: CustomInput(
+                        disabled: presenter.isProcessing.value,
+                        controller: inputName,
+                        hintText: BaseText.hintText(field: '$tabname Name'),
+                        validators: [
+                          Validators.inputRequired('$tabname Name')
+                        ]),
                   ),
                 ),
                 Row(
@@ -234,32 +241,34 @@ class _CompanyTabFormSource extends GetxController {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     ThemeButtonSave(onPressed: () async {
-                      SessionModel session = await SessionManager.current();
-                      late Map<String, dynamic> colors;
-                      if (color)
-                        colors = {
-                          'color': pickedColor.value,
+                      if (formState.currentState!.validate()) {
+                        SessionModel session = await SessionManager.current();
+                        late Map<String, dynamic> colors;
+                        if (color)
+                          colors = {
+                            'color': pickedColor.value,
+                          };
+                        if (color && textcolor)
+                          colors = {
+                            'color': pickedColor.value,
+                            'textcolor': pickedTextColor.value,
+                          };
+                        Map<String, dynamic> body = {
+                          'sbtbpid': box.read('mybpid'),
+                          'sbtname': typename,
+                          'sbtseq': inputSeq.text == '' ? null : inputSeq.text,
+                          'sbttypemasterid': typeid,
+                          'sbttypename': inputName.text,
+                          'sbtremark': color ? jsonEncode(colors) : null,
+                          'createdby': session.userid,
+                          'updatedby': session.userid,
+                          'isactive': isactive.value,
                         };
-                      if (color && textcolor)
-                        colors = {
-                          'color': pickedColor.value,
-                          'textcolor': pickedTextColor.value,
-                        };
-                      Map<String, dynamic> body = {
-                        'sbtbpid': box.read('mybpid'),
-                        'sbtname': typename,
-                        'sbtseq': inputSeq.text == '' ? null : inputSeq.text,
-                        'sbttypemasterid': typeid,
-                        'sbttypename': inputName.text,
-                        'sbtremark': color ? jsonEncode(colors) : null,
-                        'createdby': session.userid,
-                        'updatedby': session.userid,
-                        'isactive': isactive.value,
-                      };
-                      if (isupdate.value) {
-                        presenter.update(context, body, id.value);
-                      } else {
-                        presenter.save(context, body);
+                        if (isupdate.value) {
+                          presenter.update(context, body, id.value);
+                        } else {
+                          presenter.save(context, body);
+                        }
                       }
                     }),
                     ThemeButtonCancel(

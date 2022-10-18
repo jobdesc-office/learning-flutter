@@ -71,28 +71,33 @@ class _TabCompetitor extends GetView
                                                   presenter.isProcessing.value,
                                               margin: EdgeInsets.only(right: 5),
                                               onPressed: () async {
-                                                if (isEdit.value) {
-                                                  Map<String, dynamic> images =
-                                                      {
-                                                    'transtypeid': sources.value
-                                                        .transtypeid.value,
-                                                    'refid': sources
-                                                        .value.refid.value
-                                                  };
-                                                  presenter.deleteImages(
-                                                      context, images);
-                                                  presenter.update(
-                                                      context,
-                                                      FormData(await sources
+                                                if (formState.currentState!
+                                                    .validate()) {
+                                                  if (isEdit.value) {
+                                                    Map<String, dynamic>
+                                                        images = {
+                                                      'transtypeid': sources
                                                           .value
-                                                          .toJson()),
-                                                      sources.value.id.value);
-                                                } else {
-                                                  presenter.save(
-                                                      context,
-                                                      FormData(await sources
-                                                          .value
-                                                          .toJson()));
+                                                          .transtypeid
+                                                          .value,
+                                                      'refid': sources
+                                                          .value.refid.value
+                                                    };
+                                                    presenter.deleteImages(
+                                                        context, images);
+                                                    presenter.update(
+                                                        context,
+                                                        FormData(await sources
+                                                            .value
+                                                            .toJson()),
+                                                        sources.value.id.value);
+                                                  } else {
+                                                    presenter.save(
+                                                        context,
+                                                        FormData(await sources
+                                                            .value
+                                                            .toJson()));
+                                                  }
                                                 }
                                               },
                                             ),
