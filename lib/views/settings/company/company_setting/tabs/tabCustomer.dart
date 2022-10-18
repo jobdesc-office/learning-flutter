@@ -17,6 +17,8 @@ class _TabCustomerState extends State<_TabCustomer>
 
   @override
   Widget build(BuildContext context) {
+    final contactsource = Get.put(ContactFormSource());
+    final customersource = Get.put(_CustomerFormSource());
     return SingleChildScrollView(
       child: Container(
         margin: EdgeInsets.all(20),
@@ -26,6 +28,14 @@ class _TabCustomerState extends State<_TabCustomer>
               sizes: ColScreen(sm: Col.col_8),
               child: Container(
                 child: Obx(() => TabBar(
+                      onTap: (x) {
+                        source.value.isformactcat.value = false;
+                        source.value.isupdate.value = false;
+                        contactsource.isFormActive.value = false;
+                        contactsource.isEdit.value = false;
+                        customersource.isForm.value = false;
+                        customersource.isEdit.value = false;
+                      },
                       controller: _tabController,
                       labelColor: Colors.green,
                       unselectedLabelColor: _navigation.darkTheme.value

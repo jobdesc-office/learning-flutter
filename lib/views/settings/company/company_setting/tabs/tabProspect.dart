@@ -26,6 +26,9 @@ class _TabProspectState extends State<_TabProspect>
           BsCol(
             sizes: ColScreen(sm: Col.col_9),
             child: TabBar(
+              onTap: (x) {
+                source.value.isformactcat.value = false;
+              },
               controller: _tabController,
               labelColor: Colors.green,
               unselectedLabelColor:

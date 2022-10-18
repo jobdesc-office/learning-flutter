@@ -184,6 +184,10 @@ class _CompanyViewState extends State<CompanyView>
                     sizes: ColScreen(sm: Col.col_8),
                     child: Container(
                       child: TabBar(
+                        onTap: (x) {
+                          source.value.isformactcat.value = false;
+                          source.value.isupdate.value = false;
+                        },
                         controller: _tabController,
                         labelColor: Colors.green,
                         unselectedLabelColor: _navigation.darkTheme.value

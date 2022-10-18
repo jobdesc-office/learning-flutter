@@ -19,6 +19,7 @@ class _TabCustomizeFieldState extends State<_TabCustomizeField>
 
   @override
   Widget build(BuildContext context) {
+    final sources = Get.put(CustomizeFieldSource());
     return Container(
       margin: EdgeInsets.all(5),
       child: BsRow(
@@ -26,6 +27,10 @@ class _TabCustomizeFieldState extends State<_TabCustomizeField>
           BsCol(
             sizes: ColScreen(sm: Col.col_2),
             child: Obx(() => TabBar(
+                  onTap: (x) {
+                    sources.isForm.value = false;
+                    sources.isEdit.value = false;
+                  },
                   controller: _tabController,
                   labelColor: Colors.green,
                   unselectedLabelColor:

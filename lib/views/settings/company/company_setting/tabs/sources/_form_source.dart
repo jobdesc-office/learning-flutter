@@ -33,6 +33,11 @@ class _CompanyTabFormSource extends GetxController {
     id.value = 0;
     isupdate.value = false;
 
+    pickerColor.value = Color.fromARGB(0, 255, 255, 255);
+    pickedColor.value = '0xFF0000ffff';
+    pickerTextColor.value = Color.fromARGB(255, 0, 0, 0);
+    pickedTextColor.value = '0xFF000000';
+
     createdby.value = '';
     createddate.value = '';
     updatedby.value = '';

@@ -26,6 +26,10 @@ class _TabActivitiesState extends State<_TabActivities>
           BsCol(
             sizes: ColScreen(sm: Col.col_3),
             child: Obx(() => TabBar(
+                  onTap: (x) {
+                    source.value.isformactcat.value = false;
+                    source.value.isupdate.value = false;
+                  },
                   controller: _tabController,
                   labelColor: Colors.green,
                   unselectedLabelColor:
