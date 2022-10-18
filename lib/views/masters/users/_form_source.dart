@@ -71,8 +71,11 @@ class UserSource extends GetxController {
   TextEditingController inputEmail = TextEditingController();
   TextEditingController inputPhone = TextEditingController();
 
-  List<BsSelectBoxController> selectsRole =
-      List<BsSelectBoxController>.empty(growable: true);
+  List<BsSelectBoxController> selectsRole = List<BsSelectBoxController>.filled(
+      1, BsSelectBoxController(),
+      growable: true);
+
+  BsSelectBoxController selectRole = BsSelectBoxController();
   List<BsSelectBoxController> selectsBp =
       List<BsSelectBoxController>.empty(growable: true);
 
@@ -81,7 +84,8 @@ class UserSource extends GetxController {
       int index = selectsRole.indexOf(controller);
       final box = GetStorage();
       return {
-        'roleid': selectsRole[index].getSelectedAsString(),
+        // 'roleid': selectsRole[index].getSelectedAsString(),
+        'roleid': selectRole.getSelectedAsString(),
         'bpid': box.read('mybpid').toString(),
       };
     }));
@@ -116,15 +120,18 @@ class UserForm {
           int index = source.selectsRole.indexOf(controller);
           var selectRole = source.selectsRole[index];
           return FormGroup(
+            label: Text(UserText.labelRole),
             child: CustomSelectBox(
               searchable: false,
               disabled: source.isProcessing,
-              controller: selectRole,
-              hintText: BaseText.hiintSelect(
-                  field: UserText.labelRole + ' ${index + 1}'),
+              controller: source.selectRole,
+              hintText: BaseText.hiintSelect(field: UserText.labelRole),
+              // hintText: BaseText.hiintSelect(
+              //     field: UserText.labelRole + ' ${index + 1}'),
               serverSide: (params) => selectApiRole(params),
               validators: [
-                Validators.selectRequired(UserText.labelRole + ' ${index + 1}')
+                // Validators.selectRequired(UserText.labelRole + ' ${index + 1}')
+                Validators.selectRequired(UserText.labelRole)
               ],
             ),
           );

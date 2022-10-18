@@ -6,12 +6,9 @@ class _TabProduct extends StatelessWidget
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final presenter = Get.find<ProductPresenter>();
   final datatable = ProductDataTableSource();
-  final source = ProductSource().obs;
+  final src = ProductSource().obs;
 
   late ProductForm userForm;
-
-  var isEdit = false.obs;
-  var isForm = false.obs;
 
   _TabProduct() {
     presenter.productViewContract = this;
@@ -23,9 +20,9 @@ class _TabProduct extends StatelessWidget
     return Obx(() => SingleChildScrollView(
           child: Column(
             children: [
-              if (isForm.value)
+              if (source.value.isformactcat.value)
                 Obx(() {
-                  userForm = ProductForm(source.value);
+                  userForm = ProductForm(src.value);
                   return BsRow(
                     children: [
                       BsCol(
@@ -58,14 +55,14 @@ class _TabProduct extends StatelessWidget
                                         onPressed: () async {
                                           if (formState.currentState!
                                               .validate()) {
-                                            if (isEdit.value) {
+                                            if (source.value.isupdate.value) {
                                               presenter.update(
                                                   context,
-                                                  await source.value.toJson(),
-                                                  source.value.id.value);
+                                                  await src.value.toJson(),
+                                                  src.value.id.value);
                                             } else {
                                               presenter.save(context,
-                                                  await source.value.toJson());
+                                                  await src.value.toJson());
                                             }
                                           }
                                         },
@@ -74,13 +71,13 @@ class _TabProduct extends StatelessWidget
                                         disabled: presenter.isProcessing.value,
                                         margin: EdgeInsets.only(right: 5),
                                         onPressed: () {
-                                          if (isEdit.value) {
-                                            isEdit.value = false;
-                                            isForm.toggle();
-                                            source.value.reset();
+                                          if (source.value.isupdate.value) {
+                                            source.value.isupdate.value = false;
+                                            source.value.isformactcat.toggle();
+                                            src.value.reset();
                                           } else {
-                                            isForm.toggle();
-                                            source.value.reset();
+                                            source.value.isformactcat.toggle();
+                                            src.value.reset();
                                           }
                                         },
                                       ),
@@ -92,7 +89,7 @@ class _TabProduct extends StatelessWidget
                           ),
                         ),
                       ),
-                      if (isEdit.value)
+                      if (source.value.isupdate.value)
                         BsCol(
                           margin: EdgeInsets.only(left: 5),
                           sizes: ColScreen(lg: Col.col_6),
@@ -121,8 +118,7 @@ class _TabProduct extends StatelessWidget
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                Text(source
-                                                    .value.createdby.value),
+                                                Text(src.value.createdby.value),
                                                 Divider()
                                               ],
                                             )),
@@ -140,7 +136,7 @@ class _TabProduct extends StatelessWidget
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                Text(source
+                                                Text(src
                                                     .value.createddate.value),
                                                 Divider()
                                               ],
@@ -159,8 +155,7 @@ class _TabProduct extends StatelessWidget
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                Text(source
-                                                    .value.updatedby.value),
+                                                Text(src.value.updatedby.value),
                                                 Divider()
                                               ],
                                             )),
@@ -178,7 +173,7 @@ class _TabProduct extends StatelessWidget
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                Text(source
+                                                Text(src
                                                     .value.updateddate.value),
                                                 Divider()
                                               ],
@@ -197,7 +192,7 @@ class _TabProduct extends StatelessWidget
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                if (source.value.isactive.value)
+                                                if (src.value.isactive.value)
                                                   InkWell(
                                                     child: Icon(
                                                       Icons.toggle_on,
@@ -209,7 +204,7 @@ class _TabProduct extends StatelessWidget
                                                           : ColorPallates
                                                               .onLightMode,
                                                     ),
-                                                    onTap: () => source
+                                                    onTap: () => src
                                                         .value.isactive
                                                         .toggle(),
                                                   )
@@ -225,7 +220,7 @@ class _TabProduct extends StatelessWidget
                                                           : ColorPallates
                                                               .offLightMode,
                                                     ),
-                                                    onTap: () => source
+                                                    onTap: () => src
                                                         .value.isactive
                                                         .toggle(),
                                                   ),
@@ -261,11 +256,11 @@ class _TabProduct extends StatelessWidget
                     ThemeButtonCreate(
                       prefix: 'Product',
                       onPressed: () {
-                        if (isEdit.value) {
-                          isEdit.value = false;
-                          isForm.toggle();
+                        if (source.value.isupdate.value) {
+                          source.value.isupdate.value = false;
+                          source.value.isformactcat.toggle();
                         } else {
-                          isForm.toggle();
+                          source.value.isformactcat.toggle();
                         }
                       },
                     )
@@ -281,31 +276,31 @@ class _TabProduct extends StatelessWidget
   void onCreateSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
     datatable.controller.reload();
-    isForm.value = false;
-    isEdit.value = false;
+    source.value.isformactcat.value = false;
+    source.value.isupdate.value = false;
     Snackbar().createSuccess(context!);
-    source.value.reset();
+    src.value.reset();
   }
 
   @override
   void onDeleteSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
     datatable.controller.reload();
-    isForm.value = false;
-    isEdit.value = false;
+    source.value.isformactcat.value = false;
+    source.value.isupdate.value = false;
     Snackbar().deleteSuccess(context!);
-    source.value.reset();
-    Get.back();
+    src.value.reset();
+    Navigator.pop(context);
   }
 
   @override
   void onEditSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
     datatable.controller.reload();
-    isForm.value = false;
-    isEdit.value = false;
+    source.value.isformactcat.value = false;
+    source.value.isupdate.value = false;
     Snackbar().editSuccess(context!);
-    source.value.reset();
+    src.value.reset();
   }
 
   @override
@@ -332,20 +327,20 @@ class _TabProduct extends StatelessWidget
   @override
   void onSuccessFetchData(Response response) {
     presenter.setProcessing(false);
-    source.value.reset();
-    isForm.value = true;
-    isEdit.value = true;
+    src.value.reset();
+    source.value.isformactcat.value = true;
+    source.value.isupdate.value = true;
 
-    source.update((val) {
+    src.update((val) {
       ProductModel menu = ProductModel.fromJson(response.body);
-      source.value.id.value = menu.productid!;
-      source.value.inputName.text = menu.productname!;
+      src.value.id.value = menu.productid!;
+      src.value.inputName.text = menu.productname!;
 
-      source.value.createdby.value = menu.productcreatedby?.userfullname ?? '';
-      source.value.createddate.value = menu.createddate ?? '';
-      source.value.updatedby.value = menu.productupdatedby?.userfullname ?? '';
-      source.value.updateddate.value = menu.updateddate ?? '';
-      source.value.isactive.value = menu.isactive ?? true;
+      src.value.createdby.value = menu.productcreatedby?.userfullname ?? '';
+      src.value.createddate.value = menu.createddate ?? '';
+      src.value.updatedby.value = menu.productupdatedby?.userfullname ?? '';
+      src.value.updateddate.value = menu.updateddate ?? '';
+      src.value.isactive.value = menu.isactive ?? true;
     });
   }
 }

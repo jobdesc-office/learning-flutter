@@ -31,8 +31,7 @@ class _TabCustomerState extends State<_TabCustomer>
                       onTap: (x) {
                         source.value.isformactcat.value = false;
                         source.value.isupdate.value = false;
-                        contactsource.isFormActive.value = false;
-                        contactsource.isEdit.value = false;
+                        contactsource.clear();
                         customersource.isForm.value = false;
                         customersource.isEdit.value = false;
                       },

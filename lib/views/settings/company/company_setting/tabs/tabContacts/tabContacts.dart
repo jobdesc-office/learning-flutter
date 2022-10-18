@@ -20,37 +20,35 @@ class _TabContact extends StatelessWidget
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            child: Obx(() {
-              return Column(
-                children: [
-                  if (source.isFormActive.value) _ContactForm(source),
-                  CustomDatabales(
-                    source: datatable,
-                    columns: datatable.columns,
-                    headerActions: [
-                      if (permis
-                          .where((element) => element.menunm == 'Settings')
-                          .first
-                          .children!
-                          .where(
-                              (element) => element.menunm == 'Company Setting')
-                          .first
-                          .features!
-                          .where((element) => element.featslug == 'create')
-                          .first
-                          .permissions!
-                          .hasaccess!)
-                        ThemeButtonCreate(
-                          prefix: "Contact",
-                          onPressed: () => source.isFormActive.value = true,
-                        )
-                    ],
-                    serverSide: (params) =>
-                        presenter.datatables(context, params),
-                  ),
-                ],
-              );
-            }),
+            child: Obx(() => Column(
+                  children: [
+                    if (source.isFormActive.value) _ContactForm(source),
+                    CustomDatabales(
+                      source: datatable,
+                      columns: datatable.columns,
+                      headerActions: [
+                        if (permis
+                            .where((element) => element.menunm == 'Settings')
+                            .first
+                            .children!
+                            .where((element) =>
+                                element.menunm == 'Company Setting')
+                            .first
+                            .features!
+                            .where((element) => element.featslug == 'create')
+                            .first
+                            .permissions!
+                            .hasaccess!)
+                          ThemeButtonCreate(
+                            prefix: "Contact",
+                            onPressed: () => source.isFormActive.toggle(),
+                          )
+                      ],
+                      serverSide: (params) =>
+                          presenter.datatables(context, params),
+                    ),
+                  ],
+                )),
           ),
         ],
       ),
