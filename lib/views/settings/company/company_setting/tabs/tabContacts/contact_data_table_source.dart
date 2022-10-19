@@ -108,13 +108,13 @@ class ContactDataTableSource extends BsDatatableSource {
         CustomBsDataCell(
           Row(
             children: [
-              Tooltip(
-                message: BaseText.detailHintDatatable(field: row.contactname),
-                child: ButtonDetailsDatatables(
-                  margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onDetailsListener(row.contactpersonid!),
-                ),
-              ),
+              // Tooltip(
+              //   message: BaseText.detailHintDatatable(field: row.contactname),
+              //   child: ButtonDetailsDatatables(
+              //     margin: EdgeInsets.only(right: 5),
+              //     onPressed: () => onDetailsListener(row.contactpersonid!),
+              //   ),
+              // ),
               if (permis
                   .where((element) => element.menunm == 'Settings')
                   .first
