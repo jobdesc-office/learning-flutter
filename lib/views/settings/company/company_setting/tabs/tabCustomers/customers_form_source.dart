@@ -479,7 +479,6 @@ class _CustomerFormSource extends GetxController
     presenter.setProcessing(false);
     isEdit.value = true;
     isForm.value = true;
-    print(isForm.value);
 
     CustomerModel customer = CustomerModel.fromJson(response.body);
     source.id.value = customer.cstmid ?? 0;

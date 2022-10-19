@@ -30,7 +30,6 @@ class _TabCustomers extends StatelessWidget
         children: [
           Container(
             child: Obx(() {
-              print('tab : ${custsource.value.isForm.value}');
               return Column(
                 children: [
                   if (custsource.value.isForm.value)
