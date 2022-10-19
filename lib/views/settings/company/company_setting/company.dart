@@ -185,8 +185,11 @@ class _CompanyViewState extends State<CompanyView>
                     child: Container(
                       child: TabBar(
                         onTap: (x) {
+                          final sources = Get.put(CustomizeFieldSource());
                           source.value.isformactcat.value = false;
                           source.value.isupdate.value = false;
+                          sources.isForm.value = false;
+                          sources.isEdit.value = false;
                         },
                         controller: _tabController,
                         labelColor: Colors.green,
