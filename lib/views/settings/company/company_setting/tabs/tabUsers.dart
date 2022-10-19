@@ -125,7 +125,7 @@ class _TabUsers extends StatelessWidget
                                   child: BsRow(
                                     children: [
                                       BsCol(
-                                        child: FormGroup(
+                                        child: FormGroupEdit(
                                             label: Text('Created By',
                                                 style: TextStyle(
                                                     color: _navigation
@@ -134,7 +134,7 @@ class _TabUsers extends StatelessWidget
                                                         : Colors.black)),
                                             child: Column(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.end,
                                               children: [
                                                 Text(src.value.createdby.value),
                                                 Divider()
@@ -143,7 +143,7 @@ class _TabUsers extends StatelessWidget
                                       ),
                                       BsCol(
                                         margin: EdgeInsets.only(top: 10),
-                                        child: FormGroup(
+                                        child: FormGroupEdit(
                                             label: Text('Created At',
                                                 style: TextStyle(
                                                     color: _navigation
@@ -152,7 +152,7 @@ class _TabUsers extends StatelessWidget
                                                         : Colors.black)),
                                             child: Column(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.end,
                                               children: [
                                                 Text(src
                                                     .value.createddate.value),
@@ -162,7 +162,7 @@ class _TabUsers extends StatelessWidget
                                       ),
                                       BsCol(
                                         margin: EdgeInsets.only(top: 10),
-                                        child: FormGroup(
+                                        child: FormGroupEdit(
                                             label: Text('Last Updated By',
                                                 style: TextStyle(
                                                     color: _navigation
@@ -171,7 +171,7 @@ class _TabUsers extends StatelessWidget
                                                         : Colors.black)),
                                             child: Column(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.end,
                                               children: [
                                                 Text(src.value.updatedby.value),
                                                 Divider()
@@ -180,7 +180,7 @@ class _TabUsers extends StatelessWidget
                                       ),
                                       BsCol(
                                         margin: EdgeInsets.only(top: 10),
-                                        child: FormGroup(
+                                        child: FormGroupEdit(
                                             label: Text('Last Updated At',
                                                 style: TextStyle(
                                                     color: _navigation
@@ -189,7 +189,7 @@ class _TabUsers extends StatelessWidget
                                                         : Colors.black)),
                                             child: Column(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.end,
                                               children: [
                                                 Text(src
                                                     .value.updateddate.value),
@@ -199,7 +199,7 @@ class _TabUsers extends StatelessWidget
                                       ),
                                       BsCol(
                                         margin: EdgeInsets.only(top: 10),
-                                        child: FormGroup(
+                                        child: FormGroupEdit(
                                             label: Text('Is Active',
                                                 style: TextStyle(
                                                     color: _navigation
@@ -208,7 +208,7 @@ class _TabUsers extends StatelessWidget
                                                         : Colors.black)),
                                             child: Column(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.end,
                                               children: [
                                                 if (src.value.isactive.value)
                                                   InkWell(

@@ -95,14 +95,14 @@ class _FormCustomfield extends StatelessWidget implements EditViewContract {
                       child: BsRow(
                         children: [
                           BsCol(
-                            child: FormGroup(
+                            child: FormGroupEdit(
                                 label: Text('Created By',
                                     style: TextStyle(
                                         color: _navigation.darkTheme.value
                                             ? Colors.white
                                             : Colors.black)),
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Text(sources.createdby.value),
                                     Divider()
@@ -111,14 +111,14 @@ class _FormCustomfield extends StatelessWidget implements EditViewContract {
                           ),
                           BsCol(
                             margin: EdgeInsets.only(top: 10),
-                            child: FormGroup(
+                            child: FormGroupEdit(
                                 label: Text('Created At',
                                     style: TextStyle(
                                         color: _navigation.darkTheme.value
                                             ? Colors.white
                                             : Colors.black)),
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Text(sources.createddate.value),
                                     Divider()
@@ -127,14 +127,14 @@ class _FormCustomfield extends StatelessWidget implements EditViewContract {
                           ),
                           BsCol(
                             margin: EdgeInsets.only(top: 10),
-                            child: FormGroup(
+                            child: FormGroupEdit(
                                 label: Text('Last Updated By',
                                     style: TextStyle(
                                         color: _navigation.darkTheme.value
                                             ? Colors.white
                                             : Colors.black)),
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Text(sources.updatedby.value),
                                     Divider()
@@ -143,14 +143,14 @@ class _FormCustomfield extends StatelessWidget implements EditViewContract {
                           ),
                           BsCol(
                             margin: EdgeInsets.only(top: 10),
-                            child: FormGroup(
+                            child: FormGroupEdit(
                                 label: Text('Last Updated At',
                                     style: TextStyle(
                                         color: _navigation.darkTheme.value
                                             ? Colors.white
                                             : Colors.black)),
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Text(sources.updateddate.value),
                                     Divider()
@@ -159,14 +159,14 @@ class _FormCustomfield extends StatelessWidget implements EditViewContract {
                           ),
                           BsCol(
                             margin: EdgeInsets.only(top: 10),
-                            child: FormGroup(
+                            child: FormGroupEdit(
                                 label: Text('Is Active',
                                     style: TextStyle(
                                         color: _navigation.darkTheme.value
                                             ? Colors.white
                                             : Colors.black)),
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     if (sources.isactive.value)
                                       InkWell(

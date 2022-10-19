@@ -145,7 +145,7 @@ class _TabCompetitor extends GetView
                                   child: BsRow(
                                     children: [
                                       BsCol(
-                                        child: FormGroup(
+                                        child: FormGroupEdit(
                                             label: Text('Created By',
                                                 style: TextStyle(
                                                     color: _navigation
@@ -154,7 +154,7 @@ class _TabCompetitor extends GetView
                                                         : Colors.black)),
                                             child: Column(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.end,
                                               children: [
                                                 Text(source
                                                     .value.createdby.value),
@@ -164,7 +164,7 @@ class _TabCompetitor extends GetView
                                       ),
                                       BsCol(
                                         margin: EdgeInsets.only(top: 10),
-                                        child: FormGroup(
+                                        child: FormGroupEdit(
                                             label: Text('Created At',
                                                 style: TextStyle(
                                                     color: _navigation
@@ -173,7 +173,7 @@ class _TabCompetitor extends GetView
                                                         : Colors.black)),
                                             child: Column(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.end,
                                               children: [
                                                 Text(source
                                                     .value.createddate.value),
@@ -183,7 +183,7 @@ class _TabCompetitor extends GetView
                                       ),
                                       BsCol(
                                         margin: EdgeInsets.only(top: 10),
-                                        child: FormGroup(
+                                        child: FormGroupEdit(
                                             label: Text('Last Updated By',
                                                 style: TextStyle(
                                                     color: _navigation
@@ -192,7 +192,7 @@ class _TabCompetitor extends GetView
                                                         : Colors.black)),
                                             child: Column(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.end,
                                               children: [
                                                 Text(source
                                                     .value.updatedby.value),
@@ -202,7 +202,7 @@ class _TabCompetitor extends GetView
                                       ),
                                       BsCol(
                                         margin: EdgeInsets.only(top: 10),
-                                        child: FormGroup(
+                                        child: FormGroupEdit(
                                             label: Text('Last Updated At',
                                                 style: TextStyle(
                                                     color: _navigation
@@ -211,7 +211,7 @@ class _TabCompetitor extends GetView
                                                         : Colors.black)),
                                             child: Column(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.end,
                                               children: [
                                                 Text(source
                                                     .value.updateddate.value),
@@ -221,7 +221,7 @@ class _TabCompetitor extends GetView
                                       ),
                                       BsCol(
                                         margin: EdgeInsets.only(top: 10),
-                                        child: FormGroup(
+                                        child: FormGroupEdit(
                                             label: Text('Is Active',
                                                 style: TextStyle(
                                                     color: _navigation
@@ -230,7 +230,7 @@ class _TabCompetitor extends GetView
                                                         : Colors.black)),
                                             child: Column(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.end,
                                               children: [
                                                 if (source.value.isactive.value)
                                                   InkWell(

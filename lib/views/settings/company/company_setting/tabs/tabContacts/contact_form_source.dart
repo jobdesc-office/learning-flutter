@@ -45,9 +45,9 @@ class ContactFormSource {
   void fromModel(ContactModel contact) {
     isEdit.value = true;
     isFormActive.value = true;
-    createdby.value = contact.createdby?.toString() ?? "";
+    createdby.value = contact.contactcreatedby?.userfullname?.toString() ?? "";
     createddate.value = contact.createddate?.toString() ?? "";
-    updatedby.value = contact.updatedby?.toString() ?? "";
+    updatedby.value = contact.contactupdatedby?.userfullname?.toString() ?? "";
     updateddate.value = contact.updateddate?.toString() ?? "";
     isactive.value = contact.isactive!;
     inputName.text = contact.contactname ?? "";

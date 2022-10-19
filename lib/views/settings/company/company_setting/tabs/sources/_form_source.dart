@@ -308,53 +308,53 @@ class _CompanyTabFormSource extends GetxController {
                     child: BsRow(
                       children: [
                         BsCol(
-                          child: FormGroup(
+                          child: FormGroupEdit(
                               label: Text('Created By',
                                   style: TextStyle(
                                       color: _navigation.darkTheme.value
                                           ? Colors.white
                                           : Colors.black)),
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [Text(createdby.value), Divider()],
                               )),
                         ),
                         BsCol(
                           margin: EdgeInsets.only(top: 10),
-                          child: FormGroup(
+                          child: FormGroupEdit(
                               label: Text('Created At',
                                   style: TextStyle(
                                       color: _navigation.darkTheme.value
                                           ? Colors.white
                                           : Colors.black)),
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [Text(createddate.value), Divider()],
                               )),
                         ),
                         BsCol(
                           margin: EdgeInsets.only(top: 10),
-                          child: FormGroup(
+                          child: FormGroupEdit(
                               label: Text('Last Updated By',
                                   style: TextStyle(
                                       color: _navigation.darkTheme.value
                                           ? Colors.white
                                           : Colors.black)),
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [Text(updatedby.value), Divider()],
                               )),
                         ),
                         BsCol(
                           margin: EdgeInsets.only(top: 10),
-                          child: FormGroup(
+                          child: FormGroupEdit(
                               label: Text('Last Updated At',
                                   style: TextStyle(
                                       color: _navigation.darkTheme.value
                                           ? Colors.white
                                           : Colors.black)),
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [Text(updateddate.value), Divider()],
                               )),
                         ),
