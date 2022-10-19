@@ -51,22 +51,22 @@ class CustomerDetails extends GetView implements DetailViewContract {
                       ),
                       child: BsRow(
                         children: [
-                          BsCol(
-                              sizes: ColScreen(lg: Col.col_12),
-                              child: FormGroup(
-                                  label: Text('Prefix',
-                                      style: TextStyle(
-                                          color: _navigation.darkTheme.value
-                                              ? Colors.white
-                                              : Colors.black)),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(controller.prefix.value),
-                                      Divider()
-                                    ],
-                                  ))),
+                          // BsCol(
+                          //     sizes: ColScreen(lg: Col.col_12),
+                          //     child: FormGroup(
+                          //         label: Text('Prefix',
+                          //             style: TextStyle(
+                          //                 color: _navigation.darkTheme.value
+                          //                     ? Colors.white
+                          //                     : Colors.black)),
+                          //         child: Column(
+                          //           crossAxisAlignment:
+                          //               CrossAxisAlignment.start,
+                          //           children: [
+                          //             Text(controller.prefix.value),
+                          //             Divider()
+                          //           ],
+                          //         ))),
                           BsCol(
                               margin: EdgeInsets.only(top: 10),
                               sizes: ColScreen(lg: Col.col_12),

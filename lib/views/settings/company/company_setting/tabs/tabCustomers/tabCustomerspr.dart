@@ -109,7 +109,8 @@ class _TabCustomerspr extends StatelessWidget implements IndexViewContract {
     custsource.value.isForm.value = false;
     bppresenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
-    datatable.onDetailsListener = (userid) {};
+    datatable.onDetailsListener =
+        (userid) => custpresenter.details(context, userid);
     datatable.onEditListener = (value) => custpresenter.show(value);
     datatable.onDeleteListener =
         (cstmid, cstmname) => bppresenter.delete(context, cstmid, cstmname);

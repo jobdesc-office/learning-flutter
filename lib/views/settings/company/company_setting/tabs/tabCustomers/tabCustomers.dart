@@ -30,6 +30,7 @@ class _TabCustomers extends StatelessWidget
         children: [
           Container(
             child: Obx(() {
+              print('tab : ${custsource.value.isForm.value}');
               return Column(
                 children: [
                   if (custsource.value.isForm.value)
@@ -110,8 +111,15 @@ class _TabCustomers extends StatelessWidget
     custsource.value.isForm.value = false;
     bppresenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
-    datatable.onDetailsListener = (userid) {};
-    // datatable.onEditListener = presenter.show;
+    datatable.onDetailsListener =
+        (userid) => custpresenter.details(context, userid);
+    datatable.onEditListener = (value) {
+      custpresenter.show(value);
+      custsource.update((val) {
+        custsource.value.isForm.value = true;
+        custsource.value.isEdit.value = true;
+      });
+    };
     datatable.onDeleteListener =
         (cstmid, cstmname) => bppresenter.delete(context, cstmid, cstmname);
   }
