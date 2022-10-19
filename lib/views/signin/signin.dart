@@ -1,5 +1,6 @@
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -87,7 +88,6 @@ class _SignInViewState extends State<SignInView>
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(5.0),
                                 bottomLeft: Radius.circular(5.0)),
-                            color: ColorPallates.primary,
                           ),
                           height: MediaQuery.of(context).size.height * 0.55,
                           alignment: Alignment.center,
@@ -96,11 +96,11 @@ class _SignInViewState extends State<SignInView>
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('Sign in',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 32,
-                                        color: Colors.white)),
+                                SvgPicture.asset(
+                                  'assets/images/ventes-logo.svg',
+                                  width: 250,
+                                  height: 75,
+                                ),
                                 Container(
                                   margin: EdgeInsets.only(top: 10),
                                   child: Form(
@@ -181,6 +181,7 @@ class _SignInViewState extends State<SignInView>
                           ),
                         ),
                         BsCol(
+                          color: ColorPallates.primary,
                           height: MediaQuery.of(context).size.height * 0.55,
                           sizes: ColScreen(sm: Col.col_6),
                           child: Obx(() => Column(
@@ -208,7 +209,7 @@ class _SignInViewState extends State<SignInView>
                                           child: Text("What's Ventes ?",
                                               style: TextStyle(
                                                   fontSize: 18,
-                                                  color: ColorPallates.dark)),
+                                                  color: Colors.white)),
                                         ),
                                         InkWell(
                                           onTap: () {
@@ -228,7 +229,7 @@ class _SignInViewState extends State<SignInView>
                                           child: Text('About Hyperdata',
                                               style: TextStyle(
                                                   fontSize: 18,
-                                                  color: ColorPallates.dark)),
+                                                  color: Colors.white)),
                                         ),
                                       ],
                                     ),
@@ -260,7 +261,10 @@ class _SignInViewState extends State<SignInView>
                                                   child: Container(
                                                     padding: EdgeInsets.all(5),
                                                     child: Text(
-                                                        controller.desc.value),
+                                                      controller.desc.value,
+                                                      style: TextStyle(
+                                                          color: Colors.white),
+                                                    ),
                                                   )),
                                           if (controller.isProcessing.value)
                                             Container(

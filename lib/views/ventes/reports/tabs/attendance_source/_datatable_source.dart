@@ -1,6 +1,9 @@
+import 'package:boilerplate/helpers/function.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
+import 'package:date_time_format/date_time_format.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_webservice/directions.dart';
 
 import '../../../../../models/ventes/attendance_model.dart';
 import '../../../../../presenters/navigation_presenter.dart';
@@ -45,6 +48,13 @@ class AttendanceDataTableSource extends BsDatatableSource {
       ),
       CustomBsDataColumn(
         label: Text('Attendance Clock Out'),
+        columnName: 'comptproductname',
+        searchable: false,
+        orderable: false,
+        width: 200,
+      ),
+      CustomBsDataColumn(
+        label: Text('Attendance Hours'),
         columnName: 'comptproductname',
         searchable: false,
         orderable: false,
@@ -123,6 +133,20 @@ class AttendanceDataTableSource extends BsDatatableSource {
         ),
         CustomBsDataCell(
           Text(row.attclockout ?? ''),
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
+        ),
+        CustomBsDataCell(
+          Text(parseString(DateTime.parse(
+                      '2022-09-2${parseInt(row.attclockout?.substring(0, 2)) > parseInt(row.attclockin?.substring(0, 2)) ? 0 : 1} ${row.attclockout ?? ''}')
+                  .difference(
+                      DateTime.parse('2022-09-20 ${row.attclockin ?? ''}')))
+              .replaceAll('.000000', '')),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor

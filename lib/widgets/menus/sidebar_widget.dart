@@ -1,5 +1,6 @@
 import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../../presenters/navigation_presenter.dart';
@@ -12,12 +13,10 @@ class SidebarWidgets {
     return Row(
       children: [
         Expanded(
-            child: Image(
-          image: AssetImage('assets/images/ventes-logo.png'),
-          // width: 250,
-          // height: 75,
-          filterQuality: FilterQuality.high,
-          fit: BoxFit.fill,
+            child: SvgPicture.asset(
+          'assets/images/ventes-logo.svg',
+          width: 250,
+          height: 75,
         ))
       ],
     );
@@ -27,12 +26,10 @@ class SidebarWidgets {
     return Row(
       children: [
         Expanded(
-            child: Image.asset(
-          'assets/images/logo-short.png',
-          fit: BoxFit.fill,
-          // width: 150,
-          // height: 50,
-          filterQuality: FilterQuality.high,
+            child: SvgPicture.asset(
+          'assets/images/logo-short.svg',
+          width: 150,
+          height: 50,
         ))
       ],
     );
