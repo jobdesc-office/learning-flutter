@@ -34,34 +34,35 @@ class _TabCustomers extends StatelessWidget
                 children: [
                   if (custsource.value.isForm.value)
                     custsource.value.form(context),
-                  CustomDatabales(
-                    source: datatable,
-                    columns: datatable.columns,
-                    headerActions: [
-                      if (permis
-                          .where((element) => element.menunm == 'Settings')
-                          .first
-                          .children!
-                          .where(
-                              (element) => element.menunm == 'Company Setting')
-                          .first
-                          .features!
-                          .where((element) => element.featslug == 'create')
-                          .first
-                          .permissions!
-                          .hasaccess!)
-                        ThemeButtonCreate(
-                          prefix: "$typename",
-                          // onPressed: () => presenter.add(context),
-                          onPressed: () {
-                            custsource.value.isForm.toggle();
-                            source.value.pro.value = false;
-                          },
-                        )
-                    ],
-                    serverSide: (params) =>
-                        bppresenter.datatablesbpcus(context, params),
-                  ),
+                  if (custsource.value.show.value)
+                    CustomDatabales(
+                      source: datatable,
+                      columns: datatable.columns,
+                      headerActions: [
+                        if (permis
+                            .where((element) => element.menunm == 'Settings')
+                            .first
+                            .children!
+                            .where((element) =>
+                                element.menunm == 'Company Setting')
+                            .first
+                            .features!
+                            .where((element) => element.featslug == 'create')
+                            .first
+                            .permissions!
+                            .hasaccess!)
+                          ThemeButtonCreate(
+                            prefix: "$typename",
+                            // onPressed: () => presenter.add(context),
+                            onPressed: () {
+                              custsource.value.isForm.toggle();
+                              source.value.pro.value = false;
+                            },
+                          )
+                      ],
+                      serverSide: (params) =>
+                          bppresenter.datatablesbpcus(context, params),
+                    ),
                 ],
               );
             }),
@@ -95,7 +96,10 @@ class _TabCustomers extends StatelessWidget
     datatable.controller.reload();
     source.value.reset();
     custpresenter.setProcessing(false);
-    custsource.value.isForm.value = false;
+    custsource.update((val) {
+      custsource.value.isForm.value = false;
+      custsource.value.isEdit.value = false;
+    });
     Snackbar().editSuccess(context!);
   }
 
@@ -117,6 +121,7 @@ class _TabCustomers extends StatelessWidget
       custsource.update((val) {
         custsource.value.isForm.value = true;
         custsource.value.isEdit.value = true;
+        custsource.value.show.value = false;
       });
     };
     datatable.onDeleteListener =

@@ -54,10 +54,10 @@ class ContactFormSource {
     inputValue.text = contact.contactvalueid ?? "";
     selectCustomer.setSelected(BsSelectBoxOption(
         value: contact.contactbpcustomerid,
-        text: Text(contact.contactcustomer!.cstmname!)));
+        text: Text(contact.contactcustomer!.sbccstmname!)));
     selectType.setSelected(BsSelectBoxOption(
         value: contact.contacttypeid,
-        text: Text(contact.contacttype!.typename!)));
+        text: Text(contact.contacttype!.sbttypename!)));
     contactid = contact.contactpersonid;
   }
 

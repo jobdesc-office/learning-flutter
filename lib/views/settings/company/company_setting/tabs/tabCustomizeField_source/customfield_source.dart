@@ -7,7 +7,7 @@ class CustomizeFieldSource extends GetxController {
   var id = 0.obs;
 
   var visible = false.obs;
-  var newprospect = false.obs;
+  var newprospect = true.obs;
   var isselectbox = false.obs;
 
   var createdby = ''.obs;
@@ -28,7 +28,7 @@ class CustomizeFieldSource extends GetxController {
   reset() {
     id.value = 0;
     visible.value = false;
-    newprospect.value = false;
+    newprospect.value = true;
     isselectbox.value = false;
 
     createdby.value = '';
