@@ -76,6 +76,7 @@ IconData parseIcon(dynamic value) {
     'FontAwesomeIcons.locationDot': FontAwesomeIcons.locationDot,
     'Icons.square': Icons.square,
     'Icons.category': Icons.category,
+    'Icons.extension': Icons.extension,
   };
   return value == null ? Icons.circle_outlined : icons[value]!;
 }

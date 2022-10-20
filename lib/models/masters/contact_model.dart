@@ -248,14 +248,14 @@ class Contacttype {
   Contacttype({this.typeid, this.typename});
 
   Contacttype.fromJson(Map<String, dynamic> json) {
-    typeid = json['typeid'];
-    typename = json['typename'];
+    typeid = json['sbtid'];
+    typename = json['sbttypename'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['typeid'] = this.typeid;
-    data['typename'] = this.typename;
+    data['sbttypeid'] = this.typeid;
+    data['sbttypename'] = this.typename;
     return data;
   }
 }

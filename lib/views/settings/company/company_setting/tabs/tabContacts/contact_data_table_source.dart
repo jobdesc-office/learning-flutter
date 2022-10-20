@@ -40,6 +40,12 @@ class ContactDataTableSource extends BsDatatableSource {
         columnName: 'contactvalueid',
       ),
       CustomBsDataColumn(
+        label: Text('Contact Type'),
+        columnName: 'contactvalueid',
+        searchable: false,
+        orderable: false,
+      ),
+      CustomBsDataColumn(
         label: Text('Contact Customer'),
         columnName: 'contactvalueid',
         searchable: false,
@@ -87,6 +93,16 @@ class ContactDataTableSource extends BsDatatableSource {
         ),
         CustomBsDataCell(
           Text(row.contactvalueid ?? ''),
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
+        ),
+        CustomBsDataCell(
+          Text(row.contacttype?.typename ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
