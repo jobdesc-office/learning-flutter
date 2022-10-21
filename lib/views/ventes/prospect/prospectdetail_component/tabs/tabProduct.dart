@@ -87,6 +87,7 @@ class _TabProduct extends StatelessWidget {
                                         .permissions!
                                         .hasaccess!)
                                       ButtonEditDatatables(onPressed: () {
+                                        source.doubleback.value = true;
                                         productPresenter.edit(
                                             context,
                                             products.prosproductid,

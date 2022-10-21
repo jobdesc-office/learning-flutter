@@ -19,6 +19,8 @@ class ProspectDetailsSource extends GetxController {
   var prospectname = ''.obs;
   var prospectvalue = '0.0'.obs;
 
+  var doubleback = false.obs;
+
   var custid = 0.obs;
   var custname = ''.obs;
   var custlabel = ''.obs;
