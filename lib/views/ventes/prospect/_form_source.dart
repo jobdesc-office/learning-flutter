@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:boilerplate/services/settings/customfield_service.dart';
 import 'package:boilerplate/views/ventes/prospect/customer/customer_form.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
-import 'package:bs_flutter_inputtext/bs_flutter_inputtext.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
@@ -588,9 +587,9 @@ class ProspectForm {
         var inputPrice = source.inputPrices[index];
         var inputQuantity = source.inputQuantities[index];
         var inputAmount = source.inputAmounts[index];
-        var inputDiscount = source.inputDiscounts[index];
-        var inputTax = source.inputTaxes[index];
-        var selectTax = source.selectsTax[index];
+        // var inputDiscount = source.inputDiscounts[index];
+        // var inputTax = source.inputTaxes[index];
+        // var selectTax = source.selectsTax[index];
         return BsRow(
           children: [
             BsCol(

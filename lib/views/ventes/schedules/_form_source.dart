@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element
+
 import 'dart:convert';
 
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';

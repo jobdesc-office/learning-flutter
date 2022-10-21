@@ -1,9 +1,7 @@
 import 'package:boilerplate/helpers/function.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
-import 'package:date_time_format/date_time_format.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_webservice/directions.dart';
 
 import '../../../../../models/ventes/attendance_model.dart';
 import '../../../../../presenters/navigation_presenter.dart';
