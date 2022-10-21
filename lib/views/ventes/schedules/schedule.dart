@@ -268,9 +268,10 @@ class ScheduleView extends GetView
                                         ),
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
-                                          color: Colors.primaries[Random()
-                                              .nextInt(
-                                                  Colors.primaries.length)],
+                                          // color: Colors.primaries[Random()
+                                          //     .nextInt(
+                                          //         Colors.primaries.length)],
+                                          color: ColorPallates.primary,
                                         ),
                                       ),
                                     )
