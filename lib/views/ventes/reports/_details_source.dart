@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../../../models/ventes/report_model.dart';
 
 class ReportDetailsSource extends GetxController {
+  var ref = ''.obs;
   var customer = ''.obs;
   var cat = ''.obs;
   var type = ''.obs;
