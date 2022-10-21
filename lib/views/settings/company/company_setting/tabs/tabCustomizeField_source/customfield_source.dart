@@ -104,6 +104,8 @@ class CustomizeFieldSource extends GetxController {
           onChange: (value) {
             if (value.getOtherValue()['typename'] == 'Selectbox')
               isselectbox.value = true;
+            else
+              isselectbox.value = false;
           }),
     );
   }

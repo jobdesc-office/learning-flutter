@@ -24,6 +24,7 @@ class ProspectCustomFieldSource extends GetxController {
     format.value = '';
     inputValue.text = '';
     selectCustomfield.clear();
+    selectOption.clear();
   }
 
   bool isProcessing = false;
@@ -62,7 +63,7 @@ class ProspectCustomFieldForm {
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomSelectBox(
         searchable: true,
-        disabled: source.isProcessing,
+        disabled: true,
         controller: source.selectCustomfield,
         hintText: BaseText.hiintSelect(
             field: ProspectCustomFieldText.labelCustomField),
