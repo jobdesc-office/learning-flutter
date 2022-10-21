@@ -158,12 +158,15 @@ class _TabProduct extends StatelessWidget {
                                     BsCol(
                                       margin: EdgeInsets.only(top: 5),
                                       sizes: ColScreen(sm: Col.col_9),
-                                      child: Text('Rp. ' +
-                                          currencyFormatter
-                                              .format(double.parse(
-                                                  products.prosproductamount))
-                                              .replaceAll(',00', '')
-                                              .replaceAll('.', ',')),
+                                      child: Text(products.prosproductamount !=
+                                              null
+                                          ? 'Rp. ' +
+                                              currencyFormatter
+                                                  .format(double.parse(products
+                                                      .prosproductamount))
+                                                  .replaceAll(',00', '')
+                                                  .replaceAll('.', ',')
+                                          : '0'),
                                     ),
                                   ],
                                 ),

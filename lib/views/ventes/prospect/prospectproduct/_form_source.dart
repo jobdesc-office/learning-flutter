@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import '../../../../constants/base_text.dart';
 import '../../../../helpers/function.dart';
 import '../../../../models/session_model.dart';
+import '../../../../presenters/masters/product_presenter.dart';
 import '../../../../utils/select_api.dart';
 import '../../../../utils/session_manager.dart';
 import '../../../../utils/validators.dart';
@@ -45,12 +46,17 @@ class ProspectProductSource extends GetxController {
     return {
       'prosproductprospectid': id.value,
       'prosproductproductid': selectItem.getSelectedAsString(),
-      'prosproductprice': inputPrice.text.replaceAll(',', ''),
-      'prosproductqty': inputQuantity.text,
-      'prosproducttax': inputTax.text,
-      'prosproductdiscount': inputDiscount.text,
-      'prosproductamount': inputAmount.text.replaceAll(',', ''),
-      'prosproducttaxtypeid': selectTax.getSelectedAsString(),
+      'prosproductprice':
+          inputPrice.text != '' ? inputPrice.text.replaceAll(',', '') : null,
+      'prosproductqty': inputQuantity.text != '' ? inputQuantity.text : null,
+      'prosproducttax': inputTax.text != '' ? inputTax.text : null,
+      'prosproductdiscount':
+          inputDiscount.text != '' ? inputDiscount.text : null,
+      'prosproductamount':
+          inputAmount.text != '' ? inputAmount.text.replaceAll(',', '') : null,
+      'prosproducttaxtypeid': selectTax.getSelectedAsString() != ''
+          ? selectTax.getSelectedAsString()
+          : null,
       'createdby': session.userid,
       'updatedby': session.userid,
     };
@@ -65,6 +71,7 @@ class ProspectProductForm {
   ProspectProductForm(this.source);
 
   Widget selectProduct() {
+    final presenter = Get.find<ProductPresenter>();
     return FormGroup(
       label: Text(ProspectText.labelItem),
       child: Column(
@@ -78,6 +85,19 @@ class ProspectProductForm {
                 selectApiProductWithBp(params, box.read('mybpid').toString()),
             // serverSide: (params) => selectApiProduct(params),
             validators: [Validators.selectRequired(ProspectText.labelItem)],
+            onChange: (val) async {
+              if (val.getValueAsString() == 'add') {
+                SessionModel session = await SessionManager.current();
+                presenter.saveViaProspect({
+                  'productname': val.getOtherValue()['name'],
+                  'productbpid': val.getOtherValue()['bpid'],
+                  'createdby': session.userid,
+                  'updatedby': session.userid,
+                  'isactive': true,
+                });
+                source.selectItem.clear();
+              }
+            },
           ),
           Container(
             margin: EdgeInsets.only(top: 3),

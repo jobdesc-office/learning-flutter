@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import '../../../../contracts/base/edit_view_contract.dart';
 import '../../../../contracts/base/index_view_contract.dart';
 import '../../../../models/ventes/prospectProduct_model.dart';
+import '../../../../presenters/masters/product_presenter.dart';
 import '../../../../presenters/navigation_presenter.dart';
 import '../../../../presenters/ventes/prospect_presenter.dart';
 import '../../../../presenters/ventes/prospectproduct_presenter.dart';
@@ -27,6 +28,7 @@ class ProspectProductFormView extends StatelessWidget
   final ProspectProductPresenter presenter =
       Get.find<ProspectProductPresenter>();
   final ProspectPresenter prospectPresenter = Get.find<ProspectPresenter>();
+  final ProductPresenter productPresenter = Get.find<ProductPresenter>();
   final source = ProspectProductSource().obs;
   final sources = Get.put(ProspectDetailsSource());
   final Function(Map<String, dynamic> body) onSave;
@@ -37,6 +39,7 @@ class ProspectProductFormView extends StatelessWidget
   ProspectProductFormView({required this.onSave, id}) {
     prospectPresenter.addCustomerViewContract = this;
     presenter.setprospectFetchDataContract = this;
+    productPresenter.productViewContract = this;
     source.value.id.value = id;
   }
 
@@ -90,17 +93,17 @@ class ProspectProductFormView extends StatelessWidget
                                     margin: EdgeInsets.only(left: 5),
                                     sizes: ColScreen(sm: Col.col_4),
                                     child: prospectForm.inputPrices()),
-                                BsCol(
-                                    sizes: ColScreen(sm: Col.col_4),
-                                    child: prospectForm.inputDiscount()),
-                                BsCol(
-                                    margin: EdgeInsets.only(left: 5),
-                                    sizes: ColScreen(sm: Col.col_4),
-                                    child: prospectForm.inputTax()),
-                                BsCol(
-                                    margin: EdgeInsets.only(left: 5),
-                                    sizes: ColScreen(sm: Col.col_4),
-                                    child: prospectForm.selectTax()),
+                                // BsCol(
+                                //     sizes: ColScreen(sm: Col.col_4),
+                                //     child: prospectForm.inputDiscount()),
+                                // BsCol(
+                                //     margin: EdgeInsets.only(left: 5),
+                                //     sizes: ColScreen(sm: Col.col_4),
+                                //     child: prospectForm.inputTax()),
+                                // BsCol(
+                                //     margin: EdgeInsets.only(left: 5),
+                                //     sizes: ColScreen(sm: Col.col_4),
+                                //     child: prospectForm.selectTax()),
                                 BsCol(
                                   margin: EdgeInsets.only(left: 5),
                                   sizes: ColScreen(sm: Col.col_4),
@@ -180,15 +183,21 @@ class ProspectProductFormView extends StatelessWidget
             value: prospect.prosproducttaxtypeid,
             text: Text(prospect.prosproducttaxtype!.typename.toString())));
       }
-      source.value.inputQuantity.text = prospect.prosproductqty.toString();
-      source.value.inputAmount.text = currencyFormatter
-          .format(double.parse(prospect.prosproductamount ?? '0.0'))
-          .replaceAll(',00', '')
-          .replaceAll('.', ',');
-      source.value.inputPrice.text = currencyFormatter
-          .format(double.parse(prospect.prosproductprice ?? '0.0'))
-          .replaceAll(',00', '')
-          .replaceAll('.', ',');
+      source.value.inputQuantity.text = prospect.prosproductqty != null
+          ? prospect.prosproductqty.toString()
+          : '';
+      source.value.inputAmount.text = prospect.prosproductamount != null
+          ? currencyFormatter
+              .format(double.parse(prospect.prosproductamount ?? '0.0'))
+              .replaceAll(',00', '')
+              .replaceAll('.', ',')
+          : '';
+      source.value.inputPrice.text = prospect.prosproductprice != null
+          ? currencyFormatter
+              .format(double.parse(prospect.prosproductprice ?? '0.0'))
+              .replaceAll(',00', '')
+              .replaceAll('.', ',')
+          : '';
       source.value.inputDiscount.text = prospect.prosproductdiscount ?? '';
       source.value.inputTax.text = prospect.prosproducttax ?? '';
     });
