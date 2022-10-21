@@ -11,6 +11,8 @@ class _ContactForm extends StatelessWidget implements IndexViewContract {
     sbtpresenter.stBpTypeActivityCategoryViewContract = this;
   }
 
+  var format = ''.obs;
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -239,52 +241,63 @@ class _ContactForm extends StatelessWidget implements IndexViewContract {
   }
 
   Widget selectType(context) {
-    return FormGroup(
-      label: Obx(() => Text(ContactText.labelType,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
-      child: CustomSelectBox(
-        disabled: presenter.isProcessing.value,
-        controller: source.selectType,
-        hintText: BaseText.hiintSelect(field: ContactText.labelType),
-        serverSide: (params) => selectApiContactTypes(params),
-        validators: [
-          Validators.selectRequired(ContactText.labelType),
-        ],
-        onChange: (value) async {
-          if (value.getValueAsString() == 'add') {
-            SessionModel session = await SessionManager.current();
-            sbtpresenter.save(context, {
-              'sbtbpid': box.read('mybpid'),
-              'sbtname': value.getOtherValue()['master'],
-              'sbttypemasterid': value.getOtherValue()['masterid'],
-              'sbttypename': value.getOtherValue()['name'],
-              'createdby': session.userid,
-              'updatedby': session.userid,
-              'isactive': true,
-            });
-            source.selectType.clear();
-          }
-        },
-      ),
-    );
+    return Obx(() => FormGroup(
+          label: Text(ContactText.labelType,
+              style: TextStyle(
+                  color: _navigation.darkTheme.value
+                      ? Colors.white
+                      : Colors.black)),
+          child: CustomSelectBox(
+            disabled: presenter.isProcessing.value,
+            controller: source.selectType,
+            hintText: BaseText.hiintSelect(field: ContactText.labelType),
+            serverSide: (params) => selectApiContactTypes(params),
+            validators: [
+              Validators.selectRequired(ContactText.labelType),
+            ],
+            onChange: (value) async {
+              if (value.getValueAsString() == 'add') {
+                SessionModel session = await SessionManager.current();
+                sbtpresenter.save(context, {
+                  'sbtbpid': box.read('mybpid'),
+                  'sbtname': value.getOtherValue()['master'],
+                  'sbttypemasterid': value.getOtherValue()['masterid'],
+                  'sbttypename': value.getOtherValue()['name'],
+                  'createdby': session.userid,
+                  'updatedby': session.userid,
+                  'isactive': true,
+                });
+                source.selectType.clear();
+              } else {
+                format.value = value.getOtherValue()['sbttypename'];
+              }
+            },
+          ),
+        ));
   }
 
   Widget inputValue() {
-    return FormGroup(
-      label: Obx(() => Text(ContactText.labelValue,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
-      child: CustomInput(
-        minLines: 3,
-        maxLines: 5,
-        disabled: presenter.isProcessing.value,
-        controller: source.inputValue,
-        hintText: BaseText.hintText(field: ContactText.labelValue),
-      ),
-    );
+    return Obx(() => FormGroup(
+          label: Text(ContactText.labelValue,
+              style: TextStyle(
+                  color: _navigation.darkTheme.value
+                      ? Colors.white
+                      : Colors.black)),
+          child: CustomInput(
+            minLines: 3,
+            maxLines: 5,
+            disabled: presenter.isProcessing.value,
+            controller: source.inputValue,
+            hintText: BaseText.hintText(field: ContactText.labelValue),
+            validators: [
+              if (format.value == 'Email') Validators.inputEmail(),
+            ],
+            inputFormatters: [
+              if (format.value == 'Phone')
+                FilteringTextInputFormatter.digitsOnly,
+            ],
+          ),
+        ));
   }
 
   @override
