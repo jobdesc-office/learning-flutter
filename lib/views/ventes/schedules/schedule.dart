@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:boilerplate/constants/base_text.dart';
 import 'package:boilerplate/contracts/base/index_view_contract.dart';
 import 'package:boilerplate/contracts/ventes/schedule_contract.dart';
