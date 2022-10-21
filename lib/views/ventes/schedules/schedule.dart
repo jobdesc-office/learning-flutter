@@ -118,7 +118,10 @@ class ScheduleView extends GetView
                           child: ThemeButtonCreate(
                             margin: EdgeInsets.only(bottom: 5),
                             prefix: ScheduleText.title,
-                            onPressed: () => presenter.add(context),
+                            onPressed: () {
+                              source.done.value = false;
+                              presenter.add(context);
+                            },
                           ),
                         )
                     ],
@@ -150,6 +153,7 @@ class ScheduleView extends GetView
                                       .permissions!
                                       .hasaccess!)
                                     ButtonEditDatatables(onPressed: () {
+                                      source.done.value = false;
                                       presenter.edit(context, element.scheid!);
                                     }),
                                   if (permis
@@ -167,6 +171,7 @@ class ScheduleView extends GetView
                                       .permissions!
                                       .hasaccess!)
                                     ButtonDeleteDatatables(onPressed: () {
+                                      source.done.value = false;
                                       presenter.delete(context, element.scheid!,
                                           '${element.schenm!}');
                                     }),
@@ -309,16 +314,16 @@ class ScheduleView extends GetView
   void onCreateSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
     map.reset();
-    Snackbar().createSuccess(context!);
-    Navigator.pop(context);
+    // Snackbar().createSuccess(context!);
+    Navigator.pop(context!);
   }
 
   @override
   void onDeleteSuccess(Response response, {BuildContext? context}) {
-    source.done.value = true;
     presenter.setProcessing(false);
     map.reset();
     Snackbar().deleteSuccess(context!);
+    Navigator.pop(context);
     Navigator.pop(context);
   }
 
@@ -343,6 +348,7 @@ class ScheduleView extends GetView
 
   @override
   void onLoadScheduleSuccess(List<ScheduleModel> response) {
+    source.data.clear();
     source.data.value = response;
     source.done.value = true;
   }

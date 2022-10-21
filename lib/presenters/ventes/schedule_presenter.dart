@@ -9,6 +9,7 @@ import '../../contracts/ventes/schedule_contract.dart';
 import '../../models/ventes/schedule_model.dart';
 import '../../services/ventes/schedule_service.dart';
 import '../../utils/custom_get_controller.dart';
+import '../../views/ventes/schedules/_schedule_source.dart';
 import '../../views/ventes/schedules/schedule_detail.dart';
 import '../../views/ventes/schedules/schedule_form.dart';
 import '../../widgets/confirm_dialog.dart';
@@ -75,6 +76,7 @@ class SchedulePresenter extends CustomGetXController {
   void save(BuildContext context, Map<String, dynamic> body) async {
     Response response = await _scheduleService.store(body);
     if (response.statusCode == 200) {
+      getDataFromAPI();
       _scheduleViewContract.onCreateSuccess(response, context: context);
     } else
       _scheduleViewContract.onErrorRequest(response);
@@ -115,12 +117,14 @@ class SchedulePresenter extends CustomGetXController {
     setProcessing(true);
     Response response = await _scheduleService.update(typeid, body);
     if (response.statusCode == 200) {
+      getDataFromAPI();
       _scheduleViewContract.onEditSuccess(response, context: context);
     } else
       _scheduleViewContract.onErrorRequest(response);
   }
 
   void delete(BuildContext context, int typeid, String name) {
+    final source = Get.put(ScheduleHelper());
     showDialog(
       context: context,
       builder: (context) => ConfirmDialog(
@@ -129,11 +133,13 @@ class SchedulePresenter extends CustomGetXController {
         onPressed: (_, value) async {
           if (value == ConfirmDialogOption.YES_OPTION) {
             Response response = await _scheduleService.destroy(typeid);
-            if (response.statusCode == 200)
+            if (response.statusCode == 200) {
+              getDataFromAPI();
               _scheduleViewContract.onDeleteSuccess(response, context: context);
-            else
+            } else
               _scheduleViewContract.onErrorRequest(response);
           } else {
+            source.done.value = true;
             Navigator.pop(context);
           }
         },

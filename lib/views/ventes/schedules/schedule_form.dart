@@ -19,6 +19,7 @@ import '../../../widgets/form_group.dart';
 import '../../../widgets/map/_map_source.dart';
 import '../../../widgets/snackbar.dart';
 import '_form_source.dart';
+import '_schedule_source.dart';
 import '_text.dart';
 
 // ignore: must_be_immutable
@@ -28,6 +29,7 @@ class ScheduleFormView extends StatelessWidget
   final map = Get.put(MapSource());
   final SchedulePresenter presenter = Get.find<SchedulePresenter>();
   final source = ScheduleSource().obs;
+  final sources = Get.put(ScheduleHelper());
   final Function(Map<String, dynamic> body) onSave;
   final _navigation = Get.find<NavigationPresenter>();
 
@@ -74,7 +76,7 @@ class ScheduleFormView extends StatelessWidget
                       children: [
                         menuForm.inputName(),
                         menuForm.checkBoxForm(),
-                        menuForm.inputDate(context),
+                        // menuForm.inputDate(context),
                         menuForm.inputTime(context),
                         menuForm.actDate(context),
                         menuForm.selectType(),
@@ -300,6 +302,7 @@ class ScheduleFormView extends StatelessWidget
 
   void onClickCancelModal(BuildContext context) {
     final map = Get.find<MapSource>();
+    sources.done.value = true;
     map.reset();
     Navigator.pop(context);
   }
@@ -401,7 +404,6 @@ class ScheduleFormView extends StatelessWidget
   void onCreateSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
     Snackbar().createSuccess(context!);
-    Navigator.pop(context);
     Navigator.pop(context);
   }
 
