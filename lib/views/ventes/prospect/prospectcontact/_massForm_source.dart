@@ -37,7 +37,7 @@ class MassProspectContactSource {
       1, TextEditingController(),
       growable: true);
 
-  var formats = List<String>.filled(1, '', growable: true).obs;
+  List<String> formats = List<String>.filled(1, '', growable: true).obs;
 
   List<Map<String, dynamic>> jsonProducts() {
     return List<Map<String, dynamic>>.from(selectsItem.map((controller) {
@@ -114,7 +114,7 @@ class MassProspectContactForm {
                       serverSide: (params) => selectApiContactTypes(params),
                       onChange: (value) {
                         source.formats[index] =
-                            value.getOtherValue()['typename'];
+                            value.getOtherValue()['sbttypename'];
                       },
                     ),
                   ),
