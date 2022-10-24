@@ -7,14 +7,12 @@ class _TabCustomerActivity extends StatelessWidget implements IndexViewContract,
 
   late PCustomersForm pCustomerForm;
 
-  BpCustomerPresenter get bppresenter => Get.find<BpCustomerPresenter>();
-  CustomerPresenter custpresenter = Get.find<CustomerPresenter>();
+  BusinessPartnerPresenter get bpPresenter => Get.put(BusinessPartnerPresenter());
   final source = PCustomersSource().obs;
   final custsource = _CustomerFormSource().obs;
 
   _TabCustomerActivity(this.typename) {
-    bppresenter.bpCustomerViewContract = this;
-    custpresenter.customerViewContract = this;
+    bpPresenter.businessPartnerViewContract = this;
   }
 
   @override
@@ -26,18 +24,15 @@ class _TabCustomerActivity extends StatelessWidget implements IndexViewContract,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            child: Obx(() {
-              return Column(
-                children: [
-                  if (custsource.value.isForm.value) custsource.value.form(context),
-                  CustomDatabales(
-                    source: datatable,
-                    columns: datatable.columns,
-                    serverSide: (params) => bppresenter.datatablesbp(context, params),
-                  ),
-                ],
-              );
-            }),
+            child: Column(
+              children: [
+                CustomDatabales(
+                  source: datatable,
+                  columns: datatable.columns,
+                  serverSide: (params) => bpPresenter.datatables(context, params),
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -49,13 +44,13 @@ class _TabCustomerActivity extends StatelessWidget implements IndexViewContract,
     datatable.controller.reload();
     source.value.reset();
     custsource.value.isForm.value = false;
-    custpresenter.setProcessing(false);
+    bpPresenter.setProcessing(false);
     Snackbar().createSuccess(context!);
   }
 
   @override
   void onDeleteSuccess(Response response, {BuildContext? context}) {
-    bppresenter.setProcessing(false);
+    bpPresenter.setProcessing(false);
     source.value.reset();
     datatable.controller.reload();
     custsource.value.isForm.value = false;
@@ -67,28 +62,26 @@ class _TabCustomerActivity extends StatelessWidget implements IndexViewContract,
   void onEditSuccess(Response response, {BuildContext? context}) {
     datatable.controller.reload();
     source.value.reset();
-    custpresenter.setProcessing(false);
+    bpPresenter.setProcessing(false);
     custsource.value.isForm.value = false;
     Snackbar().editSuccess(context!);
   }
 
   @override
   void onErrorRequest(Response response) {
-    bppresenter.setProcessing(false);
+    bpPresenter.setProcessing(false);
   }
 
   @override
   void onLoadDatatables(BuildContext context, Response response) {
     source.value.reset();
     custsource.value.isForm.value = false;
-    bppresenter.setProcessing(false);
+    bpPresenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
-    datatable.onSetAnytime = (userid) => bppresenter.setAnytime(context, userid);
-    datatable.onSetWithAttendance = (perusahaanid) => bppresenter.setOnlyWithAttendance(context, perusahaanid);
   }
 
   @override
   void onSuccessFetchData(Response response) {
-    bppresenter.setProcessing(false);
+    bpPresenter.setProcessing(false);
   }
 }

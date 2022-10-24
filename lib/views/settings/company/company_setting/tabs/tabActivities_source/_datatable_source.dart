@@ -1,3 +1,4 @@
+import 'package:boilerplate/models/masters/businesspartner_model.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,8 +27,7 @@ class CustomersActivityDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      CustomBsDataColumn(
-          label: Text('Customer Name'), columnName: 'sbccstmname'),
+      CustomBsDataColumn(label: Text('Business Partner'), columnName: 'bpname'),
       CustomBsDataColumn(
         label: Text('Allow Without Attendance'),
         orderable: false,
@@ -39,16 +39,13 @@ class CustomersActivityDataTableSource extends BsDatatableSource {
 
   Map<int, bool> cetekanState = {};
 
-  List<BusinessPartnerCustomerModel> get customers => response.data
-      .map((data) => BusinessPartnerCustomerModel.fromJson(data))
-      .toList();
+  List<BusinessPartnerModel> get customers => response.data.map((data) => BusinessPartnerModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
     final row = customers[index];
     int x = controller.start + index + 1;
-    if (!cetekanState.containsKey(index))
-      cetekanState[index] = row.sbcactivitytype?.sbttypename == "Anytime";
+    if (!cetekanState.containsKey(index)) cetekanState[index] = row.bpactanytime ?? false;
     // var permis = authPresenter.rolepermis.value;
     return BsDataRow(
       index: index,
@@ -64,7 +61,7 @@ class CustomersActivityDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.sbccstmname ?? ''),
+          Text(row.bpname ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -76,25 +73,14 @@ class CustomersActivityDataTableSource extends BsDatatableSource {
         CustomBsDataCell(
           Row(
             children: [
-              if (permis
-                  .where((element) => element.menunm == 'Settings')
-                  .first
-                  .children!
-                  .where((element) => element.menunm == 'Company Setting')
-                  .first
-                  .features!
-                  .where((element) => element.featslug == 'update')
-                  .first
-                  .permissions!
-                  .hasaccess!)
-                Cetekan(cetekanState[index]!, onTap: (value) {
-                  cetekanState[index] = value;
-                  if (value) {
-                    onSetAnytime(row.sbcid!);
-                  } else {
-                    onSetWithAttendance(row.sbcid!);
-                  }
-                }),
+              Cetekan(cetekanState[index]!, onTap: (value) {
+                cetekanState[index] = value;
+                if (value) {
+                  onSetAnytime(row.bpid!);
+                } else {
+                  onSetWithAttendance(row.bpid!);
+                }
+              }),
             ],
           ),
           color: _navigation.darkTheme.value
