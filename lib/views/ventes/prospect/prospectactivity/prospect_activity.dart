@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../../../contracts/base/details_view_contract.dart';
-import '../../../../models/ventes/prospectactivity_model.dart';
 import '../../../../models/ventes/report_model.dart';
 import '../../../../presenters/navigation_presenter.dart';
 import '../../../../presenters/ventes/prospectactivity_presenter.dart';

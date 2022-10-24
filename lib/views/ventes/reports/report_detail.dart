@@ -1,4 +1,4 @@
-import 'dart:ui';
+
 
 import 'package:boilerplate/contracts/base/details_view_contract.dart';
 import 'package:boilerplate/helpers/function.dart';

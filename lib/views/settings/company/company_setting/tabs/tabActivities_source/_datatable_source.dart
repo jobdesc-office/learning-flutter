@@ -3,7 +3,6 @@ import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../../../models/ventes/bpcustomer_model.dart';
 import '../../../../../../presenters/auth_presenter.dart';
 import '../../../../../../presenters/navigation_presenter.dart';
 import '../../../../../../styles/color_palattes.dart';

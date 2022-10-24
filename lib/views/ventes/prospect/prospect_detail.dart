@@ -24,7 +24,6 @@ import '../../../contracts/ventes/prospectcustomfield_contract.dart';
 import '../../../models/session_model.dart';
 import '../../../models/settings/stbptype_model.dart';
 import '../../../models/ventes/prospect_model.dart';
-import '../../../models/ventes/prospectactivity_model.dart';
 import '../../../models/ventes/prospectcustomfield_model.dart';
 import '../../../models/ventes/report_model.dart';
 import '../../../presenters/auth_presenter.dart';
