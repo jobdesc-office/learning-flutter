@@ -240,8 +240,8 @@ class ScheduleView extends GetView
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(5)))),
                           focusedDay: source.focusedDay.value,
-                          firstDay: DateTime.utc(2022, 1, 1),
-                          lastDay: DateTime.utc(DateTime.now().year, 12, 31),
+                          firstDay: DateTime.utc(1, 1, 1),
+                          lastDay: DateTime.now(),
                           eventLoader: getScheduleInDate,
                           calendarBuilders: CalendarBuilders(
                             markerBuilder: (_, date, schedules) {
