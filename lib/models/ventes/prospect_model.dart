@@ -535,7 +535,7 @@ class Prosproducttaxtype {
   Prosproducttaxtype.fromJson(Map<String, dynamic> json) {
     typeid = json['typeid'];
     typecd = json['typecd'];
-    typename = json['typename'];
+    typename = json['sbttypename'];
     typeseq = json['typeseq'];
     typemasterid = json['typemasterid'];
     typedesc = json['typedesc'];

@@ -13,6 +13,7 @@ import '../../../../styles/color_palattes.dart';
 import '../../../../widgets/breadcrumb.dart';
 import '../../../../widgets/button/theme_button_cancel.dart';
 import '../../../../widgets/button/theme_button_save.dart';
+import '../_detail_source.dart';
 import '_form_source.dart';
 
 // ignore: must_be_immutable
@@ -22,6 +23,7 @@ class ProspectActivityFormView extends StatelessWidget
   final ProspectActivityPresenter presenter =
       Get.find<ProspectActivityPresenter>();
   final source = ProspectActivitySource().obs;
+  final sources = Get.put(ProspectDetailsSource());
   final Function(Map<String, dynamic> body) onSave;
   final _navigation = Get.find<NavigationPresenter>();
 
@@ -114,6 +116,7 @@ class ProspectActivityFormView extends StatelessWidget
 
   void onClickSaveModal(BuildContext context) async {
     presenter.setProcessing(true);
+    sources.doubleback.value = false;
     if (formState.currentState!.validate())
       onSave(await source.toJson());
     else
@@ -122,6 +125,10 @@ class ProspectActivityFormView extends StatelessWidget
 
   void onClickCancelModal(BuildContext context) {
     Navigator.pop(context);
+    if (sources.doubleback.value) {
+      Navigator.pop(context);
+      sources.doubleback.value = false;
+    }
   }
 
   @override

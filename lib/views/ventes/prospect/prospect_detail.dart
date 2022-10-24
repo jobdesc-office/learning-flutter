@@ -407,6 +407,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     detailPresenter.setProcessing(false);
     assignPresenter.setProcessing(false);
     filePresenter.setProcessing(false);
+    productPresenter.setProcessing(false);
     Get.back();
     Navigator.pop(context!);
     presenter.details(context, source.prospectid.value);
@@ -436,6 +437,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     assignPresenter.setProcessing(false);
     contactPresenter.setProcessing(false);
     filePresenter.setProcessing(false);
+    productPresenter.setProcessing(false);
   }
 
   @override

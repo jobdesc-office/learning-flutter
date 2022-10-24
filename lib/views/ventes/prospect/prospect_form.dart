@@ -65,208 +65,221 @@ class ProspectFormView extends StatelessWidget
             ),
             child: Form(
               key: formState,
-              child: BsRow(
-                children: [
-                  BsCol(
-                    margin: EdgeInsets.only(right: 5),
-                    sizes: ColScreen(sm: Col.col_5),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(color: Colors.grey.shade300)),
+              child: SingleChildScrollView(
+                child: BsRow(
+                  children: [
+                    BsCol(
+                      margin: EdgeInsets.only(right: 5),
+                      sizes: ColScreen(sm: Col.col_5),
                       child: Container(
-                        margin: EdgeInsets.all(10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            prospectForm.inputTitle(),
-                            prospectForm.selectOwner(),
-                            prospectForm.inputStatus(),
-                            prospectForm.selectCustLab(),
-                            prospectForm.inputOrganization(context),
-                            prospectForm.inputExpected(context)
-                          ],
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(color: Colors.grey.shade300)),
+                        child: Container(
+                          margin: EdgeInsets.all(10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              prospectForm.inputTitle(),
+                              prospectForm.selectOwner(),
+                              prospectForm.inputStatus(),
+                              prospectForm.selectCustLab(),
+                              prospectForm.inputOrganization(context),
+                              prospectForm.inputExpected(context)
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  BsCol(
-                    margin: EdgeInsets.only(left: 5),
-                    sizes: ColScreen(sm: Col.col_7),
-                    child: BsRow(
-                      children: [
-                        BsCol(
-                          margin: EdgeInsets.only(bottom: 5),
-                          child: Container(
+                    BsCol(
+                      margin: EdgeInsets.only(left: 5),
+                      sizes: ColScreen(sm: Col.col_7),
+                      child: BsRow(
+                        children: [
+                          BsCol(
+                            margin: EdgeInsets.only(bottom: 5),
                             child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  border:
-                                      Border.all(color: Colors.grey.shade300)),
                               child: Container(
-                                margin: EdgeInsets.all(10),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // prospectForm.inputEmail(
-                                    //     onRemoveEmail: onClickRemoveEmail),
-                                    // Container(
-                                    //   margin: EdgeInsets.only(bottom: 20),
-                                    //   child: GestureDetector(
-                                    //       onTap: () {
-                                    //         source.update((val) {
-                                    //           source.value.inputEmails
-                                    //               .add(TextEditingController());
-                                    //           source.value.selectsPrivationEmail
-                                    //               .add(BsSelectBoxController(
-                                    //                   options: [
-                                    //                 BsSelectBoxOption(
-                                    //                     value: '{1}',
-                                    //                     text: Text("Work")),
-                                    //                 BsSelectBoxOption(
-                                    //                     value: '{2}',
-                                    //                     text: Text('Private'))
-                                    //               ]));
-                                    //         });
-                                    //       },
-                                    //       child: Text('+ Add More Emails')),
-                                    // ),
-                                    // prospectForm.inputPhone(
-                                    //     onRemovePhone: onClickRemovePhone),
-                                    // Container(
-                                    //   margin: EdgeInsets.only(bottom: 20),
-                                    //   child: GestureDetector(
-                                    //       onTap: () {
-                                    //         source.update((val) {
-                                    //           source.value.inputPhones
-                                    //               .add(TextEditingController());
-                                    //           source.value.selectsPrivationPhone
-                                    //               .add(BsSelectBoxController(
-                                    //                   options: [
-                                    //                 BsSelectBoxOption(
-                                    //                     value: '{1}',
-                                    //                     text: Text("Work")),
-                                    //                 BsSelectBoxOption(
-                                    //                     value: '{2}',
-                                    //                     text: Text('Private'))
-                                    //               ]));
-                                    //         });
-                                    //       },
-                                    //       child: Text('+ Add More Phones')),
-                                    // ),
-                                    BsRow(
-                                      children: [
-                                        BsCol(
-                                            sizes: ColScreen(sm: Col.col_12),
-                                            child: prospectForm
-                                                .inputPipelineStage()),
-                                        BsCol(
-                                            sizes: ColScreen(sm: Col.col_7),
-                                            child:
-                                                prospectForm.selectReference()),
-                                        BsCol(
-                                            sizes: ColScreen(sm: Col.col_7),
-                                            child: prospectForm.inputValue()),
-                                        // BsCol(
-                                        //     sizes: ColScreen(sm: Col.col_7),
-                                        //     child: prospectForm.inputDesc()),
-                                      ],
-                                    ),
-                                  ],
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(
+                                        color: Colors.grey.shade300)),
+                                child: Container(
+                                  margin: EdgeInsets.all(10),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      // prospectForm.inputEmail(
+                                      //     onRemoveEmail: onClickRemoveEmail),
+                                      // Container(
+                                      //   margin: EdgeInsets.only(bottom: 20),
+                                      //   child: GestureDetector(
+                                      //       onTap: () {
+                                      //         source.update((val) {
+                                      //           source.value.inputEmails
+                                      //               .add(TextEditingController());
+                                      //           source.value.selectsPrivationEmail
+                                      //               .add(BsSelectBoxController(
+                                      //                   options: [
+                                      //                 BsSelectBoxOption(
+                                      //                     value: '{1}',
+                                      //                     text: Text("Work")),
+                                      //                 BsSelectBoxOption(
+                                      //                     value: '{2}',
+                                      //                     text: Text('Private'))
+                                      //               ]));
+                                      //         });
+                                      //       },
+                                      //       child: Text('+ Add More Emails')),
+                                      // ),
+                                      // prospectForm.inputPhone(
+                                      //     onRemovePhone: onClickRemovePhone),
+                                      // Container(
+                                      //   margin: EdgeInsets.only(bottom: 20),
+                                      //   child: GestureDetector(
+                                      //       onTap: () {
+                                      //         source.update((val) {
+                                      //           source.value.inputPhones
+                                      //               .add(TextEditingController());
+                                      //           source.value.selectsPrivationPhone
+                                      //               .add(BsSelectBoxController(
+                                      //                   options: [
+                                      //                 BsSelectBoxOption(
+                                      //                     value: '{1}',
+                                      //                     text: Text("Work")),
+                                      //                 BsSelectBoxOption(
+                                      //                     value: '{2}',
+                                      //                     text: Text('Private'))
+                                      //               ]));
+                                      //         });
+                                      //       },
+                                      //       child: Text('+ Add More Phones')),
+                                      // ),
+                                      BsRow(
+                                        children: [
+                                          BsCol(
+                                              sizes: ColScreen(sm: Col.col_12),
+                                              child: prospectForm
+                                                  .inputPipelineStage()),
+                                          BsCol(
+                                              sizes: ColScreen(sm: Col.col_7),
+                                              child: prospectForm
+                                                  .selectReference()),
+                                          BsCol(
+                                              sizes: ColScreen(sm: Col.col_7),
+                                              child: prospectForm.inputValue()),
+                                          // BsCol(
+                                          //     sizes: ColScreen(sm: Col.col_7),
+                                          //     child: prospectForm.inputDesc()),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        BsCol(
-                          margin: EdgeInsets.only(top: 5),
-                          child: source.value.isProduct.value
-                              ? null
-                              : Container(
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        border: Border.all(
-                                            color: Colors.grey.shade300)),
+                          BsCol(
+                            margin: EdgeInsets.only(top: 5),
+                            child: source.value.isProduct.value
+                                ? null
+                                : Container(
                                     child: Container(
-                                      margin: EdgeInsets.all(10),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          prospectForm.inputProduct(
-                                              onRemoveItem: onClickRemoveItem),
-                                          Container(
-                                            margin: EdgeInsets.only(bottom: 20),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                GestureDetector(
-                                                    onTap: () {
-                                                      source.update((val) {
-                                                        source.value.inputPrices
-                                                            .add(
-                                                                TextEditingController());
-                                                        source.value
-                                                            .inputQuantities
-                                                            .add(
-                                                                TextEditingController());
-                                                        source
-                                                            .value.inputAmounts
-                                                            .add(
-                                                                TextEditingController());
-                                                        source.value.inputTaxes.add(
-                                                            TextEditingController());
-                                                        source.value.selectsItem
-                                                            .add(
-                                                                BsSelectBoxController());
-                                                        source.value
-                                                            .inputDiscounts
-                                                            .add(
-                                                                TextEditingController());
-                                                        source.value.selectsTax.add(
-                                                            BsSelectBoxController());
-                                                      });
-                                                    },
-                                                    child: Text(
-                                                        '+ Add More Items')),
-                                                // prospectForm.total()
-                                              ],
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          border: Border.all(
+                                              color: Colors.grey.shade300)),
+                                      child: Container(
+                                        margin: EdgeInsets.all(10),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            prospectForm.inputProduct(
+                                                onRemoveItem:
+                                                    onClickRemoveItem),
+                                            Container(
+                                              margin:
+                                                  EdgeInsets.only(bottom: 20),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  GestureDetector(
+                                                      onTap: () {
+                                                        source.update((val) {
+                                                          source
+                                                              .value.inputPrices
+                                                              .add(
+                                                                  TextEditingController());
+                                                          source.value
+                                                              .inputQuantities
+                                                              .add(
+                                                                  TextEditingController());
+                                                          source.value
+                                                              .inputAmounts
+                                                              .add(
+                                                                  TextEditingController());
+                                                          source
+                                                              .value.inputTaxes
+                                                              .add(
+                                                                  TextEditingController());
+                                                          source
+                                                              .value.selectsItem
+                                                              .add(
+                                                                  BsSelectBoxController());
+                                                          source.value
+                                                              .inputDiscounts
+                                                              .add(
+                                                                  TextEditingController());
+                                                          source
+                                                              .value.selectsTax
+                                                              .add(
+                                                                  BsSelectBoxController());
+                                                        });
+                                                      },
+                                                      child: Text(
+                                                          '+ Add More Items')),
+                                                  // prospectForm.total()
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                        ),
-                        BsCol(
-                          margin: EdgeInsets.only(top: 20),
-                          child: Obx(
-                            () => Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                ThemeButtonSave(
-                                  disabled: presenter.isProcessing.value,
-                                  processing: presenter.isProcessing.value,
-                                  margin: EdgeInsets.only(right: 5),
-                                  onPressed: () => onClickSaveModal(context),
-                                ),
-                                ThemeButtonCancel(
-                                  disabled: presenter.isProcessing.value,
-                                  margin: EdgeInsets.only(right: 5),
-                                  onPressed: () => onClickCancelModal(context),
-                                ),
-                              ],
-                            ),
                           ),
-                        )
-                      ],
+                          BsCol(
+                            margin: EdgeInsets.only(top: 20),
+                            child: Obx(
+                              () => Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  ThemeButtonSave(
+                                    disabled: presenter.isProcessing.value,
+                                    processing: presenter.isProcessing.value,
+                                    margin: EdgeInsets.only(right: 5),
+                                    onPressed: () => onClickSaveModal(context),
+                                  ),
+                                  ThemeButtonCancel(
+                                    disabled: presenter.isProcessing.value,
+                                    margin: EdgeInsets.only(right: 5),
+                                    onPressed: () =>
+                                        onClickCancelModal(context),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           );
@@ -365,34 +378,57 @@ class ProspectFormView extends StatelessWidget
       source.value.selectedDateExpect.value =
           prospect.prospectexpclosedate ?? '';
 
-      for (var item in prospect.prospectproduct!) {
-        source.value.selectsItem.add(BsSelectBoxController(selected: [
-          BsSelectBoxOption(
-              value: item.prosproductproductid,
-              text: Text(item.prosproductproduct!.productname!))
-        ]));
-        source.value.inputPrices.add(TextEditingController(
-            text: currencyFormatter
-                .format(double.parse(item.prosproductprice!))
-                .replaceAll(',00', '')
-                .replaceAll('.', ',')));
-        source.value.inputQuantities
-            .add(TextEditingController(text: item.prosproductqty.toString()));
-        source.value.inputAmounts.add(TextEditingController(
-            text: currencyFormatter
-                .format(double.parse(item.prosproductamount!))));
-        source.value.inputDiscounts
-            .add(TextEditingController(text: item.prosproductdiscount ?? ''));
-        source.value.inputTaxes
-            .add(TextEditingController(text: item.prosproducttax ?? ''));
-        if (item.prosproducttaxtype != null) {
-          source.value.selectsTax.add(BsSelectBoxController(selected: [
+      if (prospect.prospectproduct != []) {
+        for (var item in prospect.prospectproduct!) {
+          source.value.selectsItem.add(BsSelectBoxController(selected: [
             BsSelectBoxOption(
-                value: item.prosproducttaxtype!.typeid,
-                text: Text(item.prosproducttaxtype!.typename!))
+                value: item.prosproductproductid,
+                text: Text(item.prosproductproduct!.productname!))
           ]));
-        } else {
-          source.value.selectsTax.add(BsSelectBoxController());
+
+          if (item.prosproductprice != null)
+            source.value.inputPrices.add(TextEditingController(
+                text: currencyFormatter
+                    .format(double.parse(item.prosproductprice!))
+                    .replaceAll(',00', '')
+                    .replaceAll('.', ',')));
+          else
+            source.value.inputPrices.add(TextEditingController());
+
+          if (item.prosproductqty != null)
+            source.value.inputQuantities.add(
+                TextEditingController(text: item.prosproductqty.toString()));
+          else
+            source.value.inputQuantities.add(TextEditingController());
+
+          if (item.prosproductamount != null)
+            source.value.inputAmounts.add(TextEditingController(
+                text: currencyFormatter
+                    .format(double.parse(item.prosproductamount!))));
+          else
+            source.value.inputAmounts.add(TextEditingController());
+
+          if (item.prosproductdiscount != null)
+            source.value.inputDiscounts.add(
+                TextEditingController(text: item.prosproductdiscount ?? ''));
+          else
+            source.value.inputDiscounts.add(TextEditingController());
+
+          if (item.prosproducttax != null)
+            source.value.inputTaxes
+                .add(TextEditingController(text: item.prosproducttax ?? ''));
+          else
+            source.value.inputTaxes.add(TextEditingController());
+
+          if (item.prosproducttaxtype != null) {
+            source.value.selectsTax.add(BsSelectBoxController(selected: [
+              BsSelectBoxOption(
+                  value: item.prosproducttaxtype!.typeid,
+                  text: Text(item.prosproducttaxtype!.typename!))
+            ]));
+          } else {
+            source.value.selectsTax.add(BsSelectBoxController());
+          }
         }
       }
     });

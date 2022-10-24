@@ -333,7 +333,8 @@ class _TabCompetitor extends GetView
     datatable.controller.reload();
     isForm.value = false;
     isEdit.value = false;
-    Snackbar().deleteSuccess(context!);
+    Navigator.pop(context!);
+    Snackbar().deleteSuccess(context);
     sources.value.reset();
   }
 

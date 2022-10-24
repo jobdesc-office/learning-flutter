@@ -121,8 +121,8 @@ class ProspectContactDetails extends GetView implements DetailViewContract {
   @override
   void onSuccessFetchData(Response response) {
     ContactModel dt = ContactModel.fromJson(response.body);
-    controller.type.value = dt.contacttype!.typename ?? '';
-    controller.customer.value = dt.contactcustomer!.cstmname ?? '';
+    controller.type.value = dt.contacttype!.sbttypename ?? '';
+    controller.customer.value = dt.contactcustomer!.sbccstmname ?? '';
     controller.name.value = dt.contactname ?? '';
     controller.value.value = dt.contactvalueid ?? '';
     presenter.setProcessing(false);

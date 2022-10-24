@@ -69,6 +69,22 @@ class ReportDetail extends GetView implements DetailViewContract {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
+                                      Text(controller.ref.value),
+                                      Divider()
+                                    ],
+                                  ))),
+                          BsCol(
+                              sizes: ColScreen(lg: Col.col_12),
+                              child: FormGroup(
+                                  label: Text('Customer',
+                                      style: TextStyle(
+                                          color: _navigation.darkTheme.value
+                                              ? Colors.white
+                                              : Colors.black)),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
                                       Text(controller.customer.value),
                                       Divider()
                                     ],
@@ -348,6 +364,7 @@ class ReportDetail extends GetView implements DetailViewContract {
   @override
   void onSuccessFetchData(Response response) {
     Activities dt = Activities.fromJson(response.body);
+    controller.ref.value = dt.dayactreftype?.typename ?? '';
     controller.customer.value = dt.dayactcust?.sbccstmname ?? '';
     controller.cat.value = dt.dayactcat?.sbttypename ?? '';
     controller.date.value = dt.dayactdate ?? '';

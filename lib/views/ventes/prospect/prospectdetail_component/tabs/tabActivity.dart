@@ -108,6 +108,8 @@ class _TabActivity extends StatelessWidget {
                                                           .hasaccess!)
                                                         ButtonEditDatatables(
                                                             onPressed: () {
+                                                          source.doubleback
+                                                              .value = true;
                                                           detailPresenter.edit(
                                                               context,
                                                               element

@@ -3,7 +3,6 @@ import 'package:boilerplate/models/masters/contact_model.dart';
 import 'package:boilerplate/presenters/navigation_presenter.dart';
 import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:boilerplate/widgets/button/button_delete_datatable.dart';
-import 'package:boilerplate/widgets/button/button_details_datatable.dart';
 import 'package:boilerplate/widgets/button/button_edit_datatable.dart';
 import 'package:boilerplate/widgets/datatables/custom_datatable_tablecell.dart';
 import 'package:boilerplate/widgets/datatables/custom_datatable_tablehead.dart';
@@ -102,7 +101,7 @@ class ContactDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.contacttype?.typename ?? ''),
+          Text(row.contacttype?.sbttypename ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -112,7 +111,7 @@ class ContactDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.contactcustomer?.cstmname ?? ''),
+          Text(row.contactcustomer?.sbccstmname ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor

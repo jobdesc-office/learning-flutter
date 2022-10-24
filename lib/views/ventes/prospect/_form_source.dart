@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:boilerplate/services/settings/customfield_service.dart';
 import 'package:boilerplate/views/ventes/prospect/customer/customer_form.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
-import 'package:bs_flutter_inputtext/bs_flutter_inputtext.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
@@ -172,12 +171,16 @@ class ProspectSource extends GetxController {
       }
       return {
         'item': selectsItem[index].getSelectedAsString(),
-        'price':
-            inputPrices[index].text.replaceAll('.', '').replaceAll(',', ''),
-        'quantity': inputQuantities[index].text,
+        'price': inputPrices[index].text != ''
+            ? inputPrices[index].text.replaceAll('.', '').replaceAll(',', '')
+            : null,
+        'quantity': inputQuantities[index].text != ''
+            ? inputQuantities[index].text
+            : null,
         'discount': discount,
-        'amount':
-            inputAmounts[index].text.replaceAll('.', '').replaceAll(',', ''),
+        'amount': inputAmounts[index].text != ''
+            ? inputAmounts[index].text.replaceAll('.', '').replaceAll(',', '')
+            : null,
         'tax': tax,
         'taxtype': taxtype
       };
@@ -584,9 +587,9 @@ class ProspectForm {
         var inputPrice = source.inputPrices[index];
         var inputQuantity = source.inputQuantities[index];
         var inputAmount = source.inputAmounts[index];
-        var inputDiscount = source.inputDiscounts[index];
-        var inputTax = source.inputTaxes[index];
-        var selectTax = source.selectsTax[index];
+        // var inputDiscount = source.inputDiscounts[index];
+        // var inputTax = source.inputTaxes[index];
+        // var selectTax = source.selectsTax[index];
         return BsRow(
           children: [
             BsCol(
@@ -713,71 +716,71 @@ class ProspectForm {
                       ),
                     ),
                   ),
-                  BsCol(
-                    margin: EdgeInsets.only(left: 5),
-                    sizes: ColScreen(md: Col.col_2),
-                    child: FormGroup(
-                      label: Text(ProspectText.labelDiscount),
-                      child: CustomInput(
-                        disabled: source.isProduct.value,
-                        controller: inputDiscount,
-                        hintText: BaseText.hintText(
-                            field: ProspectText.labelDiscount),
-                        validators: [
-                          BsInputValidator(validator: ((value) {
-                            if (value != '') {
-                              if (parseInt(value) > 100) {
-                                return 'Discount is Wrong';
-                              }
-                              return null;
-                            } else {
-                              return null;
-                            }
-                          })),
-                        ],
-                      ),
-                    ),
-                  ),
-                  BsCol(
-                    margin: EdgeInsets.only(left: 5),
-                    sizes: ColScreen(md: Col.col_2),
-                    child: FormGroup(
-                      label: Text(ProspectText.labelTax),
-                      child: CustomInput(
-                        disabled: source.isProduct.value,
-                        controller: inputTax,
-                        hintText:
-                            BaseText.hintText(field: ProspectText.labelTax),
-                        validators: [
-                          BsInputValidator(validator: ((value) {
-                            if (value != '') {
-                              if (parseInt(value) > 100) {
-                                return 'Taxes is Wrong';
-                              }
-                              return null;
-                            } else {
-                              return null;
-                            }
-                          })),
-                        ],
-                      ),
-                    ),
-                  ),
-                  BsCol(
-                    margin: EdgeInsets.only(left: 5),
-                    sizes: ColScreen(md: Col.col_3),
-                    child: FormGroup(
-                      label: Text(ProspectText.labelTaxType),
-                      child: CustomSelectBox(
-                        searchable: false,
-                        disabled: source.isProduct.value,
-                        controller: selectTax,
-                        hintText: BaseText.hiintSelect(
-                            field: ProspectText.labelTaxType),
-                        serverSide: (params) => selectApiTaxTypes(params),
-                      ),
-                    ),
-                  ),
+                  // BsCol(
+                  //   margin: EdgeInsets.only(left: 5),
+                  //   sizes: ColScreen(md: Col.col_2),
+                  //   child: FormGroup(
+                  //     label: Text(ProspectText.labelDiscount),
+                  //     child: CustomInput(
+                  //       disabled: source.isProduct.value,
+                  //       controller: inputDiscount,
+                  //       hintText: BaseText.hintText(
+                  //           field: ProspectText.labelDiscount),
+                  //       validators: [
+                  //         BsInputValidator(validator: ((value) {
+                  //           if (value != '') {
+                  //             if (parseInt(value) > 100) {
+                  //               return 'Discount is Wrong';
+                  //             }
+                  //             return null;
+                  //           } else {
+                  //             return null;
+                  //           }
+                  //         })),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
+                  // BsCol(
+                  //   margin: EdgeInsets.only(left: 5),
+                  //   sizes: ColScreen(md: Col.col_2),
+                  //   child: FormGroup(
+                  //     label: Text(ProspectText.labelTax),
+                  //     child: CustomInput(
+                  //       disabled: source.isProduct.value,
+                  //       controller: inputTax,
+                  //       hintText:
+                  //           BaseText.hintText(field: ProspectText.labelTax),
+                  //       validators: [
+                  //         BsInputValidator(validator: ((value) {
+                  //           if (value != '') {
+                  //             if (parseInt(value) > 100) {
+                  //               return 'Taxes is Wrong';
+                  //             }
+                  //             return null;
+                  //           } else {
+                  //             return null;
+                  //           }
+                  //         })),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
+                  // BsCol(
+                  //   margin: EdgeInsets.only(left: 5),
+                  //   sizes: ColScreen(md: Col.col_3),
+                  //   child: FormGroup(
+                  //     label: Text(ProspectText.labelTaxType),
+                  //     child: CustomSelectBox(
+                  //       searchable: false,
+                  //       disabled: source.isProduct.value,
+                  //       controller: selectTax,
+                  //       hintText: BaseText.hiintSelect(
+                  //           field: ProspectText.labelTaxType),
+                  //       serverSide: (params) => selectApiTaxTypes(params),
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ),

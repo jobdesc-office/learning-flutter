@@ -81,7 +81,7 @@ class UserSource extends GetxController {
 
   List<Map<String, dynamic>> jsonRoles() {
     return List<Map<String, dynamic>>.from(selectsRole.map((controller) {
-      int index = selectsRole.indexOf(controller);
+      // int index = selectsRole.indexOf(controller);
       final box = GetStorage();
       return {
         // 'roleid': selectsRole[index].getSelectedAsString(),
@@ -117,8 +117,8 @@ class UserForm {
     return FormGroup(
       child: Column(
         children: source.selectsRole.map((controller) {
-          int index = source.selectsRole.indexOf(controller);
-          var selectRole = source.selectsRole[index];
+          // int index = source.selectsRole.indexOf(controller);
+          // var selectRole = source.selectsRole[index];
           return FormGroup(
             label: Text(UserText.labelRole),
             child: CustomSelectBox(

@@ -376,6 +376,9 @@ class _TabUsers extends StatelessWidget
       src.value.inputEmail.text = menu.useremail!;
       src.value.inputPhone.text = menu.userphone!;
       for (var item in menu.userdetails!) {
+        src.value.selectRole.setSelected(BsSelectBoxOption(
+            value: item.usertype!.typeid,
+            text: Text(item.usertype!.typename!)));
         src.value.selectsRole.add(BsSelectBoxController(selected: [
           BsSelectBoxOption(
               value: item.usertype!.typeid,

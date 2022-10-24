@@ -153,20 +153,14 @@ class Contactcreatedby {
 }
 
 class Contactcustomer {
-  int? cstmid;
-  String? cstmprefix;
-  String? cstmname;
-  String? cstmphone;
-  String? cstmaddress;
-  int? cstmtypeid;
-  int? cstmprovinceid;
-  int? cstmcityid;
-  int? cstmsubdistrictid;
-  int? cstmuvid;
-  String? cstmpostalcode;
-  String? cstmlatitude;
-  String? cstmlongitude;
-  String? referalcode;
+  int? sbcid;
+  int? sbcbpid;
+  int? sbccstmid;
+  int? sbccstmstatusid;
+  int? sbcactivitytypeid;
+  String? sbccstmname;
+  String? sbccstmphone;
+  String? sbccstmaddress;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -174,20 +168,14 @@ class Contactcustomer {
   bool? isactive;
 
   Contactcustomer(
-      {this.cstmid,
-      this.cstmprefix,
-      this.cstmname,
-      this.cstmphone,
-      this.cstmaddress,
-      this.cstmtypeid,
-      this.cstmprovinceid,
-      this.cstmcityid,
-      this.cstmsubdistrictid,
-      this.cstmuvid,
-      this.cstmpostalcode,
-      this.cstmlatitude,
-      this.cstmlongitude,
-      this.referalcode,
+      {this.sbcid,
+      this.sbcbpid,
+      this.sbccstmid,
+      this.sbccstmstatusid,
+      this.sbcactivitytypeid,
+      this.sbccstmname,
+      this.sbccstmphone,
+      this.sbccstmaddress,
       this.createdby,
       this.createddate,
       this.updatedby,
@@ -195,20 +183,14 @@ class Contactcustomer {
       this.isactive});
 
   Contactcustomer.fromJson(Map<String, dynamic> json) {
-    cstmid = json['cstmid'];
-    cstmprefix = json['cstmprefix'];
-    cstmname = json['cstmname'];
-    cstmphone = json['cstmphone'];
-    cstmaddress = json['cstmaddress'];
-    cstmtypeid = json['cstmtypeid'];
-    cstmprovinceid = json['cstmprovinceid'];
-    cstmcityid = json['cstmcityid'];
-    cstmsubdistrictid = json['cstmsubdistrictid'];
-    cstmuvid = json['cstmuvid'];
-    cstmpostalcode = json['cstmpostalcode'];
-    cstmlatitude = json['cstmlatitude'];
-    cstmlongitude = json['cstmlongitude'];
-    referalcode = json['referalcode'];
+    sbcid = json['sbcid'];
+    sbcbpid = json['sbcbpid'];
+    sbccstmid = json['sbccstmid'];
+    sbccstmstatusid = json['sbccstmstatusid'];
+    sbcactivitytypeid = json['sbcactivitytypeid'];
+    sbccstmname = json['sbccstmname'];
+    sbccstmphone = json['sbccstmphone'];
+    sbccstmaddress = json['sbccstmaddress'];
     createdby = json['createdby'];
     createddate = json['createddate'];
     updatedby = json['updatedby'];
@@ -218,20 +200,14 @@ class Contactcustomer {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['cstmid'] = this.cstmid;
-    data['cstmprefix'] = this.cstmprefix;
-    data['cstmname'] = this.cstmname;
-    data['cstmphone'] = this.cstmphone;
-    data['cstmaddress'] = this.cstmaddress;
-    data['cstmtypeid'] = this.cstmtypeid;
-    data['cstmprovinceid'] = this.cstmprovinceid;
-    data['cstmcityid'] = this.cstmcityid;
-    data['cstmsubdistrictid'] = this.cstmsubdistrictid;
-    data['cstmuvid'] = this.cstmuvid;
-    data['cstmpostalcode'] = this.cstmpostalcode;
-    data['cstmlatitude'] = this.cstmlatitude;
-    data['cstmlongitude'] = this.cstmlongitude;
-    data['referalcode'] = this.referalcode;
+    data['sbcid'] = this.sbcid;
+    data['sbcbpid'] = this.sbcbpid;
+    data['sbccstmid'] = this.sbccstmid;
+    data['sbccstmstatusid'] = this.sbccstmstatusid;
+    data['sbcactivitytypeid'] = this.sbcactivitytypeid;
+    data['sbccstmname'] = this.sbccstmname;
+    data['sbccstmphone'] = this.sbccstmphone;
+    data['sbccstmaddress'] = this.sbccstmaddress;
     data['createdby'] = this.createdby;
     data['createddate'] = this.createddate;
     data['updatedby'] = this.updatedby;
@@ -242,20 +218,20 @@ class Contactcustomer {
 }
 
 class Contacttype {
-  int? typeid;
-  String? typename;
+  int? sbtid;
+  String? sbttypename;
 
-  Contacttype({this.typeid, this.typename});
+  Contacttype({this.sbtid, this.sbttypename});
 
   Contacttype.fromJson(Map<String, dynamic> json) {
-    typeid = json['sbtid'];
-    typename = json['sbttypename'];
+    sbtid = json['sbtid'];
+    sbttypename = json['sbttypename'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['sbttypeid'] = this.typeid;
-    data['sbttypename'] = this.typename;
+    data['sbtid'] = this.sbtid;
+    data['sbttypename'] = this.sbttypename;
     return data;
   }
 }

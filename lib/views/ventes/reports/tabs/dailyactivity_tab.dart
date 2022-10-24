@@ -1,5 +1,7 @@
 part of '../report.dart';
 
+final datatable = ReportDataTableSource();
+
 class DailyActivityTab extends StatefulWidget {
   const DailyActivityTab({Key? key}) : super(key: key);
 
@@ -20,7 +22,6 @@ class _DailyActivityTabState extends State<DailyActivityTab>
 
   @override
   Widget build(BuildContext context) {
-    final datatable = ReportDataTableSource();
     List<Activities> getReportInDate(DateTime date) {
       date = DateTime(date.year, date.month, date.day);
       return source.data.where((element) {
@@ -340,7 +341,6 @@ class _DailyActivityTabState extends State<DailyActivityTab>
 
   @override
   void onLoadDatatables(BuildContext context, Response response) {
-    final datatable = ReportDataTableSource();
     map.reset();
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);

@@ -51,6 +51,7 @@ class Activities {
   Dayactuser? dayactupdatedby;
   Dayactcust? dayactcust;
   Dayactcat? dayactcat;
+  Dayactreftype? dayactreftype;
   List<Activitycustomfield>? activitycustomfield;
   Dayactpics? dayactpics;
 
@@ -104,6 +105,9 @@ class Activities {
         : null;
     dayactcat = json['dayactcat'] != null
         ? new Dayactcat.fromJson(json['dayactcat'])
+        : null;
+    dayactreftype = json['dayactreftype'] != null
+        ? new Dayactreftype.fromJson(json['dayactreftype'])
         : null;
     if (json['activitycustomfield'] != null) {
       activitycustomfield = <Activitycustomfield>[];
@@ -492,6 +496,63 @@ class Dayactpics {
     data['updateddate'] = this.updateddate;
     data['isactive'] = this.isactive;
     data['url'] = this.url;
+    return data;
+  }
+}
+
+class Dayactreftype {
+  int? typeid;
+  String? typecd;
+  String? typename;
+  int? typeseq;
+  int? typemasterid;
+  String? typedesc;
+  int? createdby;
+  String? createddate;
+  int? updatedby;
+  String? updateddate;
+  bool? isactive;
+
+  Dayactreftype(
+      {this.typeid,
+      this.typecd,
+      this.typename,
+      this.typeseq,
+      this.typemasterid,
+      this.typedesc,
+      this.createdby,
+      this.createddate,
+      this.updatedby,
+      this.updateddate,
+      this.isactive});
+
+  Dayactreftype.fromJson(Map<String, dynamic> json) {
+    typeid = json['typeid'];
+    typecd = json['typecd'];
+    typename = json['typename'];
+    typeseq = json['typeseq'];
+    typemasterid = json['typemasterid'];
+    typedesc = json['typedesc'];
+    createdby = json['createdby'];
+    createddate = json['createddate'];
+    updatedby = json['updatedby'];
+    updateddate = json['updateddate'];
+    isactive = json['isactive'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['typeid'] = this.typeid;
+    data['typecd'] = this.typecd;
+    data['typename'] = this.typename;
+    data['typeseq'] = this.typeseq;
+    data['typemasterid'] = this.typemasterid;
+    data['typedesc'] = this.typedesc;
+    data['createdby'] = this.createdby;
+    data['createddate'] = this.createddate;
+    data['updatedby'] = this.updatedby;
+    data['updateddate'] = this.updateddate;
+    data['isactive'] = this.isactive;
     return data;
   }
 }

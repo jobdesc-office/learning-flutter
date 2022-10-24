@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element
+
 import 'dart:convert';
 
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
@@ -80,32 +82,41 @@ class ScheduleSource extends GetxController {
       int index = selectsMember.indexOf(controller);
       return {
         'scheuserid': selectsMember[index].getSelectedAsString(),
-        'schebpid': box.read('mybpid'),
+        'schebpid': '${box.read('mybpid')}',
         'schepermisid': selectsPermission[index].getSelectedAsString()
       };
     }));
   }
 
   Future<Map<String, dynamic>> toJson() async {
+    final box = GetStorage();
     SessionModel session = await SessionManager.current();
     return {
       'schenm': inputName.text,
       'schestartdate': selectedDateStart.value,
-      'scheenddate': selectedDateEnd.value,
-      'schestarttime': selectedTimeStart.value,
-      'scheendtime': selectedTimeEnd.value,
+      // 'scheenddate': selectedDateEnd.value,
+      'schestarttime':
+          selectedTimeStart.value != '' ? selectedTimeStart.value : null,
+      // 'scheendtime': selectedTimeEnd.value,
       'schetypeid': selectType.getSelectedAsString(),
-      'scheactdate': selectedDateAct.value,
+      'scheactdate': selectedDateAct.value != '' ? selectedDateAct.value : null,
       'schetowardid': selectToward.getSelectedAsString(),
-      'schebpid': selectBp.getSelectedAsString(),
-      'schereftypeid': selectRefType.getSelectedAsString(),
-      'scherefid': selectRef.getSelectedAsString(),
+      'schebpid': '${box.read('mybpid')}',
+      'schereftypeid': selectRefType.getSelectedAsString() != ''
+          ? selectRefType.getSelectedAsString()
+          : null,
+      'scherefid': selectRef.getSelectedAsString() != ''
+          ? selectRef.getSelectedAsString()
+          : null,
       'scheallday': allDay.value,
-      'scheloc': map.linkCoordinate.value,
+      'scheloc':
+          map.linkCoordinate.value != '' ? map.linkCoordinate.value : null,
       'scheprivate': private.value,
       'scheonline': online.value,
-      'schetz': selectTimeZone.getSelectedAsString(),
-      'scheremind': inputRemind.text,
+      'schetz': selectTimeZone.getSelectedAsString() != ''
+          ? selectTimeZone.getSelectedAsString()
+          : null,
+      'scheremind': inputRemind.text != '' ? inputRemind.text : null,
       'schedesc': inputDesc.text,
       'scheonlink': inputOnLink.text,
       'createdby': session.userid,
@@ -143,7 +154,6 @@ class ScheduleForm {
                               : Colors.black))),
                   child: CustomSelectBox(
                     searchable: true,
-                    disabled: source.isBpNotSelected.value,
                     controller: selectMember,
                     hintText: BaseText.hiintSelect(
                         field: ScheduleText.labelGuest + ' ${index + 1}'),
@@ -163,7 +173,6 @@ class ScheduleForm {
                               : Colors.black))),
                   child: CustomSelectBox(
                     searchable: false,
-                    disabled: source.isBpNotSelected.value,
                     controller: selectPermission,
                     hintText: BaseText.hiintSelect(
                         field: ScheduleText.labelPermission + ' ${index + 1}'),
@@ -214,12 +223,78 @@ class ScheduleForm {
     );
   }
 
-  Widget inputDate(context) {
+  // Widget inputDate(context) {
+  //   return BsRow(
+  //     children: [
+  //       BsCol(
+  //         margin: EdgeInsets.only(right: 10),
+  //         sizes: ColScreen(lg: Col.col_6),
+  //         child: FormGroup(
+  //           label: Obx(() => Text(ScheduleText.labelStartDate,
+  //               style: TextStyle(
+  //                   color: _navigation.darkTheme.value
+  //                       ? Colors.white
+  //                       : Colors.black))),
+  //           child: Container(
+  //             width: MediaQuery.of(context).size.width,
+  //             child: BsButton(
+  //               style: BsButtonStyle(
+  //                   color: Color.fromARGB(255, 165, 165, 165),
+  //                   backgroundColor: _navigation.darkTheme.value
+  //                       ? ColorPallates.elseDarkColor
+  //                       : Colors.white,
+  //                   borderColor: Colors.black,
+  //                   borderRadius: BorderRadius.all(Radius.circular(5))),
+  //               width: MediaQuery.of(context).size.width,
+  //               onPressed: () {
+  //                 _selectStartDates(context);
+  //               },
+  //               label: Obx(() => Text(source.selectedDateStart.isEmpty
+  //                   ? "Choose the Start Date"
+  //                   : '${source.selectedDateStart}')),
+  //             ),
+  //           ),
+  //         ),
+  //       ),
+  //       BsCol(
+  //         margin: EdgeInsets.only(left: 10),
+  //         sizes: ColScreen(lg: Col.col_6),
+  //         child: FormGroup(
+  //           label: Obx(() => Text(ScheduleText.labelEndDate,
+  //               style: TextStyle(
+  //                   color: _navigation.darkTheme.value
+  //                       ? Colors.white
+  //                       : Colors.black))),
+  //           child: Container(
+  //             width: MediaQuery.of(context).size.width,
+  //             child: BsButton(
+  //                 style: BsButtonStyle(
+  //                     color: Color.fromARGB(255, 165, 165, 165),
+  //                     backgroundColor: _navigation.darkTheme.value
+  //                         ? ColorPallates.elseDarkColor
+  //                         : Colors.white,
+  //                     borderColor: Colors.black,
+  //                     borderRadius: BorderRadius.all(Radius.circular(5))),
+  //                 width: MediaQuery.of(context).size.width,
+  //                 onPressed: () {
+  //                   _selectEndDates(context);
+  //                 },
+  //                 label: Obx(() => Text(source.selectedDateEnd.isEmpty
+  //                     ? "Choose the End Date"
+  //                     : '${source.selectedDateEnd}'))),
+  //           ),
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
+
+  Widget inputTime(context) {
     return BsRow(
       children: [
         BsCol(
           margin: EdgeInsets.only(right: 10),
-          sizes: ColScreen(lg: Col.col_6),
+          sizes: ColScreen(lg: Col.col_4),
           child: FormGroup(
             label: Obx(() => Text(ScheduleText.labelStartDate,
                 style: TextStyle(
@@ -247,42 +322,6 @@ class ScheduleForm {
             ),
           ),
         ),
-        BsCol(
-          margin: EdgeInsets.only(left: 10),
-          sizes: ColScreen(lg: Col.col_6),
-          child: FormGroup(
-            label: Obx(() => Text(ScheduleText.labelEndDate,
-                style: TextStyle(
-                    color: _navigation.darkTheme.value
-                        ? Colors.white
-                        : Colors.black))),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              child: BsButton(
-                  style: BsButtonStyle(
-                      color: Color.fromARGB(255, 165, 165, 165),
-                      backgroundColor: _navigation.darkTheme.value
-                          ? ColorPallates.elseDarkColor
-                          : Colors.white,
-                      borderColor: Colors.black,
-                      borderRadius: BorderRadius.all(Radius.circular(5))),
-                  width: MediaQuery.of(context).size.width,
-                  onPressed: () {
-                    _selectEndDates(context);
-                  },
-                  label: Obx(() => Text(source.selectedDateEnd.isEmpty
-                      ? "Choose the End Date"
-                      : '${source.selectedDateEnd}'))),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget inputTime(context) {
-    return BsRow(
-      children: [
         BsCol(
           margin: EdgeInsets.only(right: 10),
           sizes: ColScreen(lg: Col.col_4),
@@ -314,36 +353,36 @@ class ScheduleForm {
             ),
           ),
         ),
-        BsCol(
-          margin: EdgeInsets.only(left: 10),
-          sizes: ColScreen(lg: Col.col_4),
-          child: FormGroup(
-            label: Obx(() => Text(ScheduleText.labelEndTime,
-                style: TextStyle(
-                    color: _navigation.darkTheme.value
-                        ? Colors.white
-                        : Colors.black))),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              child: BsButton(
-                  style: BsButtonStyle(
-                      color: Color.fromARGB(255, 165, 165, 165),
-                      backgroundColor: _navigation.darkTheme.value
-                          ? ColorPallates.elseDarkColor
-                          : Colors.white,
-                      borderColor: Colors.black,
-                      borderRadius: BorderRadius.all(Radius.circular(5))),
-                  width: MediaQuery.of(context).size.width,
-                  disabled: source.allDay.value ? true : false,
-                  onPressed: () {
-                    _selectEndTimes(context);
-                  },
-                  label: Obx(() => Text(source.selectedTimeEnd.isEmpty
-                      ? "Choose the End Time"
-                      : '${source.selectedTimeEnd}'))),
-            ),
-          ),
-        ),
+        // BsCol(
+        //   margin: EdgeInsets.only(left: 10),
+        //   sizes: ColScreen(lg: Col.col_4),
+        //   child: FormGroup(
+        //     label: Obx(() => Text(ScheduleText.labelEndTime,
+        //         style: TextStyle(
+        //             color: _navigation.darkTheme.value
+        //                 ? Colors.white
+        //                 : Colors.black))),
+        //     child: Container(
+        //       width: MediaQuery.of(context).size.width,
+        //       child: BsButton(
+        //           style: BsButtonStyle(
+        //               color: Color.fromARGB(255, 165, 165, 165),
+        //               backgroundColor: _navigation.darkTheme.value
+        //                   ? ColorPallates.elseDarkColor
+        //                   : Colors.white,
+        //               borderColor: Colors.black,
+        //               borderRadius: BorderRadius.all(Radius.circular(5))),
+        //           width: MediaQuery.of(context).size.width,
+        //           disabled: source.allDay.value ? true : false,
+        //           onPressed: () {
+        //             _selectEndTimes(context);
+        //           },
+        //           label: Obx(() => Text(source.selectedTimeEnd.isEmpty
+        //               ? "Choose the End Time"
+        //               : '${source.selectedTimeEnd}'))),
+        //     ),
+        //   ),
+        // ),
         BsCol(
           margin: EdgeInsets.only(left: 10),
           sizes: ColScreen(lg: Col.col_4),
@@ -448,7 +487,7 @@ class ScheduleForm {
                         ? Colors.white
                         : Colors.black))),
             child: CustomSelectBox(
-              searchable: false,
+              // searchable: false,
               disabled: source.refTypeIsNotChoosed.value,
               controller: source.selectRef,
               hintText: BaseText.hiintSelect(field: ScheduleText.labelRef),
@@ -456,8 +495,12 @@ class ScheduleForm {
                 if (source.refType.value == 'Prospect Activity')
                   return selectApiProspect(params);
                 else
-                  return selectApiTypeSchedule(params);
+                  return selectApiActivity(params);
               },
+              validators: [
+                if (!source.refTypeIsNotChoosed.value)
+                  Validators.selectRequired(ScheduleText.labelRef)
+              ],
             ),
           ),
         ),

@@ -20,6 +20,10 @@ class CustomfieldSection extends StatelessWidget {
     late ProspectCustomFieldForm prospectCustomFieldForm;
     late CustomFieldForm customFieldForm;
 
+    void onClickRemoveRoleItem(int index) {
+      cfieldForm.value.inputOptions.removeAt(index);
+    }
+
     void onClickSaveModal(BuildContext context) async {
       source.isAdd.value = false;
       prospectCustomFieldPresenter.setProcessing(true);
@@ -199,7 +203,29 @@ class CustomfieldSection extends StatelessWidget {
                                         children: [
                                           customFieldForm.inputName(),
                                           customFieldForm.selectTypes(),
-                                          customFieldForm.checkBoxForm()
+                                          customFieldForm.checkBoxForm(),
+                                          if (cfieldForm
+                                              .value.isselectbox.value)
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () => cfieldForm
+                                                      .value.inputOptions
+                                                      .add(
+                                                          TextEditingController()),
+                                                  child: Text(
+                                                    'Add More Option',
+                                                    style: TextStyle(
+                                                        color: Colors.blue),
+                                                  ),
+                                                ),
+                                                customFieldForm.formDetail(
+                                                    onRemoveItem:
+                                                        onClickRemoveRoleItem),
+                                              ],
+                                            )
                                         ],
                                       ),
                                     ),
@@ -431,7 +457,6 @@ class CustomfieldSection extends StatelessWidget {
                                 ),
                               );
                             }),
-                        // Y
                         ListView.builder(
                             shrinkWrap: true,
                             itemCount: source.rawcustomField.length,

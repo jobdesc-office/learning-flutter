@@ -94,7 +94,10 @@ class _TabCustomerspr extends StatelessWidget implements IndexViewContract {
     datatable.controller.reload();
     source.value.reset();
     custpresenter.setProcessing(false);
-    custsource.value.isForm.value = false;
+    custsource.update((val) {
+      custsource.value.isForm.value = false;
+      custsource.value.isEdit.value = false;
+    });
     Snackbar().editSuccess(context!);
   }
 
@@ -111,7 +114,10 @@ class _TabCustomerspr extends StatelessWidget implements IndexViewContract {
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onDetailsListener =
         (userid) => custpresenter.details(context, userid);
-    datatable.onEditListener = (value) => custpresenter.show(value);
+    datatable.onEditListener = (value) {
+      custpresenter.show(value);
+      custsource.value.show.value = false;
+    };
     datatable.onDeleteListener =
         (cstmid, cstmname) => bppresenter.delete(context, cstmid, cstmname);
   }

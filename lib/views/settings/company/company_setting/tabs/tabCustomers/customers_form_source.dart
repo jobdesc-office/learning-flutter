@@ -15,6 +15,7 @@ class _CustomerFormSource extends GetxController
 
   var isEdit = false.obs;
   var isForm = false.obs;
+  var show = true.obs;
 
   late PCustomersForm pCustomerForm;
 
@@ -377,6 +378,9 @@ class _CustomerFormSource extends GetxController
     presenter.setProcessing(true);
     if (isEdit.value) {
       presenter.update(context, await source.toJson(), source.id.value);
+      isForm.value = false;
+      isEdit.value = false;
+      show.value = true;
     } else {
       if (formState.currentState!.validate()) {
         presenter.saveCustomer(context, FormData(await source.toJson()));

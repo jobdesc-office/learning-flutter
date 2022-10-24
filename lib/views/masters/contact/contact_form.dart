@@ -251,11 +251,11 @@ class ContactFormView extends StatelessWidget implements EditViewContract {
       source.value.inputValue.text = contact.contactvalueid!;
       source.value.inputName.text = contact.contactname!;
       source.value.selectCustomer.setSelected(BsSelectBoxOption(
-          value: contact.contactcustomer!.cstmid,
-          text: Text(contact.contactcustomer!.cstmname!)));
+          value: contact.contactcustomer!.sbccstmid,
+          text: Text(contact.contactcustomer!.sbccstmname!)));
       source.value.selectType.setSelected(BsSelectBoxOption(
-          value: contact.contacttype!.typeid,
-          text: Text(contact.contacttype!.typename!)));
+          value: contact.contacttype!.sbtid,
+          text: Text(contact.contacttype!.sbttypename!)));
 
       source.value.createdby.value =
           contact.contactcreatedby?.userfullname ?? '';

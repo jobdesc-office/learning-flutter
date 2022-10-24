@@ -345,6 +345,7 @@ class AppRoute {
           Get.lazyPut(() => SchedulePresenter());
           Get.lazyPut(() => TypeChildrenService());
           Get.lazyPut(() => UserService());
+          Get.lazyPut(() => ReportService());
         }),
       ),
       CustomGetPage(

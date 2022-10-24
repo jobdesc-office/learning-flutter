@@ -1,0 +1,4 @@
+abstract class Config {
+  static String api = 'http://10.21.1.27/learning-api/public/';
+  static String gmapApi = 'AIzaSyDUYfxm7qJq8dcMMhvhaoUukhQqMxBO6oc';
+}
