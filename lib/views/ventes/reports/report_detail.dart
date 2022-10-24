@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:boilerplate/contracts/base/details_view_contract.dart';
 import 'package:boilerplate/helpers/function.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
@@ -233,30 +235,43 @@ class ReportDetail extends GetView implements DetailViewContract {
                                 margin: EdgeInsets.only(top: 10),
                                 sizes: ColScreen(lg: Col.col_12),
                                 child: Column(
-                                  children: controller.cf
-                                      .map((element) => Container(
-                                            padding: EdgeInsets.all(5),
-                                            child: BsRow(children: [
-                                              BsCol(
-                                                  sizes:
-                                                      ColScreen(sm: Col.col_5),
-                                                  child: Text(element
-                                                          .customfield
-                                                          ?.custfname ??
-                                                      '')),
-                                              BsCol(
-                                                  sizes:
-                                                      ColScreen(sm: Col.col_1),
-                                                  child: Text(':')),
-                                              BsCol(
-                                                  sizes:
-                                                      ColScreen(sm: Col.col_6),
-                                                  child: Text(
-                                                      element.activitycfvalue ??
-                                                          ''))
-                                            ]),
-                                          ))
-                                      .toList(),
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Custom Field',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold)),
+                                    Column(
+                                      children: controller.cf
+                                          .map((element) => Column(
+                                                children: [
+                                                  Container(
+                                                    padding: EdgeInsets.all(5),
+                                                    child: BsRow(children: [
+                                                      BsCol(
+                                                          sizes: ColScreen(
+                                                              sm: Col.col_3),
+                                                          child: Text(element
+                                                                  .customfield
+                                                                  ?.custfname ??
+                                                              '')),
+                                                      BsCol(
+                                                          sizes: ColScreen(
+                                                              sm: Col.col_1),
+                                                          child: Text(':')),
+                                                      BsCol(
+                                                          sizes: ColScreen(
+                                                              sm: Col.col_8),
+                                                          child: Text(element
+                                                                  .activitycfvalue ??
+                                                              ''))
+                                                    ]),
+                                                  ),
+                                                  Divider()
+                                                ],
+                                              ))
+                                          .toList(),
+                                    ),
+                                  ],
                                 )),
                         ],
                       ),
@@ -418,6 +433,7 @@ class ReportDetail extends GetView implements DetailViewContract {
 
   @override
   void onSuccessFetchData(Response response) {
+    controller.cf.clear();
     Activities dt = Activities.fromJson(response.body);
     if (dt.dayactreftype != null) {
       controller.ref.value = dt.dayactreftype?.typename ?? '';
