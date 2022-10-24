@@ -33,12 +33,12 @@ class SubdistrictView extends GetView implements IndexViewContract {
       body: TemplateView(
         title: 'Subdistricts',
         breadcrumbs: [
-          BreadcrumbWidget('Masters'),
+          BreadcrumbWidget('Regions'),
           BreadcrumbWidget('Subdistricts', active: true),
         ],
         background: true,
         activeRoutes: [
-          RouteList.master.index,
+          RouteList.region.index,
           RouteList.masterSubdistrict.index
         ],
         child: Container(

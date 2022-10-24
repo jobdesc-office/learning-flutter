@@ -33,11 +33,11 @@ class CountryView extends GetView implements IndexViewContract {
       body: TemplateView(
         title: 'Countries',
         breadcrumbs: [
-          BreadcrumbWidget('Masters'),
+          BreadcrumbWidget('Regions'),
           BreadcrumbWidget('Countries', active: true),
         ],
         background: true,
-        activeRoutes: [RouteList.master.index, RouteList.masterCountry.index],
+        activeRoutes: [RouteList.region.index, RouteList.masterCountry.index],
         child: Container(
           child: Column(
             children: [

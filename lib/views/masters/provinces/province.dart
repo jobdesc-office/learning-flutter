@@ -33,10 +33,10 @@ class ProvinceView extends GetView implements IndexViewContract {
       body: TemplateView(
         title: 'Provinces',
         breadcrumbs: [
-          BreadcrumbWidget('Masters'),
+          BreadcrumbWidget('Regions'),
           BreadcrumbWidget('Provinces', active: true),
         ],
-        activeRoutes: [RouteList.master.index, RouteList.masterProvince.index],
+        activeRoutes: [RouteList.region.index, RouteList.masterProvince.index],
         child: Container(
           child: Column(
             children: [

@@ -16,6 +16,7 @@ class RouteList {
       RouteData(prefix: '/masters/businesspartner');
 
   static final RouteData type = RouteData(prefix: '/-type');
+  static final RouteData region = RouteData(prefix: '/-region');
   static final RouteData masterTypeParent =
       RouteData(prefix: '/masters/typeparent');
   static final RouteData masterTypeChildren =
