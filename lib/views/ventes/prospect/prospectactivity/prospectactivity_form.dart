@@ -145,6 +145,8 @@ class ProspectActivityFormView extends StatelessWidget
       source.value.inputInfo.text = prospect.dayactloclabel ?? '';
       source.value.selectedDateExpect.value = prospect.dayactdate ?? '';
       map.linkCoordinate.value = prospect.dayactloc ?? '';
+      map.latitude.value = prospect.dayactlatitude!;
+      map.longitude.value = prospect.dayactlongitude!;
     });
   }
 }
