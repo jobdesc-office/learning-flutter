@@ -393,10 +393,10 @@ class _CustomerFormSource extends GetxController
     if (isEdit.value) {
       isEdit.value = false;
       isForm.toggle();
-      sources.value.reset();
+      source.reset();
     } else {
       isForm.toggle();
-      sources.value.reset();
+      source.reset();
     }
   }
 
