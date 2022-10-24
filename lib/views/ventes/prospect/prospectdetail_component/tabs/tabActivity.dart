@@ -205,8 +205,7 @@ class _TabActivity extends StatelessWidget {
                                                               EdgeInsets.only(
                                                                   top: 5),
                                                           child: Text(element
-                                                                  .dayactcat
-                                                                  ?.sbttypename ??
+                                                                  .dayactloclabel ??
                                                               ''),
                                                         ),
                                                         Container(
