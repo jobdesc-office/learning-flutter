@@ -117,6 +117,7 @@ class _HomeViewState extends State<HomeView>
                   margin: EdgeInsets.only(left: 5),
                   width: 170,
                   child: CustomSelectBox(
+                    disabled: source.year.value == '',
                     hintText: BaseText.hiintSelect(field: 'Month'),
                     controller: selectMonth,
                     onChange: (val) {
