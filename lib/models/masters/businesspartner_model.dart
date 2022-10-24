@@ -11,6 +11,7 @@ class BusinessPartnerModel {
   String? createddate;
   int? updatedby;
   String? updateddate;
+  bool? bpactanytime;
   bool? isactive;
   TypeModel? bptype;
   Bpcreatedby? bpcreatedby;
@@ -25,6 +26,7 @@ class BusinessPartnerModel {
       this.bpphone,
       this.createdby,
       this.createddate,
+      this.bpactanytime,
       this.updatedby,
       this.updateddate,
       this.isactive,
@@ -44,14 +46,10 @@ class BusinessPartnerModel {
     updatedby = json['updatedby'];
     updateddate = json['updateddate'];
     isactive = json['isactive'];
-    bptype =
-        json['bptype'] != null ? new TypeModel.fromJson(json['bptype']) : null;
-    bpcreatedby = json['bpcreatedby'] != null
-        ? new Bpcreatedby.fromJson(json['bpcreatedby'])
-        : null;
-    bpupdatedby = json['bpupdatedby'] != null
-        ? new Bpcreatedby.fromJson(json['bpupdatedby'])
-        : null;
+    bpactanytime = json['bpactanytime'];
+    bptype = json['bptype'] != null ? new TypeModel.fromJson(json['bptype']) : null;
+    bpcreatedby = json['bpcreatedby'] != null ? new Bpcreatedby.fromJson(json['bpcreatedby']) : null;
+    bpupdatedby = json['bpupdatedby'] != null ? new Bpcreatedby.fromJson(json['bpupdatedby']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -67,6 +65,7 @@ class BusinessPartnerModel {
     data['updatedby'] = this.updatedby;
     data['updateddate'] = this.updateddate;
     data['isactive'] = this.isactive;
+    data['bpactanytime'] = this.bpactanytime;
     if (this.bptype != null) {
       data['bptype'] = this.bptype!.toJson();
     }
