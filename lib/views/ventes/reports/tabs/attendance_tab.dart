@@ -123,8 +123,8 @@ class AttendanceTab extends StatelessWidget implements IndexViewContract {
     final DateTime? selectedAct = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(const Duration(days: 365)),
+      firstDate: DateTime(1, 1, 1),
+      lastDate: DateTime.now(),
     );
     if (selectedAct != null) {
       startdates.value =
@@ -138,8 +138,8 @@ class AttendanceTab extends StatelessWidget implements IndexViewContract {
     final DateTime? selectedAct = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(const Duration(days: 365)),
+      firstDate: DateTime(1, 1, 1),
+      lastDate: DateTime.now(),
     );
     if (selectedAct != null) {
       enddates.value =

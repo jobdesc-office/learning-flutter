@@ -105,7 +105,11 @@ class ReportDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.dayactreftype?.typename ?? ''),
+          Text(row.dayactreftype != null
+              ? row.dayactreftype!.typename! +
+                  ' - ' +
+                  row.refprospect!.prospectcode!
+              : ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor

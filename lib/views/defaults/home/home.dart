@@ -280,6 +280,8 @@ class _HomeViewState extends State<HomeView>
     if (bycust.length > 9) {
       bycust.removeRange(10, bycust.length);
       source.bycust.value = bycust;
+    } else {
+      source.bycust.value = bycust;
     }
     source.prospecttotal.value = total.toString();
     source.years.value = year;
