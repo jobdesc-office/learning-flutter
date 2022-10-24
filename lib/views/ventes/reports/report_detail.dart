@@ -25,6 +25,7 @@ class ReportDetail extends GetView implements DetailViewContract {
   final prospectPresenter = Get.put(ProspectPresenter());
 
   ReportDetail() {
+    controller.showMap.value = false;
     presenter.reportsFetchDataDetailsContract = this;
   }
 

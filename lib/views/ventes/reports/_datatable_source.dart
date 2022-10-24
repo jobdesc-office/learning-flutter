@@ -109,7 +109,7 @@ class ReportDataTableSource extends BsDatatableSource {
               ? row.dayactreftype!.typename! +
                   ' - ' +
                   row.refprospect!.prospectcode!
-              : ''),
+              : 'Daily Activity'),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
