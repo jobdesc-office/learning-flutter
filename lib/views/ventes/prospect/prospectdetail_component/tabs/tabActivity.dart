@@ -112,8 +112,7 @@ class _TabActivity extends StatelessWidget {
                                                               .value = true;
                                                           detailPresenter.edit(
                                                               context,
-                                                              element
-                                                                  .prospectactivityid!,
+                                                              element.dayactid!,
                                                               source.prospectid
                                                                   .value);
                                                         }),
@@ -139,15 +138,14 @@ class _TabActivity extends StatelessWidget {
                                                             onPressed: () {
                                                           detailPresenter.delete(
                                                               context,
-                                                              element
-                                                                  .prospectactivityid!,
-                                                              '${element.prospectactivitytype!.sbttypename} at ${element.prospectactivitydate}');
+                                                              element.dayactid!,
+                                                              '${element.dayactcat!.sbttypename} at ${element.dayactdate}');
                                                         }),
                                                     ]);
                                             },
                                             onTap: () {
-                                              detailPresenter.detail(context,
-                                                  element.prospectactivityid!);
+                                              detailPresenter.detail(
+                                                  context, element.dayactid!);
                                             },
                                             child: BsRow(
                                               children: [
@@ -168,9 +166,9 @@ class _TabActivity extends StatelessWidget {
                                                     alignment: Alignment.center,
                                                     sizes: ColScreen(
                                                         sm: Col.col_3),
-                                                    child: Text(element
-                                                            .prospectactivitydate ??
-                                                        '')),
+                                                    child: Text(
+                                                        element.dayactdate ??
+                                                            '')),
                                                 BsCol(
                                                     sizes: ColScreen(
                                                         sm: Col.col_8),
@@ -186,8 +184,8 @@ class _TabActivity extends StatelessWidget {
                                                           children: [
                                                             Expanded(
                                                               child: Text(
-                                                                element.prospectactivitycat
-                                                                        ?.typename ??
+                                                                element.dayactcat
+                                                                        ?.sbttypename ??
                                                                     '',
                                                                 style: TextStyle(
                                                                     fontWeight:
@@ -207,7 +205,7 @@ class _TabActivity extends StatelessWidget {
                                                               EdgeInsets.only(
                                                                   top: 5),
                                                           child: Text(element
-                                                                  .prospectactivitytype
+                                                                  .dayactcat
                                                                   ?.sbttypename ??
                                                               ''),
                                                         ),
@@ -217,7 +215,7 @@ class _TabActivity extends StatelessWidget {
                                                                   top: 5,
                                                                   bottom: 10),
                                                           child: Text(
-                                                            element.prospectactivitydesc ??
+                                                            element.dayactdesc ??
                                                                 '',
                                                             style: TextStyle(
                                                                 fontSize: 12),

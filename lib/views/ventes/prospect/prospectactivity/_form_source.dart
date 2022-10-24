@@ -29,6 +29,7 @@ class ProspectActivitySource extends GetxController {
 
   var selectedDateExpect = ''.obs;
   var id = 0.obs;
+  var custid = 0.obs;
   var isOnSite = true.obs;
 
   BsSelectBoxController selectType = BsSelectBoxController();
@@ -40,15 +41,15 @@ class ProspectActivitySource extends GetxController {
   Future<Map<String, dynamic>> toJson() async {
     SessionModel session = await SessionManager.current();
     return {
-      'prospectactivityprospectid': id.value,
-      'prospectactivitycatid': selectCat.getSelectedAsString(),
-      'prospectactivitytypeid': selectType.getSelectedAsString(),
-      'prospectactivitydate': selectedDateExpect.value,
-      'prospectactivitydesc': inputDesc.text,
-      'prospectactivityinfo': inputInfo.text,
-      'prospectactivityloc': map.linkCoordinate.value,
-      'prospectactivitylatitude': map.latitude.value,
-      'prospectactivitylongitude': map.longitude.value,
+      'dayactrefid': id.value,
+      'dayactcatid': selectCat.getSelectedAsString(),
+      'dayactcustid': custid.value,
+      'dayactdate': selectedDateExpect.value,
+      'dayactdesc': inputDesc.text,
+      'dayactloclabel': inputInfo.text,
+      'dayactloc': map.linkCoordinate.value,
+      'dayactlatitude': map.latitude.value,
+      'dayactlongitude': map.longitude.value,
       'createdby': session.userid,
       'updatedby': session.userid,
     };
@@ -60,25 +61,6 @@ class ProspectDetailForm {
 
   ProspectDetailForm(this.source);
 
-  Widget selectTypes() {
-    return FormGroup(
-      label: Obx(() => Text(ProspectActivityText.labelType,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
-      child: CustomSelectBox(
-        searchable: false,
-        disabled: source.isProcessing,
-        controller: source.selectType,
-        hintText: BaseText.hiintSelect(field: ProspectActivityText.labelType),
-        serverSide: (params) => selectApiProspectType(params),
-        validators: [
-          Validators.selectRequired(ProspectActivityText.labelType),
-        ],
-      ),
-    );
-  }
-
   Widget selectCategory() {
     return FormGroup(
       label: Obx(() => Text(ProspectActivityText.labelCategory,
@@ -86,14 +68,6 @@ class ProspectDetailForm {
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: Obx(() => CustomSelectBox(
-            onChange: (value) {
-              var text = TypeModel.fromJson(value.getOtherValue());
-              if (text.typename == 'On Site') {
-                source.isOnSite.value = false;
-              } else {
-                source.isOnSite.value = true;
-              }
-            },
             searchable: true,
             disabled: source.isProcessing,
             controller: source.selectCat,
@@ -174,7 +148,6 @@ class ProspectDetailForm {
                         ? Colors.white
                         : Colors.black))),
             child: Obx(() => BsButton(
-                  disabled: source.isOnSite.value,
                   style: BsButtonStyle(
                       color: Color.fromARGB(255, 165, 165, 165),
                       backgroundColor: _navigation.darkTheme.value

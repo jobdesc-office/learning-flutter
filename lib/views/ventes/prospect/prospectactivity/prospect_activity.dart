@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../../../contracts/base/details_view_contract.dart';
 import '../../../../models/ventes/prospectactivity_model.dart';
+import '../../../../models/ventes/report_model.dart';
 import '../../../../presenters/navigation_presenter.dart';
 import '../../../../presenters/ventes/prospectactivity_presenter.dart';
 import '../../../../widgets/snackbar.dart';
@@ -53,21 +54,6 @@ class ProspectActivityDetails extends GetView implements DetailViewContract {
                 BsModalContainer(
                   child: Obx(() => BsRow(
                         children: [
-                          BsCol(
-                              sizes: ColScreen(lg: Col.col_12),
-                              child: BsRow(
-                                children: [
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_3),
-                                      child: Text('Type')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_1),
-                                      child: Text(':')),
-                                  BsCol(
-                                      sizes: ColScreen(lg: Col.col_8),
-                                      child: Text(controller.type.value))
-                                ],
-                              )),
                           BsCol(
                               margin: EdgeInsets.only(top: 10),
                               sizes: ColScreen(lg: Col.col_12),
@@ -186,14 +172,12 @@ class ProspectActivityDetails extends GetView implements DetailViewContract {
 
   @override
   void onSuccessFetchData(Response response) {
-    ProspectActivityModel activity =
-        ProspectActivityModel.fromJson(response.body);
-    controller.category.value = activity.prospectactivitycat!.typename ?? '';
-    controller.date.value = activity.prospectactivitydate ?? '';
-    controller.desc.value = activity.prospectactivitydesc ?? '';
-    controller.info.value = activity.prospectactivityinfo ?? '';
-    controller.type.value = activity.prospectactivitytype!.sbttypename ?? '';
-    controller.link.value = activity.prospectactivityloc ?? '';
+    Activities activity = Activities.fromJson(response.body);
+    controller.category.value = activity.dayactcat!.sbttypename ?? '';
+    controller.date.value = activity.dayactdate ?? '';
+    controller.desc.value = activity.dayactdesc ?? '';
+    controller.info.value = activity.dayactloclabel ?? '';
+    controller.link.value = activity.dayactloc ?? '';
     presenter.setProcessing(false);
   }
 }
