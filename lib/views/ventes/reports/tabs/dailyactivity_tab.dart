@@ -100,7 +100,7 @@ class _DailyActivityTabState extends State<DailyActivityTab>
                                           Radius.circular(5)))),
                               focusedDay: source.focusedDay.value,
                               firstDay: DateTime.utc(1, 1, 1),
-                              lastDay: DateTime.now(),
+                              lastDay: DateTime.now().add(Duration(days: 365)),
                               eventLoader: getReportInDate,
                               calendarBuilders: CalendarBuilders(
                                 outsideBuilder: (context, date, events) =>

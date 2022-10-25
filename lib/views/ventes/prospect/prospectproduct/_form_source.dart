@@ -98,18 +98,6 @@ class ProspectProductForm {
                 source.selectItem.clear();
               }
             },
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 3),
-            child: InkWell(
-              onTap: () => Get.to(PProductFormFormView()),
-              child: Container(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    'Add More Item',
-                    style: TextStyle(color: Colors.blue),
-                  )),
-            ),
           )
         ],
       ),

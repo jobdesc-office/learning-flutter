@@ -366,33 +366,33 @@ class CustomfieldSection extends StatelessWidget {
                                           middleText: '',
                                           title: 'Setting',
                                           actions: [
-                                            if (permis
-                                                .where((element) =>
-                                                    element.menunm ==
-                                                    'Ventes Datas')
-                                                .first
-                                                .children!
-                                                .where((element) =>
-                                                    element.menunm ==
-                                                    'Prospect')
-                                                .first
-                                                .features!
-                                                .where((element) =>
-                                                    element.featslug ==
-                                                    'update')
-                                                .first
-                                                .permissions!
-                                                .hasaccess!)
-                                              ButtonEditDatatables(
-                                                  onPressed: () {
-                                                prospectCustomFieldPresenter
-                                                    .edit(
-                                                        context,
-                                                        customField
-                                                            .prospectcfid!);
-                                                source.cfid.value =
-                                                    customField.prospectcfid!;
-                                              }),
+                                            // if (permis
+                                            //     .where((element) =>
+                                            //         element.menunm ==
+                                            //         'Ventes Datas')
+                                            //     .first
+                                            //     .children!
+                                            //     .where((element) =>
+                                            //         element.menunm ==
+                                            //         'Prospect')
+                                            //     .first
+                                            //     .features!
+                                            //     .where((element) =>
+                                            //         element.featslug ==
+                                            //         'update')
+                                            //     .first
+                                            //     .permissions!
+                                            //     .hasaccess!)
+                                            //   ButtonEditDatatables(
+                                            //       onPressed: () {
+                                            //     prospectCustomFieldPresenter
+                                            //         .edit(
+                                            //             context,
+                                            //             customField
+                                            //                 .prospectcfid!);
+                                            //     source.cfid.value =
+                                            //         customField.prospectcfid!;
+                                            //   }),
                                             if (permis
                                                 .where((element) =>
                                                     element.menunm ==

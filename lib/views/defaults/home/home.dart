@@ -105,6 +105,7 @@ class _HomeViewState extends State<HomeView>
                 Container(
                   width: 150,
                   child: CustomSelectBox(
+                      searchable: false,
                       controller: selectYear,
                       hintText: BaseText.hiintSelect(field: 'Year'),
                       onChange: (val) {
@@ -117,6 +118,7 @@ class _HomeViewState extends State<HomeView>
                   margin: EdgeInsets.only(left: 5),
                   width: 170,
                   child: CustomSelectBox(
+                    searchable: false,
                     disabled: source.year.value == '',
                     hintText: BaseText.hiintSelect(field: 'Month'),
                     controller: selectMonth,

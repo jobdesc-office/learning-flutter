@@ -74,7 +74,7 @@ class BusinessPartnerForm {
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomSelectBox(
-        searchable: false,
+        searchable: true,
         disabled: source.isProcessing,
         controller: source.selectType,
         hintText: BaseText.hiintSelect(field: BusinessPartnerText.labelType),

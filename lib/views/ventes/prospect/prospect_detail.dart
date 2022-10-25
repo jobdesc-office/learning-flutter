@@ -466,7 +466,13 @@ class _ProspectDetailsState extends State<ProspectDetails>
         ProspectCustomFieldModel.fromJson(response.body);
     cfForm.update((val) {
       val?.format.value = prospect.customfield!.custftype!.typename!;
-      val?.inputValue.text = prospect.prospectcfvalue!;
+      val?.inputValue.text = prospect.prospectcfvalue ?? '';
+      if (prospect.prospectcfvalue == null) {
+        val?.selectOption.setSelected(BsSelectBoxOption(
+            value: prospect.selectedoption?.optid,
+            text: Text(prospect.selectedoption?.optvalue ?? '')));
+        source.isSelect.value = true;
+      }
       val?.selectCustomfield.setSelected(BsSelectBoxOption(
           value: prospect.prospectcustfid,
           text: Text(prospect.customfield!.custfname!)));
