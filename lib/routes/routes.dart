@@ -359,6 +359,7 @@ class AppRoute {
           Get.lazyPut(() => ReportService());
           Get.lazyPut(() => AttendanceService());
           Get.lazyPut(() => ReportPresenter());
+          Get.lazyPut(() => ProspectService());
         }),
       ),
       CustomGetPage(

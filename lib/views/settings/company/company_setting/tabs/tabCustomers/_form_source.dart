@@ -28,6 +28,7 @@ import '../../../../../ventes/prospect/customer/_text.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 final _cpresenter = Get.find<CustomerPresenter>();
+final map = Get.put(MapSource());
 
 class PCustomersSource extends GetxController {
   bool isProcessing = false;
@@ -51,6 +52,7 @@ class PCustomersSource extends GetxController {
   final isactive = Rx<bool>(true);
 
   reset() {
+    map.reset();
     isProcessing = false;
     isnGetLatLong.value = false;
     isRegistered.value = false;
@@ -103,7 +105,6 @@ class PCustomersSource extends GetxController {
   Future<Map<String, dynamic>> toJson() async {
     var json;
     SessionModel session = await SessionManager.current();
-    final map = Get.put(MapSource());
     if (isRegistered.value) {
       String name = await _cpresenter
           .cstm(parseInt(selectCustomer.getSelectedAsString()));

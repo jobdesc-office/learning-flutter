@@ -35,15 +35,11 @@ class TypesParentView extends StatelessWidget
       body: TemplateView(
         title: TypeParentsText.title,
         breadcrumbs: [
-          BreadcrumbWidget('Masters'),
           BreadcrumbWidget('Type'),
           BreadcrumbWidget('Type Parent', active: true),
         ],
         background: true,
-        activeRoutes: [
-          RouteList.masterTypeParent.index,
-          RouteList.masterTypeParent.index
-        ],
+        activeRoutes: [RouteList.type.index, RouteList.masterTypeParent.index],
         child: Container(
           child: Column(
             children: [

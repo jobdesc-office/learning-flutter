@@ -24,8 +24,8 @@ import '../../../contracts/ventes/prospectcustomfield_contract.dart';
 import '../../../models/session_model.dart';
 import '../../../models/settings/stbptype_model.dart';
 import '../../../models/ventes/prospect_model.dart';
-import '../../../models/ventes/prospectactivity_model.dart';
 import '../../../models/ventes/prospectcustomfield_model.dart';
+import '../../../models/ventes/report_model.dart';
 import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../presenters/settings/customfield_presenter.dart';
@@ -447,9 +447,9 @@ class _ProspectDetailsState extends State<ProspectDetails>
 
   @override
   void onLoadDatatables(BuildContext context, Response response) {
-    List<ProspectActivityModel> x = [];
+    List<Activities> x = [];
     for (var item in response.body) {
-      x.add(ProspectActivityModel.fromJson(item));
+      x.add(Activities.fromJson(item));
     }
     source.detailData.value = x;
   }

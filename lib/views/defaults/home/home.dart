@@ -117,6 +117,7 @@ class _HomeViewState extends State<HomeView>
                   margin: EdgeInsets.only(left: 5),
                   width: 170,
                   child: CustomSelectBox(
+                    disabled: source.year.value == '',
                     hintText: BaseText.hiintSelect(field: 'Month'),
                     controller: selectMonth,
                     onChange: (val) {
@@ -279,6 +280,8 @@ class _HomeViewState extends State<HomeView>
     List<int> year = years.toSet().toList();
     if (bycust.length > 9) {
       bycust.removeRange(10, bycust.length);
+      source.bycust.value = bycust;
+    } else {
       source.bycust.value = bycust;
     }
     source.prospecttotal.value = total.toString();

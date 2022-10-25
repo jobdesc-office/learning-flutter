@@ -151,7 +151,7 @@ Future<BsSelectBoxResponse> selectApiProspectStatus(
 Future<BsSelectBoxResponse> selectApiProspectCategory(
     Map<String, String> params) async {
   final typeService = Get.put(StBpTypeService());
-  Response response = await typeService.byCode(ConfigType.prospectCategory);
+  Response response = await typeService.byCode(ConfigType.activitycategory);
   if (response.isOk) {
     if (response.statusCode == 200) {
       return BsSelectBoxResponse.createFromJson(

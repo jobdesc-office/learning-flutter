@@ -33,10 +33,10 @@ class VillageView extends GetView implements IndexViewContract {
       body: TemplateView(
         title: 'Villages',
         breadcrumbs: [
-          BreadcrumbWidget('Masters'),
+          BreadcrumbWidget('Regions'),
           BreadcrumbWidget('Villages', active: true),
         ],
-        activeRoutes: [RouteList.master.index, RouteList.masterVillage.index],
+        activeRoutes: [RouteList.region.index, RouteList.masterVillage.index],
         background: true,
         child: Container(
           child: Column(

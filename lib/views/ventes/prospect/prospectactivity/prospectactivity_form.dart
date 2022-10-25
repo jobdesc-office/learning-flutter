@@ -1,3 +1,4 @@
+import 'package:boilerplate/models/ventes/report_model.dart';
 import 'package:boilerplate/views/skins/template.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
@@ -5,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../contracts/base/edit_view_contract.dart';
-import '../../../../models/ventes/prospectactivity_model.dart';
 import '../../../../presenters/navigation_presenter.dart';
 import '../../../../presenters/ventes/prospectactivity_presenter.dart';
 import '../../../../routes/route_list.dart';
@@ -32,6 +32,7 @@ class ProspectActivityFormView extends StatelessWidget
   ProspectActivityFormView({required this.onSave, id}) {
     presenter.setprospectFetchDataContract = this;
     source.value.id.value = id;
+    source.value.custid.value = sources.custid.value;
   }
 
   @override
@@ -74,7 +75,6 @@ class ProspectActivityFormView extends StatelessWidget
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                prospectForm.selectTypes(),
                                 prospectForm.selectCategory(),
                                 prospectForm.inputExpected(context),
                                 prospectForm.inputDesc(),
@@ -136,19 +136,16 @@ class ProspectActivityFormView extends StatelessWidget
     presenter.setProcessing(false);
 
     source.update((val) {
-      ProspectActivityModel prospect =
-          ProspectActivityModel.fromJson(response.body);
-      source.value.selectType.setSelected(BsSelectBoxOption(
-          value: prospect.prospectactivitytype!.sbtid,
-          text: Text(prospect.prospectactivitytype!.sbttypename.toString())));
+      Activities prospect = Activities.fromJson(response.body);
       source.value.selectCat.setSelected(BsSelectBoxOption(
-          value: prospect.prospectactivitycat!.typeid,
-          text: Text(prospect.prospectactivitycat!.typename.toString())));
-      source.value.inputDesc.text = prospect.prospectactivitydesc ?? '';
-      source.value.inputInfo.text = prospect.prospectactivityinfo ?? '';
-      source.value.selectedDateExpect.value =
-          prospect.prospectactivitydate ?? '';
-      map.linkCoordinate.value = prospect.prospectactivityloc ?? '';
+          value: prospect.dayactcatid,
+          text: Text(prospect.dayactcat!.sbttypename.toString())));
+      source.value.inputDesc.text = prospect.dayactdesc ?? '';
+      source.value.inputInfo.text = prospect.dayactloclabel ?? '';
+      source.value.selectedDateExpect.value = prospect.dayactdate ?? '';
+      map.linkCoordinate.value = prospect.dayactloc ?? '';
+      map.latitude.value = prospect.dayactlatitude!;
+      map.longitude.value = prospect.dayactlongitude!;
     });
   }
 }

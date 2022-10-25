@@ -4,6 +4,8 @@ import '../../../models/ventes/report_model.dart';
 
 class ReportDetailsSource extends GetxController {
   var ref = ''.obs;
+  var refprospect = ''.obs;
+  var prospectid = 0.obs;
   var customer = ''.obs;
   var cat = ''.obs;
   var type = ''.obs;
@@ -14,6 +16,8 @@ class ReportDetailsSource extends GetxController {
   var loc = ''.obs;
   var long = ''.obs;
   var lat = ''.obs;
+
+  var showMap = false.obs;
 
   var cf = <Activitycustomfield>[].obs;
 
@@ -30,6 +34,7 @@ class ReportDetailsSource extends GetxController {
     updatedby.value = '';
     updateddate.value = '';
     isactive.value = false;
+    showMap.value = false;
     super.onClose();
   }
 }

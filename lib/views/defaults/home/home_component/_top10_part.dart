@@ -31,8 +31,8 @@ BsCol top10(context) {
                   children: [
                     Text(
                       source.orderasc.value
-                          ? 'Top 10 Adversity | By Expected Amount'
-                          : 'Top 10 Opportunities | By Expected Amount',
+                          ? 'Top ${source.bycust.length} Adversity | By Expected Amount'
+                          : 'Top ${source.bycust.length} Opportunities | By Expected Amount',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     InkWell(

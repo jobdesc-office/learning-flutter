@@ -44,12 +44,11 @@ class TypesChildrenView extends StatelessWidget
       body: TemplateView(
         title: TypeChildrenText.title,
         breadcrumbs: [
-          BreadcrumbWidget('Masters'),
           BreadcrumbWidget('Type'),
           BreadcrumbWidget('Type Data', active: true),
         ],
         activeRoutes: [
-          RouteList.masterTypeChildren.index,
+          RouteList.type.index,
           RouteList.masterTypeChildren.index
         ],
         background: true,
