@@ -17,7 +17,6 @@ import '../../../../widgets/input/custom_input.dart';
 import '../../../../widgets/input/custom_input_currency.dart';
 import '../../../../widgets/selectbox/custom_selectbox.dart';
 import '../_text.dart';
-import '../product/product_form.dart';
 
 class ProspectProductSource extends GetxController {
   bool isProcessing = false;
