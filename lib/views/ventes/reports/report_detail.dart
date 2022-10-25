@@ -1,5 +1,3 @@
-
-
 import 'package:boilerplate/contracts/base/details_view_contract.dart';
 import 'package:boilerplate/helpers/function.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
@@ -399,6 +397,7 @@ class ReportDetail extends GetView implements DetailViewContract {
                         ),
                         if (controller.showMap.value)
                           Container(
+                            margin: EdgeInsets.only(top: 5),
                             padding: EdgeInsets.all(20),
                             decoration: BoxDecoration(
                               color: _navigation.darkTheme.value
