@@ -10,15 +10,7 @@ DateTime kToday = DateTime.now();
 DateTime kFirstDay = DateTime(kToday.year, kToday.month - 12, kToday.day);
 DateTime kLastDay = DateTime(kToday.year, kToday.month + 12, kToday.day);
 
-final shortWeekNames = {
-  1: 'Mon',
-  2: 'Tue',
-  3: 'Wed',
-  4: 'Thu',
-  5: 'Fri',
-  6: 'Sat',
-  7: 'Sun'
-};
+final shortWeekNames = {1: 'Mon', 2: 'Tue', 3: 'Wed', 4: 'Thu', 5: 'Fri', 6: 'Sat', 7: 'Sun'};
 
 typedef void OnLoadData(DateTime first, DateTime last, CalendarFormat format);
 
@@ -87,8 +79,7 @@ class _CustomCalendarState extends State<CustomCalendar> {
 
   _openDialog(BuildContext context, GlobalKey _key) {
     if (!isOpen) {
-      RenderBox renderBox =
-          _key.currentContext!.findRenderObject() as RenderBox;
+      RenderBox renderBox = _key.currentContext!.findRenderObject() as RenderBox;
       if (_size == null) _size = renderBox.size;
       if (_offset == null) _offset = renderBox.localToGlobal(Offset.zero);
 
@@ -129,9 +120,7 @@ class _CustomCalendarState extends State<CustomCalendar> {
                 focusedDay: _focusedDay,
                 lastDay: kLastDay,
                 eventLoader: (DateTime day) {
-                  return widget.events[
-                          parseDate(dateFormat(day, format: 'Y-m-d'))] ??
-                      [];
+                  return widget.events[parseDate(dateFormat(day, format: 'Y-m-d'))] ?? [];
                 },
                 headerStyle: HeaderStyle(
                   headerMargin: EdgeInsets.only(left: 5, right: 5),
@@ -139,10 +128,8 @@ class _CustomCalendarState extends State<CustomCalendar> {
                     color: ColorPallates.primary,
                     borderRadius: BorderRadius.circular(5),
                   ),
-                  leftChevronIcon:
-                      Icon(Icons.chevron_left, color: Colors.white),
-                  rightChevronIcon:
-                      Icon(Icons.chevron_right, color: Colors.white),
+                  leftChevronIcon: Icon(Icons.chevron_left, color: Colors.white),
+                  rightChevronIcon: Icon(Icons.chevron_right, color: Colors.white),
                   titleTextStyle: TextStyle(
                     color: Colors.white,
                   ),
@@ -173,8 +160,7 @@ class _CustomCalendarState extends State<CustomCalendar> {
                     color: Colors.white,
                     textBackground: Color(0xff00796b).withOpacity(.5),
                   ),
-                  defaultBuilder: (context, date, _) =>
-                      _dayContainer(context, date),
+                  defaultBuilder: (context, date, _) => _dayContainer(context, date),
                   dowBuilder: (context, date) {
                     Color txtColor = Colors.black;
                     if (date.weekday == 7) txtColor = Colors.red;
@@ -211,13 +197,11 @@ class _CustomCalendarState extends State<CustomCalendar> {
                   },
                 ),
                 onCalendarCreated: (pageController) {
-                  if (widget.onLoadEvent != null)
-                    widget.onLoadEvent!(DateTime.now());
+                  if (widget.onLoadEvent != null) widget.onLoadEvent!(DateTime.now());
                 },
                 onPageChanged: (focusedDay) {
                   _focusedDay = focusedDay;
-                  if (widget.onLoadEvent != null)
-                    widget.onLoadEvent!(focusedDay);
+                  if (widget.onLoadEvent != null) widget.onLoadEvent!(focusedDay);
                 },
               ),
             ),
@@ -236,8 +220,7 @@ class _CustomCalendarState extends State<CustomCalendar> {
   }) {
     if (day.weekday == 7 && !outsideDay)
       color = Colors.red;
-    else if (day.weekday == 7 && outsideDay)
-      color = Colors.red.withOpacity(0.3);
+    else if (day.weekday == 7 && outsideDay) color = Colors.red.withOpacity(0.3);
 
     return Container(
       padding: EdgeInsets.all(2),
@@ -287,32 +270,25 @@ class _CustomCalendarState extends State<CustomCalendar> {
               child: ButtonTheme(
                 padding: EdgeInsets.zero,
                 height: 10.0,
-                child: FlatButton(
-                  padding: EdgeInsets.zero,
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                child: TextButton(
+                  // child: FlatButton(
+                  // padding: EdgeInsets.zero,
+                  // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   onPressed: () {
                     bar.onPressed();
                   },
                   child: Container(
                     alignment: Alignment.centerLeft,
-                    padding: bar.style.padding != null
-                        ? bar.style.padding
-                        : EdgeInsets.only(top: 3, bottom: 3, left: 5, right: 5),
+                    padding: bar.style.padding != null ? bar.style.padding : EdgeInsets.only(top: 3, bottom: 3, left: 5, right: 5),
                     decoration: BoxDecoration(
                       color: bar.style.color,
-                      borderRadius: bar.style.borderRadius != null
-                          ? bar.style.borderRadius
-                          : BorderRadius.circular(3),
+                      borderRadius: bar.style.borderRadius != null ? bar.style.borderRadius : BorderRadius.circular(3),
                     ),
                     child: Text(
                       bar.label,
                       style: TextStyle(
-                        color: bar.style.textColor != null
-                            ? bar.style.textColor
-                            : Colors.white,
-                        fontSize: bar.style.fontSize != null
-                            ? bar.style.fontSize
-                            : 12,
+                        color: bar.style.textColor != null ? bar.style.textColor : Colors.white,
+                        fontSize: bar.style.fontSize != null ? bar.style.fontSize : 12,
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -331,17 +307,17 @@ class _CustomCalendarState extends State<CustomCalendar> {
             child: ButtonTheme(
               padding: EdgeInsets.zero,
               height: 10.0,
-              child: FlatButton(
-                padding: EdgeInsets.zero,
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              child: TextButton(
+                // child: FlatButton(
+                //   padding: EdgeInsets.zero,
+                //   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 onPressed: () {
                   _events = events;
                   _openDialog(context, _key);
                 },
                 child: Container(
                   alignment: Alignment.center,
-                  padding:
-                      EdgeInsets.only(top: 2, bottom: 2, left: 5, right: 5),
+                  padding: EdgeInsets.only(top: 2, bottom: 2, left: 5, right: 5),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(3),
                   ),
@@ -415,32 +391,24 @@ class _BarDialogState extends State<_BarDialog> {
         child: ButtonTheme(
           padding: EdgeInsets.zero,
           height: 10.0,
-          child: FlatButton(
-            padding: EdgeInsets.zero,
-            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          child: TextButton(
+            // child: FlatButton(
+            //   padding: EdgeInsets.zero,
+            //   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             onPressed: () {
               widget.onClose();
               bar.onPressed();
             },
             child: Container(
               alignment: Alignment.centerLeft,
-              padding: bar.style.padding != null
-                  ? bar.style.padding
-                  : EdgeInsets.only(top: 2, bottom: 2, left: 5, right: 5),
+              padding: bar.style.padding != null ? bar.style.padding : EdgeInsets.only(top: 2, bottom: 2, left: 5, right: 5),
               decoration: BoxDecoration(
                 color: bar.style.color,
-                borderRadius: bar.style.borderRadius != null
-                    ? bar.style.borderRadius
-                    : BorderRadius.circular(3),
+                borderRadius: bar.style.borderRadius != null ? bar.style.borderRadius : BorderRadius.circular(3),
               ),
               child: Text(
                 bar.label,
-                style: TextStyle(
-                    color: bar.style.textColor != null
-                        ? bar.style.textColor
-                        : Colors.white,
-                    fontSize:
-                        bar.style.fontSize != null ? bar.style.fontSize : 12),
+                style: TextStyle(color: bar.style.textColor != null ? bar.style.textColor : Colors.white, fontSize: bar.style.fontSize != null ? bar.style.fontSize : 12),
                 overflow: TextOverflow.ellipsis,
               ),
             ),
@@ -463,17 +431,14 @@ class _BarDialogState extends State<_BarDialog> {
           height: height,
           child: Container(
             padding: EdgeInsets.only(top: 20, bottom: 15),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(5),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: Offset(0, 3),
-                  )
-                ]),
+            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(5), boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: Offset(0, 3),
+              )
+            ]),
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Column(
