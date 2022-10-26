@@ -1,4 +1,3 @@
-import 'package:boilerplate/widgets/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,7 +7,6 @@ import '../../contracts/base/index_view_contract.dart';
 import '../../services/settings/file_service.dart';
 import '../../utils/custom_get_controller.dart';
 import '../../views/settings/files/file_detail.dart';
-import '../../views/ventes/competitor/_form_source.dart';
 import '../../widgets/confirm_dialog.dart';
 
 class FilePresenter extends CustomGetXController {

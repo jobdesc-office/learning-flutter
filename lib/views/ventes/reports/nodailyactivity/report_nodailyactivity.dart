@@ -51,6 +51,7 @@ class ReportNoDailyActivities extends GetView {
                 ),
                 BsModalContainer(
                   child: CustomDatabales(
+                    searchable: false,
                     source: datatable,
                     columns: datatable.columns,
                     searchHintText: '',
