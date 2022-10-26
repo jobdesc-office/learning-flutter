@@ -26,11 +26,11 @@ class MyApp extends StatelessWidget {
               ? ThemeData(
                   brightness: Brightness.dark,
                   primarySwatch: Colors.green,
-                  fontFamily: 'Monseratt')
+                  fontFamily: 'Poppins')
               : ThemeData(
                   brightness: Brightness.light,
                   primarySwatch: Colors.green,
-                  fontFamily: 'Monseratt'),
+                  fontFamily: 'Poppins'),
           initialRoute: RouteList.home.index,
           debugShowCheckedModeBanner: false,
           getPages: AppRoute.routes,
