@@ -337,207 +337,216 @@ class CustomfieldSection extends StatelessWidget {
                   AnimatedContainer(
                     margin: EdgeInsets.only(top: 10),
                     duration: Duration(seconds: 3),
-                    child: Column(
-                      children: [
-                        ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: source.customField.length,
-                            itemBuilder: (context, index) {
-                              var customField = source.customField[index];
+                    child: Obx(() => Column(
+                          children: [
+                            ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: source.customField.length,
+                                itemBuilder: (context, index) {
+                                  var customField = source.customField[index];
 
-                              return Tooltip(
-                                message: source.status.value !=
-                                            ProspectText.closedWon &&
-                                        source.status.value !=
-                                            ProspectText.closedLost &&
-                                        source.status.value !=
-                                            ProspectText.forceClosed
-                                    ? BaseText.editDelete
-                                    : '',
-                                child: InkWell(
-                                  onLongPress: () {
-                                    if (source.status.value !=
-                                            ProspectText.closedWon &&
-                                        source.status.value !=
-                                            ProspectText.closedLost &&
-                                        source.status.value !=
-                                            ProspectText.forceClosed)
-                                      Get.defaultDialog(
-                                          middleText: '',
-                                          title: 'Setting',
-                                          actions: [
-                                            // if (permis
-                                            //     .where((element) =>
-                                            //         element.menunm ==
-                                            //         'Ventes Datas')
-                                            //     .first
-                                            //     .children!
-                                            //     .where((element) =>
-                                            //         element.menunm ==
-                                            //         'Prospect')
-                                            //     .first
-                                            //     .features!
-                                            //     .where((element) =>
-                                            //         element.featslug ==
-                                            //         'update')
-                                            //     .first
-                                            //     .permissions!
-                                            //     .hasaccess!)
-                                            //   ButtonEditDatatables(
-                                            //       onPressed: () {
-                                            //     prospectCustomFieldPresenter
-                                            //         .edit(
-                                            //             context,
-                                            //             customField
-                                            //                 .prospectcfid!);
-                                            //     source.cfid.value =
-                                            //         customField.prospectcfid!;
-                                            //   }),
-                                            if (permis
-                                                .where((element) =>
-                                                    element.menunm ==
-                                                    'Ventes Datas')
-                                                .first
-                                                .children!
-                                                .where((element) =>
-                                                    element.menunm ==
-                                                    'Prospect')
-                                                .first
-                                                .features!
-                                                .where((element) =>
-                                                    element.featslug ==
-                                                    'delete')
-                                                .first
-                                                .permissions!
-                                                .hasaccess!)
-                                              ButtonDeleteDatatables(
-                                                  onPressed: () {
-                                                prospectCustomFieldPresenter.delete(
-                                                    context,
-                                                    customField.prospectcfid!,
-                                                    '${customField.prospectcfvalue}');
-                                              }),
-                                          ]);
-                                  },
-                                  child: BsRow(
-                                    margin: EdgeInsets.all(3),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: ColorPallates.primary,
+                                  return Tooltip(
+                                    message: source.status.value !=
+                                                ProspectText.closedWon &&
+                                            source.status.value !=
+                                                ProspectText.closedLost &&
+                                            source.status.value !=
+                                                ProspectText.forceClosed
+                                        ? BaseText.editDelete
+                                        : '',
+                                    child: InkWell(
+                                      onLongPress: () {
+                                        if (source.status.value !=
+                                                ProspectText.closedWon &&
+                                            source.status.value !=
+                                                ProspectText.closedLost &&
+                                            source.status.value !=
+                                                ProspectText.forceClosed)
+                                          Get.defaultDialog(
+                                              middleText: '',
+                                              title: 'Setting',
+                                              actions: [
+                                                // if (permis
+                                                //     .where((element) =>
+                                                //         element.menunm ==
+                                                //         'Ventes Datas')
+                                                //     .first
+                                                //     .children!
+                                                //     .where((element) =>
+                                                //         element.menunm ==
+                                                //         'Prospect')
+                                                //     .first
+                                                //     .features!
+                                                //     .where((element) =>
+                                                //         element.featslug ==
+                                                //         'update')
+                                                //     .first
+                                                //     .permissions!
+                                                //     .hasaccess!)
+                                                //   ButtonEditDatatables(
+                                                //       onPressed: () {
+                                                //     prospectCustomFieldPresenter
+                                                //         .edit(
+                                                //             context,
+                                                //             customField
+                                                //                 .prospectcfid!);
+                                                //     source.cfid.value =
+                                                //         customField.prospectcfid!;
+                                                //   }),
+                                                if (permis
+                                                    .where((element) =>
+                                                        element.menunm ==
+                                                        'Ventes Datas')
+                                                    .first
+                                                    .children!
+                                                    .where((element) =>
+                                                        element.menunm ==
+                                                        'Prospect')
+                                                    .first
+                                                    .features!
+                                                    .where((element) =>
+                                                        element.featslug ==
+                                                        'delete')
+                                                    .first
+                                                    .permissions!
+                                                    .hasaccess!)
+                                                  ButtonDeleteDatatables(
+                                                      onPressed: () {
+                                                    prospectCustomFieldPresenter
+                                                        .delete(
+                                                            context,
+                                                            customField
+                                                                .prospectcfid!,
+                                                            '${customField.prospectcfvalue}');
+                                                  }),
+                                              ]);
+                                      },
+                                      child: BsRow(
+                                        margin: EdgeInsets.all(3),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: ColorPallates.primary,
+                                        ),
+                                        padding: EdgeInsets.all(5),
+                                        children: [
+                                          BsCol(
+                                              alignment: Alignment.center,
+                                              sizes: ColScreen(sm: Col.col_5),
+                                              child: Text(
+                                                  customField
+                                                      .customfield!.custfname!,
+                                                  style: TextStyle(
+                                                      color: Colors.white))),
+                                          BsCol(
+                                              alignment: Alignment.center,
+                                              sizes: ColScreen(sm: Col.col_2),
+                                              child: Text(':',
+                                                  style: TextStyle(
+                                                      color: Colors.white))),
+                                          BsCol(
+                                              alignment: Alignment.center,
+                                              sizes: ColScreen(sm: Col.col_5),
+                                              child: Text(
+                                                  customField.prospectcfvalue !=
+                                                          null
+                                                      ? customField
+                                                          .prospectcfvalue!
+                                                      : customField
+                                                          .selectedoption!
+                                                          .optvalue!,
+                                                  style: TextStyle(
+                                                      color: Colors.white))),
+                                        ],
+                                      ),
                                     ),
-                                    padding: EdgeInsets.all(5),
-                                    children: [
-                                      BsCol(
-                                          alignment: Alignment.center,
-                                          sizes: ColScreen(sm: Col.col_5),
-                                          child: Text(
-                                              customField
-                                                  .customfield!.custfname!,
-                                              style: TextStyle(
-                                                  color: Colors.white))),
-                                      BsCol(
-                                          alignment: Alignment.center,
-                                          sizes: ColScreen(sm: Col.col_2),
-                                          child: Text(':',
-                                              style: TextStyle(
-                                                  color: Colors.white))),
-                                      BsCol(
-                                          alignment: Alignment.center,
-                                          sizes: ColScreen(sm: Col.col_5),
-                                          child: Text(
-                                              customField.prospectcfvalue !=
-                                                      null
-                                                  ? customField.prospectcfvalue!
-                                                  : customField.selectedoption!
-                                                      .optvalue!,
-                                              style: TextStyle(
-                                                  color: Colors.white))),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            }),
-                        ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: source.rawcustomField.length,
-                            itemBuilder: (context, index) {
-                              var rawcustomField = source.rawcustomField[index];
+                                  );
+                                }),
+                            ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: source.rawcustomField.length,
+                                itemBuilder: (context, index) {
+                                  var rawcustomField =
+                                      source.rawcustomField[index];
 
-                              return InkWell(
-                                onTap: () {
-                                  if (source.status.value !=
-                                          ProspectText.closedWon &&
-                                      source.status.value !=
-                                          ProspectText.closedLost &&
-                                      source.status.value !=
-                                          ProspectText.forceClosed) if (permis
-                                      .where((element) =>
-                                          element.menunm == 'Ventes Datas')
-                                      .first
-                                      .children!
-                                      .where((element) =>
-                                          element.menunm == 'Prospect')
-                                      .first
-                                      .features!
-                                      .where((element) =>
-                                          element.featslug == 'update')
-                                      .first
-                                      .permissions!
-                                      .hasaccess!) {
-                                    source.isAdd.value = true;
-                                    cfForm.value.format.value =
-                                        rawcustomField.custftype!.typename!;
-                                    cfForm.value.selectCustomfield.setSelected(
-                                        BsSelectBoxOption(
-                                            value: rawcustomField.custfid,
-                                            text: Text(
-                                                rawcustomField.custfname!)));
-                                    if (rawcustomField.custftype?.typename ==
-                                        'Selectbox') {
-                                      source.isSelect.value = true;
-                                      cfForm.value.selectOption.setOptions(
-                                          rawcustomField.selectoption!
-                                              .map((e) => BsSelectBoxOption(
-                                                  value: e.optid,
-                                                  text: Text(e.optvalue!)))
-                                              .toList());
-                                    } else
-                                      source.isSelect.value = false;
-                                  }
-                                },
-                                child: BsRow(
-                                  margin: EdgeInsets.all(3),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: ColorPallates.tertiary,
-                                  ),
-                                  padding: EdgeInsets.all(5),
-                                  children: [
-                                    BsCol(
-                                        alignment: Alignment.center,
-                                        sizes: ColScreen(sm: Col.col_5),
-                                        child: Text(
-                                          rawcustomField.custfname!,
-                                          style: TextStyle(color: Colors.white),
-                                        )),
-                                    BsCol(
-                                        alignment: Alignment.center,
-                                        sizes: ColScreen(sm: Col.col_2),
-                                        child: Text(':',
-                                            style: TextStyle(
-                                                color: Colors.white))),
-                                    BsCol(
-                                        alignment: Alignment.center,
-                                        sizes: ColScreen(sm: Col.col_5),
-                                        child: Text('-',
-                                            style: TextStyle(
-                                                color: Colors.white))),
-                                  ],
-                                ),
-                              );
-                            }),
-                      ],
-                    ),
+                                  return InkWell(
+                                    onTap: () {
+                                      if (source.status.value !=
+                                              ProspectText.closedWon &&
+                                          source.status.value !=
+                                              ProspectText.closedLost &&
+                                          source.status.value !=
+                                              ProspectText
+                                                  .forceClosed) if (permis
+                                          .where((element) =>
+                                              element.menunm == 'Ventes Datas')
+                                          .first
+                                          .children!
+                                          .where((element) =>
+                                              element.menunm == 'Prospect')
+                                          .first
+                                          .features!
+                                          .where((element) =>
+                                              element.featslug == 'update')
+                                          .first
+                                          .permissions!
+                                          .hasaccess!) {
+                                        source.isAdd.value = true;
+                                        cfForm.value.format.value =
+                                            rawcustomField.custftype!.typename!;
+                                        cfForm.value.selectCustomfield
+                                            .setSelected(BsSelectBoxOption(
+                                                value: rawcustomField.custfid,
+                                                text: Text(rawcustomField
+                                                    .custfname!)));
+                                        if (rawcustomField
+                                                .custftype?.typename ==
+                                            'Selectbox') {
+                                          source.isSelect.value = true;
+                                          cfForm.value.selectOption.setOptions(
+                                              rawcustomField.selectoption!
+                                                  .map((e) => BsSelectBoxOption(
+                                                      value: e.optid,
+                                                      text: Text(e.optvalue!)))
+                                                  .toList());
+                                        } else
+                                          source.isSelect.value = false;
+                                      }
+                                    },
+                                    child: BsRow(
+                                      margin: EdgeInsets.all(3),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: ColorPallates.tertiary,
+                                      ),
+                                      padding: EdgeInsets.all(5),
+                                      children: [
+                                        BsCol(
+                                            alignment: Alignment.center,
+                                            sizes: ColScreen(sm: Col.col_5),
+                                            child: Text(
+                                              rawcustomField.custfname!,
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            )),
+                                        BsCol(
+                                            alignment: Alignment.center,
+                                            sizes: ColScreen(sm: Col.col_2),
+                                            child: Text(':',
+                                                style: TextStyle(
+                                                    color: Colors.white))),
+                                        BsCol(
+                                            alignment: Alignment.center,
+                                            sizes: ColScreen(sm: Col.col_5),
+                                            child: Text('-',
+                                                style: TextStyle(
+                                                    color: Colors.white))),
+                                      ],
+                                    ),
+                                  );
+                                }),
+                          ],
+                        )),
                   )
               ],
             ),
