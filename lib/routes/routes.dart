@@ -34,6 +34,7 @@ import '../presenters/settings/stbptype/stbptypescheduletype_presenter.dart';
 import '../presenters/ventes/bpcustomer_presenter.dart';
 import '../presenters/ventes/competitor_presenter.dart';
 import '../presenters/settings/customfield_presenter.dart';
+import '../presenters/ventes/option_presenter.dart';
 import '../presenters/ventes/prospect_presenter.dart';
 import '../presenters/ventes/prospectassign_presenter.dart';
 import '../presenters/ventes/prospectactivity_presenter.dart';
@@ -66,6 +67,7 @@ import '../services/ventes/attendance_service.dart';
 import '../services/ventes/bpcustomer_service.dart';
 import '../services/ventes/competitor_service.dart';
 import '../services/settings/customfield_service.dart';
+import '../services/ventes/option_service.dart';
 import '../services/ventes/prospect_service.dart';
 import '../services/ventes/prospectassign_service.dart';
 import '../services/ventes/prospectactivity_service.dart';
@@ -508,6 +510,8 @@ class AppRoute {
           Get.lazyPut(() => CompetitorService());
           Get.lazyPut(() => UserPresenter());
           Get.lazyPut(() => UserService());
+          Get.lazyPut(() => FilePresenter());
+          Get.lazyPut(() => FileService());
           Get.lazyPut(() => BpCustomerPresenter());
           Get.lazyPut(() => BpCustomerService());
           Get.lazyPut(() => CustomerPresenter());
@@ -529,6 +533,8 @@ class AppRoute {
           Get.lazyPut(() => CustomFieldService());
           Get.lazyPut(() => ReportPresenter());
           Get.lazyPut(() => ReportService());
+          Get.lazyPut(() => OptionPresenter());
+          Get.lazyPut(() => OptionService());
         }),
       ),
     ];

@@ -60,6 +60,7 @@ import '../../../../presenters/settings/stbptype/stbptypeprospecttype_presenter.
 import '../../../../presenters/settings/stbptype/stbptypescheduletype_presenter.dart';
 import '../../../../presenters/ventes/bpcustomer_presenter.dart';
 import '../../../../presenters/ventes/competitor_presenter.dart';
+import '../../../../presenters/ventes/option_presenter.dart';
 import '../../../../presenters/ventes/prospect_presenter.dart';
 import '../../../../routes/route_list.dart';
 import '../../../../services/masters/type_service.dart';
@@ -140,7 +141,6 @@ final authPresenter = Get.find<AuthPresenter>();
 final _sources = Get.find<CompanySources>();
 final box = GetStorage();
 final source = _CompanyTabFormSource().obs;
-final sources = CompetitorSource().obs;
 // ignore: invalid_use_of_protected_member
 var permis = authPresenter.rolepermis.value;
 
@@ -149,7 +149,8 @@ class CompanyView extends StatefulWidget {
   State<CompanyView> createState() => _CompanyViewState();
 }
 
-class _CompanyViewState extends State<CompanyView> with TickerProviderStateMixin {
+class _CompanyViewState extends State<CompanyView>
+    with TickerProviderStateMixin {
   final _navigation = Get.find<NavigationPresenter>();
   late TabController _tabController;
   @override
@@ -168,11 +169,16 @@ class _CompanyViewState extends State<CompanyView> with TickerProviderStateMixin
           BreadcrumbWidget('Settings'),
           BreadcrumbWidget('Company Setting', active: true),
         ],
-        activeRoutes: [RouteList.settings.index, RouteList.settingsCompany.index],
+        activeRoutes: [
+          RouteList.settings.index,
+          RouteList.settingsCompany.index
+        ],
         child: Obx(() => Container(
               padding: EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : Colors.white,
+                color: _navigation.darkTheme.value
+                    ? ColorPallates.elseDarkColor
+                    : Colors.white,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: BsRow(
@@ -190,7 +196,9 @@ class _CompanyViewState extends State<CompanyView> with TickerProviderStateMixin
                         },
                         controller: _tabController,
                         labelColor: Colors.green,
-                        unselectedLabelColor: _navigation.darkTheme.value ? Colors.white : Colors.black,
+                        unselectedLabelColor: _navigation.darkTheme.value
+                            ? Colors.white
+                            : Colors.black,
                         tabs: [
                           Tab(text: 'General'),
                           Tab(text: 'Activities'),

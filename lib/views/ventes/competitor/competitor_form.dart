@@ -71,7 +71,7 @@ class CompetitorFormView extends StatelessWidget implements EditViewContract {
                       children: [
                         BsCol(
                           sizes: ColScreen(sm: Col.col_5),
-                          child: competitorForm.btnImage(),
+                          child: competitorForm.btnImage(context),
                         ),
                         BsCol(
                           margin: EdgeInsets.only(left: 5),
@@ -116,132 +116,146 @@ class CompetitorFormView extends StatelessWidget implements EditViewContract {
                 BsCol(
                   margin: EdgeInsets.only(left: 5),
                   sizes: ColScreen(lg: Col.col_6),
-                  child: Container(
-                    padding: EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      color: _navigation.darkTheme.value
-                          ? ColorPallates.elseDarkColor
-                          : Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: BsRow(
-                      children: [
-                        BsCol(
-                          child: BsRow(
-                            children: [
-                              BsCol(
-                                child: FormGroup(
-                                    label: Text('Created By',
-                                        style: TextStyle(
-                                            color: _navigation.darkTheme.value
-                                                ? Colors.white
-                                                : Colors.black)),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(source.value.createdby.value),
-                                        Divider()
-                                      ],
-                                    )),
+                  child: Obx(() => Container(
+                        padding: EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: _navigation.darkTheme.value
+                              ? ColorPallates.elseDarkColor
+                              : Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: BsRow(
+                          children: [
+                            BsCol(
+                              child: BsRow(
+                                children: [
+                                  BsCol(
+                                    child: FormGroup(
+                                        label: Text('Created By',
+                                            style: TextStyle(
+                                                color:
+                                                    _navigation.darkTheme.value
+                                                        ? Colors.white
+                                                        : Colors.black)),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(source.value.createdby.value),
+                                            Divider()
+                                          ],
+                                        )),
+                                  ),
+                                  BsCol(
+                                    margin: EdgeInsets.only(top: 10),
+                                    child: FormGroup(
+                                        label: Text('Created At',
+                                            style: TextStyle(
+                                                color:
+                                                    _navigation.darkTheme.value
+                                                        ? Colors.white
+                                                        : Colors.black)),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                                source.value.createddate.value),
+                                            Divider()
+                                          ],
+                                        )),
+                                  ),
+                                  BsCol(
+                                    margin: EdgeInsets.only(top: 10),
+                                    child: FormGroup(
+                                        label: Text('Last Updated By',
+                                            style: TextStyle(
+                                                color:
+                                                    _navigation.darkTheme.value
+                                                        ? Colors.white
+                                                        : Colors.black)),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(source.value.updatedby.value),
+                                            Divider()
+                                          ],
+                                        )),
+                                  ),
+                                  BsCol(
+                                    margin: EdgeInsets.only(top: 10),
+                                    child: FormGroup(
+                                        label: Text('Last Updated At',
+                                            style: TextStyle(
+                                                color:
+                                                    _navigation.darkTheme.value
+                                                        ? Colors.white
+                                                        : Colors.black)),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                                source.value.updateddate.value),
+                                            Divider()
+                                          ],
+                                        )),
+                                  ),
+                                  BsCol(
+                                    margin: EdgeInsets.only(top: 10),
+                                    child: FormGroup(
+                                        label: Text('Is Active',
+                                            style: TextStyle(
+                                                color:
+                                                    _navigation.darkTheme.value
+                                                        ? Colors.white
+                                                        : Colors.black)),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            if (source.value.isactive.value)
+                                              InkWell(
+                                                child: Icon(
+                                                  Icons.toggle_on,
+                                                  size: 35,
+                                                  color: _navigation
+                                                          .darkTheme.value
+                                                      ? ColorPallates.onDarkMode
+                                                      : ColorPallates
+                                                          .onLightMode,
+                                                ),
+                                                onTap: () => source
+                                                    .value.isactive
+                                                    .toggle(),
+                                              )
+                                            else
+                                              InkWell(
+                                                child: Icon(
+                                                  Icons.toggle_off,
+                                                  size: 35,
+                                                  color: _navigation
+                                                          .darkTheme.value
+                                                      ? ColorPallates
+                                                          .offDarkMode
+                                                      : ColorPallates
+                                                          .offLightMode,
+                                                ),
+                                                onTap: () => source
+                                                    .value.isactive
+                                                    .toggle(),
+                                              ),
+                                            Divider()
+                                          ],
+                                        )),
+                                  ),
+                                ],
                               ),
-                              BsCol(
-                                margin: EdgeInsets.only(top: 10),
-                                child: FormGroup(
-                                    label: Text('Created At',
-                                        style: TextStyle(
-                                            color: _navigation.darkTheme.value
-                                                ? Colors.white
-                                                : Colors.black)),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(source.value.createddate.value),
-                                        Divider()
-                                      ],
-                                    )),
-                              ),
-                              BsCol(
-                                margin: EdgeInsets.only(top: 10),
-                                child: FormGroup(
-                                    label: Text('Last Updated By',
-                                        style: TextStyle(
-                                            color: _navigation.darkTheme.value
-                                                ? Colors.white
-                                                : Colors.black)),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(source.value.updatedby.value),
-                                        Divider()
-                                      ],
-                                    )),
-                              ),
-                              BsCol(
-                                margin: EdgeInsets.only(top: 10),
-                                child: FormGroup(
-                                    label: Text('Last Updated At',
-                                        style: TextStyle(
-                                            color: _navigation.darkTheme.value
-                                                ? Colors.white
-                                                : Colors.black)),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(source.value.updateddate.value),
-                                        Divider()
-                                      ],
-                                    )),
-                              ),
-                              BsCol(
-                                margin: EdgeInsets.only(top: 10),
-                                child: FormGroup(
-                                    label: Text('Is Active',
-                                        style: TextStyle(
-                                            color: _navigation.darkTheme.value
-                                                ? Colors.white
-                                                : Colors.black)),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        if (source.value.isactive.value)
-                                          InkWell(
-                                            child: Icon(
-                                              Icons.toggle_on,
-                                              size: 35,
-                                              color: _navigation.darkTheme.value
-                                                  ? ColorPallates.onDarkMode
-                                                  : ColorPallates.onLightMode,
-                                            ),
-                                            onTap: () =>
-                                                source.value.isactive.toggle(),
-                                          )
-                                        else
-                                          InkWell(
-                                            child: Icon(
-                                              Icons.toggle_off,
-                                              size: 35,
-                                              color: _navigation.darkTheme.value
-                                                  ? ColorPallates.offDarkMode
-                                                  : ColorPallates.offLightMode,
-                                            ),
-                                            onTap: () =>
-                                                source.value.isactive.toggle(),
-                                          ),
-                                        Divider()
-                                      ],
-                                    )),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
+                            )
+                          ],
+                        ),
+                      )),
                 )
             ],
           );

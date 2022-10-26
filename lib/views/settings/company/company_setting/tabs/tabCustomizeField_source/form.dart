@@ -9,6 +9,7 @@ class _FormCustomfield extends StatelessWidget implements EditViewContract {
   }
 
   final presenter = Get.find<CustomFieldPresenter>();
+  final optPresenter = Get.find<OptionPresenter>();
   final presenters = Get.find<CustomFieldsPresenter>();
   final _navigation = Get.find<NavigationPresenter>();
   final sources = Get.put(CustomizeFieldSource());
@@ -49,7 +50,7 @@ class _FormCustomfield extends StatelessWidget implements EditViewContract {
                                 style: TextStyle(color: Colors.blue),
                               ),
                             ),
-                            sources.formDetail(
+                            sources.formDetail(context,
                                 onRemoveItem: onClickRemoveRoleItem),
                           ],
                         ),
@@ -211,6 +212,25 @@ class _FormCustomfield extends StatelessWidget implements EditViewContract {
       presenters.setProcessing(true);
       if (data == 'Prospect') {
         if (sources.isEdit.value) {
+          SessionModel session = await SessionManager.current();
+          for (var element in sources.optid) {
+            optPresenter.update(
+                context,
+                {
+                  'optvalue':
+                      sources.inputOptions[sources.optid.indexOf(element)].text,
+                  'createdby': session.userid,
+                },
+                element);
+          }
+          if (sources.inputOptions.length > sources.optid.length) {
+            List<TextEditingController> newopt =
+                sources.inputOptions.skip(sources.optid.length).toList();
+            for (var element in newopt) {
+              optPresenter.save(context,
+                  {'optcustfid': sources.id.value, 'optvalue': element.text});
+            }
+          }
           presenters.update(context, await sources.toJson(), sources.id.value);
           sources.reset();
         } else {
@@ -223,6 +243,25 @@ class _FormCustomfield extends StatelessWidget implements EditViewContract {
       } else {
         presenter.setProcessing(true);
         if (sources.isEdit.value) {
+          SessionModel session = await SessionManager.current();
+          for (var element in sources.optid) {
+            optPresenter.update(
+                context,
+                {
+                  'optvalue':
+                      sources.inputOptions[sources.optid.indexOf(element)].text,
+                  'createdby': session.userid,
+                },
+                element);
+          }
+          if (sources.inputOptions.length > sources.optid.length) {
+            List<TextEditingController> newopt =
+                sources.inputOptions.skip(sources.optid.length).toList();
+            for (var element in newopt) {
+              optPresenter.save(context,
+                  {'optcustfid': sources.id.value, 'optvalue': element.text});
+            }
+          }
           presenter.update(context, await sources.toJson(), sources.id.value);
           sources.reset();
         } else {
@@ -242,8 +281,12 @@ class _FormCustomfield extends StatelessWidget implements EditViewContract {
     sources.reset();
   }
 
-  void onClickRemoveRoleItem(int index) {
-    sources.inputOptions.removeAt(index);
+  onClickRemoveRoleItem(BuildContext context, int index) {
+    if (sources.isEdit.value) {
+      optPresenter.delete(
+          context, sources.optid[index], sources.optname[index], index);
+    } else
+      sources.inputOptions.removeAt(index);
   }
 
   @override
@@ -273,8 +316,11 @@ class _FormCustomfield extends StatelessWidget implements EditViewContract {
       sources.inputOptions.addAll(customField.selectoption!
           .map((e) => TextEditingController(text: e.optvalue))
           .toList());
+      for (var element in customField.selectoption!) {
+        sources.optid.add(element.optid);
+        sources.optname.add(element.optvalue);
+      }
     }
-
     if (customField.onlythisdata == true) {
       sources.selectprospect.clear();
       if (customField.custfreftype?.typename == 'Prospect') {

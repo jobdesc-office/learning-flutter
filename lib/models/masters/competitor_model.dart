@@ -52,8 +52,8 @@ class CompetitorModel {
     comptcreatedby = json['comptcreatedby'] != null
         ? new Comptcreatedby.fromJson(json['comptcreatedby'])
         : null;
-    comptupdatedby = json['comptcreatedby'] != null
-        ? new Comptcreatedby.fromJson(json['comptcreatedby'])
+    comptupdatedby = json['comptupdatedby'] != null
+        ? new Comptcreatedby.fromJson(json['comptupdatedby'])
         : null;
     comptreftype = json['comptreftype'] != null
         ? new Comptreftype.fromJson(json['comptreftype'])

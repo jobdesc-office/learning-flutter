@@ -18,6 +18,9 @@ class CustomizeFieldSource extends GetxController {
 
   var config = ''.obs;
 
+  var optid = [].obs;
+  var optname = [].obs;
+
   var isEdit = false.obs;
   var isForm = false.obs;
   final presenter = Get.find<CustomFieldPresenter>();
@@ -39,6 +42,9 @@ class CustomizeFieldSource extends GetxController {
 
     selectType.clear();
     selectprospect.clear();
+
+    optid.clear();
+    optname.clear();
 
     inputName.text = '';
 
@@ -213,7 +219,7 @@ class CustomizeFieldSource extends GetxController {
     );
   }
 
-  Widget formDetail({required ValueChanged<int> onRemoveItem}) {
+  Widget formDetail(context, {required Function onRemoveItem}) {
     return FormGroup(
       child: Obx(() => Column(
             children: inputOptions.value.map((controller) {
@@ -240,7 +246,7 @@ class CustomizeFieldSource extends GetxController {
                     child: ButtonMultipleCancel(
                         disabled: inputOptions.length > 1 ? false : true,
                         margin: EdgeInsets.only(top: 10),
-                        onPressed: () => onRemoveItem(index)),
+                        onPressed: () => onRemoveItem(context, index)),
                   )
                 ],
               );

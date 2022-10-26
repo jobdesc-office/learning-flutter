@@ -7,6 +7,8 @@ class _TabCompetitor extends GetView
   final presenter = Get.find<CompetitorPresenter>();
   final datatable = CompetitorDataTableSource();
   final map = Get.put(MapSource());
+
+  final sources = CompetitorSource().obs;
   late CompetitorForm competitorForm;
 
   var isEdit = false.obs;
@@ -45,7 +47,7 @@ class _TabCompetitor extends GetView
                               children: [
                                 BsCol(
                                   sizes: ColScreen(sm: Col.col_5),
-                                  child: competitorForm.btnImage(),
+                                  child: competitorForm.btnImage(context),
                                 ),
                                 BsCol(
                                   margin: EdgeInsets.only(left: 5),
@@ -83,8 +85,10 @@ class _TabCompetitor extends GetView
                                                       'refid': sources
                                                           .value.refid.value
                                                     };
-                                                    presenter.deleteImages(
-                                                        context, images);
+                                                    if (sources
+                                                        .value.image.isNotEmpty)
+                                                      presenter.deleteImages(
+                                                          context, images);
                                                     presenter.update(
                                                         context,
                                                         FormData(await sources
@@ -156,8 +160,8 @@ class _TabCompetitor extends GetView
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.end,
                                               children: [
-                                                Text(source
-                                                    .value.createdby.value),
+                                                Obx(() => Text(sources
+                                                    .value.createdby.value)),
                                                 Divider()
                                               ],
                                             )),
@@ -175,8 +179,8 @@ class _TabCompetitor extends GetView
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.end,
                                               children: [
-                                                Text(source
-                                                    .value.createddate.value),
+                                                Obx(() => Text(sources
+                                                    .value.createddate.value)),
                                                 Divider()
                                               ],
                                             )),
@@ -194,8 +198,8 @@ class _TabCompetitor extends GetView
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.end,
                                               children: [
-                                                Text(source
-                                                    .value.updatedby.value),
+                                                Obx(() => Text(sources
+                                                    .value.updatedby.value)),
                                                 Divider()
                                               ],
                                             )),
@@ -213,8 +217,8 @@ class _TabCompetitor extends GetView
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.end,
                                               children: [
-                                                Text(source
-                                                    .value.updateddate.value),
+                                                Obx(() => Text(sources
+                                                    .value.updateddate.value)),
                                                 Divider()
                                               ],
                                             )),
@@ -228,45 +232,48 @@ class _TabCompetitor extends GetView
                                                             .darkTheme.value
                                                         ? Colors.white
                                                         : Colors.black)),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
-                                              children: [
-                                                if (source.value.isactive.value)
-                                                  InkWell(
-                                                    child: Icon(
-                                                      Icons.toggle_on,
-                                                      size: 35,
-                                                      color: _navigation
-                                                              .darkTheme.value
-                                                          ? ColorPallates
-                                                              .onDarkMode
-                                                          : ColorPallates
-                                                              .onLightMode,
-                                                    ),
-                                                    onTap: () => source
-                                                        .value.isactive
-                                                        .toggle(),
-                                                  )
-                                                else
-                                                  InkWell(
-                                                    child: Icon(
-                                                      Icons.toggle_off,
-                                                      size: 35,
-                                                      color: _navigation
-                                                              .darkTheme.value
-                                                          ? ColorPallates
-                                                              .offDarkMode
-                                                          : ColorPallates
-                                                              .offLightMode,
-                                                    ),
-                                                    onTap: () => source
-                                                        .value.isactive
-                                                        .toggle(),
-                                                  ),
-                                                Divider()
-                                              ],
-                                            )),
+                                            child: Obx(() => Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.end,
+                                                  children: [
+                                                    if (sources
+                                                        .value.isactive.value)
+                                                      InkWell(
+                                                        child: Icon(
+                                                          Icons.toggle_on,
+                                                          size: 35,
+                                                          color: _navigation
+                                                                  .darkTheme
+                                                                  .value
+                                                              ? ColorPallates
+                                                                  .onDarkMode
+                                                              : ColorPallates
+                                                                  .onLightMode,
+                                                        ),
+                                                        onTap: () => sources
+                                                            .value.isactive
+                                                            .toggle(),
+                                                      )
+                                                    else
+                                                      InkWell(
+                                                        child: Icon(
+                                                          Icons.toggle_off,
+                                                          size: 35,
+                                                          color: _navigation
+                                                                  .darkTheme
+                                                                  .value
+                                                              ? ColorPallates
+                                                                  .offDarkMode
+                                                              : ColorPallates
+                                                                  .offLightMode,
+                                                        ),
+                                                        onTap: () => sources
+                                                            .value.isactive
+                                                            .toggle(),
+                                                      ),
+                                                    Divider()
+                                                  ],
+                                                ))),
                                       ),
                                     ],
                                   ),
@@ -375,23 +382,13 @@ class _TabCompetitor extends GetView
     isForm.value = true;
     isEdit.value = true;
 
-    source.update((val) {
+    sources.update((val) {
       CompetitorModel competitor = CompetitorModel.fromJson(response.body);
 
-      if (competitor.comptreftypeid != null)
+      if (competitor.comptreftype != null)
         sources.value.selectType.setSelected(BsSelectBoxOption(
             value: competitor.comptreftypeid,
             text: Text(competitor.comptreftype!.typename!)));
-
-      if (competitor.comptpics != null) {
-        sources.value.isUpdate.value = true;
-        sources.value.isImage.value = false;
-        List image = [];
-        for (var item in competitor.comptpics!) {
-          image.add(item.url);
-        }
-        sources.value.imageupdate.value = image;
-      }
 
       sources.value.id.value = competitor.comptid!;
 
@@ -401,12 +398,6 @@ class _TabCompetitor extends GetView
       sources.value.inputProductName.text = competitor.comptproductname ?? '';
       sources.value.inputDesc.text = competitor.description ?? '';
 
-      if (competitor.comptpics != []) {
-        sources.value.transtypeid.value =
-            competitor.comptpics!.first.transtypeid!;
-        sources.value.refid.value = competitor.comptpics!.first.refid!;
-      }
-
       sources.value.createdby.value =
           competitor.comptcreatedby?.userfullname ?? '';
       sources.value.createddate.value = competitor.createddate ?? '';
@@ -414,6 +405,25 @@ class _TabCompetitor extends GetView
           competitor.comptupdatedby?.userfullname ?? '';
       sources.value.updateddate.value = competitor.updateddate ?? '';
       sources.value.isactive.value = competitor.isactive ?? true;
+
+      if (competitor.comptpics != []) {
+        sources.value.isUpdate.value = true;
+        sources.value.isImage.value = false;
+        List image = [];
+        List id = [];
+        for (var item in competitor.comptpics!) {
+          image.add(item.url);
+          id.add(item.fileid);
+        }
+        sources.value.imageupdate.value = image;
+        sources.value.imageupdateid.value = id;
+      }
+
+      if (competitor.comptpics != []) {
+        sources.value.transtypeid.value =
+            competitor.comptpics!.first.transtypeid!;
+        sources.value.refid.value = competitor.comptpics!.first.refid!;
+      }
     });
   }
 }

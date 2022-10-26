@@ -11,16 +11,20 @@ import 'package:image_picker_web/image_picker_web.dart';
 import '../../../constants/base_text.dart';
 import '../../../models/session_model.dart';
 import '../../../presenters/navigation_presenter.dart';
+import '../../../presenters/settings/file_presenter.dart';
 import '../../../utils/select_api.dart';
 import '../../../utils/session_manager.dart';
 import '../../../utils/validators.dart';
+import '../../../widgets/confirm_dialog.dart';
 import '../../../widgets/input/custom_input.dart';
 import '../../../widgets/selectbox/custom_selectbox.dart';
 import '../../../widgets/form_group.dart';
 
+import '../../../widgets/snackbar.dart';
 import '_text.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
+final filePresenter = Get.find<FilePresenter>();
 
 class CompetitorSource extends GetxController {
   bool isProcessing = false;
@@ -61,6 +65,7 @@ class CompetitorSource extends GetxController {
   var imgname = ''.obs;
   var image = <Uint8List>[].obs;
   var imageupdate = [].obs;
+  var imageupdateid = [].obs;
   var isImage = false.obs;
   var isUpdate = false.obs;
   var isUpdateImage = false.obs;
@@ -181,68 +186,144 @@ class CompetitorForm {
     return gallery;
   }
 
-  Widget photoViewerUpdate() {
-    var gallery;
+  Widget photoViewerUpdate(context) {
+    BsRow gallery;
     switch (source.imageupdate.length) {
       case 3:
-        gallery = Obx(() => BsRow(
-              children: source.imageupdate.map((element) {
-                return BsCol(
-                    margin: EdgeInsets.all(3),
-                    sizes: ColScreen(sm: Col.col_4),
-                    child: InkWell(
-                        onTap: (() => source.imageupdate
-                            .removeWhere((item) => item == element)),
-                        child: Tooltip(
-                            message: 'Tap to Remove',
-                            child: Image.network(element))));
-              }).toList(),
-            ));
+        gallery = BsRow(
+          children: source.imageupdate.map((element) {
+            return BsCol(
+                margin: EdgeInsets.all(3),
+                sizes: ColScreen(sm: Col.col_4),
+                child: InkWell(
+                    onTap: (() => showDialog(
+                          context: context,
+                          builder: (context) => ConfirmDialog(
+                            title: BaseText.confirmTitle,
+                            message:
+                                BaseText.deleteConfirmDatatable(field: 'Image'),
+                            onPressed: (_, value) async {
+                              if (value == ConfirmDialogOption.YES_OPTION) {
+                                filePresenter.deleteCompetitor(
+                                    source.imageupdateid[
+                                        source.imageupdate.indexOf(element)]);
+                                source.imageupdate
+                                    .removeWhere((item) => item == element);
+                                Snackbar().deleteSuccess(context);
+                                Navigator.pop(context);
+                              } else {
+                                Navigator.pop(context);
+                              }
+                            },
+                          ),
+                        )),
+                    child: Tooltip(
+                        message: 'Tap to Remove',
+                        child: Image.network(element))));
+          }).toList(),
+        );
         break;
       case 2:
-        gallery = Obx(() => BsRow(
-              children: source.imageupdate.map((element) {
-                return BsCol(
-                    margin: EdgeInsets.all(3),
-                    sizes: ColScreen(sm: Col.col_6),
-                    child: InkWell(
-                        onTap: (() => source.imageupdate
-                            .removeWhere((item) => item == element)),
-                        child: Tooltip(
-                            message: 'Tap to Remove',
-                            child: Image.network(element))));
-              }).toList(),
-            ));
+        gallery = BsRow(
+          children: source.imageupdate.map((element) {
+            return BsCol(
+                margin: EdgeInsets.all(3),
+                sizes: ColScreen(sm: Col.col_6),
+                child: InkWell(
+                    onTap: (() => showDialog(
+                          context: context,
+                          builder: (context) => ConfirmDialog(
+                            title: BaseText.confirmTitle,
+                            message:
+                                BaseText.deleteConfirmDatatable(field: 'Image'),
+                            onPressed: (_, value) async {
+                              if (value == ConfirmDialogOption.YES_OPTION) {
+                                filePresenter.deleteCompetitor(
+                                    source.imageupdateid[
+                                        source.imageupdate.indexOf(element)]);
+                                source.imageupdate
+                                    .removeWhere((item) => item == element);
+                                Snackbar().deleteSuccess(context);
+                                Navigator.pop(context);
+                              } else {
+                                Navigator.pop(context);
+                              }
+                            },
+                          ),
+                        )),
+                    child: Tooltip(
+                        message: 'Tap to Remove',
+                        child: Image.network(element))));
+          }).toList(),
+        );
         break;
       case 1:
-        gallery = Obx(() => BsRow(
-              children: source.imageupdate.map((element) {
-                return BsCol(
-                    margin: EdgeInsets.all(3),
-                    sizes: ColScreen(sm: Col.col_12),
-                    child: InkWell(
-                        onTap: (() => source.imageupdate
-                            .removeWhere((item) => item == element)),
-                        child: Tooltip(
-                            message: 'Tap to Remove',
-                            child: Image.network(element))));
-              }).toList(),
-            ));
+        gallery = BsRow(
+          children: source.imageupdate.map((element) {
+            return BsCol(
+                margin: EdgeInsets.all(3),
+                sizes: ColScreen(sm: Col.col_12),
+                child: InkWell(
+                    onTap: (() => showDialog(
+                          context: context,
+                          builder: (context) => ConfirmDialog(
+                            title: BaseText.confirmTitle,
+                            message:
+                                BaseText.deleteConfirmDatatable(field: 'Image'),
+                            onPressed: (_, value) async {
+                              if (value == ConfirmDialogOption.YES_OPTION) {
+                                filePresenter.deleteCompetitor(
+                                    source.imageupdateid[
+                                        source.imageupdate.indexOf(element)]);
+                                source.imageupdate
+                                    .removeWhere((item) => item == element);
+                                Snackbar().deleteSuccess(context);
+                                Navigator.pop(context);
+                              } else {
+                                Navigator.pop(context);
+                              }
+                            },
+                          ),
+                        )),
+                    child: Tooltip(
+                        message: 'Tap to Remove',
+                        child: Image.network(element))));
+          }).toList(),
+        );
         break;
       default:
-        gallery = Obx(() => BsRow(
-              children: source.imageupdate.map((element) {
-                return BsCol(
-                    margin: EdgeInsets.all(3),
-                    sizes: ColScreen(sm: Col.col_3),
-                    child: InkWell(
-                        onTap: (() => source.imageupdate
-                            .removeWhere((item) => item == element)),
-                        child: Tooltip(
-                            message: 'Tap to Remove',
-                            child: Image.network(element))));
-              }).toList(),
-            ));
+        gallery = BsRow(
+          children: source.imageupdate.map((element) {
+            return BsCol(
+                margin: EdgeInsets.all(3),
+                sizes: ColScreen(sm: Col.col_3),
+                child: InkWell(
+                    onTap: (() => showDialog(
+                          context: context,
+                          builder: (context) => ConfirmDialog(
+                            title: BaseText.confirmTitle,
+                            message:
+                                BaseText.deleteConfirmDatatable(field: 'Image'),
+                            onPressed: (_, value) async {
+                              if (value == ConfirmDialogOption.YES_OPTION) {
+                                filePresenter.deleteCompetitor(
+                                    source.imageupdateid[
+                                        source.imageupdate.indexOf(element)]);
+                                source.imageupdate
+                                    .removeWhere((item) => item == element);
+                                Snackbar().deleteSuccess(context);
+                                Navigator.pop(context);
+                              } else {
+                                Navigator.pop(context);
+                              }
+                            },
+                          ),
+                        )),
+                    child: Tooltip(
+                        message: 'Tap to Remove',
+                        child: Image.network(element))));
+          }).toList(),
+        );
     }
     return gallery;
   }
@@ -345,14 +426,15 @@ class CompetitorForm {
     );
   }
 
-  Widget btnImage() {
+  Widget btnImage(context) {
     return FormGroup(
       child: Center(
         child: Obx(() => Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 if (source.isImage.value) photoViewer(),
-                if (source.isUpdate.value) photoViewerUpdate(),
+                if (source.isUpdate.value && source.imageupdate != [])
+                  photoViewerUpdate(context),
                 BsButton(
                   margin: EdgeInsets.only(top: 10),
                   onPressed: () async {

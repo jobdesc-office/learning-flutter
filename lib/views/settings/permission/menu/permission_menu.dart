@@ -63,6 +63,7 @@ class _PermissionMenuViewState extends State<PermissionMenuView>
           RouteList.master.index,
           RouteList.settingsPermission.index
         ],
+        back: true,
         background: true,
         child: Container(
           padding: EdgeInsets.all(10),
