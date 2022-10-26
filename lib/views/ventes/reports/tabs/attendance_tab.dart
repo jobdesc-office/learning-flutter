@@ -15,6 +15,7 @@ class AttendanceTab extends StatelessWidget implements IndexViewContract {
     return Obx(() => Column(
           children: [
             CustomDatabales(
+              searchable: false,
               source: datatable,
               columns: datatable.columns,
               headerActions: [
