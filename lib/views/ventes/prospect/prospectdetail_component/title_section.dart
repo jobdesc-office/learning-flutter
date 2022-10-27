@@ -87,25 +87,40 @@ BsCol prospectDetailTitleSection(context) {
                       if (source.status.value == 'Closed Lost')
                         Row(
                           children: [
-                            Container(
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                    color: Color.fromARGB(255, 207, 202, 202),
-                                  )),
-                              child: Text(
-                                  'Rp ' +
-                                      currencyFormatter
-                                          .format(double.parse(
-                                              source.prospectvalue.value))
-                                          .replaceAll(',00', '')
-                                          .replaceAll('.', ','),
-                                  style: TextStyle(
-                                    fontSize: 21,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                            ),
+                            Obx(() => InkWell(
+                                  onTap: () => source.status.value !=
+                                              'Closed Lost' &&
+                                          source.status.value != 'Closed Won' &&
+                                          source.status.value != 'Force Closed'
+                                      ? source.changeprospectvalue.value
+                                          ? presenter.changevalue(
+                                              context, source.prospectid.value)
+                                          : null
+                                      : null,
+                                  child: Container(
+                                    padding: EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(
+                                          color:
+                                              source.changeprospectvalue.value
+                                                  ? ColorPallates.primary
+                                                  : Color.fromARGB(
+                                                      255, 207, 202, 202),
+                                        )),
+                                    child: Text(
+                                        'Rp ' +
+                                            currencyFormatter
+                                                .format(double.parse(
+                                                    source.prospectvalue.value))
+                                                .replaceAll(',00', '')
+                                                .replaceAll('.', ','),
+                                        style: TextStyle(
+                                          fontSize: 21,
+                                          fontWeight: FontWeight.bold,
+                                        )),
+                                  ),
+                                )),
                             Container(
                               margin: EdgeInsets.only(left: 10),
                               child: Column(
@@ -128,25 +143,40 @@ BsCol prospectDetailTitleSection(context) {
                       else if (source.status.value == 'Closed Won')
                         Row(
                           children: [
-                            Container(
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                    color: Color.fromARGB(255, 207, 202, 202),
-                                  )),
-                              child: Text(
-                                  'Rp ' +
-                                      currencyFormatter
-                                          .format(double.parse(
-                                              source.prospectvalue.value))
-                                          .replaceAll(',00', '')
-                                          .replaceAll('.', ','),
-                                  style: TextStyle(
-                                    fontSize: 21,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                            ),
+                            Obx(() => InkWell(
+                                  onTap: () => source.status.value !=
+                                              'Closed Lost' &&
+                                          source.status.value != 'Closed Won' &&
+                                          source.status.value != 'Force Closed'
+                                      ? source.changeprospectvalue.value
+                                          ? presenter.changevalue(
+                                              context, source.prospectid.value)
+                                          : null
+                                      : null,
+                                  child: Container(
+                                    padding: EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(
+                                          color:
+                                              source.changeprospectvalue.value
+                                                  ? ColorPallates.primary
+                                                  : Color.fromARGB(
+                                                      255, 207, 202, 202),
+                                        )),
+                                    child: Text(
+                                        'Rp ' +
+                                            currencyFormatter
+                                                .format(double.parse(
+                                                    source.prospectvalue.value))
+                                                .replaceAll(',00', '')
+                                                .replaceAll('.', ','),
+                                        style: TextStyle(
+                                          fontSize: 21,
+                                          fontWeight: FontWeight.bold,
+                                        )),
+                                  ),
+                                )),
                             Obx(() {
                               Widget card = Text('${source.status.value}');
                               switch (source.status.value) {
@@ -198,25 +228,40 @@ BsCol prospectDetailTitleSection(context) {
                       else if (source.status.value == 'Force Closed')
                         Row(
                           children: [
-                            Container(
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                    color: Color.fromARGB(255, 207, 202, 202),
-                                  )),
-                              child: Text(
-                                  'Rp ' +
-                                      currencyFormatter
-                                          .format(double.parse(
-                                              source.prospectvalue.value))
-                                          .replaceAll(',00', '')
-                                          .replaceAll('.', ','),
-                                  style: TextStyle(
-                                    fontSize: 21,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                            ),
+                            Obx(() => InkWell(
+                                  onTap: () => source.status.value !=
+                                              'Closed Lost' &&
+                                          source.status.value != 'Closed Won' &&
+                                          source.status.value != 'Force Closed'
+                                      ? source.changeprospectvalue.value
+                                          ? presenter.changevalue(
+                                              context, source.prospectid.value)
+                                          : null
+                                      : null,
+                                  child: Container(
+                                    padding: EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(
+                                          color:
+                                              source.changeprospectvalue.value
+                                                  ? ColorPallates.primary
+                                                  : Color.fromARGB(
+                                                      255, 207, 202, 202),
+                                        )),
+                                    child: Text(
+                                        'Rp ' +
+                                            currencyFormatter
+                                                .format(double.parse(
+                                                    source.prospectvalue.value))
+                                                .replaceAll(',00', '')
+                                                .replaceAll('.', ','),
+                                        style: TextStyle(
+                                          fontSize: 21,
+                                          fontWeight: FontWeight.bold,
+                                        )),
+                                  ),
+                                )),
                             Obx(() {
                               Widget card = Text('${source.status.value}');
                               switch (source.status.value) {
@@ -291,25 +336,40 @@ BsCol prospectDetailTitleSection(context) {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Container(
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                    color: Color.fromARGB(255, 207, 202, 202),
-                                  )),
-                              child: Text(
-                                  'Rp ' +
-                                      currencyFormatter
-                                          .format(double.parse(
-                                              source.prospectvalue.value))
-                                          .replaceAll(',00', '')
-                                          .replaceAll('.', ','),
-                                  style: TextStyle(
-                                    fontSize: 21,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                            ),
+                            Obx(() => InkWell(
+                                  onTap: () => source.status.value !=
+                                              'Closed Lost' &&
+                                          source.status.value != 'Closed Won' &&
+                                          source.status.value != 'Force Closed'
+                                      ? source.changeprospectvalue.value
+                                          ? presenter.changevalue(
+                                              context, source.prospectid.value)
+                                          : null
+                                      : null,
+                                  child: Container(
+                                    padding: EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(
+                                          color:
+                                              source.changeprospectvalue.value
+                                                  ? ColorPallates.primary
+                                                  : Color.fromARGB(
+                                                      255, 207, 202, 202),
+                                        )),
+                                    child: Text(
+                                        'Rp ' +
+                                            currencyFormatter
+                                                .format(double.parse(
+                                                    source.prospectvalue.value))
+                                                .replaceAll(',00', '')
+                                                .replaceAll('.', ','),
+                                        style: TextStyle(
+                                          fontSize: 21,
+                                          fontWeight: FontWeight.bold,
+                                        )),
+                                  ),
+                                )),
                             Container(
                               margin: EdgeInsets.only(left: 10),
                               child: Row(

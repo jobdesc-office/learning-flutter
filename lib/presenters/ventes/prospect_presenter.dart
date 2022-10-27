@@ -12,6 +12,7 @@ import '../../services/masters/stbptype_service.dart';
 import '../../services/ventes/prospect_service.dart';
 import '../../utils/custom_get_controller.dart';
 import '../../views/masters/menus/_menu_type.dart';
+import '../../views/ventes/prospect/prospectchangevalue/prospect_change_value.dart';
 import '../../views/ventes/prospect/prospectdetail_component/_stagePipeline.dart';
 import '../../views/ventes/prospect/prospect_detail.dart';
 import '../../views/ventes/prospect/prospect_form.dart';
@@ -196,6 +197,16 @@ class ProspectPresenter extends CustomGetXController {
     showDialog(
       context: context,
       builder: (context) => ProspectLose(
+        onSave: (body) => update(context, body, prospectid),
+      ),
+    );
+  }
+
+  void changevalue(BuildContext context, int prospectid) async {
+    setProcessing(true);
+    showDialog(
+      context: context,
+      builder: (context) => ProspectChangeValueText(
         onSave: (body) => update(context, body, prospectid),
       ),
     );

@@ -81,6 +81,8 @@ class ProspectDetailsSource extends GetxController {
   var pickedFile = <Uint8List>[].obs;
   var markFile = <TextEditingController>[].obs;
 
+  var changeprospectvalue = false.obs;
+
   List<Map<String, dynamic>> jsonRoles() {
     return List<Map<String, dynamic>>.from(markFile.map((controller) {
       int index = markFile.indexOf(controller);

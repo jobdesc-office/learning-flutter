@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:timelines/timelines.dart';
 
 import '../../../../constants/base_text.dart';
+import '../../../../helpers/function.dart';
 import '../../../../models/session_model.dart';
 import '../../../../models/settings/stbptype_model.dart';
 import '../../../../presenters/auth_presenter.dart';
@@ -177,6 +180,14 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
                         'Are You Sure Want to Change to ${type.sbttypename} Stage ?',
                     onPressed: (_, value) async {
                       if (value == ConfirmDialogOption.YES_OPTION) {
+                        if (type.sbtremark != null) {
+                          Map<String, dynamic> prospectvalue =
+                              jsonDecode(type.sbtremark ?? '');
+                          source.changeprospectvalue.value =
+                              parseBool(prospectvalue['prospectvalue']);
+                        } else {
+                          source.changeprospectvalue.value = false;
+                        }
                         source.showPipeline.value = false;
                         source.prospectStageController.value.selected = type;
                         presenter.update(

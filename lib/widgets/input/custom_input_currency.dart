@@ -9,6 +9,7 @@ class CustomInputCurrency extends CustomInput {
   CustomInputCurrency({
     required TextEditingController controller,
     bool disabled = false,
+    bool autofocus = false,
     bool readOnly = false,
     String? hintText,
     List<BsInputValidator> validators = const [],
@@ -21,6 +22,7 @@ class CustomInputCurrency extends CustomInput {
           readOnly: readOnly,
           controller: controller,
           hintText: hintText,
+          autofocus: autofocus,
           validators: validators,
           keyboardType: TextInputType.number,
           inputFormatters: [

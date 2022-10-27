@@ -367,6 +367,15 @@ class _ProspectDetailsState extends State<ProspectDetails>
       source.statustextcolor.value = Color.fromARGB(255, 0, 0, 0);
     }
 
+    if (dt.prospectstage?.sbtremark != null) {
+      Map<String, dynamic> prospectvalue =
+          jsonDecode(dt.prospectstage?.sbtremark ?? '');
+      source.changeprospectvalue.value =
+          parseBool(prospectvalue['prospectvalue']);
+    } else {
+      source.changeprospectvalue.value = false;
+    }
+
     presenter.setProcessing(false);
   }
 
