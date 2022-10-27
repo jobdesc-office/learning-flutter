@@ -124,6 +124,7 @@ BsCol prospectDetailTitleSection(context) {
                             Container(
                               margin: EdgeInsets.only(left: 10),
                               child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
                                     'This Prospect Lost !',
@@ -131,10 +132,62 @@ BsCol prospectDetailTitleSection(context) {
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  Text(source.losttype.value,
-                                      style: TextStyle(fontSize: 14)),
-                                  Text(source.lostdesc.value,
-                                      style: TextStyle(fontSize: 12))
+                                  if (source.losttype.value != '')
+                                    Text(source.losttype.value,
+                                        style: TextStyle(fontSize: 14)),
+                                  if (source.lostdesc.value != '')
+                                    Text(source.lostdesc.value,
+                                        style: TextStyle(fontSize: 12)),
+                                  BsButton(
+                                    size: BsButtonSize.btnSm,
+                                    onPressed: () => showDialog(
+                                      context: context,
+                                      builder: (context) => ConfirmDialog(
+                                        title: BaseText.confirmTitle,
+                                        message:
+                                            'Are You Sure Want to Re-Open This Prospect ?',
+                                        onPressed: (_, value) async {
+                                          if (value ==
+                                              ConfirmDialogOption.YES_OPTION) {
+                                            StbptypeModel status =
+                                                await presenter.status();
+                                            SessionModel session =
+                                                await SessionManager.current();
+                                            Map<String, dynamic> body = {
+                                              'prospectstatusid': status.sbtid,
+                                              'createdby': session.userid,
+                                              'updatedby': session.userid,
+                                            };
+                                            source.status.value =
+                                                status.sbttypename ?? '';
+                                            if (status.sbtremark != null) {
+                                              Map<String, dynamic> color =
+                                                  jsonDecode(
+                                                      status.sbtremark ?? '');
+                                              source.statuscolor.value = Color(
+                                                  parseInt(color['color']));
+                                              source.statustextcolor.value =
+                                                  Color(parseInt(
+                                                      color['textcolor']));
+                                            } else {
+                                              source.statuscolor.value =
+                                                  Color.fromARGB(
+                                                      0, 255, 255, 255);
+                                              source.statustextcolor.value =
+                                                  Color.fromARGB(255, 0, 0, 0);
+                                            }
+                                            presenter.update(context, body,
+                                                source.prospectid.value);
+                                            Navigator.pop(context);
+                                          } else {
+                                            presenter.setProcessing(false);
+                                            Navigator.pop(context);
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                    label: Text('Re-Open'),
+                                  )
                                 ],
                               ),
                             )
@@ -308,14 +361,61 @@ BsCol prospectDetailTitleSection(context) {
                                           fontWeight: FontWeight.bold));
                               }
                               return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Container(
                                       margin:
                                           EdgeInsets.only(left: 10, bottom: 7),
                                       child: card),
-                                  Container(
-                                    child: Text(''),
+                                  BsButton(
+                                    size: BsButtonSize.btnSm,
+                                    onPressed: () => showDialog(
+                                      context: context,
+                                      builder: (context) => ConfirmDialog(
+                                        title: BaseText.confirmTitle,
+                                        message:
+                                            'Are You Sure Want to Re-Open This Prospect ?',
+                                        onPressed: (_, value) async {
+                                          if (value ==
+                                              ConfirmDialogOption.YES_OPTION) {
+                                            StbptypeModel status =
+                                                await presenter.status();
+                                            SessionModel session =
+                                                await SessionManager.current();
+                                            Map<String, dynamic> body = {
+                                              'prospectstatusid': status.sbtid,
+                                              'createdby': session.userid,
+                                              'updatedby': session.userid,
+                                            };
+                                            source.status.value =
+                                                status.sbttypename ?? '';
+                                            if (status.sbtremark != null) {
+                                              Map<String, dynamic> color =
+                                                  jsonDecode(
+                                                      status.sbtremark ?? '');
+                                              source.statuscolor.value = Color(
+                                                  parseInt(color['color']));
+                                              source.statustextcolor.value =
+                                                  Color(parseInt(
+                                                      color['textcolor']));
+                                            } else {
+                                              source.statuscolor.value =
+                                                  Color.fromARGB(
+                                                      0, 255, 255, 255);
+                                              source.statustextcolor.value =
+                                                  Color.fromARGB(255, 0, 0, 0);
+                                            }
+                                            presenter.update(context, body,
+                                                source.prospectid.value);
+                                            Navigator.pop(context);
+                                          } else {
+                                            presenter.setProcessing(false);
+                                            Navigator.pop(context);
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                    label: Text('Re-Open'),
                                   )
                                 ],
                               );

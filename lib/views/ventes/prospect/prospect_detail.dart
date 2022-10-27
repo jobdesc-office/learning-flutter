@@ -140,7 +140,6 @@ class _ProspectDetailsState extends State<ProspectDetails>
           BreadcrumbWidget('Prospect', back: true),
           BreadcrumbWidget('Prospect Details', active: true),
         ],
-        back: true,
         activeRoutes: [RouteList.ventes.index, RouteList.ventesProspect.index],
         child: Column(
           children: [
