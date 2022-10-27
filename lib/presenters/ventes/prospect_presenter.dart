@@ -122,6 +122,19 @@ class ProspectPresenter extends CustomGetXController {
     return null;
   }
 
+  Future forceClosedStatus() async {
+    Response response = await _typeService.byCode(ConfigType.prospectStatus);
+    if (response.statusCode == 200) {
+      List<StbptypeModel> data = [];
+      for (var item in response.body) {
+        data.add(StbptypeModel.fromJson(item));
+      }
+      data.removeWhere((element) => element.sbttypename != 'Force Closed');
+      return data.first.sbtid;
+    }
+    return null;
+  }
+
   Future wonStatus() async {
     Response response = await _typeService.byCode(ConfigType.prospectStatus);
     if (response.statusCode == 200) {

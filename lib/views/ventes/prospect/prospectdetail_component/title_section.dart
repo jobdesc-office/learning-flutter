@@ -472,58 +472,99 @@ BsCol prospectDetailTitleSection(context) {
                                 )),
                             Container(
                               margin: EdgeInsets.only(left: 10),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
+                              child: Column(
                                 children: [
-                                  BsButton(
-                                    style: BsButtonStyle.success,
-                                    onPressed: () async {
-                                      int data = await presenter.wonStatus();
-                                      // TypeModel stage =
-                                      //     await presenter.completePipeline();
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) => ConfirmDialog(
-                                          title: BaseText.confirmTitle,
-                                          message:
-                                              'are you sure winning this prospect ?',
-                                          onPressed: (_, value) async {
-                                            if (value ==
-                                                ConfirmDialogOption
-                                                    .YES_OPTION) {
-                                              presenter.update(
-                                                  context,
-                                                  {
-                                                    'prospectenddate':
-                                                        '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}',
-                                                    'prospectstatusid': data,
-                                                    // 'prospectstageid':
-                                                    //     stage.typeid,
-                                                  },
-                                                  source.prospectid.value);
-                                              source.status.value =
-                                                  'Closed Won';
-                                              // source.prospectStageController
-                                              //     .value.selected = stage;
-                                            } else {
-                                              Navigator.pop(context);
-                                            }
-                                          },
-                                        ),
-                                      );
-                                    },
-                                    label: Text('Won'),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      BsButton(
+                                        style: BsButtonStyle.success,
+                                        onPressed: () async {
+                                          int data =
+                                              await presenter.wonStatus();
+                                          // TypeModel stage =
+                                          //     await presenter.completePipeline();
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) => ConfirmDialog(
+                                              title: BaseText.confirmTitle,
+                                              message:
+                                                  'are you sure winning this prospect ?',
+                                              onPressed: (_, value) async {
+                                                if (value ==
+                                                    ConfirmDialogOption
+                                                        .YES_OPTION) {
+                                                  presenter.update(
+                                                      context,
+                                                      {
+                                                        'prospectenddate':
+                                                            '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}',
+                                                        'prospectstatusid':
+                                                            data,
+                                                        // 'prospectstageid':
+                                                        //     stage.typeid,
+                                                      },
+                                                      source.prospectid.value);
+                                                  source.status.value =
+                                                      'Closed Won';
+                                                  // source.prospectStageController
+                                                  //     .value.selected = stage;
+                                                } else {
+                                                  Navigator.pop(context);
+                                                }
+                                              },
+                                            ),
+                                          );
+                                        },
+                                        label: Text('Won'),
+                                      ),
+                                      BsButton(
+                                        margin: EdgeInsets.only(left: 10),
+                                        style: BsButtonStyle.danger,
+                                        onPressed: () {
+                                          presenter.lose(
+                                              context, source.prospectid.value);
+                                        },
+                                        label: Text('Lost'),
+                                      ),
+                                    ],
                                   ),
                                   BsButton(
-                                    margin: EdgeInsets.only(left: 10),
+                                    margin: EdgeInsets.only(top: 3),
                                     style: BsButtonStyle.danger,
-                                    onPressed: () {
-                                      presenter.lose(
-                                          context, source.prospectid.value);
-                                    },
-                                    label: Text('Lost'),
-                                  ),
+                                    onPressed: () => showDialog(
+                                      context: context,
+                                      builder: (context) => ConfirmDialog(
+                                        title: BaseText.confirmTitle,
+                                        message:
+                                            'Are You Sure Want to Force Closed This Prospect ?',
+                                        onPressed: (_, value) async {
+                                          if (value ==
+                                              ConfirmDialogOption.YES_OPTION) {
+                                            int status = await presenter
+                                                .forceClosedStatus();
+                                            SessionModel session =
+                                                await SessionManager.current();
+                                            Map<String, dynamic> body = {
+                                              'prospectstatusid': status,
+                                              'createdby': session.userid,
+                                              'updatedby': session.userid,
+                                            };
+                                            source.status.value =
+                                                'Force Closed';
+                                            presenter.update(context, body,
+                                                source.prospectid.value);
+                                            Navigator.pop(context);
+                                          } else {
+                                            presenter.setProcessing(false);
+                                            Navigator.pop(context);
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                    label: Text('Force Closed'),
+                                  )
                                 ],
                               ),
                             ),
