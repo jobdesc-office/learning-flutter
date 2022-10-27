@@ -25,7 +25,8 @@ class _TabProspectStage extends StatelessWidget
                     presenter,
                     _sources.prospectStagetypeid.value,
                     _sources.prospectStagetype.value,
-                    ''),
+                    '',
+                    prospectvalue: true),
               if (permis
                   .where((element) => element.menunm == 'Settings')
                   .first

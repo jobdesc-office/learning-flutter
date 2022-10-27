@@ -4,6 +4,7 @@ class _CompanyTabFormSource extends GetxController {
   _CompanyTabFormSource();
 
   var seq = false.obs;
+  var prospectval = false.obs;
 
   var id = 0.obs;
 
@@ -56,7 +57,9 @@ class _CompanyTabFormSource extends GetxController {
 
   Widget form(BuildContext context, presenter, int typeid, String typename,
       String tabname,
-      {bool color = false, bool textcolor = false}) {
+      {bool prospectvalue = false,
+      bool color = false,
+      bool textcolor = false}) {
     return BsRow(
       children: [
         BsCol(
@@ -242,6 +245,18 @@ class _CompanyTabFormSource extends GetxController {
                       )
                     ],
                   ),
+                if (prospectvalue)
+                  Row(
+                    children: [
+                      Text('Change Prospect Value'),
+                      Container(
+                        margin: EdgeInsets.only(left: 5),
+                        child: Obx(() => Checkbox(
+                            value: prospectval.value,
+                            onChanged: (value) => prospectval.toggle())),
+                      ),
+                    ],
+                  ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -249,6 +264,7 @@ class _CompanyTabFormSource extends GetxController {
                       if (formState.currentState!.validate()) {
                         SessionModel session = await SessionManager.current();
                         late Map<String, dynamic> colors;
+                        late Map<String, dynamic> prval;
                         if (color)
                           colors = {
                             'color': pickedColor.value,
@@ -258,13 +274,21 @@ class _CompanyTabFormSource extends GetxController {
                             'color': pickedColor.value,
                             'textcolor': pickedTextColor.value,
                           };
+                        if (prospectvalue)
+                          prval = {
+                            'prospectvalue': prospectval.value,
+                          };
                         Map<String, dynamic> body = {
                           'sbtbpid': box.read('mybpid'),
                           'sbtname': typename,
                           'sbtseq': inputSeq.text == '' ? null : inputSeq.text,
                           'sbttypemasterid': typeid,
                           'sbttypename': inputName.text,
-                          'sbtremark': color ? jsonEncode(colors) : null,
+                          'sbtremark': prospectvalue
+                              ? jsonEncode(prval)
+                              : color
+                                  ? jsonEncode(colors)
+                                  : null,
                           'createdby': session.userid,
                           'updatedby': session.userid,
                           'isactive': isactive.value,
