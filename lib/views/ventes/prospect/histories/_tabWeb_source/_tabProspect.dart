@@ -23,10 +23,13 @@ class TabWebProspect extends StatelessWidget {
               children: source.prospecthistories
                   .where((p0) => p0.historysource == 'web')
                   .map((element) => Container(
-                        margin: EdgeInsets.only(top: 10),
+                        margin: EdgeInsets.only(top: 5),
                         padding: EdgeInsets.fromLTRB(3, 3, 3, 5),
                         child: BsRow(
                           children: [
+                            BsCol(
+                              child: Divider(),
+                            ),
                             BsCol(
                               child: BsRow(
                                 children: [
@@ -57,6 +60,9 @@ class TabWebProspect extends StatelessWidget {
                                 ],
                               ),
                             ),
+                            BsCol(
+                              child: Divider(),
+                            )
                           ],
                         ),
                       ))

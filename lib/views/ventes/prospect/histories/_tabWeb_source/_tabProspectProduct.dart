@@ -29,6 +29,9 @@ class TabWebProspectProduct extends StatelessWidget {
                         child: BsRow(
                           children: [
                             BsCol(
+                              child: Divider(),
+                            ),
+                            BsCol(
                               child: BsRow(
                                 children: [
                                   BsCol(
@@ -58,6 +61,9 @@ class TabWebProspectProduct extends StatelessWidget {
                                 ],
                               ),
                             ),
+                            BsCol(
+                              child: Divider(),
+                            )
                           ],
                         ),
                       ))

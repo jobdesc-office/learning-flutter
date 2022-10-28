@@ -57,6 +57,9 @@ class TabAppsProspectProduct extends StatelessWidget {
                                 ],
                               ),
                             ),
+                            BsCol(
+                              child: Divider(),
+                            )
                           ],
                         ),
                       ))
