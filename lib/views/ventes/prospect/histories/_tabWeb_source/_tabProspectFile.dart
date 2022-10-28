@@ -29,25 +29,31 @@ class TabWebProspectFile extends StatelessWidget {
                         child: BsRow(
                           children: [
                             BsCol(
-                              child: Row(
+                              child: BsRow(
                                 children: [
-                                  Container(
-                                      margin: EdgeInsets.only(right: 10),
-                                      child: Icon(
-                                        Icons.history,
-                                        size: 48,
-                                      )),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(element.historyremark ?? ''),
-                                      Container(
-                                          margin: EdgeInsets.only(top: 3),
-                                          child: Text(timeago.format(parseDate(
-                                              element.createddate ??
-                                                  DateTime.now())!))),
-                                    ],
+                                  BsCol(
+                                    sizes: ColScreen(sm: Col.col_1),
+                                    child: Container(
+                                        margin: EdgeInsets.only(right: 10),
+                                        child: Icon(
+                                          Icons.history,
+                                          size: 48,
+                                        )),
+                                  ),
+                                  BsCol(
+                                    sizes: ColScreen(sm: Col.col_11),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(element.historyremark ?? ''),
+                                        Container(
+                                            margin: EdgeInsets.only(top: 5),
+                                            child: Text(timeago.format(
+                                                parseDate(element.createddate ??
+                                                    DateTime.now())!))),
+                                      ],
+                                    ),
                                   )
                                 ],
                               ),
