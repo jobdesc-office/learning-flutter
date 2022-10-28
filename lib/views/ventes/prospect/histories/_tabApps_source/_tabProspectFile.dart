@@ -1,7 +1,10 @@
+import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 import '../../../../../constants/base_icon.dart';
+import '../../../../../helpers/function.dart';
 import '../../_detail_source.dart';
 
 final source = Get.put(ProspectDetailsSource());
@@ -16,19 +19,33 @@ class TabAppsProspectFile extends StatelessWidget {
             children: source.prospectfilehistories
                 .where((p0) => p0.historysource != 'web')
                 .map((element) => Container(
-                      padding: EdgeInsets.all(10),
-                      child: Column(
+                      margin: EdgeInsets.only(top: 10),
+                      padding: EdgeInsets.fromLTRB(3, 3, 3, 5),
+                      child: BsRow(
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [Icon(BaseIcon.buttonDelete)],
+                          BsCol(
+                            child: Row(
+                              children: [
+                                Container(
+                                    margin: EdgeInsets.only(right: 10),
+                                    child: Icon(
+                                      Icons.history,
+                                      size: 48,
+                                    )),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(element.historyremark ?? ''),
+                                    Container(
+                                        margin: EdgeInsets.only(top: 3),
+                                        child: Text(timeago.format(parseDate(
+                                            element.createddate ??
+                                                DateTime.now())!))),
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
-                          ExpansionTile(
-                            title: Text(
-                                element.historytbhistory?.tbhistoryasfield ??
-                                    ''),
-                            children: [],
-                          )
                         ],
                       ),
                     ))

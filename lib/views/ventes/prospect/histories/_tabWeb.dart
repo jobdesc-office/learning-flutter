@@ -63,7 +63,7 @@ class _TabHistoryWebState extends State<_TabHistoryWeb>
           ),
           Container(
             width: double.infinity,
-            height: MediaQuery.of(context).size.height * 0.9,
+            height: MediaQuery.of(context).size.height * 0.8,
             child: TabBarView(
               controller: _tabController,
               children: [
