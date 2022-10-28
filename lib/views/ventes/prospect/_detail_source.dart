@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:boilerplate/models/settings/history_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -67,6 +68,13 @@ class ProspectDetailsSource extends GetxController {
   var files = <Prospectfiles>[].obs;
   var customField = <ProspectCustomFieldModel>[].obs;
   var rawcustomField = <CustomFieldModel>[].obs;
+
+  var prospecthistories = <HistoryModel>[].obs;
+  var prospectproducthistories = <HistoryModel>[].obs;
+  var prospectassignhistories = <HistoryModel>[].obs;
+  var prospectactivityhistories = <HistoryModel>[].obs;
+  var prospectcustomfieldhistories = <HistoryModel>[].obs;
+  var prospectfilehistories = <HistoryModel>[].obs;
 
   var isSelect = false.obs;
   var isAdd = false.obs;

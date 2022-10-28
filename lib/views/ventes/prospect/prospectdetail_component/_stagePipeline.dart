@@ -10,6 +10,7 @@ import '../../../../helpers/function.dart';
 import '../../../../models/session_model.dart';
 import '../../../../models/settings/stbptype_model.dart';
 import '../../../../presenters/auth_presenter.dart';
+import '../../../../presenters/ventes/prospect_detail_presenter.dart';
 import '../../../../presenters/ventes/prospect_presenter.dart';
 import '../../../../styles/color_palattes.dart';
 import '../../../../utils/session_manager.dart';
@@ -64,7 +65,7 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
 
   @override
   Widget build(BuildContext context) {
-    final presenter = Get.find<ProspectPresenter>();
+    final presenter = Get.find<ProspectDetailPresenter>();
     final source = Get.put(ProspectDetailsSource());
     if (widget.controller.processing) return loadingState();
     return BsRow(

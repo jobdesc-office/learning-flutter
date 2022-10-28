@@ -21,7 +21,7 @@ import '../../views/ventes/prospect/prospectfiles/choosed_popup.dart';
 import '../../views/ventes/prospect/prospectlost/prospect_lost.dart';
 import '../../widgets/confirm_dialog.dart';
 
-class ProspectPresenter extends CustomGetXController {
+class ProspectDetailPresenter extends CustomGetXController {
   final _prospectService = Get.find<ProspectService>();
   final _typeService = Get.put(StBpTypeService());
 

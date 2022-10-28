@@ -11,6 +11,13 @@ class ProspectService extends ApiConnectProvider {
     return post('$api/datatables/${box.read('mybpid')}', params);
   }
 
+  Future<Response> histories(int prospectid) {
+    return get('$api/histories', query: {
+      'prospectid': '$prospectid',
+      'bpid': '${box.read('mybpid')}',
+    });
+  }
+
   Future<Response> lastid() {
     return get('$api/lastid');
   }

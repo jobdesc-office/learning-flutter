@@ -21,7 +21,7 @@ class _TabFileState extends State<_TabFile> with TickerProviderStateMixin {
     // ignore: invalid_use_of_protected_member
     var permis = authPresenter.rolepermis.value;
     final filePresenter = Get.find<ProspectFilePresenter>();
-    final presenter = Get.find<ProspectPresenter>();
+    final presenter = Get.find<ProspectDetailPresenter>();
     if (source.files.length != 0)
       return Column(
         children: [

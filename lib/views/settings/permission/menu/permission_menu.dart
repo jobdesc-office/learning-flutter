@@ -94,8 +94,8 @@ class _PermissionMenuViewState extends State<PermissionMenuView>
                             ? Colors.white
                             : Colors.black,
                         tabs: [
-                          Tab(text: 'Apps'),
                           Tab(text: 'Web'),
+                          Tab(text: 'Apps'),
                         ],
                       ),
                     ),
@@ -108,8 +108,8 @@ class _PermissionMenuViewState extends State<PermissionMenuView>
                       child: TabBarView(
                         controller: _tabController,
                         children: [
-                          _AppsMenuPermission(),
                           _WebMenuPermission(),
+                          _AppsMenuPermission(),
                         ],
                       ),
                     ),

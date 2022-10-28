@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../../../constants/base_text.dart';
 import '../../../../presenters/navigation_presenter.dart';
+import '../../../../presenters/ventes/prospect_detail_presenter.dart';
 import '../../../../presenters/ventes/prospect_presenter.dart';
 import '../../../../widgets/button/theme_button_cancel.dart';
 import '../../../../widgets/button/theme_button_save.dart';
@@ -17,7 +18,7 @@ final _navigation = Get.find<NavigationPresenter>();
 
 // ignore: must_be_immutable
 class ProspectChangeValueText extends GetView {
-  final ProspectPresenter presenter = Get.find<ProspectPresenter>();
+  final ProspectDetailPresenter presenter = Get.find<ProspectDetailPresenter>();
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final Function(Map<String, dynamic> body) onSave;
   final sources = Get.put(ProspectDetailsSource());

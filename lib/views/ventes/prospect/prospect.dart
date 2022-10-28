@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '../../../middleware/verifyToken.dart';
 import '../../../presenters/auth_presenter.dart';
+import '../../../presenters/ventes/prospect_detail_presenter.dart';
 import '../../../presenters/ventes/prospect_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
@@ -18,7 +19,8 @@ import '_text.dart';
 final authPresenter = Get.find<AuthPresenter>();
 
 class ProspectView extends GetView implements IndexViewContract {
-  final presenter = Get.put(ProspectPresenter());
+  final presenter = Get.put(ProspectDetailPresenter());
+  final presenterdt = Get.find<ProspectDetailPresenter>();
   final datatable = ProspectDataTableSource();
 
   ProspectView() {
@@ -104,7 +106,7 @@ class ProspectView extends GetView implements IndexViewContract {
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onDetailsListener =
-        (userid) => presenter.details(context, userid);
+        (userid) => presenterdt.details(context, userid);
     datatable.onEditListener = (menuid) => presenter.edit(context, menuid);
     datatable.onDeleteListener =
         (menuid, name) => presenter.delete(context, menuid, name);

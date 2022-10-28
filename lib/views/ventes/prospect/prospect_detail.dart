@@ -1,9 +1,16 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:boilerplate/constants/base_icon.dart';
+import 'package:boilerplate/contracts/base/history_view_contract.dart';
 import 'package:boilerplate/helpers/function.dart';
+import 'package:boilerplate/models/settings/history_model.dart';
 import 'package:boilerplate/models/ventes/customfield_model.dart';
 import 'package:boilerplate/views/skins/template.dart';
+import 'package:boilerplate/views/ventes/prospect/histories/_tabWeb_source/_tabProspectActivity.dart';
+import 'package:boilerplate/views/ventes/prospect/histories/_tabWeb_source/_tabProspectCustomfield.dart';
+import 'package:boilerplate/views/ventes/prospect/histories/_tabWeb_source/_tabProspectFile.dart';
+import 'package:boilerplate/views/ventes/prospect/histories/_tabWeb_source/_tabProspectProduct.dart';
 import 'package:boilerplate/widgets/button/button_edit_datatable.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
@@ -29,6 +36,7 @@ import '../../../models/ventes/report_model.dart';
 import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../presenters/settings/customfield_presenter.dart';
+import '../../../presenters/ventes/prospect_detail_presenter.dart';
 import '../../../presenters/ventes/prospect_presenter.dart';
 import '../../../presenters/ventes/prospectassign_presenter.dart';
 import '../../../presenters/ventes/prospectactivity_presenter.dart';
@@ -51,6 +59,14 @@ import '../../../widgets/map/_map_source.dart';
 import '../../../widgets/snackbar.dart';
 import '_detail_source.dart';
 import '_text.dart';
+import 'histories/_tabApps_source/_tabProspect.dart';
+import 'histories/_tabApps_source/_tabProspectActivity.dart';
+import 'histories/_tabApps_source/_tabProspectAssign.dart';
+import 'histories/_tabApps_source/_tabProspectCustomfield.dart';
+import 'histories/_tabApps_source/_tabProspectFile.dart';
+import 'histories/_tabApps_source/_tabProspectProduct.dart';
+import 'histories/_tabWeb_source/_tabProspect.dart';
+import 'histories/_tabWeb_source/_tabProspectAssign.dart';
 import 'prospectdetail_component/_stagePipeline.dart';
 import 'customfield/_form_source.dart';
 import 'prospectcustomfield/_form_source.dart';
@@ -65,7 +81,11 @@ part 'prospectdetail_component/tabs/tabAssign.dart';
 part 'prospectdetail_component/tabs/tabProduct.dart';
 part 'prospectdetail_component/tabs/tabContact.dart';
 part 'prospectdetail_component/tabs/tabFile.dart';
+part 'prospectdetail_component/tabs/tabHistory.dart';
 part 'prospectdetail_component/title_section.dart';
+
+part 'histories/_tabApps.dart';
+part 'histories/_tabWeb.dart';
 
 final authPresenter = Get.find<AuthPresenter>();
 
@@ -85,7 +105,8 @@ class _ProspectDetailsState extends State<ProspectDetails>
         MenuTypeViewDetailContract,
         IndexViewContract,
         ProspectCustomFieldContract,
-        CustomFieldContract {
+        CustomFieldContract,
+        HistoryViewContract {
   late TabController _tabController;
   // late TabController _tabControllerTimeline;
   final detailPresenter = Get.find<ProspectActivityPresenter>();
@@ -95,7 +116,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
   final contactPresenter = Get.find<ProspectContactPresenter>();
   final filePresenter = Get.find<ProspectFilePresenter>();
   final prospectCustomFieldPresenter = Get.find<ProspectCustomFieldPresenter>();
-  final presenter = Get.find<ProspectPresenter>();
+  final presenter = Get.find<ProspectDetailPresenter>();
   final source = Get.put(ProspectDetailsSource());
   final controller = Get.put(ButtonController());
   final map = Get.put(MapSource());
@@ -111,10 +132,11 @@ class _ProspectDetailsState extends State<ProspectDetails>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 6, vsync: this);
+    _tabController = TabController(length: 7, vsync: this);
     // _tabControllerTimeline = TabController(length: 8, vsync: this);
     presenter.prospectTypeViewDetailContract = this;
     presenter.prospectDetailsViewContract = this;
+    presenter.historyViewContract = this;
     presenter.prospectdtViewContract = this;
     detailPresenter.prospectViewContract = this;
     assignPresenter.prospectViewContract = this;
@@ -216,6 +238,13 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                           .darkTheme.value
                                                       ? Colors.white
                                                       : Colors.black)),
+                                          Tab(
+                                              text: 'Log',
+                                              icon: Icon(Icons.history,
+                                                  color: _navigation
+                                                          .darkTheme.value
+                                                      ? Colors.white
+                                                      : Colors.black)),
                                         ],
                                       ),
                                     ),
@@ -232,6 +261,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                           _TabProduct(),
                                           _TabContact(),
                                           _TabFile(),
+                                          _TabHistory()
                                         ],
                                       ),
                                     )
@@ -293,6 +323,8 @@ class _ProspectDetailsState extends State<ProspectDetails>
     customFieldPresenter.allBp(context);
 
     detailPresenter.details(context, {'id': dt.prospectid.toString()});
+
+    presenter.histories(source.prospectid.value);
 
     source.prospectname.value = dt.prospectname ?? '';
     source.prospectvalue.value = dt.prospectvalue ?? '0.0';
@@ -407,6 +439,8 @@ class _ProspectDetailsState extends State<ProspectDetails>
     detailPresenter
         .details(context, {'id': source.prospectid.value.toString()});
     customFieldPresenter.allBp(context);
+
+    presenter.histories(source.prospectid.value);
   }
 
   @override
@@ -424,6 +458,8 @@ class _ProspectDetailsState extends State<ProspectDetails>
     detailPresenter
         .details(context, {'id': source.prospectid.value.toString()});
     customFieldPresenter.allBp(context);
+
+    presenter.histories(source.prospectid.value);
   }
 
   @override
@@ -447,6 +483,8 @@ class _ProspectDetailsState extends State<ProspectDetails>
     contactPresenter.setProcessing(false);
     filePresenter.setProcessing(false);
     productPresenter.setProcessing(false);
+
+    presenter.histories(source.prospectid.value);
   }
 
   @override
@@ -508,5 +546,53 @@ class _ProspectDetailsState extends State<ProspectDetails>
     cf.removeWhere(
         (element) => element.alldata == false && element.onlythisdata == false);
     source.rawcustomField.value = cf;
+  }
+
+  @override
+  void onSuccessFetchHistory(Response response) {
+    List<HistoryModel> prospecthistory = [];
+    List<HistoryModel> prospectproducthistory = [];
+    List<HistoryModel> prospectassignhistory = [];
+    List<HistoryModel> prospectactivityhistory = [];
+    List<HistoryModel> prospectcustomfieldhistory = [];
+    List<HistoryModel> prospectfilehistories = [];
+
+    if (response.body['prospect'].isNotEmpty) {
+      for (var element in response.body['prospect']) {
+        prospecthistory.add(HistoryModel.fromJson(element));
+      }
+    }
+    if (response.body['prospectproduct'].isNotEmpty) {
+      for (var element in response.body['prospectproduct']) {
+        prospectproducthistory.add(HistoryModel.fromJson(element));
+      }
+    }
+    if (response.body['prospectassign'].isNotEmpty) {
+      for (var element in response.body['prospectassign']) {
+        prospectassignhistory.add(HistoryModel.fromJson(element));
+      }
+    }
+    if (response.body['prospectactivity'].isNotEmpty) {
+      for (var element in response.body['prospectactivity']) {
+        prospectactivityhistory.add(HistoryModel.fromJson(element));
+      }
+    }
+    if (response.body['prospectcustomfield'].isNotEmpty) {
+      for (var element in response.body['prospectcustomfield']) {
+        prospectcustomfieldhistory.add(HistoryModel.fromJson(element));
+      }
+    }
+    if (response.body['prospectfile'].isNotEmpty) {
+      for (var element in response.body['prospectfile']) {
+        prospectfilehistories.add(HistoryModel.fromJson(element));
+      }
+    }
+
+    source.prospecthistories.value = prospecthistory;
+    source.prospectproducthistories.value = prospectproducthistory;
+    source.prospectassignhistories.value = prospectassignhistory;
+    source.prospectactivityhistories.value = prospectactivityhistory;
+    source.prospectcustomfieldhistories.value = prospectcustomfieldhistory;
+    source.prospectfilehistories.value = prospectfilehistories;
   }
 }

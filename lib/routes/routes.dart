@@ -35,6 +35,7 @@ import '../presenters/ventes/bpcustomer_presenter.dart';
 import '../presenters/ventes/competitor_presenter.dart';
 import '../presenters/settings/customfield_presenter.dart';
 import '../presenters/ventes/option_presenter.dart';
+import '../presenters/ventes/prospect_detail_presenter.dart';
 import '../presenters/ventes/prospect_presenter.dart';
 import '../presenters/ventes/prospectassign_presenter.dart';
 import '../presenters/ventes/prospectactivity_presenter.dart';
@@ -379,6 +380,7 @@ class AppRoute {
           Get.lazyPut(() => UserService());
           Get.lazyPut(() => CustomerService());
           Get.lazyPut(() => ProductService());
+          Get.lazyPut(() => ProspectDetailPresenter());
           Get.lazyPut(() => ProductPresenter());
           Get.lazyPut(() => ProspectService());
           Get.lazyPut(() => ProspectActivityService());

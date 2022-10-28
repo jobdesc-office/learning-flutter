@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../../../constants/base_text.dart';
 import '../../../../models/session_model.dart';
 import '../../../../presenters/navigation_presenter.dart';
+import '../../../../presenters/ventes/prospect_detail_presenter.dart';
 import '../../../../presenters/ventes/prospect_presenter.dart';
 import '../../../../utils/select_api.dart';
 import '../../../../utils/session_manager.dart';
@@ -23,7 +24,7 @@ class ProspectLostSource extends GetxController {
   var id = 0.obs;
 
   BsSelectBoxController selectReason = BsSelectBoxController();
-  final _prospectPresenter = Get.put(ProspectPresenter());
+  final _prospectPresenter = Get.put(ProspectDetailPresenter());
 
   TextEditingController inputDesc = TextEditingController();
 

@@ -4,7 +4,7 @@ BsCol prospectDetailTitleSection(context) {
   // ignore: invalid_use_of_protected_member
   var permis = authPresenter.rolepermis.value;
   final _navigation = Get.find<NavigationPresenter>();
-  final presenter = Get.find<ProspectPresenter>();
+  final presenter = Get.find<ProspectDetailPresenter>();
   final source = Get.put(ProspectDetailsSource());
 
   return BsCol(

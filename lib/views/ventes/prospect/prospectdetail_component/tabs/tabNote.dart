@@ -5,7 +5,7 @@ class _TabNote extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final presenter = Get.find<ProspectPresenter>();
+    final presenter = Get.find<ProspectDetailPresenter>();
     final GlobalKey<FormState> formState = GlobalKey<FormState>();
     ZefyrController inputDescription;
     // ignore: invalid_use_of_protected_member

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../constants/base_text.dart';
 import '../../../../presenters/navigation_presenter.dart';
+import '../../../../presenters/ventes/prospect_detail_presenter.dart';
 import '../../../../presenters/ventes/prospect_presenter.dart';
 import '../../../../widgets/button/theme_button_cancel.dart';
 import '../../../../widgets/button/theme_button_lost.dart';
@@ -16,7 +17,7 @@ final _navigation = Get.find<NavigationPresenter>();
 
 // ignore: must_be_immutable
 class ProspectLose extends GetView {
-  final ProspectPresenter presenter = Get.find<ProspectPresenter>();
+  final ProspectDetailPresenter presenter = Get.find<ProspectDetailPresenter>();
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final source = ProspectLostSource().obs;
   final Function(Map<String, dynamic> body) onSave;
