@@ -53,4 +53,6 @@ class BaseText {
   static String deleteConfirmDatatable({String? field}) {
     return 'Are you sure you want to delete $field ?';
   }
+
+  static String defaultNoHistory = 'There\'s no Log';
 }
