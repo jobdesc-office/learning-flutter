@@ -277,6 +277,12 @@ class _TabProspectStage extends StatelessWidget
         source.value.inputSeq.text =
             val.sbtseq != null ? val.sbtseq.toString() : '';
       }
+      if (val.sbtremark != null) {
+        Map<String, dynamic> prospectvalue = jsonDecode(val.sbtremark ?? '');
+        source.value.prospectval.value =
+            parseBool(prospectvalue['prospectvalue']);
+      }
+
       source.value.createdby.value = val.stbptypecreatedby?.userfullname ?? '';
       source.value.createddate.value = val.createddate ?? '';
       source.value.updatedby.value = val.stbptypeupdatedby?.userfullname ?? '';
