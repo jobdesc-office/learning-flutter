@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import '../../../../presenters/masters/customer_presenter.dart';
 import '../../../../presenters/navigation_presenter.dart';
 import '../../../../presenters/ventes/prospect_detail_presenter.dart';
-import '../../../../presenters/ventes/prospect_presenter.dart';
 
 import '../../../../routes/route_list.dart';
 import '../../../../styles/color_palattes.dart';

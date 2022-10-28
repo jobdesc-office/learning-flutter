@@ -7,7 +7,6 @@ import 'package:intl/intl.dart';
 import '../../../../constants/base_text.dart';
 import '../../../../presenters/navigation_presenter.dart';
 import '../../../../presenters/ventes/prospect_detail_presenter.dart';
-import '../../../../presenters/ventes/prospect_presenter.dart';
 import '../../../../widgets/button/theme_button_cancel.dart';
 import '../../../../widgets/button/theme_button_save.dart';
 import '../../../../widgets/confirm_dialog.dart';

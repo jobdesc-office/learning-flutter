@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-import '../../../../../constants/base_icon.dart';
 import '../../../../../constants/base_text.dart';
 import '../../../../../helpers/function.dart';
 import '../../_detail_source.dart';

@@ -11,7 +11,6 @@ import '../../../../models/session_model.dart';
 import '../../../../models/settings/stbptype_model.dart';
 import '../../../../presenters/auth_presenter.dart';
 import '../../../../presenters/ventes/prospect_detail_presenter.dart';
-import '../../../../presenters/ventes/prospect_presenter.dart';
 import '../../../../styles/color_palattes.dart';
 import '../../../../utils/session_manager.dart';
 import '../../../../widgets/confirm_dialog.dart';

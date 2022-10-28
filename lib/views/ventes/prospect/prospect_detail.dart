@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:boilerplate/constants/base_icon.dart';
 import 'package:boilerplate/contracts/base/history_view_contract.dart';
 import 'package:boilerplate/helpers/function.dart';
 import 'package:boilerplate/models/settings/history_model.dart';
@@ -37,7 +36,6 @@ import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../presenters/settings/customfield_presenter.dart';
 import '../../../presenters/ventes/prospect_detail_presenter.dart';
-import '../../../presenters/ventes/prospect_presenter.dart';
 import '../../../presenters/ventes/prospectassign_presenter.dart';
 import '../../../presenters/ventes/prospectactivity_presenter.dart';
 import '../../../presenters/ventes/prospectcontact_presenter.dart';

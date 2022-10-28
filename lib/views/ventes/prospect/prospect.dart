@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import '../../../middleware/verifyToken.dart';
 import '../../../presenters/auth_presenter.dart';
 import '../../../presenters/ventes/prospect_detail_presenter.dart';
-import '../../../presenters/ventes/prospect_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
 import '../../../widgets/button/theme_button_create.dart';
