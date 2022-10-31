@@ -98,6 +98,7 @@ class ProspectProductPresenter extends CustomGetXController {
               _prospectViewContract.onErrorRequest(response);
           } else {
             Navigator.pop(context);
+            Navigator.pop(context);
           }
         },
       ),

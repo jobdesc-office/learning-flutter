@@ -417,7 +417,7 @@ class CustomfieldSection extends StatelessWidget {
                                                             context,
                                                             customField
                                                                 .prospectcfid!,
-                                                            '${customField.prospectcfvalue}');
+                                                            '${customField.prospectcfvalue != null ? customField.prospectcfvalue : customField.selectedoption?.optvalue}');
                                                   }),
                                               ]);
                                       },
