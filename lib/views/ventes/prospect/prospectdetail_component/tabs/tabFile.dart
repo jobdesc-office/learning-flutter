@@ -44,7 +44,7 @@ class _TabFileState extends State<_TabFile> with TickerProviderStateMixin {
               BsCol(
                 child: Container(
                   width: double.infinity,
-                  height: 495,
+                  height: MediaQuery.of(context).size.height * 0.8,
                   child:
                       // TabBarView(
                       //   controller: _tabController,
