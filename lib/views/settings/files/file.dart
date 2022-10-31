@@ -89,11 +89,11 @@ class FileView extends GetView implements IndexViewContract {
     datatable.onDetailListener =
         (villageid) => presenter.details(context, villageid);
 
-    if (btn.btnDeleteDisabled.value)
-      datatable.onDeleteListener =
-          (fileid, name) => presenter.delete(context, fileid, name);
-    else
-      datatable.onDeleteListener =
-          (fileid, name) => Snackbar().regionDeletePermission();
+    // if (btn.btnDeleteDisabled.value)
+    datatable.onDeleteListener =
+        (fileid, name) => presenter.delete(context, fileid, name);
+    // else
+    //   datatable.onDeleteListener =
+    //       (fileid, name) => Snackbar().regionDeletePermission();
   }
 }
