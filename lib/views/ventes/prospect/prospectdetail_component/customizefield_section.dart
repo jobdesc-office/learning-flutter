@@ -352,7 +352,7 @@ class CustomfieldSection extends StatelessWidget {
                                                 ProspectText.closedLost &&
                                             source.status.value !=
                                                 ProspectText.forceClosed
-                                        ? BaseText.editDelete
+                                        ? 'Long Press to Delete'
                                         : '',
                                     child: InkWell(
                                       onLongPress: () {
