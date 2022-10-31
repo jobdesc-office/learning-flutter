@@ -59,8 +59,10 @@ class ReportPresenter extends CustomGetXController {
     _reportContract.onLoadReportSuccess(ReportModel.fromJson(response.body));
   }
 
-  Future datatabless(BuildContext context, Map<String, String> params) async {
-    Response response = await _reportService.datatablesbp(params);
+  Future datatabless(BuildContext context, Map<String, String> params,
+      {start, end, categoryid}) async {
+    Response response = await _reportService.datatablesbp(params,
+        start: start, end: end, categoryid: categoryid);
     if (response.statusCode == 200)
       _viewContract.onLoadDatatables(context, response);
     else

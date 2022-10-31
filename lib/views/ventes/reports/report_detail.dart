@@ -164,7 +164,7 @@ class ReportDetail extends GetView implements DetailViewContract {
                               margin: EdgeInsets.only(top: 10),
                               sizes: ColScreen(lg: Col.col_12),
                               child: FormGroup(
-                                  label: Text('Location Label',
+                                  label: Text('Additional Information',
                                       style: TextStyle(
                                           color: _navigation.darkTheme.value
                                               ? Colors.white
