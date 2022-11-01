@@ -23,7 +23,7 @@ class UserService extends ApiConnectProvider {
     return get('$api/reset/$id');
   }
 
-  Future<Response> samebp(int id) {
+  Future<Response> samebp() {
     return get('$api/samebp/${box.read('mybpid')}');
   }
 

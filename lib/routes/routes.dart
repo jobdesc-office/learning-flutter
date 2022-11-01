@@ -428,10 +428,12 @@ class AppRoute {
           parent: 'Ventes Datas',
           route: '/ventes/chat',
         ),
-        // binding: BindingsBuilder(() {
-        //   Get.lazyPut(() => ChatService());
-        //   Get.lazyPut(() => ChatPresenter());
-        // }),
+        binding: BindingsBuilder(() {
+          // Get.lazyPut(() => ChatService());
+          // Get.lazyPut(() => ChatPresenter());
+          Get.lazyPut(() => UserService());
+          Get.lazyPut(() => UserPresenter());
+        }),
       ),
 
       /** Settings **/

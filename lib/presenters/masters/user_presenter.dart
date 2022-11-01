@@ -7,6 +7,7 @@ import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/edit_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
 import '../../contracts/master/userReset_contract.dart';
+import '../../contracts/ventes/chat_contract.dart';
 import '../../services/masters/user_service.dart';
 import '../../utils/custom_get_controller.dart';
 import '../../views/masters/users/_form_source.dart';
@@ -45,6 +46,11 @@ class UserPresenter extends CustomGetXController {
     _usersFetchDataContract = usersFetchDataContract;
   }
 
+  late ChatContract _chatDataContract;
+  set chatDataContract(ChatContract chatDataContract) {
+    _chatDataContract = chatDataContract;
+  }
+
   Future datatables(BuildContext context, Map<String, String> params) async {
     Response response = await _userService.datatables(params);
     if (response.statusCode == 200)
@@ -68,6 +74,12 @@ class UserPresenter extends CustomGetXController {
       _userResetContract.onResetSuccess(response, context: context);
     else
       _userViewContract.onErrorRequest(response);
+  }
+
+  Future samebp(BuildContext context) async {
+    Response response = await _userService.samebp();
+    if (response.statusCode == 200)
+      _chatDataContract.onLoadUsers(context, response);
   }
 
   void add(BuildContext context) async {
