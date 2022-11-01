@@ -2,7 +2,9 @@ import 'package:boilerplate/presenters/navigation_presenter.dart';
 import 'package:boilerplate/widgets/snackbar.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:socket_io_client/socket_io_client.dart';
 
+import '../config.dart';
 import '../constants/config_types.dart';
 import '../helpers/function.dart';
 import '../models/auth_model.dart';
@@ -11,6 +13,7 @@ import '../presenters/auth_presenter.dart';
 import '../routes/route_list.dart';
 import '../services/app_service.dart';
 import '../services/auth_service.dart';
+import '../services/masters/user_service.dart';
 import '../utils/session_manager.dart';
 
 checkJwtToken() async {
@@ -59,4 +62,39 @@ checkJwtToken() async {
       ConfigType.types = appResponse.body;
     }
   }
+}
+
+initSocket() async {
+  final box = GetStorage();
+  var authModel = box.read('usermodel');
+
+  OptionBuilder optionsBuilder = OptionBuilder();
+  optionsBuilder.setTransports(['websocket']);
+  optionsBuilder.setAuth(authModel);
+  Map<String, dynamic> options = optionsBuilder.build();
+
+  Socket socket = io(Config.nodeServer, options);
+  socket.onConnect((data) => onSocketConnect(data, socket.id));
+  socket.onConnectError(onSocketConnectError);
+  socket.onDisconnect(onSocketDisconnect);
+
+  socket = socket.connect();
+  Get.lazyPut<Socket>(() => socket, fenix: true);
+}
+
+onSocketConnect(data, socketid) {
+  Get.put(UserService()).setSocketId(socketid);
+  printSocket(socketid);
+}
+
+onSocketConnectError(data) {
+  printSocket(data);
+}
+
+onSocketDisconnect(data) {
+  printSocket(data);
+}
+
+printSocket(dynamic data) {
+  print("socket: $data");
 }

@@ -38,6 +38,7 @@ class RouteList {
 
   static final RouteData ventesSchedule = RouteData(prefix: '/ventes/schedule');
   static final RouteData ventesReport = RouteData(prefix: '/ventes/report');
+  static final RouteData ventesChat = RouteData(prefix: '/ventes/chat');
   static final RouteData prospect = RouteData(prefix: '/-prospect');
   static final RouteData ventesProspect = RouteData(prefix: '/ventes/prospect');
   static final RouteData ventesBpCustomer =

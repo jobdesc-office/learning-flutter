@@ -102,6 +102,7 @@ import '../views/settings/company/company_setting/tabs/tabCustomizeField_source/
 import '../views/settings/files/file.dart';
 import '../views/settings/permission/role/permission_role.dart';
 import '../views/ventes/bpcustomers/bpcustomer.dart';
+import '../views/ventes/chat/chat.dart';
 import '../views/ventes/prospect/prospect.dart';
 import '../views/ventes/reports/report.dart';
 import '../views/ventes/schedules/schedule.dart';
@@ -420,14 +421,18 @@ class AppRoute {
           Get.lazyPut(() => CustomerPresenter());
         }),
       ),
-      // CustomGetPage(
-      //   name: RouteList.ventesCompetitor.index,
-      //   page: () => AuthGuard(child: CompetitorView(), route: '',),
-      //   binding: BindingsBuilder(() {
-      //     Get.lazyPut(() => CompetitorService());
-      //     Get.lazyPut(() => CompetitorPresenter());
-      //   }),
-      // ),
+      CustomGetPage(
+        name: RouteList.ventesChat.index,
+        page: () => AuthGuard(
+          child: ChatView(),
+          parent: 'Ventes Datas',
+          route: '/ventes/chat',
+        ),
+        // binding: BindingsBuilder(() {
+        //   Get.lazyPut(() => ChatService());
+        //   Get.lazyPut(() => ChatPresenter());
+        // }),
+      ),
 
       /** Settings **/
       // CustomGetPage(

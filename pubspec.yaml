@@ -52,6 +52,7 @@ dependencies:
   flutter_colorpicker: ^1.0.3
   flutter_svg: ^1.1.5
   timeago: ^3.3.0
+  socket_io_client: ^2.0.0
 
   bs_flutter_buttons: 
     path: ./modules/bs_flutter_buttons

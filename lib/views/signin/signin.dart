@@ -7,6 +7,7 @@ import 'package:get_storage/get_storage.dart';
 import '../../contracts/auth/login_view_contract.dart';
 import '../../contracts/default/information_view_contract.dart';
 import '../../helpers/function.dart';
+import '../../middleware/verifyToken.dart';
 import '../../models/auth_model.dart';
 import '../../models/default/information_model.dart';
 import '../../models/rolepermission_model.dart';
@@ -339,9 +340,10 @@ class _SignInViewState extends State<SignInView>
   }
 
   @override
-  void onLoginSuccess(AuthModel userModel) {
+  void onLoginSuccess(AuthModel userModel) async {
     final box = GetStorage();
     List<Userdetails> data = [];
+    box.write('usermodel', userModel.toJson());
     box.write('name', userModel.userfullname!);
     box.write('id', userModel.userid!);
     box.write('username', userModel.username!);
@@ -376,6 +378,7 @@ class _SignInViewState extends State<SignInView>
         toNameRoute(RouteList.home.index);
       });
     }
+    await initSocket();
   }
 
   @override

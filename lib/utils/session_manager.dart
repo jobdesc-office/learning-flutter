@@ -35,5 +35,6 @@ class SessionManager {
     box.remove('details');
     box.remove('mybpid');
     box.remove('role');
+    box.remove('usermodel');
   }
 }
