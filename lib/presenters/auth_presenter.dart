@@ -49,15 +49,18 @@ class AuthPresenter extends CustomGetXController {
   void signIn() {
     _authService
         .signIn(
-          source.value.inputUsername.text,
-          source.value.inputPassword.text,
-        )
-        .then((value) => value.statusCode != 400
-            ? _loginViewContract.onLoginSuccess(AuthModel.fromJson(value.body))
-            : _loginViewContract.onErrorResponse())
-        .catchError(
-          (message) => _loginViewContract.onLoginFailed(message),
-        );
+      source.value.inputUsername.text,
+      source.value.inputPassword.text,
+    )
+        .then((value) {
+      AuthModel authModel = AuthModel.fromJson(value.body);
+      authModel.password = source.value.inputPassword.text;
+      value.statusCode != 400
+          ? _loginViewContract.onLoginSuccess(authModel)
+          : _loginViewContract.onErrorResponse();
+    }).catchError(
+      (message) => _loginViewContract.onLoginFailed(message),
+    );
   }
 
   void signOut() {

@@ -3,6 +3,7 @@ import 'package:boilerplate/views/settings/company/company_setting/tabs/tabCusto
 import 'package:boilerplate/views/settings/company/company_setting/tabs/tabGeneral/cp_general_presenter.dart';
 import 'package:get/get.dart';
 
+import '../middleware/verifyToken.dart';
 import '../presenters/default/home_presenter.dart';
 import '../presenters/default/information_presenter.dart';
 import '../presenters/default/profile_presenter.dart';
@@ -32,6 +33,7 @@ import '../presenters/settings/stbptype/stbptypeprospectstatus_presenter.dart';
 import '../presenters/settings/stbptype/stbptypeprospecttype_presenter.dart';
 import '../presenters/settings/stbptype/stbptypescheduletype_presenter.dart';
 import '../presenters/ventes/bpcustomer_presenter.dart';
+import '../presenters/ventes/chat_presenter.dart';
 import '../presenters/ventes/competitor_presenter.dart';
 import '../presenters/settings/customfield_presenter.dart';
 import '../presenters/ventes/option_presenter.dart';
@@ -66,6 +68,7 @@ import '../services/security/permission_service.dart';
 import '../services/settings/file_service.dart';
 import '../services/ventes/attendance_service.dart';
 import '../services/ventes/bpcustomer_service.dart';
+import '../services/ventes/chat_service.dart';
 import '../services/ventes/competitor_service.dart';
 import '../services/settings/customfield_service.dart';
 import '../services/ventes/option_service.dart';
@@ -423,14 +426,17 @@ class AppRoute {
       ),
       CustomGetPage(
         name: RouteList.ventesChat.index,
-        page: () => AuthGuard(
-          child: ChatView(),
-          parent: 'Ventes Datas',
-          route: '/ventes/chat',
-        ),
-        binding: BindingsBuilder(() {
-          // Get.lazyPut(() => ChatService());
-          // Get.lazyPut(() => ChatPresenter());
+        page: () {
+          initSocket();
+          return AuthGuard(
+            child: ChatView(),
+            parent: 'Ventes Datas',
+            route: '/ventes/chat',
+          );
+        },
+        binding: BindingsBuilder(() async {
+          Get.lazyPut(() => ChatService());
+          Get.lazyPut(() => ChatPresenter());
           Get.lazyPut(() => UserService());
           Get.lazyPut(() => UserPresenter());
         }),

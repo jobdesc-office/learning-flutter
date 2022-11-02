@@ -2,137 +2,47 @@ import 'package:boilerplate/contracts/ventes/chat_contract.dart';
 import 'package:boilerplate/models/masters/user_model.dart';
 import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:boilerplate/widgets/input/custom_input.dart';
-import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
-import '../../../contracts/base/index_view_contract.dart';
+import '../../../models/ventes/chat_model.dart';
 import '../../../presenters/auth_presenter.dart';
-import '../../../presenters/masters/city_presenter.dart';
 import '../../../presenters/masters/user_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
+import '../../../presenters/ventes/chat_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../widgets/breadcrumb.dart';
-import '../../../widgets/button/button_controller.dart';
-import '../../../widgets/button/theme_button_create.dart';
-import '../../../widgets/datatables/custom_datatable.dart';
-import '../../../widgets/snackbar.dart';
 import '../../skins/template.dart';
 import '_chat_source.dart';
-import '_text.dart';
 
 final userPresenter = Get.find<UserPresenter>();
+final chatPresenter = Get.find<ChatPresenter>();
+final box = GetStorage();
 final source = Get.put(ChatSource());
 
+// ignore: must_be_immutable
 class ChatView extends GetView implements ChatContract {
   // final presenter = Get.find<CityPresenter>();
   late Response users;
 
   ChatView() {
     userPresenter.chatDataContract = this;
+    chatPresenter.chatViewContract = this;
   }
 
   final authPresenter = Get.find<AuthPresenter>();
   final _navigation = Get.find<NavigationPresenter>();
 
+  TextEditingController inputChat = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     userPresenter.samebp(context);
     // ignore: invalid_use_of_protected_member
-    var permis = authPresenter.rolepermis.value;
-    TextEditingController inputChat = TextEditingController();
+    // var permis = authPresenter.rolepermis.value;
     var text = false.obs;
-
-    List<Map<String, dynamic>> chat = [
-      {
-        'chat':
-            'Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo',
-        'you': true,
-      },
-      {
-        'chat':
-            'Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi',
-        'you': false,
-      },
-      {
-        'chat':
-            'Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo',
-        'you': true,
-      },
-      {
-        'chat':
-            'Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi',
-        'you': false,
-      },
-      {
-        'chat':
-            'Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo Hallo',
-        'you': true,
-      },
-      {
-        'chat':
-            'Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi',
-        'you': false,
-      },
-      {
-        'chat': 'Hallo Hallo Hallo Hallo Hallo',
-        'you': true,
-      },
-      {
-        'chat': 'Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi',
-        'you': false,
-      },
-      {
-        'chat': 'Hallo Hallo Hallo Hallo Hallo',
-        'you': true,
-      },
-      {
-        'chat': 'Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi',
-        'you': false,
-      },
-      {
-        'chat': 'Hallo Hallo Hallo Hallo Hallo',
-        'you': true,
-      },
-      {
-        'chat': 'Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi',
-        'you': false,
-      },
-      {
-        'chat': 'Hallo Hallo Hallo Hallo Hallo',
-        'you': true,
-      },
-      {
-        'chat': 'Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi',
-        'you': false,
-      },
-      {
-        'chat': 'Hallo Hallo Hallo Hallo Hallo',
-        'you': true,
-      },
-      {
-        'chat': 'Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi',
-        'you': false,
-      },
-      {
-        'chat': 'Hallo Hallo Hallo Hallo Hallo',
-        'you': true,
-      },
-      {
-        'chat': 'Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi',
-        'you': false,
-      },
-      {
-        'chat': 'Hallo Hallo Hallo Hallo Hallo',
-        'you': true,
-      },
-      {
-        'chat': 'Hi Hi Hi Hi Hi Hi Hi Hi Hi Hi',
-        'you': false,
-      }
-    ];
-
     return Scaffold(
       body: TemplateView(
         title: 'Chat',
@@ -142,28 +52,37 @@ class ChatView extends GetView implements ChatContract {
         ],
         activeRoutes: [RouteList.ventes.index, RouteList.ventesChat.index],
         background: true,
-        child: BsRow(
-          height: MediaQuery.of(context).size.height * 0.8,
-          children: [
-            BsCol(
+        child: Obx(() => BsRow(
               height: MediaQuery.of(context).size.height * 0.8,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(5),
-                ),
-                border: Border.all(
-                  width: 5.0,
-                  // assign the color to the border color
-                  color: Color(0xfff1f1f1),
-                ),
-              ),
-              sizes: ColScreen(sm: Col.col_2),
-              child: Obx(() => SingleChildScrollView(
+              children: [
+                BsCol(
+                  height: MediaQuery.of(context).size.height * 0.8,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(5),
+                    ),
+                    border: Border.all(
+                      width: 5.0,
+                      // assign the color to the border color
+                      color: _navigation.darkTheme.value
+                          ? Color(0xff454D55)
+                          : Color(0xfff1f1f1),
+                    ),
+                  ),
+                  sizes: ColScreen(sm: Col.col_2),
+                  child: SingleChildScrollView(
                     child: Column(
                       children: source.users
                           .map((e) => InkWell(
-                                onTap: () =>
-                                    source.useridactive.value = e.userid ?? 0,
+                                onTap: () {
+                                  source.chats.clear();
+                                  source.useridactive.value = e.userid ?? 0;
+                                  source.usersocketactive.value =
+                                      e.usersocketid ?? '';
+
+                                  chatPresenter.conversation(
+                                      context, source.useridactive.value);
+                                },
                                 child: Container(
                                   decoration: BoxDecoration(
                                       color: _navigation.darkTheme.value
@@ -176,7 +95,20 @@ class ChatView extends GetView implements ChatContract {
                                               ? ColorPallates.primary
                                               : null,
                                       borderRadius:
-                                          BorderRadius.all(Radius.circular(5))),
+                                          BorderRadius.all(Radius.circular(5)),
+                                      border: Border.all(
+                                        width: 3.0,
+                                        // assign the color to the border color
+                                        color: _navigation.darkTheme.value
+                                            ? source.useridactive.value ==
+                                                    e.userid
+                                                ? ColorPallates.secondary
+                                                : Color(0xff454D55)
+                                            : source.useridactive.value ==
+                                                    e.userid
+                                                ? ColorPallates.primary
+                                                : Color(0xfff1f1f1),
+                                      )),
                                   padding: EdgeInsets.all(3),
                                   margin: EdgeInsets.all(10),
                                   child: BsRow(
@@ -185,6 +117,7 @@ class ChatView extends GetView implements ChatContract {
                                           sizes: ColScreen(sm: Col.col_4),
                                           child: Icon(
                                             Icons.person,
+                                            size: 42,
                                             color: _navigation.darkTheme.value
                                                 ? Colors.white
                                                 : source.useridactive.value ==
@@ -232,23 +165,25 @@ class ChatView extends GetView implements ChatContract {
                               ))
                           .toList(),
                     ),
-                  )),
-            ),
-            BsCol(
-              height: MediaQuery.of(context).size.height * 0.8,
-              margin: EdgeInsets.only(left: 5),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(5),
+                  ),
                 ),
-                border: Border.all(
-                  width: 5.0,
-                  // assign the color to the border color
-                  color: Color(0xfff1f1f1),
-                ),
-              ),
-              sizes: ColScreen(sm: Col.col_10),
-              child: Obx(() => Column(
+                BsCol(
+                  height: MediaQuery.of(context).size.height * 0.8,
+                  margin: EdgeInsets.only(left: 5),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(5),
+                    ),
+                    border: Border.all(
+                      width: 5.0,
+                      // assign the color to the border color
+                      color: _navigation.darkTheme.value
+                          ? Color(0xff454D55)
+                          : Color(0xfff1f1f1),
+                    ),
+                  ),
+                  sizes: ColScreen(sm: Col.col_10),
+                  child: Column(
                     children: [
                       if (source.useridactive.value != 0)
                         Container(
@@ -256,37 +191,54 @@ class ChatView extends GetView implements ChatContract {
                           height: MediaQuery.of(context).size.height * 0.7,
                           child: SingleChildScrollView(
                             child: BsRow(
-                              children: chat
+                              children: source.chats
                                   .map((e) => BsCol(
                                         margin: EdgeInsets.all(5),
-                                        alignment: e['you']
+                                        alignment: e.createdby == box.read('id')
                                             ? Alignment.centerRight
                                             : Alignment.centerLeft,
                                         child: Container(
+                                          constraints: BoxConstraints(
+                                              maxWidth: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.5),
                                           decoration: BoxDecoration(
                                               color: _navigation.darkTheme.value
-                                                  ? e['you']
+                                                  ? e.createdby ==
+                                                          box.read('id')
                                                       ? ColorPallates.secondary
                                                       : Color(0xff454D55)
-                                                  : e['you']
+                                                  : e.createdby ==
+                                                          box.read('id')
                                                       ? ColorPallates.primary
                                                       : Color(0xfff1f1f1),
                                               borderRadius:
                                                   BorderRadius.circular(5)),
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.4,
                                           padding: EdgeInsets.all(3),
-                                          child: Text(
-                                            e['chat'],
-                                            style: TextStyle(
-                                              color: _navigation.darkTheme.value
-                                                  ? Colors.white
-                                                  : e['you']
-                                                      ? Colors.white
-                                                      : Colors.black,
-                                            ),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              if (e.chatfile != null)
+                                                Image.network(e.chatfile!.url!),
+                                              Container(
+                                                margin: EdgeInsets.fromLTRB(
+                                                    5, 2, 0, 2),
+                                                child: Text(
+                                                  e.chatmessage ?? '',
+                                                  style: TextStyle(
+                                                    color: _navigation
+                                                            .darkTheme.value
+                                                        ? Colors.white
+                                                        : e.createdby ==
+                                                                box.read('id')
+                                                            ? Colors.white
+                                                            : Colors.black,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ))
@@ -313,10 +265,10 @@ class ChatView extends GetView implements ChatContract {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-                                  Icon(
-                                    Icons.emoji_emotions,
-                                    size: 32,
-                                  ),
+                                  // Icon(
+                                  //   Icons.emoji_emotions,
+                                  //   size: 32,
+                                  // ),
                                   Icon(
                                     Icons.file_copy,
                                     size: 32,
@@ -342,8 +294,12 @@ class ChatView extends GetView implements ChatContract {
                               sizes: ColScreen(sm: Col.col_1),
                               child: InkWell(
                                 onTap: () {
-                                  Get.snackbar('Chat', 'message');
-                                  inputChat.text = '';
+                                  chatPresenter.initiateMessage(
+                                      inputChat.text,
+                                      source.useridactive.value,
+                                      source.usersocketactive.value);
+
+                                  inputChat.clear();
                                 },
                                 child: CircleAvatar(
                                   radius: 25,
@@ -355,17 +311,23 @@ class ChatView extends GetView implements ChatContract {
                         ],
                       )
                     ],
-                  )),
-            )
-          ],
-        ),
+                  ),
+                )
+              ],
+            )),
       ),
     );
   }
 
   @override
   void onLoadChats(BuildContext context, Response response) {
-    // TODO: implement onLoadChats
+    List<ChatModel> chats = [];
+
+    for (var element in response.body) {
+      chats.add(ChatModel.fromJson(element));
+    }
+
+    source.chats.value = chats;
   }
 
   @override
@@ -375,6 +337,8 @@ class ChatView extends GetView implements ChatContract {
     for (var element in response.body) {
       users.add(UserModel.fromJson(element));
     }
+
+    users.removeWhere((element) => element.userid == box.read('id'));
 
     source.users.value = users;
   }

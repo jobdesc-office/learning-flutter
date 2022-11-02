@@ -4,6 +4,7 @@ class AuthModel {
   String? username;
   String? useremail;
   String? userphone;
+  String? password;
   List<Userdetails>? userdetails;
   String? jwtToken;
 
@@ -13,6 +14,7 @@ class AuthModel {
       this.username,
       this.useremail,
       this.userphone,
+      this.password,
       this.userdetails,
       this.jwtToken});
 
@@ -22,6 +24,7 @@ class AuthModel {
     username = json['username'];
     useremail = json['useremail'];
     userphone = json['userphone'];
+    password = json['password'];
     if (json['userdetails'] != null) {
       userdetails = <Userdetails>[];
       json['userdetails'].forEach((v) {
@@ -42,6 +45,11 @@ class AuthModel {
       data['userdetails'] = this.userdetails!.map((v) => v.toJson()).toList();
     }
     data['jwt_token'] = this.jwtToken;
+
+    data['jwtToken'] = this.jwtToken;
+    data['password'] = this.password;
+    data['userdtbpid'] = userdetails!.first.businesspartner!.bpid;
+    data['userId'] = this.userid;
     return data;
   }
 }
