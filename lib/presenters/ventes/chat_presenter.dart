@@ -27,8 +27,8 @@ class ChatPresenter extends CustomGetXController {
       _chatViewContract.onLoadChats(context, response);
   }
 
-  void initiateMessage(
-      String messages, int receiverid, String receiversocket) async {
+  void initiateMessage(String messages, int receiverid, String receiversocket,
+      {file}) async {
     ChatModel chat = ChatModel(
         chatbpid: box.read('mybpid'),
         chatmessage: messages,
@@ -44,23 +44,19 @@ class ChatPresenter extends CustomGetXController {
     //   data['chat']['chatrefid'] = property.selectedProspect?.prospectid;
     // }
 
-    // if (property.chatFiles != null) {
-    //   data['chat']['chatfile'] = await File(property.chatFiles!.files.first.path!).readAsBytes();
-    //   property.sendMessage(data, binary: true);
-    // } else {
-    sendMessage(data);
-    // }
+    if (file != null) {
+      data['chat']['chatfile'] = await file;
+      sendMessage(data, binary: true);
+    } else {
+      sendMessage(data);
+    }
   }
 
   void sendMessage(Map<String, dynamic> data, {bool binary = false}) {
     if (binary) {
       socket.emitWithAck('message', data, binary: true);
-      print(data);
-      print(box.read('usermodel'));
     } else {
       socket.emit('message', data);
-      print(data);
-      print(box.read('usermodel'));
     }
   }
 

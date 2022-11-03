@@ -22,6 +22,7 @@ class CustomInput extends BsInput {
     List<TextInputFormatter>? inputFormatters = const [],
     int? maxLines,
     int? minLines,
+    FormFieldSetter<String>? onFieldSubmitted,
   }) : super(
           obscureText: passwordText,
           disabled: disabled,
@@ -58,5 +59,6 @@ class CustomInput extends BsInput {
           inputFormatters: inputFormatters,
           minLines: minLines,
           maxLines: maxLines,
+          onFieldSubmitted: onFieldSubmitted,
         );
 }

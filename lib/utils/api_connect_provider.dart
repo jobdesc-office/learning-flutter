@@ -17,9 +17,10 @@ class ApiConnectProvider extends GetConnect {
       SessionModel session = await SessionManager.current();
       if (session.jwtToken != null)
         request.headers['Authorization'] = "Bearer ${session.jwtToken}";
+      if (session.jwtToken != null)
+        request.headers['bpid'] = "${box.read('mybpid')}";
 
       request.headers['api-key'] = "123456";
-      request.headers['bpid'] = "${box.read('mybpid')}";
       return request;
     });
     httpClient.timeout = Duration(seconds: 30);

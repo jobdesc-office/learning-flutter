@@ -1,8 +1,11 @@
+import 'dart:typed_data';
+
 import 'package:boilerplate/contracts/ventes/chat_contract.dart';
 import 'package:boilerplate/models/masters/user_model.dart';
 import 'package:boilerplate/styles/color_palattes.dart';
 import 'package:boilerplate/widgets/input/custom_input.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -185,74 +188,87 @@ class ChatView extends GetView implements ChatContract {
                   sizes: ColScreen(sm: Col.col_10),
                   child: Column(
                     children: [
-                      if (source.useridactive.value != 0)
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height * 0.7,
-                          child: SingleChildScrollView(
-                            child: BsRow(
-                              children: source.chats
-                                  .map((e) => BsCol(
-                                        margin: EdgeInsets.all(5),
-                                        alignment: e.createdby == box.read('id')
-                                            ? Alignment.centerRight
-                                            : Alignment.centerLeft,
-                                        child: Container(
-                                          constraints: BoxConstraints(
-                                              maxWidth: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.5),
-                                          decoration: BoxDecoration(
-                                              color: _navigation.darkTheme.value
-                                                  ? e.createdby ==
-                                                          box.read('id')
-                                                      ? ColorPallates.secondary
-                                                      : Color(0xff454D55)
-                                                  : e.createdby ==
-                                                          box.read('id')
-                                                      ? ColorPallates.primary
-                                                      : Color(0xfff1f1f1),
-                                              borderRadius:
-                                                  BorderRadius.circular(5)),
-                                          padding: EdgeInsets.all(3),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              if (e.chatfile != null)
-                                                Image.network(e.chatfile!.url!),
-                                              Container(
-                                                margin: EdgeInsets.fromLTRB(
-                                                    5, 2, 0, 2),
-                                                child: Text(
-                                                  e.chatmessage ?? '',
-                                                  style: TextStyle(
-                                                    color: _navigation
-                                                            .darkTheme.value
-                                                        ? Colors.white
-                                                        : e.createdby ==
-                                                                box.read('id')
+                      if (!source.isFile.value)
+                        if (source.useridactive.value != 0)
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height * 0.7,
+                            child: SingleChildScrollView(
+                              child: BsRow(
+                                children: source.chats
+                                    .map((e) => BsCol(
+                                          margin: EdgeInsets.all(5),
+                                          alignment:
+                                              e.createdby == box.read('id')
+                                                  ? Alignment.centerRight
+                                                  : Alignment.centerLeft,
+                                          child: Container(
+                                            constraints: BoxConstraints(
+                                                maxWidth: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.5),
+                                            decoration: BoxDecoration(
+                                                color: _navigation
+                                                        .darkTheme.value
+                                                    ? e.createdby ==
+                                                            box.read('id')
+                                                        ? ColorPallates
+                                                            .secondary
+                                                        : Color(0xff454D55)
+                                                    : e.createdby ==
+                                                            box.read('id')
+                                                        ? ColorPallates.primary
+                                                        : Color(0xfff1f1f1),
+                                                borderRadius:
+                                                    BorderRadius.circular(5)),
+                                            padding: EdgeInsets.all(3),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                if (e.chatfile != null)
+                                                  Image.network(
+                                                      e.chatfile!.url!),
+                                                if (e.chatmessage != null)
+                                                  Container(
+                                                    margin: EdgeInsets.fromLTRB(
+                                                        5, 2, 0, 2),
+                                                    child: Text(
+                                                      e.chatmessage ?? '',
+                                                      style: TextStyle(
+                                                        color: _navigation
+                                                                .darkTheme.value
                                                             ? Colors.white
-                                                            : Colors.black,
+                                                            : e.createdby ==
+                                                                    box.read(
+                                                                        'id')
+                                                                ? Colors.white
+                                                                : Colors.black,
+                                                      ),
+                                                    ),
                                                   ),
-                                                ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      ))
-                                  .toList(),
+                                        ))
+                                    .toList(),
+                              ),
                             ),
-                          ),
-                        )
+                          )
+                        else
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height * 0.7,
+                            child: Center(
+                              child: Text('Choose User'),
+                            ),
+                          )
                       else
                         Container(
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.height * 0.7,
-                          child: Center(
-                            child: Text('Choose User'),
-                          ),
+                          child: Image.memory(source.pickedFile.value),
                         ),
                       BsRow(
                         margin: EdgeInsets.only(top: 10),
@@ -269,9 +285,30 @@ class ChatView extends GetView implements ChatContract {
                                   //   Icons.emoji_emotions,
                                   //   size: 32,
                                   // ),
-                                  Icon(
-                                    Icons.file_copy,
-                                    size: 32,
+                                  InkWell(
+                                    onTap: () async {
+                                      FilePickerResult? result =
+                                          await FilePicker.platform.pickFiles(
+                                        type: FileType.custom,
+                                        allowedExtensions: [
+                                          'jpeg',
+                                          'jpg',
+                                          'pdf',
+                                          'png',
+                                          'gif'
+                                        ],
+                                      );
+                                      if (result != null) {
+                                        Uint8List pickedFile =
+                                            result.files.single.bytes!;
+                                        source.pickedFile.value = pickedFile;
+                                        source.isFile.value = true;
+                                      }
+                                    },
+                                    child: Icon(
+                                      Icons.file_copy,
+                                      size: 32,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -279,28 +316,29 @@ class ChatView extends GetView implements ChatContract {
                           if (source.useridactive.value != 0)
                             BsCol(
                               margin: EdgeInsets.only(
-                                  left: 5, right: text.value ? 5 : 20),
+                                  left: 5,
+                                  right: text.value || source.isFile.value
+                                      ? 5
+                                      : 20),
                               sizes: ColScreen(
-                                  sm: text.value ? Col.col_10 : Col.col_11),
+                                  sm: text.value || source.isFile.value
+                                      ? Col.col_10
+                                      : Col.col_11),
                               child: CustomInput(
+                                maxLines: 1,
                                 autofocus: true,
                                 controller: inputChat,
                                 onChange: (value) => text.value = value != '',
+                                onFieldSubmitted: (value) =>
+                                    onClickSendMessages(),
                               ),
                             ),
-                          if (text.value)
+                          if (text.value || source.isFile.value)
                             BsCol(
                               margin: EdgeInsets.only(left: 5),
                               sizes: ColScreen(sm: Col.col_1),
                               child: InkWell(
-                                onTap: () {
-                                  chatPresenter.initiateMessage(
-                                      inputChat.text,
-                                      source.useridactive.value,
-                                      source.usersocketactive.value);
-
-                                  inputChat.clear();
-                                },
+                                onTap: () => onClickSendMessages(),
                                 child: CircleAvatar(
                                   radius: 25,
                                   child: Icon(Icons.send),
@@ -317,6 +355,15 @@ class ChatView extends GetView implements ChatContract {
             )),
       ),
     );
+  }
+
+  void onClickSendMessages() {
+    chatPresenter.initiateMessage(inputChat.text, source.useridactive.value,
+        source.usersocketactive.value,
+        file: source.isFile.value ? source.pickedFile.value : null);
+
+    inputChat.clear();
+    source.isFile.value = false;
   }
 
   @override
