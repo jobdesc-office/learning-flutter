@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:get/get.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 
@@ -14,7 +15,19 @@ class ChatSource extends GetxController {
   var useridactive = 0.obs;
   var usersocketactive = ''.obs;
   var isFile = false.obs;
+  var isDocument = false.obs;
   var pickedFile = Uint8List(123).obs;
+
+  var isProspect = false.obs;
+  var isActivity = false.obs;
+
+  var reftype = 0.obs;
+  var ref = 0.obs;
+
+  var name = ''.obs;
+  var personname = ''.obs;
+
+  BsSelectBoxController selectRef = BsSelectBoxController();
 
   void onMessage(data) {
     List chat = data['chats'];

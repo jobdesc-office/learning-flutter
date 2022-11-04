@@ -439,6 +439,8 @@ class AppRoute {
           Get.lazyPut(() => ChatPresenter());
           Get.lazyPut(() => UserService());
           Get.lazyPut(() => UserPresenter());
+          Get.lazyPut(() => ProspectService());
+          Get.lazyPut(() => ReportService());
         }),
       ),
 

@@ -46,4 +46,6 @@ class ConfigType {
   static String activitytype = notNull(types['activitytype']);
 
   static String activitycategory = notNull(types['activitycategory']);
+
+  static String chatreftype = notNull(types['chatreftype']);
 }

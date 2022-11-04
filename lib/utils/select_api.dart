@@ -384,6 +384,23 @@ Future<BsSelectBoxResponse> selectApiCompetitorRefType(
   return BsSelectBoxResponse(options: []);
 }
 
+Future<BsSelectBoxResponse> selectApiChatRefType(
+    Map<String, String> params) async {
+  final typeService = Get.put(TypeService());
+  Response response = await typeService.byCode(ConfigType.chatreftype);
+  if (response.isOk) {
+    if (response.statusCode == 200) {
+      return BsSelectBoxResponse.createFromJson(
+        response.body,
+        value: (data) => TypeModel.fromJson(data).typeid,
+        renderText: (data) => Text(TypeModel.fromJson(data).typename ?? ''),
+      );
+    }
+  }
+
+  return BsSelectBoxResponse(options: []);
+}
+
 Future<BsSelectBoxResponse> selectApiMenu(Map<String, String> params) async {
   final menuService = Get.find<MenuService>();
   Response response = await menuService.select(params);
@@ -515,7 +532,7 @@ Future<BsSelectBoxResponse> selectApiActivity(
         response.body,
         value: (data) => Activities.fromJson(data).dayactid,
         renderText: (data) => Text(
-            '${Activities.fromJson(data).dayactloclabel} || ${Activities.fromJson(data).dayactdate}'),
+            '${Activities.fromJson(data).dayactuser?.userfullname} || ${Activities.fromJson(data).dayactdate}'),
       );
     }
   }

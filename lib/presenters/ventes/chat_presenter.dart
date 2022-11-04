@@ -1,3 +1,5 @@
+import 'dart:html' as html;
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -21,6 +23,18 @@ class ChatPresenter extends CustomGetXController {
     _chatViewContract = chatViewContract;
   }
 
+  void downloadFile(String url) {
+    html.AnchorElement anchorElement = new html.AnchorElement(href: url);
+    anchorElement.download = url;
+    anchorElement.click();
+    Get.snackbar('Success', 'Download in Progress');
+  }
+
+  void viewFile(String url) {
+    html.window.open(url, "_blank");
+    html.Url.revokeObjectUrl(url);
+  }
+
   Future conversation(BuildContext context, int receiverid) async {
     Response response = await _chatService.conversation(receiverid);
     if (response.statusCode == 200)
@@ -28,7 +42,7 @@ class ChatPresenter extends CustomGetXController {
   }
 
   void initiateMessage(String messages, int receiverid, String receiversocket,
-      {file}) async {
+      {file, reftype, ref}) async {
     ChatModel chat = ChatModel(
         chatbpid: box.read('mybpid'),
         chatmessage: messages,
@@ -39,10 +53,10 @@ class ChatPresenter extends CustomGetXController {
       'chat': chat.toJson(),
     };
 
-    // if (property.selectedProspect != null) {
-    //   data['chat']['chatreftypeid'] = dataSource.refTypes.firstWhereOrNull((element) => element.typename == "Prospect")?.typeid;
-    //   data['chat']['chatrefid'] = property.selectedProspect?.prospectid;
-    // }
+    if (ref != null) {
+      data['chat']['chatreftypeid'] = reftype;
+      data['chat']['chatrefid'] = ref;
+    }
 
     if (file != null) {
       data['chat']['chatfile'] = await file;
@@ -53,6 +67,7 @@ class ChatPresenter extends CustomGetXController {
   }
 
   void sendMessage(Map<String, dynamic> data, {bool binary = false}) {
+    print(data);
     if (binary) {
       socket.emitWithAck('message', data, binary: true);
     } else {
