@@ -57,9 +57,6 @@ class UserSource extends GetxController {
     inputFullName.text = '';
     inputEmail.text = '';
     inputPhone.text = '';
-
-    selectsRole.clear();
-    selectsBp.clear();
   }
 
   bool isProcessing = false;
@@ -136,6 +133,28 @@ class UserForm {
             ),
           );
         }).toList(),
+      ),
+    );
+  }
+
+  Widget selectRole() {
+    return FormGroup(
+      label: Obx(() => Text(UserText.labelRole,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      child: CustomSelectBox(
+        searchable: false,
+        disabled: source.isProcessing,
+        controller: source.selectRole,
+        hintText: BaseText.hiintSelect(field: UserText.labelRole),
+        // hintText: BaseText.hiintSelect(
+        //     field: UserText.labelRole + ' ${index + 1}'),
+        serverSide: (params) => selectApiRole(params),
+        validators: [
+          // Validators.selectRequired(UserText.labelRole + ' ${index + 1}')
+          Validators.selectRequired(UserText.labelRole)
+        ],
       ),
     );
   }

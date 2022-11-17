@@ -23,42 +23,7 @@ class _TabHistoryState extends State<_TabHistory>
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(10),
-      child: Column(
-        children: [
-          Container(
-            child: BsRow(
-              children: [
-                BsCol(
-                  sizes: ColScreen(sm: Col.col_4),
-                  child: TabBar(
-                    controller: _tabController,
-                    labelColor: Colors.green,
-                    unselectedLabelColor: _navigation.darkTheme.value
-                        ? Colors.white
-                        : Colors.black,
-                    tabs: [
-                      Tab(
-                        text: 'Web',
-                      ),
-                      Tab(
-                        text: 'Apps',
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height * 0.9,
-            child: TabBarView(
-              controller: _tabController,
-              children: [_TabHistoryWeb(), _TabHistoryApps()],
-            ),
-          )
-        ],
-      ),
+      child: TabHistory(),
     );
   }
 }

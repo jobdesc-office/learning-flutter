@@ -57,12 +57,6 @@ import '../../../widgets/map/_map_source.dart';
 import '../../../widgets/snackbar.dart';
 import '_detail_source.dart';
 import '_text.dart';
-import 'histories/_tabApps_source/_tabProspect.dart';
-import 'histories/_tabApps_source/_tabProspectActivity.dart';
-import 'histories/_tabApps_source/_tabProspectAssign.dart';
-import 'histories/_tabApps_source/_tabProspectCustomfield.dart';
-import 'histories/_tabApps_source/_tabProspectFile.dart';
-import 'histories/_tabApps_source/_tabProspectProduct.dart';
 import 'histories/_tabWeb_source/_tabProspect.dart';
 import 'histories/_tabWeb_source/_tabProspectAssign.dart';
 import 'prospectdetail_component/_stagePipeline.dart';
@@ -70,6 +64,7 @@ import 'customfield/_form_source.dart';
 import 'prospectcustomfield/_form_source.dart';
 import 'prospectdetail_component/organization_section.dart';
 import 'prospectfiles/image_picture.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 part 'prospectdetail_component/customizefield_section.dart';
 
@@ -82,8 +77,8 @@ part 'prospectdetail_component/tabs/tabFile.dart';
 part 'prospectdetail_component/tabs/tabHistory.dart';
 part 'prospectdetail_component/title_section.dart';
 
-part 'histories/_tabApps.dart';
 part 'histories/_tabWeb.dart';
+part 'histories/histories.dart';
 
 final authPresenter = Get.find<AuthPresenter>();
 
@@ -554,35 +549,42 @@ class _ProspectDetailsState extends State<ProspectDetails>
     List<HistoryModel> prospectactivityhistory = [];
     List<HistoryModel> prospectcustomfieldhistory = [];
     List<HistoryModel> prospectfilehistories = [];
+    List<HistoryModel> allhistories = [];
 
     if (response.body['prospect'].isNotEmpty) {
       for (var element in response.body['prospect']) {
         prospecthistory.add(HistoryModel.fromJson(element));
+        allhistories.add(HistoryModel.fromJson(element));
       }
     }
     if (response.body['prospectproduct'].isNotEmpty) {
       for (var element in response.body['prospectproduct']) {
         prospectproducthistory.add(HistoryModel.fromJson(element));
+        allhistories.add(HistoryModel.fromJson(element));
       }
     }
     if (response.body['prospectassign'].isNotEmpty) {
       for (var element in response.body['prospectassign']) {
         prospectassignhistory.add(HistoryModel.fromJson(element));
+        allhistories.add(HistoryModel.fromJson(element));
       }
     }
     if (response.body['prospectactivity'].isNotEmpty) {
       for (var element in response.body['prospectactivity']) {
         prospectactivityhistory.add(HistoryModel.fromJson(element));
+        allhistories.add(HistoryModel.fromJson(element));
       }
     }
     if (response.body['prospectcustomfield'].isNotEmpty) {
       for (var element in response.body['prospectcustomfield']) {
         prospectcustomfieldhistory.add(HistoryModel.fromJson(element));
+        allhistories.add(HistoryModel.fromJson(element));
       }
     }
     if (response.body['prospectfile'].isNotEmpty) {
       for (var element in response.body['prospectfile']) {
         prospectfilehistories.add(HistoryModel.fromJson(element));
+        allhistories.add(HistoryModel.fromJson(element));
       }
     }
 
@@ -592,5 +594,6 @@ class _ProspectDetailsState extends State<ProspectDetails>
     source.prospectactivityhistories.value = prospectactivityhistory;
     source.prospectcustomfieldhistories.value = prospectcustomfieldhistory;
     source.prospectfilehistories.value = prospectfilehistories;
+    source.allhistories.value = allhistories;
   }
 }

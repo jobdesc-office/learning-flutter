@@ -59,8 +59,7 @@ class _TabUsers extends StatelessWidget
                                 //     )
                                 //   ],
                                 // ),
-                                userForm.formDetail(
-                                    onRemoveItem: onClickRemoveRoleItem),
+                                userForm.selectRole(),
                                 Obx(
                                   () => Row(
                                     mainAxisAlignment: MainAxisAlignment.end,

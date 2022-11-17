@@ -75,6 +75,7 @@ class ProspectDetailsSource extends GetxController {
   var prospectactivityhistories = <HistoryModel>[].obs;
   var prospectcustomfieldhistories = <HistoryModel>[].obs;
   var prospectfilehistories = <HistoryModel>[].obs;
+  var allhistories = <HistoryModel>[].obs;
 
   var isSelect = false.obs;
   var isAdd = false.obs;

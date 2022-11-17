@@ -71,7 +71,12 @@ class _TabAssign extends StatelessWidget {
                             Card(
                               color: Colors.green,
                               margin: EdgeInsets.only(left: 20),
-                              child: Text('Report to'),
+                              child: Container(
+                                  padding: EdgeInsets.all(5),
+                                  child: Text(
+                                    'Report to',
+                                    style: TextStyle(color: Colors.white),
+                                  )),
                             )
                           ],
                         ),
@@ -88,7 +93,11 @@ class _TabAssign extends StatelessWidget {
                                     Card(
                                       color: Colors.green,
                                       margin: EdgeInsets.only(left: 20),
-                                      child: Text('Assign to'),
+                                      child: Container(
+                                          padding: EdgeInsets.all(5),
+                                          child: Text('Assign to',
+                                              style: TextStyle(
+                                                  color: Colors.white))),
                                     ),
                                     Row(
                                       mainAxisAlignment:

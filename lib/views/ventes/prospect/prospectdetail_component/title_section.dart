@@ -472,67 +472,56 @@ BsCol prospectDetailTitleSection(context) {
                                 )),
                             Container(
                               margin: EdgeInsets.only(left: 10),
-                              child: Column(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      BsButton(
-                                        style: BsButtonStyle.success,
-                                        onPressed: () async {
-                                          int data =
-                                              await presenter.wonStatus();
-                                          // TypeModel stage =
-                                          //     await presenter.completePipeline();
-                                          showDialog(
-                                            context: context,
-                                            builder: (context) => ConfirmDialog(
-                                              title: BaseText.confirmTitle,
-                                              message:
-                                                  'are you sure winning this prospect ?',
-                                              onPressed: (_, value) async {
-                                                if (value ==
-                                                    ConfirmDialogOption
-                                                        .YES_OPTION) {
-                                                  presenter.update(
-                                                      context,
-                                                      {
-                                                        'prospectenddate':
-                                                            '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}',
-                                                        'prospectstatusid':
-                                                            data,
-                                                        // 'prospectstageid':
-                                                        //     stage.typeid,
-                                                      },
-                                                      source.prospectid.value);
-                                                  source.status.value =
-                                                      'Closed Won';
-                                                  // source.prospectStageController
-                                                  //     .value.selected = stage;
-                                                } else {
-                                                  Navigator.pop(context);
-                                                }
-                                              },
-                                            ),
-                                          );
-                                        },
-                                        label: Text('Won'),
-                                      ),
-                                      BsButton(
-                                        margin: EdgeInsets.only(left: 10),
-                                        style: BsButtonStyle.danger,
-                                        onPressed: () {
-                                          presenter.lose(
-                                              context, source.prospectid.value);
-                                        },
-                                        label: Text('Lost'),
-                                      ),
-                                    ],
+                                  BsButton(
+                                    style: BsButtonStyle.success,
+                                    onPressed: () async {
+                                      int data = await presenter.wonStatus();
+                                      // TypeModel stage =
+                                      //     await presenter.completePipeline();
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) => ConfirmDialog(
+                                          title: BaseText.confirmTitle,
+                                          message:
+                                              'are you sure winning this prospect ?',
+                                          onPressed: (_, value) async {
+                                            if (value ==
+                                                ConfirmDialogOption
+                                                    .YES_OPTION) {
+                                              presenter.update(
+                                                  context,
+                                                  {
+                                                    'prospectenddate':
+                                                        '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}',
+                                                    'prospectstatusid': data,
+                                                    // 'prospectstageid':
+                                                    //     stage.typeid,
+                                                  },
+                                                  source.prospectid.value);
+                                              source.status.value =
+                                                  'Closed Won';
+                                              // source.prospectStageController
+                                              //     .value.selected = stage;
+                                            } else {
+                                              Navigator.pop(context);
+                                            }
+                                          },
+                                        ),
+                                      );
+                                    },
+                                    label: Text('Won'),
                                   ),
                                   BsButton(
-                                    margin: EdgeInsets.only(top: 3),
-                                    style: BsButtonStyle.danger,
+                                    margin: EdgeInsets.only(left: 10),
+                                    style: BsButtonStyle(
+                                        color: Colors.white,
+                                        backgroundColor: Colors.orange,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(3.0))),
                                     onPressed: () => showDialog(
                                       context: context,
                                       builder: (context) => ConfirmDialog(
@@ -564,7 +553,16 @@ BsCol prospectDetailTitleSection(context) {
                                       ),
                                     ),
                                     label: Text('Force Closed'),
-                                  )
+                                  ),
+                                  BsButton(
+                                    margin: EdgeInsets.only(left: 10),
+                                    style: BsButtonStyle.danger,
+                                    onPressed: () {
+                                      presenter.lose(
+                                          context, source.prospectid.value);
+                                    },
+                                    label: Text('Lost'),
+                                  ),
                                 ],
                               ),
                             ),
