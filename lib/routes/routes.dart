@@ -215,6 +215,8 @@ class AppRoute {
         binding: BindingsBuilder(() {
           Get.lazyPut(() => BusinessPartnerService());
           Get.lazyPut(() => BusinessPartnerPresenter());
+          Get.lazyPut(() => TypeChildrenService());
+          Get.lazyPut(() => TypesChildrenPresenter());
         }),
       ),
       CustomGetPage(

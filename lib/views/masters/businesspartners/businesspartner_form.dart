@@ -1,3 +1,4 @@
+import 'package:boilerplate/contracts/base/index_view_contract.dart';
 import 'package:boilerplate/presenters/navigation_presenter.dart';
 import 'package:boilerplate/views/skins/template.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
@@ -9,6 +10,7 @@ import '../../../contracts/base/edit_view_contract.dart';
 import '../../../models/masters/businesspartner_model.dart';
 import '../../../models/masters/type_model.dart';
 import '../../../presenters/masters/businesspartner_presenter.dart';
+import '../../../presenters/masters/typechildren_presenter.dart';
 import '../../../routes/route_list.dart';
 import '../../../styles/color_palattes.dart';
 import '../../../widgets/breadcrumb.dart';
@@ -16,12 +18,18 @@ import '../../../widgets/button/theme_button_cancel.dart';
 import '../../../widgets/button/theme_button_save.dart';
 
 import '../../../widgets/form_group.dart';
+import '../../../widgets/snackbar.dart';
 import '_form_source.dart';
 import '_businesspartner_type.dart';
 
+final typePresenter = Get.find<TypesChildrenPresenter>();
+
 // ignore: must_be_immutable
 class BusinessPartnerFormView extends StatelessWidget
-    implements EditViewContract, BusinessPartnerTypeViewContract {
+    implements
+        EditViewContract,
+        BusinessPartnerTypeViewContract,
+        IndexViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final BusinessPartnerPresenter presenter =
       Get.find<BusinessPartnerPresenter>();
@@ -36,6 +44,7 @@ class BusinessPartnerFormView extends StatelessWidget
   BusinessPartnerFormView({required this.onSave}) {
     presenter.businessPartnerFetchDataContract = this;
     presenter.businessPartnerTypeViewContract = this;
+    typePresenter.typeChildrenViewContract = this;
   }
 
   @override
@@ -75,7 +84,7 @@ class BusinessPartnerFormView extends StatelessWidget
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        businessPartnerForm.businessPartnerType(),
+                        businessPartnerForm.businessPartnerType(context),
                         businessPartnerForm.inputCompanyName(),
                         businessPartnerForm.inputName(),
                         businessPartnerForm.inputEmail(),
@@ -285,5 +294,31 @@ class BusinessPartnerFormView extends StatelessWidget
       source.value.updateddate.value = bp.updateddate ?? '';
       source.value.isactive.value = bp.isactive ?? true;
     });
+  }
+
+  @override
+  void onCreateSuccess(Response response, {BuildContext? context}) {
+    source.value.selectType.clear();
+    Snackbar().createSuccess(context!);
+  }
+
+  @override
+  void onDeleteSuccess(Response response, {BuildContext? context}) {
+    // TODO: implement onDeleteSuccess
+  }
+
+  @override
+  void onEditSuccess(Response response, {BuildContext? context}) {
+    // TODO: implement onEditSuccess
+  }
+
+  @override
+  void onErrorRequest(Response response) {
+    // TODO: implement onErrorRequest
+  }
+
+  @override
+  void onLoadDatatables(BuildContext context, Response response) {
+    // TODO: implement onLoadDatatables
   }
 }

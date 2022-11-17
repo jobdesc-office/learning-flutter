@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../constants/base_text.dart';
 import '../../../models/session_model.dart';
+import '../../../presenters/masters/typechildren_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
 import '../../../utils/select_api.dart';
 import '../../../utils/session_manager.dart';
@@ -67,22 +68,34 @@ class BusinessPartnerForm {
   //   );
   // }
 
-  Widget businessPartnerType() {
+  Widget businessPartnerType(context) {
     return FormGroup(
       label: Obx(() => Text(BusinessPartnerText.labelType,
           style: TextStyle(
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomSelectBox(
-        searchable: true,
-        disabled: source.isProcessing,
-        controller: source.selectType,
-        hintText: BaseText.hiintSelect(field: BusinessPartnerText.labelType),
-        serverSide: (params) => selectApiBpType(params),
-        validators: [
-          Validators.selectRequired(BusinessPartnerText.labelType),
-        ],
-      ),
+          searchable: true,
+          disabled: source.isProcessing,
+          controller: source.selectType,
+          hintText: BaseText.hiintSelect(field: BusinessPartnerText.labelType),
+          serverSide: (params) => selectApiBpType(params),
+          validators: [
+            Validators.selectRequired(BusinessPartnerText.labelType),
+          ],
+          onChange: (val) async {
+            final typePresenter = Get.find<TypesChildrenPresenter>();
+            if (val.getValueAsString() == 'add') {
+              SessionModel session = await SessionManager.current();
+              typePresenter.save(context, {
+                'typename': val.getOtherValue()['name'],
+                'typemasterid': val.getOtherValue()['masterid'],
+                'createdby': session.userid,
+                'updatedby': session.userid,
+                'isactive': true,
+              });
+            }
+          }),
     );
   }
 

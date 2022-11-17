@@ -6,10 +6,12 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../models/default/dspbycust_model.dart';
+import '../../../../presenters/navigation_presenter.dart';
 import '../_source.dart';
 import '../home.dart';
 
 final source = Get.put(HomeSource());
+final _navigation = Get.find<NavigationPresenter>();
 
 // ignore: must_be_immutable
 class ChartByValue extends StatefulWidget {
@@ -71,40 +73,124 @@ class _ChartByValueState extends State<ChartByValue> {
     Widget text;
     switch (value.toInt()) {
       case 1:
-        text = const Text('JAN', style: style);
+        text = Obx(() => Text('JAN',
+            style: TextStyle(
+              color: _navigation.darkTheme.value
+                  ? Colors.white
+                  : Color(0xff68737d),
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            )));
         break;
       case 2:
-        text = const Text('FEB', style: style);
+        text = Obx(() => Text('FEB',
+            style: TextStyle(
+              color: _navigation.darkTheme.value
+                  ? Colors.white
+                  : Color(0xff68737d),
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            )));
         break;
       case 3:
-        text = const Text('MAR', style: style);
+        text = Obx(() => Text('MAR',
+            style: TextStyle(
+              color: _navigation.darkTheme.value
+                  ? Colors.white
+                  : Color(0xff68737d),
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            )));
         break;
       case 4:
-        text = const Text('APR', style: style);
+        text = Obx(() => Text('APR',
+            style: TextStyle(
+              color: _navigation.darkTheme.value
+                  ? Colors.white
+                  : Color(0xff68737d),
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            )));
         break;
       case 5:
-        text = const Text('MAY', style: style);
+        text = Obx(() => Text('MAY',
+            style: TextStyle(
+              color: _navigation.darkTheme.value
+                  ? Colors.white
+                  : Color(0xff68737d),
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            )));
         break;
       case 6:
-        text = const Text('JUN', style: style);
+        text = Obx(() => Text('JUN',
+            style: TextStyle(
+              color: _navigation.darkTheme.value
+                  ? Colors.white
+                  : Color(0xff68737d),
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            )));
         break;
       case 7:
-        text = const Text('JUL', style: style);
+        text = Obx(() => Text('JUL',
+            style: TextStyle(
+              color: _navigation.darkTheme.value
+                  ? Colors.white
+                  : Color(0xff68737d),
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            )));
         break;
       case 8:
-        text = const Text('AUG', style: style);
+        text = Obx(() => Text('AUG',
+            style: TextStyle(
+              color: _navigation.darkTheme.value
+                  ? Colors.white
+                  : Color(0xff68737d),
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            )));
         break;
       case 9:
-        text = const Text('SEP', style: style);
+        text = Obx(() => Text('SEP',
+            style: TextStyle(
+              color: _navigation.darkTheme.value
+                  ? Colors.white
+                  : Color(0xff68737d),
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            )));
         break;
       case 10:
-        text = const Text('OCT', style: style);
+        text = Obx(() => Text('OCT',
+            style: TextStyle(
+              color: _navigation.darkTheme.value
+                  ? Colors.white
+                  : Color(0xff68737d),
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            )));
         break;
       case 11:
-        text = const Text('NOV', style: style);
+        text = Obx(() => Text('NOV',
+            style: TextStyle(
+              color: _navigation.darkTheme.value
+                  ? Colors.white
+                  : Color(0xff68737d),
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            )));
         break;
       case 12:
-        text = const Text('DEC', style: style);
+        text = Obx(() => Text('DEC',
+            style: TextStyle(
+              color: _navigation.darkTheme.value
+                  ? Colors.white
+                  : Color(0xff68737d),
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            )));
         break;
       default:
         text = const Text('', style: style);
@@ -160,7 +246,13 @@ class _ChartByValueState extends State<ChartByValue> {
         return Container();
     }
 
-    return Text(text, style: style, textAlign: TextAlign.left);
+    return Obx(() => Text(text,
+        style: TextStyle(
+          color: _navigation.darkTheme.value ? Colors.white : Color(0xff68737d),
+          fontWeight: FontWeight.bold,
+          fontSize: 16,
+        ),
+        textAlign: TextAlign.left));
   }
 
   LineChartData mainData(List<FlSpot> data, Color theme) {
