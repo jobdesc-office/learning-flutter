@@ -1,6 +1,9 @@
+import 'dart:html' as html;
+
 import 'package:bs_flutter_modal/bs_flutter_modal.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/details_view_contract.dart';
@@ -50,7 +53,25 @@ class FileDetails extends GetView implements DetailViewContract {
                           BsCol(
                               sizes: ColScreen(lg: Col.col_4),
                               margin: EdgeInsets.only(top: 10),
-                              child: Image.network(controller.image.value)),
+                              child: controller.name.substring(
+                                          controller.name.value.length - 4) ==
+                                      '.pdf'
+                                  ? InkWell(
+                                      onTap: () {
+                                        html.window.open(
+                                            controller.image.value, "_blank");
+                                        html.Url.revokeObjectUrl(
+                                            controller.image.value);
+                                      },
+                                      child: Tooltip(
+                                        message: 'Tap to Show Document',
+                                        child: Icon(
+                                          FontAwesomeIcons.filePdf,
+                                          size: 128,
+                                        ),
+                                      ),
+                                    )
+                                  : Image.network(controller.image.value)),
                           BsCol(
                             margin: EdgeInsets.only(left: 10),
                             sizes: ColScreen(lg: Col.col_8),
@@ -132,10 +153,33 @@ class FileDetails extends GetView implements DetailViewContract {
                                             sizes: ColScreen(lg: Col.col_1),
                                             child: Text(':')),
                                         BsCol(
-                                            sizes: ColScreen(lg: Col.col_8),
+                                            sizes: ColScreen(lg: Col.col_6),
                                             child: Text(formatBytes(
                                                 parseInt(controller.size.value),
-                                                3)))
+                                                3))),
+                                        BsCol(
+                                          sizes: ColScreen(sm: Col.col_2),
+                                          child: InkWell(
+                                            onTap: () {
+                                              html.AnchorElement anchorElement =
+                                                  new html.AnchorElement(
+                                                      href: controller
+                                                          .image.value);
+                                              anchorElement.download =
+                                                  controller.image.value;
+                                              anchorElement.click();
+                                              Get.snackbar('Success',
+                                                  'Download in Progress');
+                                            },
+                                            child: Tooltip(
+                                              message: 'Tap to Download',
+                                              child: Icon(
+                                                Icons.download,
+                                                size: 32,
+                                              ),
+                                            ),
+                                          ),
+                                        )
                                       ],
                                     )),
                               ],

@@ -23,7 +23,7 @@ class ProspectService extends ApiConnectProvider {
   }
 
   Future<Response> selectref(Map<String, dynamic> params) {
-    return get('$api/selectref', query: params);
+    return get('$api/selectref/${box.read('mybpid')}', query: params);
   }
 
   Future<Response> storeCustomer(
