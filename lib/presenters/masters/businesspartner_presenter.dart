@@ -19,28 +19,23 @@ class BusinessPartnerPresenter extends CustomGetXController {
   final _typeService = Get.put(TypeService());
 
   late IndexViewContract _businessPartnerViewContract;
-  set businessPartnerViewContract(
-      IndexViewContract businessPartnerViewContract) {
+  set businessPartnerViewContract(IndexViewContract businessPartnerViewContract) {
     _businessPartnerViewContract = businessPartnerViewContract;
   }
 
   late EditViewContract _businessPartnerFetchDataContract;
-  set businessPartnerFetchDataContract(
-      EditViewContract businessPartnerFetchDataContract) {
+  set businessPartnerFetchDataContract(EditViewContract businessPartnerFetchDataContract) {
     _businessPartnerFetchDataContract = businessPartnerFetchDataContract;
   }
 
   late BusinessPartnerTypeViewContract _businessPartnerTypeViewContract;
-  set businessPartnerTypeViewContract(
-      BusinessPartnerTypeViewContract businessPartnerTypeViewContract) {
+  set businessPartnerTypeViewContract(BusinessPartnerTypeViewContract businessPartnerTypeViewContract) {
     _businessPartnerTypeViewContract = businessPartnerTypeViewContract;
   }
 
   late DetailViewContract _businessPartnerFetchDataDetailsContract;
-  set businessPartnerFetchDataDetailsContract(
-      DetailViewContract businessPartnerFetchDataDetailsContract) {
-    _businessPartnerFetchDataDetailsContract =
-        businessPartnerFetchDataDetailsContract;
+  set businessPartnerFetchDataDetailsContract(DetailViewContract businessPartnerFetchDataDetailsContract) {
+    _businessPartnerFetchDataDetailsContract = businessPartnerFetchDataDetailsContract;
   }
 
   Future datatables(BuildContext context, Map<String, String> params) async {
@@ -109,8 +104,7 @@ class BusinessPartnerPresenter extends CustomGetXController {
       _businessPartnerViewContract.onErrorRequest(response);
   }
 
-  void update(
-      BuildContext context, Map<String, dynamic> body, int menuid) async {
+  void update(BuildContext context, Map<String, dynamic> body, int menuid) async {
     setProcessing(true);
     Response response = await _businessPartnerService.update(menuid, body);
     if (response.statusCode == 200)
@@ -129,8 +123,7 @@ class BusinessPartnerPresenter extends CustomGetXController {
           if (value == ConfirmDialogOption.YES_OPTION) {
             Response response = await _businessPartnerService.destroy(menuid);
             if (response.statusCode == 200)
-              _businessPartnerViewContract.onDeleteSuccess(response,
-                  context: context);
+              _businessPartnerViewContract.onDeleteSuccess(response, context: context);
             else
               _businessPartnerViewContract.onErrorRequest(response);
           } else {

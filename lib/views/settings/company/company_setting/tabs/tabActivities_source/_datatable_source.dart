@@ -15,8 +15,10 @@ final authPresenter = Get.find<AuthPresenter>();
 var permis = authPresenter.rolepermis.value;
 
 class CustomersActivityDataTableSource extends BsDatatableSource {
-  ValueChanged<int> onSetAnytime = (value) {};
-  ValueChanged<int> onSetWithAttendance = (value) {};
+  ValueChanged<int> onDayActAllow = (value) {};
+  ValueChanged<int> onDayActDisallow = (value) {};
+  ValueChanged<int> onProsActAllow = (value) {};
+  ValueChanged<int> onProsActDisallow = (value) {};
 
   List<BsDataColumn> get columns {
     return <BsDataColumn>[
@@ -28,15 +30,22 @@ class CustomersActivityDataTableSource extends BsDatatableSource {
       ),
       CustomBsDataColumn(label: Text('Business Partner'), columnName: 'bpname'),
       CustomBsDataColumn(
-        label: Text('Allow Without Attendance'),
+        label: Text('Allow Daily Activity Any Time'),
         orderable: false,
         searchable: false,
-        width: 220,
+        width: 300,
+      ),
+      CustomBsDataColumn(
+        label: Text('Allow Prospect Activity Any Time'),
+        orderable: false,
+        searchable: false,
+        width: 300,
       ),
     ];
   }
 
-  Map<int, bool> cetekanState = {};
+  Map<int, bool> cetekanDayActState = {};
+  Map<int, bool> cetekanProsActState = {};
 
   List<BusinessPartnerModel> get customers => response.data.map((data) => BusinessPartnerModel.fromJson(data)).toList();
 
@@ -44,7 +53,8 @@ class CustomersActivityDataTableSource extends BsDatatableSource {
   BsDataRow getRow(int index) {
     final row = customers[index];
     int x = controller.start + index + 1;
-    if (!cetekanState.containsKey(index)) cetekanState[index] = row.bpactanytime ?? false;
+    if (!cetekanDayActState.containsKey(index)) cetekanDayActState[index] = row.bpdayactanytime ?? false;
+    if (!cetekanProsActState.containsKey(index)) cetekanProsActState[index] = row.bpprosactanytime ?? false;
     // var permis = authPresenter.rolepermis.value;
     return BsDataRow(
       index: index,
@@ -72,12 +82,34 @@ class CustomersActivityDataTableSource extends BsDatatableSource {
         CustomBsDataCell(
           Row(
             children: [
-              Cetekan(cetekanState[index]!, onTap: (value) {
-                cetekanState[index] = value;
+              Cetekan(cetekanDayActState[index]!, onTap: (value) {
+                cetekanDayActState[index] = value;
                 if (value) {
-                  onSetAnytime(row.bpid!);
+                  onDayActAllow(row.bpid!);
                 } else {
-                  onSetWithAttendance(row.bpid!);
+                  onDayActDisallow(row.bpid!);
+                }
+              }),
+            ],
+          ),
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
+          padding: EdgeInsets.all(1),
+        ),
+        CustomBsDataCell(
+          Row(
+            children: [
+              Cetekan(cetekanProsActState[index]!, onTap: (value) {
+                cetekanProsActState[index] = value;
+                if (value) {
+                  onProsActAllow(row.bpid!);
+                } else {
+                  onProsActDisallow(row.bpid!);
                 }
               }),
             ],

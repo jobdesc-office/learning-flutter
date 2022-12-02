@@ -78,6 +78,10 @@ class _TabCustomerActivity extends StatelessWidget implements IndexViewContract,
     custsource.value.isForm.value = false;
     bpPresenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
+    datatable.onDayActAllow = (value) => bpPresenter.update(context, {'bpdayactanytime': true}, value);
+    datatable.onDayActDisallow = (value) => bpPresenter.update(context, {'bpdayactanytime': false}, value);
+    datatable.onProsActAllow = (value) => bpPresenter.update(context, {'bpprosactanytime': true}, value);
+    datatable.onProsActDisallow = (value) => bpPresenter.update(context, {'bpprosactanytime': false}, value);
   }
 
   @override

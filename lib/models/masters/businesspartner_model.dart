@@ -11,7 +11,8 @@ class BusinessPartnerModel {
   String? createddate;
   int? updatedby;
   String? updateddate;
-  bool? bpactanytime;
+  bool? bpdayactanytime;
+  bool? bpprosactanytime;
   bool? isactive;
   TypeModel? bptype;
   Bpcreatedby? bpcreatedby;
@@ -26,7 +27,8 @@ class BusinessPartnerModel {
       this.bpphone,
       this.createdby,
       this.createddate,
-      this.bpactanytime,
+      this.bpdayactanytime,
+      this.bpprosactanytime,
       this.updatedby,
       this.updateddate,
       this.isactive,
@@ -46,7 +48,8 @@ class BusinessPartnerModel {
     updatedby = json['updatedby'];
     updateddate = json['updateddate'];
     isactive = json['isactive'];
-    bpactanytime = json['bpactanytime'];
+    bpdayactanytime = json['bpdayactanytime'];
+    bpprosactanytime = json['bpprosactanytime'];
     bptype = json['bptype'] != null ? new TypeModel.fromJson(json['bptype']) : null;
     bpcreatedby = json['bpcreatedby'] != null ? new Bpcreatedby.fromJson(json['bpcreatedby']) : null;
     bpupdatedby = json['bpupdatedby'] != null ? new Bpcreatedby.fromJson(json['bpupdatedby']) : null;
@@ -65,7 +68,8 @@ class BusinessPartnerModel {
     data['updatedby'] = this.updatedby;
     data['updateddate'] = this.updateddate;
     data['isactive'] = this.isactive;
-    data['bpactanytime'] = this.bpactanytime;
+    data['bpprosactanytime'] = this.bpprosactanytime;
+    data['bpdayactanytime'] = this.bpdayactanytime;
     if (this.bptype != null) {
       data['bptype'] = this.bptype!.toJson();
     }

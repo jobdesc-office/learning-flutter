@@ -37,7 +37,7 @@ class _TabActivitiesState extends State<_TabActivities>
                   tabs: [
                     Tab(text: 'Category'),
                     // Tab(text: 'Type'),
-                    Tab(text: 'Customer'),
+                    Tab(text: 'Business Partner'),
                   ],
                 )),
           ),
@@ -55,7 +55,7 @@ class _TabActivitiesState extends State<_TabActivities>
                   // _TabActivityType(
                   //   context,
                   // ),
-                  _TabCustomerActivity("Customer Activity"),
+                  _TabCustomerActivity("Business Partner Activity"),
                 ],
               ),
             ),
