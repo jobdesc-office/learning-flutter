@@ -1,7 +1,6 @@
 part of '../../company.dart';
 
-class _TabGeneral extends StatelessWidget
-    implements EditViewContract, IndexViewContract {
+class _TabGeneral extends StatelessWidget implements EditViewContract, IndexViewContract {
   final _source = GeneralSource().obs;
   GeneralSource get source => _source.value;
   CPGeneralPresenter get presenter => Get.find<CPGeneralPresenter>();
@@ -30,12 +29,12 @@ class _TabGeneral extends StatelessWidget
             children: [
               BsCol(
                 margin: EdgeInsets.only(top: 15),
-                alignment: Alignment.bottomCenter,
-                sizes: ColScreen(sm: Col.col_1),
+                alignment: Alignment.centerLeft,
+                sizes: ColScreen(sm: Col.col_2),
                 child: Text('Name'),
               ),
               BsCol(
-                sizes: ColScreen(sm: Col.col_11),
+                sizes: ColScreen(sm: Col.col_10),
                 child: CustomInput(controller: source.inputName),
               ),
             ],
@@ -47,12 +46,12 @@ class _TabGeneral extends StatelessWidget
             children: [
               BsCol(
                 margin: EdgeInsets.only(top: 15),
-                alignment: Alignment.bottomCenter,
-                sizes: ColScreen(sm: Col.col_1),
+                alignment: Alignment.centerLeft,
+                sizes: ColScreen(sm: Col.col_2),
                 child: Text('PIC'),
               ),
               BsCol(
-                sizes: ColScreen(sm: Col.col_11),
+                sizes: ColScreen(sm: Col.col_10),
                 child: CustomInput(controller: source.inputPIC),
               ),
             ],
@@ -64,12 +63,12 @@ class _TabGeneral extends StatelessWidget
             children: [
               BsCol(
                 margin: EdgeInsets.only(top: 15),
-                alignment: Alignment.bottomCenter,
-                sizes: ColScreen(sm: Col.col_1),
+                alignment: Alignment.centerLeft,
+                sizes: ColScreen(sm: Col.col_2),
                 child: Text('Phone'),
               ),
               BsCol(
-                sizes: ColScreen(sm: Col.col_11),
+                sizes: ColScreen(sm: Col.col_10),
                 child: CustomInput(controller: source.inputPhone),
               ),
             ],
@@ -81,12 +80,12 @@ class _TabGeneral extends StatelessWidget
             children: [
               BsCol(
                 margin: EdgeInsets.only(top: 15),
-                alignment: Alignment.bottomCenter,
-                sizes: ColScreen(sm: Col.col_1),
+                alignment: Alignment.centerLeft,
+                sizes: ColScreen(sm: Col.col_2),
                 child: Text('Email'),
               ),
               BsCol(
-                sizes: ColScreen(sm: Col.col_11),
+                sizes: ColScreen(sm: Col.col_10),
                 child: CustomInput(controller: source.inputEmail),
               ),
             ],
@@ -94,49 +93,90 @@ class _TabGeneral extends StatelessWidget
         ),
         BsCol(
           margin: EdgeInsets.only(top: 10),
-          child: Obx(() => BsRow(
-                children: [
+          child: BsRow(
+            children: [
+              BsCol(
+                margin: EdgeInsets.only(top: 15),
+                alignment: Alignment.centerLeft,
+                sizes: ColScreen(sm: Col.col_2),
+                child: Text('Allow daily activity anytime'),
+              ),
+              BsCol(
+                alignment: Alignment.centerLeft,
+                sizes: ColScreen(sm: Col.col_10),
+                child: Obx(() {
+                  return Cetekan(source.allowDayAct.value, onTap: (value) => source.allowDayAct.value = value);
+                }),
+              ),
+            ],
+          ),
+        ),
+        BsCol(
+          margin: EdgeInsets.only(top: 10),
+          child: BsRow(
+            children: [
+              BsCol(
+                margin: EdgeInsets.only(top: 15),
+                alignment: Alignment.centerLeft,
+                sizes: ColScreen(sm: Col.col_2),
+                child: Text('Allow prospect activity anytime'),
+              ),
+              BsCol(
+                alignment: Alignment.centerLeft,
+                sizes: ColScreen(sm: Col.col_10),
+                child: Obx(() {
+                  return Cetekan(source.allowProsAct.value, onTap: (value) => source.allowProsAct.value = value);
+                }),
+              ),
+            ],
+          ),
+        ),
+        BsCol(
+          margin: EdgeInsets.only(top: 10),
+          child: Obx(
+            () => BsRow(
+              children: [
+                BsCol(
+                  margin: EdgeInsets.only(top: 15),
+                  alignment: Alignment.centerLeft,
+                  sizes: ColScreen(sm: Col.col_2),
+                  child: Text('Company Type'),
+                ),
+                if (source.show.value)
                   BsCol(
-                    margin: EdgeInsets.only(top: 15),
-                    alignment: Alignment.bottomCenter,
-                    sizes: ColScreen(sm: Col.col_1),
-                    child: Text('Company Type'),
-                  ),
-                  if (source.show.value)
-                    BsCol(
-                      sizes: ColScreen(sm: Col.col_11),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          selectSubdistrict(context),
-                          if (permis
-                              .where((element) => element.menunm == 'Settings')
-                              .first
-                              .children!
-                              .where((element) =>
-                                  element.menunm == 'Company Setting')
-                              .first
-                              .features!
-                              .where((element) => element.featslug == 'update')
-                              .first
-                              .permissions!
-                              .hasaccess!)
-                            Obx(() {
-                              return BsCol(
-                                margin: EdgeInsets.only(top: 10),
-                                sizes: ColScreen(sm: Col.col_1),
-                                child: ThemeButtonSave(
-                                  onPressed: () => onSave(context),
-                                  processing: presenter.isProcessing.value,
-                                  disabled: presenter.isProcessing.value,
-                                ),
-                              );
-                            }),
-                        ],
-                      ),
+                    sizes: ColScreen(sm: Col.col_10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        selectSubdistrict(context),
+                        if (permis
+                            .where((element) => element.menunm == 'Settings')
+                            .first
+                            .children!
+                            .where((element) => element.menunm == 'Company Setting')
+                            .first
+                            .features!
+                            .where((element) => element.featslug == 'update')
+                            .first
+                            .permissions!
+                            .hasaccess!)
+                          Obx(() {
+                            return BsCol(
+                              margin: EdgeInsets.only(top: 10),
+                              sizes: ColScreen(sm: Col.col_2),
+                              child: ThemeButtonSave(
+                                onPressed: () => onSave(context),
+                                processing: presenter.isProcessing.value,
+                                disabled: presenter.isProcessing.value,
+                              ),
+                            );
+                          }),
+                      ],
                     ),
-                ],
-              )),
+                  ),
+              ],
+            ),
+          ),
         ),
       ],
     );
@@ -179,16 +219,15 @@ class _TabGeneral extends StatelessWidget
   @override
   void onSuccessFetchData(Response response) {
     presenter.setProcessing(false);
-    BusinessPartnerModel businessPartner =
-        BusinessPartnerModel.fromJson(response.body);
+    BusinessPartnerModel businessPartner = BusinessPartnerModel.fromJson(response.body);
     _source.update((val) {
+      source.allowDayAct.value = businessPartner.bpdayactanytime ?? false;
+      source.allowProsAct.value = businessPartner.bpprosactanytime ?? false;
       source.inputName.text = businessPartner.bpname ?? "";
       source.inputPIC.text = businessPartner.bppicname ?? "";
       source.inputEmail.text = businessPartner.bpemail ?? "";
       source.inputPhone.text = businessPartner.bpphone ?? "";
-      source.choosedType.setSelected(BsSelectBoxOption(
-          value: businessPartner.bptype?.typeid,
-          text: Text(businessPartner.bptype!.typename!)));
+      source.choosedType.setSelected(BsSelectBoxOption(value: businessPartner.bptype?.typeid, text: Text(businessPartner.bptype!.typename!)));
     });
     source.show.value = true;
   }
@@ -214,4 +253,28 @@ class _TabGeneral extends StatelessWidget
 
   @override
   void onLoadDatatables(BuildContext context, Response response) {}
+}
+
+// ignore: must_be_immutable
+class Cetekan extends StatelessWidget {
+  Function(bool)? onTap;
+  Cetekan(bool value, {this.onTap}) {
+    isActive = Rx(value);
+  }
+  late Rx<bool> isActive;
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        isActive.toggle();
+        onTap?.call(isActive.value);
+      },
+      child: Obx(() {
+        return Icon(
+          isActive.value ? Icons.toggle_on : Icons.toggle_off,
+          size: 35,
+          color: isActive.value ? ColorPallates.onDarkMode : ColorPallates.red,
+        );
+      }),
+    );
+  }
 }

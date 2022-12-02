@@ -8,6 +8,8 @@ class GeneralSource {
   bool isProcessing = false;
 
   var show = false.obs;
+  var allowDayAct = false.obs;
+  var allowProsAct = false.obs;
 
   var createdby = ''.obs;
   var createddate = ''.obs;
@@ -26,6 +28,8 @@ class GeneralSource {
     SessionModel session = await SessionManager.current();
     return {
       'bptypeid': choosedType.getSelectedAsString(),
+      'bpdayactanytime': allowDayAct.value,
+      'bpprosactanytime': allowProsAct.value,
       'bpname': inputName.text,
       'bppicname': inputPIC.text,
       'bpemail': inputEmail.text,

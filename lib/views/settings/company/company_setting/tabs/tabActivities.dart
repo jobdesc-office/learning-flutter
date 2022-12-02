@@ -7,8 +7,7 @@ class _TabActivities extends StatefulWidget {
   State<_TabActivities> createState() => _TabActivitiesState();
 }
 
-class _TabActivitiesState extends State<_TabActivities>
-    with TickerProviderStateMixin {
+class _TabActivitiesState extends State<_TabActivities> with TickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -32,12 +31,11 @@ class _TabActivitiesState extends State<_TabActivities>
                   },
                   controller: _tabController,
                   labelColor: Colors.green,
-                  unselectedLabelColor:
-                      _navigation.darkTheme.value ? Colors.white : Colors.black,
+                  unselectedLabelColor: _navigation.darkTheme.value ? Colors.white : Colors.black,
                   tabs: [
                     Tab(text: 'Category'),
                     // Tab(text: 'Type'),
-                    Tab(text: 'Business Partner'),
+                    // Tab(text: 'Business Partner'),
                   ],
                 )),
           ),
@@ -55,7 +53,7 @@ class _TabActivitiesState extends State<_TabActivities>
                   // _TabActivityType(
                   //   context,
                   // ),
-                  _TabCustomerActivity("Business Partner Activity"),
+                  // _TabCustomerActivity("Business Partner Activity"),
                 ],
               ),
             ),
