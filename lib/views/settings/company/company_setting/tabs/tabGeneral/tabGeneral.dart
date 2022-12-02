@@ -93,6 +93,26 @@ class _TabGeneral extends StatelessWidget implements EditViewContract, IndexView
         ),
         BsCol(
           margin: EdgeInsets.only(top: 10),
+          child: Obx(
+            () => BsRow(
+              children: [
+                BsCol(
+                  margin: EdgeInsets.only(top: 15),
+                  alignment: Alignment.centerLeft,
+                  sizes: ColScreen(sm: Col.col_2),
+                  child: Text('Company Type'),
+                ),
+                if (source.show.value)
+                  BsCol(
+                    sizes: ColScreen(sm: Col.col_10),
+                    child: selectSubdistrict(context),
+                  ),
+              ],
+            ),
+          ),
+        ),
+        BsCol(
+          margin: EdgeInsets.only(top: 10),
           child: BsRow(
             children: [
               BsCol(
@@ -140,7 +160,7 @@ class _TabGeneral extends StatelessWidget implements EditViewContract, IndexView
                   margin: EdgeInsets.only(top: 15),
                   alignment: Alignment.centerLeft,
                   sizes: ColScreen(sm: Col.col_2),
-                  child: Text('Company Type'),
+                  child: Container(),
                 ),
                 if (source.show.value)
                   BsCol(
@@ -148,7 +168,6 @@ class _TabGeneral extends StatelessWidget implements EditViewContract, IndexView
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        selectSubdistrict(context),
                         if (permis
                             .where((element) => element.menunm == 'Settings')
                             .first
