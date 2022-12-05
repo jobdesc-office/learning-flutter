@@ -1,3 +1,6 @@
+import 'package:boilerplate/presenters/masters/security_group_presenter.dart';
+import 'package:boilerplate/services/masters/security_group_service.dart';
+import 'package:boilerplate/views/masters/securitygroup/security_group.dart';
 import 'package:boilerplate/views/settings/company/company_setting/tabs/tabContacts/cp_contact_presenter.dart';
 import 'package:boilerplate/views/settings/company/company_setting/tabs/tabCustomers/cp_customer_presenter.dart';
 import 'package:boilerplate/views/settings/company/company_setting/tabs/tabGeneral/cp_general_presenter.dart';
@@ -18,7 +21,11 @@ import '../presenters/masters/product_presenter.dart';
 import '../presenters/masters/province_presenter.dart';
 import '../presenters/masters/role_presenter.dart';
 import '../presenters/masters/subdistrict_presenter.dart';
+import '../presenters/masters/typechildren_presenter.dart';
+import '../presenters/masters/typeparent_presenter.dart';
+import '../presenters/masters/user_presenter.dart';
 import '../presenters/masters/village_presenter.dart';
+import '../presenters/settings/customfield_presenter.dart';
 import '../presenters/settings/file_presenter.dart';
 import '../presenters/settings/permission_presenter.dart';
 import '../presenters/settings/stbptype/stbptypeactivitycategory_presenter.dart';
@@ -35,21 +42,17 @@ import '../presenters/settings/stbptype/stbptypescheduletype_presenter.dart';
 import '../presenters/ventes/bpcustomer_presenter.dart';
 import '../presenters/ventes/chat_presenter.dart';
 import '../presenters/ventes/competitor_presenter.dart';
-import '../presenters/settings/customfield_presenter.dart';
 import '../presenters/ventes/option_presenter.dart';
 import '../presenters/ventes/prospect_detail_presenter.dart';
 import '../presenters/ventes/prospect_presenter.dart';
-import '../presenters/ventes/prospectassign_presenter.dart';
 import '../presenters/ventes/prospectactivity_presenter.dart';
+import '../presenters/ventes/prospectassign_presenter.dart';
 import '../presenters/ventes/prospectcontact_presenter.dart';
 import '../presenters/ventes/prospectcustomfield_presenter.dart';
 import '../presenters/ventes/prospectfile_presenter.dart';
 import '../presenters/ventes/prospectproduct_presenter.dart';
 import '../presenters/ventes/report_presenter.dart';
 import '../presenters/ventes/schedule_presenter.dart';
-import '../presenters/masters/typechildren_presenter.dart';
-import '../presenters/masters/typeparent_presenter.dart';
-import '../presenters/masters/user_presenter.dart';
 import '../services/default/home_service.dart';
 import '../services/default/info_service.dart';
 import '../services/default/profile_service.dart';
@@ -62,27 +65,27 @@ import '../services/masters/product_service.dart';
 import '../services/masters/province_service.dart';
 import '../services/masters/stbptype_service.dart';
 import '../services/masters/subdistrict_service.dart';
+import '../services/masters/type_service.dart';
+import '../services/masters/typechildren_service.dart';
+import '../services/masters/user_service.dart';
 import '../services/masters/village_service.dart';
 import '../services/security/feature_service.dart';
+import '../services/security/menu_service.dart';
 import '../services/security/permission_service.dart';
+import '../services/settings/customfield_service.dart';
 import '../services/settings/file_service.dart';
 import '../services/ventes/attendance_service.dart';
 import '../services/ventes/bpcustomer_service.dart';
 import '../services/ventes/chat_service.dart';
 import '../services/ventes/competitor_service.dart';
-import '../services/settings/customfield_service.dart';
 import '../services/ventes/option_service.dart';
 import '../services/ventes/prospect_service.dart';
-import '../services/ventes/prospectassign_service.dart';
 import '../services/ventes/prospectactivity_service.dart';
+import '../services/ventes/prospectassign_service.dart';
 import '../services/ventes/prospectcustomfield_service.dart';
 import '../services/ventes/prospectproduct_service.dart';
 import '../services/ventes/report_service.dart';
 import '../services/ventes/schedule_service.dart';
-import '../services/masters/type_service.dart';
-import '../services/masters/typechildren_service.dart';
-import '../services/masters/user_service.dart';
-import '../services/security/menu_service.dart';
 import '../utils/custom_get_page.dart';
 import '../utils/guards/auth_guard.dart';
 import '../utils/guards/guest_guard.dart';
@@ -98,22 +101,21 @@ import '../views/masters/menus/menu.dart';
 import '../views/masters/provinces/province.dart';
 import '../views/masters/role/role.dart';
 import '../views/masters/subdistricts/subdistrict.dart';
+import '../views/masters/typeschildren/types_children.dart';
+import '../views/masters/typesparents/types_parents.dart';
+import '../views/masters/users/user.dart';
 import '../views/masters/villages/village.dart';
 import '../views/settings/company/company_setting/_source.dart';
 import '../views/settings/company/company_setting/company.dart';
 import '../views/settings/company/company_setting/tabs/tabCustomizeField_source/customfield_presenter.dart';
 import '../views/settings/files/file.dart';
 import '../views/settings/permission/role/permission_role.dart';
+import '../views/signin/signin.dart';
 import '../views/ventes/bpcustomers/bpcustomer.dart';
 import '../views/ventes/chat/chat.dart';
 import '../views/ventes/prospect/prospect.dart';
 import '../views/ventes/reports/report.dart';
 import '../views/ventes/schedules/schedule.dart';
-import '../views/masters/typeschildren/types_children.dart';
-import '../views/masters/typesparents/types_parents.dart';
-import '../views/masters/users/user.dart';
-import '../views/signin/signin.dart';
-
 import 'route_list.dart';
 
 class AppRoute {
@@ -252,6 +254,18 @@ class AppRoute {
         binding: BindingsBuilder(() {
           Get.lazyPut(() => TypeService());
           Get.lazyPut(() => TypeParentPresenter());
+        }),
+      ),
+      CustomGetPage(
+        name: RouteList.masterSecurityGroup.index,
+        page: () => AuthGuard(
+          child: SecurityGroupView(),
+          parent: 'Settings',
+          route: '/masters/securitygroup',
+        ),
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => SecurityGroupService());
+          Get.lazyPut(() => SecurityGroupPresenter());
         }),
       ),
       CustomGetPage(

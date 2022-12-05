@@ -15,10 +15,8 @@ class ApiConnectProvider extends GetConnect {
     httpClient.baseUrl = Config.api;
     httpClient.addRequestModifier<dynamic>((request) async {
       SessionModel session = await SessionManager.current();
-      if (session.jwtToken != null)
-        request.headers['Authorization'] = "Bearer ${session.jwtToken}";
-      if (session.jwtToken != null)
-        request.headers['bpid'] = "${box.read('mybpid')}";
+      if (session.jwtToken != null) request.headers['Authorization'] = "Bearer ${session.jwtToken}";
+      if (session.jwtToken != null) request.headers['bpid'] = "${box.read('mybpid')}";
 
       request.headers['api-key'] = "123456";
       return request;

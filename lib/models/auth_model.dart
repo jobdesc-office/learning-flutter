@@ -1,3 +1,5 @@
+import 'package:boilerplate/models/masters/security_group_model.dart';
+
 class AuthModel {
   int? userid;
   String? userfullname;
@@ -8,15 +10,7 @@ class AuthModel {
   List<Userdetails>? userdetails;
   String? jwtToken;
 
-  AuthModel(
-      {this.userid,
-      this.userfullname,
-      this.username,
-      this.useremail,
-      this.userphone,
-      this.password,
-      this.userdetails,
-      this.jwtToken});
+  AuthModel({this.userid, this.userfullname, this.username, this.useremail, this.userphone, this.password, this.userdetails, this.jwtToken});
 
   AuthModel.fromJson(Map<String, dynamic> json) {
     userid = json['userid'];
@@ -58,17 +52,20 @@ class Userdetails {
   int? userdtid;
   Usertype? usertype;
   Businesspartner? businesspartner;
+  SecurityGroupModel? securitygroup;
 
-  Userdetails({this.userdtid, this.usertype, this.businesspartner});
+  Userdetails({
+    this.userdtid,
+    this.usertype,
+    this.businesspartner,
+    this.securitygroup,
+  });
 
   Userdetails.fromJson(Map<String, dynamic> json) {
     userdtid = json['userdtid'];
-    usertype = json['usertype'] != null
-        ? new Usertype.fromJson(json['usertype'])
-        : null;
-    businesspartner = json['businesspartner'] != null
-        ? new Businesspartner.fromJson(json['businesspartner'])
-        : null;
+    usertype = json['usertype'] != null ? new Usertype.fromJson(json['usertype']) : null;
+    businesspartner = json['businesspartner'] != null ? new Businesspartner.fromJson(json['businesspartner']) : null;
+    securitygroup = json['securitygroup'] != null ? new SecurityGroupModel.fromJson(json['securitygroup']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -79,6 +76,9 @@ class Userdetails {
     }
     if (this.businesspartner != null) {
       data['businesspartner'] = this.businesspartner!.toJson();
+    }
+    if (this.securitygroup != null) {
+      data['securitygroup'] = this.securitygroup!.toJson();
     }
     return data;
   }
