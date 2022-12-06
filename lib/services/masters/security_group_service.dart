@@ -14,6 +14,14 @@ class SecurityGroupService extends ApiConnectProvider {
     });
   }
 
+  Future<Response> getAll(Map<String, dynamic> params) {
+    int bpid = box.read('mybpid');
+    return get('$api/all', query: {
+      ...params,
+      'sgbpid': bpid.toString(),
+    });
+  }
+
   Future<Response> byCodeMaster(String sgcode) {
     return get('$api/by-codemaster', query: {'sgcode': sgcode});
   }

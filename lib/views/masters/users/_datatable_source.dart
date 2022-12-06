@@ -37,6 +37,7 @@ class UserDataTableSource extends BsDatatableSource {
       ),
       CustomBsDataColumn(label: Text('User Name'), columnName: 'userfullname'),
       CustomBsDataColumn(label: Text('User Phone'), columnName: 'userphone'),
+      CustomBsDataColumn(label: Text('User Group'), orderable: false, searchable: false),
       // CustomBsDataColumn(
       //     label: Text('User Phone'), width: 150, columnName: 'userphone'),
       // CustomBsDataColumn(
@@ -45,16 +46,11 @@ class UserDataTableSource extends BsDatatableSource {
       //     width: 110,
       //     orderable: false,
       //     searchable: false),
-      CustomBsDataColumn(
-          label: Text('Actions'),
-          orderable: false,
-          width: 100,
-          searchable: false),
+      CustomBsDataColumn(label: Text('Actions'), orderable: false, width: 100, searchable: false),
     ];
   }
 
-  List<UserModel> get users =>
-      response.data.map((data) => UserModel.fromJson(data)).toList();
+  List<UserModel> get users => response.data.map((data) => UserModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
@@ -85,6 +81,16 @@ class UserDataTableSource extends BsDatatableSource {
         ),
         CustomBsDataCell(
           Text(row.userphone ?? ''),
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
+        ),
+        CustomBsDataCell(
+          Text(row.userdetails?.first.securitygroup?.sgname ?? ''),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -151,11 +157,8 @@ class UserDataTableSource extends BsDatatableSource {
                   .permissions!
                   .hasaccess!)
                 Tooltip(
-                  message:
-                      BaseText.deleteHintDatatable(field: row.userfullname),
-                  child: ButtonDeleteDatatables(
-                      onPressed: () =>
-                          onDeleteListener(row.userid, row.userfullname)),
+                  message: BaseText.deleteHintDatatable(field: row.userfullname),
+                  child: ButtonDeleteDatatables(onPressed: () => onDeleteListener(row.userid, row.userfullname)),
                 ),
             ],
           ),

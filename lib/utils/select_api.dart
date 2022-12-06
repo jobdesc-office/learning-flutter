@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:boilerplate/models/masters/security_group_model.dart';
 import 'package:boilerplate/models/masters/type_model.dart';
 import 'package:boilerplate/models/security/menu_model.dart';
 import 'package:boilerplate/models/ventes/prospect_model.dart';
 import 'package:boilerplate/services/masters/businesspartner_service.dart';
+import 'package:boilerplate/services/masters/security_group_service.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -56,10 +58,25 @@ Future<BsSelectBoxResponse> selectApiRole(Map<String, String> params) async {
   return BsSelectBoxResponse(options: []);
 }
 
-Future<BsSelectBoxResponse> selectApiCustomerType(
-    Map<String, String> params) async {
-  params
-      .addAll({'typecd': ConfigType.cstmtype, 'bpid': '${box.read('mybpid')}'});
+Future<BsSelectBoxResponse> selectApiSecurityGroup(Map<String, String> params) async {
+  final securityGroup = Get.put(SecurityGroupService());
+  Response response = await securityGroup.getAll(params);
+  print(response.body);
+  if (response.isOk) {
+    if (response.statusCode == 200) {
+      return BsSelectBoxResponse.createFromJson(
+        response.body,
+        value: (data) => SecurityGroupModel.fromJson(data).sgid,
+        renderText: (data) => Text(SecurityGroupModel.fromJson(data).sgname ?? ''),
+      );
+    }
+  }
+
+  return BsSelectBoxResponse(options: []);
+}
+
+Future<BsSelectBoxResponse> selectApiCustomerType(Map<String, String> params) async {
+  params.addAll({'typecd': ConfigType.cstmtype, 'bpid': '${box.read('mybpid')}'});
   final typeService = Get.put(StBpTypeService());
   Response response = await typeService.byCodeAdd(params);
   if (response.isOk) {
@@ -69,8 +86,7 @@ Future<BsSelectBoxResponse> selectApiCustomerType(
         return BsSelectBoxResponse.createFromJson(
           response.body,
           value: (data) => StbptypeModel.fromJson(data).sbtid,
-          renderText: (data) =>
-              Text(StbptypeModel.fromJson(data).sbttypename ?? ''),
+          renderText: (data) => Text(StbptypeModel.fromJson(data).sbttypename ?? ''),
         );
       } else if (params['searchValue'] == '') {
         return BsSelectBoxResponse();
@@ -78,14 +94,7 @@ Future<BsSelectBoxResponse> selectApiCustomerType(
         int id = jsonDecode(response.headers!['masterid'] ?? '');
         String master = jsonDecode(response.headers!['master'] ?? '');
         return BsSelectBoxResponse(options: [
-          BsSelectBoxOption(
-              value: 'add',
-              text: Text('Add ${params['searchValue']} as New Type'),
-              other: {
-                'name': '${params['searchValue']}',
-                'masterid': id,
-                'master': master
-              })
+          BsSelectBoxOption(value: 'add', text: Text('Add ${params['searchValue']} as New Type'), other: {'name': '${params['searchValue']}', 'masterid': id, 'master': master})
         ]);
       }
     }
@@ -113,10 +122,7 @@ Future<BsSelectBoxResponse> selectApiBpType(Map<String, String> params) async {
         List list = jsonDecode(response.headers!['masterid'] ?? '');
         int id = TypeModel.fromJson(list.first).typeid ?? 0;
         return BsSelectBoxResponse(options: [
-          BsSelectBoxOption(
-              value: 'add',
-              text: Text('Add ${params['searchValue']} as New Type'),
-              other: {'name': '${params['searchValue']}', 'masterid': id})
+          BsSelectBoxOption(value: 'add', text: Text('Add ${params['searchValue']} as New Type'), other: {'name': '${params['searchValue']}', 'masterid': id})
         ]);
       }
     }
@@ -125,8 +131,7 @@ Future<BsSelectBoxResponse> selectApiBpType(Map<String, String> params) async {
   return BsSelectBoxResponse();
 }
 
-Future<BsSelectBoxResponse> selectApiProspectStatus(
-    Map<String, String> params) async {
+Future<BsSelectBoxResponse> selectApiProspectStatus(Map<String, String> params) async {
   final typeService = Get.put(StBpTypeService());
   Response response = await typeService.bySeq(ConfigType.prospectStatus);
   if (response.isOk) {
@@ -148,8 +153,7 @@ Future<BsSelectBoxResponse> selectApiProspectStatus(
   return BsSelectBoxResponse(options: []);
 }
 
-Future<BsSelectBoxResponse> selectApiProspectCategory(
-    Map<String, String> params) async {
+Future<BsSelectBoxResponse> selectApiProspectCategory(Map<String, String> params) async {
   final typeService = Get.put(StBpTypeService());
   Response response = await typeService.byCode(ConfigType.activitycategory);
   if (response.isOk) {
@@ -157,8 +161,7 @@ Future<BsSelectBoxResponse> selectApiProspectCategory(
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => StbptypeModel.fromJson(data).sbtid,
-        renderText: (data) =>
-            Text(StbptypeModel.fromJson(data).sbttypename ?? ''),
+        renderText: (data) => Text(StbptypeModel.fromJson(data).sbttypename ?? ''),
       );
     }
   }
@@ -166,8 +169,7 @@ Future<BsSelectBoxResponse> selectApiProspectCategory(
   return BsSelectBoxResponse(options: []);
 }
 
-Future<BsSelectBoxResponse> selectApiProspectType(
-    Map<String, String> params) async {
+Future<BsSelectBoxResponse> selectApiProspectType(Map<String, String> params) async {
   final typeService = Get.put(StBpTypeService());
   Response response = await typeService.byCode(ConfigType.prospectType);
   if (response.isOk) {
@@ -175,8 +177,7 @@ Future<BsSelectBoxResponse> selectApiProspectType(
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => StbptypeModel.fromJson(data).sbtid,
-        renderText: (data) =>
-            Text(StbptypeModel.fromJson(data).sbttypename ?? ''),
+        renderText: (data) => Text(StbptypeModel.fromJson(data).sbttypename ?? ''),
       );
     }
   }
@@ -184,8 +185,7 @@ Future<BsSelectBoxResponse> selectApiProspectType(
   return BsSelectBoxResponse(options: []);
 }
 
-Future<BsSelectBoxResponse> selectApiProspectCustLab(
-    Map<String, String> params) async {
+Future<BsSelectBoxResponse> selectApiProspectCustLab(Map<String, String> params) async {
   final typeService = Get.put(StBpTypeService());
   Response response = await typeService.bySeq(ConfigType.prospectCustLabel);
   if (response.isOk) {
@@ -193,8 +193,7 @@ Future<BsSelectBoxResponse> selectApiProspectCustLab(
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => StbptypeModel.fromJson(data).sbtid,
-        renderText: (data) =>
-            Text(StbptypeModel.fromJson(data).sbttypename ?? ''),
+        renderText: (data) => Text(StbptypeModel.fromJson(data).sbttypename ?? ''),
       );
     }
   }
@@ -202,8 +201,7 @@ Future<BsSelectBoxResponse> selectApiProspectCustLab(
   return BsSelectBoxResponse(options: []);
 }
 
-Future<BsSelectBoxResponse> selectApiProspectLostType(
-    Map<String, String> params) async {
+Future<BsSelectBoxResponse> selectApiProspectLostType(Map<String, String> params) async {
   final typeService = Get.put(StBpTypeService());
   Response response = await typeService.byCode(ConfigType.prospectLostReason);
   if (response.isOk) {
@@ -211,8 +209,7 @@ Future<BsSelectBoxResponse> selectApiProspectLostType(
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => StbptypeModel.fromJson(data).sbtid,
-        renderText: (data) =>
-            Text(StbptypeModel.fromJson(data).sbttypename ?? ''),
+        renderText: (data) => Text(StbptypeModel.fromJson(data).sbttypename ?? ''),
       );
     }
   }
@@ -220,8 +217,7 @@ Future<BsSelectBoxResponse> selectApiProspectLostType(
   return BsSelectBoxResponse(options: []);
 }
 
-Future<BsSelectBoxResponse> selectApiBpCustomerStatus(
-    Map<String, String> params) async {
+Future<BsSelectBoxResponse> selectApiBpCustomerStatus(Map<String, String> params) async {
   final typeService = Get.put(TypeService());
   Response response = await typeService.byCode(ConfigType.cstmstatus);
   if (response.isOk) {
@@ -237,8 +233,7 @@ Future<BsSelectBoxResponse> selectApiBpCustomerStatus(
   return BsSelectBoxResponse(options: []);
 }
 
-Future<BsSelectBoxResponse> selectApiTypeSchedule(
-    Map<String, String> params) async {
+Future<BsSelectBoxResponse> selectApiTypeSchedule(Map<String, String> params) async {
   final typeService = Get.put(TypeService());
   Response response = await typeService.byCode(ConfigType.schedule);
   if (response.isOk) {
@@ -254,8 +249,7 @@ Future<BsSelectBoxResponse> selectApiTypeSchedule(
   return BsSelectBoxResponse(options: []);
 }
 
-Future<BsSelectBoxResponse> selectApiTaxTypes(
-    Map<String, String> params) async {
+Future<BsSelectBoxResponse> selectApiTaxTypes(Map<String, String> params) async {
   final typeService = Get.put(TypeService());
   Response response = await typeService.byCode(ConfigType.taxType);
 
@@ -272,10 +266,8 @@ Future<BsSelectBoxResponse> selectApiTaxTypes(
   return BsSelectBoxResponse(options: []);
 }
 
-Future<BsSelectBoxResponse> selectApiContactTypes(
-    Map<String, String> params) async {
-  params.addAll(
-      {'typecd': ConfigType.contactType, 'bpid': '${box.read('mybpid')}'});
+Future<BsSelectBoxResponse> selectApiContactTypes(Map<String, String> params) async {
+  params.addAll({'typecd': ConfigType.contactType, 'bpid': '${box.read('mybpid')}'});
   final typeService = Get.put(StBpTypeService());
   Response response = await typeService.byCodeAdd(params);
 
@@ -286,8 +278,7 @@ Future<BsSelectBoxResponse> selectApiContactTypes(
         return BsSelectBoxResponse.createFromJson(
           response.body,
           value: (data) => StbptypeModel.fromJson(data).sbtid,
-          renderText: (data) =>
-              Text(StbptypeModel.fromJson(data).sbttypename ?? ''),
+          renderText: (data) => Text(StbptypeModel.fromJson(data).sbttypename ?? ''),
         );
       } else if (params['searchValue'] == '') {
         return BsSelectBoxResponse();
@@ -295,14 +286,7 @@ Future<BsSelectBoxResponse> selectApiContactTypes(
         int id = jsonDecode(response.headers!['masterid'] ?? '');
         String master = jsonDecode(response.headers!['master'] ?? '');
         return BsSelectBoxResponse(options: [
-          BsSelectBoxOption(
-              value: 'add',
-              text: Text('Add ${params['searchValue']} as New Type'),
-              other: {
-                'name': '${params['searchValue']}',
-                'masterid': id,
-                'master': master
-              })
+          BsSelectBoxOption(value: 'add', text: Text('Add ${params['searchValue']} as New Type'), other: {'name': '${params['searchValue']}', 'masterid': id, 'master': master})
         ]);
       }
     }
@@ -311,8 +295,7 @@ Future<BsSelectBoxResponse> selectApiContactTypes(
   return BsSelectBoxResponse(options: []);
 }
 
-Future<BsSelectBoxResponse> selectApiProspectTypes(
-    Map<String, String> params) async {
+Future<BsSelectBoxResponse> selectApiProspectTypes(Map<String, String> params) async {
   final typeService = Get.put(TypeService());
   Response response = await typeService.byCode(ConfigType.prospectType);
 
@@ -329,11 +312,9 @@ Future<BsSelectBoxResponse> selectApiProspectTypes(
   return BsSelectBoxResponse(options: []);
 }
 
-Future<BsSelectBoxResponse> selectApiCustomFieldTypes(
-    Map<String, String> params) async {
+Future<BsSelectBoxResponse> selectApiCustomFieldTypes(Map<String, String> params) async {
   final typeService = Get.put(TypeService());
-  Response response =
-      await typeService.byCode(ConfigType.prospectCustomizeField);
+  Response response = await typeService.byCode(ConfigType.prospectCustomizeField);
 
   if (response.isOk) {
     if (response.statusCode == 200) {
@@ -348,8 +329,7 @@ Future<BsSelectBoxResponse> selectApiCustomFieldTypes(
   return BsSelectBoxResponse(options: []);
 }
 
-Future<BsSelectBoxResponse> selectApiScheduleRefTypes(
-    Map<String, String> params) async {
+Future<BsSelectBoxResponse> selectApiScheduleRefTypes(Map<String, String> params) async {
   final typeService = Get.put(TypeService());
   Response response = await typeService.byCode(ConfigType.scheRefType);
 
@@ -366,8 +346,7 @@ Future<BsSelectBoxResponse> selectApiScheduleRefTypes(
   return BsSelectBoxResponse(options: []);
 }
 
-Future<BsSelectBoxResponse> selectApiCompetitorRefType(
-    Map<String, String> params) async {
+Future<BsSelectBoxResponse> selectApiCompetitorRefType(Map<String, String> params) async {
   final typeService = Get.put(TypeService());
   Response response = await typeService.byCode(ConfigType.competitorreftype);
 
@@ -384,8 +363,7 @@ Future<BsSelectBoxResponse> selectApiCompetitorRefType(
   return BsSelectBoxResponse(options: []);
 }
 
-Future<BsSelectBoxResponse> selectApiChatRefType(
-    Map<String, String> params) async {
+Future<BsSelectBoxResponse> selectApiChatRefType(Map<String, String> params) async {
   final typeService = Get.put(TypeService());
   Response response = await typeService.byCode(ConfigType.chatreftype);
   if (response.isOk) {
@@ -434,18 +412,15 @@ Future<BsSelectBoxResponse> selectApiUser(Map<String, String> params) async {
   return BsSelectBoxResponse(options: []);
 }
 
-Future<BsSelectBoxResponse> selectApiProspectOwner(
-    Map<String, String> params) async {
+Future<BsSelectBoxResponse> selectApiProspectOwner(Map<String, String> params) async {
   final userService = Get.find<UserService>();
-  Response response =
-      await userService.selectsamebp(params, box.read('mybpid'));
+  Response response = await userService.selectsamebp(params, box.read('mybpid'));
   if (response.isOk) {
     if (response.statusCode == 200) {
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => SelectUserBpModel.fromJson(data).userid,
-        renderText: (data) =>
-            Text(SelectUserBpModel.fromJson(data).userfullname ?? ''),
+        renderText: (data) => Text(SelectUserBpModel.fromJson(data).userfullname ?? ''),
       );
     }
   }
@@ -453,8 +428,7 @@ Future<BsSelectBoxResponse> selectApiProspectOwner(
   return BsSelectBoxResponse(options: []);
 }
 
-Future<BsSelectBoxResponse> selectApiCustomField(
-    Map<String, String> params) async {
+Future<BsSelectBoxResponse> selectApiCustomField(Map<String, String> params) async {
   final customFieldService = Get.find<CustomFieldService>();
   final source = Get.put(ProspectDetailsSource());
   Response response = await customFieldService.selectBp(params);
@@ -464,9 +438,7 @@ Future<BsSelectBoxResponse> selectApiCustomField(
       for (var item in response.body) {
         data.add(CustomFieldModel.fromJson(item));
       }
-      data.removeWhere((element) =>
-          element.onlythisdata! &&
-          element.thisdataid! > source.prospectid.value);
+      data.removeWhere((element) => element.onlythisdata! && element.thisdataid! > source.prospectid.value);
       return BsSelectBoxResponse.createFromJson(
         data,
         value: (data) => data.custfid,
@@ -478,8 +450,7 @@ Future<BsSelectBoxResponse> selectApiCustomField(
   return BsSelectBoxResponse(options: []);
 }
 
-Future<BsSelectBoxResponse> selectApiProspectReference(
-    Map<String, String> params) async {
+Future<BsSelectBoxResponse> selectApiProspectReference(Map<String, String> params) async {
   final prospectService = Get.find<ProspectService>();
   Response response = await prospectService.selectref(params);
   if (response.isOk) {
@@ -487,9 +458,7 @@ Future<BsSelectBoxResponse> selectApiProspectReference(
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => ProspectModel.fromJson(data).prospectid,
-        renderText: (data) => Text(ProspectModel.fromJson(data).prospectname! +
-            ' || ' +
-            ProspectModel.fromJson(data).prospectcust!.sbccstmname!),
+        renderText: (data) => Text(ProspectModel.fromJson(data).prospectname! + ' || ' + ProspectModel.fromJson(data).prospectcust!.sbccstmname!),
       );
     }
   }
@@ -497,8 +466,7 @@ Future<BsSelectBoxResponse> selectApiProspectReference(
   return BsSelectBoxResponse(options: []);
 }
 
-Future<BsSelectBoxResponse> selectApiProspect(
-    Map<String, String> params) async {
+Future<BsSelectBoxResponse> selectApiProspect(Map<String, String> params) async {
   final prospectService = Get.find<ProspectService>();
   Response response = await prospectService.select(params);
   if (response.isOk) {
@@ -513,8 +481,7 @@ Future<BsSelectBoxResponse> selectApiProspect(
       return BsSelectBoxResponse.createFromJson(
         prospect,
         value: (data) => data.prospectid,
-        renderText: (data) => Text(
-            '${data.prospectname!} +  ||  + ${data.prospectcust!.sbccstmname!}'),
+        renderText: (data) => Text('${data.prospectname!} +  ||  + ${data.prospectcust!.sbccstmname!}'),
       );
     }
   }
@@ -522,8 +489,7 @@ Future<BsSelectBoxResponse> selectApiProspect(
   return BsSelectBoxResponse(options: []);
 }
 
-Future<BsSelectBoxResponse> selectApiActivity(
-    Map<String, String> params) async {
+Future<BsSelectBoxResponse> selectApiActivity(Map<String, String> params) async {
   final prospectService = Get.find<ReportService>();
   Response response = await prospectService.selectbp(params);
   if (response.isOk) {
@@ -531,8 +497,7 @@ Future<BsSelectBoxResponse> selectApiActivity(
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => Activities.fromJson(data).dayactid,
-        renderText: (data) => Text(
-            '${Activities.fromJson(data).dayactuser?.userfullname} || ${Activities.fromJson(data).dayactdate}'),
+        renderText: (data) => Text('${Activities.fromJson(data).dayactuser?.userfullname} || ${Activities.fromJson(data).dayactdate}'),
       );
     }
   }
@@ -540,8 +505,7 @@ Future<BsSelectBoxResponse> selectApiActivity(
   return BsSelectBoxResponse(options: []);
 }
 
-Future<BsSelectBoxResponse> selectApiBpCustomer(
-    Map<String, String> params) async {
+Future<BsSelectBoxResponse> selectApiBpCustomer(Map<String, String> params) async {
   final bpCustomerService = Get.put(BpCustomerService());
   Response response = await bpCustomerService.selectBp(params);
   if (response.isOk) {
@@ -549,8 +513,7 @@ Future<BsSelectBoxResponse> selectApiBpCustomer(
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => BusinessPartnerCustomerModel.fromJson(data).sbcid,
-        renderText: (data) =>
-            Text(BusinessPartnerCustomerModel.fromJson(data).sbccstmname!),
+        renderText: (data) => Text(BusinessPartnerCustomerModel.fromJson(data).sbccstmname!),
       );
     }
   }
@@ -558,8 +521,7 @@ Future<BsSelectBoxResponse> selectApiBpCustomer(
   return BsSelectBoxResponse(options: []);
 }
 
-Future<BsSelectBoxResponse> selectApiCustomer(
-    Map<String, String> params) async {
+Future<BsSelectBoxResponse> selectApiCustomer(Map<String, String> params) async {
   final customerService = Get.find<CustomerService>();
   Response response = await customerService.select(params);
   if (response.isOk) {
@@ -583,8 +545,7 @@ Future<BsSelectBoxResponse> selectApiProduct(Map<String, String> params) async {
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => ProductModel.fromJson(data).productid,
-        renderText: (data) =>
-            Text(ProductModel.fromJson(data).productname ?? ''),
+        renderText: (data) => Text(ProductModel.fromJson(data).productname ?? ''),
       );
     }
   }
@@ -592,8 +553,7 @@ Future<BsSelectBoxResponse> selectApiProduct(Map<String, String> params) async {
   return BsSelectBoxResponse(options: []);
 }
 
-Future<BsSelectBoxResponse> selectApiProductWithBp(
-    Map<String, String> params, String id) async {
+Future<BsSelectBoxResponse> selectApiProductWithBp(Map<String, String> params, String id) async {
   final productService = Get.find<ProductService>();
   Response response = await productService.selectWithBp(params, id);
   if (response.isOk) {
@@ -603,17 +563,13 @@ Future<BsSelectBoxResponse> selectApiProductWithBp(
         return BsSelectBoxResponse.createFromJson(
           response.body,
           value: (data) => ProductModel.fromJson(data).productid,
-          renderText: (data) =>
-              Text(ProductModel.fromJson(data).productname ?? ''),
+          renderText: (data) => Text(ProductModel.fromJson(data).productname ?? ''),
         );
       } else if (params['searchValue'] == '') {
         return BsSelectBoxResponse(options: []);
       } else {
         return BsSelectBoxResponse(options: [
-          BsSelectBoxOption(
-              value: 'add',
-              text: Text('Add ${params['searchValue']} as New Item'),
-              other: {'name': '${params['searchValue']}', 'bpid': id})
+          BsSelectBoxOption(value: 'add', text: Text('Add ${params['searchValue']} as New Item'), other: {'name': '${params['searchValue']}', 'bpid': id})
         ]);
       }
     }
@@ -630,8 +586,7 @@ Future<BsSelectBoxResponse> selectApiPartner(Map<String, String> params) async {
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => BusinessPartnerModel.fromJson(data).bpid,
-        renderText: (data) =>
-            Text(BusinessPartnerModel.fromJson(data).bpname ?? ''),
+        renderText: (data) => Text(BusinessPartnerModel.fromJson(data).bpname ?? ''),
       );
     }
   }
@@ -639,8 +594,7 @@ Future<BsSelectBoxResponse> selectApiPartner(Map<String, String> params) async {
   return BsSelectBoxResponse(options: []);
 }
 
-Future<BsSelectBoxResponse> selectApiTypeParents(
-    Map<String, String> params) async {
+Future<BsSelectBoxResponse> selectApiTypeParents(Map<String, String> params) async {
   final typeChildrenService = Get.find<TypeChildrenService>();
   Response response = await typeChildrenService.parent(params);
   if (response.isOk) {
@@ -680,8 +634,7 @@ Future<BsSelectBoxResponse> selectCountries(Map<String, String> params) async {
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => CountryModel.fromJson(data).countryid,
-        renderText: (data) =>
-            Text(CountryModel.fromJson(data).countryname ?? ''),
+        renderText: (data) => Text(CountryModel.fromJson(data).countryname ?? ''),
       );
     }
   }
@@ -715,9 +668,7 @@ Future<BsSelectBoxResponse> selectCities(Map<String, String> params) async {
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => CityModel.fromJson(data).cityid,
-        renderText: (data) => Text(CityModel.fromJson(data).cityname! +
-            ' - ' +
-            CityModel.fromJson(data).cityprov!.provname!),
+        renderText: (data) => Text(CityModel.fromJson(data).cityname! + ' - ' + CityModel.fromJson(data).cityprov!.provname!),
       );
     }
   }
@@ -725,8 +676,7 @@ Future<BsSelectBoxResponse> selectCities(Map<String, String> params) async {
   return BsSelectBoxResponse(options: []);
 }
 
-Future<BsSelectBoxResponse> selectSubdistricts(
-    Map<String, String> params) async {
+Future<BsSelectBoxResponse> selectSubdistricts(Map<String, String> params) async {
   final subdistrictService = Get.find<SubdistrictService>();
   Response response = await subdistrictService.select(params);
 
@@ -735,10 +685,7 @@ Future<BsSelectBoxResponse> selectSubdistricts(
       return BsSelectBoxResponse.createFromJson(
         response.body,
         value: (data) => SubdistrictModel.fromJson(data).subdistrictid,
-        renderText: (data) => Text(
-            SubdistrictModel.fromJson(data).subdistrictname! +
-                ' - ' +
-                SubdistrictModel.fromJson(data).subdistrictcity!.cityname!),
+        renderText: (data) => Text(SubdistrictModel.fromJson(data).subdistrictname! + ' - ' + SubdistrictModel.fromJson(data).subdistrictcity!.cityname!),
       );
     }
   }

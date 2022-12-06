@@ -1,3 +1,5 @@
+import 'package:boilerplate/models/masters/security_group_model.dart';
+
 class UserModel {
   int? userid;
   String? username;
@@ -51,12 +53,8 @@ class UserModel {
     updatedby = json['updatedby'];
     updateddate = json['updateddate'];
     isactive = json['isactive'];
-    usercreatedby = json['usercreatedby'] != null
-        ? new Usercreatedby.fromJson(json['usercreatedby'])
-        : null;
-    userupdatedby = json['userupdatedby'] != null
-        ? new Usercreatedby.fromJson(json['userupdatedby'])
-        : null;
+    usercreatedby = json['usercreatedby'] != null ? new Usercreatedby.fromJson(json['usercreatedby']) : null;
+    userupdatedby = json['userupdatedby'] != null ? new Usercreatedby.fromJson(json['userupdatedby']) : null;
     if (json['userdetails'] != null) {
       userdetails = <Userdetails>[];
       json['userdetails'].forEach((v) {
@@ -171,6 +169,7 @@ class Userdetails {
   String? userdtbranchnm;
   String? userdtreferalcode;
   String? userdtrelationid;
+  int? userdtsgid;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -178,22 +177,26 @@ class Userdetails {
   bool? isactive;
   Usertype? usertype;
   Businesspartner? businesspartner;
+  SecurityGroupModel? securitygroup;
 
-  Userdetails(
-      {this.userdtid,
-      this.userid,
-      this.userdttypeid,
-      this.userdtbpid,
-      this.userdtbranchnm,
-      this.userdtreferalcode,
-      this.userdtrelationid,
-      this.createdby,
-      this.createddate,
-      this.updatedby,
-      this.updateddate,
-      this.isactive,
-      this.usertype,
-      this.businesspartner});
+  Userdetails({
+    this.userdtid,
+    this.userid,
+    this.userdttypeid,
+    this.userdtbpid,
+    this.userdtbranchnm,
+    this.userdtreferalcode,
+    this.userdtrelationid,
+    this.createdby,
+    this.createddate,
+    this.updatedby,
+    this.updateddate,
+    this.isactive,
+    this.usertype,
+    this.businesspartner,
+    this.userdtsgid,
+    this.securitygroup,
+  });
 
   Userdetails.fromJson(Map<String, dynamic> json) {
     userdtid = json['userdtid'];
@@ -203,17 +206,15 @@ class Userdetails {
     userdtbranchnm = json['userdtbranchnm'];
     userdtreferalcode = json['userdtreferalcode'];
     userdtrelationid = json['userdtrelationid'];
+    userdtsgid = json['userdtsgid'];
     createdby = json['createdby'];
     createddate = json['createddate'];
     updatedby = json['updatedby'];
     updateddate = json['updateddate'];
     isactive = json['isactive'];
-    usertype = json['usertype'] != null
-        ? new Usertype.fromJson(json['usertype'])
-        : null;
-    businesspartner = json['businesspartner'] != null
-        ? new Businesspartner.fromJson(json['businesspartner'])
-        : null;
+    usertype = json['usertype'] != null ? new Usertype.fromJson(json['usertype']) : null;
+    businesspartner = json['businesspartner'] != null ? new Businesspartner.fromJson(json['businesspartner']) : null;
+    securitygroup = json['securitygroup'] != null ? new SecurityGroupModel.fromJson(json['securitygroup']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -225,6 +226,7 @@ class Userdetails {
     data['userdtbranchnm'] = this.userdtbranchnm;
     data['userdtreferalcode'] = this.userdtreferalcode;
     data['userdtrelationid'] = this.userdtrelationid;
+    data['userdtsgid'] = this.userdtsgid;
     data['createdby'] = this.createdby;
     data['createddate'] = this.createddate;
     data['updatedby'] = this.updatedby;
@@ -235,6 +237,9 @@ class Userdetails {
     }
     if (this.businesspartner != null) {
       data['businesspartner'] = this.businesspartner!.toJson();
+    }
+    if (this.securitygroup != null) {
+      data['securitygroup'] = this.securitygroup!.toJson();
     }
     return data;
   }

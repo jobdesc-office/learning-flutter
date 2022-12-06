@@ -68,24 +68,28 @@ class UserSource extends GetxController {
   TextEditingController inputEmail = TextEditingController();
   TextEditingController inputPhone = TextEditingController();
 
-  List<BsSelectBoxController> selectsRole = List<BsSelectBoxController>.filled(
-      1, BsSelectBoxController(),
-      growable: true);
+  List<BsSelectBoxController> selectsRole = List<BsSelectBoxController>.filled(1, BsSelectBoxController(), growable: true);
 
   BsSelectBoxController selectRole = BsSelectBoxController();
-  List<BsSelectBoxController> selectsBp =
-      List<BsSelectBoxController>.empty(growable: true);
+  BsSelectBoxController selectSecurityGroup = BsSelectBoxController();
+  List<BsSelectBoxController> selectsBp = List<BsSelectBoxController>.empty(growable: true);
 
   List<Map<String, dynamic>> jsonRoles() {
-    return List<Map<String, dynamic>>.from(selectsRole.map((controller) {
-      // int index = selectsRole.indexOf(controller);
-      final box = GetStorage();
-      return {
-        // 'roleid': selectsRole[index].getSelectedAsString(),
+    final box = GetStorage();
+    return [
+      {
         'roleid': selectRole.getSelectedAsString(),
         'bpid': box.read('mybpid').toString(),
-      };
-    }));
+      }
+    ];
+  }
+
+  List<Map<String, dynamic>> jsonSecurityGroup() {
+    return [
+      {
+        'sgid': selectSecurityGroup.getSelectedAsString(),
+      }
+    ];
   }
 
   Future<Map<String, dynamic>> toJson() async {
@@ -99,7 +103,8 @@ class UserSource extends GetxController {
       'createdby': session.userid,
       'updatedby': session.userid,
       'isactive': isactive.value,
-      'roles': jsonEncode(jsonRoles())
+      'roles': jsonEncode(jsonRoles()),
+      'securitygroups': jsonEncode(jsonSecurityGroup())
     };
   }
 }
@@ -139,10 +144,7 @@ class UserForm {
 
   Widget selectRole() {
     return FormGroup(
-      label: Obx(() => Text(UserText.labelRole,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(UserText.labelRole, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomSelectBox(
         searchable: false,
         disabled: source.isProcessing,
@@ -159,12 +161,28 @@ class UserForm {
     );
   }
 
+  Widget selectSecurityGroup() {
+    return FormGroup(
+      label: Obx(() => Text(UserText.labelSecurityGroup, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      child: CustomSelectBox(
+        searchable: false,
+        disabled: source.isProcessing,
+        controller: source.selectSecurityGroup,
+        hintText: BaseText.hiintSelect(field: UserText.labelSecurityGroup),
+        // hintText: BaseText.hiintSelect(
+        //     field: UserText.labelRole + ' ${index + 1}'),
+        serverSide: (params) => selectApiSecurityGroup(params),
+        validators: [
+          // Validators.selectRequired(UserText.labelRole + ' ${index + 1}')
+          Validators.selectRequired(UserText.labelSecurityGroup)
+        ],
+      ),
+    );
+  }
+
   Widget inputName() {
     return FormGroup(
-      label: Obx(() => Text(UserText.labelUsername,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(UserText.labelUsername, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputName,
@@ -179,10 +197,7 @@ class UserForm {
 
   Widget inputPassword() {
     return FormGroup(
-      label: Obx(() => Text(UserText.labelPassword,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(UserText.labelPassword, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: Obx(() => CustomInput(
             onChange: (value) {
               if (value != '')
@@ -197,7 +212,6 @@ class UserForm {
             controller: source.inputPassword,
             hintText: BaseText.hintText(field: UserText.labelPassword),
             validators: [
-              if (c.isAdd) Validators.inputRequired(UserText.labelPassword),
               if (c.isAdd) Validators.maxLength(UserText.labelPassword, 100),
               if (c.isAdd) Validators.minLength(UserText.labelPassword, 7),
             ],
@@ -207,10 +221,7 @@ class UserForm {
 
   Widget inputConfirmPassword() {
     return FormGroup(
-      label: Obx(() => Text(UserText.labelConfirmPassword,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(UserText.labelConfirmPassword, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: Obx(() => CustomInput(
             maxLines: 1,
             passwordText: true,
@@ -232,10 +243,7 @@ class UserForm {
 
   Widget inputFullName() {
     return FormGroup(
-      label: Obx(() => Text(UserText.labelFullName,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(UserText.labelFullName, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputFullName,
@@ -249,28 +257,19 @@ class UserForm {
 
   Widget inputEmail() {
     return FormGroup(
-      label: Obx(() => Text(UserText.labelEmail,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(UserText.labelEmail, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputEmail,
         hintText: BaseText.hintText(field: UserText.labelEmail),
-        validators: [
-          Validators.maxLength(UserText.labelEmail, 100),
-          Validators.inputEmail()
-        ],
+        validators: [Validators.maxLength(UserText.labelEmail, 100), Validators.inputEmail()],
       ),
     );
   }
 
   Widget inputPhone() {
     return FormGroup(
-      label: Obx(() => Text(UserText.labelPhone,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(UserText.labelPhone, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputPhone,
