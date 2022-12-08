@@ -36,7 +36,7 @@ class SidebarSkins extends StatelessWidget {
 
   Widget sidebar() {
     // ignore: invalid_use_of_protected_member
-    var permis = authPresenter.rolepermis.value.where((element) => element.menutypeid == 8);
+    var permis = authPresenter.rolepermis.value.where((element) => element.menutypeid == 9);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
