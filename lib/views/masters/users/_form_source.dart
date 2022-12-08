@@ -71,6 +71,7 @@ class UserSource extends GetxController {
   List<BsSelectBoxController> selectsRole = List<BsSelectBoxController>.filled(1, BsSelectBoxController(), growable: true);
 
   BsSelectBoxController selectRole = BsSelectBoxController();
+  BsSelectBoxController selectAccess = BsSelectBoxController();
   BsSelectBoxController selectSecurityGroup = BsSelectBoxController();
   List<BsSelectBoxController> selectsBp = List<BsSelectBoxController>.empty(growable: true);
 
@@ -100,6 +101,7 @@ class UserSource extends GetxController {
       'userfullname': inputFullName.text,
       'useremail': inputEmail.text,
       'userphone': inputPhone.text,
+      'userappaccess': selectAccess.getSelectedAsString(),
       'createdby': session.userid,
       'updatedby': session.userid,
       'isactive': isactive.value,
@@ -156,6 +158,25 @@ class UserForm {
         validators: [
           // Validators.selectRequired(UserText.labelRole + ' ${index + 1}')
           Validators.selectRequired(UserText.labelRole)
+        ],
+      ),
+    );
+  }
+
+  Widget selectAccess() {
+    return FormGroup(
+      label: Obx(() => Text(UserText.labelAccess, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      child: CustomSelectBox(
+        searchable: false,
+        disabled: source.isProcessing,
+        controller: source.selectAccess,
+        hintText: BaseText.hiintSelect(field: UserText.labelRole),
+        // hintText: BaseText.hiintSelect(
+        //     field: UserText.labelRole + ' ${index + 1}'),
+        serverSide: (params) => selectApiAppAccess(params),
+        validators: [
+          // Validators.selectRequired(UserText.labelRole + ' ${index + 1}')
+          Validators.selectRequired(UserText.labelAccess)
         ],
       ),
     );

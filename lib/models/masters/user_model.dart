@@ -18,6 +18,7 @@ class UserModel {
   Usercreatedby? usercreatedby;
   Usercreatedby? userupdatedby;
   List<Userdetails>? userdetails;
+  Usertype? appaccess;
 
   UserModel(
       {this.userid,
@@ -55,6 +56,7 @@ class UserModel {
     isactive = json['isactive'];
     usercreatedby = json['usercreatedby'] != null ? new Usercreatedby.fromJson(json['usercreatedby']) : null;
     userupdatedby = json['userupdatedby'] != null ? new Usercreatedby.fromJson(json['userupdatedby']) : null;
+    appaccess = json['appaccess'] != null ? new Usertype.fromJson(json['appaccess']) : null;
     if (json['userdetails'] != null) {
       userdetails = <Userdetails>[];
       json['userdetails'].forEach((v) {

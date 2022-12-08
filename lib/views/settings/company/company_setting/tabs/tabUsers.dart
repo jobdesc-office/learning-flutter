@@ -46,6 +46,7 @@ class _TabUsers extends StatelessWidget implements IndexViewContract, UserResetC
                                 userForm.inputEmail(),
                                 userForm.inputPhone(),
                                 userForm.selectRole(),
+                                userForm.selectAccess(),
                                 userForm.selectSecurityGroup(),
                                 Obx(
                                   () => Row(
@@ -293,6 +294,7 @@ class _TabUsers extends StatelessWidget implements IndexViewContract, UserResetC
       src.value.inputFullName.text = menu.userfullname!;
       src.value.inputEmail.text = menu.useremail!;
       src.value.inputPhone.text = menu.userphone!;
+      src.value.selectAccess.setSelected(BsSelectBoxOption(value: menu.appaccess!.typeid!, text: Text(menu.appaccess!.typename!)));
       for (var item in menu.userdetails!) {
         src.value.selectRole.setSelected(BsSelectBoxOption(value: item.usertype!.typeid, text: Text(item.usertype!.typename!)));
         src.value.selectsRole.add(BsSelectBoxController(selected: [BsSelectBoxOption(value: item.usertype!.typeid, text: Text(item.usertype!.typename!))]));

@@ -58,6 +58,22 @@ Future<BsSelectBoxResponse> selectApiRole(Map<String, String> params) async {
   return BsSelectBoxResponse(options: []);
 }
 
+Future<BsSelectBoxResponse> selectApiAppAccess(Map<String, String> params) async {
+  final typeService = Get.put(TypeService());
+  Response response = await typeService.byCode(ConfigType.appaccess);
+  if (response.isOk) {
+    if (response.statusCode == 200) {
+      return BsSelectBoxResponse.createFromJson(
+        response.body,
+        value: (data) => TypeModel.fromJson(data).typeid,
+        renderText: (data) => Text(TypeModel.fromJson(data).typename ?? ''),
+      );
+    }
+  }
+
+  return BsSelectBoxResponse(options: []);
+}
+
 Future<BsSelectBoxResponse> selectApiSecurityGroup(Map<String, String> params) async {
   final securityGroup = Get.put(SecurityGroupService());
   Response response = await securityGroup.getAll(params);
