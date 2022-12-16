@@ -10,14 +10,12 @@ BsCol userComponent(context) {
       border: Border.all(
         width: 5.0,
         // assign the color to the border color
-        color:
-            _navigation.darkTheme.value ? Color(0xff454D55) : Color(0xfff1f1f1),
+        color: _navigation.darkTheme.value ? Color(0xff454D55) : Color(0xfff1f1f1),
       ),
     ),
     sizes: ColScreen(sm: Col.col_2),
     child: Container(
-      constraints:
-          BoxConstraints(minHeight: MediaQuery.of(context).size.height * 0.79),
+      constraints: BoxConstraints(minHeight: MediaQuery.of(context).size.height * 0.79),
       child: SingleChildScrollView(
         child: Column(
           children: source.users
@@ -27,8 +25,7 @@ BsCol userComponent(context) {
                       source.useridactive.value = e.userid ?? 0;
                       source.usersocketactive.value = e.usersocketid ?? '';
 
-                      chatPresenter.conversation(
-                          context, source.useridactive.value);
+                      chatPresenter.conversation(context, source.useridactive.value);
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -82,14 +79,6 @@ BsCol userComponent(context) {
                                             : Colors.black,
                                   ),
                                 ),
-                                Text('Online',
-                                    style: TextStyle(
-                                        color: _navigation.darkTheme.value
-                                            ? Colors.white
-                                            : source.useridactive.value ==
-                                                    e.userid
-                                                ? Colors.white
-                                                : Colors.black))
                               ],
                             ),
                           )
