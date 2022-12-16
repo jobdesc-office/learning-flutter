@@ -12,6 +12,7 @@ Socket get socket => Get.find<Socket>();
 class ChatSource extends GetxController {
   var chats = <ChatModel>[].obs;
   var users = <UserModel>[].obs;
+  var idOnline = <String?>[].obs;
   var useridactive = 0.obs;
   var usersocketactive = ''.obs;
   var isFile = false.obs;
@@ -33,8 +34,7 @@ class ChatSource extends GetxController {
     List chat = data['chats'];
     if (data['from'] == socket.id) {
       // property.scheduleNotification();
-      chats.value =
-          chat.map<ChatModel>((item) => ChatModel.fromJson(item)).toList();
+      chats.value = chat.map<ChatModel>((item) => ChatModel.fromJson(item)).toList();
     } else {
       Map data = {
         'userid': useridactive.value,
@@ -48,12 +48,18 @@ class ChatSource extends GetxController {
   void onReady() {
     super.onReady();
     socket.on('message', onMessage);
+    socket.on('usersonline', (data) {
+      idOnline.value = List<String?>.from(data);
+    });
+    List<String?> ids = users.map((element) => element.userid.toString()).toList();
+    socket.emit('usersonline', ids);
   }
 
   @override
   void onClose() {
     chats.value = [];
     users.value = [];
+    idOnline.value = [];
     useridactive.value = 0;
     usersocketactive.value = '';
     super.onClose();

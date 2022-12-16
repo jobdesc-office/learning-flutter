@@ -79,6 +79,18 @@ BsCol userComponent(context) {
                                             : Colors.black,
                                   ),
                                 ),
+                                Obx(() {
+                                  return Text(
+                                    source.idOnline.contains(e.userid.toString()) ? "Online" : "Offline",
+                                    style: TextStyle(
+                                      color: _navigation.darkTheme.value
+                                          ? Colors.white
+                                          : source.useridactive.value == e.userid
+                                              ? Colors.white
+                                              : Colors.black,
+                                    ),
+                                  );
+                                }),
                               ],
                             ),
                           )
