@@ -31,25 +31,25 @@ class CustomFieldDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      CustomBsDataColumn(
-          label: Text('CustomField Name'), columnName: 'custfname'),
+      CustomBsDataColumn(label: Text('CustomField Name'), columnName: 'custfname'),
       CustomBsDataColumn(
         label: Text('CustomField Business Partner'),
         columnName: 'route',
         searchable: false,
         orderable: false,
       ),
-      // CustomBsDataColumn(label: Text('CustomField Telp'), columnName: 'icon'),
       CustomBsDataColumn(
-          label: Text('Actions'),
-          width: 100,
-          orderable: false,
-          searchable: false),
+        label: Text('CustomField Security Group'),
+        columnName: 'group',
+        searchable: false,
+        orderable: false,
+      ),
+      // CustomBsDataColumn(label: Text('CustomField Telp'), columnName: 'icon'),
+      CustomBsDataColumn(label: Text('Actions'), width: 100, orderable: false, searchable: false),
     ];
   }
 
-  List<CustomFieldModel> get customFields =>
-      response.data.map((data) => CustomFieldModel.fromJson(data)).toList();
+  List<CustomFieldModel> get customFields => response.data.map((data) => CustomFieldModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
@@ -80,6 +80,16 @@ class CustomFieldDataTableSource extends BsDatatableSource {
         ),
         CustomBsDataCell(
           Text(row.businesspartner!.bpname.toString()),
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
+        ),
+        CustomBsDataCell(
+          Text(row.securitygroup?.sgname.toString() ?? ""),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -130,9 +140,7 @@ class CustomFieldDataTableSource extends BsDatatableSource {
                   .hasaccess!)
                 Tooltip(
                   message: BaseText.deleteHintDatatable(field: row.custfname),
-                  child: ButtonDeleteDatatables(
-                      onPressed: () =>
-                          onDeleteListener(row.custfid!, row.custfname)),
+                  child: ButtonDeleteDatatables(onPressed: () => onDeleteListener(row.custfid!, row.custfname)),
                 ),
             ],
           ),

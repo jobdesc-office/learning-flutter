@@ -13,8 +13,7 @@ class CustomfieldSection extends StatelessWidget {
     final GlobalKey<FormState> formState = GlobalKey<FormState>();
     final GlobalKey<FormState> formStateCF = GlobalKey<FormState>();
     final customFieldPresenter = Get.find<CustomFieldPresenter>();
-    final prospectCustomFieldPresenter =
-        Get.find<ProspectCustomFieldPresenter>();
+    final prospectCustomFieldPresenter = Get.find<ProspectCustomFieldPresenter>();
     final _navigation = Get.find<NavigationPresenter>();
 
     late ProspectCustomFieldForm prospectCustomFieldForm;
@@ -29,8 +28,7 @@ class CustomfieldSection extends StatelessWidget {
       prospectCustomFieldPresenter.setProcessing(true);
       if (source.isUpdate.value) {
         if (formState.currentState!.validate()) {
-          prospectCustomFieldPresenter.update(
-              context, await cfForm.toJson(), source.cfid.value);
+          prospectCustomFieldPresenter.update(context, await cfForm.toJson(), source.cfid.value);
           source.isUpdate.value = false;
           source.cfid.value = 0;
           cfForm.value.reset();
@@ -63,10 +61,8 @@ class CustomfieldSection extends StatelessWidget {
       source.isSelect.value = false;
       customFieldPresenter.setProcessing(true);
       if (formStateCF.currentState!.validate()) {
-        if (!cfieldForm.value.onlythisdata.value &&
-            !cfieldForm.value.allprospect.value) {
-          Get.defaultDialog(
-              title: 'Attention', middleText: 'Checkbox Required !');
+        if (!cfieldForm.value.onlythisdata.value && !cfieldForm.value.allprospect.value) {
+          Get.defaultDialog(title: 'Attention', middleText: 'Checkbox Required !');
           source.isAddCF.value = true;
         } else
           customFieldPresenter.save(context, await cfieldForm.toJson());
@@ -84,9 +80,7 @@ class CustomfieldSection extends StatelessWidget {
 
     return Obx(() => Container(
           decoration: BoxDecoration(
-            color: _navigation.darkTheme.value
-                ? ColorPallates.elseDarkColor
-                : Colors.white,
+            color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : Colors.white,
             borderRadius: BorderRadius.circular(10),
           ),
           child: Container(
@@ -96,9 +90,7 @@ class CustomfieldSection extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Additional Information',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold)),
+                    Text('Additional Information', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                     Obx(() => Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
@@ -128,31 +120,20 @@ class CustomfieldSection extends StatelessWidget {
                             //         size: 13,
                             //       )),
                             // ),
-                            if (source.status.value != ProspectText.closedWon &&
-                                source.status.value !=
-                                    ProspectText.closedLost &&
-                                source.status.value != ProspectText.forceClosed)
+                            if (source.status.value != ProspectText.closedWon && source.status.value != ProspectText.closedLost && source.status.value != ProspectText.forceClosed)
                               if (permis
-                                  .where((element) =>
-                                      element.menunm == 'Ventes Datas')
+                                  .where((element) => element.menunm == 'Ventes Datas')
                                   .first
                                   .children!
-                                  .where(
-                                      (element) => element.menunm == 'Prospect')
+                                  .where((element) => element.menunm == 'Prospect')
                                   .first
                                   .features!
-                                  .where(
-                                      (element) => element.featslug == 'create')
+                                  .where((element) => element.featslug == 'create')
                                   .first
                                   .permissions!
                                   .hasaccess!)
                                 Tooltip(
-                                  message: source.status.value !=
-                                              ProspectText.closedWon &&
-                                          source.status.value !=
-                                              ProspectText.closedLost &&
-                                          source.status.value !=
-                                              ProspectText.forceClosed
+                                  message: source.status.value != ProspectText.closedWon && source.status.value != ProspectText.closedLost && source.status.value != ProspectText.forceClosed
                                       ? 'Add Custom Field'
                                       : '',
                                   child: BsButton(
@@ -185,11 +166,7 @@ class CustomfieldSection extends StatelessWidget {
                                 BsCol(
                                   margin: EdgeInsets.only(right: 5),
                                   sizes: ColScreen(sm: Col.col_12),
-                                  child: Text('Add Custom Field',
-                                      style: TextStyle(
-                                          color: _navigation.darkTheme.value
-                                              ? Colors.white
-                                              : Colors.black)),
+                                  child: Text('Add Custom Field', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                 ),
                                 BsCol(
                                   margin: EdgeInsets.only(right: 5),
@@ -198,32 +175,24 @@ class CustomfieldSection extends StatelessWidget {
                                     child: Container(
                                       margin: EdgeInsets.all(10),
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           customFieldForm.inputName(),
                                           customFieldForm.selectTypes(),
+                                          customFieldForm.selectSecurityGroup(),
                                           customFieldForm.checkBoxForm(),
-                                          if (cfieldForm
-                                              .value.isselectbox.value)
+                                          if (cfieldForm.value.isselectbox.value)
                                             Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 InkWell(
-                                                  onTap: () => cfieldForm
-                                                      .value.inputOptions
-                                                      .add(
-                                                          TextEditingController()),
+                                                  onTap: () => cfieldForm.value.inputOptions.add(TextEditingController()),
                                                   child: Text(
                                                     'Add More Option',
-                                                    style: TextStyle(
-                                                        color: Colors.blue),
+                                                    style: TextStyle(color: Colors.blue),
                                                   ),
                                                 ),
-                                                customFieldForm.formDetail(
-                                                    onRemoveItem:
-                                                        onClickRemoveRoleItem),
+                                                customFieldForm.formDetail(onRemoveItem: onClickRemoveRoleItem),
                                               ],
                                             )
                                         ],
@@ -238,15 +207,13 @@ class CustomfieldSection extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   ThemeButtonSave(
-                                    disabled: prospectCustomFieldPresenter
-                                        .isProcessing.value,
+                                    disabled: prospectCustomFieldPresenter.isProcessing.value,
                                     processing: presenter.isProcessing.value,
                                     margin: EdgeInsets.only(right: 5),
                                     onPressed: () => onClickSave(context),
                                   ),
                                   ThemeButtonCancel(
-                                    disabled: prospectCustomFieldPresenter
-                                        .isProcessing.value,
+                                    disabled: prospectCustomFieldPresenter.isProcessing.value,
                                     margin: EdgeInsets.only(right: 5),
                                     onPressed: () => onClickCancel(context),
                                   ),
@@ -263,8 +230,7 @@ class CustomfieldSection extends StatelessWidget {
                     margin: EdgeInsets.only(top: 10),
                     duration: Duration(seconds: 3),
                     child: Obx(() {
-                      prospectCustomFieldForm =
-                          ProspectCustomFieldForm(cfForm.value);
+                      prospectCustomFieldForm = ProspectCustomFieldForm(cfForm.value);
                       return Obx(() => Form(
                             key: formState,
                             child: Column(
@@ -274,11 +240,7 @@ class CustomfieldSection extends StatelessWidget {
                                     BsCol(
                                       margin: EdgeInsets.only(right: 5),
                                       sizes: ColScreen(sm: Col.col_12),
-                                      child: Text('Write Custom Field',
-                                          style: TextStyle(
-                                              color: _navigation.darkTheme.value
-                                                  ? Colors.white
-                                                  : Colors.black)),
+                                      child: Text('Write Custom Field', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                     ),
                                     BsCol(
                                       margin: EdgeInsets.only(right: 5),
@@ -287,17 +249,10 @@ class CustomfieldSection extends StatelessWidget {
                                         child: Container(
                                           margin: EdgeInsets.all(10),
                                           child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              prospectCustomFieldForm
-                                                  .selectCf(),
-                                              if (source.isSelect.value)
-                                                prospectCustomFieldForm
-                                                    .selectOpt()
-                                              else
-                                                prospectCustomFieldForm
-                                                    .inputValue(),
+                                              prospectCustomFieldForm.selectCf(),
+                                              if (source.isSelect.value) prospectCustomFieldForm.selectOpt() else prospectCustomFieldForm.inputValue(),
                                             ],
                                           ),
                                         ),
@@ -310,20 +265,15 @@ class CustomfieldSection extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       ThemeButtonSave(
-                                        disabled: prospectCustomFieldPresenter
-                                            .isProcessing.value,
-                                        processing:
-                                            presenter.isProcessing.value,
+                                        disabled: prospectCustomFieldPresenter.isProcessing.value,
+                                        processing: presenter.isProcessing.value,
                                         margin: EdgeInsets.only(right: 5),
-                                        onPressed: () =>
-                                            onClickSaveModal(context),
+                                        onPressed: () => onClickSaveModal(context),
                                       ),
                                       ThemeButtonCancel(
-                                        disabled: prospectCustomFieldPresenter
-                                            .isProcessing.value,
+                                        disabled: prospectCustomFieldPresenter.isProcessing.value,
                                         margin: EdgeInsets.only(right: 5),
-                                        onPressed: () =>
-                                            onClickCancelModal(context),
+                                        onPressed: () => onClickCancelModal(context),
                                       ),
                                     ],
                                   ),
@@ -346,117 +296,72 @@ class CustomfieldSection extends StatelessWidget {
                                   var customField = source.customField[index];
 
                                   return Tooltip(
-                                    message: source.status.value !=
-                                                ProspectText.closedWon &&
-                                            source.status.value !=
-                                                ProspectText.closedLost &&
-                                            source.status.value !=
-                                                ProspectText.forceClosed
+                                    message: source.status.value != ProspectText.closedWon && source.status.value != ProspectText.closedLost && source.status.value != ProspectText.forceClosed
                                         ? 'Long Press to Delete'
                                         : '',
                                     child: InkWell(
                                       onLongPress: () {
-                                        if (source.status.value !=
-                                                ProspectText.closedWon &&
-                                            source.status.value !=
-                                                ProspectText.closedLost &&
-                                            source.status.value !=
-                                                ProspectText.forceClosed)
-                                          Get.defaultDialog(
-                                              middleText: '',
-                                              title: 'Setting',
-                                              actions: [
-                                                // if (permis
-                                                //     .where((element) =>
-                                                //         element.menunm ==
-                                                //         'Ventes Datas')
-                                                //     .first
-                                                //     .children!
-                                                //     .where((element) =>
-                                                //         element.menunm ==
-                                                //         'Prospect')
-                                                //     .first
-                                                //     .features!
-                                                //     .where((element) =>
-                                                //         element.featslug ==
-                                                //         'update')
-                                                //     .first
-                                                //     .permissions!
-                                                //     .hasaccess!)
-                                                //   ButtonEditDatatables(
-                                                //       onPressed: () {
-                                                //     prospectCustomFieldPresenter
-                                                //         .edit(
-                                                //             context,
-                                                //             customField
-                                                //                 .prospectcfid!);
-                                                //     source.cfid.value =
-                                                //         customField.prospectcfid!;
-                                                //   }),
-                                                if (permis
-                                                    .where((element) =>
-                                                        element.menunm ==
-                                                        'Ventes Datas')
-                                                    .first
-                                                    .children!
-                                                    .where((element) =>
-                                                        element.menunm ==
-                                                        'Prospect')
-                                                    .first
-                                                    .features!
-                                                    .where((element) =>
-                                                        element.featslug ==
-                                                        'delete')
-                                                    .first
-                                                    .permissions!
-                                                    .hasaccess!)
-                                                  ButtonDeleteDatatables(
-                                                      onPressed: () {
-                                                    prospectCustomFieldPresenter
-                                                        .delete(
-                                                            context,
-                                                            customField
-                                                                .prospectcfid!,
-                                                            '${customField.prospectcfvalue != null ? customField.prospectcfvalue : customField.selectedoption?.optvalue}');
-                                                  }),
-                                              ]);
+                                        if (source.status.value != ProspectText.closedWon && source.status.value != ProspectText.closedLost && source.status.value != ProspectText.forceClosed)
+                                          Get.defaultDialog(middleText: '', title: 'Setting', actions: [
+                                            // if (permis
+                                            //     .where((element) =>
+                                            //         element.menunm ==
+                                            //         'Ventes Datas')
+                                            //     .first
+                                            //     .children!
+                                            //     .where((element) =>
+                                            //         element.menunm ==
+                                            //         'Prospect')
+                                            //     .first
+                                            //     .features!
+                                            //     .where((element) =>
+                                            //         element.featslug ==
+                                            //         'update')
+                                            //     .first
+                                            //     .permissions!
+                                            //     .hasaccess!)
+                                            //   ButtonEditDatatables(
+                                            //       onPressed: () {
+                                            //     prospectCustomFieldPresenter
+                                            //         .edit(
+                                            //             context,
+                                            //             customField
+                                            //                 .prospectcfid!);
+                                            //     source.cfid.value =
+                                            //         customField.prospectcfid!;
+                                            //   }),
+                                            if (permis
+                                                .where((element) => element.menunm == 'Ventes Datas')
+                                                .first
+                                                .children!
+                                                .where((element) => element.menunm == 'Prospect')
+                                                .first
+                                                .features!
+                                                .where((element) => element.featslug == 'delete')
+                                                .first
+                                                .permissions!
+                                                .hasaccess!)
+                                              ButtonDeleteDatatables(onPressed: () {
+                                                prospectCustomFieldPresenter.delete(
+                                                    context, customField.prospectcfid!, '${customField.prospectcfvalue != null ? customField.prospectcfvalue : customField.selectedoption?.optvalue}');
+                                              }),
+                                          ]);
                                       },
                                       child: BsRow(
                                         margin: EdgeInsets.all(3),
                                         decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
+                                          borderRadius: BorderRadius.circular(10),
                                           color: ColorPallates.primary,
                                         ),
                                         padding: EdgeInsets.all(5),
                                         children: [
+                                          BsCol(alignment: Alignment.center, sizes: ColScreen(sm: Col.col_5), child: Text(customField.customfield!.custfname!, style: TextStyle(color: Colors.white))),
+                                          BsCol(alignment: Alignment.center, sizes: ColScreen(sm: Col.col_2), child: Text(':', style: TextStyle(color: Colors.white))),
                                           BsCol(
                                               alignment: Alignment.center,
                                               sizes: ColScreen(sm: Col.col_5),
-                                              child: Text(
-                                                  customField
-                                                      .customfield!.custfname!,
-                                                  style: TextStyle(
-                                                      color: Colors.white))),
-                                          BsCol(
-                                              alignment: Alignment.center,
-                                              sizes: ColScreen(sm: Col.col_2),
-                                              child: Text(':',
-                                                  style: TextStyle(
-                                                      color: Colors.white))),
-                                          BsCol(
-                                              alignment: Alignment.center,
-                                              sizes: ColScreen(sm: Col.col_5),
-                                              child: Text(
-                                                  customField.prospectcfvalue !=
-                                                          null
-                                                      ? customField
-                                                          .prospectcfvalue!
-                                                      : customField
-                                                          .selectedoption!
-                                                          .optvalue!,
-                                                  style: TextStyle(
-                                                      color: Colors.white))),
+                                              child: Text(customField.prospectcfvalue != null ? customField.prospectcfvalue! : customField.selectedoption!.optvalue!,
+                                                  style: TextStyle(color: Colors.white))),
                                         ],
                                       ),
                                     ),
@@ -466,49 +371,27 @@ class CustomfieldSection extends StatelessWidget {
                                 shrinkWrap: true,
                                 itemCount: source.rawcustomField.length,
                                 itemBuilder: (context, index) {
-                                  var rawcustomField =
-                                      source.rawcustomField[index];
+                                  var rawcustomField = source.rawcustomField[index];
 
                                   return InkWell(
                                     onTap: () {
-                                      if (source.status.value !=
-                                              ProspectText.closedWon &&
-                                          source.status.value !=
-                                              ProspectText.closedLost &&
-                                          source.status.value !=
-                                              ProspectText
-                                                  .forceClosed) if (permis
-                                          .where((element) =>
-                                              element.menunm == 'Ventes Datas')
+                                      if (source.status.value != ProspectText.closedWon && source.status.value != ProspectText.closedLost && source.status.value != ProspectText.forceClosed) if (permis
+                                          .where((element) => element.menunm == 'Ventes Datas')
                                           .first
                                           .children!
-                                          .where((element) =>
-                                              element.menunm == 'Prospect')
+                                          .where((element) => element.menunm == 'Prospect')
                                           .first
                                           .features!
-                                          .where((element) =>
-                                              element.featslug == 'update')
+                                          .where((element) => element.featslug == 'update')
                                           .first
                                           .permissions!
                                           .hasaccess!) {
                                         source.isAdd.value = true;
-                                        cfForm.value.format.value =
-                                            rawcustomField.custftype!.typename!;
-                                        cfForm.value.selectCustomfield
-                                            .setSelected(BsSelectBoxOption(
-                                                value: rawcustomField.custfid,
-                                                text: Text(rawcustomField
-                                                    .custfname!)));
-                                        if (rawcustomField
-                                                .custftype?.typename ==
-                                            'Selectbox') {
+                                        cfForm.value.format.value = rawcustomField.custftype!.typename!;
+                                        cfForm.value.selectCustomfield.setSelected(BsSelectBoxOption(value: rawcustomField.custfid, text: Text(rawcustomField.custfname!)));
+                                        if (rawcustomField.custftype?.typename == 'Selectbox') {
                                           source.isSelect.value = true;
-                                          cfForm.value.selectOption.setOptions(
-                                              rawcustomField.selectoption!
-                                                  .map((e) => BsSelectBoxOption(
-                                                      value: e.optid,
-                                                      text: Text(e.optvalue!)))
-                                                  .toList());
+                                          cfForm.value.selectOption.setOptions(rawcustomField.selectoption!.map((e) => BsSelectBoxOption(value: e.optid, text: Text(e.optvalue!))).toList());
                                         } else
                                           source.isSelect.value = false;
                                       }
@@ -526,21 +409,10 @@ class CustomfieldSection extends StatelessWidget {
                                             sizes: ColScreen(sm: Col.col_5),
                                             child: Text(
                                               rawcustomField.custfname!,
-                                              style: TextStyle(
-                                                  color: Colors.white),
+                                              style: TextStyle(color: Colors.white),
                                             )),
-                                        BsCol(
-                                            alignment: Alignment.center,
-                                            sizes: ColScreen(sm: Col.col_2),
-                                            child: Text(':',
-                                                style: TextStyle(
-                                                    color: Colors.white))),
-                                        BsCol(
-                                            alignment: Alignment.center,
-                                            sizes: ColScreen(sm: Col.col_5),
-                                            child: Text('-',
-                                                style: TextStyle(
-                                                    color: Colors.white))),
+                                        BsCol(alignment: Alignment.center, sizes: ColScreen(sm: Col.col_2), child: Text(':', style: TextStyle(color: Colors.white))),
+                                        BsCol(alignment: Alignment.center, sizes: ColScreen(sm: Col.col_5), child: Text('-', style: TextStyle(color: Colors.white))),
                                       ],
                                     ),
                                   );

@@ -6,6 +6,7 @@ class CustomFieldText {
   static String isVisible = 'Show in This Prospect Only';
   static String labelNewPropect = 'Show in All Prospect';
   static String labelType = 'Type';
+  static String labelGroup = "Group";
   static String labelBp = 'Business Partner';
   static String labelCustomer = 'Customer';
   static String labelImage = 'Image';

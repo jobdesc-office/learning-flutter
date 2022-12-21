@@ -1,3 +1,5 @@
+import 'package:boilerplate/models/masters/security_group_model.dart';
+
 class CustomFieldModel {
   int? custfid;
   int? custfbpid;
@@ -15,6 +17,7 @@ class CustomFieldModel {
   Custfcreatedby? custfcreatedby;
   Custfcreatedby? custfupdatedby;
   Businesspartner? businesspartner;
+  SecurityGroupModel? securitygroup;
   Custftype? custftype;
   Custftype? custfreftype;
   Refprospect? refprospect;
@@ -58,27 +61,14 @@ class CustomFieldModel {
     updatedby = json['updatedby'];
     updateddate = json['updateddate'];
     isactive = json['isactive'];
-    custfcreatedby = json['custfcreatedby'] != null
-        ? new Custfcreatedby.fromJson(json['custfcreatedby'])
-        : null;
-    custfupdatedby = json['custfupdatedby'] != null
-        ? new Custfcreatedby.fromJson(json['custfupdatedby'])
-        : null;
-    businesspartner = json['businesspartner'] != null
-        ? new Businesspartner.fromJson(json['businesspartner'])
-        : null;
-    custftype = json['custftype'] != null
-        ? new Custftype.fromJson(json['custftype'])
-        : null;
-    custfreftype = json['custfreftype'] != null
-        ? new Custftype.fromJson(json['custfreftype'])
-        : null;
-    refprospect = json['refprospect'] != null
-        ? new Refprospect.fromJson(json['refprospect'])
-        : null;
-    refactivity = json['refactivity'] != null
-        ? new Refactivity.fromJson(json['refactivity'])
-        : null;
+    custfcreatedby = json['custfcreatedby'] != null ? new Custfcreatedby.fromJson(json['custfcreatedby']) : null;
+    custfupdatedby = json['custfupdatedby'] != null ? new Custfcreatedby.fromJson(json['custfupdatedby']) : null;
+    businesspartner = json['businesspartner'] != null ? new Businesspartner.fromJson(json['businesspartner']) : null;
+    securitygroup = json['securitygroup'] != null ? new SecurityGroupModel.fromJson(json['securitygroup']) : null;
+    custftype = json['custftype'] != null ? new Custftype.fromJson(json['custftype']) : null;
+    custfreftype = json['custfreftype'] != null ? new Custftype.fromJson(json['custfreftype']) : null;
+    refprospect = json['refprospect'] != null ? new Refprospect.fromJson(json['refprospect']) : null;
+    refactivity = json['refactivity'] != null ? new Refactivity.fromJson(json['refactivity']) : null;
     if (json['selectoption'] != null) {
       selectoption = <Selectoption>[];
       json['selectoption'].forEach((v) {
@@ -110,6 +100,9 @@ class CustomFieldModel {
     }
     if (this.businesspartner != null) {
       data['businesspartner'] = this.businesspartner!.toJson();
+    }
+    if (this.securitygroup != null) {
+      data['securitygroup'] = this.securitygroup!.toJson();
     }
     if (this.custftype != null) {
       data['custftype'] = this.custftype!.toJson();
@@ -310,9 +303,7 @@ class Refprospect {
     updatedby = json['updatedby'];
     updateddate = json['updateddate'];
     isactive = json['isactive'];
-    prospectcust = json['prospectcust'] != null
-        ? new Prospectcust.fromJson(json['prospectcust'])
-        : null;
+    prospectcust = json['prospectcust'] != null ? new Prospectcust.fromJson(json['prospectcust']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -494,15 +485,7 @@ class Selectoption {
   String? updateddate;
   bool? isactive;
 
-  Selectoption(
-      {this.optid,
-      this.optcustfid,
-      this.optvalue,
-      this.createdby,
-      this.createddate,
-      this.updatedby,
-      this.updateddate,
-      this.isactive});
+  Selectoption({this.optid, this.optcustfid, this.optvalue, this.createdby, this.createddate, this.updatedby, this.updateddate, this.isactive});
 
   Selectoption.fromJson(Map<String, dynamic> json) {
     optid = json['optid'];

@@ -40,13 +40,11 @@ class CustomFieldSource extends GetxController {
 
   BsSelectBoxController selectType = BsSelectBoxController();
   BsSelectBoxController selectBp = BsSelectBoxController();
+  BsSelectBoxController selectGroup = BsSelectBoxController();
 
   TextEditingController inputName = TextEditingController();
 
-  var inputOptions = List<TextEditingController>.filled(
-          1, TextEditingController(),
-          growable: true)
-      .obs;
+  var inputOptions = List<TextEditingController>.filled(1, TextEditingController(), growable: true).obs;
 
   List<Map<String, dynamic>> jsonOption() {
     return List<Map<String, dynamic>>.from(inputOptions.map((controller) {
@@ -63,6 +61,7 @@ class CustomFieldSource extends GetxController {
     return {
       'custfbpid': source.prospectbpid.value,
       'custftypeid': selectType.getSelectedAsString(),
+      'custfsgid': selectGroup.getSelectedAsString(),
       'custfreftypeid': id,
       'custfname': inputName.text,
       'alldata': allprospect.value,
@@ -83,11 +82,7 @@ class CustomFieldForm {
 
   Widget selectTypes() {
     return Obx(() => FormGroup(
-          label: Text(CustomFieldText.labelType,
-              style: TextStyle(
-                  color: _navigation.darkTheme.value
-                      ? Colors.white
-                      : Colors.black)),
+          label: Text(CustomFieldText.labelType, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
           child: CustomSelectBox(
             searchable: false,
             disabled: source.isProcessing,
@@ -109,10 +104,7 @@ class CustomFieldForm {
 
   Widget inputName() {
     return FormGroup(
-      label: Obx(() => Text(CustomFieldText.labelName,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(CustomFieldText.labelName, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputName,
@@ -120,6 +112,21 @@ class CustomFieldForm {
         validators: [
           Validators.inputRequired(CustomFieldText.labelName),
         ],
+      ),
+    );
+  }
+
+  Widget selectSecurityGroup() {
+    return FormGroup(
+      label: Obx(() => Text(CustomFieldText.labelGroup, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      child: CustomSelectBox(
+        searchable: false,
+        controller: source.selectGroup,
+        hintText: BaseText.hiintSelect(field: CustomFieldText.labelGroup),
+        // hintText: BaseText.hiintSelect(
+        //     field: CustomFieldText.labelRole + ' ${index + 1}'),
+        serverSide: (params) => selectApiSecurityGroup(params),
+        validators: [],
       ),
     );
   }
@@ -132,19 +139,14 @@ class CustomFieldForm {
           sizes: ColScreen(lg: Col.col_6),
           child: FormGroup(
             label: Obx(() => Center(
-                  child: Text(CustomFieldText.isVisible,
-                      style: TextStyle(
-                          color: _navigation.darkTheme.value
-                              ? Colors.white
-                              : Colors.black)),
+                  child: Text(CustomFieldText.isVisible, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                 )),
             child: Obx(() => Center(
                   child: Checkbox(
                     value: source.onlythisdata.value,
                     onChanged: (value) {
                       source.onlythisdata.value = value!;
-                      if (source.onlythisdata.value == true)
-                        source.allprospect.value = !value;
+                      if (source.onlythisdata.value == true) source.allprospect.value = !value;
                     },
                   ),
                 )),
@@ -155,19 +157,14 @@ class CustomFieldForm {
           sizes: ColScreen(lg: Col.col_6),
           child: FormGroup(
             label: Obx(() => Center(
-                  child: Text(CustomFieldText.labelNewPropect,
-                      style: TextStyle(
-                          color: _navigation.darkTheme.value
-                              ? Colors.white
-                              : Colors.black)),
+                  child: Text(CustomFieldText.labelNewPropect, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                 )),
             child: Obx(() => Center(
                   child: Checkbox(
                     value: source.allprospect.value,
                     onChanged: (value) {
                       source.allprospect.value = value!;
-                      if (source.onlythisdata.value == true)
-                        source.onlythisdata.value = !value;
+                      if (source.onlythisdata.value == true) source.onlythisdata.value = !value;
                     },
                   ),
                 )),
@@ -190,21 +187,15 @@ class CustomFieldForm {
                     sizes: ColScreen(lg: Col.col_11),
                     child: FormGroup(
                       child: CustomInput(
-                        hintText:
-                            BaseText.hintText(field: 'Option ${index + 1}'),
+                        hintText: BaseText.hintText(field: 'Option ${index + 1}'),
                         controller: inputOption,
-                        validators: [
-                          Validators.inputRequired('Option ${index + 1}')
-                        ],
+                        validators: [Validators.inputRequired('Option ${index + 1}')],
                       ),
                     ),
                   ),
                   BsCol(
                     sizes: ColScreen(sm: Col.col_1),
-                    child: ButtonMultipleCancel(
-                        disabled: source.inputOptions.length > 1 ? false : true,
-                        margin: EdgeInsets.only(top: 10),
-                        onPressed: () => onRemoveItem(index)),
+                    child: ButtonMultipleCancel(disabled: source.inputOptions.length > 1 ? false : true, margin: EdgeInsets.only(top: 10), onPressed: () => onRemoveItem(index)),
                   )
                 ],
               );
