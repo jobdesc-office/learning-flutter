@@ -35,16 +35,11 @@ class ProvinceDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      CustomBsDataColumn(
-          label: Text('Actions'),
-          width: 100,
-          orderable: false,
-          searchable: false),
+      CustomBsDataColumn(label: Text('Actions'), width: 100, orderable: false, searchable: false),
     ];
   }
 
-  List<ProvinceModel> get provinces =>
-      response.data.map((data) => ProvinceModel.fromJson(data)).toList();
+  List<ProvinceModel> get provinces => response.data.map((data) => ProvinceModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
@@ -125,9 +120,7 @@ class ProvinceDataTableSource extends BsDatatableSource {
                   .hasaccess!)
                 Tooltip(
                   message: BaseText.deleteHintDatatable(field: row.provname),
-                  child: ButtonDeleteDatatables(
-                      onPressed: () =>
-                          onDeleteListener(row.provid, row.provname)),
+                  child: ButtonDeleteDatatables(onPressed: () => onDeleteListener(row.provid, row.provname)),
                 ),
             ],
           ),
@@ -138,7 +131,7 @@ class ProvinceDataTableSource extends BsDatatableSource {
               : x % 2 == 0
                   ? ColorPallates.datatableLightEvenRowColor
                   : ColorPallates.datatableLightOddRowColor,
-          padding: EdgeInsets.all(9),
+          padding: EdgeInsets.all(11),
         ),
       ],
     );

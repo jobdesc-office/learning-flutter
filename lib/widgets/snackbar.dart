@@ -11,10 +11,7 @@ class Snackbar {
     Get.snackbar('Success', 'Create Data Success',
         colorText: _navigation.darkTheme.value ? Colors.black : Colors.white,
         backgroundColor: ColorPallates.primary,
-        margin: EdgeInsets.only(
-            top: MediaQuery.of(context).size.height * 0.005,
-            right: 10,
-            left: MediaQuery.of(context).size.width * 0.85),
+        margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.005, right: 10, left: MediaQuery.of(context).size.width * 0.85),
         maxWidth: 300,
         icon: Icon(
           Icons.check,
@@ -27,10 +24,7 @@ class Snackbar {
     Get.snackbar('Success', 'Edit Data Success',
         colorText: _navigation.darkTheme.value ? Colors.black : Colors.white,
         backgroundColor: ColorPallates.warning,
-        margin: EdgeInsets.only(
-            top: MediaQuery.of(context).size.height * 0.005,
-            right: 10,
-            left: MediaQuery.of(context).size.width * 0.85),
+        margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.005, right: 10, left: MediaQuery.of(context).size.width * 0.85),
         maxWidth: 500,
         icon: Icon(
           Icons.edit,
@@ -39,14 +33,57 @@ class Snackbar {
         ));
   }
 
+  void failed(BuildContext context, [String message = "Failed"]) {
+    Get.dialog(
+      Dialog(
+        child: Container(
+          width: Get.width * 0.25,
+          padding: EdgeInsets.symmetric(
+            vertical: 8,
+            horizontal: 16,
+          ),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                "Failed",
+                style: TextStyle(
+                  color: ColorPallates.warning,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                message,
+                style: TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+              SizedBox(height: 8),
+              ElevatedButton(
+                onPressed: () => Get.close(1),
+                child: Text("Close"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.grey,
+                  minimumSize: Size.fromHeight(45),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   void deleteSuccess(BuildContext context) {
     Get.snackbar('Success', 'Delete Data Success',
         colorText: _navigation.darkTheme.value ? Colors.black : Colors.white,
         backgroundColor: ColorPallates.danger,
-        margin: EdgeInsets.only(
-            top: MediaQuery.of(context).size.height * 0.005,
-            right: 10,
-            left: MediaQuery.of(context).size.width * 0.85),
+        margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.005, right: 10, left: MediaQuery.of(context).size.width * 0.85),
         maxWidth: 300,
         icon: Icon(
           Icons.delete,
@@ -143,8 +180,7 @@ class Snackbar {
     Get.snackbar('Caution', 'Delete Button is Disabled',
         messageText: Text(
           'This Delete Button Is Disabled Because If Delete, The Data May Be Wrong',
-          style: TextStyle(
-              color: _navigation.darkTheme.value ? Colors.black : Colors.white),
+          style: TextStyle(color: _navigation.darkTheme.value ? Colors.black : Colors.white),
         ),
         colorText: _navigation.darkTheme.value ? Colors.black : Colors.white,
         backgroundColor: ColorPallates.danger,

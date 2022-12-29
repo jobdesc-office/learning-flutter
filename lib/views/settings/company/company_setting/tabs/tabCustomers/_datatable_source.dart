@@ -29,8 +29,7 @@ class CustomersDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      CustomBsDataColumn(
-          label: Text('Customer Name'), columnName: 'sbccstmname'),
+      CustomBsDataColumn(label: Text('Customer Name'), columnName: 'sbccstmname'),
       CustomBsDataColumn(
         label: Text('Customer Phone'),
         columnName: 'cstmphone',
@@ -46,9 +45,7 @@ class CustomersDataTableSource extends BsDatatableSource {
     ];
   }
 
-  List<BusinessPartnerCustomerModel> get customers => response.data
-      .map((data) => BusinessPartnerCustomerModel.fromJson(data))
-      .toList();
+  List<BusinessPartnerCustomerModel> get customers => response.data.map((data) => BusinessPartnerCustomerModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
@@ -130,9 +127,7 @@ class CustomersDataTableSource extends BsDatatableSource {
                   .hasaccess!)
                 Tooltip(
                   message: BaseText.deleteHintDatatable(field: row.sbccstmname),
-                  child: ButtonDeleteDatatables(
-                      onPressed: () =>
-                          onDeleteListener(row.sbcid, row.sbccstmname)),
+                  child: ButtonDeleteDatatables(onPressed: () => onDeleteListener(row.sbcid, row.sbccstmname)),
                 ),
             ],
           ),
@@ -143,7 +138,7 @@ class CustomersDataTableSource extends BsDatatableSource {
               : x % 2 == 0
                   ? ColorPallates.datatableLightEvenRowColor
                   : ColorPallates.datatableLightOddRowColor,
-          padding: EdgeInsets.all(9),
+          padding: EdgeInsets.all(11),
         ),
       ],
     );

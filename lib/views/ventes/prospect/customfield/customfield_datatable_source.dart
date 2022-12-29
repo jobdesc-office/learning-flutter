@@ -33,18 +33,13 @@ class CustomFieldPopUpDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      CustomBsDataColumn(
-          label: Text('CustomField Name'), columnName: 'custfname'),
+      CustomBsDataColumn(label: Text('CustomField Name'), columnName: 'custfname'),
       CustomBsDataColumn(
         label: Text('CustomField Format'),
         searchable: false,
         orderable: false,
       ),
-      CustomBsDataColumn(
-          label: Text('Actions'),
-          width: 100,
-          orderable: false,
-          searchable: false),
+      CustomBsDataColumn(label: Text('Actions'), width: 100, orderable: false, searchable: false),
     ];
   }
 
@@ -100,8 +95,7 @@ class CustomFieldPopUpDataTableSource extends BsDatatableSource {
                   onPressed: () => onDetailsListener(row.custfid!),
                 ),
               ),
-              if (row.onlythisdata! &&
-                  row.thisdataid! > controllers.prospectid.value)
+              if (row.onlythisdata! && row.thisdataid! > controllers.prospectid.value)
                 Tooltip(
                   message: '${row.custfname} is Not Available',
                   child: ButtonXDatatables(
@@ -131,7 +125,7 @@ class CustomFieldPopUpDataTableSource extends BsDatatableSource {
               : x % 2 == 0
                   ? ColorPallates.datatableLightEvenRowColor
                   : ColorPallates.datatableLightOddRowColor,
-          padding: EdgeInsets.all(9),
+          padding: EdgeInsets.all(11),
         ),
       ],
     );

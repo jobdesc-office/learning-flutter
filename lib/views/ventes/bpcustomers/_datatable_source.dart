@@ -27,8 +27,7 @@ class BpCustomerDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      CustomBsDataColumn(
-          label: Text('BpCustomer Name'), columnName: 'sbccstmname'),
+      CustomBsDataColumn(label: Text('BpCustomer Name'), columnName: 'sbccstmname'),
       CustomBsDataColumn(
         label: Text('BpCustomer Business Partner'),
         columnName: 'route',
@@ -36,17 +35,11 @@ class BpCustomerDataTableSource extends BsDatatableSource {
         orderable: false,
       ),
       // CustomBsDataColumn(label: Text('BpCustomer Telp'), columnName: 'icon'),
-      CustomBsDataColumn(
-          label: Text('Actions'),
-          width: 100,
-          orderable: false,
-          searchable: false),
+      CustomBsDataColumn(label: Text('Actions'), width: 100, orderable: false, searchable: false),
     ];
   }
 
-  List<BusinessPartnerCustomerModel> get bpCustomers => response.data
-      .map((data) => BusinessPartnerCustomerModel.fromJson(data))
-      .toList();
+  List<BusinessPartnerCustomerModel> get bpCustomers => response.data.map((data) => BusinessPartnerCustomerModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
@@ -105,9 +98,7 @@ class BpCustomerDataTableSource extends BsDatatableSource {
               ),
               Tooltip(
                 message: BaseText.deleteHintDatatable(field: row.sbccstmname),
-                child: ButtonDeleteDatatables(
-                    onPressed: () =>
-                        onDeleteListener(row.sbcid!, row.sbccstmname)),
+                child: ButtonDeleteDatatables(onPressed: () => onDeleteListener(row.sbcid!, row.sbccstmname)),
               ),
             ],
           ),
@@ -118,7 +109,7 @@ class BpCustomerDataTableSource extends BsDatatableSource {
               : x % 2 == 0
                   ? ColorPallates.datatableLightEvenRowColor
                   : ColorPallates.datatableLightOddRowColor,
-          padding: EdgeInsets.all(9),
+          padding: EdgeInsets.all(11),
         ),
       ],
     );

@@ -4,6 +4,7 @@ class UserText {
   static String title = 'User';
 
   static String labelUsername = 'Username';
+  static String labelCode = 'Code';
   static String labelPassword = 'Password';
   static String labelConfirmPassword = 'Confirm Password';
   static String labelFullName = BaseText.defaultLabelName;

@@ -7,14 +7,13 @@ class _TabCustomizeField extends StatefulWidget {
   State<_TabCustomizeField> createState() => _TabCustomizeFieldState();
 }
 
-class _TabCustomizeFieldState extends State<_TabCustomizeField>
-    with TickerProviderStateMixin {
+class _TabCustomizeFieldState extends State<_TabCustomizeField> with TickerProviderStateMixin {
   late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
   }
 
   @override
@@ -25,7 +24,7 @@ class _TabCustomizeFieldState extends State<_TabCustomizeField>
       child: BsRow(
         children: [
           BsCol(
-            sizes: ColScreen(sm: Col.col_2),
+            sizes: ColScreen(sm: Col.col_3),
             child: Obx(() => TabBar(
                   onTap: (x) {
                     sources.isForm.value = false;
@@ -33,11 +32,11 @@ class _TabCustomizeFieldState extends State<_TabCustomizeField>
                   },
                   controller: _tabController,
                   labelColor: Colors.green,
-                  unselectedLabelColor:
-                      _navigation.darkTheme.value ? Colors.white : Colors.black,
+                  unselectedLabelColor: _navigation.darkTheme.value ? Colors.white : Colors.black,
                   tabs: [
                     Tab(text: 'Daily Activity'),
                     Tab(text: 'Prospect'),
+                    Tab(text: 'Schedule'),
                   ],
                 )),
           ),
@@ -51,6 +50,7 @@ class _TabCustomizeFieldState extends State<_TabCustomizeField>
                 children: [
                   _TabCustomizeFieldDailyActivity(),
                   _TabCustomizeFieldProspect(),
+                  _TabCustomizeFieldSchedule(),
                 ],
               ),
             ),

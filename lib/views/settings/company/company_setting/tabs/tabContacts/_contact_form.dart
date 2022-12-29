@@ -23,9 +23,7 @@ class _ContactForm extends StatelessWidget implements IndexViewContract {
             child: Container(
               padding: EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: _navigation.darkTheme.value
-                    ? ColorPallates.elseDarkColor
-                    : Colors.white,
+                color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : Colors.white,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Form(
@@ -67,9 +65,7 @@ class _ContactForm extends StatelessWidget implements IndexViewContract {
               child: Container(
                 padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: _navigation.darkTheme.value
-                      ? ColorPallates.elseDarkColor
-                      : Colors.white,
+                  color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : Colors.white,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: BsRow(
@@ -79,75 +75,43 @@ class _ContactForm extends StatelessWidget implements IndexViewContract {
                         children: [
                           BsCol(
                             child: FormGroupEdit(
-                                label: Text('Created By',
-                                    style: TextStyle(
-                                        color: _navigation.darkTheme.value
-                                            ? Colors.white
-                                            : Colors.black)),
+                                label: Text('Created By', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Text(source.createdby.value),
-                                    Divider()
-                                  ],
+                                  children: [Text(source.createdby.value), Divider()],
                                 )),
                           ),
                           BsCol(
                             margin: EdgeInsets.only(top: 10),
                             child: FormGroupEdit(
-                                label: Text('Created At',
-                                    style: TextStyle(
-                                        color: _navigation.darkTheme.value
-                                            ? Colors.white
-                                            : Colors.black)),
+                                label: Text('Created At', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Text(source.createddate.value),
-                                    Divider()
-                                  ],
+                                  children: [Text(source.createddate.value), Divider()],
                                 )),
                           ),
                           BsCol(
                             margin: EdgeInsets.only(top: 10),
                             child: FormGroupEdit(
-                                label: Text('Last Updated By',
-                                    style: TextStyle(
-                                        color: _navigation.darkTheme.value
-                                            ? Colors.white
-                                            : Colors.black)),
+                                label: Text('Last Updated By', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Text(source.updatedby.value),
-                                    Divider()
-                                  ],
+                                  children: [Text(source.updatedby.value), Divider()],
                                 )),
                           ),
                           BsCol(
                             margin: EdgeInsets.only(top: 10),
                             child: FormGroupEdit(
-                                label: Text('Last Updated At',
-                                    style: TextStyle(
-                                        color: _navigation.darkTheme.value
-                                            ? Colors.white
-                                            : Colors.black)),
+                                label: Text('Last Updated At', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Text(source.updateddate.value),
-                                    Divider()
-                                  ],
+                                  children: [Text(source.updateddate.value), Divider()],
                                 )),
                           ),
                           BsCol(
                             margin: EdgeInsets.only(top: 10),
                             child: FormGroupEdit(
-                                label: Text('Is Active',
-                                    style: TextStyle(
-                                        color: _navigation.darkTheme.value
-                                            ? Colors.white
-                                            : Colors.black)),
+                                label: Text('Is Active', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
@@ -156,9 +120,7 @@ class _ContactForm extends StatelessWidget implements IndexViewContract {
                                         child: Icon(
                                           Icons.toggle_on,
                                           size: 35,
-                                          color: _navigation.darkTheme.value
-                                              ? ColorPallates.onDarkMode
-                                              : ColorPallates.onLightMode,
+                                          color: _navigation.darkTheme.value ? ColorPallates.onDarkMode : ColorPallates.onLightMode,
                                         ),
                                         onTap: () => source.isactive.toggle(),
                                       )
@@ -167,9 +129,7 @@ class _ContactForm extends StatelessWidget implements IndexViewContract {
                                         child: Icon(
                                           Icons.toggle_off,
                                           size: 35,
-                                          color: _navigation.darkTheme.value
-                                              ? ColorPallates.offDarkMode
-                                              : ColorPallates.offLightMode,
+                                          color: _navigation.darkTheme.value ? ColorPallates.offDarkMode : ColorPallates.offLightMode,
                                         ),
                                         onTap: () => source.isactive.toggle(),
                                       ),
@@ -205,28 +165,19 @@ class _ContactForm extends StatelessWidget implements IndexViewContract {
 
   Widget inputName() {
     return FormGroup(
-      label: Obx(() => Text(ContactText.labelName,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(ContactText.labelName, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: presenter.isProcessing.value,
         controller: source.inputName,
         hintText: BaseText.hintText(field: ContactText.labelName),
-        validators: [
-          Validators.inputRequired(ContactText.labelName),
-          Validators.maxLength(ContactText.labelName, 255)
-        ],
+        validators: [Validators.inputRequired(ContactText.labelName), Validators.maxLength(ContactText.labelName, 255)],
       ),
     );
   }
 
   Widget selectCustomer() {
     return FormGroup(
-      label: Obx(() => Text(ContactText.labelCustomer,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(ContactText.labelCustomer, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomSelectBox(
         searchable: true,
         disabled: presenter.isProcessing.value,
@@ -242,11 +193,7 @@ class _ContactForm extends StatelessWidget implements IndexViewContract {
 
   Widget selectType(context) {
     return Obx(() => FormGroup(
-          label: Text(ContactText.labelType,
-              style: TextStyle(
-                  color: _navigation.darkTheme.value
-                      ? Colors.white
-                      : Colors.black)),
+          label: Text(ContactText.labelType, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
           child: CustomSelectBox(
             disabled: presenter.isProcessing.value,
             controller: source.selectType,
@@ -278,11 +225,7 @@ class _ContactForm extends StatelessWidget implements IndexViewContract {
 
   Widget inputValue() {
     return Obx(() => FormGroup(
-          label: Text(ContactText.labelValue,
-              style: TextStyle(
-                  color: _navigation.darkTheme.value
-                      ? Colors.white
-                      : Colors.black)),
+          label: Text(ContactText.labelValue, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
           child: CustomInput(
             minLines: 3,
             maxLines: 5,
@@ -293,8 +236,7 @@ class _ContactForm extends StatelessWidget implements IndexViewContract {
               if (format.value == 'Email') Validators.inputEmail(),
             ],
             inputFormatters: [
-              if (format.value == 'Phone')
-                FilteringTextInputFormatter.digitsOnly,
+              if (format.value == 'Phone') FilteringTextInputFormatter.digitsOnly,
             ],
           ),
         ));
@@ -312,7 +254,10 @@ class _ContactForm extends StatelessWidget implements IndexViewContract {
   void onEditSuccess(Response response, {BuildContext? context}) {}
 
   @override
-  void onErrorRequest(Response response) {}
+  void onErrorRequest(Response response) {
+    presenter.setProcessing(false);
+    Snackbar().failed(Get.context!, response.body['message']);
+  }
 
   @override
   void onLoadDatatables(BuildContext context, Response response) {}

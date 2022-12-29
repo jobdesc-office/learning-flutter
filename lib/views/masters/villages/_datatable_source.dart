@@ -28,24 +28,18 @@ class VillageDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      CustomBsDataColumn(
-          label: Text('Village Name'), columnName: 'villagename'),
+      CustomBsDataColumn(label: Text('Village Name'), columnName: 'villagename'),
       CustomBsDataColumn(
         label: Text('Village Subdistrict'),
         columnName: 'Villagenm',
         searchable: false,
         orderable: false,
       ),
-      CustomBsDataColumn(
-          label: Text('Actions'),
-          width: 100,
-          orderable: false,
-          searchable: false),
+      CustomBsDataColumn(label: Text('Actions'), width: 100, orderable: false, searchable: false),
     ];
   }
 
-  List<VillageModel> get villages =>
-      response.data.map((data) => VillageModel.fromJson(data)).toList();
+  List<VillageModel> get villages => response.data.map((data) => VillageModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
@@ -126,9 +120,7 @@ class VillageDataTableSource extends BsDatatableSource {
                   .hasaccess!)
                 Tooltip(
                   message: BaseText.deleteHintDatatable(field: row.villagename),
-                  child: ButtonDeleteDatatables(
-                      onPressed: () =>
-                          onDeleteListener(row.villageid, row.villagename)),
+                  child: ButtonDeleteDatatables(onPressed: () => onDeleteListener(row.villageid, row.villagename)),
                 ),
             ],
           ),
@@ -139,7 +131,7 @@ class VillageDataTableSource extends BsDatatableSource {
               : x % 2 == 0
                   ? ColorPallates.datatableLightEvenRowColor
                   : ColorPallates.datatableLightOddRowColor,
-          padding: EdgeInsets.all(9),
+          padding: EdgeInsets.all(11),
         ),
       ],
     );

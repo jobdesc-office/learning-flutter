@@ -1,8 +1,7 @@
 part of '../../company.dart';
 
 // ignore: must_be_immutable
-class _TabContact extends StatelessWidget
-    implements IndexViewContract, EditViewContract {
+class _TabContact extends StatelessWidget implements IndexViewContract, EditViewContract {
   CPContactPresenter presenter = Get.find();
   ContactDataTableSource datatable = ContactDataTableSource();
   ContactFormSource source = ContactFormSource();
@@ -31,8 +30,7 @@ class _TabContact extends StatelessWidget
                             .where((element) => element.menunm == 'Settings')
                             .first
                             .children!
-                            .where((element) =>
-                                element.menunm == 'Company Setting')
+                            .where((element) => element.menunm == 'Company Setting')
                             .first
                             .features!
                             .where((element) => element.featslug == 'create')
@@ -44,8 +42,7 @@ class _TabContact extends StatelessWidget
                             onPressed: () => source.isFormActive.toggle(),
                           )
                       ],
-                      serverSide: (params) =>
-                          presenter.datatables(context, params),
+                      serverSide: (params) => presenter.datatables(context, params),
                     ),
                   ],
                 )),
@@ -85,6 +82,7 @@ class _TabContact extends StatelessWidget
   @override
   void onErrorRequest(Response response) {
     presenter.setProcessing(false);
+    Snackbar().failed(Get.context!, response.body['message']);
   }
 
   @override
@@ -92,10 +90,8 @@ class _TabContact extends StatelessWidget
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onDetailsListener = (contactid) {};
-    datatable.onEditListener =
-        (contactid) => presenter.edit(context, contactid);
-    datatable.onDeleteListener =
-        (contactid, name) => presenter.delete(context, contactid, name);
+    datatable.onEditListener = (contactid) => presenter.edit(context, contactid);
+    datatable.onDeleteListener = (contactid, name) => presenter.delete(context, contactid, name);
   }
 
   @override

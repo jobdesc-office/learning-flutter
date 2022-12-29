@@ -33,6 +33,7 @@ class ConfigType {
   static String prospectCustomField = notNull(types['prospectCustomField']);
 
   static String activityCustomField = notNull(types['activityCustomField']);
+  static String scheduleCustomField = notNull(types['scheduleCustomField']);
 
   static String prospectStatus = notNull(types['prospectStatus']);
 

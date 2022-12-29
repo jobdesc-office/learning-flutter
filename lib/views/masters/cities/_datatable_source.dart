@@ -39,16 +39,11 @@ class CityDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      CustomBsDataColumn(
-          label: Text('Actions'),
-          width: 100,
-          orderable: false,
-          searchable: false),
+      CustomBsDataColumn(label: Text('Actions'), width: 100, orderable: false, searchable: false),
     ];
   }
 
-  List<CityModel> get citys =>
-      response.data.map((data) => CityModel.fromJson(data)).toList();
+  List<CityModel> get citys => response.data.map((data) => CityModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
@@ -129,9 +124,7 @@ class CityDataTableSource extends BsDatatableSource {
                   .hasaccess!)
                 Tooltip(
                   message: BaseText.deleteHintDatatable(field: row.cityname),
-                  child: ButtonDeleteDatatables(
-                      onPressed: () =>
-                          onDeleteListener(row.cityid, row.cityname)),
+                  child: ButtonDeleteDatatables(onPressed: () => onDeleteListener(row.cityid, row.cityname)),
                 ),
             ],
           ),
@@ -142,7 +135,7 @@ class CityDataTableSource extends BsDatatableSource {
               : x % 2 == 0
                   ? ColorPallates.datatableLightEvenRowColor
                   : ColorPallates.datatableLightOddRowColor,
-          padding: EdgeInsets.all(9),
+          padding: EdgeInsets.all(11),
         ),
       ],
     );

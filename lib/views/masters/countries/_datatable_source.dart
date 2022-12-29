@@ -28,18 +28,12 @@ class CountryDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      CustomBsDataColumn(
-          label: Text('Country Name'), columnName: 'countryname'),
-      CustomBsDataColumn(
-          label: Text('Actions'),
-          width: 100,
-          orderable: false,
-          searchable: false),
+      CustomBsDataColumn(label: Text('Country Name'), columnName: 'countryname'),
+      CustomBsDataColumn(label: Text('Actions'), width: 100, orderable: false, searchable: false),
     ];
   }
 
-  List<CountryModel> get countrys =>
-      response.data.map((data) => CountryModel.fromJson(data)).toList();
+  List<CountryModel> get countrys => response.data.map((data) => CountryModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
@@ -110,9 +104,7 @@ class CountryDataTableSource extends BsDatatableSource {
                   .hasaccess!)
                 Tooltip(
                   message: BaseText.deleteHintDatatable(field: row.countryname),
-                  child: ButtonDeleteDatatables(
-                      onPressed: () =>
-                          onDeleteListener(row.countryid, row.countryname)),
+                  child: ButtonDeleteDatatables(onPressed: () => onDeleteListener(row.countryid, row.countryname)),
                 ),
             ],
           ),
@@ -123,7 +115,7 @@ class CountryDataTableSource extends BsDatatableSource {
               : x % 2 == 0
                   ? ColorPallates.datatableLightEvenRowColor
                   : ColorPallates.datatableLightOddRowColor,
-          padding: EdgeInsets.all(9),
+          padding: EdgeInsets.all(11),
         ),
       ],
     );

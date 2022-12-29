@@ -41,16 +41,11 @@ class FileDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      CustomBsDataColumn(
-          label: Text('Actions'),
-          width: 100,
-          orderable: false,
-          searchable: false),
+      CustomBsDataColumn(label: Text('Actions'), width: 100, orderable: false, searchable: false),
     ];
   }
 
-  List<FileModel> get files =>
-      response.data.map((data) => FileModel.fromJson(data)).toList();
+  List<FileModel> get files => response.data.map((data) => FileModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
@@ -112,9 +107,7 @@ class FileDataTableSource extends BsDatatableSource {
                   .hasaccess!)
                 Tooltip(
                   message: BaseText.deleteHintDatatable(field: row.filename),
-                  child: ButtonDeleteDatatables(
-                      onPressed: () =>
-                          onDeleteListener(row.fileid, row.filename)),
+                  child: ButtonDeleteDatatables(onPressed: () => onDeleteListener(row.fileid, row.filename)),
                 ),
             ],
           ),
@@ -125,7 +118,7 @@ class FileDataTableSource extends BsDatatableSource {
               : x % 2 == 0
                   ? ColorPallates.datatableLightEvenRowColor
                   : ColorPallates.datatableLightOddRowColor,
-          padding: EdgeInsets.all(9),
+          padding: EdgeInsets.all(11),
         ),
       ],
     );

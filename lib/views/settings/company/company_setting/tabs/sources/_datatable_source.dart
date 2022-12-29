@@ -37,16 +37,11 @@ class ActivityCatDataTableSource extends BsDatatableSource {
       ),
       CustomBsDataColumn(label: Text('Name'), columnName: 'sbtname'),
       CustomBsDataColumn(label: Text('Type Name'), columnName: 'sbttypename'),
-      CustomBsDataColumn(
-          label: Text('Actions'),
-          width: 100,
-          orderable: false,
-          searchable: false),
+      CustomBsDataColumn(label: Text('Actions'), width: 100, orderable: false, searchable: false),
     ];
   }
 
-  List<StbptypeModel> get users =>
-      response.data.map((data) => StbptypeModel.fromJson(data)).toList();
+  List<StbptypeModel> get users => response.data.map((data) => StbptypeModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
@@ -100,8 +95,7 @@ class ActivityCatDataTableSource extends BsDatatableSource {
                   message: BaseText.activeHintDatatable(field: row.sbtname),
                   child: ButtonCheckDatatables(
                     margin: EdgeInsets.only(right: 5),
-                    onPressed: () =>
-                        onDetailsListener(row.sbtid!, row.isactive),
+                    onPressed: () => onDetailsListener(row.sbtid!, row.isactive),
                   ),
                 )
               else
@@ -109,14 +103,12 @@ class ActivityCatDataTableSource extends BsDatatableSource {
                   message: BaseText.nonactiveHintDatatable(field: row.sbtname),
                   child: ButtonXDatatables(
                     margin: EdgeInsets.only(right: 5),
-                    onPressed: () =>
-                        onDetailsListener(row.sbtid!, row.isactive),
+                    onPressed: () => onDetailsListener(row.sbtid!, row.isactive),
                   ),
                 ),
               Tooltip(
                 message: BaseText.deleteHintDatatable(field: row.sbtname),
-                child: ButtonDeleteDatatables(
-                    onPressed: () => onDeleteListener(row.sbtid, row.sbtname)),
+                child: ButtonDeleteDatatables(onPressed: () => onDeleteListener(row.sbtid, row.sbtname)),
               ),
             ],
           ),
@@ -127,7 +119,7 @@ class ActivityCatDataTableSource extends BsDatatableSource {
               : x % 2 == 0
                   ? ColorPallates.datatableLightEvenRowColor
                   : ColorPallates.datatableLightOddRowColor,
-          padding: EdgeInsets.all(9),
+          padding: EdgeInsets.all(11),
         ),
       ],
     );

@@ -56,9 +56,7 @@ class ProspectView extends GetView implements IndexViewContract {
                       .first
                       .permissions!
                       .hasaccess!)
-                    ThemeButtonCreate(
-                        prefix: ProspectText.title,
-                        onPressed: () => presenter.add(context)),
+                    ThemeButtonCreate(prefix: ProspectText.title, onPressed: () => presenter.add(context)),
                 ],
                 source: datatable,
                 columns: datatable.columns,
@@ -98,16 +96,15 @@ class ProspectView extends GetView implements IndexViewContract {
   @override
   void onErrorRequest(Response response) {
     presenter.setProcessing(false);
+    Snackbar().failed(Get.context!, response.body['message']);
   }
 
   @override
   void onLoadDatatables(BuildContext context, Response response) {
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
-    datatable.onDetailsListener =
-        (userid) => presenterdt.details(context, userid);
+    datatable.onDetailsListener = (userid) => presenterdt.details(context, userid);
     datatable.onEditListener = (menuid) => presenter.edit(context, menuid);
-    datatable.onDeleteListener =
-        (menuid, name) => presenter.delete(context, menuid, name);
+    datatable.onDeleteListener = (menuid, name) => presenter.delete(context, menuid, name);
   }
 }

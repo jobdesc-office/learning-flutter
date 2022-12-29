@@ -40,8 +40,7 @@ class MenuDataTableSource extends BsDatatableSource {
     ];
   }
 
-  List<MenuModel> get menus =>
-      response.data.map((data) => MenuModel.fromJson(data)).toList();
+  List<MenuModel> get menus => response.data.map((data) => MenuModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
@@ -63,10 +62,7 @@ class MenuDataTableSource extends BsDatatableSource {
         CustomBsDataCell(
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ThemeBadge(child: Text(row.menutype?.typename ?? '')),
-              Text(row.menunm ?? '')
-            ],
+            children: [ThemeBadge(child: Text(row.menutype?.typename ?? '')), Text(row.menunm ?? '')],
           ),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
@@ -115,8 +111,7 @@ class MenuDataTableSource extends BsDatatableSource {
               ),
               Tooltip(
                 message: BaseText.deleteHintDatatable(field: row.menunm),
-                child: ButtonDeleteDatatables(
-                    onPressed: () => onDeleteListener(row.menuid, row.menunm)),
+                child: ButtonDeleteDatatables(onPressed: () => onDeleteListener(row.menuid, row.menunm)),
               ),
             ],
           ),
@@ -127,7 +122,7 @@ class MenuDataTableSource extends BsDatatableSource {
               : x % 2 == 0
                   ? ColorPallates.datatableLightEvenRowColor
                   : ColorPallates.datatableLightOddRowColor,
-          padding: EdgeInsets.all(9),
+          padding: EdgeInsets.all(11),
         ),
       ],
     );

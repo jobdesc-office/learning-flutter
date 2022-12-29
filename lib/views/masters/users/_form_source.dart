@@ -62,6 +62,7 @@ class UserSource extends GetxController {
   bool isProcessing = false;
 
   TextEditingController inputName = TextEditingController();
+  TextEditingController inputCode = TextEditingController();
   TextEditingController inputPassword = TextEditingController();
   TextEditingController inputConfirmPassword = TextEditingController();
   TextEditingController inputFullName = TextEditingController();
@@ -97,6 +98,7 @@ class UserSource extends GetxController {
     SessionModel session = await SessionManager.current();
     return {
       'username': inputName.text,
+      'usercode': inputCode.text,
       'userpassword': inputPassword.text,
       'userfullname': inputFullName.text,
       'useremail': inputEmail.text,
@@ -211,6 +213,21 @@ class UserForm {
         validators: [
           Validators.inputRequired(UserText.labelUsername),
           Validators.maxLength(UserText.labelUsername, 50),
+        ],
+      ),
+    );
+  }
+
+  Widget inputCode() {
+    return FormGroup(
+      label: Obx(() => Text(UserText.labelCode, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      child: CustomInput(
+        disabled: source.isProcessing,
+        controller: source.inputCode,
+        hintText: BaseText.hintText(field: UserText.labelCode),
+        validators: [
+          Validators.inputRequired(UserText.labelCode),
+          Validators.maxLength(UserText.labelCode, 50),
         ],
       ),
     );

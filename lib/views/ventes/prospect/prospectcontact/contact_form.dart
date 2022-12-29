@@ -15,11 +15,9 @@ import '../../../../widgets/button/theme_button_save.dart';
 import '_form_source.dart';
 
 // ignore: must_be_immutable
-class ProspectContactFormView extends StatelessWidget
-    implements EditViewContract {
+class ProspectContactFormView extends StatelessWidget implements EditViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
-  final ProspectContactPresenter presenter =
-      Get.find<ProspectContactPresenter>();
+  final ProspectContactPresenter presenter = Get.find<ProspectContactPresenter>();
   final source = ProspectContactSource().obs;
   final Function(Map<String, dynamic> body) onSave;
   final _navigation = Get.find<NavigationPresenter>();
@@ -47,9 +45,7 @@ class ProspectContactFormView extends StatelessWidget
           return Container(
             padding: EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: _navigation.darkTheme.value
-                  ? ColorPallates.elseDarkColor
-                  : Colors.white,
+              color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : Colors.white,
               borderRadius: BorderRadius.circular(10),
             ),
             child: Form(
@@ -107,9 +103,7 @@ class ProspectContactFormView extends StatelessWidget
       ContactModel prospectContact = ContactModel.fromJson(response.body);
       source.value.inputValue.text = prospectContact.contactvalueid!;
       source.value.inputName.text = prospectContact.contactname!;
-      source.value.selectType.setSelected(BsSelectBoxOption(
-          value: prospectContact.contacttype!.sbtid,
-          text: Text(prospectContact.contacttype!.sbttypename!)));
+      source.value.selectType.setSelected(BsSelectBoxOption(value: prospectContact.contacttype!.sbtid, text: Text(prospectContact.contacttype!.sbttypename!)));
     });
   }
 }

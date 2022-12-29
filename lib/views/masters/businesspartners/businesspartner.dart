@@ -16,8 +16,7 @@ import '../../skins/template.dart';
 import '_datatable_source.dart';
 import '_text.dart';
 
-class BusinessPartnerView extends GetView
-    implements IndexViewContract, HandleErrorRequest {
+class BusinessPartnerView extends GetView implements IndexViewContract, HandleErrorRequest {
   final authPresenter = Get.find<AuthPresenter>();
   final presenter = Get.find<BusinessPartnerPresenter>();
   final datatable = BusinessPartnerDataTableSource();
@@ -38,10 +37,7 @@ class BusinessPartnerView extends GetView
           BreadcrumbWidget('Masters'),
           BreadcrumbWidget('Business Partner', active: true),
         ],
-        activeRoutes: [
-          RouteList.master.index,
-          RouteList.masterBusinessPartner.index
-        ],
+        activeRoutes: [RouteList.master.index, RouteList.masterBusinessPartner.index],
         background: true,
         child: Container(
           child: Column(
@@ -108,7 +104,6 @@ class BusinessPartnerView extends GetView
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onDetailsListener = (bpid) => presenter.details(context, bpid);
     datatable.onEditListener = (bpid) => presenter.edit(context, bpid);
-    datatable.onDeleteListener =
-        (bpid, name) => presenter.delete(context, bpid, name);
+    datatable.onDeleteListener = (bpid, name) => presenter.delete(context, bpid, name);
   }
 }

@@ -33,16 +33,9 @@ class CustomInput extends BsInput {
           validators: validators,
           onChange: onChange,
           style: BsInputStyle(
-            disabledColor: _navigation.darkTheme.value
-                ? Colors.grey.shade800
-                : Color(0xffe7e7e7),
-            backgroundColor: _navigation.darkTheme.value
-                ? ColorPallates.elseDarkColor
-                : Colors.white,
-            border: Border.all(
-                color: _navigation.darkTheme.value
-                    ? Colors.white
-                    : ColorPallates.dark),
+            disabledColor: _navigation.darkTheme.value ? Colors.grey.shade800 : Color(0xffe7e7e7),
+            backgroundColor: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : Colors.white,
+            border: Border.all(color: _navigation.darkTheme.value ? Colors.white : ColorPallates.dark),
             borderRadius: BorderRadius.circular(5),
             boxShadowFocused: [
               BoxShadow(

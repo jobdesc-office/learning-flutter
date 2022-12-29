@@ -29,9 +29,7 @@ class CustomDatabales extends BsDatatable {
                 'No Data Found',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: _navigation.darkTheme.value
-                      ? ColorPallates.elseLightColor
-                      : ColorPallates.elseDarkColor,
+                  color: _navigation.darkTheme.value ? ColorPallates.elseLightColor : ColorPallates.elseDarkColor,
                 ),
               )),
           customizeLayout: (el) => Container(
@@ -43,9 +41,7 @@ class CustomDatabales extends BsDatatable {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        child: customizeLeftHeader == null
-                            ? null
-                            : customizeLeftHeader(el),
+                        child: customizeLeftHeader == null ? null : customizeLeftHeader(el),
                       ),
                       if (searchable)
                         Obx(() => Container(
@@ -58,15 +54,10 @@ class CustomDatabales extends BsDatatable {
                                         ),
                                         el.searchForm(
                                           decoration: BoxDecoration(
-                                            color: _navigation.darkTheme.value
-                                                ? ColorPallates.elseDarkColor
-                                                : Color(0xfff1f1f1),
-                                            borderRadius:
-                                                BorderRadius.circular(5),
+                                            color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : Color(0xfff1f1f1),
+                                            borderRadius: BorderRadius.circular(5),
                                           ),
-                                          inputDecoration: ThemeDatatablesStyles
-                                              .searchInputDecoration(
-                                                  hintText: searchHintText),
+                                          inputDecoration: ThemeDatatablesStyles.searchInputDecoration(hintText: searchHintText),
                                           builderLabel: null,
                                         ),
                                       ],
@@ -93,9 +84,7 @@ class CustomDatabales extends BsDatatable {
                       padding: EdgeInsets.all(8),
                       margin: EdgeInsets.only(bottom: 10),
                       decoration: BoxDecoration(
-                        color: _navigation.darkTheme.value
-                            ? ColorPallates.elseDarkColor
-                            : ColorPallates.elseLightColor,
+                        color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : ColorPallates.elseLightColor,
                         borderRadius: BorderRadius.circular(5),
                       ),
                       child: el.table(),

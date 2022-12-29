@@ -1,3 +1,5 @@
+import 'package:boilerplate/models/masters/security_group_model.dart';
+
 class StbptypeModel {
   int? sbtid;
   int? sbtbpid;
@@ -15,6 +17,7 @@ class StbptypeModel {
   Stbptypecreatedby? stbptypeupdatedby;
   Stbptypetype? stbptypetype;
   Stbptypebp? stbptypebp;
+  SecurityGroupModel? securitygroup;
 
   StbptypeModel(
       {this.sbtid,
@@ -32,6 +35,7 @@ class StbptypeModel {
       this.stbptypecreatedby,
       this.stbptypeupdatedby,
       this.stbptypetype,
+      this.securitygroup,
       this.stbptypebp});
 
   StbptypeModel.fromJson(Map<String, dynamic> json) {
@@ -47,18 +51,11 @@ class StbptypeModel {
     updatedby = json['updatedby'];
     updateddate = json['updateddate'];
     isactive = json['isactive'];
-    stbptypecreatedby = json['stbptypecreatedby'] != null
-        ? new Stbptypecreatedby.fromJson(json['stbptypecreatedby'])
-        : null;
-    stbptypeupdatedby = json['stbptypeupdatedby'] != null
-        ? new Stbptypecreatedby.fromJson(json['stbptypeupdatedby'])
-        : null;
-    stbptypetype = json['stbptypetype'] != null
-        ? new Stbptypetype.fromJson(json['stbptypetype'])
-        : null;
-    stbptypebp = json['stbptypebp'] != null
-        ? new Stbptypebp.fromJson(json['stbptypebp'])
-        : null;
+    stbptypecreatedby = json['stbptypecreatedby'] != null ? new Stbptypecreatedby.fromJson(json['stbptypecreatedby']) : null;
+    stbptypeupdatedby = json['stbptypeupdatedby'] != null ? new Stbptypecreatedby.fromJson(json['stbptypeupdatedby']) : null;
+    stbptypetype = json['stbptypetype'] != null ? new Stbptypetype.fromJson(json['stbptypetype']) : null;
+    stbptypebp = json['stbptypebp'] != null ? new Stbptypebp.fromJson(json['stbptypebp']) : null;
+    securitygroup = json['securitygroup'] != null ? new SecurityGroupModel.fromJson(json['securitygroup']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -86,6 +83,9 @@ class StbptypeModel {
     }
     if (this.stbptypebp != null) {
       data['stbptypebp'] = this.stbptypebp!.toJson();
+    }
+    if (this.securitygroup != null) {
+      data['securitygroup'] = this.securitygroup!.toJson();
     }
     return data;
   }

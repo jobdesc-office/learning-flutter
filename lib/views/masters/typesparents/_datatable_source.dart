@@ -32,16 +32,11 @@ class TypeParentDataTableSource extends BsDatatableSource {
       ),
       CustomBsDataColumn(label: Text('Parent Code'), columnName: 'typecd'),
       CustomBsDataColumn(label: Text('Parent Name'), columnName: 'typename'),
-      CustomBsDataColumn(
-          label: Text('Actions'),
-          width: 100,
-          orderable: false,
-          searchable: false),
+      CustomBsDataColumn(label: Text('Actions'), width: 100, orderable: false, searchable: false),
     ];
   }
 
-  List<TypeModel> get menus =>
-      response.data.map((data) => TypeModel.fromJson(data)).toList();
+  List<TypeModel> get menus => response.data.map((data) => TypeModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
@@ -129,9 +124,7 @@ class TypeParentDataTableSource extends BsDatatableSource {
                 ),
               Tooltip(
                 message: BaseText.deleteHintDatatable(field: row.typename),
-                child: ButtonDeleteDatatables(
-                    onPressed: () =>
-                        onDeleteListener(row.typeid, row.typename)),
+                child: ButtonDeleteDatatables(onPressed: () => onDeleteListener(row.typeid, row.typename)),
               ),
             ],
           ),
@@ -142,7 +135,7 @@ class TypeParentDataTableSource extends BsDatatableSource {
               : x % 2 == 0
                   ? ColorPallates.datatableLightEvenRowColor
                   : ColorPallates.datatableLightOddRowColor,
-          padding: EdgeInsets.all(9),
+          padding: EdgeInsets.all(11),
         ),
       ],
     );

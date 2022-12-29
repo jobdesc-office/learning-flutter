@@ -1,8 +1,7 @@
 part of '../company.dart';
 
 // ignore: must_be_immutable
-class _TabProduct extends StatelessWidget
-    implements IndexViewContract, UserResetContract, EditViewContract {
+class _TabProduct extends StatelessWidget implements IndexViewContract, UserResetContract, EditViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final presenter = Get.find<ProductPresenter>();
   final datatable = ProductDataTableSource();
@@ -32,9 +31,7 @@ class _TabProduct extends StatelessWidget
                         child: Container(
                           padding: EdgeInsets.all(20),
                           decoration: BoxDecoration(
-                            color: _navigation.darkTheme.value
-                                ? ColorPallates.elseDarkColor
-                                : Colors.white,
+                            color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : Colors.white,
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Form(
@@ -49,20 +46,14 @@ class _TabProduct extends StatelessWidget
                                     children: [
                                       ThemeButtonSave(
                                         disabled: presenter.isProcessing.value,
-                                        processing:
-                                            presenter.isProcessing.value,
+                                        processing: presenter.isProcessing.value,
                                         margin: EdgeInsets.only(right: 5),
                                         onPressed: () async {
-                                          if (formState.currentState!
-                                              .validate()) {
+                                          if (formState.currentState!.validate()) {
                                             if (source.value.isupdate.value) {
-                                              presenter.update(
-                                                  context,
-                                                  await src.value.toJson(),
-                                                  src.value.id.value);
+                                              presenter.update(context, await src.value.toJson(), src.value.id.value);
                                             } else {
-                                              presenter.save(context,
-                                                  await src.value.toJson());
+                                              presenter.save(context, await src.value.toJson());
                                             }
                                           }
                                         },
@@ -96,9 +87,7 @@ class _TabProduct extends StatelessWidget
                           child: Container(
                             padding: EdgeInsets.all(20),
                             decoration: BoxDecoration(
-                              color: _navigation.darkTheme.value
-                                  ? ColorPallates.elseDarkColor
-                                  : Colors.white,
+                              color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : Colors.white,
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: BsRow(
@@ -108,121 +97,63 @@ class _TabProduct extends StatelessWidget
                                     children: [
                                       BsCol(
                                         child: FormGroupEdit(
-                                            label: Text('Created By',
-                                                style: TextStyle(
-                                                    color: _navigation
-                                                            .darkTheme.value
-                                                        ? Colors.white
-                                                        : Colors.black)),
+                                            label: Text('Created By', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                             child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
-                                              children: [
-                                                Text(src.value.createdby.value),
-                                                Divider()
-                                              ],
+                                              crossAxisAlignment: CrossAxisAlignment.end,
+                                              children: [Text(src.value.createdby.value), Divider()],
                                             )),
                                       ),
                                       BsCol(
                                         margin: EdgeInsets.only(top: 10),
                                         child: FormGroupEdit(
-                                            label: Text('Created At',
-                                                style: TextStyle(
-                                                    color: _navigation
-                                                            .darkTheme.value
-                                                        ? Colors.white
-                                                        : Colors.black)),
+                                            label: Text('Created At', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                             child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
-                                              children: [
-                                                Text(src
-                                                    .value.createddate.value),
-                                                Divider()
-                                              ],
+                                              crossAxisAlignment: CrossAxisAlignment.end,
+                                              children: [Text(src.value.createddate.value), Divider()],
                                             )),
                                       ),
                                       BsCol(
                                         margin: EdgeInsets.only(top: 10),
                                         child: FormGroupEdit(
-                                            label: Text('Last Updated By',
-                                                style: TextStyle(
-                                                    color: _navigation
-                                                            .darkTheme.value
-                                                        ? Colors.white
-                                                        : Colors.black)),
+                                            label: Text('Last Updated By', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                             child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
-                                              children: [
-                                                Text(src.value.updatedby.value),
-                                                Divider()
-                                              ],
+                                              crossAxisAlignment: CrossAxisAlignment.end,
+                                              children: [Text(src.value.updatedby.value), Divider()],
                                             )),
                                       ),
                                       BsCol(
                                         margin: EdgeInsets.only(top: 10),
                                         child: FormGroupEdit(
-                                            label: Text('Last Updated At',
-                                                style: TextStyle(
-                                                    color: _navigation
-                                                            .darkTheme.value
-                                                        ? Colors.white
-                                                        : Colors.black)),
+                                            label: Text('Last Updated At', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                             child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
-                                              children: [
-                                                Text(src
-                                                    .value.updateddate.value),
-                                                Divider()
-                                              ],
+                                              crossAxisAlignment: CrossAxisAlignment.end,
+                                              children: [Text(src.value.updateddate.value), Divider()],
                                             )),
                                       ),
                                       BsCol(
                                         margin: EdgeInsets.only(top: 10),
                                         child: FormGroupEdit(
-                                            label: Text('Is Active',
-                                                style: TextStyle(
-                                                    color: _navigation
-                                                            .darkTheme.value
-                                                        ? Colors.white
-                                                        : Colors.black)),
+                                            label: Text('Is Active', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                             child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
+                                              crossAxisAlignment: CrossAxisAlignment.end,
                                               children: [
                                                 if (src.value.isactive.value)
                                                   InkWell(
                                                     child: Icon(
                                                       Icons.toggle_on,
                                                       size: 35,
-                                                      color: _navigation
-                                                              .darkTheme.value
-                                                          ? ColorPallates
-                                                              .onDarkMode
-                                                          : ColorPallates
-                                                              .onLightMode,
+                                                      color: _navigation.darkTheme.value ? ColorPallates.onDarkMode : ColorPallates.onLightMode,
                                                     ),
-                                                    onTap: () => src
-                                                        .value.isactive
-                                                        .toggle(),
+                                                    onTap: () => src.value.isactive.toggle(),
                                                   )
                                                 else
                                                   InkWell(
                                                     child: Icon(
                                                       Icons.toggle_off,
                                                       size: 35,
-                                                      color: _navigation
-                                                              .darkTheme.value
-                                                          ? ColorPallates
-                                                              .offDarkMode
-                                                          : ColorPallates
-                                                              .offLightMode,
+                                                      color: _navigation.darkTheme.value ? ColorPallates.offDarkMode : ColorPallates.offLightMode,
                                                     ),
-                                                    onTap: () => src
-                                                        .value.isactive
-                                                        .toggle(),
+                                                    onTap: () => src.value.isactive.toggle(),
                                                   ),
                                                 Divider()
                                               ],
@@ -306,6 +237,7 @@ class _TabProduct extends StatelessWidget
   @override
   void onErrorRequest(Response response) {
     presenter.setProcessing(false);
+    Snackbar().failed(Get.context!, response.body['message']);
   }
 
   @override
@@ -313,8 +245,7 @@ class _TabProduct extends StatelessWidget
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onEditListener = (userid) => presenter.show(userid);
-    datatable.onDeleteListener =
-        (userid, name) => presenter.delete(context, userid, name);
+    datatable.onDeleteListener = (userid, name) => presenter.delete(context, userid, name);
   }
 
   @override

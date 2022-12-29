@@ -23,8 +23,7 @@ import '../../masters/menus/_menu_type.dart';
 import '_form_source.dart';
 
 // ignore: must_be_immutable
-class ProspectFormView extends StatelessWidget
-    implements EditViewContract, MenuTypeViewContract, IndexViewContract {
+class ProspectFormView extends StatelessWidget implements EditViewContract, MenuTypeViewContract, IndexViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final ProspectDetailPresenter presenter = Get.find<ProspectDetailPresenter>();
   final productPresenter = Get.find<ProductPresenter>();
@@ -58,9 +57,7 @@ class ProspectFormView extends StatelessWidget
             height: MediaQuery.of(context).size.height,
             padding: EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: _navigation.darkTheme.value
-                  ? ColorPallates.elseDarkColor
-                  : Colors.white,
+              color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : Colors.white,
               borderRadius: BorderRadius.circular(10),
             ),
             child: Form(
@@ -72,9 +69,7 @@ class ProspectFormView extends StatelessWidget
                       margin: EdgeInsets.only(right: 5),
                       sizes: ColScreen(sm: Col.col_5),
                       child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: Colors.grey.shade300)),
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), border: Border.all(color: Colors.grey.shade300)),
                         child: Container(
                           margin: EdgeInsets.all(10),
                           child: Column(
@@ -100,15 +95,11 @@ class ProspectFormView extends StatelessWidget
                             margin: EdgeInsets.only(bottom: 5),
                             child: Container(
                               child: Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    border: Border.all(
-                                        color: Colors.grey.shade300)),
+                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), border: Border.all(color: Colors.grey.shade300)),
                                 child: Container(
                                   margin: EdgeInsets.all(10),
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       // prospectForm.inputEmail(
                                       //     onRemoveEmail: onClickRemoveEmail),
@@ -158,17 +149,9 @@ class ProspectFormView extends StatelessWidget
                                       // ),
                                       BsRow(
                                         children: [
-                                          BsCol(
-                                              sizes: ColScreen(sm: Col.col_12),
-                                              child: prospectForm
-                                                  .inputPipelineStage()),
-                                          BsCol(
-                                              sizes: ColScreen(sm: Col.col_7),
-                                              child: prospectForm
-                                                  .selectReference()),
-                                          BsCol(
-                                              sizes: ColScreen(sm: Col.col_7),
-                                              child: prospectForm.inputValue()),
+                                          BsCol(sizes: ColScreen(sm: Col.col_12), child: prospectForm.inputPipelineStage()),
+                                          BsCol(sizes: ColScreen(sm: Col.col_7), child: prospectForm.selectReference()),
+                                          BsCol(sizes: ColScreen(sm: Col.col_7), child: prospectForm.inputValue()),
                                           // BsCol(
                                           //     sizes: ColScreen(sm: Col.col_7),
                                           //     child: prospectForm.inputDesc()),
@@ -186,63 +169,31 @@ class ProspectFormView extends StatelessWidget
                                 ? null
                                 : Container(
                                     child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          border: Border.all(
-                                              color: Colors.grey.shade300)),
+                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), border: Border.all(color: Colors.grey.shade300)),
                                       child: Container(
                                         margin: EdgeInsets.all(10),
                                         child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            prospectForm.inputProduct(
-                                                onRemoveItem:
-                                                    onClickRemoveItem),
+                                            prospectForm.inputProduct(onRemoveItem: onClickRemoveItem),
                                             Container(
-                                              margin:
-                                                  EdgeInsets.only(bottom: 20),
+                                              margin: EdgeInsets.only(bottom: 20),
                                               child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
                                                   GestureDetector(
                                                       onTap: () {
                                                         source.update((val) {
-                                                          source
-                                                              .value.inputPrices
-                                                              .add(
-                                                                  TextEditingController());
-                                                          source.value
-                                                              .inputQuantities
-                                                              .add(
-                                                                  TextEditingController());
-                                                          source.value
-                                                              .inputAmounts
-                                                              .add(
-                                                                  TextEditingController());
-                                                          source
-                                                              .value.inputTaxes
-                                                              .add(
-                                                                  TextEditingController());
-                                                          source
-                                                              .value.selectsItem
-                                                              .add(
-                                                                  BsSelectBoxController());
-                                                          source.value
-                                                              .inputDiscounts
-                                                              .add(
-                                                                  TextEditingController());
-                                                          source
-                                                              .value.selectsTax
-                                                              .add(
-                                                                  BsSelectBoxController());
+                                                          source.value.inputPrices.add(TextEditingController());
+                                                          source.value.inputQuantities.add(TextEditingController());
+                                                          source.value.inputAmounts.add(TextEditingController());
+                                                          source.value.inputTaxes.add(TextEditingController());
+                                                          source.value.selectsItem.add(BsSelectBoxController());
+                                                          source.value.inputDiscounts.add(TextEditingController());
+                                                          source.value.selectsTax.add(BsSelectBoxController());
                                                         });
                                                       },
-                                                      child: Text(
-                                                          '+ Add More Items')),
+                                                      child: Text('+ Add More Items')),
                                                   // prospectForm.total()
                                                 ],
                                               ),
@@ -268,8 +219,7 @@ class ProspectFormView extends StatelessWidget
                                   ThemeButtonCancel(
                                     disabled: presenter.isProcessing.value,
                                     margin: EdgeInsets.only(right: 5),
-                                    onPressed: () =>
-                                        onClickCancelModal(context),
+                                    onPressed: () => onClickCancelModal(context),
                                   ),
                                 ],
                               ),
@@ -318,8 +268,7 @@ class ProspectFormView extends StatelessWidget
     presenter.setProcessing(true);
     if (formState.currentState!.validate()) {
       if (source.value.prospectStageController.selected == null) {
-        Get.defaultDialog(
-            title: '', middleText: 'Please Choose Prospect Stage');
+        Get.defaultDialog(title: '', middleText: 'Please Choose Prospect Stage');
         presenter.isProcessing.value = false;
       } else
         onSave(await source.toJson());
@@ -339,93 +288,59 @@ class ProspectFormView extends StatelessWidget
     source.update((val) {
       ProspectModel prospect = ProspectModel.fromJson(response.body);
       source.value.prospectStageController.selected = prospect.prospectstage;
-      source.value.selectBp.setSelected(BsSelectBoxOption(
-          value: prospect.prospectbpid,
-          text: Text(prospect.prospectbp!.bpname!)));
-      source.value.selectOwner.setSelected(BsSelectBoxOption(
-          value: prospect.prospectownerusers!.userid,
-          text: Text(prospect.prospectownerusers!.userfullname!)));
+      source.value.selectBp.setSelected(BsSelectBoxOption(value: prospect.prospectbpid, text: Text(prospect.prospectbp!.bpname!)));
+      source.value.selectOwner.setSelected(BsSelectBoxOption(value: prospect.prospectownerusers!.userid, text: Text(prospect.prospectownerusers!.userfullname!)));
 
       if (prospect.prospectreference != null) {
-        source.value.selectReference.setSelected(BsSelectBoxOption(
-            value: prospect.prospectreference!.prospectid,
-            text: Text(prospect.prospectreference!.prospectname! +
-                ' || ' +
-                prospect.prospectcust!.sbccstmname!)));
+        source.value.selectReference
+            .setSelected(BsSelectBoxOption(value: prospect.prospectreference!.prospectid, text: Text(prospect.prospectreference!.prospectname! + ' || ' + prospect.prospectcust!.sbccstmname!)));
       }
 
-      source.value.selectCustomer.setSelected(BsSelectBoxOption(
-          value: prospect.prospectcust!.sbcid,
-          text: Text(prospect.prospectcust!.sbccstmname.toString())));
+      source.value.selectCustomer.setSelected(BsSelectBoxOption(value: prospect.prospectcust!.sbcid, text: Text(prospect.prospectcust!.sbccstmname.toString())));
       source.value.inputCompanyName.text = prospect.prospectname ?? '';
-      source.value.selectStatus.setSelected(BsSelectBoxOption(
-          value: prospect.prospectstatus!.sbtid,
-          text: Text(prospect.prospectstatus!.sbttypename.toString())));
-      source.value.selectCustLab.setSelected(BsSelectBoxOption(
-          value: prospect.prospectcustlabeltype?.sbtid,
-          text: Text(prospect.prospectcustlabeltype!.sbttypename.toString())));
+      source.value.selectStatus.setSelected(BsSelectBoxOption(value: prospect.prospectstatus!.sbtid, text: Text(prospect.prospectstatus!.sbttypename.toString())));
+      source.value.selectCustLab.setSelected(BsSelectBoxOption(value: prospect.prospectcustlabeltype?.sbtid, text: Text(prospect.prospectcustlabeltype!.sbttypename.toString())));
 
       if (prospect.prospectvalue != null) {
-        source.value.inputValue.text = currencyFormatter
-            .format(double.parse(prospect.prospectvalue!))
-            .replaceAll(',00', '')
-            .replaceAll('.', ',');
+        source.value.inputValue.text = currencyFormatter.format(double.parse(prospect.prospectvalue!)).replaceAll(',00', '').replaceAll('.', ',');
       }
 
       source.value.inputDesc.text = prospect.prospectdescription ?? '';
 
       source.value.selectedDateStart.value = prospect.prospectstartdate ?? '';
-      source.value.selectedDateExpect.value =
-          prospect.prospectexpclosedate ?? '';
+      source.value.selectedDateExpect.value = prospect.prospectexpclosedate ?? '';
 
       if (prospect.prospectproduct != []) {
         for (var item in prospect.prospectproduct!) {
-          source.value.selectsItem.add(BsSelectBoxController(selected: [
-            BsSelectBoxOption(
-                value: item.prosproductproductid,
-                text: Text(item.prosproductproduct!.productname!))
-          ]));
+          source.value.selectsItem.add(BsSelectBoxController(selected: [BsSelectBoxOption(value: item.prosproductproductid, text: Text(item.prosproductproduct!.productname!))]));
 
           if (item.prosproductprice != null)
-            source.value.inputPrices.add(TextEditingController(
-                text: currencyFormatter
-                    .format(double.parse(item.prosproductprice!))
-                    .replaceAll(',00', '')
-                    .replaceAll('.', ',')));
+            source.value.inputPrices.add(TextEditingController(text: currencyFormatter.format(double.parse(item.prosproductprice!)).replaceAll(',00', '').replaceAll('.', ',')));
           else
             source.value.inputPrices.add(TextEditingController());
 
           if (item.prosproductqty != null)
-            source.value.inputQuantities.add(
-                TextEditingController(text: item.prosproductqty.toString()));
+            source.value.inputQuantities.add(TextEditingController(text: item.prosproductqty.toString()));
           else
             source.value.inputQuantities.add(TextEditingController());
 
           if (item.prosproductamount != null)
-            source.value.inputAmounts.add(TextEditingController(
-                text: currencyFormatter
-                    .format(double.parse(item.prosproductamount!))));
+            source.value.inputAmounts.add(TextEditingController(text: currencyFormatter.format(double.parse(item.prosproductamount!))));
           else
             source.value.inputAmounts.add(TextEditingController());
 
           if (item.prosproductdiscount != null)
-            source.value.inputDiscounts.add(
-                TextEditingController(text: item.prosproductdiscount ?? ''));
+            source.value.inputDiscounts.add(TextEditingController(text: item.prosproductdiscount ?? ''));
           else
             source.value.inputDiscounts.add(TextEditingController());
 
           if (item.prosproducttax != null)
-            source.value.inputTaxes
-                .add(TextEditingController(text: item.prosproducttax ?? ''));
+            source.value.inputTaxes.add(TextEditingController(text: item.prosproducttax ?? ''));
           else
             source.value.inputTaxes.add(TextEditingController());
 
           if (item.prosproducttaxtype != null) {
-            source.value.selectsTax.add(BsSelectBoxController(selected: [
-              BsSelectBoxOption(
-                  value: item.prosproducttaxtype!.typeid,
-                  text: Text(item.prosproducttaxtype!.typename!))
-            ]));
+            source.value.selectsTax.add(BsSelectBoxController(selected: [BsSelectBoxOption(value: item.prosproducttaxtype!.typeid, text: Text(item.prosproducttaxtype!.typename!))]));
           } else {
             source.value.selectsTax.add(BsSelectBoxController());
           }
@@ -469,6 +384,7 @@ class ProspectFormView extends StatelessWidget
   @override
   void onErrorRequest(Response response) {
     presenter.setProcessing(false);
+    Snackbar().failed(Get.context!, response.body['message']);
   }
 
   @override

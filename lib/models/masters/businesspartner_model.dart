@@ -1,3 +1,4 @@
+import 'package:boilerplate/models/masters/bpquota_model.dart';
 import 'package:boilerplate/models/masters/type_model.dart';
 
 class BusinessPartnerModel {
@@ -17,6 +18,7 @@ class BusinessPartnerModel {
   TypeModel? bptype;
   Bpcreatedby? bpcreatedby;
   Bpcreatedby? bpupdatedby;
+  BpQuotaModel? quota;
 
   BusinessPartnerModel(
       {this.bpid,
@@ -53,6 +55,7 @@ class BusinessPartnerModel {
     bptype = json['bptype'] != null ? new TypeModel.fromJson(json['bptype']) : null;
     bpcreatedby = json['bpcreatedby'] != null ? new Bpcreatedby.fromJson(json['bpcreatedby']) : null;
     bpupdatedby = json['bpupdatedby'] != null ? new Bpcreatedby.fromJson(json['bpupdatedby']) : null;
+    quota = json['quota'] != null ? new BpQuotaModel.fromJson(json['quota']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -78,6 +81,9 @@ class BusinessPartnerModel {
     }
     if (this.bpupdatedby != null) {
       data['bpupdatedby'] = this.bpupdatedby!.toJson();
+    }
+    if (this.quota != null) {
+      data['quota'] = this.quota!.toJson();
     }
     return data;
   }

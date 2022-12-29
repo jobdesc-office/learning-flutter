@@ -1,0 +1,1 @@
+flutter build web && cd build\web && move * \xampp\htdocs\ventes

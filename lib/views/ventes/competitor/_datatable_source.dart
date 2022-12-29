@@ -31,8 +31,7 @@ class CompetitorDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      CustomBsDataColumn(
-          label: Text('Competitor Name'), columnName: 'comptname'),
+      CustomBsDataColumn(label: Text('Competitor Name'), columnName: 'comptname'),
       CustomBsDataColumn(
         label: Text('Competitor Product'),
         columnName: 'comptproductname',
@@ -52,8 +51,7 @@ class CompetitorDataTableSource extends BsDatatableSource {
     ];
   }
 
-  List<CompetitorModel> get competitors =>
-      response.data.map((data) => CompetitorModel.fromJson(data)).toList();
+  List<CompetitorModel> get competitors => response.data.map((data) => CompetitorModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
@@ -143,9 +141,7 @@ class CompetitorDataTableSource extends BsDatatableSource {
                   .hasaccess!)
                 Tooltip(
                   message: BaseText.deleteHintDatatable(field: row.comptname),
-                  child: ButtonDeleteDatatables(
-                      onPressed: () =>
-                          onDeleteListener(row.comptid, row.comptname)),
+                  child: ButtonDeleteDatatables(onPressed: () => onDeleteListener(row.comptid, row.comptname)),
                 ),
             ],
           ),
@@ -156,7 +152,7 @@ class CompetitorDataTableSource extends BsDatatableSource {
               : x % 2 == 0
                   ? ColorPallates.datatableLightEvenRowColor
                   : ColorPallates.datatableLightOddRowColor,
-          padding: EdgeInsets.all(9),
+          padding: EdgeInsets.all(11),
         ),
       ],
     );

@@ -28,6 +28,7 @@ class _CompanyTabFormSource extends GetxController {
 
   TextEditingController inputName = TextEditingController();
   TextEditingController inputSeq = TextEditingController();
+  BsSelectBoxController selectGroup = BsSelectBoxController();
 
   reset() {
     seq.value = false;
@@ -55,11 +56,7 @@ class _CompanyTabFormSource extends GetxController {
     inputSeq.text = '';
   }
 
-  Widget form(BuildContext context, presenter, int typeid, String typename,
-      String tabname,
-      {bool prospectvalue = false,
-      bool color = false,
-      bool textcolor = false}) {
+  Widget form(BuildContext context, presenter, int typeid, String typename, String tabname, {bool prospectvalue = false, bool color = false, bool textcolor = false}) {
     return BsRow(
       children: [
         BsCol(
@@ -74,18 +71,21 @@ class _CompanyTabFormSource extends GetxController {
                 Form(
                   key: formState,
                   child: FormGroup(
-                    label: Obx(() => Text('$tabname Name',
-                        style: TextStyle(
-                            color: _navigation.darkTheme.value
-                                ? Colors.white
-                                : Colors.black))),
+                    label: Obx(() => Text('$tabname Name', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
                     child: CustomInput(
-                        disabled: presenter.isProcessing.value,
-                        controller: inputName,
-                        hintText: BaseText.hintText(field: '$tabname Name'),
-                        validators: [
-                          Validators.inputRequired('$tabname Name')
-                        ]),
+                        disabled: presenter.isProcessing.value, controller: inputName, hintText: BaseText.hintText(field: '$tabname Name'), validators: [Validators.inputRequired('$tabname Name')]),
+                  ),
+                ),
+                FormGroup(
+                  label: Obx(() => Text(CustomFieldText.labelGroup, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
+                  child: CustomSelectBox(
+                    searchable: false,
+                    controller: selectGroup,
+                    hintText: BaseText.hiintSelect(field: CustomFieldText.labelGroup),
+                    // hintText: BaseText.hiintSelect(
+                    //     field: CustomFieldText.labelRole + ' ${index + 1}'),
+                    serverSide: (params) => selectApiSecurityGroup(params),
+                    validators: [],
                   ),
                 ),
                 Row(
@@ -93,19 +93,13 @@ class _CompanyTabFormSource extends GetxController {
                     Text('Set Custom Sequence'),
                     Container(
                       margin: EdgeInsets.only(left: 5),
-                      child: Obx(() => Checkbox(
-                          value: seq.value,
-                          onChanged: (value) => seq.toggle())),
+                      child: Obx(() => Checkbox(value: seq.value, onChanged: (value) => seq.toggle())),
                     ),
                   ],
                 ),
                 if (seq.value)
                   FormGroup(
-                    label: Obx(() => Text('$tabname Sequence',
-                        style: TextStyle(
-                            color: _navigation.darkTheme.value
-                                ? Colors.white
-                                : Colors.black))),
+                    label: Obx(() => Text('$tabname Sequence', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
                     child: CustomInputNumber(
                       disabled: presenter.isProcessing.value,
                       controller: inputSeq,
@@ -128,33 +122,21 @@ class _CompanyTabFormSource extends GetxController {
                                     onPressed: () => showDialog(
                                         context: context,
                                         builder: (context) => AlertDialog(
-                                              backgroundColor:
-                                                  Color(0xfff1f1f1),
-                                              title:
-                                                  const Text('Pick a color !'),
+                                              backgroundColor: Color(0xfff1f1f1),
+                                              title: const Text('Pick a color !'),
                                               content: SingleChildScrollView(
                                                 child: Obx(() => ColorPicker(
-                                                    pickerColor:
-                                                        pickerColor.value,
+                                                    pickerColor: pickerColor.value,
                                                     onColorChanged: ((value) {
                                                       pickerColor.value = value;
-                                                      pickedColor.value =
-                                                          pickerColor.value
-                                                              .toString()
-                                                              .replaceAll(
-                                                                  'Color(', '')
-                                                              .replaceAll(
-                                                                  ')', '');
+                                                      pickedColor.value = pickerColor.value.toString().replaceAll('Color(', '').replaceAll(')', '');
                                                     }))),
                                               ),
                                             ))),
                                 Obx(() => BsButton(
                                       margin: EdgeInsets.only(left: 20),
                                       onPressed: () {},
-                                      style: BsButtonStyle(
-                                          borderColor: Colors.black,
-                                          color: Colors.black,
-                                          backgroundColor: pickerColor.value),
+                                      style: BsButtonStyle(borderColor: Colors.black, color: Colors.black, backgroundColor: pickerColor.value),
                                     ))
                               ],
                             ),
@@ -162,8 +144,7 @@ class _CompanyTabFormSource extends GetxController {
                               Container(
                                 margin: EdgeInsets.only(top: 5),
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     BsButton(
                                         style: BsButtonStyle.success,
@@ -171,44 +152,21 @@ class _CompanyTabFormSource extends GetxController {
                                         onPressed: () => showDialog(
                                             context: context,
                                             builder: (context) => AlertDialog(
-                                                  backgroundColor:
-                                                      Color(0xfff1f1f1),
-                                                  title: const Text(
-                                                      'Pick a color !'),
-                                                  content:
-                                                      SingleChildScrollView(
-                                                    child: Obx(() =>
-                                                        ColorPicker(
-                                                            pickerColor:
-                                                                pickerTextColor
-                                                                    .value,
-                                                            onColorChanged:
-                                                                ((value) {
-                                                              pickerTextColor
-                                                                      .value =
-                                                                  value;
-                                                              pickedTextColor
-                                                                      .value =
-                                                                  pickerTextColor
-                                                                      .value
-                                                                      .toString()
-                                                                      .replaceAll(
-                                                                          'Color(',
-                                                                          '')
-                                                                      .replaceAll(
-                                                                          ')',
-                                                                          '');
-                                                            }))),
+                                                  backgroundColor: Color(0xfff1f1f1),
+                                                  title: const Text('Pick a color !'),
+                                                  content: SingleChildScrollView(
+                                                    child: Obx(() => ColorPicker(
+                                                        pickerColor: pickerTextColor.value,
+                                                        onColorChanged: ((value) {
+                                                          pickerTextColor.value = value;
+                                                          pickedTextColor.value = pickerTextColor.value.toString().replaceAll('Color(', '').replaceAll(')', '');
+                                                        }))),
                                                   ),
                                                 ))),
                                     Obx(() => BsButton(
                                           margin: EdgeInsets.only(left: 20),
                                           onPressed: () {},
-                                          style: BsButtonStyle(
-                                              borderColor: Colors.black,
-                                              color: Colors.black,
-                                              backgroundColor:
-                                                  pickerTextColor.value),
+                                          style: BsButtonStyle(borderColor: Colors.black, color: Colors.black, backgroundColor: pickerTextColor.value),
                                         ))
                                   ],
                                 ),
@@ -229,16 +187,10 @@ class _CompanyTabFormSource extends GetxController {
                                       )),
                               child: Container(
                                 padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    color: pickerColor.value,
-                                    borderRadius: BorderRadius.circular(5)),
+                                decoration: BoxDecoration(color: pickerColor.value, borderRadius: BorderRadius.circular(5)),
                                 child: Text(
                                   '$tabname',
-                                  style: TextStyle(
-                                      color: textcolor
-                                          ? pickerTextColor.value
-                                          : Colors.black,
-                                      fontSize: 28),
+                                  style: TextStyle(color: textcolor ? pickerTextColor.value : Colors.black, fontSize: 28),
                                 ),
                               ),
                             )),
@@ -251,9 +203,7 @@ class _CompanyTabFormSource extends GetxController {
                       Text('Change Prospect Value'),
                       Container(
                         margin: EdgeInsets.only(left: 5),
-                        child: Obx(() => Checkbox(
-                            value: prospectval.value,
-                            onChanged: (value) => prospectval.toggle())),
+                        child: Obx(() => Checkbox(value: prospectval.value, onChanged: (value) => prospectval.toggle())),
                       ),
                     ],
                   ),
@@ -280,6 +230,7 @@ class _CompanyTabFormSource extends GetxController {
                           };
                         Map<String, dynamic> body = {
                           'sbtbpid': box.read('mybpid'),
+                          'sbtsgid': selectGroup.getSelectedAsString(),
                           'sbtname': typename,
                           'sbtseq': inputSeq.text == '' ? null : inputSeq.text,
                           'sbttypemasterid': typeid,
@@ -321,9 +272,7 @@ class _CompanyTabFormSource extends GetxController {
             child: Container(
               padding: EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: _navigation.darkTheme.value
-                    ? ColorPallates.elseDarkColor
-                    : Colors.white,
+                color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : Colors.white,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: BsRow(
@@ -333,11 +282,7 @@ class _CompanyTabFormSource extends GetxController {
                       children: [
                         BsCol(
                           child: FormGroupEdit(
-                              label: Text('Created By',
-                                  style: TextStyle(
-                                      color: _navigation.darkTheme.value
-                                          ? Colors.white
-                                          : Colors.black)),
+                              label: Text('Created By', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [Text(createdby.value), Divider()],
@@ -346,11 +291,7 @@ class _CompanyTabFormSource extends GetxController {
                         BsCol(
                           margin: EdgeInsets.only(top: 10),
                           child: FormGroupEdit(
-                              label: Text('Created At',
-                                  style: TextStyle(
-                                      color: _navigation.darkTheme.value
-                                          ? Colors.white
-                                          : Colors.black)),
+                              label: Text('Created At', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [Text(createddate.value), Divider()],
@@ -359,11 +300,7 @@ class _CompanyTabFormSource extends GetxController {
                         BsCol(
                           margin: EdgeInsets.only(top: 10),
                           child: FormGroupEdit(
-                              label: Text('Last Updated By',
-                                  style: TextStyle(
-                                      color: _navigation.darkTheme.value
-                                          ? Colors.white
-                                          : Colors.black)),
+                              label: Text('Last Updated By', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [Text(updatedby.value), Divider()],
@@ -372,11 +309,7 @@ class _CompanyTabFormSource extends GetxController {
                         BsCol(
                           margin: EdgeInsets.only(top: 10),
                           child: FormGroupEdit(
-                              label: Text('Last Updated At',
-                                  style: TextStyle(
-                                      color: _navigation.darkTheme.value
-                                          ? Colors.white
-                                          : Colors.black)),
+                              label: Text('Last Updated At', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [Text(updateddate.value), Divider()],

@@ -40,6 +40,7 @@ class _TabUsers extends StatelessWidget implements IndexViewContract, UserResetC
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 userForm.inputName(),
+                                userForm.inputCode(),
                                 userForm.inputFullName(),
                                 userForm.inputPassword(),
                                 userForm.inputConfirmPassword(),
@@ -258,7 +259,7 @@ class _TabUsers extends StatelessWidget implements IndexViewContract, UserResetC
 
   @override
   void onErrorRequest(Response response) {
-    presenter.setProcessing(false);
+    Snackbar().failed(Get.context!, response.body['message']);
   }
 
   @override

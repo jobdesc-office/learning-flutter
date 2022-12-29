@@ -87,6 +87,7 @@ class PCustomersSource extends GetxController {
 
   TextEditingController inputPrefix = TextEditingController();
   TextEditingController inputName = TextEditingController();
+  TextEditingController inputCode = TextEditingController();
   TextEditingController inputPhone = TextEditingController();
   TextEditingController inputReferal = TextEditingController();
 
@@ -106,37 +107,29 @@ class PCustomersSource extends GetxController {
     var json;
     SessionModel session = await SessionManager.current();
     if (isRegistered.value) {
-      String name = await _cpresenter
-          .cstm(parseInt(selectCustomer.getSelectedAsString()));
+      String name = await _cpresenter.cstm(parseInt(selectCustomer.getSelectedAsString()));
       imgname.value = name;
       json = {
         'isregistered': isRegistered.value,
         'sbcbpid': box.read('mybpid'),
         'cstmid': selectCustomer.getSelectedAsString(),
         'sbccstmstatusid': pro.value ? 'Pro' : 'Cust',
-        'sbccstmpic': isImage.value
-            ? MultipartFile(image.value, filename: imgname.value)
-            : null,
+        'sbccstmpic': isImage.value ? MultipartFile(image.value, filename: imgname.value) : null,
         'createdby': session.userid,
         'updatedby': session.userid,
       };
     } else {
-      List ids = await _cpresenter.getId({
-        'village': inputVillage.text,
-        'subdistrict': inputSubdistrict.text,
-        'city': inputCity.text,
-        'province': inputProvince.text
-      });
+      List ids = await _cpresenter.getId({'village': inputVillage.text, 'subdistrict': inputSubdistrict.text, 'city': inputCity.text, 'province': inputProvince.text});
       AddressModel id = AddressModel.fromJson(ids.first);
       json = {
         'isregistered': isRegistered.value,
         'cstmprefix': inputPrefix.text,
         'cstmname': inputName.text,
+        'cstmcode': inputCode.text,
         'cstmphone': inputPhone.text,
         'cstmaddress': inputAddress.text,
         'cstmtypeid': selectType.getSelectedAsString(),
-        'cstmprovinceid':
-            id.villagesubdistrict!.subdistrictcity!.cityprov!.provid.toString(),
+        'cstmprovinceid': id.villagesubdistrict!.subdistrictcity!.cityprov!.provid.toString(),
         'cstmcityid': id.villagesubdistrict!.subdistrictcity!.cityid.toString(),
         'cstmsubdistrictid': id.villagesubdistrict!.subdistrictid.toString(),
         'cstmuvid': id.villageid.toString(),
@@ -144,9 +137,7 @@ class PCustomersSource extends GetxController {
         'cstmlatitude': map.latitude.value,
         'cstmlongitude': map.longitude.value,
         'referalcode': inputReferal.text,
-        'sbccstmpic': isImage.value
-            ? MultipartFile(image.value, filename: inputName.text)
-            : null,
+        'sbccstmpic': isImage.value ? MultipartFile(image.value, filename: inputName.text) : null,
         'sbcbpid': box.read('mybpid'),
         'sbccstmstatusid': pro.value ? 'Pro' : 'Cust',
         'createdby': session.userid,
@@ -186,10 +177,7 @@ class PCustomersForm {
 
   Widget inputPrefix() {
     return FormGroup(
-      label: Obx(() => Text(PCustomerText.labelPrefix,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(PCustomerText.labelPrefix, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputPrefix,
@@ -203,10 +191,7 @@ class PCustomersForm {
 
   Widget inputName() {
     return FormGroup(
-      label: Obx(() => Text(PCustomerText.labelName,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(PCustomerText.labelName, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputName,
@@ -219,12 +204,24 @@ class PCustomersForm {
     );
   }
 
+  Widget inputCode() {
+    return FormGroup(
+      label: Obx(() => Text(PCustomerText.labelCode, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      child: CustomInput(
+        disabled: source.isProcessing,
+        controller: source.inputCode,
+        hintText: BaseText.hintText(field: PCustomerText.labelCode),
+        validators: [
+          Validators.inputRequired(PCustomerText.labelCode),
+          Validators.maxLength(PCustomerText.labelCode, 100),
+        ],
+      ),
+    );
+  }
+
   Widget inputPhone() {
     return FormGroup(
-      label: Obx(() => Text(PCustomerText.labelPhone,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(PCustomerText.labelPhone, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputPhone,
@@ -238,10 +235,7 @@ class PCustomersForm {
 
   Widget inputAddress() {
     return FormGroup(
-      label: Obx(() => Text(PCustomerText.labelAddress,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(PCustomerText.labelAddress, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: Obx(() => CustomInput(
             disabled: source.isnGetLatLong.value,
             controller: source.inputAddress,
@@ -255,10 +249,7 @@ class PCustomersForm {
 
   Widget selectTypes(context) {
     return FormGroup(
-      label: Obx(() => Text(PCustomerText.labelType,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(PCustomerText.labelType, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomSelectBox(
         disabled: source.isProcessing,
         controller: source.selectType,
@@ -287,10 +278,7 @@ class PCustomersForm {
 
   Widget inputReferal() {
     return FormGroup(
-      label: Obx(() => Text(PCustomerText.labelReferal,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(PCustomerText.labelReferal, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputReferal,
@@ -312,8 +300,7 @@ class PCustomersForm {
                 BsButton(
                   margin: EdgeInsets.only(top: 10),
                   onPressed: () async {
-                    Uint8List? fromPicker =
-                        await ImagePickerWeb.getImageAsBytes();
+                    Uint8List? fromPicker = await ImagePickerWeb.getImageAsBytes();
                     if (fromPicker != null) {
                       source.image.value = fromPicker;
                       source.isImage.value = true;
@@ -332,16 +319,11 @@ class PCustomersForm {
 
   Widget btnMap(context) {
     return FormGroup(
-      label: Obx(() => Text(PCustomerText.labelButton,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(PCustomerText.labelButton, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: BsButton(
         style: BsButtonStyle(
             color: Color.fromARGB(255, 165, 165, 165),
-            backgroundColor: _navigation.darkTheme.value
-                ? ColorPallates.elseDarkColor
-                : Colors.white,
+            backgroundColor: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : Colors.white,
             borderColor: Colors.black,
             borderRadius: BorderRadius.all(Radius.circular(5))),
         width: MediaQuery.of(context).size.width,
@@ -350,13 +332,9 @@ class PCustomersForm {
           if (map.latitudelongitude.isNotEmpty) {
             presenter.address(map.latitudelongitude.value);
 
-            return Text(map.latitudelongitude.isEmpty
-                ? "Choose the Place"
-                : map.latitudelongitude.value);
+            return Text(map.latitudelongitude.isEmpty ? "Choose the Place" : map.latitudelongitude.value);
           } else {
-            return Text(map.latitudelongitude.isEmpty
-                ? "Choose the Place"
-                : map.latitudelongitude.value);
+            return Text(map.latitudelongitude.isEmpty ? "Choose the Place" : map.latitudelongitude.value);
           }
         }),
       ),
@@ -365,10 +343,7 @@ class PCustomersForm {
 
   Widget inputProvince() {
     return FormGroup(
-      label: Obx(() => Text(PCustomerText.labelProvince,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(PCustomerText.labelProvince, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isnGetLatLong.value,
         controller: source.inputProvince,
@@ -379,10 +354,7 @@ class PCustomersForm {
 
   Widget inputCity() {
     return FormGroup(
-      label: Obx(() => Text(PCustomerText.labelCity,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(PCustomerText.labelCity, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isnGetLatLong.value,
         controller: source.inputCity,
@@ -393,10 +365,7 @@ class PCustomersForm {
 
   Widget inputSubdistrict() {
     return FormGroup(
-      label: Obx(() => Text(PCustomerText.labelSubdistrict,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(PCustomerText.labelSubdistrict, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isnGetLatLong.value,
         controller: source.inputSubdistrict,
@@ -407,10 +376,7 @@ class PCustomersForm {
 
   Widget inputVillage() {
     return FormGroup(
-      label: Obx(() => Text(PCustomerText.labelVillage,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(PCustomerText.labelVillage, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isnGetLatLong.value,
         controller: source.inputVillage,
@@ -421,10 +387,7 @@ class PCustomersForm {
 
   Widget inputPostal() {
     return FormGroup(
-      label: Obx(() => Text(PCustomerText.labelPostal,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(PCustomerText.labelPostal, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isnGetLatLong.value,
         controller: source.inputPostal,
@@ -435,10 +398,7 @@ class PCustomersForm {
 
   Widget selectCustomer() {
     return FormGroup(
-      label: Obx(() => Text(PCustomerText.labelCustomer,
-          style: TextStyle(
-              color:
-                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(PCustomerText.labelCustomer, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomSelectBox(
         searchable: true,
         disabled: source.isProcessing,
@@ -459,12 +419,7 @@ class PCustomersForm {
           sizes: ColScreen(sm: Col.col_3),
           child: Obx(() => Row(
                 children: [
-                  Text(PCustomerText.labelRegistered,
-                      style: TextStyle(
-                          color: _navigation.darkTheme.value
-                              ? Colors.white
-                              : Colors.black,
-                          fontWeight: FontWeight.bold)),
+                  Text(PCustomerText.labelRegistered, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black, fontWeight: FontWeight.bold)),
                   Checkbox(
                     value: source.isRegistered.value,
                     onChanged: (value) => source.isRegistered.toggle(),

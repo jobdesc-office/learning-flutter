@@ -20,8 +20,7 @@ final _navigation = Get.find<NavigationPresenter>();
 class CustomFieldDetails extends GetView implements DetailViewContract {
   final CustomFieldPresenter presenter = Get.find<CustomFieldPresenter>();
   final CustomFieldsPresenter presenters = Get.find<CustomFieldsPresenter>();
-  final CustomFieldDetailsSource controller =
-      Get.put(CustomFieldDetailsSource());
+  final CustomFieldDetailsSource controller = Get.put(CustomFieldDetailsSource());
 
   final String data;
 
@@ -41,10 +40,7 @@ class CustomFieldDetails extends GetView implements DetailViewContract {
           BreadcrumbWidget('Custom Fields', active: true),
           BreadcrumbWidget('Custom Field Details', active: true),
         ],
-        activeRoutes: [
-          RouteList.settings.index,
-          RouteList.settingsCustomField.index
-        ],
+        activeRoutes: [RouteList.settings.index, RouteList.settingsCustomField.index],
         back: true,
         child: Obx(() => BsRow(
               children: [
@@ -54,9 +50,7 @@ class CustomFieldDetails extends GetView implements DetailViewContract {
                       height: MediaQuery.of(context).size.height,
                       padding: EdgeInsets.all(20),
                       decoration: BoxDecoration(
-                        color: _navigation.darkTheme.value
-                            ? ColorPallates.elseDarkColor
-                            : Colors.white,
+                        color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : Colors.white,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: BsRow(
@@ -64,112 +58,70 @@ class CustomFieldDetails extends GetView implements DetailViewContract {
                           BsCol(
                               sizes: ColScreen(lg: Col.col_12),
                               child: FormGroup(
-                                  label: Text('Name',
-                                      style: TextStyle(
-                                          color: _navigation.darkTheme.value
-                                              ? Colors.white
-                                              : Colors.black)),
+                                  label: Text('Name', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(controller.name.value),
-                                      Divider()
-                                    ],
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [Text(controller.name.value), Divider()],
                                   ))),
                           BsCol(
                               margin: EdgeInsets.only(top: 10),
                               sizes: ColScreen(lg: Col.col_12),
                               child: FormGroup(
-                                  label: Text('Type',
-                                      style: TextStyle(
-                                          color: _navigation.darkTheme.value
-                                              ? Colors.white
-                                              : Colors.black)),
+                                  label: Text('Type', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(controller.type.value),
-                                      Divider()
-                                    ],
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [Text(controller.type.value), Divider()],
                                   ))),
                           BsCol(
                               margin: EdgeInsets.only(top: 10),
                               sizes: ColScreen(lg: Col.col_12),
                               child: FormGroup(
-                                  label: Text('Business Partner',
-                                      style: TextStyle(
-                                          color: _navigation.darkTheme.value
-                                              ? Colors.white
-                                              : Colors.black)),
+                                  label: Text('Business Partner', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(controller.bp.value),
-                                      Divider()
-                                    ],
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [Text(controller.bp.value), Divider()],
+                                  ))),
+                          BsCol(
+                              margin: EdgeInsets.only(top: 10),
+                              sizes: ColScreen(lg: Col.col_12),
+                              child: FormGroup(
+                                  label: Text('Security Group', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [Text(controller.bp.value), Divider()],
                                   ))),
                           if (controller.newprospect.value)
                             BsCol(
                                 margin: EdgeInsets.only(top: 10),
                                 sizes: ColScreen(lg: Col.col_12),
                                 child: FormGroup(
-                                    label: Text('Available at All $data',
-                                        style: TextStyle(
-                                            color: _navigation.darkTheme.value
-                                                ? Colors.white
-                                                : Colors.black)),
+                                    label: Text('Available at All $data', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                     child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(controller.newprospect.value
-                                            ? 'Yes'
-                                            : 'No'),
-                                        Divider()
-                                      ],
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [Text(controller.newprospect.value ? 'Yes' : 'No'), Divider()],
                                     ))),
                           if (controller.isvisible.value)
                             BsCol(
                                 margin: EdgeInsets.only(top: 10),
                                 sizes: ColScreen(lg: Col.col_12),
                                 child: FormGroup(
-                                    label: Text('Available at',
-                                        style: TextStyle(
-                                            color: _navigation.darkTheme.value
-                                                ? Colors.white
-                                                : Colors.black)),
+                                    label: Text('Available at', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                     child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text('${controller.ref.value}'),
-                                        Divider()
-                                      ],
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [Text('${controller.ref.value}'), Divider()],
                                     ))),
                           if (controller.isselectbox.value)
                             BsCol(
                                 margin: EdgeInsets.only(top: 10),
                                 sizes: ColScreen(lg: Col.col_12),
                                 child: FormGroup(
-                                    label: Text('Option',
-                                        style: TextStyle(
-                                            color: _navigation.darkTheme.value
-                                                ? Colors.white
-                                                : Colors.black)),
+                                    label: Text('Option', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                     child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: controller.selectbox
                                           .map((element) => Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(element.optvalue ?? ''),
-                                                  Divider()
-                                                ],
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [Text(element.optvalue ?? ''), Divider()],
                                               ))
                                           .toList(),
                                     ))),
@@ -182,106 +134,62 @@ class CustomFieldDetails extends GetView implements DetailViewContract {
                     child: Container(
                       padding: EdgeInsets.all(20),
                       decoration: BoxDecoration(
-                        color: _navigation.darkTheme.value
-                            ? ColorPallates.elseDarkColor
-                            : Colors.white,
+                        color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : Colors.white,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: BsRow(
                         children: [
                           BsCol(
                             child: FormGroup(
-                                label: Text('Created By',
-                                    style: TextStyle(
-                                        color: _navigation.darkTheme.value
-                                            ? Colors.white
-                                            : Colors.black)),
+                                label: Text('Created By', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(controller.createdby.value),
-                                    Divider()
-                                  ],
+                                  children: [Text(controller.createdby.value), Divider()],
                                 )),
                           ),
                           BsCol(
                             margin: EdgeInsets.only(top: 10),
                             child: FormGroup(
-                                label: Text('Created At',
-                                    style: TextStyle(
-                                        color: _navigation.darkTheme.value
-                                            ? Colors.white
-                                            : Colors.black)),
+                                label: Text('Created At', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(controller.createddate.value),
-                                    Divider()
-                                  ],
+                                  children: [Text(controller.createddate.value), Divider()],
                                 )),
                           ),
                           BsCol(
                             margin: EdgeInsets.only(top: 10),
                             child: FormGroup(
-                                label: Text('Last Updated By',
-                                    style: TextStyle(
-                                        color: _navigation.darkTheme.value
-                                            ? Colors.white
-                                            : Colors.black)),
+                                label: Text('Last Updated By', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(controller.updatedby.value),
-                                    Divider()
-                                  ],
+                                  children: [Text(controller.updatedby.value), Divider()],
                                 )),
                           ),
                           BsCol(
                             margin: EdgeInsets.only(top: 10),
                             child: FormGroup(
-                                label: Text('Last Updated At',
-                                    style: TextStyle(
-                                        color: _navigation.darkTheme.value
-                                            ? Colors.white
-                                            : Colors.black)),
+                                label: Text('Last Updated At', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(controller.updateddate.value),
-                                    Divider()
-                                  ],
+                                  children: [Text(controller.updateddate.value), Divider()],
                                 )),
                           ),
                           BsCol(
                             margin: EdgeInsets.only(top: 10),
                             child: FormGroup(
-                                label: Text('Is Active',
-                                    style: TextStyle(
-                                        color: _navigation.darkTheme.value
-                                            ? Colors.white
-                                            : Colors.black)),
+                                label: Text('Is Active', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     if (controller.isactive.value)
                                       Card(
                                         color: Colors.green,
-                                        child: Text('Active',
-                                            style: TextStyle(
-                                                color:
-                                                    _navigation.darkTheme.value
-                                                        ? Colors.white
-                                                        : Colors.black)),
+                                        child: Text('Active', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                       )
                                     else
                                       Card(
                                         color: Colors.red,
-                                        child: Text('Not Active',
-                                            style: TextStyle(
-                                                color:
-                                                    _navigation.darkTheme.value
-                                                        ? Colors.white
-                                                        : Colors.black)),
+                                        child: Text('Not Active', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                       ),
                                     Divider()
                                   ],
@@ -302,6 +210,7 @@ class CustomFieldDetails extends GetView implements DetailViewContract {
     controller.name.value = dt.custfname ?? '-';
     controller.type.value = dt.custftype!.typename ?? '-';
     controller.bp.value = dt.businesspartner!.bpname ?? '-';
+    controller.group.value = dt.securitygroup?.sgname ?? "-";
     controller.isvisible.value = dt.onlythisdata!;
     controller.newprospect.value = dt.alldata!;
 
@@ -311,11 +220,9 @@ class CustomFieldDetails extends GetView implements DetailViewContract {
     }
 
     if (dt.custfreftype?.typename == 'Prospect')
-      controller.ref.value =
-          '${dt.refprospect?.prospectname ?? '-'} || ${dt.refprospect?.prospectcust?.sbccstmname ?? '-'}';
+      controller.ref.value = '${dt.refprospect?.prospectname ?? '-'} || ${dt.refprospect?.prospectcust?.sbccstmname ?? '-'}';
     else
-      controller.ref.value =
-          '${dt.refactivity?.dayactloclabel ?? '-'} || ${dt.refactivity?.dayactdate ?? '-'}';
+      controller.ref.value = '${dt.refactivity?.dayactloclabel ?? '-'} || ${dt.refactivity?.dayactdate ?? '-'}';
 
     controller.createdby.value = dt.custfcreatedby?.userfullname ?? '-';
     controller.createddate.value = dt.createddate ?? '';

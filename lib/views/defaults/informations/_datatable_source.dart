@@ -41,16 +41,11 @@ class InformationDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      CustomBsDataColumn(
-          label: Text('Actions'),
-          width: 100,
-          orderable: false,
-          searchable: false),
+      CustomBsDataColumn(label: Text('Actions'), width: 100, orderable: false, searchable: false),
     ];
   }
 
-  List<InformationModel> get informations =>
-      response.data.map((data) => InformationModel.fromJson(data)).toList();
+  List<InformationModel> get informations => response.data.map((data) => InformationModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
@@ -126,7 +121,7 @@ class InformationDataTableSource extends BsDatatableSource {
               : x % 2 == 0
                   ? ColorPallates.datatableLightEvenRowColor
                   : ColorPallates.datatableLightOddRowColor,
-          padding: EdgeInsets.all(9),
+          padding: EdgeInsets.all(11),
         ),
       ],
     );

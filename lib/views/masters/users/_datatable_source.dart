@@ -46,7 +46,12 @@ class UserDataTableSource extends BsDatatableSource {
       //     width: 110,
       //     orderable: false,
       //     searchable: false),
-      CustomBsDataColumn(label: Text('Actions'), orderable: false, width: 100, searchable: false),
+      CustomBsDataColumn(
+        label: Text('Actions'),
+        orderable: false,
+        width: 100,
+        searchable: false,
+      ),
     ];
   }
 
@@ -169,7 +174,7 @@ class UserDataTableSource extends BsDatatableSource {
               : x % 2 == 0
                   ? ColorPallates.datatableLightEvenRowColor
                   : ColorPallates.datatableLightOddRowColor,
-          padding: EdgeInsets.all(9),
+          padding: EdgeInsets.all(11),
         ),
       ],
     );

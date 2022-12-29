@@ -5,6 +5,7 @@ class PCustomerText {
   static String labelRegistered = 'Registered Customer';
   static String labelName = BaseText.defaultLabelName;
   static String labelPrefix = 'Prefix';
+  static String labelCode = 'Code';
   static String labelPhone = 'Phone';
   static String labelAddress = 'Address';
   static String labelType = 'Type';

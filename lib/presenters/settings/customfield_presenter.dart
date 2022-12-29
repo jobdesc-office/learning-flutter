@@ -22,26 +22,22 @@ class CustomFieldPresenter extends CustomGetXController {
   }
 
   late IndexViewContract _customFielddayactViewContract;
-  set customFielddayactViewContract(
-      IndexViewContract customFielddayactViewContract) {
+  set customFielddayactViewContract(IndexViewContract customFielddayactViewContract) {
     _customFielddayactViewContract = customFielddayactViewContract;
   }
 
   late EditViewContract _customFieldFetchDataContract;
-  set customFieldFetchDataContract(
-      EditViewContract customFieldFetchDataContract) {
+  set customFieldFetchDataContract(EditViewContract customFieldFetchDataContract) {
     _customFieldFetchDataContract = customFieldFetchDataContract;
   }
 
   late EditViewContract _customFielddFetchDataContract;
-  set customFielddFetchDataContract(
-      EditViewContract customFielddFetchDataContract) {
+  set customFielddFetchDataContract(EditViewContract customFielddFetchDataContract) {
     _customFielddFetchDataContract = customFielddFetchDataContract;
   }
 
   late DetailViewContract _customFieldDataDetailsContract;
-  set customFieldDataDetailsContract(
-      DetailViewContract customFieldDataDetailsContract) {
+  set customFieldDataDetailsContract(DetailViewContract customFieldDataDetailsContract) {
     _customFieldDataDetailsContract = customFieldDataDetailsContract;
   }
 
@@ -58,9 +54,16 @@ class CustomFieldPresenter extends CustomGetXController {
       _customFieldViewContract.onErrorRequest(response);
   }
 
-  Future datatablesdayact(
-      BuildContext context, Map<String, String> params) async {
+  Future datatablesdayact(BuildContext context, Map<String, String> params) async {
     Response response = await _customFieldService.datatablesdayactbp(params);
+    if (response.statusCode == 200)
+      _customFielddayactViewContract.onLoadDatatables(context, response);
+    else
+      _customFielddayactViewContract.onErrorRequest(response);
+  }
+
+  Future datatablesschedule(BuildContext context, Map<String, String> params) async {
+    Response response = await _customFieldService.datatablesschedulebp(params);
     if (response.statusCode == 200)
       _customFielddayactViewContract.onLoadDatatables(context, response);
     else
@@ -172,8 +175,7 @@ class CustomFieldPresenter extends CustomGetXController {
           if (value == ConfirmDialogOption.YES_OPTION) {
             Response response = await _customFieldService.destroy(typeid);
             if (response.statusCode == 200)
-              _customFieldViewContract.onDeleteSuccess(response,
-                  context: context);
+              _customFieldViewContract.onDeleteSuccess(response, context: context);
             else
               _customFieldViewContract.onErrorRequest(response);
           } else {

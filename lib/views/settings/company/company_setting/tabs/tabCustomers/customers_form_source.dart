@@ -1,7 +1,6 @@
 part of '../../company.dart';
 
-class _CustomerFormSource extends GetxController
-    implements CustomerAddressContract, EditViewContract, IndexViewContract {
+class _CustomerFormSource extends GetxController implements CustomerAddressContract, EditViewContract, IndexViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final source = Get.put(PCustomersSource());
   CustomerPresenter presenter = Get.find<CustomerPresenter>();
@@ -31,9 +30,7 @@ class _CustomerFormSource extends GetxController
             child: Container(
               padding: EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: _navigation.darkTheme.value
-                    ? ColorPallates.elseDarkColor
-                    : Colors.white,
+                color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : Colors.white,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Form(
@@ -55,20 +52,16 @@ class _CustomerFormSource extends GetxController
                                   children: [
                                     BsCol(
                                       child: Container(
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                            border: Border.all(
-                                                color: Colors.grey.shade300)),
+                                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), border: Border.all(color: Colors.grey.shade300)),
                                         child: Container(
                                           margin: EdgeInsets.all(10),
                                           child: Column(
                                             children: [
                                               pCustomerForm.inputPrefix(),
                                               pCustomerForm.inputName(),
+                                              pCustomerForm.inputCode(),
                                               pCustomerForm.inputPhone(),
-                                              pCustomerForm
-                                                  .selectTypes(context),
+                                              pCustomerForm.selectTypes(context),
                                               pCustomerForm.inputReferal(),
                                             ],
                                           ),
@@ -82,10 +75,7 @@ class _CustomerFormSource extends GetxController
                                 margin: EdgeInsets.only(left: 10, bottom: 10),
                                 sizes: ColScreen(sm: Col.col_4),
                                 child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      border: Border.all(
-                                          color: Colors.grey.shade300)),
+                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), border: Border.all(color: Colors.grey.shade300)),
                                   child: Container(
                                     margin: EdgeInsets.all(10),
                                     child: Column(
@@ -112,11 +102,7 @@ class _CustomerFormSource extends GetxController
                                 child: Column(
                                   children: [
                                     Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          border: Border.all(
-                                              color: Colors.grey.shade300)),
+                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), border: Border.all(color: Colors.grey.shade300)),
                                       child: Container(
                                         margin: EdgeInsets.all(10),
                                         child: Column(
@@ -130,24 +116,18 @@ class _CustomerFormSource extends GetxController
                                       () => Container(
                                         margin: EdgeInsets.only(top: 5),
                                         child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
+                                          mainAxisAlignment: MainAxisAlignment.end,
                                           children: [
                                             ThemeButtonSave(
-                                              disabled:
-                                                  presenter.isProcessing.value,
-                                              processing:
-                                                  presenter.isProcessing.value,
+                                              disabled: presenter.isProcessing.value,
+                                              processing: presenter.isProcessing.value,
                                               margin: EdgeInsets.only(right: 5),
-                                              onPressed: () =>
-                                                  onClickSaveModal(context),
+                                              onPressed: () => onClickSaveModal(context),
                                             ),
                                             ThemeButtonCancel(
-                                              disabled:
-                                                  presenter.isProcessing.value,
+                                              disabled: presenter.isProcessing.value,
                                               margin: EdgeInsets.only(right: 5),
-                                              onPressed: () =>
-                                                  onClickCancelModal(context),
+                                              onPressed: () => onClickCancelModal(context),
                                             ),
                                           ],
                                         ),
@@ -167,11 +147,7 @@ class _CustomerFormSource extends GetxController
                                 child: Column(
                                   children: [
                                     Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          border: Border.all(
-                                              color: Colors.grey.shade300)),
+                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), border: Border.all(color: Colors.grey.shade300)),
                                       child: Container(
                                         margin: EdgeInsets.all(10),
                                         child: Column(
@@ -190,11 +166,7 @@ class _CustomerFormSource extends GetxController
                                   child: Column(
                                     children: [
                                       Container(
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                            border: Border.all(
-                                                color: Colors.grey.shade300)),
+                                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), border: Border.all(color: Colors.grey.shade300)),
                                         child: Container(
                                           margin: EdgeInsets.all(10),
                                           child: Column(
@@ -205,30 +177,21 @@ class _CustomerFormSource extends GetxController
                                         ),
                                       ),
                                       Container(
-                                        margin:
-                                            EdgeInsets.fromLTRB(10, 10, 0, 10),
+                                        margin: EdgeInsets.fromLTRB(10, 10, 0, 10),
                                         child: Obx(
                                           () => Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
+                                            mainAxisAlignment: MainAxisAlignment.end,
                                             children: [
                                               ThemeButtonSave(
-                                                disabled: presenter
-                                                    .isProcessing.value,
-                                                processing: presenter
-                                                    .isProcessing.value,
-                                                margin:
-                                                    EdgeInsets.only(right: 5),
-                                                onPressed: () =>
-                                                    onClickSaveModal(context),
+                                                disabled: presenter.isProcessing.value,
+                                                processing: presenter.isProcessing.value,
+                                                margin: EdgeInsets.only(right: 5),
+                                                onPressed: () => onClickSaveModal(context),
                                               ),
                                               ThemeButtonCancel(
-                                                disabled: presenter
-                                                    .isProcessing.value,
-                                                margin:
-                                                    EdgeInsets.only(right: 5),
-                                                onPressed: () =>
-                                                    onClickCancelModal(context),
+                                                disabled: presenter.isProcessing.value,
+                                                margin: EdgeInsets.only(right: 5),
+                                                onPressed: () => onClickCancelModal(context),
                                               ),
                                             ],
                                           ),
@@ -252,9 +215,7 @@ class _CustomerFormSource extends GetxController
               child: Container(
                 padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: _navigation.darkTheme.value
-                      ? ColorPallates.elseDarkColor
-                      : Colors.white,
+                  color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : Colors.white,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: BsRow(
@@ -264,75 +225,43 @@ class _CustomerFormSource extends GetxController
                         children: [
                           BsCol(
                             child: FormGroupEdit(
-                                label: Text('Created By',
-                                    style: TextStyle(
-                                        color: _navigation.darkTheme.value
-                                            ? Colors.white
-                                            : Colors.black)),
+                                label: Text('Created By', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Text(source.createdby.value),
-                                    Divider()
-                                  ],
+                                  children: [Text(source.createdby.value), Divider()],
                                 )),
                           ),
                           BsCol(
                             margin: EdgeInsets.only(top: 10),
                             child: FormGroupEdit(
-                                label: Text('Created At',
-                                    style: TextStyle(
-                                        color: _navigation.darkTheme.value
-                                            ? Colors.white
-                                            : Colors.black)),
+                                label: Text('Created At', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Text(source.createddate.value),
-                                    Divider()
-                                  ],
+                                  children: [Text(source.createddate.value), Divider()],
                                 )),
                           ),
                           BsCol(
                             margin: EdgeInsets.only(top: 10),
                             child: FormGroupEdit(
-                                label: Text('Last Updated By',
-                                    style: TextStyle(
-                                        color: _navigation.darkTheme.value
-                                            ? Colors.white
-                                            : Colors.black)),
+                                label: Text('Last Updated By', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Text(source.updatedby.value),
-                                    Divider()
-                                  ],
+                                  children: [Text(source.updatedby.value), Divider()],
                                 )),
                           ),
                           BsCol(
                             margin: EdgeInsets.only(top: 10),
                             child: FormGroupEdit(
-                                label: Text('Last Updated At',
-                                    style: TextStyle(
-                                        color: _navigation.darkTheme.value
-                                            ? Colors.white
-                                            : Colors.black)),
+                                label: Text('Last Updated At', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Text(source.updateddate.value),
-                                    Divider()
-                                  ],
+                                  children: [Text(source.updateddate.value), Divider()],
                                 )),
                           ),
                           BsCol(
                             margin: EdgeInsets.only(top: 10),
                             child: FormGroupEdit(
-                                label: Text('Is Active',
-                                    style: TextStyle(
-                                        color: _navigation.darkTheme.value
-                                            ? Colors.white
-                                            : Colors.black)),
+                                label: Text('Is Active', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
@@ -341,9 +270,7 @@ class _CustomerFormSource extends GetxController
                                         child: Icon(
                                           Icons.toggle_on,
                                           size: 35,
-                                          color: _navigation.darkTheme.value
-                                              ? ColorPallates.onDarkMode
-                                              : ColorPallates.onLightMode,
+                                          color: _navigation.darkTheme.value ? ColorPallates.onDarkMode : ColorPallates.onLightMode,
                                         ),
                                         onTap: source.isactive.toggle,
                                       )
@@ -352,9 +279,7 @@ class _CustomerFormSource extends GetxController
                                         child: Icon(
                                           Icons.toggle_off,
                                           size: 35,
-                                          color: _navigation.darkTheme.value
-                                              ? ColorPallates.offDarkMode
-                                              : ColorPallates.offLightMode,
+                                          color: _navigation.darkTheme.value ? ColorPallates.offDarkMode : ColorPallates.offLightMode,
                                         ),
                                         onTap: source.isactive.toggle,
                                       ),
@@ -405,65 +330,27 @@ class _CustomerFormSource extends GetxController
     pCustomerForm = PCustomersForm(source);
     pCustomerForm.source.isnGetLatLong.value = false;
     MapsLoc address = MapsLoc.fromJson(response.body);
-    List<AddressComponents>? addresses =
-        address.adresses?.first.addressComponents;
+    List<AddressComponents>? addresses = address.adresses?.first.addressComponents;
 
     try {
-      if (addresses!
-                  .firstWhere((element) =>
-                      element.types!.contains('administrative_area_level_1'))
-                  .longName !=
-              null &&
-          addresses
-                  .firstWhere((element) =>
-                      element.types!.contains('administrative_area_level_2'))
-                  .longName !=
-              null &&
-          addresses
-                  .firstWhere((element) =>
-                      element.types!.contains('administrative_area_level_3'))
-                  .longName !=
-              null &&
-          addresses
-                  .firstWhere(
-                      (element) => element.types!.contains('postal_code'))
-                  .longName !=
-              null &&
+      if (addresses!.firstWhere((element) => element.types!.contains('administrative_area_level_1')).longName != null &&
+          addresses.firstWhere((element) => element.types!.contains('administrative_area_level_2')).longName != null &&
+          addresses.firstWhere((element) => element.types!.contains('administrative_area_level_3')).longName != null &&
+          addresses.firstWhere((element) => element.types!.contains('postal_code')).longName != null &&
           address.adresses!.first.formattedAddress != null) {
-        String province = addresses
-                .firstWhere((element) =>
-                    element.types!.contains('administrative_area_level_1'))
-                .longName ??
-            "";
+        String province = addresses.firstWhere((element) => element.types!.contains('administrative_area_level_1')).longName ?? "";
 
-        String cityy = addresses
-                .firstWhere((element) =>
-                    element.types!.contains('administrative_area_level_2'))
-                .longName ??
-            "";
+        String cityy = addresses.firstWhere((element) => element.types!.contains('administrative_area_level_2')).longName ?? "";
         // replace word Kota, Kab, or Kabupaten with Empty String
-        String city =
-            cityy.replaceAll(RegExp(r'Kota |Kabupaten |Kab |Regency '), '');
+        String city = cityy.replaceAll(RegExp(r'Kota |Kabupaten |Kab |Regency '), '');
 
-        String subdistrictt = addresses
-                .firstWhere((element) =>
-                    element.types!.contains('administrative_area_level_3'))
-                .longName ??
-            "";
+        String subdistrictt = addresses.firstWhere((element) => element.types!.contains('administrative_area_level_3')).longName ?? "";
 
-        String subdistrict =
-            subdistrictt.replaceAll(RegExp(r'Kecamatan |Kec '), '');
+        String subdistrict = subdistrictt.replaceAll(RegExp(r'Kecamatan |Kec '), '');
 
-        String village = addresses
-                .firstWhere((element) =>
-                    element.types!.contains('administrative_area_level_4'))
-                .longName ??
-            "";
+        String village = addresses.firstWhere((element) => element.types!.contains('administrative_area_level_4')).longName ?? "";
 
-        String postalCode = addresses
-                .firstWhere((element) => element.types!.contains('postal_code'))
-                .longName ??
-            "";
+        String postalCode = addresses.firstWhere((element) => element.types!.contains('postal_code')).longName ?? "";
 
         String adres = address.adresses!.first.formattedAddress ?? "";
         source.inputProvince.text = province;
@@ -490,14 +377,11 @@ class _CustomerFormSource extends GetxController
     source.inputName.text = customer.cstmname ?? '';
     source.inputPhone.text = customer.cstmphone ?? '';
     source.inputAddress.text = customer.cstmaddress ?? '';
-    source.selectType.setSelected(BsSelectBoxOption(
-        value: customer.cstmtypeid,
-        text: Text(customer.cstmtype?.typename ?? '')));
+    source.selectType.setSelected(BsSelectBoxOption(value: customer.cstmtypeid, text: Text(customer.cstmtype?.typename ?? '')));
     source.inputReferal.text = customer.referalcode ?? '';
     source.inputProvince.text = customer.cstmprovince?.provname ?? '';
     source.inputCity.text = customer.cstmcity?.cityname ?? '';
-    source.inputSubdistrict.text =
-        customer.cstmsubdistrict?.subdistrictname ?? '';
+    source.inputSubdistrict.text = customer.cstmsubdistrict?.subdistrictname ?? '';
     source.inputVillage.text = customer.cstmvillage?.villagename ?? '';
     source.inputPostal.text = customer.cstmpostalcode ?? '';
 

@@ -28,16 +28,11 @@ class RoleDataTableSource extends BsDatatableSource {
         orderable: false,
       ),
       CustomBsDataColumn(label: Text('Role Name'), columnName: 'provname'),
-      CustomBsDataColumn(
-          label: Text('Actions'),
-          width: 100,
-          orderable: false,
-          searchable: false),
+      CustomBsDataColumn(label: Text('Actions'), width: 100, orderable: false, searchable: false),
     ];
   }
 
-  List<TypeModel> get roles =>
-      response.data.map((data) => TypeModel.fromJson(data)).toList();
+  List<TypeModel> get roles => response.data.map((data) => TypeModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
@@ -102,9 +97,7 @@ class RoleDataTableSource extends BsDatatableSource {
                   .hasaccess!)
                 Tooltip(
                   message: BaseText.deleteHintDatatable(field: row.typename),
-                  child: ButtonDeleteDatatables(
-                      onPressed: () =>
-                          onDeleteListener(row.typeid, row.typename)),
+                  child: ButtonDeleteDatatables(onPressed: () => onDeleteListener(row.typeid, row.typename)),
                 ),
             ],
           ),
@@ -115,7 +108,7 @@ class RoleDataTableSource extends BsDatatableSource {
               : x % 2 == 0
                   ? ColorPallates.datatableLightEvenRowColor
                   : ColorPallates.datatableLightOddRowColor,
-          padding: EdgeInsets.all(9),
+          padding: EdgeInsets.all(11),
         ),
       ],
     );

@@ -28,24 +28,18 @@ class SubdistrictDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      CustomBsDataColumn(
-          label: Text('Subdistrict Name'), columnName: 'subdistrictname'),
+      CustomBsDataColumn(label: Text('Subdistrict Name'), columnName: 'subdistrictname'),
       CustomBsDataColumn(
         label: Text('Subdistrict City'),
         columnName: 'Subdistrictnm',
         searchable: false,
         orderable: false,
       ),
-      CustomBsDataColumn(
-          label: Text('Actions'),
-          width: 100,
-          orderable: false,
-          searchable: false),
+      CustomBsDataColumn(label: Text('Actions'), width: 100, orderable: false, searchable: false),
     ];
   }
 
-  List<SubdistrictModel> get subdistrict =>
-      response.data.map((data) => SubdistrictModel.fromJson(data)).toList();
+  List<SubdistrictModel> get subdistrict => response.data.map((data) => SubdistrictModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
@@ -104,8 +98,7 @@ class SubdistrictDataTableSource extends BsDatatableSource {
                   .permissions!
                   .hasaccess!)
                 Tooltip(
-                  message:
-                      BaseText.editHintDatatable(field: row.subdistrictname),
+                  message: BaseText.editHintDatatable(field: row.subdistrictname),
                   child: ButtonEditDatatables(
                     margin: EdgeInsets.only(right: 5),
                     onPressed: () => onEditListener(row.subdistrictid!),
@@ -126,11 +119,8 @@ class SubdistrictDataTableSource extends BsDatatableSource {
                   .permissions!
                   .hasaccess!)
                 Tooltip(
-                  message:
-                      BaseText.deleteHintDatatable(field: row.subdistrictname),
-                  child: ButtonDeleteDatatables(
-                      onPressed: () => onDeleteListener(
-                          row.subdistrictid, row.subdistrictname)),
+                  message: BaseText.deleteHintDatatable(field: row.subdistrictname),
+                  child: ButtonDeleteDatatables(onPressed: () => onDeleteListener(row.subdistrictid, row.subdistrictname)),
                 ),
             ],
           ),
@@ -141,7 +131,7 @@ class SubdistrictDataTableSource extends BsDatatableSource {
               : x % 2 == 0
                   ? ColorPallates.datatableLightEvenRowColor
                   : ColorPallates.datatableLightOddRowColor,
-          padding: EdgeInsets.all(9),
+          padding: EdgeInsets.all(11),
         ),
       ],
     );

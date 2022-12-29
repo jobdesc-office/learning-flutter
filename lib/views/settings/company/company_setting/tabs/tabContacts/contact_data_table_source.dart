@@ -50,16 +50,11 @@ class ContactDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      CustomBsDataColumn(
-          label: Text('Actions'),
-          width: 100,
-          orderable: false,
-          searchable: false),
+      CustomBsDataColumn(label: Text('Actions'), width: 100, orderable: false, searchable: false),
     ];
   }
 
-  List<ContactModel> get contacts =>
-      response.data.map((data) => ContactModel.fromJson(data)).toList();
+  List<ContactModel> get contacts => response.data.map((data) => ContactModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
@@ -161,9 +156,7 @@ class ContactDataTableSource extends BsDatatableSource {
                   .hasaccess!)
                 Tooltip(
                   message: BaseText.deleteHintDatatable(field: row.contactname),
-                  child: ButtonDeleteDatatables(
-                      onPressed: () => onDeleteListener(
-                          row.contactpersonid!, row.contactname!)),
+                  child: ButtonDeleteDatatables(onPressed: () => onDeleteListener(row.contactpersonid!, row.contactname!)),
                 ),
             ],
           ),
@@ -174,7 +167,7 @@ class ContactDataTableSource extends BsDatatableSource {
               : x % 2 == 0
                   ? ColorPallates.datatableLightEvenRowColor
                   : ColorPallates.datatableLightOddRowColor,
-          padding: EdgeInsets.all(9),
+          padding: EdgeInsets.all(11),
         ),
       ],
     );

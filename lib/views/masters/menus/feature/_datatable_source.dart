@@ -41,8 +41,7 @@ class FeatureDataTableSource extends BsDatatableSource {
     ];
   }
 
-  List<FeatureModel> get features =>
-      response.data.map((data) => FeatureModel.fromJson(data)).toList();
+  List<FeatureModel> get features => response.data.map((data) => FeatureModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
@@ -90,9 +89,7 @@ class FeatureDataTableSource extends BsDatatableSource {
               ),
               Tooltip(
                 message: BaseText.deleteHintDatatable(field: row.feattitle),
-                child: ButtonDeleteDatatables(
-                    onPressed: () =>
-                        onDeleteListener(row.featid, row.feattitle)),
+                child: ButtonDeleteDatatables(onPressed: () => onDeleteListener(row.featid, row.feattitle)),
               ),
             ],
           ),
@@ -103,7 +100,7 @@ class FeatureDataTableSource extends BsDatatableSource {
               : x % 2 == 0
                   ? ColorPallates.datatableLightEvenRowColor
                   : ColorPallates.datatableLightOddRowColor,
-          padding: EdgeInsets.all(9),
+          padding: EdgeInsets.all(11),
         ),
       ],
     );
