@@ -9,7 +9,7 @@ class _AppsMenuPermission extends StatelessWidget {
     return Obx(() => SingleChildScrollView(
           child: Column(
             children: source.permission
-                .where((p0) => p0.menutypeid == 9)
+                .where((p0) => p0.menutype!.typename == 'Apps')
                 .map((element) {
               x++;
               return Container(
@@ -63,7 +63,7 @@ class _AppsMenuPermission extends StatelessWidget {
                                         InkWell(
                                           child: Icon(
                                             Icons.toggle_on,
-                                            size: 35,
+                                            size: 30,
                                             color: _navigation.darkTheme.value
                                                 ? ColorPallates.onDarkMode
                                                 : ColorPallates.onLightMode,
@@ -89,7 +89,7 @@ class _AppsMenuPermission extends StatelessWidget {
                                         InkWell(
                                             child: Icon(
                                               Icons.toggle_off,
-                                              size: 35,
+                                              size: 30,
                                               color: _navigation.darkTheme.value
                                                   ? ColorPallates.offDarkMode
                                                   : ColorPallates.offLightMode,
@@ -156,7 +156,7 @@ class _AppsMenuPermission extends StatelessWidget {
                                                     InkWell(
                                                       child: Icon(
                                                         Icons.toggle_on,
-                                                        size: 35,
+                                                        size: 30,
                                                         color: _navigation
                                                                 .darkTheme.value
                                                             ? ColorPallates
@@ -185,7 +185,7 @@ class _AppsMenuPermission extends StatelessWidget {
                                                     InkWell(
                                                         child: Icon(
                                                           Icons.toggle_off,
-                                                          size: 35,
+                                                          size: 30,
                                                           color: _navigation
                                                                   .darkTheme
                                                                   .value
@@ -276,7 +276,7 @@ class _AppsMenuPermission extends StatelessWidget {
                                                                   child: Icon(
                                                                     Icons
                                                                         .toggle_on,
-                                                                    size: 35,
+                                                                    size: 30,
                                                                     color: _navigation
                                                                             .darkTheme
                                                                             .value
@@ -312,7 +312,7 @@ class _AppsMenuPermission extends StatelessWidget {
                                                                     child: Icon(
                                                                       Icons
                                                                           .toggle_off,
-                                                                      size: 35,
+                                                                      size: 30,
                                                                       color: _navigation
                                                                               .darkTheme
                                                                               .value

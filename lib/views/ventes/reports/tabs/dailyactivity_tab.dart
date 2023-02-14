@@ -359,7 +359,7 @@ class _DailyActivityTabState extends State<DailyActivityTab>
   }
 
   @override
-  void onErrorRequest(Response response) {
+  void onErrorRequest(Response response, {context}) {
     presenter.setProcessing(false);
   }
 

@@ -8,4 +8,8 @@ class PermissionService extends ApiConnectProvider {
   Future<Response> menu(int roleid) {
     return get('$api/menu', query: {'roleid': roleid.toString()});
   }
+
+  Future<Response> updateTab(Map<String, dynamic> body) {
+    return post('$api/update', body);
+  }
 }

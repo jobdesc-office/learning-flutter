@@ -18,6 +18,8 @@ class RolePermissionModel {
   List<Features>? features;
   List<Children>? children;
 
+  // List? _children;
+
   RolePermissionModel(
       {this.menuid,
       this.masterid,
@@ -72,6 +74,14 @@ class RolePermissionModel {
       });
     }
   }
+
+  // List<Children> get children {
+  //   if (_children == null || _children!.isEmpty) return [];
+
+  //   return List<Children>.from(_children!.map((e) {
+  //     return Children.fromJson(e);
+  //   }));
+  // }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -177,18 +187,21 @@ class Menucreatedby {
 class Menutype {
   int? typeid;
   String? typename;
+  String? typecd;
 
-  Menutype({this.typeid, this.typename});
+  Menutype({this.typeid, this.typename, this.typecd});
 
   Menutype.fromJson(Map<String, dynamic> json) {
     typeid = json['typeid'];
     typename = json['typename'];
+    typecd = json['typecd'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['typeid'] = this.typeid;
     data['typename'] = this.typename;
+    data['typecd'] = this.typecd;
     return data;
   }
 }

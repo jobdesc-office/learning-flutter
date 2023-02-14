@@ -1,6 +1,9 @@
 import 'dart:convert';
 
+import 'package:boilerplate/presenters/masters/user_presenter.dart';
+import 'package:boilerplate/views/masters/menus/_form_source.dart';
 import 'package:boilerplate/views/masters/users/_text.dart';
+import 'package:boilerplate/views/masters/users/_user_type.dart';
 import 'package:bs_flutter_inputtext/bs_flutter_inputtext.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +21,7 @@ import '../../../widgets/input/custom_input.dart';
 import '../../../widgets/selectbox/custom_selectbox.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
+final _presenter = Get.find<UserPresenter>();
 
 class UserSource extends GetxController {
   var id = 0.obs;
@@ -61,6 +65,8 @@ class UserSource extends GetxController {
 
   bool isProcessing = false;
 
+  UserTypeOptionsController userTypeController = UserTypeOptionsController();
+
   TextEditingController inputName = TextEditingController();
   TextEditingController inputCode = TextEditingController();
   TextEditingController inputPassword = TextEditingController();
@@ -69,12 +75,15 @@ class UserSource extends GetxController {
   TextEditingController inputEmail = TextEditingController();
   TextEditingController inputPhone = TextEditingController();
 
-  List<BsSelectBoxController> selectsRole = List<BsSelectBoxController>.filled(1, BsSelectBoxController(), growable: true);
+  List<BsSelectBoxController> selectsRole = List<BsSelectBoxController>.filled(
+      1, BsSelectBoxController(),
+      growable: true);
 
   BsSelectBoxController selectRole = BsSelectBoxController();
   BsSelectBoxController selectAccess = BsSelectBoxController();
   BsSelectBoxController selectSecurityGroup = BsSelectBoxController();
-  List<BsSelectBoxController> selectsBp = List<BsSelectBoxController>.empty(growable: true);
+  List<BsSelectBoxController> selectsBp =
+      List<BsSelectBoxController>.empty(growable: true);
 
   List<Map<String, dynamic>> jsonRoles() {
     final box = GetStorage();
@@ -119,6 +128,18 @@ class UserForm {
 
   UserForm(this.source);
 
+  Widget userAccess() {
+    return FormGroup(
+      label: Obx(() => Text(UserText.labelAccess,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      child: UserTypeOptions(
+        controller: source.userTypeController,
+      ),
+    );
+  }
+
   Widget formDetail({required ValueChanged<int> onRemoveItem}) {
     return FormGroup(
       child: Column(
@@ -148,7 +169,10 @@ class UserForm {
 
   Widget selectRole() {
     return FormGroup(
-      label: Obx(() => Text(UserText.labelRole, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(UserText.labelRole,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomSelectBox(
         searchable: false,
         disabled: source.isProcessing,
@@ -167,7 +191,10 @@ class UserForm {
 
   Widget selectAccess() {
     return FormGroup(
-      label: Obx(() => Text(UserText.labelAccess, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(UserText.labelAccess,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomSelectBox(
         searchable: false,
         disabled: source.isProcessing,
@@ -186,7 +213,10 @@ class UserForm {
 
   Widget selectSecurityGroup() {
     return FormGroup(
-      label: Obx(() => Text(UserText.labelSecurityGroup, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(UserText.labelSecurityGroup,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomSelectBox(
         searchable: false,
         disabled: source.isProcessing,
@@ -205,7 +235,10 @@ class UserForm {
 
   Widget inputName() {
     return FormGroup(
-      label: Obx(() => Text(UserText.labelUsername, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(UserText.labelUsername,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputName,
@@ -220,7 +253,10 @@ class UserForm {
 
   Widget inputCode() {
     return FormGroup(
-      label: Obx(() => Text(UserText.labelCode, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(UserText.labelCode,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputCode,
@@ -235,7 +271,10 @@ class UserForm {
 
   Widget inputPassword() {
     return FormGroup(
-      label: Obx(() => Text(UserText.labelPassword, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(UserText.labelPassword,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: Obx(() => CustomInput(
             onChange: (value) {
               if (value != '')
@@ -259,7 +298,10 @@ class UserForm {
 
   Widget inputConfirmPassword() {
     return FormGroup(
-      label: Obx(() => Text(UserText.labelConfirmPassword, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(UserText.labelConfirmPassword,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: Obx(() => CustomInput(
             maxLines: 1,
             passwordText: true,
@@ -281,7 +323,10 @@ class UserForm {
 
   Widget inputFullName() {
     return FormGroup(
-      label: Obx(() => Text(UserText.labelFullName, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(UserText.labelFullName,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputFullName,
@@ -295,19 +340,28 @@ class UserForm {
 
   Widget inputEmail() {
     return FormGroup(
-      label: Obx(() => Text(UserText.labelEmail, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(UserText.labelEmail,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputEmail,
         hintText: BaseText.hintText(field: UserText.labelEmail),
-        validators: [Validators.maxLength(UserText.labelEmail, 100), Validators.inputEmail()],
+        validators: [
+          Validators.maxLength(UserText.labelEmail, 100),
+          Validators.inputEmail()
+        ],
       ),
     );
   }
 
   Widget inputPhone() {
     return FormGroup(
-      label: Obx(() => Text(UserText.labelPhone, style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black))),
+      label: Obx(() => Text(UserText.labelPhone,
+          style: TextStyle(
+              color:
+                  _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
         disabled: source.isProcessing,
         controller: source.inputPhone,

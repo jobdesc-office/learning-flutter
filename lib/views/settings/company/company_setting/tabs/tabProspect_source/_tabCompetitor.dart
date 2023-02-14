@@ -358,7 +358,7 @@ class _TabCompetitor extends GetView
   }
 
   @override
-  void onErrorRequest(Response response) {
+  void onErrorRequest(Response response, {context}) {
     presenter.setProcessing(false);
   }
 

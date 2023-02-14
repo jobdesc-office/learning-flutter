@@ -31,7 +31,8 @@ class _TabCustomerspr extends StatelessWidget implements IndexViewContract {
             child: Obx(() {
               return Column(
                 children: [
-                  if (custsource.value.isForm.value) custsource.value.form(context),
+                  if (custsource.value.isForm.value)
+                    custsource.value.form(context),
                   CustomDatabales(
                     source: datatable,
                     columns: datatable.columns,
@@ -40,7 +41,8 @@ class _TabCustomerspr extends StatelessWidget implements IndexViewContract {
                           .where((element) => element.menunm == 'Settings')
                           .first
                           .children!
-                          .where((element) => element.menunm == 'Company Setting')
+                          .where(
+                              (element) => element.menunm == 'Company Setting')
                           .first
                           .features!
                           .where((element) => element.featslug == 'create')
@@ -56,7 +58,8 @@ class _TabCustomerspr extends StatelessWidget implements IndexViewContract {
                           },
                         )
                     ],
-                    serverSide: (params) => bppresenter.datatablesbppro(context, params),
+                    serverSide: (params) =>
+                        bppresenter.datatablesbppro(context, params),
                   ),
                 ],
               );
@@ -99,7 +102,7 @@ class _TabCustomerspr extends StatelessWidget implements IndexViewContract {
   }
 
   @override
-  void onErrorRequest(Response response) {
+  void onErrorRequest(Response response, {context}) {
     bppresenter.setProcessing(false);
     custpresenter.setProcessing(false);
     Snackbar().failed(Get.context!, response.body['message']);
@@ -111,11 +114,13 @@ class _TabCustomerspr extends StatelessWidget implements IndexViewContract {
     custsource.value.isForm.value = false;
     bppresenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
-    datatable.onDetailsListener = (userid) => custpresenter.details(context, userid);
+    datatable.onDetailsListener =
+        (userid) => custpresenter.details(context, userid);
     datatable.onEditListener = (value) {
       custpresenter.show(value);
       custsource.value.show.value = false;
     };
-    datatable.onDeleteListener = (cstmid, cstmname) => bppresenter.delete(context, cstmid, cstmname);
+    datatable.onDeleteListener =
+        (cstmid, cstmname) => bppresenter.delete(context, cstmid, cstmname);
   }
 }

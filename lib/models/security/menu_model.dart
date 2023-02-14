@@ -1,3 +1,5 @@
+import 'package:boilerplate/helpers/function.dart';
+
 import '../masters/type_model.dart';
 
 class MenuModel {
@@ -8,7 +10,7 @@ class MenuModel {
   String? menuicon;
   String? menuroute;
   String? menucolor;
-  int? menuseq;
+  late int menuseq;
   int? createdby;
   String? createddate;
   int? updatedby;
@@ -27,7 +29,7 @@ class MenuModel {
       this.menuicon,
       this.menuroute,
       this.menucolor,
-      this.menuseq,
+      required this.menuseq,
       this.createdby,
       this.createddate,
       this.updatedby,
@@ -46,7 +48,7 @@ class MenuModel {
     menuicon = json['menuicon'];
     menuroute = json['menuroute'];
     menucolor = json['menucolor'];
-    menuseq = json['menuseq'];
+    menuseq = parseInt(json['menuseq']);
     createdby = json['createdby'];
     createddate = json['createddate'];
     updatedby = json['updatedby'];

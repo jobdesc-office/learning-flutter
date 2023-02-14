@@ -41,7 +41,8 @@ class OrganizationSection extends StatelessWidget {
                           Icon(Icons.person),
                           Container(
                               margin: EdgeInsets.only(top: 5),
-                              child: Text(source.userfullname.value))
+                              child: Text(
+                                  source.userfullname.value ?? 'Not found'))
                         ],
                       ),
                     ),

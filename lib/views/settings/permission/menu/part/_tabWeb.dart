@@ -1,7 +1,10 @@
 part of '../permission_menu.dart';
 
+final _source = Get.find<PermissionSource>();
+
 class _WebMenuPermission extends StatelessWidget {
   const _WebMenuPermission({Key? key}) : super(key: key);
+  // List<TypeModel> get permissions => _source.role.value;
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +15,8 @@ class _WebMenuPermission extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: source.permission
-                    .where((p0) => p0.menutypeid == 8)
+                    .where(
+                        (p0) => p0.menutype!.typecd == ConfigType.menuTypeWeb)
                     .map((element) {
                   int x = 1;
                   return Container(
@@ -59,10 +63,11 @@ class _WebMenuPermission extends StatelessWidget {
                                         Column(
                                           children: [
                                             Text(e.feattitle ?? ''),
+                                            // Parent toggle here !!
                                             InkWell(
                                               child: Icon(
                                                 Icons.toggle_on,
-                                                size: 35,
+                                                size: 30,
                                                 color: _navigation
                                                         .darkTheme.value
                                                     ? ColorPallates.onDarkMode
@@ -75,10 +80,19 @@ class _WebMenuPermission extends StatelessWidget {
                                                         .current();
                                                 Map<String, dynamic> body = {
                                                   'hasaccess': false,
-                                                  'updatedby': session.userid
+                                                  'updatedby': session.userid,
+                                                  'parentId': element
+                                                      .features![0].featid,
+                                                  'childId': [],
+                                                  'roleid': element
+                                                      .features![0].roleid
                                                 };
-                                                presenter.update(
-                                                    context, body, e.permisid!);
+                                                element.children?.forEach((el) {
+                                                  body['childId'].add(
+                                                      el.features?[0].featid);
+                                                });
+                                                presenter.updateTabs(
+                                                    context, body);
                                               },
                                             ),
                                           ],
@@ -87,10 +101,11 @@ class _WebMenuPermission extends StatelessWidget {
                                         Column(
                                           children: [
                                             Text(e.feattitle ?? ''),
+                                            // Parent toggle here !!
                                             InkWell(
                                                 child: Icon(
                                                   Icons.toggle_off,
-                                                  size: 35,
+                                                  size: 30,
                                                   color: _navigation
                                                           .darkTheme.value
                                                       ? ColorPallates
@@ -105,10 +120,20 @@ class _WebMenuPermission extends StatelessWidget {
                                                           .current();
                                                   Map<String, dynamic> body = {
                                                     'hasaccess': true,
-                                                    'updatedby': session.userid
+                                                    'updatedby': session.userid,
+                                                    'parentId': element
+                                                        .features![0].featid,
+                                                    'childId': [],
+                                                    'roleid': element
+                                                        .features![0].roleid
                                                   };
-                                                  presenter.update(context,
-                                                      body, e.permisid!);
+                                                  element.children
+                                                      ?.forEach((el) {
+                                                    body['childId'].add(
+                                                        el.features?[0].featid);
+                                                  });
+                                                  presenter.updateTabs(
+                                                      context, body);
                                                 }),
                                           ],
                                         ),
@@ -178,7 +203,7 @@ class _WebMenuPermission extends StatelessWidget {
                                                           InkWell(
                                                             child: Icon(
                                                               Icons.toggle_on,
-                                                              size: 35,
+                                                              size: 30,
                                                               color: _navigation
                                                                       .darkTheme
                                                                       .value
@@ -200,8 +225,26 @@ class _WebMenuPermission extends StatelessWidget {
                                                                     false,
                                                                 'updatedby':
                                                                     session
-                                                                        .userid
+                                                                        .userid,
+                                                                'roleid': element
+                                                                    .features![
+                                                                        0]
+                                                                    .roleid,
+                                                                'childId': [],
+                                                                'parentId': element
+                                                                    .features![
+                                                                        0]
+                                                                    .featid,
                                                               };
+                                                              element.children
+                                                                  ?.forEach(
+                                                                      (children) {
+                                                                body['childId']
+                                                                    .add(children
+                                                                        .features?[
+                                                                            0]
+                                                                        .featid);
+                                                              });
                                                               presenter.update(
                                                                   context,
                                                                   body,
@@ -213,7 +256,7 @@ class _WebMenuPermission extends StatelessWidget {
                                                               child: Icon(
                                                                 Icons
                                                                     .toggle_off,
-                                                                size: 35,
+                                                                size: 30,
                                                                 color: _navigation
                                                                         .darkTheme
                                                                         .value
@@ -235,22 +278,30 @@ class _WebMenuPermission extends StatelessWidget {
                                                                       true,
                                                                   'updatedby':
                                                                       session
-                                                                          .userid
+                                                                          .userid,
+                                                                  'roleid': element
+                                                                      .features![
+                                                                          0]
+                                                                      .roleid,
+                                                                  'childId': [],
+                                                                  'parentId': element
+                                                                      .features![
+                                                                          0]
+                                                                      .featid,
                                                                 };
+                                                                element.children
+                                                                    ?.forEach(
+                                                                        (children) {
+                                                                  body['childId']
+                                                                      .add(children
+                                                                          .features?[
+                                                                              0]
+                                                                          .featid);
+                                                                });
                                                                 presenter.update(
                                                                     context,
                                                                     body,
                                                                     el.permisid!);
-                                                                presenter.update(
-                                                                    context,
-                                                                    body,
-                                                                    element
-                                                                        .features!
-                                                                        .where((element) =>
-                                                                            element.feattitle ==
-                                                                            'Viewable')
-                                                                        .first
-                                                                        .permisid!);
                                                               }),
                                                       ],
                                                     ),
@@ -331,7 +382,7 @@ class _WebMenuPermission extends StatelessWidget {
                                                                           Icons
                                                                               .toggle_on,
                                                                           size:
-                                                                              35,
+                                                                              30,
                                                                           color: _navigation.darkTheme.value
                                                                               ? ColorPallates.onDarkMode
                                                                               : ColorPallates.onLightMode,
@@ -348,8 +399,19 @@ class _WebMenuPermission extends StatelessWidget {
                                                                             'hasaccess':
                                                                                 false,
                                                                             'updatedby':
-                                                                                session.userid
+                                                                                session.userid,
+                                                                            'childId':
+                                                                                [],
+                                                                            'parentId':
+                                                                                element.features![0].featid,
+                                                                            'roleid':
+                                                                                element.features![0].roleid
                                                                           };
+                                                                          element
+                                                                              .children
+                                                                              ?.forEach((children) {
+                                                                            body['childId'].add(children.features?[0].featid);
+                                                                          });
                                                                           presenter.update(
                                                                               context,
                                                                               body,
@@ -362,7 +424,7 @@ class _WebMenuPermission extends StatelessWidget {
                                                                               Icon(
                                                                             Icons.toggle_off,
                                                                             size:
-                                                                                35,
+                                                                                30,
                                                                             color: _navigation.darkTheme.value
                                                                                 ? ColorPallates.offDarkMode
                                                                                 : ColorPallates.offLightMode,
@@ -377,8 +439,14 @@ class _WebMenuPermission extends StatelessWidget {
                                                                                 body =
                                                                                 {
                                                                               'hasaccess': true,
-                                                                              'updatedby': session.userid
+                                                                              'updatedby': session.userid,
+                                                                              'childId': [],
+                                                                              'parentId': element.features![0].featid,
+                                                                              'roleid': element.features![0].roleid
                                                                             };
+                                                                            element.children?.forEach((children) {
+                                                                              body['childId'].add(children.features?[0].featid);
+                                                                            });
                                                                             presenter.update(
                                                                                 context,
                                                                                 body,
@@ -417,4 +485,10 @@ class _WebMenuPermission extends StatelessWidget {
           ),
         ));
   }
+
+  // void parentUpdateChecker(parentid, roleid) {
+  //   print(parentid);
+  //   print(roleid);
+  //   presenter.updateTabs(context, parentid, roleid);
+  // }
 }

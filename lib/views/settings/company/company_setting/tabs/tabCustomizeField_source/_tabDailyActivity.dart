@@ -83,7 +83,7 @@ class _TabCustomizeFieldDailyActivity extends StatelessWidget
   }
 
   @override
-  void onErrorRequest(Response response) {
+  void onErrorRequest(Response response, {context}) {
     presenter.setProcessing(false);
   }
 

@@ -1,3 +1,6 @@
+import 'package:boilerplate/constants/config_types.dart';
+import 'package:boilerplate/services/masters/type_service.dart';
+import 'package:boilerplate/views/masters/users/_user_type.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -82,21 +85,36 @@ class UserPresenter extends CustomGetXController {
       _chatDataContract.onLoadUsers(context, response);
   }
 
+  // Future _loadType() async {
+  //   Response response = await _typeService.byCode(ConfigType.accesses);
+  //   print(response);
+  //   if (response.statusCode == 200)
+  //     _userTypeViewContract.onLoadSuccess(response);
+  //   else
+  //     _userViewContract.onErrorRequest(response);
+  // }
+
   void add(BuildContext context) async {
     showDialog(
       context: context,
-      builder: (context) => UserFormView(
-        onSave: (body) => save(context, body),
-      ),
+      builder: (context) => UserFormView(onSave: (body) {
+        print(body['roles']);
+        save(context, body);
+      }),
     );
+
+    // _loadType();
   }
 
   void save(BuildContext context, Map<String, dynamic> body) async {
+    print(body);
     Response response = await _userService.store(body);
+    // print(response.body['message']);
     if (response.statusCode == 200)
       _userViewContract.onCreateSuccess(response, context: context);
     else
-      _userViewContract.onErrorRequest(response);
+      _userViewContract.onErrorRequest(response, context: context);
+    // _userCreateContract?.onCreateFailed(response, context: context);
   }
 
   void details(BuildContext context, int userid) async {

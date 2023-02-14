@@ -273,5 +273,5 @@ class MenuDetails extends GetView
   }
 
   @override
-  void onErrorRequest(Response response) {}
+  void onErrorRequest(Response response, {context}) {}
 }

@@ -25,8 +25,13 @@ class PermissionRoleDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      CustomBsDataColumn(label: Text('Permission Role'), orderable: false, searchable: false),
-      CustomBsDataColumn(label: Text('Actions'), width: 100, orderable: false, searchable: false),
+      CustomBsDataColumn(
+          label: Text('Permission Role'), orderable: false, searchable: false),
+      CustomBsDataColumn(
+          label: Text('Actions'),
+          width: 100,
+          orderable: false,
+          searchable: false),
     ];
   }
 
@@ -66,7 +71,8 @@ class PermissionRoleDataTableSource extends BsDatatableSource {
               Tooltip(
                 message: '${row.typename} Permissions',
                 child: BsButton(
-                  size: BsButtonSize(iconSize: 14, padding: EdgeInsets.all(1.5)),
+                  size:
+                      BsButtonSize(iconSize: 14, padding: EdgeInsets.all(1.5)),
                   prefixIcon: Icons.settings,
                   margin: EdgeInsets.only(right: 5),
                   onPressed: () => onDeleteListener(row.typeid, row.typename),

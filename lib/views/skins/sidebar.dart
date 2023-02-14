@@ -1,6 +1,7 @@
 import 'package:boilerplate/helpers/function.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:get_storage/get_storage.dart';
 
 import '../../presenters/auth_presenter.dart';
@@ -28,15 +29,21 @@ class SidebarSkins extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () => Container(
-        color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : ColorPallates.sidebarLightColor,
-        child: _navigation.dataListOfMenu.value.id != 0 && !_navigation.isCollapse.value ? listOfMenu() : sidebar(),
+        color: _navigation.darkTheme.value
+            ? ColorPallates.elseDarkColor
+            : ColorPallates.sidebarLightColor,
+        child: _navigation.dataListOfMenu.value.id != 0 &&
+                !_navigation.isCollapse.value
+            ? listOfMenu()
+            : sidebar(),
       ),
     );
   }
 
   Widget sidebar() {
     // ignore: invalid_use_of_protected_member
-    var permis = authPresenter.rolepermis.value.where((element) => element.menutypeid == 9);
+    var permis = authPresenter.rolepermis.value
+        .where((element) => element.menutypeid == 9);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -49,7 +56,9 @@ class SidebarSkins extends StatelessWidget {
             color: Colors.white,
             border: Border.all(color: Colors.transparent, width: 0),
           ),
-          child: _navigation.isCollapse.value ? SidebarWidgets.logoCollapse() : SidebarWidgets.logo(),
+          child: _navigation.isCollapse.value
+              ? SidebarWidgets.logoCollapse()
+              : SidebarWidgets.logo(),
         ),
         if (permis.isNotEmpty)
           Expanded(
@@ -58,26 +67,57 @@ class SidebarSkins extends StatelessWidget {
                 duration: Duration(milliseconds: 250),
                 width: _navigation.isCollapse.value ? 70 : 250,
                 decoration: BoxDecoration(
-                  color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : ColorPallates.sidebarLightColor,
+                  color: _navigation.darkTheme.value
+                      ? ColorPallates.elseDarkColor
+                      : ColorPallates.sidebarLightColor,
                 ),
                 child: SidebarMenus(
                   isCollapse: _navigation.isCollapse.value,
                   activeRoute: activeRoute,
                   menus: permis
-                      .where((element) => element.features?.where((element) => element.featslug == 'viewable').first.permissions?.hasaccess ?? false)
+                      .where((element) =>
+                          element.features
+                              ?.where(
+                                  (element) => element.featslug == 'viewable')
+                              .first
+                              .permissions
+                              ?.hasaccess ??
+                          false)
                       .map((e) => MenuDataGroup(
                             title: e.menunm,
-                            icon: e.menuicon != '' ? parseIcon(e.menuicon) : null,
+                            icon:
+                                e.menuicon != '' ? parseIcon(e.menuicon) : null,
                             children: e.children!
-                                .where((element) => element.features?.where((element) => element.featslug == 'viewable').first.permissions?.hasaccess ?? false)
+                                .where((element) =>
+                                    element.features
+                                        ?.where((element) =>
+                                            element.featslug == 'viewable')
+                                        .first
+                                        .permissions
+                                        ?.hasaccess ??
+                                    false)
                                 .map((e) => MenuData(
                                     icon: parseIcon(e.menuicon),
                                     id: e.menuid ?? 0,
                                     label: e.menunm ?? '',
                                     route: e.menuroute ?? '',
-                                    children: e.children!.where((element) => element.features?.where((element) => element.featslug == 'viewable').first.permissions?.hasaccess ?? false).map((e) {
-                                      if (e.children != []) {
-                                        return MenuData(icon: parseIcon(e.menuicon), id: e.menuid ?? 0, label: e.menunm ?? '', route: e.menuroute ?? '');
+                                    children: e.children!
+                                        .where((element) =>
+                                            element.features
+                                                ?.where((element) =>
+                                                    element.featslug ==
+                                                    'viewable')
+                                                .first
+                                                .permissions
+                                                ?.hasaccess ??
+                                            false)
+                                        .map((e) {
+                                      if (e.children!.isNotEmpty) {
+                                        return MenuData(
+                                            icon: parseIcon(e.menuicon),
+                                            id: e.menuid ?? 0,
+                                            label: e.menunm ?? '',
+                                            route: e.menuroute ?? '');
                                       } else {
                                         return MenuData(
                                             icon: parseIcon(e.menuicon),
@@ -85,8 +125,20 @@ class SidebarSkins extends StatelessWidget {
                                             label: e.menunm ?? '',
                                             route: e.menuroute ?? '',
                                             children: e.children!
-                                                .where((element) => element.features?.where((element) => element.featslug == 'viewable').first.permissions?.hasaccess ?? false)
-                                                .map((e) => MenuData(icon: parseIcon(e.menuicon), id: e.menuid ?? 0, label: e.menunm ?? '', route: e.menuroute ?? ''))
+                                                .where((element) =>
+                                                    element.features
+                                                        ?.where((element) =>
+                                                            element.featslug ==
+                                                            'viewable')
+                                                        .first
+                                                        .permissions
+                                                        ?.hasaccess ??
+                                                    false)
+                                                .map((e) => MenuData(
+                                                    icon: parseIcon(e.menuicon),
+                                                    id: e.menuid ?? 0,
+                                                    label: e.menunm ?? '',
+                                                    route: e.menuroute ?? ''))
                                                 .toList());
                                       }
                                     }).toList()))
@@ -110,7 +162,9 @@ class SidebarSkins extends StatelessWidget {
           width: _navigation.isCollapse.value ? 70 : 250,
           padding: EdgeInsets.fromLTRB(15, 20, 15, 20),
           decoration: BoxDecoration(
-            color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : ColorPallates.sidebarLightColor,
+            color: _navigation.darkTheme.value
+                ? ColorPallates.elseDarkColor
+                : ColorPallates.sidebarLightColor,
           ),
           child: _navigation.isCollapse.value
               ? SidebarWidgets.logoCollapse()
@@ -124,7 +178,9 @@ class SidebarSkins extends StatelessWidget {
             duration: Duration(milliseconds: 250),
             width: _navigation.isCollapse.value ? 70 : 250,
             decoration: BoxDecoration(
-              color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : ColorPallates.sidebarLightColor,
+              color: _navigation.darkTheme.value
+                  ? ColorPallates.elseDarkColor
+                  : ColorPallates.sidebarLightColor,
             ),
             child: SidebarMenus(
               isCollapse: false,

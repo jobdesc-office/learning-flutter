@@ -164,18 +164,6 @@ class AppRoute {
       ),
 
       CustomGetPage(
-        name: RouteList.masterUser.index,
-        page: () => AuthGuard(
-          child: UserView(),
-          parent: 'Master Datas',
-          route: '/masters/user',
-        ),
-        binding: BindingsBuilder(() {
-          Get.lazyPut(() => UserService());
-          Get.lazyPut(() => UserPresenter());
-        }),
-      ),
-      CustomGetPage(
         name: RouteList.masterCustomer.index,
         page: () => AuthGuard(
           child: CustomerView(),
@@ -243,6 +231,20 @@ class AppRoute {
       //     Get.lazyPut(() => ProductPresenter());
       //   }),
       // ),
+
+      /* Settings */
+      CustomGetPage(
+        name: RouteList.masterUser.index,
+        page: () => AuthGuard(
+          child: UserView(),
+          parent: 'Settings',
+          route: '/masters/user',
+        ),
+        binding: BindingsBuilder(() {
+          Get.lazyPut(() => UserService());
+          Get.lazyPut(() => UserPresenter());
+        }),
+      ),
       CustomGetPage(
         name: RouteList.masterTypeParent.index,
         page: () => AuthGuard(

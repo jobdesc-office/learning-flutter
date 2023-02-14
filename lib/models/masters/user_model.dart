@@ -7,6 +7,7 @@ class UserModel {
   String? userfullname;
   String? useremail;
   String? userphone;
+  String? businesspartner;
   String? userdeviceid;
   String? userfcmtoken;
   String? usersocketid;
@@ -27,6 +28,7 @@ class UserModel {
       this.userfullname,
       this.useremail,
       this.userphone,
+      this.businesspartner,
       this.userdeviceid,
       this.userfcmtoken,
       this.usersocketid,
@@ -46,6 +48,7 @@ class UserModel {
     userfullname = json['userfullname'];
     useremail = json['useremail'];
     userphone = json['userphone'];
+    businesspartner = json['businesspartner'];
     userdeviceid = json['userdeviceid'];
     userfcmtoken = json['userfcmtoken'];
     usersocketid = json['usersocketid'];
@@ -54,9 +57,15 @@ class UserModel {
     updatedby = json['updatedby'];
     updateddate = json['updateddate'];
     isactive = json['isactive'];
-    usercreatedby = json['usercreatedby'] != null ? new Usercreatedby.fromJson(json['usercreatedby']) : null;
-    userupdatedby = json['userupdatedby'] != null ? new Usercreatedby.fromJson(json['userupdatedby']) : null;
-    appaccess = json['appaccess'] != null ? new Usertype.fromJson(json['appaccess']) : null;
+    usercreatedby = json['usercreatedby'] != null
+        ? new Usercreatedby.fromJson(json['usercreatedby'])
+        : null;
+    userupdatedby = json['userupdatedby'] != null
+        ? new Usercreatedby.fromJson(json['userupdatedby'])
+        : null;
+    appaccess = json['appaccess'] != null
+        ? new Usertype.fromJson(json['appaccess'])
+        : null;
     if (json['userdetails'] != null) {
       userdetails = <Userdetails>[];
       json['userdetails'].forEach((v) {
@@ -214,9 +223,15 @@ class Userdetails {
     updatedby = json['updatedby'];
     updateddate = json['updateddate'];
     isactive = json['isactive'];
-    usertype = json['usertype'] != null ? new Usertype.fromJson(json['usertype']) : null;
-    businesspartner = json['businesspartner'] != null ? new Businesspartner.fromJson(json['businesspartner']) : null;
-    securitygroup = json['securitygroup'] != null ? new SecurityGroupModel.fromJson(json['securitygroup']) : null;
+    usertype = json['usertype'] != null
+        ? new Usertype.fromJson(json['usertype'])
+        : null;
+    businesspartner = json['businesspartner'] != null
+        ? new Businesspartner.fromJson(json['businesspartner'])
+        : null;
+    securitygroup = json['securitygroup'] != null
+        ? new SecurityGroupModel.fromJson(json['securitygroup'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {

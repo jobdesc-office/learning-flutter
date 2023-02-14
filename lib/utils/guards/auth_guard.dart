@@ -40,10 +40,14 @@ class AuthGuard extends StatelessWidget implements GuardContract {
                     false)
                 .toList();
 
-            var permission = permis
-                .where((element) => element.menunm == parent)
-                .first
-                .children;
+            // var permission = permis
+            //     .where((element) => element.menunm == parent)
+            //     .first
+            //     .children;
+
+            var menum = authPresenter.rolepermis.value
+                .where((element) => element.menunm == parent);
+            var permission = menum.first.children;
 
             var per;
 
@@ -61,7 +65,7 @@ class AuthGuard extends StatelessWidget implements GuardContract {
                   .first
                   .features;
             }
-
+            // return child;
             var access = per
                     ?.where((element) => element.featslug == 'viewable')
                     .first
@@ -72,9 +76,11 @@ class AuthGuard extends StatelessWidget implements GuardContract {
             if (access) {
               return child;
             } else {
+              print('error');
               return Page404();
             }
           } catch (e) {
+            print(e);
             return Page404();
           }
         }

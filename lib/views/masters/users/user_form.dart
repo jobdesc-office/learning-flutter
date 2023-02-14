@@ -1,3 +1,4 @@
+import 'package:boilerplate/views/masters/menus/_form_source.dart';
 import 'package:boilerplate/views/skins/template.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
@@ -67,12 +68,14 @@ class UserFormView extends GetView implements EditViewContract {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        userForm.userAccess(),
                         userForm.inputName(),
                         userForm.inputFullName(),
                         userForm.inputPassword(),
                         userForm.inputConfirmPassword(),
                         userForm.inputEmail(),
                         userForm.inputPhone(),
+                        userForm.selectAccess(),
                         Row(
                           children: [
                             ButtonRoleUser(
@@ -262,9 +265,10 @@ class UserFormView extends GetView implements EditViewContract {
 
   void onClickSaveModal(BuildContext context) async {
     presenter.setProcessing(true);
-    if (formState.currentState!.validate())
+    if (formState.currentState!.validate()) {
+      print(await source.toJson());
       onSave(await source.toJson());
-    else
+    } else
       presenter.setProcessing(false);
   }
 

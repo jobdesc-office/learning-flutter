@@ -41,7 +41,8 @@ class BusinessPartnerDataTableSource extends BsDatatableSource {
     ];
   }
 
-  List<BusinessPartnerModel> get bpartners => response.data.map((data) => BusinessPartnerModel.fromJson(data)).toList();
+  List<BusinessPartnerModel> get bpartners =>
+      response.data.map((data) => BusinessPartnerModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
@@ -134,7 +135,8 @@ class BusinessPartnerDataTableSource extends BsDatatableSource {
                   .hasaccess!)
                 Tooltip(
                   message: BaseText.deleteHintDatatable(field: row.bpname),
-                  child: ButtonDeleteDatatables(onPressed: () => onDeleteListener(row.bpid, row.bpname)),
+                  child: ButtonDeleteDatatables(
+                      onPressed: () => onDeleteListener(row.bpid, row.bpname)),
                 ),
             ],
           ),

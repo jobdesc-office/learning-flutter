@@ -27,9 +27,7 @@ class UserView extends GetView
   UserView() {
     presenter.userViewContract = this;
     presenter.userResetContract = this;
-    datatable = UserDataTableSource(data: [
-      UserModel(userfullname: 'Data Baru').toJson(),
-    ]);
+    datatable = UserDataTableSource();
   }
 
   @override
@@ -50,17 +48,6 @@ class UserView extends GetView
                 source: datatable,
                 columns: datatable.columns,
                 headerActions: [
-                  ThemeButtonCreate(
-                    prefix: UserText.title,
-                    onPressed: () {},
-                  ),
-                  ThemeButtonCreate(
-                    prefix: UserText.title,
-                    onPressed: () {
-                      datatable.add(UserModel(userfullname: 'Add 1').toJson());
-                      datatable.reload();
-                    },
-                  ),
                   ThemeButtonCreate(
                     prefix: UserText.title,
                     onPressed: () => presenter.add(context),
@@ -101,8 +88,10 @@ class UserView extends GetView
   }
 
   @override
-  void onErrorRequest(Response response) {
+  void onErrorRequest(Response response, {context}) {
     presenter.setProcessing(false);
+    if (context != null) Navigator.pop(context);
+    Snackbar().createFailed(context!, response.body['message']);
   }
 
   @override

@@ -52,10 +52,16 @@ class BusinessPartnerModel {
     isactive = json['isactive'];
     bpdayactanytime = json['bpdayactanytime'];
     bpprosactanytime = json['bpprosactanytime'];
-    bptype = json['bptype'] != null ? new TypeModel.fromJson(json['bptype']) : null;
-    bpcreatedby = json['bpcreatedby'] != null ? new Bpcreatedby.fromJson(json['bpcreatedby']) : null;
-    bpupdatedby = json['bpupdatedby'] != null ? new Bpcreatedby.fromJson(json['bpupdatedby']) : null;
-    quota = json['quota'] != null ? new BpQuotaModel.fromJson(json['quota']) : null;
+    bptype =
+        json['bptype'] != null ? new TypeModel.fromJson(json['bptype']) : null;
+    bpcreatedby = json['bpcreatedby'] != null
+        ? new Bpcreatedby.fromJson(json['bpcreatedby'])
+        : null;
+    bpupdatedby = json['bpupdatedby'] != null
+        ? new Bpcreatedby.fromJson(json['bpupdatedby'])
+        : null;
+    quota =
+        json['quota'] != null ? new BpQuotaModel.fromJson(json['quota']) : null;
   }
 
   Map<String, dynamic> toJson() {

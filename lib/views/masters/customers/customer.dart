@@ -114,7 +114,7 @@ class CustomerView extends GetView implements IndexViewContract {
   }
 
   @override
-  void onErrorRequest(Response response) {
+  void onErrorRequest(Response response, {context}) {
     presenter.setProcessing(false);
   }
 

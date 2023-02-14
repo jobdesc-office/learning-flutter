@@ -247,7 +247,7 @@ class _TabProspectType extends StatelessWidget
   }
 
   @override
-  void onErrorRequest(Response response) {}
+  void onErrorRequest(Response response, {context}) {}
 
   @override
   void onLoadDatatables(BuildContext context, Response response) {

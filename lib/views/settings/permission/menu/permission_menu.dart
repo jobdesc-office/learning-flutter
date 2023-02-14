@@ -1,3 +1,4 @@
+import 'package:boilerplate/constants/config_types.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -145,7 +146,7 @@ class _PermissionMenuViewState extends State<PermissionMenuView>
   }
 
   @override
-  void onErrorRequest(Response response) {
+  void onErrorRequest(Response response, {context}) {
     presenter.setProcessing(false);
   }
 

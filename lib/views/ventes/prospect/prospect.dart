@@ -1,4 +1,5 @@
 import 'package:boilerplate/contracts/base/index_view_contract.dart';
+import 'package:boilerplate/presenters/ventes/prospect_presenter.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,7 +19,7 @@ import '_text.dart';
 final authPresenter = Get.find<AuthPresenter>();
 
 class ProspectView extends GetView implements IndexViewContract {
-  final presenter = Get.put(ProspectDetailPresenter());
+  final presenter = Get.put(ProspectPresenter());
   final presenterdt = Get.find<ProspectDetailPresenter>();
   final datatable = ProspectDataTableSource();
 
@@ -56,7 +57,9 @@ class ProspectView extends GetView implements IndexViewContract {
                       .first
                       .permissions!
                       .hasaccess!)
-                    ThemeButtonCreate(prefix: ProspectText.title, onPressed: () => presenter.add(context)),
+                    ThemeButtonCreate(
+                        prefix: ProspectText.title,
+                        onPressed: () => presenter.add(context)),
                 ],
                 source: datatable,
                 columns: datatable.columns,
@@ -81,8 +84,8 @@ class ProspectView extends GetView implements IndexViewContract {
   void onDeleteSuccess(Response response, {BuildContext? context}) {
     presenter.setProcessing(false);
     datatable.controller.reload();
-    Navigator.pop(context!);
-    Snackbar().deleteSuccess(context);
+    if (context != null) Navigator.pop(context);
+    Snackbar().deleteSuccess(context!);
   }
 
   @override
@@ -94,17 +97,20 @@ class ProspectView extends GetView implements IndexViewContract {
   }
 
   @override
-  void onErrorRequest(Response response) {
+  void onErrorRequest(Response response, {context}) {
     presenter.setProcessing(false);
     Snackbar().failed(Get.context!, response.body['message']);
   }
 
   @override
   void onLoadDatatables(BuildContext context, Response response) {
-    presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
-    datatable.onDetailsListener = (userid) => presenterdt.details(context, userid);
-    datatable.onEditListener = (menuid) => presenter.edit(context, menuid);
-    datatable.onDeleteListener = (menuid, name) => presenter.delete(context, menuid, name);
+    presenter.setProcessing(false);
+    datatable.onDetailsListener =
+        (userid) => presenterdt.details(context, userid);
+    datatable.onEditListener =
+        (prospectid) => presenterdt.edit(context, prospectid);
+    datatable.onDeleteListener =
+        (menuid, name) => presenter.delete(context, menuid, name);
   }
 }

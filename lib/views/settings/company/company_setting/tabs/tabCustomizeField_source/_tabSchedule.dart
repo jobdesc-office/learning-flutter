@@ -1,6 +1,7 @@
 part of '../../company.dart';
 
-class _TabCustomizeFieldSchedule extends StatelessWidget implements IndexViewContract {
+class _TabCustomizeFieldSchedule extends StatelessWidget
+    implements IndexViewContract {
   final presenter = Get.find<CustomFieldPresenter>();
   final datatable = CustomFieldDataTableSource();
   final sources = Get.put(CustomizeFieldSource());
@@ -15,7 +16,8 @@ class _TabCustomizeFieldSchedule extends StatelessWidget implements IndexViewCon
     return Obx(() => SingleChildScrollView(
           child: Column(
             children: [
-              if (sources.isForm.value) _FormCustomfield(ConfigType.scheduleCustomField, 'Schedule'),
+              if (sources.isForm.value)
+                _FormCustomfield(ConfigType.scheduleCustomField, 'Schedule'),
               CustomDatabales(
                 source: datatable,
                 columns: datatable.columns,
@@ -44,7 +46,8 @@ class _TabCustomizeFieldSchedule extends StatelessWidget implements IndexViewCon
                       },
                     )
                 ],
-                serverSide: (params) => presenter.datatablesschedule(context, params),
+                serverSide: (params) =>
+                    presenter.datatablesschedule(context, params),
               )
             ],
           ),
@@ -80,7 +83,7 @@ class _TabCustomizeFieldSchedule extends StatelessWidget implements IndexViewCon
   }
 
   @override
-  void onErrorRequest(Response response) {
+  void onErrorRequest(Response response, {context}) {
     presenter.setProcessing(false);
   }
 
@@ -88,7 +91,8 @@ class _TabCustomizeFieldSchedule extends StatelessWidget implements IndexViewCon
   void onLoadDatatables(BuildContext context, Response response) {
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
-    datatable.onDetailsListener = (userid) => presenter.details(context, userid, 'Schedule');
+    datatable.onDetailsListener =
+        (userid) => presenter.details(context, userid, 'Schedule');
     datatable.onEditListener = (countryid) {
       _FormCustomfield(ConfigType.scheduleCustomField, 'Schedule');
       sources.isForm.value = true;
@@ -96,6 +100,7 @@ class _TabCustomizeFieldSchedule extends StatelessWidget implements IndexViewCon
       // sources.isEdit.value = true;
       // sources.isForm.value = true;
     };
-    datatable.onDeleteListener = (cstmid, name) => presenter.delete(context, cstmid, name);
+    datatable.onDeleteListener =
+        (cstmid, name) => presenter.delete(context, cstmid, name);
   }
 }

@@ -27,6 +27,50 @@ BsCol prospectDetailTitleSection(context) {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Obx(() {
+                            Widget card = Text(source.status.value);
+                            switch (source.status.value) {
+                              case 'Closed Lost':
+                                card = Container(
+                                  child: Text(
+                                    '${source.status.value}',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
+                                  decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(5)),
+                                );
+                                break;
+                              case 'Closed Won':
+                                card = Container(
+                                  child: Text(
+                                    '${source.status.value}',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
+                                  decoration: BoxDecoration(
+                                      color: Colors.green,
+                                      borderRadius: BorderRadius.circular(5)),
+                                );
+                                break;
+                              case 'Force Closed':
+                                card = Container(
+                                  child: Text(
+                                    '${source.status.value}',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
+                                  decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(5)),
+                                );
+                                break;
+                              default:
+                                Text('${source.status.value}',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold));
+                            }
                             return Row(
                               children: [
                                 Text(
@@ -63,25 +107,19 @@ BsCol prospectDetailTitleSection(context) {
                                               BorderRadius.circular(5)),
                                     ),
                                   ],
+                                ),
+                                Row(
+                                  children: [
+                                    Text(' '),
+                                    card,
+                                  ],
                                 )
                               ],
                             );
                           }),
-                          if (source.status.value != 'Closed Lost' &&
-                              source.status.value != 'Closed Won' &&
-                              source.status.value != 'Force Closed')
-                            Container(
-                              margin: EdgeInsets.only(top: 5),
-                              child: Text(
-                                source.status.value,
-                                style: TextStyle(
-                                    color: source.statustextcolor.value),
-                              ),
-                              padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
-                              decoration: BoxDecoration(
-                                  color: source.statuscolor.value,
-                                  borderRadius: BorderRadius.circular(5)),
-                            )
+                          // if (source.status.value != 'Closed Lost' &&
+                          //     source.status.value != 'Closed Won' &&
+                          //     source.status.value != 'Force Closed')
                         ],
                       ),
                       if (source.status.value == 'Closed Lost')
@@ -126,68 +164,124 @@ BsCol prospectDetailTitleSection(context) {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(
-                                    'This Prospect Lost !',
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  if (source.losttype.value != '')
-                                    Text(source.losttype.value,
-                                        style: TextStyle(fontSize: 14)),
-                                  if (source.lostdesc.value != '')
-                                    Text(source.lostdesc.value,
-                                        style: TextStyle(fontSize: 12)),
-                                  BsButton(
-                                    size: BsButtonSize.btnSm,
-                                    onPressed: () => showDialog(
-                                      context: context,
-                                      builder: (context) => ConfirmDialog(
-                                        title: BaseText.confirmTitle,
-                                        message:
-                                            'Are You Sure Want to Re-Open This Prospect ?',
-                                        onPressed: (_, value) async {
-                                          if (value ==
-                                              ConfirmDialogOption.YES_OPTION) {
-                                            StbptypeModel status =
-                                                await presenter.status();
-                                            SessionModel session =
-                                                await SessionManager.current();
-                                            Map<String, dynamic> body = {
-                                              'prospectstatusid': status.sbtid,
-                                              'createdby': session.userid,
-                                              'updatedby': session.userid,
-                                            };
-                                            source.status.value =
-                                                status.sbttypename ?? '';
-                                            if (status.sbtremark != null) {
-                                              Map<String, dynamic> color =
-                                                  jsonDecode(
-                                                      status.sbtremark ?? '');
-                                              source.statuscolor.value = Color(
-                                                  parseInt(color['color']));
-                                              source.statustextcolor.value =
-                                                  Color(parseInt(
-                                                      color['textcolor']));
-                                            } else {
-                                              source.statuscolor.value =
-                                                  Color.fromARGB(
-                                                      0, 255, 255, 255);
-                                              source.statustextcolor.value =
-                                                  Color.fromARGB(255, 0, 0, 0);
-                                            }
-                                            presenter.update(context, body,
-                                                source.prospectid.value);
-                                            Navigator.pop(context);
-                                          } else {
-                                            presenter.setProcessing(false);
-                                            Navigator.pop(context);
-                                          }
-                                        },
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'This Prospect Lost !',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
                                       ),
-                                    ),
-                                    label: Text('Re-Open'),
-                                  )
+                                      if (source.losttype.value != '')
+                                        Text(source.losttype.value,
+                                            style: TextStyle(fontSize: 14)),
+                                      if (source.lostdesc.value != '')
+                                        Text(source.lostdesc.value,
+                                            style: TextStyle(fontSize: 12)),
+                                      PopupMenuButton(
+                                          onSelected: (result) {
+                                            if (result == 4) {
+                                              showDialog(
+                                                context: context,
+                                                builder: (context) =>
+                                                    ConfirmDialog(
+                                                  title: BaseText.confirmTitle,
+                                                  message:
+                                                      'Are You Sure Want to Re-Open This Prospect ?',
+                                                  onPressed: (_, value) async {
+                                                    if (value ==
+                                                        ConfirmDialogOption
+                                                            .YES_OPTION) {
+                                                      StbptypeModel status =
+                                                          await presenter
+                                                              .status();
+                                                      SessionModel session =
+                                                          await SessionManager
+                                                              .current();
+                                                      Map<String, dynamic>
+                                                          body = {
+                                                        'prospectstatusid':
+                                                            status.sbtid,
+                                                        'createdby':
+                                                            session.userid,
+                                                        'updatedby':
+                                                            session.userid,
+                                                      };
+                                                      source.status.value =
+                                                          status.sbttypename ??
+                                                              '';
+                                                      if (status.sbtremark !=
+                                                          null) {
+                                                        Map<String, dynamic>
+                                                            color =
+                                                            jsonDecode(status
+                                                                    .sbtremark ??
+                                                                '');
+                                                        source.statuscolor
+                                                                .value =
+                                                            Color(parseInt(
+                                                                color[
+                                                                    'color']));
+                                                        source.statustextcolor
+                                                                .value =
+                                                            Color(parseInt(color[
+                                                                'textcolor']));
+                                                      } else {
+                                                        source.statuscolor
+                                                                .value =
+                                                            Color.fromARGB(0,
+                                                                255, 255, 255);
+                                                        source.statustextcolor
+                                                                .value =
+                                                            Color.fromARGB(
+                                                                255, 0, 0, 0);
+                                                      }
+                                                      presenter.update(
+                                                          context,
+                                                          body,
+                                                          source.prospectid
+                                                              .value);
+                                                      Navigator.pop(context);
+                                                    } else {
+                                                      presenter
+                                                          .setProcessing(false);
+                                                      Navigator.pop(context);
+                                                    }
+                                                  },
+                                                ),
+                                              );
+                                            } else if (result == 1) {
+                                              presenter.edit(context,
+                                                  source.prospectid.value);
+                                            }
+                                          },
+                                          itemBuilder: (context) => [
+                                                PopupMenuItem(
+                                                  child: Text('Edit'),
+                                                  value: 1,
+                                                ),
+                                                PopupMenuItem(
+                                                    child: Text('Force Close',
+                                                        style: TextStyle(
+                                                            color: Colors
+                                                                .black45))),
+                                                PopupMenuItem(
+                                                  child: Text('Re-open'),
+                                                  value: 4,
+                                                ),
+                                                PopupMenuItem(
+                                                    child: Text('Won',
+                                                        style: TextStyle(
+                                                            color: Colors
+                                                                .black45))),
+                                                PopupMenuItem(
+                                                    child: Text('Lost',
+                                                        style: TextStyle(
+                                                            color: Colors
+                                                                .black45))),
+                                              ]),
+                                    ],
+                                  ),
                                 ],
                               ),
                             )
@@ -206,76 +300,70 @@ BsCol prospectDetailTitleSection(context) {
                                               context, source.prospectid.value)
                                           : null
                                       : null,
-                                  child: Container(
-                                    padding: EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                          color:
-                                              source.changeprospectvalue.value
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        padding: EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            border: Border.all(
+                                              color: source
+                                                      .changeprospectvalue.value
                                                   ? ColorPallates.primary
                                                   : Color.fromARGB(
                                                       255, 207, 202, 202),
-                                        )),
-                                    child: Text(
-                                        'Rp ' +
-                                            currencyFormatter
-                                                .format(double.parse(
-                                                    source.prospectvalue.value))
-                                                .replaceAll(',00', '')
-                                                .replaceAll('.', ','),
-                                        style: TextStyle(
-                                          fontSize: 21,
-                                          fontWeight: FontWeight.bold,
-                                        )),
+                                            )),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                                'Rp ' +
+                                                    currencyFormatter
+                                                        .format(double.parse(
+                                                            source.prospectvalue
+                                                                .value))
+                                                        .replaceAll(',00', '')
+                                                        .replaceAll('.', ','),
+                                                style: TextStyle(
+                                                  fontSize: 21,
+                                                  fontWeight: FontWeight.bold,
+                                                )),
+                                          ],
+                                        ),
+                                      ),
+                                      PopupMenuButton(
+                                        onSelected: (value) {
+                                          if (value == 1) {
+                                            presenter.edit(context,
+                                                source.prospectid.value);
+                                          }
+                                        },
+                                        itemBuilder: (context) => [
+                                          PopupMenuItem(
+                                            child: Text('Edit'),
+                                            value: 1,
+                                          ),
+                                          PopupMenuItem(
+                                              child: Text('Force Close',
+                                                  style: TextStyle(
+                                                      color: Colors.black45))),
+                                          PopupMenuItem(
+                                              child: Text('Re-open',
+                                                  style: TextStyle(
+                                                      color: Colors.black45))),
+                                          PopupMenuItem(
+                                              child: Text('Won',
+                                                  style: TextStyle(
+                                                      color: Colors.black45))),
+                                          PopupMenuItem(
+                                              child: Text('Lost',
+                                                  style: TextStyle(
+                                                      color: Colors.black45))),
+                                        ],
+                                      )
+                                    ],
                                   ),
                                 )),
-                            Obx(() {
-                              Widget card = Text('${source.status.value}');
-                              switch (source.status.value) {
-                                case 'Closed Lost':
-                                  card = Container(
-                                    child: Text(
-                                      '${source.status.value}',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
-                                    decoration: BoxDecoration(
-                                        color: Colors.red,
-                                        borderRadius: BorderRadius.circular(5)),
-                                  );
-                                  break;
-                                case 'Closed Won':
-                                  card = Container(
-                                    child: Text(
-                                      '${source.status.value}',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
-                                    decoration: BoxDecoration(
-                                        color: Colors.green,
-                                        borderRadius: BorderRadius.circular(5)),
-                                  );
-                                  break;
-                                default:
-                                  Text('${source.status.value}',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold));
-                              }
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                      margin:
-                                          EdgeInsets.only(left: 10, bottom: 7),
-                                      child: card),
-                                  Container(
-                                    child: Text(''),
-                                  )
-                                ],
-                              );
-                            })
                           ],
                         )
                       else if (source.status.value == 'Force Closed')
@@ -291,135 +379,145 @@ BsCol prospectDetailTitleSection(context) {
                                               context, source.prospectid.value)
                                           : null
                                       : null,
-                                  child: Container(
-                                    padding: EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                          color:
-                                              source.changeprospectvalue.value
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        padding: EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            border: Border.all(
+                                              color: source
+                                                      .changeprospectvalue.value
                                                   ? ColorPallates.primary
                                                   : Color.fromARGB(
                                                       255, 207, 202, 202),
-                                        )),
-                                    child: Text(
-                                        'Rp ' +
-                                            currencyFormatter
-                                                .format(double.parse(
-                                                    source.prospectvalue.value))
-                                                .replaceAll(',00', '')
-                                                .replaceAll('.', ','),
-                                        style: TextStyle(
-                                          fontSize: 21,
-                                          fontWeight: FontWeight.bold,
-                                        )),
-                                  ),
-                                )),
-                            Obx(() {
-                              Widget card = Text('${source.status.value}');
-                              switch (source.status.value) {
-                                case 'Closed Lost':
-                                  card = Container(
-                                    child: Text(
-                                      '${source.status.value}',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
-                                    decoration: BoxDecoration(
-                                        color: Colors.red,
-                                        borderRadius: BorderRadius.circular(5)),
-                                  );
-                                  break;
-                                case 'Closed Won':
-                                  card = Container(
-                                    child: Text(
-                                      '${source.status.value}',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
-                                    decoration: BoxDecoration(
-                                        color: Colors.green,
-                                        borderRadius: BorderRadius.circular(5)),
-                                  );
-                                  break;
-                                case 'Force Closed':
-                                  card = Container(
-                                    child: Text(
-                                      '${source.status.value}',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    padding: EdgeInsets.fromLTRB(3, 2, 3, 2),
-                                    decoration: BoxDecoration(
-                                        color: Colors.red,
-                                        borderRadius: BorderRadius.circular(5)),
-                                  );
-                                  break;
-                                default:
-                                  Text('${source.status.value}',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold));
-                              }
-                              return Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                      margin:
-                                          EdgeInsets.only(left: 10, bottom: 7),
-                                      child: card),
-                                  BsButton(
-                                    size: BsButtonSize.btnSm,
-                                    onPressed: () => showDialog(
-                                      context: context,
-                                      builder: (context) => ConfirmDialog(
-                                        title: BaseText.confirmTitle,
-                                        message:
-                                            'Are You Sure Want to Re-Open This Prospect ?',
-                                        onPressed: (_, value) async {
-                                          if (value ==
-                                              ConfirmDialogOption.YES_OPTION) {
-                                            StbptypeModel status =
-                                                await presenter.status();
-                                            SessionModel session =
-                                                await SessionManager.current();
-                                            Map<String, dynamic> body = {
-                                              'prospectstatusid': status.sbtid,
-                                              'createdby': session.userid,
-                                              'updatedby': session.userid,
-                                            };
-                                            source.status.value =
-                                                status.sbttypename ?? '';
-                                            if (status.sbtremark != null) {
-                                              Map<String, dynamic> color =
-                                                  jsonDecode(
-                                                      status.sbtremark ?? '');
-                                              source.statuscolor.value = Color(
-                                                  parseInt(color['color']));
-                                              source.statustextcolor.value =
-                                                  Color(parseInt(
-                                                      color['textcolor']));
-                                            } else {
-                                              source.statuscolor.value =
-                                                  Color.fromARGB(
-                                                      0, 255, 255, 255);
-                                              source.statustextcolor.value =
-                                                  Color.fromARGB(255, 0, 0, 0);
-                                            }
-                                            presenter.update(context, body,
+                                            )),
+                                        child: Column(
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Text(
+                                                    'Rp ' +
+                                                        currencyFormatter
+                                                            .format(double
+                                                                .parse(source
+                                                                    .prospectvalue
+                                                                    .value))
+                                                            .replaceAll(
+                                                                ',00', '')
+                                                            .replaceAll(
+                                                                '.', ','),
+                                                    style: TextStyle(
+                                                      fontSize: 21,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    )),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      PopupMenuButton(
+                                        onSelected: (value) {
+                                          if (value == 4) {
+                                            showDialog(
+                                              context: context,
+                                              builder: (context) =>
+                                                  ConfirmDialog(
+                                                title: BaseText.confirmTitle,
+                                                message:
+                                                    'Are You Sure Want to Re-Open This Prospect ?',
+                                                onPressed: (_, value) async {
+                                                  if (value ==
+                                                      ConfirmDialogOption
+                                                          .YES_OPTION) {
+                                                    StbptypeModel status =
+                                                        await presenter
+                                                            .status();
+                                                    SessionModel session =
+                                                        await SessionManager
+                                                            .current();
+                                                    Map<String, dynamic> body =
+                                                        {
+                                                      'prospectstatusid':
+                                                          status.sbtid,
+                                                      'createdby':
+                                                          session.userid,
+                                                      'updatedby':
+                                                          session.userid,
+                                                    };
+                                                    source.status.value =
+                                                        status.sbttypename ??
+                                                            '';
+                                                    if (status.sbtremark !=
+                                                        null) {
+                                                      Map<String, dynamic>
+                                                          color =
+                                                          jsonDecode(status
+                                                                  .sbtremark ??
+                                                              '');
+                                                      source.statuscolor.value =
+                                                          Color(parseInt(
+                                                              color['color']));
+                                                      source.statustextcolor
+                                                              .value =
+                                                          Color(parseInt(color[
+                                                              'textcolor']));
+                                                    } else {
+                                                      source.statuscolor.value =
+                                                          Color.fromARGB(
+                                                              0, 255, 255, 255);
+                                                      source.statustextcolor
+                                                              .value =
+                                                          Color.fromARGB(
+                                                              255, 0, 0, 0);
+                                                    }
+                                                    presenter.update(
+                                                        context,
+                                                        body,
+                                                        source
+                                                            .prospectid.value);
+                                                    Navigator.pop(context);
+                                                  } else {
+                                                    presenter
+                                                        .setProcessing(false);
+                                                    Navigator.pop(context);
+                                                  }
+                                                },
+                                              ),
+                                            );
+                                          } else if (value == 1) {
+                                            presenter.edit(context,
                                                 source.prospectid.value);
-                                            Navigator.pop(context);
-                                          } else {
-                                            presenter.setProcessing(false);
-                                            Navigator.pop(context);
                                           }
                                         },
+                                        itemBuilder: (context) => [
+                                          PopupMenuItem(
+                                            child: Text('Edit'),
+                                            value: 1,
+                                          ),
+                                          PopupMenuItem(
+                                              child: Text('Force Close',
+                                                  style: TextStyle(
+                                                      color: Colors.black45))),
+                                          PopupMenuItem(
+                                            child: Text('Re-open'),
+                                            value: 4,
+                                          ),
+                                          PopupMenuItem(
+                                              child: Text('Won',
+                                                  style: TextStyle(
+                                                      color: Colors.black45))),
+                                          PopupMenuItem(
+                                              child: Text('Lost',
+                                                  style: TextStyle(
+                                                      color: Colors.black45))),
+                                        ],
                                       ),
-                                    ),
-                                    label: Text('Re-Open'),
-                                  )
-                                ],
-                              );
-                            })
+                                    ],
+                                  ),
+                                )),
                           ],
                         )
                       else if (permis
@@ -476,93 +574,202 @@ BsCol prospectDetailTitleSection(context) {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-                                  BsButton(
-                                    style: BsButtonStyle.success,
-                                    onPressed: () async {
+                                  PopupMenuButton(
+                                    onSelected: (value) async {
                                       int data = await presenter.wonStatus();
-                                      // TypeModel stage =
-                                      //     await presenter.completePipeline();
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) => ConfirmDialog(
-                                          title: BaseText.confirmTitle,
-                                          message:
-                                              'are you sure winning this prospect ?',
-                                          onPressed: (_, value) async {
-                                            if (value ==
-                                                ConfirmDialogOption
-                                                    .YES_OPTION) {
-                                              presenter.update(
-                                                  context,
-                                                  {
-                                                    'prospectenddate':
-                                                        '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}',
-                                                    'prospectstatusid': data,
-                                                    // 'prospectstageid':
-                                                    //     stage.typeid,
-                                                  },
-                                                  source.prospectid.value);
-                                              source.status.value =
-                                                  'Closed Won';
-                                              // source.prospectStageController
-                                              //     .value.selected = stage;
-                                            } else {
-                                              Navigator.pop(context);
-                                            }
-                                          },
-                                        ),
-                                      );
+                                      switch (value) {
+                                        case 1:
+                                          presenter.edit(
+                                              context, source.prospectid.value);
+                                          break;
+                                        case 2:
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) => ConfirmDialog(
+                                              title: BaseText.confirmTitle,
+                                              message:
+                                                  'Are You Sure Want to Force Closed This Prospect ?',
+                                              onPressed: (_, value) async {
+                                                if (value ==
+                                                    ConfirmDialogOption
+                                                        .YES_OPTION) {
+                                                  int status = await presenter
+                                                      .forceClosedStatus();
+                                                  SessionModel session =
+                                                      await SessionManager
+                                                          .current();
+                                                  Map<String, dynamic> body = {
+                                                    'prospectstatusid': status,
+                                                    'createdby': session.userid,
+                                                    'updatedby': session.userid,
+                                                  };
+                                                  source.status.value =
+                                                      'Force Closed';
+                                                  presenter.update(
+                                                      context,
+                                                      body,
+                                                      source.prospectid.value);
+                                                  Navigator.pop(context);
+                                                } else {
+                                                  presenter
+                                                      .setProcessing(false);
+                                                  Navigator.pop(context);
+                                                }
+                                              },
+                                            ),
+                                          );
+                                          break;
+                                        case 3:
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) => ConfirmDialog(
+                                              title: BaseText.confirmTitle,
+                                              message:
+                                                  'are you sure winning this prospect ?',
+                                              onPressed: (_, value) async {
+                                                if (value ==
+                                                    ConfirmDialogOption
+                                                        .YES_OPTION) {
+                                                  presenter.update(
+                                                      context,
+                                                      {
+                                                        'prospectenddate':
+                                                            '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}',
+                                                        'prospectstatusid':
+                                                            data,
+                                                        // 'prospectstageid':
+                                                        //     stage.typeid,
+                                                      },
+                                                      source.prospectid.value);
+                                                  source.status.value =
+                                                      'Closed Won';
+                                                  // source.prospectStageController
+                                                  //     .value.selected = stage;
+                                                } else {
+                                                  Navigator.pop(context);
+                                                }
+                                              },
+                                            ),
+                                          );
+                                          break;
+                                        case 4:
+                                          presenter.lose(
+                                              context, source.prospectid.value);
+                                          break;
+                                        default:
+                                      }
                                     },
-                                    label: Text('Won'),
-                                  ),
-                                  BsButton(
-                                    margin: EdgeInsets.only(left: 10),
-                                    style: BsButtonStyle(
-                                        color: Colors.white,
-                                        backgroundColor: Colors.orange,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(3.0))),
-                                    onPressed: () => showDialog(
-                                      context: context,
-                                      builder: (context) => ConfirmDialog(
-                                        title: BaseText.confirmTitle,
-                                        message:
-                                            'Are You Sure Want to Force Closed This Prospect ?',
-                                        onPressed: (_, value) async {
-                                          if (value ==
-                                              ConfirmDialogOption.YES_OPTION) {
-                                            int status = await presenter
-                                                .forceClosedStatus();
-                                            SessionModel session =
-                                                await SessionManager.current();
-                                            Map<String, dynamic> body = {
-                                              'prospectstatusid': status,
-                                              'createdby': session.userid,
-                                              'updatedby': session.userid,
-                                            };
-                                            source.status.value =
-                                                'Force Closed';
-                                            presenter.update(context, body,
-                                                source.prospectid.value);
-                                            Navigator.pop(context);
-                                          } else {
-                                            presenter.setProcessing(false);
-                                            Navigator.pop(context);
-                                          }
-                                        },
+                                    itemBuilder: (context) => [
+                                      PopupMenuItem(
+                                        value: 1,
+                                        child: Text('Edit'),
                                       ),
-                                    ),
-                                    label: Text('Force Closed'),
+                                      PopupMenuItem(
+                                        value: 2,
+                                        child: Text('Force Close'),
+                                      ),
+                                      PopupMenuItem(
+                                        child: Text('Re-open',
+                                            style: TextStyle(
+                                                color: Colors.black45)),
+                                      ),
+                                      PopupMenuItem(
+                                        value: 3,
+                                        child: Text('Won'),
+                                      ),
+                                      PopupMenuItem(
+                                        value: 4,
+                                        child: Text('Lost'),
+                                      ),
+                                    ],
                                   ),
-                                  BsButton(
-                                    margin: EdgeInsets.only(left: 10),
-                                    style: BsButtonStyle.danger,
-                                    onPressed: () {
-                                      presenter.lose(
-                                          context, source.prospectid.value);
-                                    },
-                                    label: Text('Lost'),
-                                  ),
+                                  // BsButton(
+                                  //   style: BsButtonStyle.success,
+                                  //   onPressed: () async {
+                                  //     int data = await presenter.wonStatus();
+                                  //     // TypeModel stage =
+                                  //     //     await presenter.completePipeline();
+                                  //     showDialog(
+                                  //       context: context,
+                                  //       builder: (context) => ConfirmDialog(
+                                  //         title: BaseText.confirmTitle,
+                                  //         message:
+                                  //             'are you sure winning this prospect ?',
+                                  //         onPressed: (_, value) async {
+                                  //           if (value ==
+                                  //               ConfirmDialogOption
+                                  //                   .YES_OPTION) {
+                                  //             presenter.update(
+                                  //                 context,
+                                  //                 {
+                                  //                   'prospectenddate':
+                                  //                       '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}',
+                                  //                   'prospectstatusid': data,
+                                  //                   // 'prospectstageid':
+                                  //                   //     stage.typeid,
+                                  //                 },
+                                  //                 source.prospectid.value);
+                                  //             source.status.value =
+                                  //                 'Closed Won';
+                                  //             // source.prospectStageController
+                                  //             //     .value.selected = stage;
+                                  //           } else {
+                                  //             Navigator.pop(context);
+                                  //           }
+                                  //         },
+                                  //       ),
+                                  //     );
+                                  //   },
+                                  //   label: Text('Won'),
+                                  // ),
+                                  // BsButton(
+                                  //   margin: EdgeInsets.only(left: 10),
+                                  //   style: BsButtonStyle(
+                                  //       color: Colors.white,
+                                  //       backgroundColor: Colors.orange,
+                                  //       borderRadius: BorderRadius.all(
+                                  //           Radius.circular(3.0))),
+                                  //   onPressed: () => showDialog(
+                                  //     context: context,
+                                  //     builder: (context) => ConfirmDialog(
+                                  //       title: BaseText.confirmTitle,
+                                  //       message:
+                                  //           'Are You Sure Want to Force Closed This Prospect ?',
+                                  //       onPressed: (_, value) async {
+                                  //         if (value ==
+                                  //             ConfirmDialogOption.YES_OPTION) {
+                                  //           int status = await presenter
+                                  //               .forceClosedStatus();
+                                  //           SessionModel session =
+                                  //               await SessionManager.current();
+                                  //           Map<String, dynamic> body = {
+                                  //             'prospectstatusid': status,
+                                  //             'createdby': session.userid,
+                                  //             'updatedby': session.userid,
+                                  //           };
+                                  //           source.status.value =
+                                  //               'Force Closed';
+                                  //           presenter.update(context, body,
+                                  //               source.prospectid.value);
+                                  //           Navigator.pop(context);
+                                  //         } else {
+                                  //           presenter.setProcessing(false);
+                                  //           Navigator.pop(context);
+                                  //         }
+                                  //       },
+                                  //     ),
+                                  //   ),
+                                  //   label: Text('Force Closed'),
+                                  // ),
+                                  // BsButton(
+                                  //   margin: EdgeInsets.only(left: 10),
+                                  //   style: BsButtonStyle.danger,
+                                  //   onPressed: () {
+                                  //     presenter.lose(
+                                  //         context, source.prospectid.value);
+                                  //   },
+                                  //   label: Text('Lost'),
+                                  // ),
                                 ],
                               ),
                             ),

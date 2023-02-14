@@ -1,13 +1,15 @@
 part of '../../company.dart';
 
 // ignore: must_be_immutable
-class _TabCustomerActivity extends StatelessWidget implements IndexViewContract, EditViewContract {
+class _TabCustomerActivity extends StatelessWidget
+    implements IndexViewContract, EditViewContract {
   final datatable = CustomersActivityDataTableSource();
   final String typename;
 
   late PCustomersForm pCustomerForm;
 
-  BusinessPartnerPresenter get bpPresenter => Get.put(BusinessPartnerPresenter());
+  BusinessPartnerPresenter get bpPresenter =>
+      Get.put(BusinessPartnerPresenter());
   final source = PCustomersSource().obs;
   final custsource = _CustomerFormSource().obs;
 
@@ -29,7 +31,8 @@ class _TabCustomerActivity extends StatelessWidget implements IndexViewContract,
                 CustomDatabales(
                   source: datatable,
                   columns: datatable.columns,
-                  serverSide: (params) => bpPresenter.datatables(context, params),
+                  serverSide: (params) =>
+                      bpPresenter.datatables(context, params),
                 ),
               ],
             ),
@@ -68,7 +71,7 @@ class _TabCustomerActivity extends StatelessWidget implements IndexViewContract,
   }
 
   @override
-  void onErrorRequest(Response response) {
+  void onErrorRequest(Response response, {context}) {
     bpPresenter.setProcessing(false);
   }
 
@@ -78,10 +81,14 @@ class _TabCustomerActivity extends StatelessWidget implements IndexViewContract,
     custsource.value.isForm.value = false;
     bpPresenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
-    datatable.onDayActAllow = (value) => bpPresenter.update(context, {'bpdayactanytime': true}, value);
-    datatable.onDayActDisallow = (value) => bpPresenter.update(context, {'bpdayactanytime': false}, value);
-    datatable.onProsActAllow = (value) => bpPresenter.update(context, {'bpprosactanytime': true}, value);
-    datatable.onProsActDisallow = (value) => bpPresenter.update(context, {'bpprosactanytime': false}, value);
+    datatable.onDayActAllow = (value) =>
+        bpPresenter.update(context, {'bpdayactanytime': true}, value);
+    datatable.onDayActDisallow = (value) =>
+        bpPresenter.update(context, {'bpdayactanytime': false}, value);
+    datatable.onProsActAllow = (value) =>
+        bpPresenter.update(context, {'bpprosactanytime': true}, value);
+    datatable.onProsActDisallow = (value) =>
+        bpPresenter.update(context, {'bpprosactanytime': false}, value);
   }
 
   @override

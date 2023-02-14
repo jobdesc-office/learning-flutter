@@ -22,10 +22,13 @@ import '../_detail_source.dart';
 import '_form_source.dart';
 
 // ignore: must_be_immutable
-class ProspectProductFormView extends StatelessWidget implements EditViewContract, IndexViewContract {
+class ProspectProductFormView extends StatelessWidget
+    implements EditViewContract, IndexViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
-  final ProspectProductPresenter presenter = Get.find<ProspectProductPresenter>();
-  final ProspectDetailPresenter prospectPresenter = Get.find<ProspectDetailPresenter>();
+  final ProspectProductPresenter presenter =
+      Get.find<ProspectProductPresenter>();
+  final ProspectDetailPresenter prospectPresenter =
+      Get.find<ProspectDetailPresenter>();
   final ProductPresenter productPresenter = Get.find<ProductPresenter>();
   final source = ProspectProductSource().obs;
   final sources = Get.put(ProspectDetailsSource());
@@ -58,7 +61,9 @@ class ProspectProductFormView extends StatelessWidget implements EditViewContrac
           return Container(
             padding: EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : Colors.white,
+              color: _navigation.darkTheme.value
+                  ? ColorPallates.elseDarkColor
+                  : Colors.white,
               borderRadius: BorderRadius.circular(10),
             ),
             child: Form(
@@ -71,14 +76,24 @@ class ProspectProductFormView extends StatelessWidget implements EditViewContrac
                         margin: EdgeInsets.only(right: 5, bottom: 10),
                         sizes: ColScreen(sm: Col.col_12),
                         child: Container(
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), border: Border.all(color: Colors.grey.shade300)),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(color: Colors.grey.shade300)),
                           child: Container(
                             margin: EdgeInsets.all(10),
                             child: BsRow(
                               children: [
-                                BsCol(sizes: ColScreen(sm: Col.col_4), child: prospectForm.selectProduct()),
-                                BsCol(margin: EdgeInsets.only(left: 5), sizes: ColScreen(sm: Col.col_4), child: prospectForm.inputQuantity()),
-                                BsCol(margin: EdgeInsets.only(left: 5), sizes: ColScreen(sm: Col.col_4), child: prospectForm.inputPrices()),
+                                BsCol(
+                                    sizes: ColScreen(sm: Col.col_4),
+                                    child: prospectForm.selectProduct()),
+                                BsCol(
+                                    margin: EdgeInsets.only(left: 5),
+                                    sizes: ColScreen(sm: Col.col_4),
+                                    child: prospectForm.inputQuantity()),
+                                BsCol(
+                                    margin: EdgeInsets.only(left: 5),
+                                    sizes: ColScreen(sm: Col.col_4),
+                                    child: prospectForm.inputPrices()),
                                 // BsCol(
                                 //     sizes: ColScreen(sm: Col.col_4),
                                 //     child: prospectForm.inputDiscount()),
@@ -98,7 +113,10 @@ class ProspectProductFormView extends StatelessWidget implements EditViewContrac
                                   margin: EdgeInsets.only(left: 5),
                                   sizes: ColScreen(sm: Col.col_4),
                                 ),
-                                BsCol(margin: EdgeInsets.only(left: 5), sizes: ColScreen(sm: Col.col_4), child: prospectForm.inputAmounts()),
+                                BsCol(
+                                    margin: EdgeInsets.only(left: 5),
+                                    sizes: ColScreen(sm: Col.col_4),
+                                    child: prospectForm.inputAmounts()),
                               ],
                             ),
                           ),
@@ -156,14 +174,31 @@ class ProspectProductFormView extends StatelessWidget implements EditViewContrac
     final currencyFormatter = NumberFormat('#,##0.00', 'ID');
 
     source.update((val) {
-      ProspectProductModel prospect = ProspectProductModel.fromJson(response.body);
-      source.value.selectItem.setSelected(BsSelectBoxOption(value: prospect.prosproductproductid, text: Text(prospect.prosproductproduct!.productname.toString())));
+      ProspectProductModel prospect =
+          ProspectProductModel.fromJson(response.body);
+      source.value.selectItem.setSelected(BsSelectBoxOption(
+          value: prospect.prosproductproductid,
+          text: Text(prospect.prosproductproduct!.productname.toString())));
       if (prospect.prosproducttaxtype != null) {
-        source.value.selectTax.setSelected(BsSelectBoxOption(value: prospect.prosproducttaxtypeid, text: Text(prospect.prosproducttaxtype!.typename.toString())));
+        source.value.selectTax.setSelected(BsSelectBoxOption(
+            value: prospect.prosproducttaxtypeid,
+            text: Text(prospect.prosproducttaxtype!.typename.toString())));
       }
-      source.value.inputQuantity.text = prospect.prosproductqty != null ? prospect.prosproductqty.toString() : '';
-      source.value.inputAmount.text = prospect.prosproductamount != null ? currencyFormatter.format(double.parse(prospect.prosproductamount ?? '0.0')).replaceAll(',00', '').replaceAll('.', ',') : '';
-      source.value.inputPrice.text = prospect.prosproductprice != null ? currencyFormatter.format(double.parse(prospect.prosproductprice ?? '0.0')).replaceAll(',00', '').replaceAll('.', ',') : '';
+      source.value.inputQuantity.text = prospect.prosproductqty != null
+          ? prospect.prosproductqty.toString()
+          : '';
+      source.value.inputAmount.text = prospect.prosproductamount != null
+          ? currencyFormatter
+              .format(double.parse(prospect.prosproductamount ?? '0.0'))
+              .replaceAll(',00', '')
+              .replaceAll('.', ',')
+          : '';
+      source.value.inputPrice.text = prospect.prosproductprice != null
+          ? currencyFormatter
+              .format(double.parse(prospect.prosproductprice ?? '0.0'))
+              .replaceAll(',00', '')
+              .replaceAll('.', ',')
+          : '';
       source.value.inputDiscount.text = prospect.prosproductdiscount ?? '';
       source.value.inputTax.text = prospect.prosproducttax ?? '';
     });
@@ -183,7 +218,7 @@ class ProspectProductFormView extends StatelessWidget implements EditViewContrac
   void onEditSuccess(Response response, {BuildContext? context}) {}
 
   @override
-  void onErrorRequest(Response response) {
+  void onErrorRequest(Response response, {context}) {
     presenter.setProcessing(false);
     Snackbar().failed(Get.context!, response.body['message']);
   }

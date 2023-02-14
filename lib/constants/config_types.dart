@@ -4,9 +4,13 @@ class ConfigType {
   static Map<String, dynamic> types = Map<String, dynamic>();
 
   static String menuType = notNull(types['menuType']);
+  static String menuTypeWeb = notNull(types['web']);
 
   static String role = notNull(types['role']);
   static String appaccess = notNull(types['appaccess']);
+  static String webaccess = notNull(types['webaccess']);
+  static String allaccess = notNull(types['allaccess']);
+  static String accesses = notNull(types['accesses']);
 
   static String businessPartner = notNull(types['businessPartner']);
 

@@ -104,7 +104,7 @@ class _TabCustomers extends StatelessWidget
   }
 
   @override
-  void onErrorRequest(Response response) {
+  void onErrorRequest(Response response, {context}) {
     bppresenter.setProcessing(false);
   }
 

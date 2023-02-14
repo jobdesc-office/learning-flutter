@@ -37,9 +37,10 @@ class UserDataTableSource extends BsDatatableSource {
       ),
       CustomBsDataColumn(label: Text('User Name'), columnName: 'userfullname'),
       CustomBsDataColumn(label: Text('User Phone'), columnName: 'userphone'),
-      CustomBsDataColumn(label: Text('User Group'), orderable: false, searchable: false),
-      // CustomBsDataColumn(
-      //     label: Text('User Phone'), width: 150, columnName: 'userphone'),
+      CustomBsDataColumn(
+          label: Text('User Group'), orderable: false, searchable: false),
+      CustomBsDataColumn(
+          label: Text('Business Partner'), columnName: 'businesspartner'),
       // CustomBsDataColumn(
       //     label: Text('User Status'),
       //     columnName: 'isactive',
@@ -55,7 +56,8 @@ class UserDataTableSource extends BsDatatableSource {
     ];
   }
 
-  List<UserModel> get users => response.data.map((data) => UserModel.fromJson(data)).toList();
+  List<UserModel> get users =>
+      response.data.map((data) => UserModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
@@ -104,16 +106,16 @@ class UserDataTableSource extends BsDatatableSource {
                   ? ColorPallates.datatableLightEvenRowColor
                   : ColorPallates.datatableLightOddRowColor,
         ),
-        // CustomBsDataCell(
-        //   Text(row.userphone),
-        //   color: _navigation.darkTheme.value
-        //       ? x % 2 == 0
-        //           ? ColorPallates.datatableDarkEvenRowColor
-        //           : ColorPallates.datatableDarkOddRowColor
-        //       : x % 2 == 0
-        //           ? ColorPallates.datatableLightEvenRowColor
-        //           : ColorPallates.datatableLightOddRowColor,
-        // ),
+        CustomBsDataCell(
+          Text(row.userdetails?.first.businesspartner?.bpname ?? ''),
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
+        ),
         // CustomBsDataCell(Card(
         //   color: row.isactive ? Colors.blue.shade300 : Colors.red.shade300,
         //   child: Center(
@@ -162,8 +164,11 @@ class UserDataTableSource extends BsDatatableSource {
                   .permissions!
                   .hasaccess!)
                 Tooltip(
-                  message: BaseText.deleteHintDatatable(field: row.userfullname),
-                  child: ButtonDeleteDatatables(onPressed: () => onDeleteListener(row.userid, row.userfullname)),
+                  message:
+                      BaseText.deleteHintDatatable(field: row.userfullname),
+                  child: ButtonDeleteDatatables(
+                      onPressed: () =>
+                          onDeleteListener(row.userid, row.userfullname)),
                 ),
             ],
           ),

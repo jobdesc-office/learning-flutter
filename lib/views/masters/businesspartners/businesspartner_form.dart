@@ -26,9 +26,14 @@ import '_businesspartner_type.dart';
 final typePresenter = Get.find<TypesChildrenPresenter>();
 
 // ignore: must_be_immutable
-class BusinessPartnerFormView extends StatelessWidget implements EditViewContract, BusinessPartnerTypeViewContract, IndexViewContract {
+class BusinessPartnerFormView extends StatelessWidget
+    implements
+        EditViewContract,
+        BusinessPartnerTypeViewContract,
+        IndexViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
-  final BusinessPartnerPresenter presenter = Get.find<BusinessPartnerPresenter>();
+  final BusinessPartnerPresenter presenter =
+      Get.find<BusinessPartnerPresenter>();
   final source = BusinessPartnerSource().obs;
   final Function(Map<String, dynamic> body) onSave;
   final _navigation = Get.find<NavigationPresenter>();
@@ -56,7 +61,10 @@ class BusinessPartnerFormView extends StatelessWidget implements EditViewContrac
           ),
           BreadcrumbWidget('Business Partner Form', active: true),
         ],
-        activeRoutes: [RouteList.master.index, RouteList.masterBusinessPartner.index],
+        activeRoutes: [
+          RouteList.master.index,
+          RouteList.masterBusinessPartner.index
+        ],
         child: Obx(() {
           businessPartnerForm = BusinessPartnerForm(source.value);
           return Form(
@@ -72,7 +80,9 @@ class BusinessPartnerFormView extends StatelessWidget implements EditViewContrac
                         child: Container(
                           padding: EdgeInsets.all(20),
                           decoration: BoxDecoration(
-                            color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : Colors.white,
+                            color: _navigation.darkTheme.value
+                                ? ColorPallates.elseDarkColor
+                                : Colors.white,
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Column(
@@ -95,7 +105,9 @@ class BusinessPartnerFormView extends StatelessWidget implements EditViewContrac
                           child: Container(
                             padding: EdgeInsets.all(20),
                             decoration: BoxDecoration(
-                              color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : Colors.white,
+                              color: _navigation.darkTheme.value
+                                  ? ColorPallates.elseDarkColor
+                                  : Colors.white,
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: BsRow(
@@ -105,63 +117,123 @@ class BusinessPartnerFormView extends StatelessWidget implements EditViewContrac
                                     children: [
                                       BsCol(
                                         child: FormGroup(
-                                            label: Text('Created By', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
+                                            label: Text('Created By',
+                                                style: TextStyle(
+                                                    color: _navigation
+                                                            .darkTheme.value
+                                                        ? Colors.white
+                                                        : Colors.black)),
                                             child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [Text(source.value.createdby.value), Divider()],
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(source
+                                                    .value.createdby.value),
+                                                Divider()
+                                              ],
                                             )),
                                       ),
                                       BsCol(
                                         margin: EdgeInsets.only(top: 10),
                                         child: FormGroup(
-                                            label: Text('Created At', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
+                                            label: Text('Created At',
+                                                style: TextStyle(
+                                                    color: _navigation
+                                                            .darkTheme.value
+                                                        ? Colors.white
+                                                        : Colors.black)),
                                             child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [Text(source.value.createddate.value), Divider()],
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(source
+                                                    .value.createddate.value),
+                                                Divider()
+                                              ],
                                             )),
                                       ),
                                       BsCol(
                                         margin: EdgeInsets.only(top: 10),
                                         child: FormGroup(
-                                            label: Text('Last Updated By', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
+                                            label: Text('Last Updated By',
+                                                style: TextStyle(
+                                                    color: _navigation
+                                                            .darkTheme.value
+                                                        ? Colors.white
+                                                        : Colors.black)),
                                             child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [Text(source.value.updatedby.value), Divider()],
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(source
+                                                    .value.updatedby.value),
+                                                Divider()
+                                              ],
                                             )),
                                       ),
                                       BsCol(
                                         margin: EdgeInsets.only(top: 10),
                                         child: FormGroup(
-                                            label: Text('Last Updated At', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
+                                            label: Text('Last Updated At',
+                                                style: TextStyle(
+                                                    color: _navigation
+                                                            .darkTheme.value
+                                                        ? Colors.white
+                                                        : Colors.black)),
                                             child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [Text(source.value.updateddate.value), Divider()],
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(source
+                                                    .value.updateddate.value),
+                                                Divider()
+                                              ],
                                             )),
                                       ),
                                       BsCol(
                                         margin: EdgeInsets.only(top: 10),
                                         child: FormGroup(
-                                            label: Text('Is Active', style: TextStyle(color: _navigation.darkTheme.value ? Colors.white : Colors.black)),
+                                            label: Text('Is Active',
+                                                style: TextStyle(
+                                                    color: _navigation
+                                                            .darkTheme.value
+                                                        ? Colors.white
+                                                        : Colors.black)),
                                             child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 if (source.value.isactive.value)
                                                   InkWell(
                                                     child: Icon(
                                                       Icons.toggle_on,
                                                       size: 35,
-                                                      color: _navigation.darkTheme.value ? ColorPallates.onDarkMode : ColorPallates.onLightMode,
+                                                      color: _navigation
+                                                              .darkTheme.value
+                                                          ? ColorPallates
+                                                              .onDarkMode
+                                                          : ColorPallates
+                                                              .onLightMode,
                                                     ),
-                                                    onTap: () => source.value.isactive.toggle(),
+                                                    onTap: () => source
+                                                        .value.isactive
+                                                        .toggle(),
                                                   )
                                                 else
                                                   InkWell(
                                                     child: Icon(
                                                       Icons.toggle_off,
                                                       size: 35,
-                                                      color: _navigation.darkTheme.value ? ColorPallates.offDarkMode : ColorPallates.offLightMode,
+                                                      color: _navigation
+                                                              .darkTheme.value
+                                                          ? ColorPallates
+                                                              .offDarkMode
+                                                          : ColorPallates
+                                                              .offLightMode,
                                                     ),
-                                                    onTap: () => source.value.isactive.toggle(),
+                                                    onTap: () => source
+                                                        .value.isactive
+                                                        .toggle(),
                                                   ),
                                                 Divider()
                                               ],
@@ -183,7 +255,9 @@ class BusinessPartnerFormView extends StatelessWidget implements EditViewContrac
                   child: Container(
                     padding: EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : Colors.white,
+                      color: _navigation.darkTheme.value
+                          ? ColorPallates.elseDarkColor
+                          : Colors.white,
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Column(
@@ -202,7 +276,8 @@ class BusinessPartnerFormView extends StatelessWidget implements EditViewContrac
                           children: [
                             Expanded(child: businessPartnerForm.inputUserWeb()),
                             SizedBox(width: 8),
-                            Expanded(child: businessPartnerForm.inputUserMobile()),
+                            Expanded(
+                                child: businessPartnerForm.inputUserMobile()),
                           ],
                         ),
                         businessPartnerForm.inputCustomer(),
@@ -211,9 +286,13 @@ class BusinessPartnerFormView extends StatelessWidget implements EditViewContrac
                         businessPartnerForm.inputProspect(),
                         Row(
                           children: [
-                            Expanded(child: businessPartnerForm.inputDailyActivity()),
+                            Expanded(
+                                child:
+                                    businessPartnerForm.inputDailyActivity()),
                             SizedBox(width: 8),
-                            Expanded(child: businessPartnerForm.inputProspectActivity()),
+                            Expanded(
+                                child: businessPartnerForm
+                                    .inputProspectActivity()),
                           ],
                         ),
                         Obx(
@@ -276,7 +355,8 @@ class BusinessPartnerFormView extends StatelessWidget implements EditViewContrac
 
     source.update((val) {
       BusinessPartnerModel bp = BusinessPartnerModel.fromJson(response.body);
-      source.value.selectType.setSelected(BsSelectBoxOption(value: bp.bptypeid, text: Text(bp.bptype?.typename ?? '')));
+      source.value.selectType.setSelected(BsSelectBoxOption(
+          value: bp.bptypeid, text: Text(bp.bptype?.typename ?? '')));
       source.value.businessPartnerTypeController.selected = bp.bptype;
       source.value.inputCompanyName.text = bp.bpname ?? '';
       source.value.inputName.text = bp.bppicname ?? '';
@@ -289,14 +369,22 @@ class BusinessPartnerFormView extends StatelessWidget implements EditViewContrac
       source.value.updateddate.value = bp.updateddate ?? '';
       source.value.isactive.value = bp.isactive ?? true;
 
-      source.value.inputUserWeb.text = bp.quota?.sbqwebuserquota?.toString() ?? "0";
-      source.value.inputUserMobile.text = bp.quota?.sbqmobuserquota?.toString() ?? "0";
-      source.value.inputCustomer.text = bp.quota?.sbqcstmquota?.toString() ?? "0";
-      source.value.inputContact.text = bp.quota?.sbqcntcquota?.toString() ?? "0";
-      source.value.inputProduct.text = bp.quota?.sbqprodquota?.toString() ?? "0";
-      source.value.inputProspect.text = bp.quota?.sbqprosquota?.toString() ?? "0";
-      source.value.inputDailyActivity.text = bp.quota?.sbqdayactquota?.toString() ?? "0";
-      source.value.inputProspectActivity.text = bp.quota?.sbqprosactquota?.toString() ?? "0";
+      source.value.inputUserWeb.text =
+          bp.quota?.sbqwebuserquota?.toString() ?? "0";
+      source.value.inputUserMobile.text =
+          bp.quota?.sbqmobuserquota?.toString() ?? "0";
+      source.value.inputCustomer.text =
+          bp.quota?.sbqcstmquota?.toString() ?? "0";
+      source.value.inputContact.text =
+          bp.quota?.sbqcntcquota?.toString() ?? "0";
+      source.value.inputProduct.text =
+          bp.quota?.sbqprodquota?.toString() ?? "0";
+      source.value.inputProspect.text =
+          bp.quota?.sbqprosquota?.toString() ?? "0";
+      source.value.inputDailyActivity.text =
+          bp.quota?.sbqdayactquota?.toString() ?? "0";
+      source.value.inputProspectActivity.text =
+          bp.quota?.sbqprosactquota?.toString() ?? "0";
       source.value.quota.value = bp.quota;
     });
   }
@@ -318,7 +406,7 @@ class BusinessPartnerFormView extends StatelessWidget implements EditViewContrac
   }
 
   @override
-  void onErrorRequest(Response response) {
+  void onErrorRequest(Response response, {context}) {
     // TODO: implement onErrorRequest
   }
 

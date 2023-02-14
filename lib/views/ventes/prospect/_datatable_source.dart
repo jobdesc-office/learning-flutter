@@ -35,7 +35,8 @@ class ProspectDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      CustomBsDataColumn(label: Text('Prospect Title'), columnName: 'prospectname'),
+      CustomBsDataColumn(
+          label: Text('Prospect Title'), columnName: 'prospectname'),
       CustomBsDataColumn(
         label: Text('Prospect Stage'),
         searchable: false,
@@ -61,11 +62,16 @@ class ProspectDataTableSource extends BsDatatableSource {
       ),
       // CustomBsDataColumn(
       //     label: Text('Prospect Status'), orderable: false, searchable: false),
-      CustomBsDataColumn(label: Text('Actions'), width: 100, orderable: false, searchable: false),
+      CustomBsDataColumn(
+          label: Text('Actions'),
+          width: 100,
+          orderable: false,
+          searchable: false),
     ];
   }
 
-  List<ProspectModel> get users => response.data.map((data) => ProspectModel.fromJson(data)).toList();
+  List<ProspectModel> get users =>
+      response.data.map((data) => ProspectModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
@@ -90,7 +96,8 @@ class ProspectDataTableSource extends BsDatatableSource {
     //   contact = Text('');
     // }
     Map<String, dynamic> colors = {};
-    String remark = row.prospectstatus?.sbtremark?.replaceAll('&quot;', '"') ?? '';
+    String remark =
+        row.prospectstatus?.sbtremark?.replaceAll('&quot;', '"') ?? '';
     if (row.prospectstatus?.sbtremark != null) colors = jsonDecode(remark);
     return BsDataRow(
       index: index,
@@ -117,14 +124,22 @@ class ProspectDataTableSource extends BsDatatableSource {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (_navigation.isCollapse.value)
-                Text(row.prospectname!, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17))
+                Text(row.prospectname!,
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17))
               else
                 Column(
-                  children: [Text(row.prospectname!, style: TextStyle(fontWeight: FontWeight.bold)), Text('')],
+                  children: [
+                    Text(row.prospectname!,
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text('')
+                  ],
                 ),
               if (_navigation.isCollapse.value)
                 Text(
-                  'Created at ' + row.createddate! + ' by\n' + row.prospectby!.userfullname!,
+                  'Created at ' +
+                      row.createddate! +
+                      ' by\n' +
+                      row.prospectby!.userfullname!,
                   style: TextStyle(fontSize: 12),
                 ),
             ],
@@ -171,7 +186,9 @@ class ProspectDataTableSource extends BsDatatableSource {
                     )),
                   ),
                   padding: EdgeInsets.fromLTRB(3, 0, 3, 0),
-                  decoration: BoxDecoration(color: Color(parseInt(colors['color'])), borderRadius: BorderRadius.circular(5)),
+                  decoration: BoxDecoration(
+                      color: Color(parseInt(colors['color'])),
+                      borderRadius: BorderRadius.circular(5)),
                 )
               else
                 Container(
@@ -182,7 +199,8 @@ class ProspectDataTableSource extends BsDatatableSource {
                             ? Colors.white
                             : row.prospectstatus?.sbttypename == 'Closed Lost'
                                 ? Colors.white
-                                : row.prospectstatus?.sbttypename == 'Force Closed'
+                                : row.prospectstatus?.sbttypename ==
+                                        'Force Closed'
                                     ? Colors.white
                                     : null),
                   ),
@@ -214,7 +232,10 @@ class ProspectDataTableSource extends BsDatatableSource {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(currencyFormatter.format(parseDouble(row.prospectvalue ?? 0.0)).replaceAll(',00', '').replaceAll('.', ',')),
+              Text(currencyFormatter
+                  .format(parseDouble(row.prospectvalue ?? 0.0))
+                  .replaceAll(',00', '')
+                  .replaceAll('.', ',')),
               Text(''),
               if (_navigation.isCollapse.value) Text(''),
             ],
@@ -231,7 +252,8 @@ class ProspectDataTableSource extends BsDatatableSource {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(row.prospectcust!.sbccstmname.toString(), style: TextStyle(fontSize: 14.2)),
+              Text(row.prospectcust!.sbccstmname.toString(),
+                  style: TextStyle(fontSize: 14.2)),
               Row(
                 children: [
                   Text(
@@ -272,7 +294,8 @@ class ProspectDataTableSource extends BsDatatableSource {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Tooltip(
-                    message: BaseText.detailHintDatatable(field: row.prospectname),
+                    message:
+                        BaseText.detailHintDatatable(field: row.prospectname),
                     child: ButtonDetailsDatatables(
                       margin: EdgeInsets.only(right: 5),
                       onPressed: () => onDetailsListener(row.prospectid!),
@@ -290,7 +313,8 @@ class ProspectDataTableSource extends BsDatatableSource {
                       .permissions!
                       .hasaccess!)
                     Tooltip(
-                      message: BaseText.editHintDatatable(field: row.prospectname),
+                      message:
+                          BaseText.editHintDatatable(field: row.prospectname),
                       child: ButtonEditDatatables(
                         margin: EdgeInsets.only(right: 5),
                         onPressed: () => onEditListener(row.prospectid!),
@@ -308,8 +332,11 @@ class ProspectDataTableSource extends BsDatatableSource {
                       .permissions!
                       .hasaccess!)
                     Tooltip(
-                      message: BaseText.deleteHintDatatable(field: row.prospectname),
-                      child: ButtonDeleteDatatables(onPressed: () => onDeleteListener(row.prospectid!, row.prospectname)),
+                      message:
+                          BaseText.deleteHintDatatable(field: row.prospectname),
+                      child: ButtonDeleteDatatables(
+                          onPressed: () => onDeleteListener(
+                              row.prospectid!, row.prospectname)),
                     ),
                 ],
               ),

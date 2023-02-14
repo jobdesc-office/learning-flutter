@@ -177,18 +177,21 @@ class Menucreatedby {
 class Menutype {
   int? typeid;
   String? typename;
+  String? typecd;
 
-  Menutype({this.typeid, this.typename});
+  Menutype({this.typeid, this.typename, this.typecd});
 
   Menutype.fromJson(Map<String, dynamic> json) {
     typeid = json['typeid'];
     typename = json['typename'];
+    typecd = json['typecd'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['typeid'] = this.typeid;
     data['typename'] = this.typename;
+    data['typecd'] = this.typecd;
     return data;
   }
 }

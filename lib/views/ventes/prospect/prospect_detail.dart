@@ -307,7 +307,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     List<Sbccontact> contact = [];
     List<ProspectCustomFieldModel> customField = [];
     List<Prospectfiles> files = [];
-    ProspectModel dt = ProspectModel.fromJson(response.body);
+    ProspectModel? dt = ProspectModel.fromJson(response.body);
     source.prospectid.value = dt.prospectid!;
     source.prospectbpid.value = dt.prospectbp!.bpid!;
     source.desc.value = dt.prospectdescription ?? '';
@@ -321,7 +321,18 @@ class _ProspectDetailsState extends State<ProspectDetails>
 
     source.prospectname.value = dt.prospectname ?? '';
     source.prospectvalue.value = dt.prospectvalue ?? '0.0';
-    source.userfullname.value = dt.prospectownerusers!.userfullname ?? '';
+    if (dt.prospectownerusers == null) {
+      dt.prospectownerusers?.userfullname = 'Not found';
+      source.userfullname.value = 'Not found';
+      dt.prospectownerusers?.userid = 0;
+    } else {
+      source.userfullname.value =
+          dt.prospectownerusers!.userfullname.toString();
+    }
+    // dt.prospectownerusers!.userfullname != null
+    //     ? source.userfullname.value =
+    //         dt.prospectownerusers!.userfullname.toString()
+    //     : source.userfullname.value = 'User Not Found';
     source.bpname.value = dt.prospectbp!.bpname ?? '';
     source.prospectstartdate.value = dt.prospectstartdate ?? '';
     source.prospectStageController.value.selected = dt.prospectstage;
@@ -459,11 +470,6 @@ class _ProspectDetailsState extends State<ProspectDetails>
   void onEditSuccess(Response response, {BuildContext? context}) {
     cfForm.value.reset();
     map.reset();
-    if (!source.changenote.value) {
-      Navigator.pop(context!);
-      Navigator.pop(context);
-      source.changenote.value = false;
-    }
     presenter.details(context!, source.prospectid.value);
     detailPresenter
         .details(context, {'id': source.prospectid.value.toString()});
@@ -481,7 +487,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
   }
 
   @override
-  void onErrorRequest(Response response) {
+  void onErrorRequest(Response response, {context}) {
     detailPresenter.setProcessing(false);
   }
 

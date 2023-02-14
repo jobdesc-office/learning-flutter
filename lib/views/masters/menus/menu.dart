@@ -48,7 +48,7 @@ class MenuView extends StatelessWidget
                   )
                 ],
                 serverSide: (params) => presenter.datatables(context, params),
-              )
+              ),
             ],
           ),
         ),
@@ -92,7 +92,7 @@ class MenuView extends StatelessWidget
   }
 
   @override
-  void onErrorRequest(Response response) {
+  void onErrorRequest(Response response, {context}) {
     presenter.setProcessing(false);
     super.onErrorRequest(response);
   }

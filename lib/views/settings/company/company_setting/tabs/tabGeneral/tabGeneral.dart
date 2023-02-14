@@ -1,6 +1,7 @@
 part of '../../company.dart';
 
-class _TabGeneral extends StatelessWidget implements EditViewContract, IndexViewContract {
+class _TabGeneral extends StatelessWidget
+    implements EditViewContract, IndexViewContract {
   final _source = GeneralSource().obs;
   GeneralSource get source => _source.value;
   CPGeneralPresenter get presenter => Get.find<CPGeneralPresenter>();
@@ -125,7 +126,8 @@ class _TabGeneral extends StatelessWidget implements EditViewContract, IndexView
                 alignment: Alignment.centerLeft,
                 sizes: ColScreen(sm: Col.col_10),
                 child: Obx(() {
-                  return Cetekan(source.allowDayAct.value, onTap: (value) => source.allowDayAct.value = value);
+                  return Cetekan(source.allowDayAct.value,
+                      onTap: (value) => source.allowDayAct.value = value);
                 }),
               ),
             ],
@@ -145,7 +147,8 @@ class _TabGeneral extends StatelessWidget implements EditViewContract, IndexView
                 alignment: Alignment.centerLeft,
                 sizes: ColScreen(sm: Col.col_10),
                 child: Obx(() {
-                  return Cetekan(source.allowProsAct.value, onTap: (value) => source.allowProsAct.value = value);
+                  return Cetekan(source.allowProsAct.value,
+                      onTap: (value) => source.allowProsAct.value = value);
                 }),
               ),
             ],
@@ -172,7 +175,8 @@ class _TabGeneral extends StatelessWidget implements EditViewContract, IndexView
                             .where((element) => element.menunm == 'Settings')
                             .first
                             .children!
-                            .where((element) => element.menunm == 'Company Setting')
+                            .where((element) =>
+                                element.menunm == 'Company Setting')
                             .first
                             .features!
                             .where((element) => element.featslug == 'update')
@@ -238,7 +242,8 @@ class _TabGeneral extends StatelessWidget implements EditViewContract, IndexView
   @override
   void onSuccessFetchData(Response response) {
     presenter.setProcessing(false);
-    BusinessPartnerModel businessPartner = BusinessPartnerModel.fromJson(response.body);
+    BusinessPartnerModel businessPartner =
+        BusinessPartnerModel.fromJson(response.body);
     _source.update((val) {
       source.allowDayAct.value = businessPartner.bpdayactanytime ?? false;
       source.allowProsAct.value = businessPartner.bpprosactanytime ?? false;
@@ -246,7 +251,9 @@ class _TabGeneral extends StatelessWidget implements EditViewContract, IndexView
       source.inputPIC.text = businessPartner.bppicname ?? "";
       source.inputEmail.text = businessPartner.bpemail ?? "";
       source.inputPhone.text = businessPartner.bpphone ?? "";
-      source.choosedType.setSelected(BsSelectBoxOption(value: businessPartner.bptype?.typeid, text: Text(businessPartner.bptype!.typename!)));
+      source.choosedType.setSelected(BsSelectBoxOption(
+          value: businessPartner.bptype?.typeid,
+          text: Text(businessPartner.bptype!.typename!)));
     });
     source.show.value = true;
   }
@@ -268,7 +275,7 @@ class _TabGeneral extends StatelessWidget implements EditViewContract, IndexView
   }
 
   @override
-  void onErrorRequest(Response response) {}
+  void onErrorRequest(Response response, {context}) {}
 
   @override
   void onLoadDatatables(BuildContext context, Response response) {}

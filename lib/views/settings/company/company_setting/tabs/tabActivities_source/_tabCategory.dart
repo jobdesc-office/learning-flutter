@@ -1,6 +1,7 @@
 part of '../../company.dart';
 
-class _TabActivityCategory extends StatelessWidget implements IndexViewContract, EditViewContract {
+class _TabActivityCategory extends StatelessWidget
+    implements IndexViewContract, EditViewContract {
   final BuildContext context;
   final presenter = Get.find<StBpTypeActivityCategoryPresenter>();
 
@@ -16,8 +17,15 @@ class _TabActivityCategory extends StatelessWidget implements IndexViewContract,
     return SingleChildScrollView(
       child: Obx(() => Container(
             padding: EdgeInsets.all(10),
-            child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-              if (source.value.isformactcat.value) source.value.form(context, presenter, _sources.activitycategorytypeid.value, _sources.activitycategorytype.value, 'Category'),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+              if (source.value.isformactcat.value)
+                source.value.form(
+                    context,
+                    presenter,
+                    _sources.activitycategorytypeid.value,
+                    _sources.activitycategorytype.value,
+                    'Category'),
               if (permis
                   .where((element) => element.menunm == 'Settings')
                   .first
@@ -67,9 +75,18 @@ class _TabActivityCategory extends StatelessWidget implements IndexViewContract,
                                 e.sbttypename ?? '',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               )),
-                          BsCol(sizes: ColScreen(sm: Col.col_1), child: Text(e.sbtseq != null ? e.sbtseq.toString() : '')),
-                          BsCol(sizes: ColScreen(sm: Col.col_2), child: Text(e.securitygroup?.sgname != null ? e.securitygroup!.sgname!.toString() : 'No Group')),
-                          BsCol(sizes: ColScreen(sm: Col.col_2), child: Text(e.sbtname ?? '')),
+                          BsCol(
+                              sizes: ColScreen(sm: Col.col_1),
+                              child: Text(
+                                  e.sbtseq != null ? e.sbtseq.toString() : '')),
+                          BsCol(
+                              sizes: ColScreen(sm: Col.col_2),
+                              child: Text(e.securitygroup?.sgname != null
+                                  ? e.securitygroup!.sgname!.toString()
+                                  : 'No Group')),
+                          BsCol(
+                              sizes: ColScreen(sm: Col.col_2),
+                              child: Text(e.sbtname ?? '')),
                           BsCol(
                             sizes: ColScreen(sm: Col.col_3),
                             child: BsRow(
@@ -79,13 +96,16 @@ class _TabActivityCategory extends StatelessWidget implements IndexViewContract,
                                   sizes: ColScreen(sm: Col.col_1),
                                 ),
                                 if (permis
-                                    .where((element) => element.menunm == 'Settings')
+                                    .where((element) =>
+                                        element.menunm == 'Settings')
                                     .first
                                     .children!
-                                    .where((element) => element.menunm == 'Company Setting')
+                                    .where((element) =>
+                                        element.menunm == 'Company Setting')
                                     .first
                                     .features!
-                                    .where((element) => element.featslug == 'update')
+                                    .where((element) =>
+                                        element.featslug == 'update')
                                     .first
                                     .permissions!
                                     .hasaccess!)
@@ -93,30 +113,40 @@ class _TabActivityCategory extends StatelessWidget implements IndexViewContract,
                                     alignment: Alignment.center,
                                     sizes: ColScreen(sm: Col.col_3),
                                     child: InkWell(
-                                      onTap: () => presenter.edit(context, e.sbtid!),
+                                      onTap: () =>
+                                          presenter.edit(context, e.sbtid!),
                                       child: Text('Edit'),
                                     ),
                                   ),
                                 if (permis
-                                    .where((element) => element.menunm == 'Settings')
+                                    .where((element) =>
+                                        element.menunm == 'Settings')
                                     .first
                                     .children!
-                                    .where((element) => element.menunm == 'Company Setting')
+                                    .where((element) =>
+                                        element.menunm == 'Company Setting')
                                     .first
                                     .features!
-                                    .where((element) => element.featslug == 'update')
+                                    .where((element) =>
+                                        element.featslug == 'update')
                                     .first
                                     .permissions!
                                     .hasaccess!)
-                                  BsCol(alignment: Alignment.center, sizes: ColScreen(sm: Col.col_1), child: Text('|')),
+                                  BsCol(
+                                      alignment: Alignment.center,
+                                      sizes: ColScreen(sm: Col.col_1),
+                                      child: Text('|')),
                                 if (permis
-                                    .where((element) => element.menunm == 'Settings')
+                                    .where((element) =>
+                                        element.menunm == 'Settings')
                                     .first
                                     .children!
-                                    .where((element) => element.menunm == 'Company Setting')
+                                    .where((element) =>
+                                        element.menunm == 'Company Setting')
                                     .first
                                     .features!
-                                    .where((element) => element.featslug == 'update')
+                                    .where((element) =>
+                                        element.featslug == 'update')
                                     .first
                                     .permissions!
                                     .hasaccess!)
@@ -124,35 +154,48 @@ class _TabActivityCategory extends StatelessWidget implements IndexViewContract,
                                     alignment: Alignment.center,
                                     sizes: ColScreen(sm: Col.col_3),
                                     child: InkWell(
-                                      onTap: () => presenter.changeStatus(context, e.sbtid!, e.isactive!),
+                                      onTap: () => presenter.changeStatus(
+                                          context, e.sbtid!, e.isactive!),
                                       child: e.isactive!
-                                          ? Text('Active', style: TextStyle(color: Colors.green))
+                                          ? Text('Active',
+                                              style: TextStyle(
+                                                  color: Colors.green))
                                           : Text(
                                               'Not Active',
-                                              style: TextStyle(color: Colors.red),
+                                              style:
+                                                  TextStyle(color: Colors.red),
                                             ),
                                     ),
                                   ),
                                 if (permis
-                                    .where((element) => element.menunm == 'Settings')
+                                    .where((element) =>
+                                        element.menunm == 'Settings')
                                     .first
                                     .children!
-                                    .where((element) => element.menunm == 'Company Setting')
+                                    .where((element) =>
+                                        element.menunm == 'Company Setting')
                                     .first
                                     .features!
-                                    .where((element) => element.featslug == 'delete')
+                                    .where((element) =>
+                                        element.featslug == 'delete')
                                     .first
                                     .permissions!
                                     .hasaccess!)
-                                  BsCol(alignment: Alignment.center, sizes: ColScreen(sm: Col.col_1), child: Text('|')),
+                                  BsCol(
+                                      alignment: Alignment.center,
+                                      sizes: ColScreen(sm: Col.col_1),
+                                      child: Text('|')),
                                 if (permis
-                                    .where((element) => element.menunm == 'Settings')
+                                    .where((element) =>
+                                        element.menunm == 'Settings')
                                     .first
                                     .children!
-                                    .where((element) => element.menunm == 'Company Setting')
+                                    .where((element) =>
+                                        element.menunm == 'Company Setting')
                                     .first
                                     .features!
-                                    .where((element) => element.featslug == 'delete')
+                                    .where((element) =>
+                                        element.featslug == 'delete')
                                     .first
                                     .permissions!
                                     .hasaccess!)
@@ -160,7 +203,8 @@ class _TabActivityCategory extends StatelessWidget implements IndexViewContract,
                                     alignment: Alignment.center,
                                     sizes: ColScreen(sm: Col.col_3),
                                     child: InkWell(
-                                      onTap: () => presenter.delete(context, e.sbtid!, e.sbttypename ?? ''),
+                                      onTap: () => presenter.delete(context,
+                                          e.sbtid!, e.sbttypename ?? ''),
                                       child: Text('Delete'),
                                     ),
                                   ),
@@ -208,7 +252,7 @@ class _TabActivityCategory extends StatelessWidget implements IndexViewContract,
   }
 
   @override
-  void onErrorRequest(Response response) {}
+  void onErrorRequest(Response response, {context}) {}
 
   @override
   void onLoadDatatables(BuildContext context, Response response) {
@@ -233,7 +277,8 @@ class _TabActivityCategory extends StatelessWidget implements IndexViewContract,
       source.value.inputName.text = val.sbttypename ?? '';
       if (val.sbtseq != null) {
         source.value.seq.value = true;
-        source.value.inputSeq.text = val.sbtseq != null ? val.sbtseq.toString() : '';
+        source.value.inputSeq.text =
+            val.sbtseq != null ? val.sbtseq.toString() : '';
       }
       source.value.createdby.value = val.stbptypecreatedby?.userfullname ?? '';
       source.value.createddate.value = val.createddate ?? '';

@@ -78,7 +78,7 @@ class ContactView extends GetView implements IndexViewContract {
   }
 
   @override
-  void onErrorRequest(Response response) {
+  void onErrorRequest(Response response, {context}) {
     presenter.setProcessing(false);
     Snackbar().failed(Get.context!, response.body['message']);
   }
@@ -87,8 +87,11 @@ class ContactView extends GetView implements IndexViewContract {
   void onLoadDatatables(BuildContext context, Response response) {
     presenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
-    datatable.onDetailsListener = (contactid) => presenter.details(context, contactid);
-    datatable.onEditListener = (contactid) => presenter.edit(context, contactid);
-    datatable.onDeleteListener = (contactid, name) => presenter.delete(context, contactid, name);
+    datatable.onDetailsListener =
+        (contactid) => presenter.details(context, contactid);
+    datatable.onEditListener =
+        (contactid) => presenter.edit(context, contactid);
+    datatable.onDeleteListener =
+        (contactid, name) => presenter.delete(context, contactid, name);
   }
 }

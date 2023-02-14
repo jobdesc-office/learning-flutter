@@ -11,10 +11,29 @@ class Snackbar {
     Get.snackbar('Success', 'Create Data Success',
         colorText: _navigation.darkTheme.value ? Colors.black : Colors.white,
         backgroundColor: ColorPallates.primary,
-        margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.005, right: 10, left: MediaQuery.of(context).size.width * 0.85),
+        margin: EdgeInsets.only(
+            top: MediaQuery.of(context).size.height * 0.005,
+            right: 10,
+            left: MediaQuery.of(context).size.width * 0.85),
         maxWidth: 300,
         icon: Icon(
           Icons.check,
+          size: 30,
+          color: _navigation.darkTheme.value ? Colors.black : Colors.white,
+        ));
+  }
+
+  void createFailed(BuildContext context, String response) {
+    Get.snackbar('Failed', response,
+        colorText: _navigation.darkTheme.value ? Colors.black : Colors.white,
+        backgroundColor: ColorPallates.danger,
+        margin: EdgeInsets.only(
+            top: MediaQuery.of(context).size.height * 0.005,
+            right: 10,
+            left: MediaQuery.of(context).size.width * 1),
+        maxWidth: 300,
+        icon: Icon(
+          Icons.dangerous_outlined,
           size: 30,
           color: _navigation.darkTheme.value ? Colors.black : Colors.white,
         ));
@@ -24,7 +43,10 @@ class Snackbar {
     Get.snackbar('Success', 'Edit Data Success',
         colorText: _navigation.darkTheme.value ? Colors.black : Colors.white,
         backgroundColor: ColorPallates.warning,
-        margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.005, right: 10, left: MediaQuery.of(context).size.width * 0.85),
+        margin: EdgeInsets.only(
+            top: MediaQuery.of(context).size.height * 0.005,
+            right: 10,
+            left: MediaQuery.of(context).size.width * 0.85),
         maxWidth: 500,
         icon: Icon(
           Icons.edit,
@@ -83,7 +105,10 @@ class Snackbar {
     Get.snackbar('Success', 'Delete Data Success',
         colorText: _navigation.darkTheme.value ? Colors.black : Colors.white,
         backgroundColor: ColorPallates.danger,
-        margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.005, right: 10, left: MediaQuery.of(context).size.width * 0.85),
+        margin: EdgeInsets.only(
+            top: MediaQuery.of(context).size.height * 0.005,
+            right: 10,
+            left: MediaQuery.of(context).size.width * 0.85),
         maxWidth: 300,
         icon: Icon(
           Icons.delete,
@@ -180,7 +205,8 @@ class Snackbar {
     Get.snackbar('Caution', 'Delete Button is Disabled',
         messageText: Text(
           'This Delete Button Is Disabled Because If Delete, The Data May Be Wrong',
-          style: TextStyle(color: _navigation.darkTheme.value ? Colors.black : Colors.white),
+          style: TextStyle(
+              color: _navigation.darkTheme.value ? Colors.black : Colors.white),
         ),
         colorText: _navigation.darkTheme.value ? Colors.black : Colors.white,
         backgroundColor: ColorPallates.danger,

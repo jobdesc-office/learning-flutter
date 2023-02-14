@@ -10,5 +10,5 @@ abstract class IndexViewContract {
 
   void onDeleteSuccess(Response response, {BuildContext? context});
 
-  void onErrorRequest(Response response);
+  void onErrorRequest(Response response, {context});
 }

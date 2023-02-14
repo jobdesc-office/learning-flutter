@@ -67,7 +67,7 @@ class ReportEmployees extends GetView implements IndexViewContract {
   void onEditSuccess(Response response, {BuildContext? context}) {}
 
   @override
-  void onErrorRequest(Response response) {}
+  void onErrorRequest(Response response, {context}) {}
 
   @override
   void onLoadDatatables(BuildContext context, Response response) {
