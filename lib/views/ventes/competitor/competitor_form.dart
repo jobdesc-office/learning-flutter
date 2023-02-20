@@ -1,3 +1,5 @@
+import 'package:boilerplate/helpers/function.dart';
+import 'package:boilerplate/presenters/ventes/prospectcompetitor_presenter.dart';
 import 'package:boilerplate/views/skins/template.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
@@ -21,16 +23,21 @@ import '_form_source.dart';
 // ignore: must_be_immutable
 class CompetitorFormView extends StatelessWidget implements EditViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
-  final CompetitorPresenter presenter = Get.find<CompetitorPresenter>();
+  final ProspectCompetitorPresenter presenter =
+      Get.find<ProspectCompetitorPresenter>();
+  // final ProspectCompetitorPresenter pectdtPresenter =
+  //     Get.put(ProspectCompetitorPresenter());
   final source = CompetitorSource().obs;
-  final Function(FormData body) onSave;
+  final Function(FormData body, {int prospectid}) onSave;
   final _navigation = Get.find<NavigationPresenter>();
+
+  int? prospectid;
 
   var isEdit = false.obs;
 
   late CompetitorForm competitorForm;
 
-  CompetitorFormView({required this.onSave}) {
+  CompetitorFormView({required this.onSave, this.prospectid}) {
     presenter.competitorFetchDataContract = this;
   }
 
@@ -82,7 +89,6 @@ class CompetitorFormView extends StatelessWidget implements EditViewContract {
                               competitorForm.inputName(),
                               competitorForm.inputProductName(),
                               competitorForm.selectTypes(),
-                              // competitorForm.selectRef(),
                               competitorForm.inputDesciption(),
                               Obx(
                                 () => Row(
@@ -92,8 +98,10 @@ class CompetitorFormView extends StatelessWidget implements EditViewContract {
                                       disabled: presenter.isProcessing.value,
                                       processing: presenter.isProcessing.value,
                                       margin: EdgeInsets.only(right: 5),
-                                      onPressed: () =>
-                                          onClickSaveModal(context),
+                                      onPressed: () {
+                                        // print(source.toJson());
+                                        onClickSaveModal(context, isEdit.value);
+                                      },
                                     ),
                                     ThemeButtonCancel(
                                       disabled: presenter.isProcessing.value,
@@ -264,15 +272,23 @@ class CompetitorFormView extends StatelessWidget implements EditViewContract {
     );
   }
 
-  void onClickSaveModal(BuildContext context) async {
+  void onClickSaveModal(BuildContext context, bool edit) async {
     presenter.setProcessing(true);
     if (formState.currentState!.validate()) {
+      if (prospectid != null) {
+        source.update((source) {
+          source?.comptrefid.value = prospectid!;
+        });
+      }
       Map<String, dynamic> images = {
         'transtypeid': source.value.transtypeid.value,
         'refid': source.value.refid.value
       };
-      presenter.deleteImages(context, images);
-      onSave(FormData(await source.toJson()));
+      edit && edit == false
+          ? presenter.deleteImages(context, images)
+          : print('Update Data');
+      onSave(FormData(await source.toJson()),
+          prospectid: prospectid ?? source.value.comptrefid.value);
     } else
       presenter.setProcessing(false);
   }
@@ -296,7 +312,7 @@ class CompetitorFormView extends StatelessWidget implements EditViewContract {
             value: competitor.comptreftypeid,
             text: Text(competitor.comptreftype!.typename!)));
 
-      if (competitor.comptpics != null) {
+      if (competitor.comptpics!.isNotEmpty) {
         source.value.isUpdate.value = true;
         source.value.isImage.value = false;
         List image = [];
@@ -304,6 +320,9 @@ class CompetitorFormView extends StatelessWidget implements EditViewContract {
           image.add(item.url);
         }
         source.value.imageupdate.value = image;
+        competitor.comptpics!.forEach((comptpics) {
+          source.value.fileid.add(comptpics.fileid);
+        });
       }
 
       source.value.isUpdateImage.value = true;
@@ -312,12 +331,13 @@ class CompetitorFormView extends StatelessWidget implements EditViewContract {
       source.value.inputProductName.text = competitor.comptproductname ?? '';
       source.value.inputDesc.text = competitor.description ?? '';
 
-      if (competitor.comptpics != []) {
+      if (competitor.comptpics!.isNotEmpty) {
         source.value.transtypeid.value =
             competitor.comptpics!.first.transtypeid!;
         source.value.refid.value = competitor.comptpics!.first.refid!;
       }
 
+      source.value.comptrefid.value = competitor.comptrefid!;
       source.value.createdby.value =
           competitor.comptcreatedby?.userfullname ?? '';
       source.value.createddate.value = competitor.createddate ?? '';

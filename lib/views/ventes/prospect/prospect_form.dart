@@ -37,6 +37,7 @@ class ProspectFormView extends StatelessWidget
   ProspectFormView({required this.onSave}) {
     presenter.prospectFetchDataContract = this;
     presenter.prospectTypeViewContract = this;
+    presenter.prospectViewContract = this;
     presenter.addCustomerViewContract = this;
     productPresenter.productViewContract = this;
   }
@@ -322,6 +323,7 @@ class ProspectFormView extends StatelessWidget
             title: '', middleText: 'Please Choose Prospect Stage');
         presenter.isProcessing.value = false;
       } else
+        // print(source.toJson());
         onSave(await source.toJson());
     } else
       presenter.setProcessing(false);
@@ -475,6 +477,7 @@ class ProspectFormView extends StatelessWidget
   @override
   void onErrorRequest(Response response, {context}) {
     presenter.setProcessing(false);
+    print(response);
     Snackbar().failed(Get.context!, response.body['message']);
   }
 

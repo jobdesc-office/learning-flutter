@@ -40,9 +40,7 @@ class MenuPresenter extends CustomGetXController {
     _menuDataDetailsContract = menuDataDetailsContract;
   }
 
-  Future datatables(BuildContext context, Map<String, String> params,
-      {Map<String, String>? type}) async {
-    params.addAll(type!);
+  Future datatables(BuildContext context, Map<String, String> params) async {
     Response response = await _menuService.datatables(params);
     if (response.statusCode == 200)
       _menuViewContract.onLoadDatatables(context, response);

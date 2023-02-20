@@ -24,7 +24,7 @@ import '../../../widgets/snackbar.dart';
 import '_text.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
-final filePresenter = Get.find<FilePresenter>();
+final filePresenter = Get.put(FilePresenter());
 
 class CompetitorSource extends GetxController {
   bool isProcessing = false;
@@ -35,6 +35,7 @@ class CompetitorSource extends GetxController {
     transtypeid.value = 0;
     refid.value = 0;
 
+    fileid.clear();
     imgname.value = '';
     image.clear();
     imageupdate.clear();
@@ -61,7 +62,9 @@ class CompetitorSource extends GetxController {
 
   var transtypeid = 0.obs;
   var refid = 0.obs;
+  var comptrefid = 0.obs;
 
+  var fileid = [].obs;
   var imgname = ''.obs;
   var image = <Uint8List>[].obs;
   var imageupdate = [].obs;
@@ -100,9 +103,7 @@ class CompetitorSource extends GetxController {
     return {
       'comptbpid': box.read('mybpid').toString(),
       'comptreftypeid': selectType.getSelectedAsString(),
-      'comptrefid': selectRef.getSelectedAsString() != ''
-          ? selectRef.getSelectedAsString()
-          : null,
+      'comptrefid': comptrefid,
       'comptname': inputName.text,
       'comptproductname': inputProductName.text,
       'description': inputDesc.text,
@@ -110,7 +111,7 @@ class CompetitorSource extends GetxController {
       'updatedby': session.userid,
       'isactive': isactive.value,
       'comptpics[]': jsonImages(),
-      '_method': isUpdateImage.value ? 'put' : null
+      '_method': null
     };
   }
 }
@@ -130,8 +131,9 @@ class CompetitorForm {
                     margin: EdgeInsets.all(3),
                     sizes: ColScreen(sm: Col.col_4),
                     child: InkWell(
-                        onTap: (() => source.image
-                            .removeWhere((item) => item == element)),
+                        onTap: (() {
+                          source.image.removeWhere((item) => item == element);
+                        }),
                         child: Tooltip(
                             message: 'Tap to Remove',
                             child: Image.memory(element))));
@@ -145,8 +147,9 @@ class CompetitorForm {
                     margin: EdgeInsets.all(3),
                     sizes: ColScreen(sm: Col.col_6),
                     child: InkWell(
-                        onTap: (() => source.image
-                            .removeWhere((item) => item == element)),
+                        onTap: (() {
+                          source.image.removeWhere((item) => item == element);
+                        }),
                         child: Tooltip(
                             message: 'Tap to Remove',
                             child: Image.memory(element))));
@@ -160,8 +163,9 @@ class CompetitorForm {
                     margin: EdgeInsets.all(3),
                     sizes: ColScreen(sm: Col.col_12),
                     child: InkWell(
-                        onTap: (() => source.image
-                            .removeWhere((item) => item == element)),
+                        onTap: (() {
+                          source.image.removeWhere((item) => item == element);
+                        }),
                         child: Tooltip(
                             message: 'Tap to Remove',
                             child: Image.memory(element))));
@@ -175,8 +179,9 @@ class CompetitorForm {
                     margin: EdgeInsets.all(3),
                     sizes: ColScreen(sm: Col.col_3),
                     child: InkWell(
-                        onTap: (() => source.image
-                            .removeWhere((item) => item == element)),
+                        onTap: (() {
+                          source.image.removeWhere((item) => item == element);
+                        }),
                         child: Tooltip(
                             message: 'Tap to Remove',
                             child: Image.memory(element))));
@@ -204,9 +209,8 @@ class CompetitorForm {
                                 BaseText.deleteConfirmDatatable(field: 'Image'),
                             onPressed: (_, value) async {
                               if (value == ConfirmDialogOption.YES_OPTION) {
-                                filePresenter.deleteCompetitor(
-                                    source.imageupdateid[
-                                        source.imageupdate.indexOf(element)]);
+                                filePresenter.deleteCompetitor(source.fileid[
+                                    source.imageupdate.indexOf(element)]);
                                 source.imageupdate
                                     .removeWhere((item) => item == element);
                                 Snackbar().deleteSuccess(context);
@@ -238,9 +242,8 @@ class CompetitorForm {
                                 BaseText.deleteConfirmDatatable(field: 'Image'),
                             onPressed: (_, value) async {
                               if (value == ConfirmDialogOption.YES_OPTION) {
-                                filePresenter.deleteCompetitor(
-                                    source.imageupdateid[
-                                        source.imageupdate.indexOf(element)]);
+                                filePresenter.deleteCompetitor(source.fileid[
+                                    source.imageupdate.indexOf(element)]);
                                 source.imageupdate
                                     .removeWhere((item) => item == element);
                                 Snackbar().deleteSuccess(context);
@@ -272,9 +275,8 @@ class CompetitorForm {
                                 BaseText.deleteConfirmDatatable(field: 'Image'),
                             onPressed: (_, value) async {
                               if (value == ConfirmDialogOption.YES_OPTION) {
-                                filePresenter.deleteCompetitor(
-                                    source.imageupdateid[
-                                        source.imageupdate.indexOf(element)]);
+                                filePresenter.deleteCompetitor(source.fileid[
+                                    source.imageupdate.indexOf(element)]);
                                 source.imageupdate
                                     .removeWhere((item) => item == element);
                                 Snackbar().deleteSuccess(context);
@@ -306,9 +308,8 @@ class CompetitorForm {
                                 BaseText.deleteConfirmDatatable(field: 'Image'),
                             onPressed: (_, value) async {
                               if (value == ConfirmDialogOption.YES_OPTION) {
-                                filePresenter.deleteCompetitor(
-                                    source.imageupdateid[
-                                        source.imageupdate.indexOf(element)]);
+                                filePresenter.deleteCompetitor(source.fileid[
+                                    source.imageupdate.indexOf(element)]);
                                 source.imageupdate
                                     .removeWhere((item) => item == element);
                                 Snackbar().deleteSuccess(context);
@@ -377,7 +378,7 @@ class CompetitorForm {
     );
   }
 
-  Widget selectRef() {
+  Widget selectRef(int? prospectid) {
     return FormGroup(
       label: Obx(() => Text(CompetitorText.labelRef,
           style: TextStyle(
@@ -385,7 +386,7 @@ class CompetitorForm {
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomSelectBox(
         searchable: false,
-        disabled: source.isProcessing,
+        disabled: true,
         controller: source.selectRef,
         hintText: BaseText.hiintSelect(field: CompetitorText.labelRef),
         serverSide: (params) => selectApiProspect(params),

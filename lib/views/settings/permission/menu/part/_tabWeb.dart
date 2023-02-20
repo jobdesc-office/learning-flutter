@@ -230,21 +230,21 @@ class _WebMenuPermission extends StatelessWidget {
                                                                     .features![
                                                                         0]
                                                                     .roleid,
-                                                                'childId': [],
-                                                                'parentId': element
-                                                                    .features![
-                                                                        0]
-                                                                    .featid,
+                                                                // 'childId': [],
+                                                                // 'parentId': element
+                                                                //     .features![
+                                                                //         0]
+                                                                //     .featid,
                                                               };
-                                                              element.children
-                                                                  ?.forEach(
-                                                                      (children) {
-                                                                body['childId']
-                                                                    .add(children
-                                                                        .features?[
-                                                                            0]
-                                                                        .featid);
-                                                              });
+                                                              // element.children
+                                                              //     ?.forEach(
+                                                              //         (children) {
+                                                              //   body['childId']
+                                                              //       .add(children
+                                                              //           .features?[
+                                                              //               0]
+                                                              //           .featid);
+                                                              // });
                                                               presenter.update(
                                                                   context,
                                                                   body,
@@ -283,21 +283,21 @@ class _WebMenuPermission extends StatelessWidget {
                                                                       .features![
                                                                           0]
                                                                       .roleid,
-                                                                  'childId': [],
-                                                                  'parentId': element
-                                                                      .features![
-                                                                          0]
-                                                                      .featid,
+                                                                  // 'childId': [],
+                                                                  // 'parentId': element
+                                                                  //     .features![
+                                                                  //         0]
+                                                                  //     .featid,
                                                                 };
-                                                                element.children
-                                                                    ?.forEach(
-                                                                        (children) {
-                                                                  body['childId']
-                                                                      .add(children
-                                                                          .features?[
-                                                                              0]
-                                                                          .featid);
-                                                                });
+                                                                // element.children
+                                                                //     ?.forEach(
+                                                                //         (children) {
+                                                                //   body['childId']
+                                                                //       .add(children
+                                                                //           .features?[
+                                                                //               0]
+                                                                //           .featid);
+                                                                // });
                                                                 presenter.update(
                                                                     context,
                                                                     body,
@@ -400,18 +400,18 @@ class _WebMenuPermission extends StatelessWidget {
                                                                                 false,
                                                                             'updatedby':
                                                                                 session.userid,
-                                                                            'childId':
-                                                                                [],
-                                                                            'parentId':
-                                                                                element.features![0].featid,
+                                                                            // 'childId':
+                                                                            //     [],
+                                                                            // 'parentId':
+                                                                            //     element.features![0].featid,
                                                                             'roleid':
                                                                                 element.features![0].roleid
                                                                           };
-                                                                          element
-                                                                              .children
-                                                                              ?.forEach((children) {
-                                                                            body['childId'].add(children.features?[0].featid);
-                                                                          });
+                                                                          // element
+                                                                          //     .children
+                                                                          //     ?.forEach((children) {
+                                                                          //   body['childId'].add(children.features?[0].featid);
+                                                                          // });
                                                                           presenter.update(
                                                                               context,
                                                                               body,
@@ -440,13 +440,13 @@ class _WebMenuPermission extends StatelessWidget {
                                                                                 {
                                                                               'hasaccess': true,
                                                                               'updatedby': session.userid,
-                                                                              'childId': [],
-                                                                              'parentId': element.features![0].featid,
+                                                                              // 'childId': [],
+                                                                              // 'parentId': element.features![0].featid,
                                                                               'roleid': element.features![0].roleid
                                                                             };
-                                                                            element.children?.forEach((children) {
-                                                                              body['childId'].add(children.features?[0].featid);
-                                                                            });
+                                                                            // element.children?.forEach((children) {
+                                                                            //   body['childId'].add(children.features?[0].featid);
+                                                                            // });
                                                                             presenter.update(
                                                                                 context,
                                                                                 body,

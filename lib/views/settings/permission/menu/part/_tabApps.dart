@@ -9,7 +9,7 @@ class _AppsMenuPermission extends StatelessWidget {
     return Obx(() => SingleChildScrollView(
           child: Column(
             children: source.permission
-                .where((p0) => p0.menutype!.typename == 'Apps')
+                .where((p0) => p0.menutype!.typecd == ConfigType.menuTypeApp)
                 .map((element) {
               x++;
               return Container(

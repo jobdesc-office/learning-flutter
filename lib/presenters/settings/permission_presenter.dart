@@ -51,7 +51,6 @@ class PermissionPresenter extends CustomGetXController {
 
   void update(BuildContext context, Map<String, dynamic> body, int id) async {
     setProcessing(true);
-    print(body);
     Response response = await _permissionService.update(id, body);
     if (response.statusCode == 200)
       _permissionViewMenuContract.onEditSuccess(response, context: context);
@@ -61,7 +60,6 @@ class PermissionPresenter extends CustomGetXController {
 
   void updateTabs(BuildContext context, Map<String, dynamic> body) async {
     setProcessing(true);
-    print(body);
     Response response = await _permissionService.updateTab(body);
     if (response.statusCode == 200)
       _permissionViewMenuContract.onEditSuccess(response, context: context);

@@ -5,7 +5,10 @@ import 'package:boilerplate/contracts/base/history_view_contract.dart';
 import 'package:boilerplate/helpers/function.dart';
 import 'package:boilerplate/models/settings/history_model.dart';
 import 'package:boilerplate/models/ventes/customfield_model.dart';
+import 'package:boilerplate/presenters/ventes/competitor_presenter.dart';
+import 'package:boilerplate/presenters/ventes/prospectcompetitor_presenter.dart';
 import 'package:boilerplate/views/skins/template.dart';
+import 'package:boilerplate/views/ventes/competitor/_form_source.dart';
 import 'package:boilerplate/views/ventes/prospect/histories/_tabWeb_source/_tabProspectActivity.dart';
 import 'package:boilerplate/views/ventes/prospect/histories/_tabWeb_source/_tabProspectCustomfield.dart';
 import 'package:boilerplate/views/ventes/prospect/histories/_tabWeb_source/_tabProspectFile.dart';
@@ -55,6 +58,7 @@ import '../../../widgets/form_group.dart';
 import '../../../widgets/input/custom_input_descriptions.dart';
 import '../../../widgets/map/_map_source.dart';
 import '../../../widgets/snackbar.dart';
+// import '../competitor/competitor_form.dart';
 import '_detail_source.dart';
 import '_text.dart';
 import 'histories/_tabWeb_source/_tabProspect.dart';
@@ -74,6 +78,9 @@ part 'prospectdetail_component/tabs/tabAssign.dart';
 part 'prospectdetail_component/tabs/tabProduct.dart';
 part 'prospectdetail_component/tabs/tabContact.dart';
 part 'prospectdetail_component/tabs/tabFile.dart';
+part 'prospectdetail_component/tabs/tabCompetitor.dart';
+// part '../../../competitor/competitor_form.dart';
+// part '../competitor/competitor_form.dart';
 part 'prospectdetail_component/tabs/tabHistory.dart';
 part 'prospectdetail_component/title_section.dart';
 
@@ -108,6 +115,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
   final customFieldPresenter = Get.find<CustomFieldPresenter>();
   final contactPresenter = Get.find<ProspectContactPresenter>();
   final filePresenter = Get.find<ProspectFilePresenter>();
+  final competitorPresenter = Get.find<ProspectCompetitorPresenter>();
   final prospectCustomFieldPresenter = Get.find<ProspectCustomFieldPresenter>();
   final presenter = Get.find<ProspectDetailPresenter>();
   final source = Get.put(ProspectDetailsSource());
@@ -136,6 +144,8 @@ class _ProspectDetailsState extends State<ProspectDetails>
     productPresenter.prospectViewContract = this;
     contactPresenter.prospectViewContract = this;
     filePresenter.prospectViewContract = this;
+    competitorPresenter.prospectViewContract = this;
+    competitorPresenter.competitorViewContract = this;
     customFieldPresenter.setCustomFieldContract = this;
     customFieldPresenter.customFieldViewContract = this;
     prospectCustomFieldPresenter.prospectViewContract = this;
@@ -232,6 +242,13 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                                       ? Colors.white
                                                       : Colors.black)),
                                           Tab(
+                                              text: 'Competitor',
+                                              icon: Icon(Icons.person,
+                                                  color: _navigation
+                                                          .darkTheme.value
+                                                      ? Colors.white
+                                                      : Colors.black)),
+                                          Tab(
                                               text: 'Log',
                                               icon: Icon(Icons.history,
                                                   color: _navigation
@@ -254,6 +271,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
                                           _TabProduct(),
                                           _TabContact(),
                                           _TabFile(),
+                                          _TabCompetitor(),
                                           _TabHistory()
                                         ],
                                       ),
@@ -307,6 +325,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     List<Sbccontact> contact = [];
     List<ProspectCustomFieldModel> customField = [];
     List<Prospectfiles> files = [];
+    List<Prospectcompetitor> competitors = [];
     ProspectModel? dt = ProspectModel.fromJson(response.body);
     source.prospectid.value = dt.prospectid!;
     source.prospectbpid.value = dt.prospectbp!.bpid!;
@@ -329,10 +348,6 @@ class _ProspectDetailsState extends State<ProspectDetails>
       source.userfullname.value =
           dt.prospectownerusers!.userfullname.toString();
     }
-    // dt.prospectownerusers!.userfullname != null
-    //     ? source.userfullname.value =
-    //         dt.prospectownerusers!.userfullname.toString()
-    //     : source.userfullname.value = 'User Not Found';
     source.bpname.value = dt.prospectbp!.bpname ?? '';
     source.prospectstartdate.value = dt.prospectstartdate ?? '';
     source.prospectStageController.value.selected = dt.prospectstage;
@@ -380,6 +395,13 @@ class _ProspectDetailsState extends State<ProspectDetails>
         files.add(element);
       });
       source.files.value = files;
+    }
+    if (dt.prospectcompetitor != null) {
+      dt.prospectcompetitor?.forEach((element) {
+        competitors.add(element);
+      });
+      source.competitors.value = competitors;
+      // print(dt.prospectcompetitor?[1].comptpics?.first['url']);
     }
 
     if (dt.prospectcustlabeltype?.sbtremark != null) {
@@ -435,6 +457,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     detailPresenter.setProcessing(false);
     assignPresenter.setProcessing(false);
     filePresenter.setProcessing(false);
+    competitorPresenter.setProcessing(false);
     productPresenter.setProcessing(false);
     source.pickedFile.clear();
     Navigator.pop(context!);

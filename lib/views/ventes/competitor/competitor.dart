@@ -1,4 +1,5 @@
 import 'package:boilerplate/contracts/base/index_view_contract.dart';
+import 'package:boilerplate/presenters/ventes/prospectcompetitor_presenter.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,11 +17,13 @@ import '_text.dart';
 
 class CompetitorView extends GetView implements IndexViewContract {
   final presenter = Get.find<CompetitorPresenter>();
+  final prospectcomptpresenter = Get.put(ProspectCompetitorPresenter());
   final datatable = CompetitorDataTableSource();
   final map = Get.put(MapSource());
 
   CompetitorView() {
     presenter.competitorViewContract = this;
+    prospectcomptpresenter.prospectViewContract = this;
   }
 
   @override

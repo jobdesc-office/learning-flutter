@@ -213,14 +213,14 @@ class ProspectDetailPresenter extends CustomGetXController {
       _prospectViewContract.onErrorRequest(response);
   }
 
-  void details(BuildContext context, int userid) async {
+  void details(BuildContext context, int prospectid) async {
     setProcessing(true);
     showDialog(
       context: context,
       builder: (context) => ProspectDetails(),
     );
 
-    Response response = await _prospectService.show(userid);
+    Response response = await _prospectService.show(prospectid);
     if (response.statusCode == 200) {
       _prospectDetailsViewContract.onSuccessFetchData(response);
 

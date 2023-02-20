@@ -66,6 +66,7 @@ class ProspectDetailsSource extends GetxController {
   var product = [].obs;
   var contact = <Sbccontact>[].obs;
   var files = <Prospectfiles>[].obs;
+  var competitors = <Prospectcompetitor>[].obs;
   var customField = <ProspectCustomFieldModel>[].obs;
   var rawcustomField = <CustomFieldModel>[].obs;
 

@@ -110,7 +110,7 @@ BsCol prospectDetailTitleSection(context) {
                                 ),
                                 Row(
                                   children: [
-                                    Text(' '),
+                                    Text(' | '),
                                     card,
                                   ],
                                 )

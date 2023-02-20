@@ -1,9 +1,12 @@
 import 'package:boilerplate/presenters/masters/security_group_presenter.dart';
+import 'package:boilerplate/presenters/navigation_presenter.dart';
+import 'package:boilerplate/presenters/ventes/prospectcompetitor_presenter.dart';
 import 'package:boilerplate/services/masters/security_group_service.dart';
 import 'package:boilerplate/views/masters/securitygroup/security_group.dart';
 import 'package:boilerplate/views/settings/company/company_setting/tabs/tabContacts/cp_contact_presenter.dart';
 import 'package:boilerplate/views/settings/company/company_setting/tabs/tabCustomers/cp_customer_presenter.dart';
 import 'package:boilerplate/views/settings/company/company_setting/tabs/tabGeneral/cp_general_presenter.dart';
+import 'package:boilerplate/views/ventes/competitor/competitor.dart';
 import 'package:get/get.dart';
 
 import '../middleware/verifyToken.dart';
@@ -409,6 +412,9 @@ class AppRoute {
           Get.lazyPut(() => ProspectActivityPresenter());
           Get.lazyPut(() => FileService());
           Get.lazyPut(() => ProspectFilePresenter());
+          Get.lazyPut(() => ProspectCompetitorPresenter());
+          Get.lazyPut(() => CompetitorPresenter());
+          Get.lazyPut(() => CompetitorService());
           Get.lazyPut(() => ProspectAssignService());
           Get.lazyPut(() => ProspectAssignPresenter());
           Get.lazyPut(() => CustomerPresenter());
@@ -422,6 +428,19 @@ class AppRoute {
           Get.lazyPut(() => ProspectCustomFieldPresenter());
         }),
       ),
+      // CustomGetPage(
+      //   name: RouteList.ventesProspect.index,
+      //   page: () => AuthGuard(
+      //     child: CompetitorView(),
+      //     parent: 'Ventes Datas',
+      //     route: '/ventes/competitor',
+      //   ),
+      //   binding: BindingsBuilder(() {
+      //     Get.lazyPut(() => CompetitorPresenter());
+      //     Get.lazyPut(() => ProspectCompetitorPresenter());
+      //     Get.lazyPut(() => NavigationPresenter());
+      //   }),
+      // ),
       CustomGetPage(
         name: RouteList.ventesBpCustomer.index,
         page: () => AuthGuard(

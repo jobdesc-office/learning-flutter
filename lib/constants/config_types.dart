@@ -5,6 +5,7 @@ class ConfigType {
 
   static String menuType = notNull(types['menuType']);
   static String menuTypeWeb = notNull(types['web']);
+  static String menuTypeApp = notNull(types['apps']);
 
   static String role = notNull(types['role']);
   static String appaccess = notNull(types['appaccess']);

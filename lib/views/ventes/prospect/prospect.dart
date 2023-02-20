@@ -107,7 +107,7 @@ class ProspectView extends GetView implements IndexViewContract {
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     presenter.setProcessing(false);
     datatable.onDetailsListener =
-        (userid) => presenterdt.details(context, userid);
+        (prospectid) => presenterdt.details(context, prospectid);
     datatable.onEditListener =
         (prospectid) => presenterdt.edit(context, prospectid);
     datatable.onDeleteListener =

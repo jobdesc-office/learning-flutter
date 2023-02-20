@@ -96,11 +96,11 @@ class _TabCompetitor extends GetView
                                                             .toJson()),
                                                         sources.value.id.value);
                                                   } else {
-                                                    presenter.save(
-                                                        context,
-                                                        FormData(await sources
-                                                            .value
-                                                            .toJson()));
+                                                    // presenter.save(
+                                                    //     context,
+                                                    //     FormData(await sources
+                                                    //         .value
+                                                    //         .toJson()));
                                                   }
                                                 }
                                               },

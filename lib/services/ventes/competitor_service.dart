@@ -11,19 +11,18 @@ class CompetitorService extends ApiConnectProvider {
     return post('$api/datatables/${box.read('mybpid')}', params);
   }
 
-  Future<Response> storeCompetitor(
-    dynamic body, {
-    String? contentType,
-  }) {
+  Future<Response> storeCompetitor(FormData body,
+      {String? contentType, int? prospectid}) {
     return post(api, body, contentType: contentType);
   }
 
   Future<Response> updateCompetitor(
     int id,
-    dynamic body, {
+    FormData body, {
     String? contentType,
   }) {
-    return post('$api/$id', body);
+    print(body.fields);
+    return post('$api/$id', body, contentType: contentType);
   }
 
   Future<Response> deleteImages({
