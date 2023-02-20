@@ -50,7 +50,7 @@ class UserDataTableSource extends BsDatatableSource {
       CustomBsDataColumn(
         label: Text('Actions'),
         orderable: false,
-        width: 100,
+        width: 200,
         searchable: false,
       ),
     ];

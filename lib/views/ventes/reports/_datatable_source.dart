@@ -59,12 +59,13 @@ class ReportDataTableSource extends BsDatatableSource {
         label: Text('Actions'),
         orderable: false,
         searchable: false,
-        width: 100,
+        width: 200,
       ),
     ];
   }
 
-  List<Activities> get reports => response.data.map((data) => Activities.fromJson(data)).toList();
+  List<Activities> get reports =>
+      response.data.map((data) => Activities.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
@@ -104,7 +105,11 @@ class ReportDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(row.dayactreftype != null ? row.dayactreftype!.typename! + ' - ' + row.refprospect!.prospectcode! : 'Daily Activity'),
+          Text(row.dayactreftype != null
+              ? row.dayactreftype!.typename! +
+                  ' - ' +
+                  row.refprospect!.prospectcode!
+              : 'Daily Activity'),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor
@@ -127,7 +132,8 @@ class ReportDataTableSource extends BsDatatableSource {
           Row(
             children: [
               Tooltip(
-                message: BaseText.detailHintDatatable(field: row.dayactcat?.sbttypename),
+                message: BaseText.detailHintDatatable(
+                    field: row.dayactcat?.sbttypename),
                 child: ButtonDetailsDatatables(
                   margin: EdgeInsets.only(right: 5),
                   onPressed: () => onDetailsListener(row.dayactid!),

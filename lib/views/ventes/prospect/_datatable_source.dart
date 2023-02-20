@@ -64,7 +64,7 @@ class ProspectDataTableSource extends BsDatatableSource {
       //     label: Text('Prospect Status'), orderable: false, searchable: false),
       CustomBsDataColumn(
           label: Text('Actions'),
-          width: 100,
+          width: 200,
           orderable: false,
           searchable: false),
     ];

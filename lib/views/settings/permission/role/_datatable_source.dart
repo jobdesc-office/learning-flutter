@@ -29,7 +29,7 @@ class PermissionRoleDataTableSource extends BsDatatableSource {
           label: Text('Permission Role'), orderable: false, searchable: false),
       CustomBsDataColumn(
           label: Text('Actions'),
-          width: 100,
+          width: 200,
           orderable: false,
           searchable: false),
     ];

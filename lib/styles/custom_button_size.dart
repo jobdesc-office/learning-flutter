@@ -15,9 +15,9 @@ class CustomButonSize {
       );
 
   static BsButtonSize get mini => BsButtonSize(
-        padding: EdgeInsets.all(2),
+        padding: EdgeInsets.all(6),
         fontSize: 12,
-        iconSize: 13,
+        iconSize: 16,
       );
 
   static BsButtonSize get confirm => BsButtonSize(
