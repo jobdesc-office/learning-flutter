@@ -59,7 +59,7 @@ class AuthPresenter extends CustomGetXController {
           ? _loginViewContract.onLoginSuccess(authModel)
           : _loginViewContract.onErrorResponse();
     }).catchError(
-      (message) => _loginViewContract.onLoginFailed(message),
+      (message) => _loginViewContract.onLoginFailed("Login failed"),
     );
   }
 

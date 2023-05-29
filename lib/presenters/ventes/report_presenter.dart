@@ -1,3 +1,4 @@
+import 'package:boilerplate/contracts/base/calendar_view_contract.dart';
 import 'package:boilerplate/views/ventes/reports/dailyactivity/report_dailyactivity.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,6 +29,11 @@ class ReportPresenter extends CustomGetXController {
   late IndexViewContract _viewContract;
   set reportDataContract(IndexViewContract reportFetchDataDetailsContract) {
     _viewContract = reportFetchDataDetailsContract;
+  }
+
+  late CalendarViewContract _calendarViewContract;
+  set calendarViewContract(CalendarViewContract calendarViewContract) {
+    _calendarViewContract = calendarViewContract;
   }
 
   late IndexViewContract _reportViewContract;
@@ -76,6 +82,19 @@ class ReportPresenter extends CustomGetXController {
       _reportViewContract.onLoadDatatables(context, response);
     else
       _reportViewContract.onErrorRequest(response);
+  }
+
+  Future calendarDatatables({month, start, end}) async {
+    int currentMonth = DateTime.now().month;
+    Response response = await _attendService.calendar(
+      month: month ?? currentMonth,
+      start: start,
+      end: end,
+    );
+    if (response.statusCode == 200)
+      _calendarViewContract.onLoadDatatables(response);
+    else
+      _calendarViewContract.onErrorRequest(response);
   }
 
   Future attenddatatables(BuildContext context, Map<String, String> params,

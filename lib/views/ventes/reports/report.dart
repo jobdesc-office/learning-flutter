@@ -1,5 +1,6 @@
 // ignore_for_file: invalid_use_of_protected_member
 
+import 'package:boilerplate/contracts/base/calendar_view_contract.dart';
 import 'package:boilerplate/widgets/datatables/custom_datatable.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
@@ -8,6 +9,7 @@ import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:intl/intl.dart';
 
 import '../../../constants/base_text.dart';
 import '../../../contracts/base/index_view_contract.dart';
@@ -32,6 +34,7 @@ import 'tabs/attendance_source/_datatable_source.dart';
 
 part 'tabs/dailyactivity_tab.dart';
 part 'tabs/attendance_tab.dart';
+part 'tabs/calendars_tab.dart';
 
 class ReportView extends StatefulWidget {
   const ReportView({Key? key}) : super(key: key);
@@ -53,7 +56,7 @@ class _ReportViewState extends State<ReportView>
   @override
   void initState() {
     super.initState();
-    _tabControllers = TabController(length: 2, vsync: this);
+    _tabControllers = TabController(length: 3, vsync: this);
     presenter.reportContract = this;
     presenter.getDataFromAPI();
   }
@@ -88,6 +91,9 @@ class _ReportViewState extends State<ReportView>
                               ),
                               Tab(
                                 text: 'Attendance',
+                              ),
+                              Tab(
+                                text: 'Calendars',
                               )
                             ]),
                       ),
@@ -97,9 +103,11 @@ class _ReportViewState extends State<ReportView>
             Container(
               width: double.infinity,
               height: MediaQuery.of(context).size.height,
-              child: TabBarView(
-                  controller: _tabControllers,
-                  children: [DailyActivityTab(), AttendanceTab()]),
+              child: TabBarView(controller: _tabControllers, children: [
+                DailyActivityTab(),
+                AttendanceTab(),
+                CalendarsTab()
+              ]),
             )
           ],
         ),

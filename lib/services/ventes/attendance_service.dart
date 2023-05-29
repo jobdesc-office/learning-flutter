@@ -26,4 +26,12 @@ class AttendanceService extends ApiConnectProvider {
       'userid': userid,
     });
   }
+
+  Future<Response> calendar({month, start, end}) {
+    return get('$api/calendar', query: {
+      'month': [month.toString()],
+      'start': [start.toString()],
+      'end': [end.toString()],
+    });
+  }
 }
