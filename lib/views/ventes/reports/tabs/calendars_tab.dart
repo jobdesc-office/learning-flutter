@@ -13,7 +13,9 @@ class _CalendarsTabState extends State<CalendarsTab>
   ScrollController tableScroll = ScrollController();
   List<AttendanceReport> attendanceList = [];
 
-  DateTime _selectedDate = DateTime(2022, 10);
+  double cellHeight = 25;
+  double headersHeight = 50;
+
   int numDaysInMonth = 0;
   int currentPage = 1;
   int itemsPerPage = 10;
@@ -23,18 +25,27 @@ class _CalendarsTabState extends State<CalendarsTab>
   bool isLastPage = false;
   int? totalPages;
 
+  List<String> typenames = [];
+
+  String startdates = DateFormat('yyyy-MM-dd')
+      .format(DateTime.now().subtract(Duration(days: 30)));
+  String enddates = DateFormat('yyyy-MM-dd').format(DateTime.now());
+
   @override
   void initState() {
     super.initState();
     presenter.setProcessing(true);
     presenter.calendarViewContract = this;
     presenter.calendarDatatables(
-        month: _selectedDate.month, start: start, end: end);
+        start: start, end: end, startdate: startdates, enddate: enddates);
     initNumDaysInMonth();
   }
 
-  void initNumDaysInMonth() => numDaysInMonth =
-      DateTime(_selectedDate.year, _selectedDate.month + 1, 0).day;
+  void initNumDaysInMonth() => numDaysInMonth = DateTime(
+          DateTime.parse(startdates).year,
+          DateTime.parse(startdates).month + 1,
+          0)
+      .day;
 
   BsSelectBoxController filterController = BsSelectBoxController(options: [
     for (int i = 1; i <= 12; i++)
@@ -51,8 +62,17 @@ class _CalendarsTabState extends State<CalendarsTab>
           ? Center(child: Text("Processing attendance..."))
           : Column(
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    exportExcel(context),
+                    SizedBox(width: 30),
+                    startdate(context),
+                    SizedBox(width: 30),
+                    enddate(context),
+                  ],
+                ),
                 Container(
-                  // height: 290,
                   margin: EdgeInsets.only(bottom: 20, top: 20),
                   child: Row(
                     children: [
@@ -73,7 +93,8 @@ class _CalendarsTabState extends State<CalendarsTab>
                             ),
                           ),
                         ),
-                      )
+                      ),
+                      _generateEmployeesSummary(),
                     ],
                   ),
                 ),
@@ -98,9 +119,9 @@ class _CalendarsTabState extends State<CalendarsTab>
                                   end = start;
                                   start = start -
                                       50; // 50 is data loaded per APIcall
-                                  print(currentPage);
                                   presenter.calendarDatatables(
-                                      month: _selectedDate.month,
+                                      startdate: startdates,
+                                      enddate: enddates,
                                       start: start,
                                       end: end);
                                 } else if (attendanceList.length > 10) {
@@ -109,6 +130,7 @@ class _CalendarsTabState extends State<CalendarsTab>
                                     currentPageonAPI--;
                                     _generateCheckmarks();
                                     _generateEmployeesName();
+                                    _generateEmployeesSummary();
                                   } else {
                                     currentPage--;
                                     currentPageonAPI = 5;
@@ -116,9 +138,10 @@ class _CalendarsTabState extends State<CalendarsTab>
                                     start = start -
                                         50; // 50 is data loaded per APIcall
                                     presenter.calendarDatatables(
-                                        month: _selectedDate.month,
                                         start: start,
-                                        end: end);
+                                        end: end,
+                                        startdate: startdates,
+                                        enddate: enddates);
                                   }
                                 }
                               } else {
@@ -126,19 +149,20 @@ class _CalendarsTabState extends State<CalendarsTab>
                                   currentPage--;
                                   currentPageonAPI = 5;
                                   end = start;
-                                  print(currentPage);
                                   start = start -
                                       50; // 50 is data loaded per APIcall
                                   presenter.calendarDatatables(
-                                      month: _selectedDate.month,
-                                      start: start,
-                                      end: end);
+                                    start: start,
+                                    end: end,
+                                    startdate: startdates,
+                                    enddate: enddates,
+                                  );
                                 } else {
                                   currentPage--;
                                   currentPageonAPI--;
                                   _generateCheckmarks();
-                                  print(currentPage);
                                   _generateEmployeesName();
+                                  _generateEmployeesSummary();
                                 }
                               }
                             }
@@ -191,9 +215,9 @@ class _CalendarsTabState extends State<CalendarsTab>
                                       end + 50; // 50 is data loaded per APIcall
                                   currentPageonAPI = 1;
                                   currentPage++;
-                                  print(currentPage);
                                   presenter.calendarDatatables(
-                                      month: _selectedDate.month,
+                                      startdate: startdates,
+                                      enddate: enddates,
                                       start: start,
                                       end: end);
                                 }
@@ -241,23 +265,78 @@ class _CalendarsTabState extends State<CalendarsTab>
         ? attendanceList.sublist(subStart, subEnd)
         : attendanceList.sublist(subStart, attendanceList.length);
 
+    DateTime endDate = DateTime.parse(
+        DateFormat('yyyy-MM-dd').format(DateTime.parse(enddates)));
+
     List<Widget> rows = [];
 
-    for (var index = 0; index < paginatedList.length; index++) {
-      List<String> attendanceDates = paginatedList[index].date!;
+    for (int i = 0; i < paginatedList.length; i++) {
+      var entry = paginatedList[i];
+      List<Map<String, dynamic>>? attendanceData = entry.attendance;
       List<Widget> cell = [];
-      for (var i = 0; i < numDaysInMonth; i++) {
-        bool isPresent = attendanceDates.contains(DateFormat('yyyy-MM-dd')
-            .format(_selectedDate.add(Duration(days: i)))
-            .toString());
+
+      List<String> attendanceDates = attendanceData
+              ?.map((attendance) => attendance['attdate'].toString())
+              .toList() ??
+          [];
+
+      DateTime startDate = DateTime.parse(startdates);
+
+      while (startDate.isBefore(endDate)) {
+        String currentDate =
+            DateFormat('yyyy-MM-dd').format(startDate).toString();
+        final int weekday = startDate.weekday;
+        final bool isWeekend = weekday == 6 || weekday == 7;
+
+        Map<String, dynamic>? attendanceEntry = attendanceData?.firstWhere(
+          (attendance) => attendance['attdate'] == currentDate,
+          orElse: () => {'atttype': null},
+        );
+
+        String attendanceType = parseString(attendanceEntry?['atttype'] ?? "");
+
+        bool isPresent = attendanceDates.contains(currentDate);
+        String attendanceDuration = attendanceEntry?['attduration'] ?? "";
+        List<String> timeParts = [];
+        int hours = 0;
+        if (attendanceDuration.isNotEmpty) {
+          timeParts = attendanceDuration.split(':');
+          hours = int.parse(timeParts[0]);
+        }
         cell.add(
-          Container(
-            width: 40,
-            height: 25,
-            decoration: BoxDecoration(border: Border.all(width: 0.5)),
-            child: isPresent ? Icon(Icons.check) : SizedBox(),
+          Tooltip(
+            message: attendanceDuration.isNotEmpty
+                ? hours >= 8
+                    ? hours.toString()
+                    : "Alpha"
+                : !isWeekend
+                    ? isPresent
+                        ? "No clock out data recorded"
+                        : ""
+                    : "",
+            child: Container(
+              width: 40,
+              height: cellHeight,
+              decoration: BoxDecoration(border: Border.all(width: 0.5)),
+              child: attendanceType == "H" || attendanceType == ""
+                  ? isPresent
+                      ? attendanceDuration.isNotEmpty
+                          ? hours >= 8
+                              ? Icon(Icons.check, color: Colors.black)
+                              : Text(
+                                  "A",
+                                  textAlign: TextAlign.center,
+                                )
+                          : Icon(Icons.check, color: Colors.black)
+                      : SizedBox()
+                  : Text(
+                      attendanceType,
+                      textAlign: TextAlign.center,
+                    ),
+            ),
           ),
         );
+        startDate = startDate.add(Duration(days: 1));
       }
       rows.add(Row(children: cell));
     }
@@ -277,7 +356,8 @@ class _CalendarsTabState extends State<CalendarsTab>
     List<Widget> rows = [
       Container(
         width: 120,
-        height: 30,
+        height: headersHeight,
+        alignment: Alignment.centerLeft,
         padding: EdgeInsets.only(left: 10),
         decoration: BoxDecoration(
           color: ColorPallates.navbarLightColor,
@@ -294,9 +374,11 @@ class _CalendarsTabState extends State<CalendarsTab>
     ];
 
     for (var index = 0; index < paginatedList.length; index++) {
-      rows.add(Container(
-          height: 25,
+      rows.add(
+        Container(
+          height: cellHeight,
           width: 120,
+          alignment: Alignment.centerLeft,
           padding: EdgeInsets.only(left: 10),
           decoration: BoxDecoration(
               border: Border.all(width: 0.5),
@@ -305,40 +387,256 @@ class _CalendarsTabState extends State<CalendarsTab>
                     offset: Offset(6, 0), blurRadius: 4, color: Colors.black26)
               ],
               color: Colors.white),
-          child: Text(paginatedList[index].username!)));
+          child: Column(
+            children: [
+              Text(
+                paginatedList[index].attuser?.userfullname ?? "User name null",
+                textAlign: TextAlign.left,
+              ),
+            ],
+          ),
+        ),
+      );
     }
     return Column(
       children: rows,
     );
   }
 
+  Widget _generateEmployeesSummary() {
+    final subStart = (currentPageonAPI - 1) * itemsPerPage;
+    final subEnd = subStart + itemsPerPage;
+    final paginatedList = subEnd <= attendanceList.length
+        ? attendanceList.sublist(subStart, subEnd)
+        : attendanceList.sublist(subStart, attendanceList.length);
+
+    double rowLength = 50;
+
+    List<Widget> column = [];
+
+    for (var typename in typenames) {
+      List<Widget> cells = [
+        Container(
+          width: rowLength,
+          height: headersHeight / 2,
+          padding: EdgeInsets.only(left: 10),
+          decoration: BoxDecoration(
+            color: ColorPallates.navbarLightColor,
+            border: Border.all(width: 0.5),
+          ),
+          child: Center(
+            child: typename == "H"
+                ? Icon(
+                    Icons.check,
+                    color: Colors.white,
+                  )
+                : Text(
+                    typename,
+                    style: TextStyle(color: Colors.white),
+                  ),
+          ),
+        ),
+      ];
+      for (var index = 0; index < paginatedList.length; index++) {
+        int typesummary = paginatedList[index].attsummary?[typename];
+        cells.add(
+          Container(
+            height: cellHeight,
+            width: rowLength,
+            padding: EdgeInsets.only(left: 10),
+            decoration: BoxDecoration(
+                border: Border.all(width: 0.5),
+                boxShadow: [
+                  BoxShadow(
+                      offset: Offset(6, 0),
+                      blurRadius: 4,
+                      color: Colors.black26)
+                ],
+                color: Colors.white),
+            child: Container(
+              margin: EdgeInsets.only(right: 5),
+              child: Text(typesummary.toString(), textAlign: TextAlign.center),
+            ),
+          ),
+        );
+      }
+      column.add(
+        Column(
+          children: cells,
+        ),
+      );
+    }
+    // print(rows);
+
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(offset: Offset(-6, 0), blurRadius: 4, color: Colors.black26)
+        ],
+      ),
+      child: Column(
+        children: [
+          Container(
+            height: headersHeight / 2,
+            width: rowLength * column.length,
+            decoration: BoxDecoration(
+              color: ColorPallates.navbarLightColor,
+              border: Border.all(width: 0.5),
+            ),
+            child: Text(
+              "Summary",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+          Row(
+            children: column,
+          ),
+        ],
+      ),
+    );
+  }
+
   List<Widget> _buildDateHeaders() {
     final List<Widget> dateHeaders = [];
 
-    final DateTime firstDayOfMonth =
-        DateTime(_selectedDate.year, _selectedDate.month, 1);
-    final int numDaysInMonth =
-        DateTime(_selectedDate.year, _selectedDate.month + 1, 0).day;
+    DateTime endDate = DateTime.parse(
+        DateFormat('yyyy-MM-dd').format(DateTime.parse(enddates)));
+    DateTime startDate = DateTime.parse(
+        DateFormat('yyyy-MM-dd').format(DateTime.parse(startdates)));
 
-    for (int i = 0; i < numDaysInMonth; i++) {
-      final DateTime currentDate = firstDayOfMonth.add(Duration(days: i));
+    while (startDate.isBefore(endDate)) {
+      final int weekday = startDate.weekday;
+      final bool isWeekend = weekday == 6 || weekday == 7;
+
       dateHeaders.add(
         Container(
           width: 40,
-          height: 30,
+          height: headersHeight,
+          alignment: Alignment.center,
           decoration: BoxDecoration(
               border: Border.all(width: 0.5, color: Colors.white),
               color: ColorPallates.navbarLightColor),
           child: Text(
-            currentDate.day.toString(),
+            startDate.day.toString(),
+            style: TextStyle(color: isWeekend ? Colors.red : Colors.white),
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white),
           ),
         ),
       );
+      startDate = startDate.add(Duration(days: 1));
     }
 
     return dateHeaders;
+  }
+
+  Widget exportExcel(context) {
+    return BsButton(
+        margin: EdgeInsets.only(left: 5),
+        style: BsButtonStyle(
+            color: Colors.white,
+            backgroundColor: ColorPallates.navbarLightColor,
+            borderRadius: BorderRadius.all(Radius.circular(5))),
+        width: 150,
+        size: BsButtonSize(
+            iconSize: 18.0,
+            fontSize: 14.0,
+            padding: EdgeInsets.fromLTRB(22, 12, 22, 12),
+            spaceLabelIcon: 10.0),
+        onPressed: () {
+          presenter.exportExcelCalender(
+              start: start, end: end, startdate: startdates, enddate: enddates);
+        },
+        label: Text("Export to Excel"));
+  }
+
+  Widget startdate(context) {
+    return BsButton(
+        margin: EdgeInsets.only(left: 5),
+        style: BsButtonStyle(
+            color: Color.fromARGB(255, 165, 165, 165),
+            backgroundColor: _navigation.darkTheme.value
+                ? ColorPallates.elseDarkColor
+                : Colors.white,
+            borderColor: Colors.black,
+            borderRadius: BorderRadius.all(Radius.circular(5))),
+        width: 120,
+        size: BsButtonSize(
+            iconSize: 18.0,
+            fontSize: 14.0,
+            padding: EdgeInsets.fromLTRB(22, 12, 22, 12),
+            spaceLabelIcon: 10.0),
+        onPressed: () {
+          _startDates(context);
+        },
+        label: Text(startdates == '' ? 'Start Date' : startdates));
+  }
+
+  Widget enddate(context) {
+    return BsButton(
+        margin: EdgeInsets.only(left: 5),
+        disabled: startdates == '' ? true : false,
+        style: BsButtonStyle(
+            color: Color.fromARGB(255, 165, 165, 165),
+            backgroundColor: _navigation.darkTheme.value
+                ? ColorPallates.elseDarkColor
+                : Colors.white,
+            borderColor: Colors.black,
+            borderRadius: BorderRadius.all(Radius.circular(5))),
+        width: 120,
+        size: BsButtonSize(
+            iconSize: 18.0,
+            fontSize: 14.0,
+            padding: EdgeInsets.fromLTRB(22, 12, 22, 12),
+            spaceLabelIcon: 10.0),
+        onPressed: () {
+          _endDates(context);
+        },
+        label: Text(enddates == '' ? 'End Date' : enddates));
+  }
+
+  _startDates(BuildContext context) async {
+    final DateTime? selectedAct = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1, 1, 1),
+      lastDate: DateTime.now(),
+    );
+    if (selectedAct != null) {
+      setState(() {
+        String selectedStartDate = DateFormat('yyyy-MM-dd').format(selectedAct);
+        if (selectedAct.month != DateTime.parse(startdates).month) {
+          presenter.calendarDatatables(
+              start: start,
+              end: end,
+              startdate: selectedStartDate,
+              enddate: enddates);
+        }
+        startdates = selectedStartDate;
+      });
+    }
+  }
+
+  _endDates(BuildContext context) async {
+    final DateTime? selectedAct = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1, 1, 1),
+      lastDate: DateTime.now(),
+    );
+    if (selectedAct != null) {
+      setState(() {
+        String selectedEndDate = DateFormat('yyyy-MM-dd').format(selectedAct);
+        if (selectedAct.month != DateTime.parse(enddates).month) {
+          presenter.calendarDatatables(
+              start: start,
+              end: end,
+              startdate: startdates,
+              enddate: selectedEndDate);
+        }
+        enddates = selectedEndDate;
+      });
+    }
   }
 
   @override
@@ -356,21 +654,28 @@ class _CalendarsTabState extends State<CalendarsTab>
           .toList();
       isLastPage = parseBool(response.body['isLastPage']);
       totalPages = parseInt(response.body['totalPages']);
+      // itemsPerPage = parseInt(response.body['dataperPage']);
+      for (var entry in response.body['typenames']) {
+        typenames.add(parseString(entry));
+      }
+      print(typenames);
     });
   }
 }
 
 class AttendanceReport {
-  String? username;
-  List<String>? date;
+  UserModel? attuser;
+  List<Map<String, dynamic>>? attendance;
+  Map<String, dynamic>? attsummary;
 
-  AttendanceReport({this.username, this.date});
+  AttendanceReport({this.attuser, this.attendance, this.attsummary});
 
   AttendanceReport.fromJson(Map<String, dynamic> json) {
-    username = json['attusername'];
-    date = (json['attdate'] as Map<String, dynamic>)
-        .values
-        .cast<String>()
+    attuser =
+        json['attuser'] != null ? UserModel.fromJson(json['attuser']) : null;
+    attendance = (json['attendance'] as List<dynamic>)
+        .map((item) => item as Map<String, dynamic>)
         .toList();
+    attsummary = json['attsummary'];
   }
 }

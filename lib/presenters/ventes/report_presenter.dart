@@ -3,6 +3,7 @@ import 'package:boilerplate/views/ventes/reports/dailyactivity/report_dailyactiv
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'dart:html' as html;
 
 import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
@@ -84,17 +85,36 @@ class ReportPresenter extends CustomGetXController {
       _reportViewContract.onErrorRequest(response);
   }
 
-  Future calendarDatatables({month, start, end}) async {
+  Future calendarDatatables({start, end, startdate, enddate}) async {
     int currentMonth = DateTime.now().month;
     Response response = await _attendService.calendar(
-      month: month ?? currentMonth,
       start: start,
       end: end,
+      startdate: startdate ?? currentMonth,
+      enddate: enddate,
     );
     if (response.statusCode == 200)
       _calendarViewContract.onLoadDatatables(response);
     else
       _calendarViewContract.onErrorRequest(response);
+  }
+
+  Future exportExcelCalender({start, end, startdate, enddate}) async {
+    Response response = await _attendService.exportCalendar(
+      start: start,
+      end: end,
+      startdate: startdate,
+      enddate: enddate,
+    );
+    if (response.statusCode == 200) {
+      html.AnchorElement anchorElement =
+          new html.AnchorElement(href: response.body['file_url']);
+      anchorElement.download = response.body['filename'];
+      anchorElement.click();
+    } else {
+      print(
+          'Failed to retrieve file data with status code: ${response.statusCode}');
+    }
   }
 
   Future attenddatatables(BuildContext context, Map<String, String> params,

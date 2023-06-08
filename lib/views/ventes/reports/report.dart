@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
+import '../../../models/masters/user_model.dart';
 
 import '../../../constants/base_text.dart';
 import '../../../contracts/base/index_view_contract.dart';

@@ -27,11 +27,21 @@ class AttendanceService extends ApiConnectProvider {
     });
   }
 
-  Future<Response> calendar({month, start, end}) {
+  Future<Response> calendar({start, end, startdate, enddate}) {
     return get('$api/calendar', query: {
-      'month': [month.toString()],
       'start': [start.toString()],
       'end': [end.toString()],
+      'startdate': [startdate.toString()],
+      'enddate': [enddate.toString()],
+    });
+  }
+
+  Future<Response> exportCalendar({start, end, startdate, enddate}) {
+    return get('$api/exportcalendar', query: {
+      'start': [start.toString()],
+      'end': [end.toString()],
+      'startdate': [startdate.toString()],
+      'enddate': [enddate.toString()],
     });
   }
 }

@@ -9,14 +9,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.10.0"
-  auto_size_text:
-    dependency: transitive
-    description:
-      name: auto_size_text
-      sha256: "3f5261cd3fb5f2a9ab4e2fc3fba84fd9fcaac8821f20a1d4e71f557521b22599"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -307,14 +299,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.5"
-  horizontal_data_table:
-    dependency: "direct main"
-    description:
-      name: horizontal_data_table
-      sha256: "32d9a29aad16caeb94d49d2310a041a8561d182719c16a21b360d5d8c5e0b2ad"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.2.0"
   html:
     dependency: transitive
     description:
@@ -379,6 +363,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.6.0"
+  just_the_tooltip:
+    dependency: "direct main"
+    description:
+      name: just_the_tooltip
+      sha256: "7a081133d57285bfb41b331f411006d57b433d7b35772e6155745f6a7a09cb82"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.12"
   logging:
     dependency: transitive
     description:
@@ -427,14 +419,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.0.7"
-  nested:
-    dependency: transitive
-    description:
-      name: nested
-      sha256: "03bac4c528c64c95c722ec99280375a6f2fc708eec17c7b3f07253b626cd2a20"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
   notus_format:
     dependency: transitive
     description:
@@ -443,14 +427,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.3"
-  number_paginator:
-    dependency: "direct main"
-    description:
-      name: number_paginator
-      sha256: d0372a06c3d52922247d0fd4e58da621f122926011db2b8304e065225ece7b86
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.3"
   path:
     dependency: transitive
     description:
@@ -571,14 +547,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.2.4"
-  provider:
-    dependency: transitive
-    description:
-      name: provider
-      sha256: cdbe7530b12ecd9eb455bdaa2fcb8d4dad22e80b8afb4798b41479d5ce26847f
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.0.5"
   quill_format:
     dependency: transitive
     description:
@@ -889,5 +857,5 @@ packages:
     source: hosted
     version: "1.4.0"
 sdks:
-  dart: ">=2.19.0 <3.0.0"
+  dart: ">=2.18.0 <3.0.0"
   flutter: ">=2.11.0-0.1.pre"
