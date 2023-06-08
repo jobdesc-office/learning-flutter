@@ -109,8 +109,10 @@ class ReportPresenter extends CustomGetXController {
     if (response.statusCode == 200) {
       html.AnchorElement anchorElement =
           new html.AnchorElement(href: response.body['file_url']);
-      anchorElement.download = response.body['filename'];
+      String filename = response.body['filename'];
+      anchorElement.download = filename;
       anchorElement.click();
+      _attendService.removeExcel(filename: filename);
     } else {
       print(
           'Failed to retrieve file data with status code: ${response.statusCode}');

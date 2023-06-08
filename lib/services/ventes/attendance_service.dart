@@ -44,4 +44,10 @@ class AttendanceService extends ApiConnectProvider {
       'enddate': [enddate.toString()],
     });
   }
+
+  Future<Response> removeExcel({filename}) {
+    return get('$api/removecalendar', query: {
+      'filename': [filename.toString()],
+    });
+  }
 }
