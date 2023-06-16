@@ -55,4 +55,10 @@ class ConfigType {
   static String activitycategory = notNull(types['activitycategory']);
 
   static String chatreftype = notNull(types['chatreftype']);
+
+  static String attpresent = notNull(types['attendancePresent']);
+  static String attool = notNull(types['attendanceOutOfLocation']);
+  static String attleave = notNull(types['attendanceLeave']);
+  static String attsick = notNull(types['attendanceSick']);
+  static String attcuti = notNull(types['attendanceCuti']);
 }

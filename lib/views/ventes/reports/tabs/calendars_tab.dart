@@ -25,7 +25,8 @@ class _CalendarsTabState extends State<CalendarsTab>
   bool isLastPage = false;
   int? totalPages;
 
-  List<String> typenames = [];
+  Map<String, String> typecodes = {};
+  List<TypeModel> summary = List<TypeModel>.empty(growable: true);
 
   String startdates = DateFormat('yyyy-MM-dd')
       .format(DateTime.now().subtract(Duration(days: 30)));
@@ -65,190 +66,202 @@ class _CalendarsTabState extends State<CalendarsTab>
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    exportExcel(context),
+                    attendanceList.length != 0
+                        ? exportExcel(context)
+                        : Container(),
                     SizedBox(width: 30),
                     startdate(context),
                     SizedBox(width: 30),
                     enddate(context),
                   ],
                 ),
-                Container(
-                  margin: EdgeInsets.only(bottom: 20, top: 20),
-                  child: Row(
-                    children: [
-                      _generateEmployeesName(),
-                      Flexible(
-                        child: Scrollbar(
-                          controller: tableScroll,
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            physics: ScrollPhysics(
-                                parent: AlwaysScrollableScrollPhysics()),
-                            controller: tableScroll,
-                            child: Column(
-                              children: [
-                                Row(children: _buildDateHeaders()),
-                                _generateCheckmarks(),
-                              ],
+                if (attendanceList.length != 0)
+                  Container(
+                    margin: EdgeInsets.only(bottom: 20, top: 20),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            _generateEmployeesName(),
+                            Flexible(
+                              child: Scrollbar(
+                                controller: tableScroll,
+                                child: SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  physics: ScrollPhysics(
+                                      parent: AlwaysScrollableScrollPhysics()),
+                                  controller: tableScroll,
+                                  child: Column(
+                                    children: [
+                                      Row(children: _buildDateHeaders()),
+                                      _generateCheckmarks(),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
+                            _generateEmployeesSummary(),
+                          ],
                         ),
-                      ),
-                      _generateEmployeesSummary(),
-                    ],
-                  ),
-                ),
-                Container(
-                  width: 500,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      MouseRegion(
-                        cursor: !isLastPage
-                            ? currentPage > 1
-                                ? SystemMouseCursors.click
-                                : SystemMouseCursors.basic
-                            : SystemMouseCursors.click,
-                        child: GestureDetector(
-                          onTap: () => setState(() {
-                            if (currentPage > 1) {
-                              if (isLastPage) {
-                                if (attendanceList.length <= 10) {
-                                  currentPage--;
-                                  currentPageonAPI = 5;
-                                  end = start;
-                                  start = start -
-                                      50; // 50 is data loaded per APIcall
-                                  presenter.calendarDatatables(
-                                      startdate: startdates,
-                                      enddate: enddates,
-                                      start: start,
-                                      end: end);
-                                } else if (attendanceList.length > 10) {
-                                  if (currentPageonAPI > 1) {
-                                    currentPage--;
-                                    currentPageonAPI--;
-                                    _generateCheckmarks();
-                                    _generateEmployeesName();
-                                    _generateEmployeesSummary();
-                                  } else {
-                                    currentPage--;
-                                    currentPageonAPI = 5;
-                                    end = start;
-                                    start = start -
-                                        50; // 50 is data loaded per APIcall
-                                    presenter.calendarDatatables(
-                                        start: start,
-                                        end: end,
-                                        startdate: startdates,
-                                        enddate: enddates);
-                                  }
-                                }
-                              } else {
-                                if (currentPageonAPI == 1) {
-                                  currentPage--;
-                                  currentPageonAPI = 5;
-                                  end = start;
-                                  start = start -
-                                      50; // 50 is data loaded per APIcall
-                                  presenter.calendarDatatables(
-                                    start: start,
-                                    end: end,
-                                    startdate: startdates,
-                                    enddate: enddates,
-                                  );
-                                } else {
-                                  currentPage--;
-                                  currentPageonAPI--;
-                                  _generateCheckmarks();
-                                  _generateEmployeesName();
-                                  _generateEmployeesSummary();
-                                }
-                              }
-                            }
-                          }),
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 5),
-                            decoration: BoxDecoration(
-                                color: !isLastPage
+                        Container(
+                          width: 500,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              MouseRegion(
+                                cursor: !isLastPage
                                     ? currentPage > 1
-                                        ? ColorPallates.secondary
-                                        : ColorPallates
-                                            .datatableDarkEvenRowColor
-                                    : ColorPallates.secondary,
-                                borderRadius: BorderRadius.circular(5),
-                                boxShadow: [
-                                  BoxShadow(
-                                    blurRadius: 8,
-                                    color: Colors.black38,
-                                    offset: Offset(4, 4),
-                                  )
-                                ]),
-                            child: Icon(
-                              Icons.arrow_back,
-                              color: Colors.white,
-                            ),
+                                        ? SystemMouseCursors.click
+                                        : SystemMouseCursors.basic
+                                    : SystemMouseCursors.click,
+                                child: GestureDetector(
+                                  onTap: () => setState(() {
+                                    if (currentPage > 1) {
+                                      if (isLastPage) {
+                                        if (attendanceList.length <= 10) {
+                                          currentPage--;
+                                          currentPageonAPI = 5;
+                                          end = start;
+                                          start = start -
+                                              50; // 50 is data loaded per APIcall
+                                          presenter.calendarDatatables(
+                                              startdate: startdates,
+                                              enddate: enddates,
+                                              start: start,
+                                              end: end);
+                                        } else if (attendanceList.length > 10) {
+                                          if (currentPageonAPI > 1) {
+                                            currentPage--;
+                                            currentPageonAPI--;
+                                            _generateCheckmarks();
+                                            _generateEmployeesName();
+                                            _generateEmployeesSummary();
+                                          } else {
+                                            currentPage--;
+                                            currentPageonAPI = 5;
+                                            end = start;
+                                            start = start -
+                                                50; // 50 is data loaded per APIcall
+                                            presenter.calendarDatatables(
+                                                start: start,
+                                                end: end,
+                                                startdate: startdates,
+                                                enddate: enddates);
+                                          }
+                                        }
+                                      } else {
+                                        if (currentPageonAPI == 1) {
+                                          currentPage--;
+                                          currentPageonAPI = 5;
+                                          end = start;
+                                          start = start -
+                                              50; // 50 is data loaded per APIcall
+                                          presenter.calendarDatatables(
+                                            start: start,
+                                            end: end,
+                                            startdate: startdates,
+                                            enddate: enddates,
+                                          );
+                                        } else {
+                                          currentPage--;
+                                          currentPageonAPI--;
+                                          _generateCheckmarks();
+                                          _generateEmployeesName();
+                                          _generateEmployeesSummary();
+                                        }
+                                      }
+                                    }
+                                  }),
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 5),
+                                    decoration: BoxDecoration(
+                                        color: !isLastPage
+                                            ? currentPage > 1
+                                                ? ColorPallates.secondary
+                                                : ColorPallates
+                                                    .datatableDarkEvenRowColor
+                                            : ColorPallates.secondary,
+                                        borderRadius: BorderRadius.circular(5),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            blurRadius: 8,
+                                            color: Colors.black38,
+                                            offset: Offset(4, 4),
+                                          )
+                                        ]),
+                                    child: Icon(
+                                      Icons.arrow_back,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Text("Page $currentPage of $totalPages"),
+                              MouseRegion(
+                                cursor: currentPage < totalPages!
+                                    ? SystemMouseCursors.click
+                                    : SystemMouseCursors.basic,
+                                child: GestureDetector(
+                                  onTap: () => setState(() {
+                                    if (currentPage < totalPages!) {
+                                      if (isLastPage) {
+                                        if (currentPage % 5 != 0) {
+                                          currentPage++;
+                                          currentPageonAPI++;
+                                        }
+                                      } else if (!isLastPage) {
+                                        if (currentPage % 5 != 0) {
+                                          currentPageonAPI++;
+                                          currentPage++;
+                                        } else if (currentPage % 5 == 0) {
+                                          start = end;
+                                          end = end +
+                                              50; // 50 is data loaded per APIcall
+                                          currentPageonAPI = 1;
+                                          currentPage++;
+                                          presenter.calendarDatatables(
+                                              startdate: startdates,
+                                              enddate: enddates,
+                                              start: start,
+                                              end: end);
+                                        }
+                                      }
+                                    }
+                                  }),
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 5),
+                                    decoration: BoxDecoration(
+                                        color: currentPage < totalPages!
+                                            ? ColorPallates.secondary
+                                            : ColorPallates
+                                                .datatableDarkEvenRowColor,
+                                        borderRadius: BorderRadius.circular(5),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            blurRadius: 8,
+                                            color: Colors.black38,
+                                            offset: Offset(4, 4),
+                                          )
+                                        ]),
+                                    child: Icon(
+                                      Icons.arrow_forward,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ),
-                      Text("Page $currentPage of $totalPages"),
-                      MouseRegion(
-                        cursor: currentPage < totalPages!
-                            ? SystemMouseCursors.click
-                            : SystemMouseCursors.basic,
-                        child: GestureDetector(
-                          onTap: () => setState(() {
-                            if (currentPage < totalPages!) {
-                              if (isLastPage) {
-                                if (currentPage % 5 != 0) {
-                                  currentPage++;
-                                  currentPageonAPI++;
-                                }
-                              } else if (!isLastPage) {
-                                if (currentPage % 5 != 0) {
-                                  currentPageonAPI++;
-                                  currentPage++;
-                                } else if (currentPage % 5 == 0) {
-                                  start = end;
-                                  end =
-                                      end + 50; // 50 is data loaded per APIcall
-                                  currentPageonAPI = 1;
-                                  currentPage++;
-                                  presenter.calendarDatatables(
-                                      startdate: startdates,
-                                      enddate: enddates,
-                                      start: start,
-                                      end: end);
-                                }
-                              }
-                            }
-                          }),
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 5),
-                            decoration: BoxDecoration(
-                                color: currentPage < totalPages!
-                                    ? ColorPallates.secondary
-                                    : ColorPallates.datatableDarkEvenRowColor,
-                                borderRadius: BorderRadius.circular(5),
-                                boxShadow: [
-                                  BoxShadow(
-                                    blurRadius: 8,
-                                    color: Colors.black38,
-                                    offset: Offset(4, 4),
-                                  )
-                                ]),
-                            child: Icon(
-                              Icons.arrow_forward,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                        )
+                      ],
+                    ),
                   ),
-                )
+                if (attendanceList.length == 0)
+                  Center(
+                    child: Text("No data on current start and end date"),
+                  )
               ],
             ),
     );
@@ -281,6 +294,7 @@ class _CalendarsTabState extends State<CalendarsTab>
           [];
 
       DateTime startDate = DateTime.parse(startdates);
+      paginatedList[i].attsummary?['attalpha'] = 0;
 
       while (startDate.isBefore(endDate)) {
         String currentDate =
@@ -293,7 +307,10 @@ class _CalendarsTabState extends State<CalendarsTab>
           orElse: () => {'atttype': null},
         );
 
-        String attendanceType = parseString(attendanceEntry?['atttype'] ?? "");
+        String attendanceType =
+            parseString(attendanceEntry?['atttypecd'] ?? "");
+        String attendanceTypeDesc =
+            parseString(attendanceEntry?['atttypedesc'] ?? "");
 
         bool isPresent = attendanceDates.contains(currentDate);
         String attendanceDuration = attendanceEntry?['attduration'] ?? "";
@@ -302,6 +319,30 @@ class _CalendarsTabState extends State<CalendarsTab>
         if (attendanceDuration.isNotEmpty) {
           timeParts = attendanceDuration.split(':');
           hours = int.parse(timeParts[0]);
+        }
+        Widget child;
+        if (attendanceType == ConfigType.attpresent || attendanceType == '') {
+          if (isPresent) {
+            child = attendanceDuration.isNotEmpty
+                ? Icon(Icons.check,
+                    color: hours >= 8 ? Colors.green : Colors.red)
+                : Icon(Icons.check, color: Colors.black54);
+          } else {
+            if (!isWeekend) {
+              child = Text(
+                "A",
+                textAlign: TextAlign.center,
+              );
+              paginatedList[i].attsummary?['attalpha']++;
+            } else {
+              child = Container();
+            }
+          }
+        } else {
+          child = Text(
+            attendanceTypeDesc,
+            textAlign: TextAlign.center,
+          );
         }
         cell.add(
           Tooltip(
@@ -318,21 +359,7 @@ class _CalendarsTabState extends State<CalendarsTab>
               width: 40,
               height: cellHeight,
               decoration: BoxDecoration(border: Border.all(width: 0.5)),
-              child: attendanceType == "H" || attendanceType == ""
-                  ? isPresent
-                      ? attendanceDuration.isNotEmpty
-                          ? hours >= 8
-                              ? Icon(Icons.check, color: Colors.black)
-                              : Text(
-                                  "A",
-                                  textAlign: TextAlign.center,
-                                )
-                          : Icon(Icons.check, color: Colors.black)
-                      : SizedBox()
-                  : Text(
-                      attendanceType,
-                      textAlign: TextAlign.center,
-                    ),
+              child: child,
             ),
           ),
         );
@@ -412,9 +439,7 @@ class _CalendarsTabState extends State<CalendarsTab>
 
     double rowLength = 50;
 
-    List<Widget> column = [];
-
-    for (var typename in typenames) {
+    List<Widget> column = summary.map((type) {
       List<Widget> cells = [
         Container(
           width: rowLength,
@@ -425,20 +450,21 @@ class _CalendarsTabState extends State<CalendarsTab>
             border: Border.all(width: 0.5),
           ),
           child: Center(
-            child: typename == "H"
+            child: type.typecd == ConfigType.attpresent
                 ? Icon(
                     Icons.check,
                     color: Colors.white,
                   )
                 : Text(
-                    typename,
+                    type.typedesc.toString(),
                     style: TextStyle(color: Colors.white),
                   ),
           ),
         ),
       ];
+
       for (var index = 0; index < paginatedList.length; index++) {
-        int typesummary = paginatedList[index].attsummary?[typename];
+        int typesummary = paginatedList[index].attsummary?[type.typecd];
         cells.add(
           Container(
             height: cellHeight,
@@ -460,13 +486,9 @@ class _CalendarsTabState extends State<CalendarsTab>
           ),
         );
       }
-      column.add(
-        Column(
-          children: cells,
-        ),
-      );
-    }
-    // print(rows);
+
+      return Column(children: cells);
+    }).toList();
 
     return Container(
       decoration: BoxDecoration(
@@ -648,17 +670,17 @@ class _CalendarsTabState extends State<CalendarsTab>
   void onLoadDatatables(Response response) {
     setState(() {
       presenter.setProcessing(false);
-      attendanceList = (response.body['data'] as Map<String, dynamic>)
-          .values
-          .map((json) => AttendanceReport.fromJson(json))
-          .toList();
+      attendanceList = response.body['data'].length != 0
+          ? (response.body['data'] as Map<String, dynamic>)
+              .values
+              .map((json) => AttendanceReport.fromJson(json))
+              .toList()
+          : [];
       isLastPage = parseBool(response.body['isLastPage']);
       totalPages = parseInt(response.body['totalPages']);
-      // itemsPerPage = parseInt(response.body['dataperPage']);
-      for (var entry in response.body['typenames']) {
-        typenames.add(parseString(entry));
-      }
-      print(typenames);
+      summary = (response.body['typecodes'] as List<dynamic>)
+          .map((json) => TypeModel.fromJson(json))
+          .toList();
     });
   }
 }
