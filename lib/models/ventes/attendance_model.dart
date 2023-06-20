@@ -5,6 +5,7 @@ class AttendanceModel {
   String? attdate;
   String? attclockin;
   String? attclockout;
+  String? attduration;
   double? attlatin;
   double? attlongin;
   String? attaddressin;
@@ -26,6 +27,7 @@ class AttendanceModel {
       this.attdate,
       this.attclockin,
       this.attclockout,
+      this.attduration,
       this.attlatin,
       this.attlongin,
       this.attaddressin,
@@ -47,6 +49,7 @@ class AttendanceModel {
     attdate = json['attdate'];
     attclockin = json['attclockin'];
     attclockout = json['attclockout'];
+    attduration = json['attduration'];
     attlatin = json['attlatin'];
     attlongin = json['attlongin'];
     attaddressin = json['attaddressin'];
@@ -71,6 +74,7 @@ class AttendanceModel {
     data['attdate'] = this.attdate;
     data['attclockin'] = this.attclockin;
     data['attclockout'] = this.attclockout;
+    data['attduration'] = this.attduration;
     data['attlatin'] = this.attlatin;
     data['attlongin'] = this.attlongin;
     data['attaddressin'] = this.attaddressin;

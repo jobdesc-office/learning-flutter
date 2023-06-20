@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 
-import 'package:boilerplate/contracts/base/calendar_view_contract.dart';
+import 'package:boilerplate/contracts/base/recap_view_contract.dart';
 import 'package:boilerplate/models/masters/type_model.dart';
 import 'package:boilerplate/widgets/datatables/custom_datatable.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
@@ -39,7 +39,7 @@ import 'tabs/attendance_source/_datatable_source.dart';
 
 part 'tabs/dailyactivity_tab.dart';
 part 'tabs/attendance_tab.dart';
-part 'tabs/calendars_tab.dart';
+part 'tabs/recap_tab.dart';
 
 class ReportView extends StatefulWidget {
   const ReportView({Key? key}) : super(key: key);
@@ -83,7 +83,7 @@ class _ReportViewState extends State<ReportView>
                   child: BsRow(
                     children: [
                       BsCol(
-                        sizes: ColScreen(sm: Col.col_3),
+                        sizes: ColScreen(sm: Col.col_4),
                         child: TabBar(
                             labelColor: Colors.green,
                             controller: _tabControllers,
@@ -98,7 +98,7 @@ class _ReportViewState extends State<ReportView>
                                 text: 'Attendance',
                               ),
                               Tab(
-                                text: 'Calendars',
+                                text: 'Recap',
                               )
                             ]),
                       ),
@@ -111,7 +111,7 @@ class _ReportViewState extends State<ReportView>
               child: TabBarView(controller: _tabControllers, children: [
                 DailyActivityTab(),
                 AttendanceTab(),
-                CalendarsTab()
+                RecapTab(),
               ]),
             )
           ],

@@ -79,12 +79,20 @@ class AttendanceDataTableSource extends BsDatatableSource {
     ];
   }
 
-  List<AttendanceModel> get reports => response.data.map((data) => AttendanceModel.fromJson(data)).toList();
+  List<AttendanceModel> get reports =>
+      response.data.map((data) => AttendanceModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
     final row = reports[index];
     int x = controller.start + index + 1;
+    String hours = '0';
+    String minutes = '0';
+    if (row.attduration != null) {
+      List<String> atthours = row.attduration!.split(':');
+      hours = atthours[0];
+      minutes = atthours[1];
+    }
     return BsDataRow(
       index: index,
       cells: [
@@ -139,9 +147,7 @@ class AttendanceDataTableSource extends BsDatatableSource {
                   : ColorPallates.datatableLightOddRowColor,
         ),
         CustomBsDataCell(
-          Text(parseString(DateTime.parse('2022-09-2${parseInt(row.attclockout?.substring(0, 2)) > parseInt(row.attclockin?.substring(0, 2)) ? 0 : 1} ${row.attclockout ?? ''}')
-                  .difference(DateTime.parse('2022-09-20 ${row.attclockin ?? ''}')))
-              .replaceAll('.000000', '')),
+          Text(hours + ' Jam ' + minutes + ' Menit'),
           color: _navigation.darkTheme.value
               ? x % 2 == 0
                   ? ColorPallates.datatableDarkEvenRowColor

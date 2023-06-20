@@ -27,8 +27,8 @@ class AttendanceService extends ApiConnectProvider {
     });
   }
 
-  Future<Response> calendar({start, end, startdate, enddate}) {
-    return get('$api/calendar', query: {
+  Future<Response> recap({start, end, startdate, enddate}) {
+    return get('$api/recap', query: {
       'start': [start.toString()],
       'end': [end.toString()],
       'startdate': [startdate.toString()],
@@ -36,8 +36,8 @@ class AttendanceService extends ApiConnectProvider {
     });
   }
 
-  Future<Response> exportCalendar({start, end, startdate, enddate}) {
-    return get('$api/exportcalendar', query: {
+  Future<Response> exportRecap({start, end, startdate, enddate}) {
+    return get('$api/exportrecap', query: {
       'start': [start.toString()],
       'end': [end.toString()],
       'startdate': [startdate.toString()],
@@ -46,7 +46,7 @@ class AttendanceService extends ApiConnectProvider {
   }
 
   Future<Response> removeExcel({filename}) {
-    return get('$api/removecalendar', query: {
+    return get('$api/removerecap', query: {
       'filename': [filename.toString()],
     });
   }

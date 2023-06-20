@@ -1,7 +1,9 @@
 import 'package:get/get.dart';
 
-abstract class CalendarViewContract {
+abstract class RecapViewContract {
   void onLoadDatatables(Response response);
+
+  void onLoadHolidays(Response response);
 
   void onErrorRequest(Response response, {context});
 }

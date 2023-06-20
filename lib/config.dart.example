@@ -1,5 +1,5 @@
 abstract class Config {
   static String api = 'http://10.21.1.27/learning-api/public/';
-  static String gmapApi = 'AIzaSyDUYfxm7qJq8dcMMhvhaoUukhQqMxBO6oc';
+  static String googleApi = 'AIzaSyDUYfxm7qJq8dcMMhvhaoUukhQqMxBO6oc';
   static String nodeServer = "http://10.21.1.28:3000";
 }

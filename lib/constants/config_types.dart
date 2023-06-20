@@ -61,4 +61,5 @@ class ConfigType {
   static String attleave = notNull(types['attendanceLeave']);
   static String attsick = notNull(types['attendanceSick']);
   static String attcuti = notNull(types['attendanceCuti']);
+  static String attalpha = notNull(types['attendanceAlpha']);
 }

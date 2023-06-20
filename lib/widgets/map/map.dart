@@ -121,7 +121,7 @@ class _GoogleMapsPageState extends State<GoogleMapsPage>
                     padding: EdgeInsets.all(10),
                     child: GooglePlaceAutoCompleteTextField(
                         textEditingController: search,
-                        googleAPIKey: Config.gmapApi,
+                        googleAPIKey: Config.googleApi,
                         inputDecoration:
                             InputDecoration(hintText: "Search your location"),
                         debounceTime: 800,

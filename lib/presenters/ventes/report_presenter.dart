@@ -1,4 +1,5 @@
-import 'package:boilerplate/contracts/base/calendar_view_contract.dart';
+import 'package:boilerplate/contracts/base/recap_view_contract.dart';
+import 'package:boilerplate/utils/google_api_service.dart';
 import 'package:boilerplate/views/ventes/reports/dailyactivity/report_dailyactivity.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,6 +23,7 @@ import '../auth_presenter.dart';
 class ReportPresenter extends CustomGetXController {
   final _reportService = Get.find<ReportService>();
   final _attendService = Get.find<AttendanceService>();
+  final _googleApiService = Get.put(GoogleAPIService());
   final _userService = Get.put(UserService());
   final authPresenter = Get.find<AuthPresenter>();
   final map = Get.put(MapSource());
@@ -32,9 +34,9 @@ class ReportPresenter extends CustomGetXController {
     _viewContract = reportFetchDataDetailsContract;
   }
 
-  late CalendarViewContract _calendarViewContract;
-  set calendarViewContract(CalendarViewContract calendarViewContract) {
-    _calendarViewContract = calendarViewContract;
+  late RecapViewContract _recapViewContract;
+  set recapViewContract(RecapViewContract recapViewContract) {
+    _recapViewContract = recapViewContract;
   }
 
   late IndexViewContract _reportViewContract;
@@ -85,22 +87,30 @@ class ReportPresenter extends CustomGetXController {
       _reportViewContract.onErrorRequest(response);
   }
 
-  Future calendarDatatables({start, end, startdate, enddate}) async {
+  Future recapDatatables({start, end, startdate, enddate}) async {
     int currentMonth = DateTime.now().month;
-    Response response = await _attendService.calendar(
+    Response response = await _attendService.recap(
       start: start,
       end: end,
       startdate: startdate ?? currentMonth,
       enddate: enddate,
     );
     if (response.statusCode == 200)
-      _calendarViewContract.onLoadDatatables(response);
+      _recapViewContract.onLoadDatatables(response);
     else
-      _calendarViewContract.onErrorRequest(response);
+      _recapViewContract.onErrorRequest(response);
   }
 
-  Future exportExcelCalender({start, end, startdate, enddate}) async {
-    Response response = await _attendService.exportCalendar(
+  Future indonesiaHolidays() async {
+    Response response = await _googleApiService.getHolidays();
+    if (response.statusCode == 200)
+      _recapViewContract.onLoadHolidays(response);
+    else
+      _recapViewContract.onErrorRequest(response);
+  }
+
+  Future exportExcelRecap({start, end, startdate, enddate}) async {
+    Response response = await _attendService.exportRecap(
       start: start,
       end: end,
       startdate: startdate,

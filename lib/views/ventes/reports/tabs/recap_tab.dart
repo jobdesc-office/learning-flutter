@@ -1,17 +1,17 @@
 part of '../report.dart';
 
-class CalendarsTab extends StatefulWidget {
-  const CalendarsTab({Key? key}) : super(key: key);
+class RecapTab extends StatefulWidget {
+  const RecapTab({Key? key}) : super(key: key);
 
   @override
-  State<CalendarsTab> createState() => _CalendarsTabState();
+  State<RecapTab> createState() => _RecapTabState();
 }
 
-class _CalendarsTabState extends State<CalendarsTab>
-    implements CalendarViewContract {
+class _RecapTabState extends State<RecapTab> implements RecapViewContract {
   ReportPresenter presenter = Get.find<ReportPresenter>();
   ScrollController tableScroll = ScrollController();
   List<AttendanceReport> attendanceList = [];
+  List<IndonesiaHoliday> holidayList = [];
 
   double cellHeight = 25;
   double headersHeight = 50;
@@ -36,17 +36,12 @@ class _CalendarsTabState extends State<CalendarsTab>
   void initState() {
     super.initState();
     presenter.setProcessing(true);
-    presenter.calendarViewContract = this;
-    presenter.calendarDatatables(
-        start: start, end: end, startdate: startdates, enddate: enddates);
-    initNumDaysInMonth();
-  }
+    presenter.recapViewContract = this;
 
-  void initNumDaysInMonth() => numDaysInMonth = DateTime(
-          DateTime.parse(startdates).year,
-          DateTime.parse(startdates).month + 1,
-          0)
-      .day;
+    presenter.recapDatatables(
+        start: start, end: end, startdate: startdates, enddate: enddates);
+    presenter.indonesiaHolidays();
+  }
 
   BsSelectBoxController filterController = BsSelectBoxController(options: [
     for (int i = 1; i <= 12; i++)
@@ -86,6 +81,7 @@ class _CalendarsTabState extends State<CalendarsTab>
                             Flexible(
                               child: Scrollbar(
                                 controller: tableScroll,
+                                thumbVisibility: true,
                                 child: SingleChildScrollView(
                                   scrollDirection: Axis.horizontal,
                                   physics: ScrollPhysics(
@@ -124,7 +120,7 @@ class _CalendarsTabState extends State<CalendarsTab>
                                           end = start;
                                           start = start -
                                               50; // 50 is data loaded per APIcall
-                                          presenter.calendarDatatables(
+                                          presenter.recapDatatables(
                                               startdate: startdates,
                                               enddate: enddates,
                                               start: start,
@@ -142,7 +138,7 @@ class _CalendarsTabState extends State<CalendarsTab>
                                             end = start;
                                             start = start -
                                                 50; // 50 is data loaded per APIcall
-                                            presenter.calendarDatatables(
+                                            presenter.recapDatatables(
                                                 start: start,
                                                 end: end,
                                                 startdate: startdates,
@@ -156,7 +152,7 @@ class _CalendarsTabState extends State<CalendarsTab>
                                           end = start;
                                           start = start -
                                               50; // 50 is data loaded per APIcall
-                                          presenter.calendarDatatables(
+                                          presenter.recapDatatables(
                                             start: start,
                                             end: end,
                                             startdate: startdates,
@@ -220,7 +216,7 @@ class _CalendarsTabState extends State<CalendarsTab>
                                               50; // 50 is data loaded per APIcall
                                           currentPageonAPI = 1;
                                           currentPage++;
-                                          presenter.calendarDatatables(
+                                          presenter.recapDatatables(
                                               startdate: startdates,
                                               enddate: enddates,
                                               start: start,
@@ -294,13 +290,15 @@ class _CalendarsTabState extends State<CalendarsTab>
           [];
 
       DateTime startDate = DateTime.parse(startdates);
-      paginatedList[i].attsummary?['attalpha'] = 0;
+      paginatedList[i].attsummary?[ConfigType.attalpha] = 0;
 
-      while (startDate.isBefore(endDate)) {
+      while (isLessThanOrEqual(startDate, endDate)) {
         String currentDate =
             DateFormat('yyyy-MM-dd').format(startDate).toString();
-        final int weekday = startDate.weekday;
-        final bool isWeekend = weekday == 6 || weekday == 7;
+        int weekday = startDate.weekday;
+        bool isWeekend = weekday == 6 || weekday == 7;
+        bool isHoliday = holidayList
+            .any((element) => isDateMatch(element.date, currentDate));
 
         Map<String, dynamic>? attendanceEntry = attendanceData?.firstWhere(
           (attendance) => attendance['attdate'] == currentDate,
@@ -316,9 +314,11 @@ class _CalendarsTabState extends State<CalendarsTab>
         String attendanceDuration = attendanceEntry?['attduration'] ?? "";
         List<String> timeParts = [];
         int hours = 0;
+        int minutes = 0;
         if (attendanceDuration.isNotEmpty) {
           timeParts = attendanceDuration.split(':');
           hours = int.parse(timeParts[0]);
+          minutes = int.parse(timeParts[1]);
         }
         Widget child;
         if (attendanceType == ConfigType.attpresent || attendanceType == '') {
@@ -326,14 +326,14 @@ class _CalendarsTabState extends State<CalendarsTab>
             child = attendanceDuration.isNotEmpty
                 ? Icon(Icons.check,
                     color: hours >= 8 ? Colors.green : Colors.red)
-                : Icon(Icons.check, color: Colors.black54);
+                : Icon(Icons.check, color: Colors.black26);
           } else {
-            if (!isWeekend) {
+            if (!isWeekend && !isHoliday) {
               child = Text(
                 "A",
                 textAlign: TextAlign.center,
               );
-              paginatedList[i].attsummary?['attalpha']++;
+              paginatedList[i].attsummary?[ConfigType.attalpha]++;
             } else {
               child = Container();
             }
@@ -347,9 +347,7 @@ class _CalendarsTabState extends State<CalendarsTab>
         cell.add(
           Tooltip(
             message: attendanceDuration.isNotEmpty
-                ? hours >= 8
-                    ? hours.toString()
-                    : "Alpha"
+                ? hours.toString() + " Jam " + minutes.toString() + " Menit"
                 : !isWeekend
                     ? isPresent
                         ? "No clock out data recorded"
@@ -527,22 +525,37 @@ class _CalendarsTabState extends State<CalendarsTab>
     DateTime startDate = DateTime.parse(
         DateFormat('yyyy-MM-dd').format(DateTime.parse(startdates)));
 
-    while (startDate.isBefore(endDate)) {
+    while (isLessThanOrEqual(startDate, endDate)) {
       final int weekday = startDate.weekday;
       final bool isWeekend = weekday == 6 || weekday == 7;
+      String currentDate = DateFormat('yyyy-MM-dd').format(startDate);
+      bool isHoliday = false;
+      String holidayName = '';
+
+      for (var element in holidayList) {
+        if (isDateMatch(element.date, currentDate)) {
+          isHoliday = true;
+          holidayName = element.holiday!;
+          break;
+        }
+      }
 
       dateHeaders.add(
-        Container(
-          width: 40,
-          height: headersHeight,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-              border: Border.all(width: 0.5, color: Colors.white),
-              color: ColorPallates.navbarLightColor),
-          child: Text(
-            startDate.day.toString(),
-            style: TextStyle(color: isWeekend ? Colors.red : Colors.white),
-            textAlign: TextAlign.center,
+        Tooltip(
+          message: holidayName,
+          child: Container(
+            width: 40,
+            height: headersHeight,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+                border: Border.all(width: 0.5, color: Colors.white),
+                color: ColorPallates.navbarLightColor),
+            child: Text(
+              startDate.day.toString(),
+              style: TextStyle(
+                  color: isWeekend || isHoliday ? Colors.red : Colors.white),
+              textAlign: TextAlign.center,
+            ),
           ),
         ),
       );
@@ -566,7 +579,7 @@ class _CalendarsTabState extends State<CalendarsTab>
             padding: EdgeInsets.fromLTRB(22, 12, 22, 12),
             spaceLabelIcon: 10.0),
         onPressed: () {
-          presenter.exportExcelCalender(
+          presenter.exportExcelRecap(
               start: start, end: end, startdate: startdates, enddate: enddates);
         },
         label: Text("Export to Excel"));
@@ -627,13 +640,11 @@ class _CalendarsTabState extends State<CalendarsTab>
     if (selectedAct != null) {
       setState(() {
         String selectedStartDate = DateFormat('yyyy-MM-dd').format(selectedAct);
-        if (selectedAct.month != DateTime.parse(startdates).month) {
-          presenter.calendarDatatables(
-              start: start,
-              end: end,
-              startdate: selectedStartDate,
-              enddate: enddates);
-        }
+        presenter.recapDatatables(
+            start: start,
+            end: end,
+            startdate: selectedStartDate,
+            enddate: enddates);
         startdates = selectedStartDate;
       });
     }
@@ -649,16 +660,26 @@ class _CalendarsTabState extends State<CalendarsTab>
     if (selectedAct != null) {
       setState(() {
         String selectedEndDate = DateFormat('yyyy-MM-dd').format(selectedAct);
-        if (selectedAct.month != DateTime.parse(enddates).month) {
-          presenter.calendarDatatables(
-              start: start,
-              end: end,
-              startdate: startdates,
-              enddate: selectedEndDate);
-        }
+        presenter.recapDatatables(
+            start: start,
+            end: end,
+            startdate: startdates,
+            enddate: selectedEndDate);
         enddates = selectedEndDate;
       });
     }
+  }
+
+  bool isLessThanOrEqual(DateTime date1, DateTime date2) {
+    return date1.isBefore(date2) || date1.isAtSameMomentAs(date2);
+  }
+
+  bool isDateMatch(DateTime? date, String? currentDate) {
+    if (date != null && currentDate != null) {
+      String formattedDate = DateFormat('yyyy-MM-dd').format(date);
+      return formattedDate == currentDate;
+    }
+    return false;
   }
 
   @override
@@ -683,6 +704,19 @@ class _CalendarsTabState extends State<CalendarsTab>
           .toList();
     });
   }
+
+  @override
+  void onLoadHolidays(Response response) {
+    setState(() {
+      presenter.setProcessing(false);
+      List<dynamic> responseItems = response.body['items'];
+      responseItems.forEach((item) {
+        if (item['status'] == 'confirmed') {
+          holidayList.add(IndonesiaHoliday.fromJson(item));
+        }
+      });
+    });
+  }
 }
 
 class AttendanceReport {
@@ -699,5 +733,17 @@ class AttendanceReport {
         .map((item) => item as Map<String, dynamic>)
         .toList();
     attsummary = json['attsummary'];
+  }
+}
+
+class IndonesiaHoliday {
+  String? holiday;
+  DateTime? date;
+
+  IndonesiaHoliday({this.holiday, this.date});
+
+  IndonesiaHoliday.fromJson(Map<String, dynamic> json) {
+    holiday = parseString(json['summary']);
+    date = DateTime.parse(json['start']['date']);
   }
 }
