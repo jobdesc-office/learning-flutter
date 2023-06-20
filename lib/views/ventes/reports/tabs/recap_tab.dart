@@ -22,7 +22,7 @@ class _RecapTabState extends State<RecapTab> implements RecapViewContract {
   int currentPageonAPI = 1;
   int start = 0;
   int end = 49;
-  bool isLastPage = false;
+  // bool isLastPage = false;
   int? totalPages;
 
   Map<String, String> typecodes = {};
@@ -105,7 +105,7 @@ class _RecapTabState extends State<RecapTab> implements RecapViewContract {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               MouseRegion(
-                                cursor: !isLastPage
+                                cursor: currentPage >= totalPages!
                                     ? currentPage > 1
                                         ? SystemMouseCursors.click
                                         : SystemMouseCursors.basic
@@ -113,7 +113,7 @@ class _RecapTabState extends State<RecapTab> implements RecapViewContract {
                                 child: GestureDetector(
                                   onTap: () => setState(() {
                                     if (currentPage > 1) {
-                                      if (isLastPage) {
+                                      if (currentPage == totalPages!) {
                                         if (attendanceList.length <= 10) {
                                           currentPage--;
                                           currentPageonAPI = 5;
@@ -172,7 +172,7 @@ class _RecapTabState extends State<RecapTab> implements RecapViewContract {
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 10, vertical: 5),
                                     decoration: BoxDecoration(
-                                        color: !isLastPage
+                                        color: currentPage >= totalPages!
                                             ? currentPage > 1
                                                 ? ColorPallates.secondary
                                                 : ColorPallates
@@ -201,12 +201,12 @@ class _RecapTabState extends State<RecapTab> implements RecapViewContract {
                                 child: GestureDetector(
                                   onTap: () => setState(() {
                                     if (currentPage < totalPages!) {
-                                      if (isLastPage) {
+                                      if (currentPage == totalPages!) {
                                         if (currentPage % 5 != 0) {
                                           currentPage++;
                                           currentPageonAPI++;
                                         }
-                                      } else if (!isLastPage) {
+                                      } else if (currentPage < totalPages!) {
                                         if (currentPage % 5 != 0) {
                                           currentPageonAPI++;
                                           currentPage++;
@@ -700,7 +700,6 @@ class _RecapTabState extends State<RecapTab> implements RecapViewContract {
               .map((json) => AttendanceReport.fromJson(json))
               .toList()
           : [];
-      isLastPage = parseBool(response.body['isLastPage']);
       totalPages = parseInt(response.body['totalPages']);
       summary = (response.body['typecodes'] as List<dynamic>)
           .map((json) => TypeModel.fromJson(json))
