@@ -416,6 +416,9 @@ class _RecapTabState extends State<RecapTab> implements RecapViewContract {
             children: [
               Text(
                 paginatedList[index].attuser?.userfullname ?? "User name null",
+                maxLines: 1,
+                overflow: TextOverflow.fade,
+                softWrap: false,
                 textAlign: TextAlign.left,
               ),
             ],

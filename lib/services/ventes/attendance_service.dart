@@ -27,21 +27,23 @@ class AttendanceService extends ApiConnectProvider {
     });
   }
 
-  Future<Response> recap({start, end, startdate, enddate}) {
+  Future<Response> recap({start, end, startdate, enddate, bpid}) {
     return get('$api/recap', query: {
       'start': [start.toString()],
       'end': [end.toString()],
       'startdate': [startdate.toString()],
       'enddate': [enddate.toString()],
+      'bpid': [bpid.toString()],
     });
   }
 
-  Future<Response> exportRecap({start, end, startdate, enddate}) {
+  Future<Response> exportRecap({start, end, startdate, enddate, bpid}) {
     return get('$api/exportrecap', query: {
       'start': [start.toString()],
       'end': [end.toString()],
       'startdate': [startdate.toString()],
       'enddate': [enddate.toString()],
+      'bpid': [bpid.toString()],
     });
   }
 

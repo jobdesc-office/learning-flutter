@@ -94,6 +94,7 @@ class ReportPresenter extends CustomGetXController {
       end: end,
       startdate: startdate ?? currentMonth,
       enddate: enddate,
+      bpid: box.read('mybpid'),
     );
     if (response.statusCode == 200)
       _recapViewContract.onLoadDatatables(response);
@@ -115,6 +116,7 @@ class ReportPresenter extends CustomGetXController {
       end: end,
       startdate: startdate,
       enddate: enddate,
+      bpid: box.read('mybpid'),
     );
     if (response.statusCode == 200) {
       html.AnchorElement anchorElement =
