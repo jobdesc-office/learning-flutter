@@ -1,3 +1,4 @@
+import 'package:boilerplate/config.dart';
 import 'package:boilerplate/presenters/auth_presenter.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -37,14 +38,9 @@ class AttendanceService extends ApiConnectProvider {
     });
   }
 
-  Future<Response> exportRecap({start, end, startdate, enddate, bpid}) {
-    return get('$api/exportrecap', query: {
-      'start': [start.toString()],
-      'end': [end.toString()],
-      'startdate': [startdate.toString()],
-      'enddate': [enddate.toString()],
-      'bpid': [bpid.toString()],
-    });
+  String exportRecap(String start, String end, String startdate, String enddate,
+      String bpid, String token) {
+    return '${Config.api}/$api/exportrecap?token=$token&start=$start&end=$end&startdate=$startdate&enddate=$enddate&bpid=$bpid';
   }
 
   Future<Response> removeExcel({filename}) {

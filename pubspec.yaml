@@ -55,6 +55,7 @@ dependencies:
   socket_io_client: ^2.0.0
   bs_flutter_utils: ^1.0.2
   just_the_tooltip: ^0.0.12
+  url_launcher: ^6.1.11
 
   bs_flutter_buttons: 
     path: ./modules/bs_flutter_buttons

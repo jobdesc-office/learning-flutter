@@ -1,4 +1,5 @@
 import 'package:boilerplate/helpers/function.dart';
+import 'package:boilerplate/models/settings/file_model.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,60 +17,64 @@ class AttendanceDataTableSource extends BsDatatableSource {
   ValueChanged<int> onEditListener = (value) {};
   Function onDeleteListener = (value, name) {};
 
+  final BuildContext context;
+
+  AttendanceDataTableSource(this.context);
+
   List<BsDataColumn> get columns {
     return <BsDataColumn>[
       CustomBsDataColumn(
         label: Text('No'),
-        width: 100,
+        width: 80,
         searchable: false,
         orderable: false,
       ),
       CustomBsDataColumn(
-        label: Text('Attendance User'),
+        label: Text('User'),
         searchable: false,
         orderable: false,
         width: 250,
       ),
       CustomBsDataColumn(
-        label: Text('Attendance Date'),
+        label: Text('Date'),
         columnName: 'comptproductname',
         searchable: false,
         orderable: false,
+        width: 100,
+      ),
+      CustomBsDataColumn(
+        label: Text('Clock In'),
+        columnName: 'comptproductname',
+        searchable: false,
+        orderable: false,
+        width: 100,
+      ),
+      CustomBsDataColumn(
+        label: Text('Clock Out'),
+        columnName: 'comptproductname',
+        searchable: false,
+        orderable: false,
+        width: 110,
+      ),
+      CustomBsDataColumn(
+        label: Text('Duration'),
+        columnName: 'comptproductname',
+        searchable: false,
+        orderable: false,
+        width: 100,
+      ),
+      CustomBsDataColumn(
+        label: Text('Address'),
+        columnName: 'comptproductname',
+        searchable: false,
+        orderable: false,
+      ),
+      CustomBsDataColumn(
+        label: Text('Image'),
         width: 150,
-      ),
-      CustomBsDataColumn(
-        label: Text('Attendance Clock In'),
-        columnName: 'comptproductname',
-        searchable: false,
-        orderable: false,
-        width: 200,
-      ),
-      CustomBsDataColumn(
-        label: Text('Attendance Clock Out'),
-        columnName: 'comptproductname',
-        searchable: false,
-        orderable: false,
-        width: 200,
-      ),
-      CustomBsDataColumn(
-        label: Text('Attendance Hours'),
-        columnName: 'comptproductname',
-        searchable: false,
-        orderable: false,
-        width: 200,
-      ),
-      CustomBsDataColumn(
-        label: Text('Attendance Address'),
-        columnName: 'comptproductname',
         searchable: false,
         orderable: false,
       ),
-      // CustomBsDataColumn(
-      //   label: Text('Report Type'),
-      //   width: 150,
-      //   searchable: false,
-      //   orderable: false,
-      // ),
       // CustomBsDataColumn(
       //   label: Text('Actions'),
       //   orderable: false,
@@ -81,6 +86,8 @@ class AttendanceDataTableSource extends BsDatatableSource {
 
   List<AttendanceModel> get reports =>
       response.data.map((data) => AttendanceModel.fromJson(data)).toList();
+  List<FileModel> get image =>
+      response.data.map((data) => FileModel.fromJson(data)).toList();
 
   @override
   BsDataRow getRow(int index) {
@@ -93,6 +100,10 @@ class AttendanceDataTableSource extends BsDatatableSource {
       hours = atthours[0];
       minutes = atthours[1];
     }
+
+    final img = image[index];
+    String imageUrl = img.url ?? '';
+    String showImageUrl = imageUrl.replaceFirst('medium-thumbnail', 'medium');
     return BsDataRow(
       index: index,
       cells: [
@@ -166,28 +177,28 @@ class AttendanceDataTableSource extends BsDatatableSource {
                   ? ColorPallates.datatableLightEvenRowColor
                   : ColorPallates.datatableLightOddRowColor,
         ),
-        // CustomBsDataCell(
-        //   Row(
-        //     children: [
-        //       Tooltip(
-        //         message: BaseText.detailHintDatatable(
-        //             field: row.attuser?.userfullname),
-        //         child: ButtonDetailsDatatables(
-        //           margin: EdgeInsets.only(right: 5),
-        //           onPressed: () => onDetailsListener(row.attid!),
-        //         ),
-        //       ),
-        //     ],
-        //   ),
-        //   color: _navigation.darkTheme.value
-        //       ? x % 2 == 0
-        //           ? ColorPallates.datatableDarkEvenRowColor
-        //           : ColorPallates.datatableDarkOddRowColor
-        //       : x % 2 == 0
-        //           ? ColorPallates.datatableLightEvenRowColor
-        //           : ColorPallates.datatableLightOddRowColor,
-        //   padding: EdgeInsets.all(11),
-        // ),
+        CustomBsDataCell(
+          GestureDetector(
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (context) => Dialog(
+                  child: Container(
+                    child: Image.network(showImageUrl),
+                  ),
+                ),
+              );
+            },
+            child: Image.network(imageUrl),
+          ),
+          color: _navigation.darkTheme.value
+              ? x % 2 == 0
+                  ? ColorPallates.datatableDarkEvenRowColor
+                  : ColorPallates.datatableDarkOddRowColor
+              : x % 2 == 0
+                  ? ColorPallates.datatableLightEvenRowColor
+                  : ColorPallates.datatableLightOddRowColor,
+        ),
       ],
     );
   }

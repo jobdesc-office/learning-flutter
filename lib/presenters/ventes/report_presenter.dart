@@ -1,10 +1,17 @@
+import 'dart:convert';
+
 import 'package:boilerplate/contracts/base/recap_view_contract.dart';
+import 'package:boilerplate/helpers/function.dart';
+import 'package:boilerplate/models/session_model.dart';
 import 'package:boilerplate/utils/google_api_service.dart';
+import 'package:boilerplate/utils/session_manager.dart';
 import 'package:boilerplate/views/ventes/reports/dailyactivity/report_dailyactivity.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'dart:html' as html;
+import 'dart:html';
+import 'dart:js' as js;
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../contracts/base/details_view_contract.dart';
 import '../../contracts/base/index_view_contract.dart';
@@ -111,24 +118,16 @@ class ReportPresenter extends CustomGetXController {
   }
 
   Future exportExcelRecap({start, end, startdate, enddate}) async {
-    Response response = await _attendService.exportRecap(
-      start: start,
-      end: end,
-      startdate: startdate,
-      enddate: enddate,
-      bpid: box.read('mybpid'),
-    );
-    if (response.statusCode == 200) {
-      html.AnchorElement anchorElement =
-          new html.AnchorElement(href: response.body['file_url']);
-      String filename = response.body['filename'];
-      anchorElement.download = filename;
-      anchorElement.click();
-      _attendService.removeExcel(filename: filename);
-    } else {
-      print(
-          'Failed to retrieve file data with status code: ${response.statusCode}');
-    }
+    SessionModel session = await SessionManager.current();
+    js.context.callMethod('open', [
+      _attendService.exportRecap(
+          parseString(start),
+          parseString(end),
+          parseString(startdate),
+          parseString(enddate),
+          parseString(box.read('mybpid')),
+          parseString(session.jwtToken))
+    ]);
   }
 
   Future attenddatatables(BuildContext context, Map<String, String> params,

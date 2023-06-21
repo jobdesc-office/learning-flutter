@@ -110,7 +110,7 @@ class _ReportViewState extends State<ReportView>
               height: MediaQuery.of(context).size.height,
               child: TabBarView(controller: _tabControllers, children: [
                 DailyActivityTab(),
-                AttendanceTab(),
+                AttendanceTab(context, AttendanceDataTableSource(context)),
                 RecapTab(),
               ]),
             )

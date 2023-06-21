@@ -2,9 +2,11 @@ part of '../report.dart';
 
 // ignore: must_be_immutable
 class AttendanceTab extends StatelessWidget implements IndexViewContract {
-  AttendanceDataTableSource datatable = AttendanceDataTableSource();
+  AttendanceDataTableSource datatable;
 
-  AttendanceTab() {
+  final BuildContext context;
+
+  AttendanceTab(this.context, this.datatable) {
     presenter.attendFetchDataDetailsContract = this;
   }
 
@@ -12,25 +14,27 @@ class AttendanceTab extends StatelessWidget implements IndexViewContract {
   Widget build(BuildContext context) {
     final presenter = Get.find<ReportPresenter>();
 
-    return Obx(() => Column(
-          children: [
-            CustomDatabales(
-              searchable: false,
-              source: datatable,
-              columns: datatable.columns,
-              headerActions: [
-                user(),
-                startdate(context),
-                enddate(context),
-                reset()
-              ],
-              serverSide: (params) => presenter.attenddatatables(
-                  context, params,
-                  start: startdates.value == '' ? null : startdates.value,
-                  end: enddates.value == '' ? null : enddates.value,
-                  userid: selectOwner.getSelectedAsString()),
-            ),
-          ],
+    return Obx(() => SingleChildScrollView(
+          child: Column(
+            children: [
+              CustomDatabales(
+                searchable: false,
+                source: datatable,
+                columns: datatable.columns,
+                headerActions: [
+                  user(),
+                  startdate(context),
+                  enddate(context),
+                  reset()
+                ],
+                serverSide: (params) => presenter.attenddatatables(
+                    context, params,
+                    start: startdates.value == '' ? null : startdates.value,
+                    end: enddates.value == '' ? null : enddates.value,
+                    userid: selectOwner.getSelectedAsString()),
+              ),
+            ],
+          ),
         ));
   }
 

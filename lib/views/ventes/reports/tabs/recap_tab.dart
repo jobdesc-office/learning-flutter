@@ -18,7 +18,7 @@ class _RecapTabState extends State<RecapTab> implements RecapViewContract {
 
   int numDaysInMonth = 0;
   int currentPage = 1;
-  int itemsPerPage = 10;
+  int itemsPerPage = 20;
   int currentPageonAPI = 1;
   int start = 0;
   int end = 49;
