@@ -109,6 +109,14 @@ class ReportPresenter extends CustomGetXController {
       _recapViewContract.onErrorRequest(response);
   }
 
+  Future recapDetail({attid}) async {
+    Response response = await _attendService.recapDetail(attid: attid);
+    if (response.statusCode == 200)
+      _recapViewContract.onDetailFetch(response);
+    else
+      _recapViewContract.onErrorRequest(response);
+  }
+
   Future indonesiaHolidays() async {
     Response response = await _googleApiService.getHolidays();
     if (response.statusCode == 200)

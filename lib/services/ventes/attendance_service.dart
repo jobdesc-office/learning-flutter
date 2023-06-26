@@ -38,6 +38,10 @@ class AttendanceService extends ApiConnectProvider {
     });
   }
 
+  Future<Response> recapDetail({attid}) {
+    return get('$api/recapdetail/$attid');
+  }
+
   String exportRecap(String start, String end, String startdate, String enddate,
       String bpid, String token) {
     return '${Config.api}/$api/exportrecap?token=$token&start=$start&end=$end&startdate=$startdate&enddate=$enddate&bpid=$bpid';

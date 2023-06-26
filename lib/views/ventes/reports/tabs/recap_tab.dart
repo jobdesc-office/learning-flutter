@@ -105,7 +105,7 @@ class _RecapTabState extends State<RecapTab> implements RecapViewContract {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               MouseRegion(
-                                cursor: currentPage >= totalPages!
+                                cursor: currentPage <= totalPages!
                                     ? currentPage > 1
                                         ? SystemMouseCursors.click
                                         : SystemMouseCursors.basic
@@ -172,7 +172,7 @@ class _RecapTabState extends State<RecapTab> implements RecapViewContract {
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 10, vertical: 5),
                                     decoration: BoxDecoration(
-                                        color: currentPage >= totalPages!
+                                        color: currentPage <= totalPages!
                                             ? currentPage > 1
                                                 ? ColorPallates.secondary
                                                 : ColorPallates
@@ -305,12 +305,16 @@ class _RecapTabState extends State<RecapTab> implements RecapViewContract {
           orElse: () => {'atttype': null},
         );
 
+        int attendanceId = parseInt(attendanceEntry?['attid'] ?? 0);
         String attendanceType =
             parseString(attendanceEntry?['atttypecd'] ?? "");
         String attendanceTypeDesc =
             parseString(attendanceEntry?['atttypedesc'] ?? "");
 
-        bool isPresent = attendanceDates.contains(currentDate);
+        bool isPresentDate = attendanceDates.contains(currentDate);
+        bool isPresentType =
+            [ConfigType.attool, ConfigType.attpresent].contains(attendanceType);
+
         String attendanceDuration = attendanceEntry?['attduration'] ?? "";
         List<String> timeParts = [];
         int hours = 0;
@@ -320,9 +324,10 @@ class _RecapTabState extends State<RecapTab> implements RecapViewContract {
           hours = int.parse(timeParts[0]);
           minutes = int.parse(timeParts[1]);
         }
+
         Widget child;
         if (attendanceType == ConfigType.attpresent || attendanceType == '') {
-          if (isPresent) {
+          if (isPresentDate) {
             child = attendanceDuration.isNotEmpty
                 ? Icon(Icons.check,
                     color: hours >= 8 ? Colors.green : Colors.red)
@@ -346,13 +351,18 @@ class _RecapTabState extends State<RecapTab> implements RecapViewContract {
         }
         cell.add(
           Tooltip(
-            message: attendanceDuration.isNotEmpty
-                ? hours.toString() + " Jam " + minutes.toString() + " Menit"
-                : !isWeekend
-                    ? isPresent
-                        ? "No clock out data recorded"
-                        : ""
-                    : "",
+            message: !isPresentType && attendanceType != ""
+                ? "Click to view detail"
+                : attendanceDuration.isNotEmpty
+                    ? hours.toString() + " Jam " + minutes.toString() + " Menit"
+                    : !isWeekend
+                        ? isPresentDate && isPresentType
+                            ? "No clock out data recorded"
+                            : ""
+                        : "",
+            onTriggered: () =>
+                onTriggered(isPresentType, attendanceType, attendanceId),
+            triggerMode: TooltipTriggerMode.tap,
             child: Container(
               width: 40,
               height: cellHeight,
@@ -673,6 +683,12 @@ class _RecapTabState extends State<RecapTab> implements RecapViewContract {
     }
   }
 
+  onTriggered(bool isPresentType, String attendanceType, int attid) {
+    if (!isPresentType && attendanceType != "") {
+      presenter.recapDetail(attid: attid);
+    }
+  }
+
   bool isLessThanOrEqual(DateTime date1, DateTime date2) {
     return date1.isBefore(date2) || date1.isAtSameMomentAs(date2);
   }
@@ -718,6 +734,16 @@ class _RecapTabState extends State<RecapTab> implements RecapViewContract {
         }
       });
     });
+  }
+
+  @override
+  void onDetailFetch(Response response) {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        child: Image.network(response.body[0]['url']),
+      ),
+    );
   }
 }
 
