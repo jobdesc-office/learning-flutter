@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:boilerplate/contracts/base/recap_view_contract.dart';
 import 'package:boilerplate/models/masters/type_model.dart';
 import 'package:boilerplate/widgets/datatables/custom_datatable.dart';
+import 'package:boilerplate/widgets/form_group.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_datatable/bs_flutter_datatable.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';

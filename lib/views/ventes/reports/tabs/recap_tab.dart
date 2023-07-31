@@ -13,6 +13,9 @@ class _RecapTabState extends State<RecapTab> implements RecapViewContract {
   List<AttendanceReport> attendanceList = [];
   List<IndonesiaHoliday> holidayList = [];
 
+  BsSelectBoxController roleFilter = BsSelectBoxController();
+  bool userFiltering = false;
+
   double cellHeight = 25;
   double headersHeight = 50;
 
@@ -58,18 +61,7 @@ class _RecapTabState extends State<RecapTab> implements RecapViewContract {
           ? Center(child: Text("Processing attendance..."))
           : Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    attendanceList.length != 0
-                        ? exportExcel(context)
-                        : Container(),
-                    SizedBox(width: 30),
-                    startdate(context),
-                    SizedBox(width: 30),
-                    enddate(context),
-                  ],
-                ),
+                action(context),
                 if (attendanceList.length != 0)
                   Container(
                     margin: EdgeInsets.only(bottom: 20, top: 20),
@@ -256,10 +248,80 @@ class _RecapTabState extends State<RecapTab> implements RecapViewContract {
                   ),
                 if (attendanceList.length == 0)
                   Center(
-                    child: Text("No data on current start and end date"),
+                    child: Text("No data with current applied filter"),
                   )
               ],
             ),
+    );
+  }
+
+  Row action(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            SizedBox(
+              width: 200,
+              child: CustomSelectBox(
+                hintText: "User role",
+                searchable: false,
+                disabled: presenter.isProcessing.value,
+                controller: roleFilter,
+                serverSide: (params) => selectApiRole(params),
+                onChange: (value) {
+                  presenter.recapDatatables(
+                    startdate: startdates,
+                    enddate: enddates,
+                    start: start,
+                    end: end,
+                    role: value.getValueAsString(),
+                  );
+                  setState(() {
+                    userFiltering = true;
+                  });
+                },
+              ),
+            ),
+            SizedBox(width: 30),
+            startdate(context),
+            SizedBox(width: 30),
+            enddate(context),
+            SizedBox(width: 30),
+            if (userFiltering)
+              BsButton(
+                  margin: EdgeInsets.only(left: 5),
+                  style: BsButtonStyle(
+                      color: Colors.white,
+                      backgroundColor: ColorPallates.cancel,
+                      borderRadius: BorderRadius.all(Radius.circular(5))),
+                  width: 150,
+                  size: BsButtonSize(
+                      iconSize: 18.0,
+                      fontSize: 14.0,
+                      padding: EdgeInsets.fromLTRB(22, 12, 22, 12),
+                      spaceLabelIcon: 10.0),
+                  onPressed: () => setState(() {
+                        userFiltering = false;
+                        startdates = DateFormat('yyyy-MM-dd').format(
+                            DateTime.now().subtract(Duration(days: 30)));
+                        enddates =
+                            DateFormat('yyyy-MM-dd').format(DateTime.now());
+                        roleFilter.setSelected(
+                            BsSelectBoxOption(value: null, text: Text("")));
+                        presenter.recapDatatables(
+                          start: start,
+                          end: end,
+                          startdate: startdates,
+                          enddate: enddates,
+                        );
+                      }),
+                  label: Text("Reset filter")),
+          ],
+        ),
+        attendanceList.length != 0 ? exportExcel(context) : Container(),
+      ],
     );
   }
 
@@ -593,7 +655,11 @@ class _RecapTabState extends State<RecapTab> implements RecapViewContract {
             spaceLabelIcon: 10.0),
         onPressed: () {
           presenter.exportExcelRecap(
-              start: start, end: end, startdate: startdates, enddate: enddates);
+              start: start,
+              end: end,
+              startdate: startdates,
+              enddate: enddates,
+              role: roleFilter.getSelectedAsString());
         },
         label: Text("Export to Excel"));
   }
@@ -652,6 +718,7 @@ class _RecapTabState extends State<RecapTab> implements RecapViewContract {
     );
     if (selectedAct != null) {
       setState(() {
+        userFiltering = true;
         String selectedStartDate = DateFormat('yyyy-MM-dd').format(selectedAct);
         presenter.recapDatatables(
             start: start,
@@ -672,6 +739,7 @@ class _RecapTabState extends State<RecapTab> implements RecapViewContract {
     );
     if (selectedAct != null) {
       setState(() {
+        userFiltering = true;
         String selectedEndDate = DateFormat('yyyy-MM-dd').format(selectedAct);
         presenter.recapDatatables(
             start: start,

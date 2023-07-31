@@ -94,7 +94,7 @@ class ReportPresenter extends CustomGetXController {
       _reportViewContract.onErrorRequest(response);
   }
 
-  Future recapDatatables({start, end, startdate, enddate}) async {
+  Future recapDatatables({start, end, startdate, enddate, role}) async {
     int currentMonth = DateTime.now().month;
     Response response = await _attendService.recap(
       start: start,
@@ -102,6 +102,7 @@ class ReportPresenter extends CustomGetXController {
       startdate: startdate ?? currentMonth,
       enddate: enddate,
       bpid: box.read('mybpid'),
+      role: role,
     );
     if (response.statusCode == 200)
       _recapViewContract.onLoadDatatables(response);
@@ -125,7 +126,7 @@ class ReportPresenter extends CustomGetXController {
       _recapViewContract.onErrorRequest(response);
   }
 
-  Future exportExcelRecap({start, end, startdate, enddate}) async {
+  Future exportExcelRecap({start, end, startdate, enddate, role}) async {
     SessionModel session = await SessionManager.current();
     js.context.callMethod('open', [
       _attendService.exportRecap(
@@ -134,6 +135,7 @@ class ReportPresenter extends CustomGetXController {
           parseString(startdate),
           parseString(enddate),
           parseString(box.read('mybpid')),
+          parseString(role),
           parseString(session.jwtToken))
     ]);
   }

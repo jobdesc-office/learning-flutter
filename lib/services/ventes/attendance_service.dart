@@ -28,13 +28,14 @@ class AttendanceService extends ApiConnectProvider {
     });
   }
 
-  Future<Response> recap({start, end, startdate, enddate, bpid}) {
+  Future<Response> recap({start, end, startdate, enddate, bpid, role}) {
     return get('$api/recap', query: {
       'start': [start.toString()],
       'end': [end.toString()],
       'startdate': [startdate.toString()],
       'enddate': [enddate.toString()],
       'bpid': [bpid.toString()],
+      'role': [role.toString()],
     });
   }
 
@@ -43,8 +44,8 @@ class AttendanceService extends ApiConnectProvider {
   }
 
   String exportRecap(String start, String end, String startdate, String enddate,
-      String bpid, String token) {
-    return '${Config.api}/$api/exportrecap?token=$token&start=$start&end=$end&startdate=$startdate&enddate=$enddate&bpid=$bpid';
+      String bpid, String role, String token) {
+    return '${Config.api}/$api/exportrecap?token=$token&start=$start&end=$end&startdate=$startdate&enddate=$enddate&bpid=$bpid&role=$role';
   }
 
   Future<Response> removeExcel({filename}) {
