@@ -131,14 +131,6 @@ class UserPresenter extends CustomGetXController {
       _userViewContract.onErrorRequest(response);
   }
 
-  void reloadData(int userid) async {
-    Response response = await _userService.show(userid);
-    if (response.statusCode == 200)
-      _userFetchDataDetailsContract.onSuccessFetchData(response);
-    else
-      _userViewContract.onErrorRequest(response);
-  }
-
   void myProfile(int userid) async {
     setProcessing(true);
     Response response = await _userService.show(userid);

@@ -356,7 +356,8 @@ class UserDetails extends GetView
 
   @override
   void onResetSuccess(Response response, {BuildContext? context}) {
-    Snackbar().editSuccess(context!);
-    presenter.reloadData(controller.id.value);
+    isLoading.value = false;
+    Snackbar().resetSuccess();
+    if (context != null) Navigator.pop(context);
   }
 }
