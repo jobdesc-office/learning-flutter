@@ -1,9 +1,11 @@
+import 'package:boilerplate/widgets/snackbar.dart';
 import 'package:bs_flutter_buttons/bs_flutter_buttons.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../contracts/base/details_view_contract.dart';
+import '../../../contracts/master/userReset_contract.dart';
 import '../../../models/masters/user_model.dart';
 import '../../../presenters/masters/user_presenter.dart';
 import '../../../presenters/navigation_presenter.dart';
@@ -16,14 +18,18 @@ import '_details_source.dart';
 
 final _navigation = Get.find<NavigationPresenter>();
 
-class UserDetails extends GetView implements DetailViewContract {
+class UserDetails extends GetView
+    implements DetailViewContract, UserResetContract {
   final UserPresenter presenter = Get.find<UserPresenter>();
   final UserDetailsSource controller = Get.put(UserDetailsSource());
 
   UserDetails() {
     Get.delete<UserDetailsSource>();
     presenter.userFetchDataDetailsContract = this;
+    presenter.userResetContract = this;
   }
+
+  RxBool isLoading = false.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -37,128 +43,28 @@ class UserDetails extends GetView implements DetailViewContract {
         ],
         activeRoutes: [RouteList.master.index, RouteList.masterUser.index],
         back: true,
-        child: Obx(() => Container(
-              child: BsRow(
-                children: [
-                  BsCol(
-                      sizes: ColScreen(lg: Col.col_6),
-                      child: Container(
-                        height: MediaQuery.of(context).size.height,
-                        padding: EdgeInsets.all(20),
-                        decoration: BoxDecoration(
-                          color: _navigation.darkTheme.value
-                              ? ColorPallates.elseDarkColor
-                              : Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: BsRow(
-                          children: [
-                            BsCol(
-                                sizes: ColScreen(lg: Col.col_12),
-                                child: FormGroup(
-                                    label: Text('Name',
-                                        style: TextStyle(
-                                            color: _navigation.darkTheme.value
-                                                ? Colors.white
-                                                : Colors.black)),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(controller.name.value),
-                                        Divider()
-                                      ],
-                                    ))),
-                            BsCol(
-                                margin: EdgeInsets.only(top: 5),
-                                sizes: ColScreen(lg: Col.col_12),
-                                child: FormGroup(
-                                    label: Text('Username',
-                                        style: TextStyle(
-                                            color: _navigation.darkTheme.value
-                                                ? Colors.white
-                                                : Colors.black)),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(controller.username.value),
-                                        Divider()
-                                      ],
-                                    ))),
-                            BsCol(
-                                margin: EdgeInsets.only(top: 5),
-                                sizes: ColScreen(lg: Col.col_12),
-                                child: FormGroup(
-                                    label: Text('Email',
-                                        style: TextStyle(
-                                            color: _navigation.darkTheme.value
-                                                ? Colors.white
-                                                : Colors.black)),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(controller.email.value),
-                                        Divider()
-                                      ],
-                                    ))),
-                            BsCol(
-                                margin: EdgeInsets.only(top: 5),
-                                sizes: ColScreen(lg: Col.col_12),
-                                child: FormGroup(
-                                    label: Text('Phone',
-                                        style: TextStyle(
-                                            color: _navigation.darkTheme.value
-                                                ? Colors.white
-                                                : Colors.black)),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(controller.phone.value),
-                                        Divider()
-                                      ],
-                                    ))),
-                            BsCol(
-                                margin: EdgeInsets.only(top: 5),
-                                sizes: ColScreen(lg: Col.col_12),
-                                child: FormGroup(
-                                    label: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text('Device ID',
-                                            style: TextStyle(
-                                                color:
-                                                    _navigation.darkTheme.value
-                                                        ? Colors.white
-                                                        : Colors.black)),
-                                        BsButton(
-                                          style: BsButtonStyle.danger,
-                                          label: Text('Reset'),
-                                          onPressed: () {
-                                            presenter.reset(
-                                                context, controller.id.value);
-                                          },
-                                        )
-                                      ],
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(controller.deviceid.value
-                                            .toString()),
-                                        Divider()
-                                      ],
-                                    ))),
-                            if (controller.role.length != 0)
+        child: Obx(() => isLoading.value
+            ? Center(child: CircularProgressIndicator())
+            : Container(
+                child: BsRow(
+                  children: [
+                    BsCol(
+                        sizes: ColScreen(lg: Col.col_6),
+                        child: Container(
+                          height: MediaQuery.of(context).size.height,
+                          padding: EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            color: _navigation.darkTheme.value
+                                ? ColorPallates.elseDarkColor
+                                : Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: BsRow(
+                            children: [
                               BsCol(
-                                  margin: EdgeInsets.only(top: 5),
                                   sizes: ColScreen(lg: Col.col_12),
                                   child: FormGroup(
-                                      label: Text('Job : ',
+                                      label: Text('Name',
                                           style: TextStyle(
                                               color: _navigation.darkTheme.value
                                                   ? Colors.white
@@ -167,152 +73,258 @@ class UserDetails extends GetView implements DetailViewContract {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          ListView.builder(
-                                              shrinkWrap: true,
-                                              itemCount: controller.role.length,
-                                              itemBuilder: (context, index) {
-                                                var role =
-                                                    controller.role[index];
-                                                int x = index + 1;
-
-                                                return Container(
-                                                    margin:
-                                                        EdgeInsets.only(top: 5),
-                                                    child: Text(x.toString() +
-                                                        ' )  ' +
-                                                        role.usertype.typename +
-                                                        ' at ' +
-                                                        role.businesspartner
-                                                            .bpname));
-                                              }),
+                                          Text(controller.name.value),
                                           Divider()
                                         ],
                                       ))),
-                          ],
-                        ),
-                      )),
-                  BsCol(
-                      margin: EdgeInsets.only(left: 10),
-                      sizes: ColScreen(lg: Col.col_6),
-                      child: Container(
-                        padding: EdgeInsets.all(20),
-                        decoration: BoxDecoration(
-                          color: _navigation.darkTheme.value
-                              ? ColorPallates.elseDarkColor
-                              : Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: BsRow(
-                          children: [
-                            BsCol(
-                              child: FormGroup(
-                                  label: Text('Created By',
-                                      style: TextStyle(
-                                          color: _navigation.darkTheme.value
-                                              ? Colors.white
-                                              : Colors.black)),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(controller.createdby.value),
-                                      Divider()
-                                    ],
-                                  )),
-                            ),
-                            BsCol(
-                              margin: EdgeInsets.only(top: 10),
-                              child: FormGroup(
-                                  label: Text('Created At',
-                                      style: TextStyle(
-                                          color: _navigation.darkTheme.value
-                                              ? Colors.white
-                                              : Colors.black)),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(controller.createddate.value),
-                                      Divider()
-                                    ],
-                                  )),
-                            ),
-                            BsCol(
-                              margin: EdgeInsets.only(top: 10),
-                              child: FormGroup(
-                                  label: Text('Last Updated By',
-                                      style: TextStyle(
-                                          color: _navigation.darkTheme.value
-                                              ? Colors.white
-                                              : Colors.black)),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(controller.updatedby.value),
-                                      Divider()
-                                    ],
-                                  )),
-                            ),
-                            BsCol(
-                              margin: EdgeInsets.only(top: 10),
-                              child: FormGroup(
-                                  label: Text('Last Updated At',
-                                      style: TextStyle(
-                                          color: _navigation.darkTheme.value
-                                              ? Colors.white
-                                              : Colors.black)),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(controller.updateddate.value),
-                                      Divider()
-                                    ],
-                                  )),
-                            ),
-                            BsCol(
-                              margin: EdgeInsets.only(top: 10),
-                              child: FormGroup(
-                                  label: Text('Is Active',
-                                      style: TextStyle(
-                                          color: _navigation.darkTheme.value
-                                              ? Colors.white
-                                              : Colors.black)),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      if (controller.isactive.value)
-                                        Card(
-                                          color: Colors.green,
-                                          child: Text('Active',
+                              BsCol(
+                                  margin: EdgeInsets.only(top: 5),
+                                  sizes: ColScreen(lg: Col.col_12),
+                                  child: FormGroup(
+                                      label: Text('Username',
+                                          style: TextStyle(
+                                              color: _navigation.darkTheme.value
+                                                  ? Colors.white
+                                                  : Colors.black)),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(controller.username.value),
+                                          Divider()
+                                        ],
+                                      ))),
+                              BsCol(
+                                  margin: EdgeInsets.only(top: 5),
+                                  sizes: ColScreen(lg: Col.col_12),
+                                  child: FormGroup(
+                                      label: Text('Email',
+                                          style: TextStyle(
+                                              color: _navigation.darkTheme.value
+                                                  ? Colors.white
+                                                  : Colors.black)),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(controller.email.value),
+                                          Divider()
+                                        ],
+                                      ))),
+                              BsCol(
+                                  margin: EdgeInsets.only(top: 5),
+                                  sizes: ColScreen(lg: Col.col_12),
+                                  child: FormGroup(
+                                      label: Text('Phone',
+                                          style: TextStyle(
+                                              color: _navigation.darkTheme.value
+                                                  ? Colors.white
+                                                  : Colors.black)),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(controller.phone.value),
+                                          Divider()
+                                        ],
+                                      ))),
+                              BsCol(
+                                  margin: EdgeInsets.only(top: 5),
+                                  sizes: ColScreen(lg: Col.col_12),
+                                  child: FormGroup(
+                                      label: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text('Device ID',
                                               style: TextStyle(
                                                   color: _navigation
                                                           .darkTheme.value
                                                       ? Colors.white
                                                       : Colors.black)),
-                                        )
-                                      else
-                                        Card(
-                                          color: Colors.red,
-                                          child: Text('Not Active',
-                                              style: TextStyle(
-                                                  color: _navigation
-                                                          .darkTheme.value
-                                                      ? Colors.white
-                                                      : Colors.black)),
-                                        ),
-                                      Divider()
-                                    ],
-                                  )),
-                            ),
-                          ],
-                        ),
-                      )),
-                ],
-              ),
-            )),
+                                          BsButton(
+                                            style: BsButtonStyle.danger,
+                                            label: Text('Reset'),
+                                            onPressed: () {
+                                              isLoading.value = true;
+                                              presenter.reset(
+                                                  context, controller.id.value);
+                                            },
+                                          )
+                                        ],
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(controller.deviceid.value
+                                              .toString()),
+                                          Divider()
+                                        ],
+                                      ))),
+                              if (controller.role.length != 0)
+                                BsCol(
+                                    margin: EdgeInsets.only(top: 5),
+                                    sizes: ColScreen(lg: Col.col_12),
+                                    child: FormGroup(
+                                        label: Text('Job : ',
+                                            style: TextStyle(
+                                                color:
+                                                    _navigation.darkTheme.value
+                                                        ? Colors.white
+                                                        : Colors.black)),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            ListView.builder(
+                                                shrinkWrap: true,
+                                                itemCount:
+                                                    controller.role.length,
+                                                itemBuilder: (context, index) {
+                                                  var role =
+                                                      controller.role[index];
+                                                  int x = index + 1;
+
+                                                  return Container(
+                                                      margin: EdgeInsets.only(
+                                                          top: 5),
+                                                      child: Text(x.toString() +
+                                                          ' )  ' +
+                                                          role.usertype
+                                                              .typename +
+                                                          ' at ' +
+                                                          role.businesspartner
+                                                              .bpname));
+                                                }),
+                                            Divider()
+                                          ],
+                                        ))),
+                            ],
+                          ),
+                        )),
+                    BsCol(
+                        margin: EdgeInsets.only(left: 10),
+                        sizes: ColScreen(lg: Col.col_6),
+                        child: Container(
+                          padding: EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            color: _navigation.darkTheme.value
+                                ? ColorPallates.elseDarkColor
+                                : Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: BsRow(
+                            children: [
+                              BsCol(
+                                child: FormGroup(
+                                    label: Text('Created By',
+                                        style: TextStyle(
+                                            color: _navigation.darkTheme.value
+                                                ? Colors.white
+                                                : Colors.black)),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(controller.createdby.value),
+                                        Divider()
+                                      ],
+                                    )),
+                              ),
+                              BsCol(
+                                margin: EdgeInsets.only(top: 10),
+                                child: FormGroup(
+                                    label: Text('Created At',
+                                        style: TextStyle(
+                                            color: _navigation.darkTheme.value
+                                                ? Colors.white
+                                                : Colors.black)),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(controller.createddate.value),
+                                        Divider()
+                                      ],
+                                    )),
+                              ),
+                              BsCol(
+                                margin: EdgeInsets.only(top: 10),
+                                child: FormGroup(
+                                    label: Text('Last Updated By',
+                                        style: TextStyle(
+                                            color: _navigation.darkTheme.value
+                                                ? Colors.white
+                                                : Colors.black)),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(controller.updatedby.value),
+                                        Divider()
+                                      ],
+                                    )),
+                              ),
+                              BsCol(
+                                margin: EdgeInsets.only(top: 10),
+                                child: FormGroup(
+                                    label: Text('Last Updated At',
+                                        style: TextStyle(
+                                            color: _navigation.darkTheme.value
+                                                ? Colors.white
+                                                : Colors.black)),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(controller.updateddate.value),
+                                        Divider()
+                                      ],
+                                    )),
+                              ),
+                              BsCol(
+                                margin: EdgeInsets.only(top: 10),
+                                child: FormGroup(
+                                    label: Text('Is Active',
+                                        style: TextStyle(
+                                            color: _navigation.darkTheme.value
+                                                ? Colors.white
+                                                : Colors.black)),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        if (controller.isactive.value)
+                                          Card(
+                                            color: Colors.green,
+                                            child: Text('Active',
+                                                style: TextStyle(
+                                                    color: _navigation
+                                                            .darkTheme.value
+                                                        ? Colors.white
+                                                        : Colors.black)),
+                                          )
+                                        else
+                                          Card(
+                                            color: Colors.red,
+                                            child: Text('Not Active',
+                                                style: TextStyle(
+                                                    color: _navigation
+                                                            .darkTheme.value
+                                                        ? Colors.white
+                                                        : Colors.black)),
+                                          ),
+                                        Divider()
+                                      ],
+                                    )),
+                              ),
+                            ],
+                          ),
+                        )),
+                  ],
+                ),
+              )),
       ),
     );
   }
@@ -340,5 +352,11 @@ class UserDetails extends GetView implements DetailViewContract {
       controller.role.value = role;
     }
     presenter.setProcessing(false);
+  }
+
+  @override
+  void onResetSuccess(Response response, {BuildContext? context}) {
+    Snackbar().editSuccess(context!);
+    presenter.reloadData(controller.id.value);
   }
 }
