@@ -52,6 +52,7 @@ class _TabCustomers extends StatelessWidget
                             .permissions!
                             .hasaccess!)
                           ThemeButtonCreate(
+                            disabled: bppresenter.isProcessing.value,
                             prefix: "$typename",
                             // onPressed: () => presenter.add(context),
                             onPressed: () {
@@ -115,7 +116,7 @@ class _TabCustomers extends StatelessWidget
     bppresenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onDetailsListener =
-        (userid) => custpresenter.details(context, userid);
+        (custid) => custpresenter.details(context, custid);
     datatable.onEditListener = (value) {
       custpresenter.show(value);
       custsource.update((val) {

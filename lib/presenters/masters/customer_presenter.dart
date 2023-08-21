@@ -57,6 +57,7 @@ class CustomerPresenter extends CustomGetXController {
 
   void address(String latitudelongitude) async {
     Response response = await ConnectInternetAPI().address(latitudelongitude);
+    print('Customer presenter: ${response.statusCode}');
     if (response.statusCode == 200)
       _loadAddressContract.onLoadAddressSuccess(response);
     else
@@ -84,14 +85,14 @@ class CustomerPresenter extends CustomGetXController {
     return response.body['cstmname'];
   }
 
-  void details(BuildContext context, int userid) async {
+  void details(BuildContext context, int custid) async {
     setProcessing(true);
     showDialog(
       context: context,
       builder: (context) => CustomerDetails(),
     );
 
-    Response response = await _customerService.show(userid);
+    Response response = await _customerService.show(custid);
     if (response.statusCode == 200)
       _customerDataDetailsContract.onSuccessFetchData(response);
     else

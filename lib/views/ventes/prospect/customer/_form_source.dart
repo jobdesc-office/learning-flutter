@@ -274,28 +274,28 @@ class PCustomerForm {
           style: TextStyle(
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
-      child: BsButton(
-        style: BsButtonStyle(
-            color: Color.fromARGB(255, 165, 165, 165),
-            backgroundColor: _navigation.darkTheme.value
-                ? ColorPallates.elseDarkColor
-                : Colors.white,
-            borderColor: Colors.black,
-            borderRadius: BorderRadius.all(Radius.circular(5))),
-        width: MediaQuery.of(context).size.width,
-        onPressed: () => Get.to(GoogleMapsPage()),
-        label: Obx(() {
-          if (map.latitudelongitude.isNotEmpty) {
-            presenter.address(map.latitudelongitude.value);
-            return Text(map.latitudelongitude.isEmpty
-                ? "Choose the Place"
-                : map.latitudelongitude.value);
-          } else {
-            return Text(map.latitudelongitude.isEmpty
-                ? "Choose the Place"
-                : map.latitudelongitude.value);
-          }
-        }),
+      child: Tooltip(
+        message:
+            map.latitudelongitude.isNotEmpty ? map.latitudelongitude.value : "",
+        child: BsButton(
+          style: BsButtonStyle(
+              color: Color.fromARGB(255, 165, 165, 165),
+              backgroundColor: _navigation.darkTheme.value
+                  ? ColorPallates.elseDarkColor
+                  : Colors.white,
+              borderColor: Colors.black,
+              borderRadius: BorderRadius.all(Radius.circular(5))),
+          width: MediaQuery.of(context).size.width,
+          onPressed: () => Get.to(GoogleMapsPage()),
+          label: Obx(() {
+            if (map.latitudelongitude.isNotEmpty) {
+              presenter.address(map.latitudelongitude.value);
+              return Text(map.latitudelongitude.value);
+            } else {
+              return Text("Choose location...");
+            }
+          }),
+        ),
       ),
     );
   }

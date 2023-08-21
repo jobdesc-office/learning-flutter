@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:boilerplate/helpers/function.dart';
 import 'package:boilerplate/views/skins/template.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:bs_flutter_selectbox/bs_flutter_selectbox.dart';
@@ -297,11 +300,18 @@ class CustomerFormView extends StatelessWidget
 
   @override
   void onSuccessFetchData(Response response) {
+    final map = Get.find<MapSource>();
     presenter.setProcessing(false);
     isEdit.value = true;
 
+    CustomerModel customer = CustomerModel.fromJson(response.body);
+
+    map.latitudelongitude.value =
+        "${customer.cstmlatitude ?? ''},${customer.cstmlongitude ?? ''}";
+    map.latitude.value = parseDouble(customer.cstmlatitude);
+    map.longitude.value = parseDouble(customer.cstmlongitude);
+
     source.update((val) {
-      CustomerModel customer = CustomerModel.fromJson(response.body);
       source.value.inputPrefix.text = customer.cstmprefix ?? '';
       source.value.inputName.text = customer.cstmname ?? '';
       source.value.inputPhone.text = customer.cstmphone ?? '';
@@ -328,7 +338,7 @@ class CustomerFormView extends StatelessWidget
   @override
   void onLoadAddressSuccess(Response response) {
     customerForm.source.isnGetLatLong.value = false;
-    MapsLoc address = MapsLoc.fromJson(response.body);
+    MapsLoc address = MapsLoc.fromJson(jsonDecode(response.body));
     List<AddressComponents>? addresses =
         address.adresses?.first.addressComponents;
     try {

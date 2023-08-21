@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 
 import '../../models/masters/maps_model.dart';
@@ -8,7 +10,7 @@ class MapPresenter extends CustomGetXController {
   Future address(String latitudelongitude) async {
     Response response = await ConnectInternetAPI().address(latitudelongitude);
 
-    MapsLoc address = MapsLoc.fromJson(response.body);
+    MapsLoc address = MapsLoc.fromJson(jsonDecode(response.body));
     List<AddressComponents>? addresses =
         address.adresses?.first.addressComponents;
     String country = addresses!

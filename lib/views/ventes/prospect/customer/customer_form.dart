@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:boilerplate/views/skins/template.dart';
 import 'package:bs_flutter_responsive/bs_flutter_responsive.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +20,8 @@ import '../../../../widgets/snackbar.dart';
 import '_form_source.dart';
 
 // ignore: must_be_immutable
-class PCustomerFormFormView extends StatelessWidget implements CustomerAddressContract {
+class PCustomerFormFormView extends StatelessWidget
+    implements CustomerAddressContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final ProspectDetailPresenter presenter = Get.find<ProspectDetailPresenter>();
   final CustomerPresenter cpresenter = Get.find<CustomerPresenter>();
@@ -51,7 +54,9 @@ class PCustomerFormFormView extends StatelessWidget implements CustomerAddressCo
           return Container(
             padding: EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : Colors.white,
+              color: _navigation.darkTheme.value
+                  ? ColorPallates.elseDarkColor
+                  : Colors.white,
               borderRadius: BorderRadius.circular(10),
             ),
             child: Form(
@@ -74,12 +79,17 @@ class PCustomerFormFormView extends StatelessWidget implements CustomerAddressCo
                                   BsCol(
                                     margin: EdgeInsets.only(bottom: 10),
                                     child: Container(
-                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), border: Border.all(color: Colors.grey.shade300)),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          border: Border.all(
+                                              color: Colors.grey.shade300)),
                                       child: Container(
                                         margin: EdgeInsets.all(10),
                                         child: Column(
                                           children: [
-                                            pCustomerForm.selectBpCustomerTypes(),
+                                            pCustomerForm
+                                                .selectBpCustomerTypes(),
                                           ],
                                         ),
                                       ),
@@ -87,7 +97,11 @@ class PCustomerFormFormView extends StatelessWidget implements CustomerAddressCo
                                   ),
                                   BsCol(
                                     child: Container(
-                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), border: Border.all(color: Colors.grey.shade300)),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          border: Border.all(
+                                              color: Colors.grey.shade300)),
                                       child: Container(
                                         margin: EdgeInsets.all(10),
                                         child: Column(
@@ -109,7 +123,10 @@ class PCustomerFormFormView extends StatelessWidget implements CustomerAddressCo
                               margin: EdgeInsets.only(left: 10, bottom: 10),
                               sizes: ColScreen(sm: Col.col_4),
                               child: Container(
-                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), border: Border.all(color: Colors.grey.shade300)),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(
+                                        color: Colors.grey.shade300)),
                                 child: Container(
                                   margin: EdgeInsets.all(10),
                                   child: Column(
@@ -132,7 +149,10 @@ class PCustomerFormFormView extends StatelessWidget implements CustomerAddressCo
                               child: Column(
                                 children: [
                                   Container(
-                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), border: Border.all(color: Colors.grey.shade300)),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        border: Border.all(
+                                            color: Colors.grey.shade300)),
                                     child: Container(
                                       margin: EdgeInsets.all(10),
                                       child: Column(
@@ -144,7 +164,10 @@ class PCustomerFormFormView extends StatelessWidget implements CustomerAddressCo
                                   ),
                                   Container(
                                     margin: EdgeInsets.only(top: 5),
-                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), border: Border.all(color: Colors.grey.shade300)),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        border: Border.all(
+                                            color: Colors.grey.shade300)),
                                     child: Container(
                                       margin: EdgeInsets.all(10),
                                       child: Column(
@@ -161,18 +184,24 @@ class PCustomerFormFormView extends StatelessWidget implements CustomerAddressCo
                                     () => Container(
                                       margin: EdgeInsets.only(top: 5),
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
                                         children: [
                                           ThemeButtonSave(
-                                            disabled: presenter.isProcessing.value,
-                                            processing: presenter.isProcessing.value,
+                                            disabled:
+                                                presenter.isProcessing.value,
+                                            processing:
+                                                presenter.isProcessing.value,
                                             margin: EdgeInsets.only(right: 5),
-                                            onPressed: () => onClickSaveModal(context),
+                                            onPressed: () =>
+                                                onClickSaveModal(context),
                                           ),
                                           ThemeButtonCancel(
-                                            disabled: presenter.isProcessing.value,
+                                            disabled:
+                                                presenter.isProcessing.value,
                                             margin: EdgeInsets.only(right: 5),
-                                            onPressed: () => onClickCancelModal(context),
+                                            onPressed: () =>
+                                                onClickCancelModal(context),
                                           ),
                                         ],
                                       ),
@@ -192,7 +221,10 @@ class PCustomerFormFormView extends StatelessWidget implements CustomerAddressCo
                               child: Column(
                                 children: [
                                   Container(
-                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), border: Border.all(color: Colors.grey.shade300)),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        border: Border.all(
+                                            color: Colors.grey.shade300)),
                                     child: Container(
                                       margin: EdgeInsets.all(10),
                                       child: Column(
@@ -205,7 +237,10 @@ class PCustomerFormFormView extends StatelessWidget implements CustomerAddressCo
                                   ),
                                   Container(
                                     margin: EdgeInsets.only(top: 10),
-                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), border: Border.all(color: Colors.grey.shade300)),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        border: Border.all(
+                                            color: Colors.grey.shade300)),
                                     child: Container(
                                       margin: EdgeInsets.all(10),
                                       child: Column(
@@ -222,7 +257,10 @@ class PCustomerFormFormView extends StatelessWidget implements CustomerAddressCo
                               margin: EdgeInsets.only(left: 10, bottom: 10),
                               sizes: ColScreen(sm: Col.col_8),
                               child: Container(
-                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), border: Border.all(color: Colors.grey.shade300)),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(
+                                        color: Colors.grey.shade300)),
                                 child: Container(
                                   margin: EdgeInsets.all(10),
                                   child: Column(
@@ -232,18 +270,24 @@ class PCustomerFormFormView extends StatelessWidget implements CustomerAddressCo
                                       pCustomerForm.inputValue(),
                                       Obx(
                                         () => Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
                                           children: [
                                             ThemeButtonSave(
-                                              disabled: presenter.isProcessing.value,
-                                              processing: presenter.isProcessing.value,
+                                              disabled:
+                                                  presenter.isProcessing.value,
+                                              processing:
+                                                  presenter.isProcessing.value,
                                               margin: EdgeInsets.only(right: 5),
-                                              onPressed: () => onClickSaveModal(context),
+                                              onPressed: () =>
+                                                  onClickSaveModal(context),
                                             ),
                                             ThemeButtonCancel(
-                                              disabled: presenter.isProcessing.value,
+                                              disabled:
+                                                  presenter.isProcessing.value,
                                               margin: EdgeInsets.only(right: 5),
-                                              onPressed: () => onClickCancelModal(context),
+                                              onPressed: () =>
+                                                  onClickCancelModal(context),
                                             ),
                                           ],
                                         ),
@@ -281,28 +325,66 @@ class PCustomerFormFormView extends StatelessWidget implements CustomerAddressCo
   @override
   void onLoadAddressSuccess(Response response) {
     pCustomerForm.source.isnGetLatLong.value = false;
-    MapsLoc address = MapsLoc.fromJson(response.body);
-    List<AddressComponents>? addresses = address.adresses?.first.addressComponents;
+    MapsLoc address = MapsLoc.fromJson(jsonDecode(response.body));
+    List<AddressComponents>? addresses =
+        address.adresses?.first.addressComponents;
 
     try {
-      if (addresses!.firstWhere((element) => element.types!.contains('administrative_area_level_1')).longName != null &&
-          addresses.firstWhere((element) => element.types!.contains('administrative_area_level_2')).longName != null &&
-          addresses.firstWhere((element) => element.types!.contains('administrative_area_level_3')).longName != null &&
-          addresses.firstWhere((element) => element.types!.contains('postal_code')).longName != null &&
+      if (addresses!
+                  .firstWhere((element) =>
+                      element.types!.contains('administrative_area_level_1'))
+                  .longName !=
+              null &&
+          addresses
+                  .firstWhere((element) =>
+                      element.types!.contains('administrative_area_level_2'))
+                  .longName !=
+              null &&
+          addresses
+                  .firstWhere((element) =>
+                      element.types!.contains('administrative_area_level_3'))
+                  .longName !=
+              null &&
+          addresses
+                  .firstWhere(
+                      (element) => element.types!.contains('postal_code'))
+                  .longName !=
+              null &&
           address.adresses!.first.formattedAddress != null) {
-        String province = addresses.firstWhere((element) => element.types!.contains('administrative_area_level_1')).longName ?? "";
+        String province = addresses
+                .firstWhere((element) =>
+                    element.types!.contains('administrative_area_level_1'))
+                .longName ??
+            "";
 
-        String cityy = addresses.firstWhere((element) => element.types!.contains('administrative_area_level_2')).longName ?? "";
+        String cityy = addresses
+                .firstWhere((element) =>
+                    element.types!.contains('administrative_area_level_2'))
+                .longName ??
+            "";
         // replace word Kota, Kab, or Kabupaten with Empty String
-        String city = cityy.replaceAll(RegExp(r'Kota |Kabupaten |Kab |Regency '), '');
+        String city =
+            cityy.replaceAll(RegExp(r'Kota |Kabupaten |Kab |Regency '), '');
 
-        String subdistrictt = addresses.firstWhere((element) => element.types!.contains('administrative_area_level_3')).longName ?? "";
+        String subdistrictt = addresses
+                .firstWhere((element) =>
+                    element.types!.contains('administrative_area_level_3'))
+                .longName ??
+            "";
 
-        String subdistrict = subdistrictt.replaceAll(RegExp(r'Kecamatan |Kec '), '');
+        String subdistrict =
+            subdistrictt.replaceAll(RegExp(r'Kecamatan |Kec '), '');
 
-        String village = addresses.firstWhere((element) => element.types!.contains('administrative_area_level_4')).longName ?? "";
+        String village = addresses
+                .firstWhere((element) =>
+                    element.types!.contains('administrative_area_level_4'))
+                .longName ??
+            "";
 
-        String postalCode = addresses.firstWhere((element) => element.types!.contains('postal_code')).longName ?? "";
+        String postalCode = addresses
+                .firstWhere((element) => element.types!.contains('postal_code'))
+                .longName ??
+            "";
 
         String adres = address.adresses!.first.formattedAddress ?? "";
 

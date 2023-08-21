@@ -32,10 +32,21 @@ class _GoogleMapsPageState extends State<GoogleMapsPage>
   final presenter = Get.put(MapPresenter());
   MapPickerController mapPickerController = MapPickerController();
 
-  CameraPosition cameraPosition = const CameraPosition(
+  CameraPosition cameraPosition = CameraPosition(
     target: LatLng(-6.199086, 106.5750849),
     zoom: 14.4746,
   );
+
+  @override
+  initState() {
+    if (controller.longitude.value != 0 && controller.latitude.value != 0) {
+      cameraPosition = CameraPosition(
+        target: LatLng(controller.latitude.value, controller.longitude.value),
+        zoom: 14.4746,
+      );
+    }
+    super.initState();
+  }
 
   var textController = TextEditingController();
   TextEditingController search = TextEditingController();
@@ -203,7 +214,7 @@ class _GoogleMapsPageState extends State<GoogleMapsPage>
                     controller.longitude.value =
                         cameraPosition.target.longitude;
                     controller.linkCoordinate.value =
-                        'https://maps.google.com?q=${cameraPosition.target.latitude},${cameraPosition.target.longitude}';
+                        'https://api.allorigins.win/get?url=https%3A//maps.googleapis.com/maps/api/geocode/json%3Flatlng%3D${cameraPosition.target.latitude}%2C${cameraPosition.target.longitude}%26key%3D${Config.googleApi}%26language%3Did';
                     controller.latitudelongitude.value =
                         '${cameraPosition.target.latitude},${cameraPosition.target.longitude}';
                     Navigator.pop(context, true);

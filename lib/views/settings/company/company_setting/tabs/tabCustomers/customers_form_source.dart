@@ -394,6 +394,7 @@ class _CustomerFormSource extends GetxController
     if (isEdit.value) {
       isEdit.value = false;
       isForm.toggle();
+      show.toggle();
       source.reset();
     } else {
       isForm.toggle();
@@ -405,7 +406,7 @@ class _CustomerFormSource extends GetxController
   void onLoadAddressSuccess(Response response) {
     pCustomerForm = PCustomersForm(source);
     pCustomerForm.source.isnGetLatLong.value = false;
-    MapsLoc address = MapsLoc.fromJson(response.body);
+    MapsLoc address = MapsLoc.fromJson(jsonDecode(response.body));
     List<AddressComponents>? addresses =
         address.adresses?.first.addressComponents;
 
@@ -481,11 +482,18 @@ class _CustomerFormSource extends GetxController
 
   @override
   void onSuccessFetchData(Response response) {
+    final map = Get.find<MapSource>();
     presenter.setProcessing(false);
     isEdit.value = true;
     isForm.value = true;
 
     CustomerModel customer = CustomerModel.fromJson(response.body);
+
+    map.latitudelongitude.value =
+        "${customer.cstmlatitude ?? ''},${customer.cstmlongitude ?? ''}";
+    map.latitude.value = parseDouble(customer.cstmlatitude);
+    map.longitude.value = parseDouble(customer.cstmlongitude);
+
     source.id.value = customer.cstmid ?? 0;
     source.inputPrefix.text = customer.cstmprefix ?? '';
     source.inputName.text = customer.cstmname ?? '';

@@ -24,15 +24,7 @@ class ConnectInternetAPI extends GetConnect {
   }
 
   Future<Response> address(String latitudelongitude) {
-    return get(
-        'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitudelongitude&key=${Config.googleApi}&language=id',
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Credentials': 'true',
-          'Access-Control-Allow-Headers':
-              'Origin, Content-Type, X-Amz-Date, Authorization, X-Api-Key, X-Amz-Security-Token, locale',
-          'Access-Control-Allow-Methods': 'GET, POST',
-          'X-Requested-With': 'XMLHttpRequest',
-        });
+    return get('${Config.api}/address',
+        query: {'latlng': latitudelongitude, 'apiKey': Config.googleApi});
   }
 }

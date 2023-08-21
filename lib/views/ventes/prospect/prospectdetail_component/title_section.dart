@@ -1,6 +1,7 @@
 part of '../prospect_detail.dart';
 
-BsCol prospectDetailTitleSection(context) {
+BsCol prospectDetailTitleSection(context,
+    {required Function(Map<String, dynamic> body, int prospectid) onUpdate}) {
   // ignore: invalid_use_of_protected_member
   var permis = authPresenter.rolepermis.value;
   final _navigation = Get.find<NavigationPresenter>();
@@ -791,6 +792,7 @@ BsCol prospectDetailTitleSection(context) {
                           child: Obx(() => MenuTypeOptions(
                                 controller:
                                     source.prospectStageController.value,
+                                onUpdate: onUpdate,
                               )),
                         ),
                       ),

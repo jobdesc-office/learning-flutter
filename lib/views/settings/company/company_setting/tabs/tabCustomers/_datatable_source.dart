@@ -29,7 +29,8 @@ class CustomersDataTableSource extends BsDatatableSource {
         searchable: false,
         orderable: false,
       ),
-      CustomBsDataColumn(label: Text('Customer Name'), columnName: 'sbccstmname'),
+      CustomBsDataColumn(
+          label: Text('Customer Name'), columnName: 'sbccstmname'),
       CustomBsDataColumn(
         label: Text('Customer Phone'),
         columnName: 'cstmphone',
@@ -45,7 +46,9 @@ class CustomersDataTableSource extends BsDatatableSource {
     ];
   }
 
-  List<BusinessPartnerCustomerModel> get customers => response.data.map((data) => BusinessPartnerCustomerModel.fromJson(data)).toList();
+  List<BusinessPartnerCustomerModel> get customers => response.data
+      .map((data) => BusinessPartnerCustomerModel.fromJson(data))
+      .toList();
 
   @override
   BsDataRow getRow(int index) {
@@ -93,7 +96,7 @@ class CustomersDataTableSource extends BsDatatableSource {
                 message: BaseText.detailHintDatatable(field: row.sbccstmname),
                 child: ButtonDetailsDatatables(
                   margin: EdgeInsets.only(right: 5),
-                  onPressed: () => onDetailsListener(row.sbcid!),
+                  onPressed: () => onDetailsListener(row.sbccstm!.cstmid!),
                 ),
               ),
               if (permis
@@ -127,7 +130,9 @@ class CustomersDataTableSource extends BsDatatableSource {
                   .hasaccess!)
                 Tooltip(
                   message: BaseText.deleteHintDatatable(field: row.sbccstmname),
-                  child: ButtonDeleteDatatables(onPressed: () => onDeleteListener(row.sbcid, row.sbccstmname)),
+                  child: ButtonDeleteDatatables(
+                      onPressed: () =>
+                          onDeleteListener(row.sbcid, row.sbccstmname)),
                 ),
             ],
           ),

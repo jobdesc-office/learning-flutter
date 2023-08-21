@@ -138,6 +138,7 @@ class _ProspectDetailsState extends State<ProspectDetails>
     presenter.prospectTypeViewDetailContract = this;
     presenter.prospectDetailsViewContract = this;
     presenter.historyViewContract = this;
+    presenter.prospectViewContract = this;
     presenter.prospectdtViewContract = this;
     detailPresenter.prospectViewContract = this;
     assignPresenter.prospectViewContract = this;
@@ -170,7 +171,9 @@ class _ProspectDetailsState extends State<ProspectDetails>
           children: [
             BsRow(
               children: [
-                prospectDetailTitleSection(context),
+                prospectDetailTitleSection(context,
+                    onUpdate: (body, prospectid) =>
+                        presenter.update(context, body, prospectid)),
                 BsCol(
                   margin: EdgeInsets.fromLTRB(0, 0, 5, 5),
                   sizes: ColScreen(sm: Col.col_8),

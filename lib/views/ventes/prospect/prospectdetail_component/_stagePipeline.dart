@@ -46,7 +46,10 @@ class MenuTypeOptions extends StatefulWidget {
   const MenuTypeOptions({
     Key? key,
     required this.controller,
+    required this.onUpdate,
   }) : super(key: key);
+
+  final Function(Map<String, dynamic> body, int prospectid) onUpdate;
 
   final MenuTypeOptionsController controller;
 
@@ -190,8 +193,8 @@ class _MenuTypeOptions extends State<MenuTypeOptions> {
                         }
                         source.showPipeline.value = false;
                         source.prospectStageController.value.selected = type;
-                        presenter.update(
-                            context, body, source.prospectid.value);
+                        Navigator.pop(context);
+                        widget.onUpdate(body, source.prospectid.value);
                       } else {
                         Navigator.pop(context);
                       }
