@@ -191,7 +191,7 @@ class Snackbar {
   void resetSuccess() {
     Get.snackbar('Success', 'Reset Device Success',
         colorText: _navigation.darkTheme.value ? Colors.black : Colors.white,
-        backgroundColor: ColorPallates.danger,
+        backgroundColor: ColorPallates.warning,
         margin: EdgeInsets.only(top: 10, right: 10, bottom: 10, left: 1170),
         maxWidth: 500,
         icon: Icon(
