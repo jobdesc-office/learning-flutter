@@ -5,13 +5,14 @@ class _TabCustomerspr extends StatelessWidget implements IndexViewContract {
   final datatable = CustomerDataTableSource();
   final String typename;
 
-  late PCustomersForm pCustomerForm;
+  late ProspectiveCustomersFormSource pCustomerForm;
 
   ProspectPresenter get presenter => Get.find<ProspectPresenter>();
   BpCustomerPresenter get bppresenter => Get.find<BpCustomerPresenter>();
-  CustomerPresenter custpresenter = Get.find<CustomerPresenter>();
-  final source = PCustomersSource().obs;
-  final custsource = _CustomerFormSource().obs;
+  ProspectiveCustomerPresenter custpresenter =
+      Get.find<ProspectiveCustomerPresenter>();
+  final controller = ProspectiveCustomersFormController().obs;
+  final pcustsource = _ProspectiveCustomerForm().obs;
 
   _TabCustomerspr(this.typename) {
     presenter.addCustomerViewContract = this;
@@ -21,7 +22,7 @@ class _TabCustomerspr extends StatelessWidget implements IndexViewContract {
 
   @override
   Widget build(BuildContext context) {
-    pCustomerForm = PCustomersForm(source.value);
+    pCustomerForm = ProspectiveCustomersFormSource(controller.value);
     return Container(
       margin: EdgeInsets.all(20),
       child: Column(
@@ -31,8 +32,8 @@ class _TabCustomerspr extends StatelessWidget implements IndexViewContract {
             child: Obx(() {
               return Column(
                 children: [
-                  if (custsource.value.isForm.value)
-                    custsource.value.form(context),
+                  if (pcustsource.value.isForm.value)
+                    pcustsource.value.form(context),
                   CustomDatabales(
                     source: datatable,
                     columns: datatable.columns,
@@ -53,8 +54,8 @@ class _TabCustomerspr extends StatelessWidget implements IndexViewContract {
                           prefix: "$typename",
                           // onPressed: () => presenter.add(context),
                           onPressed: () {
-                            custsource.value.isForm.toggle();
-                            source.value.pro.value = true;
+                            pcustsource.value.isForm.toggle();
+                            controller.value.pro.value = true;
                           },
                         )
                     ],
@@ -73,8 +74,8 @@ class _TabCustomerspr extends StatelessWidget implements IndexViewContract {
   @override
   void onCreateSuccess(Response response, {BuildContext? context}) {
     datatable.controller.reload();
-    source.value.reset();
-    custsource.value.isForm.value = false;
+    controller.value.reset();
+    pcustsource.value.isForm.value = false;
     custpresenter.setProcessing(false);
     Snackbar().createSuccess(context!);
   }
@@ -82,9 +83,9 @@ class _TabCustomerspr extends StatelessWidget implements IndexViewContract {
   @override
   void onDeleteSuccess(Response response, {BuildContext? context}) {
     bppresenter.setProcessing(false);
-    source.value.reset();
+    controller.value.reset();
     datatable.controller.reload();
-    custsource.value.isForm.value = false;
+    pcustsource.value.isForm.value = false;
     Get.back();
     Snackbar().deleteSuccess(context!);
   }
@@ -92,11 +93,11 @@ class _TabCustomerspr extends StatelessWidget implements IndexViewContract {
   @override
   void onEditSuccess(Response response, {BuildContext? context}) {
     datatable.controller.reload();
-    source.value.reset();
+    controller.value.reset();
     custpresenter.setProcessing(false);
-    custsource.update((val) {
-      custsource.value.isForm.value = false;
-      custsource.value.isEdit.value = false;
+    pcustsource.update((val) {
+      pcustsource.value.isForm.value = false;
+      pcustsource.value.isEdit.value = false;
     });
     Snackbar().editSuccess(context!);
   }
@@ -110,15 +111,15 @@ class _TabCustomerspr extends StatelessWidget implements IndexViewContract {
 
   @override
   void onLoadDatatables(BuildContext context, Response response) {
-    source.value.reset();
-    custsource.value.isForm.value = false;
+    controller.value.reset();
+    pcustsource.value.isForm.value = false;
     bppresenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);
     datatable.onDetailsListener =
         (userid) => custpresenter.details(context, userid);
     datatable.onEditListener = (value) {
       custpresenter.show(value);
-      custsource.value.show.value = false;
+      pcustsource.value.show.value = false;
     };
     datatable.onDeleteListener =
         (cstmid, cstmname) => bppresenter.delete(context, cstmid, cstmname);

@@ -41,7 +41,7 @@ class CustomersDataTableSource extends BsDatatableSource {
         label: Text('Actions'),
         orderable: false,
         searchable: false,
-        width: 100,
+        width: 200,
       ),
     ];
   }

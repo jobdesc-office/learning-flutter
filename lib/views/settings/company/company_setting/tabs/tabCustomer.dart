@@ -18,7 +18,7 @@ class _TabCustomerState extends State<_TabCustomer>
   @override
   Widget build(BuildContext context) {
     final contactsource = Get.put(ContactFormSource());
-    final customersource = Get.put(_CustomerFormSource());
+    final customersource = Get.put(_CustomerForm());
     return SingleChildScrollView(
       child: Container(
         margin: EdgeInsets.all(20),

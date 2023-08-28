@@ -6,12 +6,12 @@ class _TabCustomerActivity extends StatelessWidget
   final datatable = CustomersActivityDataTableSource();
   final String typename;
 
-  late PCustomersForm pCustomerForm;
+  late CustomersFormSource source;
 
   BusinessPartnerPresenter get bpPresenter =>
       Get.put(BusinessPartnerPresenter());
-  final source = PCustomersSource().obs;
-  final custsource = _CustomerFormSource().obs;
+  final controller = CustomersFormController().obs;
+  final custsource = _CustomerForm().obs;
 
   _TabCustomerActivity(this.typename) {
     bpPresenter.businessPartnerViewContract = this;
@@ -19,7 +19,7 @@ class _TabCustomerActivity extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
-    pCustomerForm = PCustomersForm(source.value);
+    source = CustomersFormSource(controller.value);
     return Container(
       margin: EdgeInsets.all(20),
       child: Column(
@@ -45,7 +45,7 @@ class _TabCustomerActivity extends StatelessWidget
   @override
   void onCreateSuccess(Response response, {BuildContext? context}) {
     datatable.controller.reload();
-    source.value.reset();
+    controller.value.reset();
     custsource.value.isForm.value = false;
     bpPresenter.setProcessing(false);
     Snackbar().createSuccess(context!);
@@ -54,7 +54,7 @@ class _TabCustomerActivity extends StatelessWidget
   @override
   void onDeleteSuccess(Response response, {BuildContext? context}) {
     bpPresenter.setProcessing(false);
-    source.value.reset();
+    controller.value.reset();
     datatable.controller.reload();
     custsource.value.isForm.value = false;
     Get.back();
@@ -64,7 +64,7 @@ class _TabCustomerActivity extends StatelessWidget
   @override
   void onEditSuccess(Response response, {BuildContext? context}) {
     datatable.controller.reload();
-    source.value.reset();
+    controller.value.reset();
     bpPresenter.setProcessing(false);
     custsource.value.isForm.value = false;
     Snackbar().editSuccess(context!);
@@ -77,7 +77,7 @@ class _TabCustomerActivity extends StatelessWidget
 
   @override
   void onLoadDatatables(BuildContext context, Response response) {
-    source.value.reset();
+    controller.value.reset();
     custsource.value.isForm.value = false;
     bpPresenter.setProcessing(false);
     datatable.response = BsDatatableResponse.createFromJson(response.body);

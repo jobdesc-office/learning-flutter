@@ -30,7 +30,7 @@ final _navigation = Get.find<NavigationPresenter>();
 final _cpresenter = Get.find<CustomerPresenter>();
 final map = Get.put(MapSource());
 
-class PCustomersSource extends GetxController {
+class CustomersFormController extends GetxController {
   bool isProcessing = false;
   var isnGetLatLong = true.obs;
   var isRegistered = false.obs;
@@ -163,12 +163,12 @@ class PCustomersSource extends GetxController {
   }
 }
 
-class PCustomersForm {
-  final PCustomersSource source;
+class CustomersFormSource {
+  final CustomersFormController controller;
   final map = Get.put(MapSource());
   final CustomerPresenter presenter = Get.find<CustomerPresenter>();
 
-  PCustomersForm(this.source);
+  CustomersFormSource(this.controller);
 
   // Widget selectBpCustomerTypes() {
   //   return FormGroup(
@@ -178,8 +178,8 @@ class PCustomersForm {
   //                 _navigation.darkTheme.value ? Colors.white : Colors.black))),
   //     child: CustomSelectBox(
   //       searchable: false,
-  //       disabled: source.isProcessing,
-  //       controller: source.selectStatus,
+  //       disabled: controller.isProcessing,
+  //       controller: controller.selectStatus,
   //       hintText:
   //           BaseText.hiintSelect(field: PCustomerText.labelBpCustomerType),
   //       serverSide: (params) => selectApiBpCustomerStatus(params),
@@ -197,8 +197,8 @@ class PCustomersForm {
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
-        disabled: source.isProcessing,
-        controller: source.inputPrefix,
+        disabled: controller.isProcessing,
+        controller: controller.inputPrefix,
         hintText: BaseText.hintText(field: PCustomerText.labelPrefix),
         validators: [
           Validators.maxLength(PCustomerText.labelPrefix, 100),
@@ -214,8 +214,8 @@ class PCustomersForm {
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
-        disabled: source.isProcessing,
-        controller: source.inputName,
+        disabled: controller.isProcessing,
+        controller: controller.inputName,
         hintText: BaseText.hintText(field: PCustomerText.labelName),
         validators: [
           Validators.inputRequired(PCustomerText.labelName),
@@ -232,8 +232,8 @@ class PCustomersForm {
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
-        disabled: source.isProcessing,
-        controller: source.inputCode,
+        disabled: controller.isProcessing,
+        controller: controller.inputCode,
         hintText: BaseText.hintText(field: PCustomerText.labelCode),
         validators: [
           Validators.inputRequired(PCustomerText.labelCode),
@@ -250,8 +250,9 @@ class PCustomersForm {
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
-        disabled: source.isProcessing,
-        controller: source.inputPhone,
+        disabled: controller.isProcessing,
+        controller: controller.inputPhone,
+        keyboardType: TextInputType.number,
         hintText: BaseText.hintText(field: PCustomerText.labelPhone),
         validators: [
           Validators.maxLength(PCustomerText.labelPhone, 20),
@@ -267,8 +268,8 @@ class PCustomersForm {
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: Obx(() => CustomInput(
-            disabled: source.isnGetLatLong.value,
-            controller: source.inputAddress,
+            disabled: controller.isnGetLatLong.value,
+            controller: controller.inputAddress,
             hintText: BaseText.hintText(field: PCustomerText.labelAddress),
             validators: [],
             maxLines: 5,
@@ -284,8 +285,8 @@ class PCustomersForm {
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomSelectBox(
-        disabled: source.isProcessing,
-        controller: source.selectType,
+        disabled: controller.isProcessing,
+        controller: controller.selectType,
         hintText: BaseText.hiintSelect(field: PCustomerText.labelType),
         serverSide: (params) => selectApiCustomerType(params),
         validators: [Validators.selectRequired(PCustomerText.labelType)],
@@ -302,7 +303,7 @@ class PCustomersForm {
               'updatedby': session.userid,
               'isactive': true,
             });
-            source.selectType.clear();
+            controller.selectType.clear();
           }
         },
       ),
@@ -316,8 +317,8 @@ class PCustomersForm {
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
-        disabled: source.isProcessing,
-        controller: source.inputReferal,
+        disabled: controller.isProcessing,
+        controller: controller.inputReferal,
         hintText: BaseText.hintText(field: PCustomerText.labelReferal),
         validators: [
           Validators.maxLength(PCustomerText.labelPhone, 255),
@@ -332,15 +333,16 @@ class PCustomersForm {
         child: Obx(() => Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (source.isImage.value) Image.memory(source.image.value),
+                if (controller.isImage.value)
+                  Image.memory(controller.image.value),
                 BsButton(
                   margin: EdgeInsets.only(top: 10),
                   onPressed: () async {
                     Uint8List? fromPicker =
                         await ImagePickerWeb.getImageAsBytes();
                     if (fromPicker != null) {
-                      source.image.value = fromPicker;
-                      source.isImage.value = true;
+                      controller.image.value = fromPicker;
+                      controller.isImage.value = true;
                     }
                   },
                   label: Text(
@@ -399,8 +401,8 @@ class PCustomersForm {
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
-        disabled: source.isnGetLatLong.value,
-        controller: source.inputProvince,
+        disabled: controller.isnGetLatLong.value,
+        controller: controller.inputProvince,
         hintText: BaseText.hintText(field: PCustomerText.labelProvince),
       ),
     );
@@ -413,8 +415,8 @@ class PCustomersForm {
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
-        disabled: source.isnGetLatLong.value,
-        controller: source.inputCity,
+        disabled: controller.isnGetLatLong.value,
+        controller: controller.inputCity,
         hintText: BaseText.hintText(field: PCustomerText.labelCity),
       ),
     );
@@ -427,8 +429,8 @@ class PCustomersForm {
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
-        disabled: source.isnGetLatLong.value,
-        controller: source.inputSubdistrict,
+        disabled: controller.isnGetLatLong.value,
+        controller: controller.inputSubdistrict,
         hintText: BaseText.hintText(field: PCustomerText.labelSubdistrict),
       ),
     );
@@ -441,8 +443,8 @@ class PCustomersForm {
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
-        disabled: source.isnGetLatLong.value,
-        controller: source.inputVillage,
+        disabled: controller.isnGetLatLong.value,
+        controller: controller.inputVillage,
         hintText: BaseText.hintText(field: PCustomerText.labelVillage),
       ),
     );
@@ -455,8 +457,8 @@ class PCustomersForm {
               color:
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomInput(
-        disabled: source.isnGetLatLong.value,
-        controller: source.inputPostal,
+        disabled: controller.isnGetLatLong.value,
+        controller: controller.inputPostal,
         hintText: BaseText.hintText(field: PCustomerText.labelPostal),
       ),
     );
@@ -470,8 +472,8 @@ class PCustomersForm {
                   _navigation.darkTheme.value ? Colors.white : Colors.black))),
       child: CustomSelectBox(
         searchable: true,
-        disabled: source.isProcessing,
-        controller: source.selectCustomer,
+        disabled: controller.isProcessing,
+        controller: controller.selectCustomer,
         hintText: BaseText.hiintSelect(field: PCustomerText.labelCustomer),
         serverSide: (params) => selectApiCustomer(params),
         validators: [
@@ -495,8 +497,8 @@ class PCustomersForm {
                               : Colors.black,
                           fontWeight: FontWeight.bold)),
                   Checkbox(
-                    value: source.isRegistered.value,
-                    onChanged: (value) => source.isRegistered.toggle(),
+                    value: controller.isRegistered.value,
+                    onChanged: (value) => controller.isRegistered.toggle(),
                   ),
                 ],
               )),

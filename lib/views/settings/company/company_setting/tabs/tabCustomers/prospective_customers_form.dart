@@ -1,26 +1,28 @@
 part of '../../company.dart';
 
-class _CustomerFormSource extends GetxController
+class _ProspectiveCustomerForm extends GetxController
     implements CustomerAddressContract, EditViewContract, IndexViewContract {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
-  final source = Get.put(PCustomersSource());
-  CustomerPresenter presenter = Get.find<CustomerPresenter>();
+  final controller = Get.put(ProspectiveCustomersFormController());
+  ProspectiveCustomerPresenter presenter =
+      Get.find<ProspectiveCustomerPresenter>();
   BpCustomerPresenter get bppresenter => Get.find<BpCustomerPresenter>();
 
-  _CustomerFormSource() {
+  _ProspectiveCustomerForm() {
     presenter.customerAddresContract = this;
     presenter.customerAddressContract = this;
     presenter.customerFetchDataContract = this;
+    presenter.customerViewContract = this;
   }
 
   var isEdit = false.obs;
   var isForm = false.obs;
   var show = true.obs;
 
-  late PCustomersForm pCustomerForm;
+  late ProspectiveCustomersFormSource source;
 
   Widget form(BuildContext context) {
-    pCustomerForm = PCustomersForm(source);
+    source = ProspectiveCustomersFormSource(controller);
     return Obx(() {
       return BsRow(
         children: [
@@ -44,8 +46,8 @@ class _CustomerFormSource extends GetxController
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        pCustomerForm.checkBox(),
-                        if (!source.isRegistered.value)
+                        source.checkBox(),
+                        if (!controller.isRegistered.value)
                           BsRow(
                             children: [
                               BsCol(
@@ -64,13 +66,12 @@ class _CustomerFormSource extends GetxController
                                           margin: EdgeInsets.all(10),
                                           child: Column(
                                             children: [
-                                              pCustomerForm.inputPrefix(),
-                                              pCustomerForm.inputName(),
-                                              pCustomerForm.inputCode(),
-                                              pCustomerForm.inputPhone(),
-                                              pCustomerForm
-                                                  .selectTypes(context),
-                                              pCustomerForm.inputReferal(),
+                                              source.inputPrefix(),
+                                              source.inputName(),
+                                              source.inputCode(),
+                                              source.inputPhone(),
+                                              source.selectTypes(context),
+                                              source.inputReferal(),
                                             ],
                                           ),
                                         ),
@@ -91,15 +92,15 @@ class _CustomerFormSource extends GetxController
                                     margin: EdgeInsets.all(10),
                                     child: Column(
                                       children: [
-                                        pCustomerForm.btnMap(context),
+                                        source.btnMap(context),
                                         Column(
                                           children: [
-                                            pCustomerForm.inputProvince(),
-                                            pCustomerForm.inputCity(),
-                                            pCustomerForm.inputSubdistrict(),
-                                            pCustomerForm.inputVillage(),
-                                            pCustomerForm.inputPostal(),
-                                            pCustomerForm.inputAddress(),
+                                            source.inputProvince(),
+                                            source.inputCity(),
+                                            source.inputSubdistrict(),
+                                            source.inputVillage(),
+                                            source.inputPostal(),
+                                            source.inputAddress(),
                                           ],
                                         ),
                                       ],
@@ -122,7 +123,7 @@ class _CustomerFormSource extends GetxController
                                         margin: EdgeInsets.all(10),
                                         child: Column(
                                           children: [
-                                            pCustomerForm.btnImage(),
+                                            source.btnImage(),
                                           ],
                                         ),
                                       ),
@@ -177,7 +178,7 @@ class _CustomerFormSource extends GetxController
                                         margin: EdgeInsets.all(10),
                                         child: Column(
                                           children: [
-                                            pCustomerForm.selectCustomer(),
+                                            source.selectCustomer(),
                                           ],
                                         ),
                                       ),
@@ -200,7 +201,7 @@ class _CustomerFormSource extends GetxController
                                           margin: EdgeInsets.all(10),
                                           child: Column(
                                             children: [
-                                              pCustomerForm.btnImage(),
+                                              source.btnImage(),
                                             ],
                                           ),
                                         ),
@@ -273,7 +274,7 @@ class _CustomerFormSource extends GetxController
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                    Text(source.createdby.value),
+                                    Text(controller.createdby.value),
                                     Divider()
                                   ],
                                 )),
@@ -289,7 +290,7 @@ class _CustomerFormSource extends GetxController
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                    Text(source.createddate.value),
+                                    Text(controller.createddate.value),
                                     Divider()
                                   ],
                                 )),
@@ -305,7 +306,7 @@ class _CustomerFormSource extends GetxController
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                    Text(source.updatedby.value),
+                                    Text(controller.updatedby.value),
                                     Divider()
                                   ],
                                 )),
@@ -321,7 +322,7 @@ class _CustomerFormSource extends GetxController
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                    Text(source.updateddate.value),
+                                    Text(controller.updateddate.value),
                                     Divider()
                                   ],
                                 )),
@@ -337,7 +338,7 @@ class _CustomerFormSource extends GetxController
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                    if (source.isactive.value)
+                                    if (controller.isactive.value)
                                       InkWell(
                                         child: Icon(
                                           Icons.toggle_on,
@@ -346,7 +347,7 @@ class _CustomerFormSource extends GetxController
                                               ? ColorPallates.onDarkMode
                                               : ColorPallates.onLightMode,
                                         ),
-                                        onTap: source.isactive.toggle,
+                                        onTap: controller.isactive.toggle,
                                       )
                                     else
                                       InkWell(
@@ -357,7 +358,7 @@ class _CustomerFormSource extends GetxController
                                               ? ColorPallates.offDarkMode
                                               : ColorPallates.offLightMode,
                                         ),
-                                        onTap: source.isactive.toggle,
+                                        onTap: controller.isactive.toggle,
                                       ),
                                     Divider()
                                   ],
@@ -378,13 +379,13 @@ class _CustomerFormSource extends GetxController
   void onClickSaveModal(BuildContext context) async {
     presenter.setProcessing(true);
     if (isEdit.value) {
-      presenter.update(context, await source.toJson(), source.id.value);
+      presenter.update(context, await controller.toJson(), controller.id.value);
       isForm.value = false;
       isEdit.value = false;
       show.value = true;
     } else {
       if (formState.currentState!.validate()) {
-        presenter.saveCustomer(context, FormData(await source.toJson()));
+        presenter.saveCustomer(context, FormData(await controller.toJson()));
       } else
         presenter.setProcessing(false);
     }
@@ -395,17 +396,17 @@ class _CustomerFormSource extends GetxController
       isEdit.value = false;
       isForm.toggle();
       show.toggle();
-      source.reset();
+      controller.reset();
     } else {
       isForm.toggle();
-      source.reset();
+      controller.reset();
     }
   }
 
   @override
   void onLoadAddressSuccess(Response response) {
-    pCustomerForm = PCustomersForm(source);
-    pCustomerForm.source.isnGetLatLong.value = false;
+    source = ProspectiveCustomersFormSource(controller);
+    source.controller.isnGetLatLong.value = false;
     MapsLoc address = MapsLoc.fromJson(jsonDecode(response.body));
     List<AddressComponents>? addresses =
         address.adresses?.first.addressComponents;
@@ -468,12 +469,12 @@ class _CustomerFormSource extends GetxController
             "";
 
         String adres = address.adresses!.first.formattedAddress ?? "";
-        source.inputProvince.text = province;
-        source.inputCity.text = city;
-        source.inputSubdistrict.text = subdistrict;
-        source.inputVillage.text = village;
-        source.inputPostal.text = postalCode;
-        source.inputAddress.text = adres;
+        controller.inputProvince.text = province;
+        controller.inputCity.text = city;
+        controller.inputSubdistrict.text = subdistrict;
+        controller.inputVillage.text = village;
+        controller.inputPostal.text = postalCode;
+        controller.inputAddress.text = adres;
       }
     } catch (e) {
       Snackbar().unknowLocation();
@@ -494,27 +495,27 @@ class _CustomerFormSource extends GetxController
     map.latitude.value = parseDouble(customer.cstmlatitude);
     map.longitude.value = parseDouble(customer.cstmlongitude);
 
-    source.id.value = customer.cstmid ?? 0;
-    source.inputPrefix.text = customer.cstmprefix ?? '';
-    source.inputName.text = customer.cstmname ?? '';
-    source.inputPhone.text = customer.cstmphone ?? '';
-    source.inputAddress.text = customer.cstmaddress ?? '';
-    source.selectType.setSelected(BsSelectBoxOption(
+    controller.id.value = customer.cstmid ?? 0;
+    controller.inputPrefix.text = customer.cstmprefix ?? '';
+    controller.inputName.text = customer.cstmname ?? '';
+    controller.inputPhone.text = customer.cstmphone ?? '';
+    controller.inputAddress.text = customer.cstmaddress ?? '';
+    controller.selectType.setSelected(BsSelectBoxOption(
         value: customer.cstmtypeid,
         text: Text(customer.cstmtype?.typename ?? '')));
-    source.inputReferal.text = customer.referalcode ?? '';
-    source.inputProvince.text = customer.cstmprovince?.provname ?? '';
-    source.inputCity.text = customer.cstmcity?.cityname ?? '';
-    source.inputSubdistrict.text =
+    controller.inputReferal.text = customer.referalcode ?? '';
+    controller.inputProvince.text = customer.cstmprovince?.provname ?? '';
+    controller.inputCity.text = customer.cstmcity?.cityname ?? '';
+    controller.inputSubdistrict.text =
         customer.cstmsubdistrict?.subdistrictname ?? '';
-    source.inputVillage.text = customer.cstmvillage?.villagename ?? '';
-    source.inputPostal.text = customer.cstmpostalcode ?? '';
+    controller.inputVillage.text = customer.cstmvillage?.villagename ?? '';
+    controller.inputPostal.text = customer.cstmpostalcode ?? '';
 
-    source.createdby.value = customer.custcreatedby?.userfullname ?? '';
-    source.createddate.value = customer.createddate ?? '';
-    source.updatedby.value = customer.custupdatedby?.userfullname ?? '';
-    source.updateddate.value = customer.updateddate ?? '';
-    source.isactive.value = customer.isactive ?? true;
+    controller.createdby.value = customer.custcreatedby?.userfullname ?? '';
+    controller.createddate.value = customer.createddate ?? '';
+    controller.updatedby.value = customer.custupdatedby?.userfullname ?? '';
+    controller.updateddate.value = customer.updateddate ?? '';
+    controller.isactive.value = customer.isactive ?? true;
   }
 
   @override

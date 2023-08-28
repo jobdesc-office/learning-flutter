@@ -43,6 +43,7 @@ import '../../../../models/settings/stbptype_model.dart';
 import '../../../../models/ventes/customfield_model.dart';
 import '../../../../presenters/auth_presenter.dart';
 import '../../../../presenters/masters/customer_presenter.dart';
+import '../../../../presenters/masters/prospective_customer_presenter.dart';
 import '../../../../presenters/masters/product_presenter.dart';
 import '../../../../presenters/masters/typechildren_presenter.dart';
 import '../../../../presenters/masters/user_presenter.dart';
@@ -91,7 +92,8 @@ import '../../customfield/_form_source.dart';
 import '../../customfield/_text.dart';
 import '_source.dart';
 import 'tabs/tabCustomers/_datatable_source.dart';
-import 'tabs/tabCustomers/_form_source.dart';
+import 'tabs/tabCustomers/_prospective_customer_form_source.dart';
+import 'tabs/tabCustomers/_customers_form_source.dart';
 import 'tabs/tabCustomizeField_source/customfield_presenter.dart';
 
 part 'tabs/tabActivities.dart';
@@ -106,7 +108,8 @@ part 'tabs/tabUsers.dart';
 part 'tabs/tabProduct.dart';
 part 'tabs/tabCustomizeField.dart';
 
-part 'tabs/tabCustomers/customers_form_source.dart';
+part 'tabs/tabCustomers/customers_form.dart';
+part 'tabs/tabCustomers/prospective_customers_form.dart';
 part 'tabs/tabCustomers/tabCustomerspr.dart';
 
 part 'tabs/tabActivities_source/_tabCategory.dart';
@@ -150,7 +153,8 @@ class CompanyView extends StatefulWidget {
   State<CompanyView> createState() => _CompanyViewState();
 }
 
-class _CompanyViewState extends State<CompanyView> with TickerProviderStateMixin {
+class _CompanyViewState extends State<CompanyView>
+    with TickerProviderStateMixin {
   final _navigation = Get.find<NavigationPresenter>();
   late TabController _tabController;
   @override
@@ -169,11 +173,16 @@ class _CompanyViewState extends State<CompanyView> with TickerProviderStateMixin
           BreadcrumbWidget('Settings'),
           BreadcrumbWidget('Company Setting', active: true),
         ],
-        activeRoutes: [RouteList.settings.index, RouteList.settingsCompany.index],
+        activeRoutes: [
+          RouteList.settings.index,
+          RouteList.settingsCompany.index
+        ],
         child: Obx(() => Container(
               padding: EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: _navigation.darkTheme.value ? ColorPallates.elseDarkColor : Colors.white,
+                color: _navigation.darkTheme.value
+                    ? ColorPallates.elseDarkColor
+                    : Colors.white,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: BsRow(
@@ -191,7 +200,9 @@ class _CompanyViewState extends State<CompanyView> with TickerProviderStateMixin
                         },
                         controller: _tabController,
                         labelColor: Colors.green,
-                        unselectedLabelColor: _navigation.darkTheme.value ? Colors.white : Colors.black,
+                        unselectedLabelColor: _navigation.darkTheme.value
+                            ? Colors.white
+                            : Colors.black,
                         tabs: [
                           Tab(text: 'General'),
                           Tab(text: 'Activities'),

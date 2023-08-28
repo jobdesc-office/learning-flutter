@@ -18,6 +18,7 @@ import '../presenters/masters/city_presenter.dart';
 import '../presenters/masters/contact_presenter.dart';
 import '../presenters/masters/country_presenter.dart';
 import '../presenters/masters/customer_presenter.dart';
+import '../presenters/masters/prospective_customer_presenter.dart';
 import '../presenters/masters/feature_presenter.dart';
 import '../presenters/masters/menu_presenter.dart';
 import '../presenters/masters/product_presenter.dart';
@@ -569,6 +570,7 @@ class AppRoute {
           Get.lazyPut(() => BpCustomerPresenter());
           Get.lazyPut(() => BpCustomerService());
           Get.lazyPut(() => CustomerPresenter());
+          Get.lazyPut(() => ProspectiveCustomerPresenter());
           Get.lazyPut(() => CustomerService());
           Get.lazyPut(() => VillageService());
           Get.lazyPut(() => SubdistrictService());
