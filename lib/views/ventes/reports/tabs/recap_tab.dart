@@ -60,6 +60,7 @@ class _RecapTabState extends State<RecapTab> implements RecapViewContract {
       child: presenter.isProcessing.value
           ? Center(child: Text("Processing attendance..."))
           : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 action(context),
                 if (attendanceList.length != 0)
@@ -245,11 +246,57 @@ class _RecapTabState extends State<RecapTab> implements RecapViewContract {
                         )
                       ],
                     ),
-                  ),
-                if (attendanceList.length == 0)
-                  Center(
-                    child: Text("No data with current applied filter"),
                   )
+                else
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Text("No data with current applied filter"),
+                    ),
+                  ),
+                Container(
+                  margin: EdgeInsets.only(left: 10),
+                  decoration: BoxDecoration(
+                    border: Border.all(),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  padding: EdgeInsets.all(8),
+                  width: MediaQuery.of(context).size.width * .5,
+                  child: Column(
+                    children: [
+                      Text("Information",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold)),
+                      ...BaseText.presentTypes.map((present) => Row(
+                            children: [
+                              Container(
+                                  width: 25,
+                                  alignment: Alignment.centerRight,
+                                  child: Icon(Icons.check,
+                                      color: Color(present.colorHex))),
+                              Text(":"),
+                              SizedBox(width: 8),
+                              Text(present.name, overflow: TextOverflow.fade)
+                            ],
+                          )),
+                      ...summary
+                          .where((type) => type.typecd != ConfigType.attpresent)
+                          .map((type) => Row(
+                                children: [
+                                  Container(
+                                    width: 25,
+                                    alignment: Alignment.centerRight,
+                                    child: Text(type.typedesc ?? ""),
+                                  ),
+                                  Text(":"),
+                                  SizedBox(width: 8),
+                                  Text(type.typename ?? "",
+                                      overflow: TextOverflow.fade)
+                                ],
+                              ))
+                    ],
+                  ),
+                )
               ],
             ),
     );

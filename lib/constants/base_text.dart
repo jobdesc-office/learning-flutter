@@ -55,4 +55,17 @@ class BaseText {
   }
 
   static String defaultNoHistory = 'There\'s no Log';
+
+  static List<PresentTypes> presentTypes = [
+    PresentTypes(name: "Hadir dan lebih dari 8 jam", colorHex: 0xFF4CAF50),
+    PresentTypes(name: "Hadir kurang dari 8 jam", colorHex: 0xFFF44336),
+    PresentTypes(name: "Belum melakukan checkout", colorHex: 0x42000000),
+  ];
+}
+
+class PresentTypes {
+  String name;
+  int colorHex;
+
+  PresentTypes({required this.name, required this.colorHex});
 }
